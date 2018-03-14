@@ -1,0 +1,74 @@
+#define(List<com.ekfans.base.metal.model.PreciousMetal> metals)
+#define(List<com.ekfans.pub.util.datacrawling.SmmModel> smmModelList)
+<form action="${webroot}/system/metal/detail/savebatch" method="post" id="detailForm">
+<div class="serchDom">
+	<div class="formItem">
+        <span class="formName"><em class="mustIco"></em>日期</span>
+        <input type="text" name="chosedDate" id="chosedDate" class="i_bg box190 dateBox" value="${chosedDate}" readonly >
+        <a href="javascript:void(0);" class="btn" id="saveAllSmm">自动更新所有元素信息</a>
+    </div>
+</div>
+<div class="ht_list">
+    <table cellpadding="0" cellspacing="0" border="0" class="typeList">
+        <tr>
+            <th width="10%">品名</th>
+            <th width="10%">规格</th>
+            <th width="14%">计价类型</th>
+            <th width="22%">价格</th>
+            <th width="15%">涨跌</th>
+            <th width="5%">计价单位</th>
+            <th width="20%">上海有色金属</th>
+            <th width="6%"></th>
+            <th></th>
+        </tr>
+        #for(com.ekfans.base.metal.model.PreciousMetal metal:metals)
+        	#set(com.ekfans.base.metal.model.PreciousMetalDetail detail = metal.detail)
+	        <tr>
+	        	<input type="hidden" name="metalId" value="${metal.id}"/>
+	            <td>${metal.name}</td>
+	            <td>${metal.spec}</td>
+	            <td class="edItem">
+	            	<label><input name="${metal.id}priceType" onclick="changePriceType(this)" type="radio" value="0" #if(detail == null || !detail.priceType) checked #end>
+	            	<em>均价</em></label>
+	            	<br/><br/>
+	            	<label><input name="${metal.id}priceType" onclick="changePriceType(this)" type="radio" value="1" #if(detail != null && detail.priceType) checked #end>
+	            	<em>价格区间</em></label>
+	            </td>
+	            
+	            #if(detail == null || !detail.priceType)
+		            <td class="edItem" id="${metal.id}junjia"><input name="${metal.id}price" id="${metal.id}price" type="text" value="${detail != null?detail.price:0.00}" class="i_bg box100" onkeyup="javascript:clearNoNum(this);"></td>
+		            <td class="edItem" id="${metal.id}qujian" style="display:none;">
+		            	<input name="${metal.id}startPrice" id="${metal.id}startPrice" type="text" value="${detail != null?detail.startPrice:0.00}" class="i_bg box60" onkeyup="javascript:clearNoNum(this);">-
+		            	<input name="${metal.id}endPrice" id="${metal.id}endPrice" type="text" value="${detail != null?detail.endPrice:0.00}" class="i_bg box60" onkeyup="javascript:clearNoNum(this);">
+		            </td>
+	            #else
+	            	<td class="edItem" id="${metal.id}junjia" style="display:none;"><input name="${metal.id}price" id="${metal.id}price" type="text" value="${detail != null?detail.price:0.00}" class="i_bg box100" onkeyup="javascript:clearNoNum(this);"></td>
+		            <td class="edItem" id="${metal.id}qujian">
+		            	<input name="${metal.id}startPrice" id="${metal.id}startPrice" type="text" value="${detail != null?detail.startPrice:0.00}" class="i_bg box60" onkeyup="javascript:clearNoNum(this);">-
+		            	<input name="${metal.id}endPrice" id="${metal.id}endPrice" type="text" value="${detail != null?detail.endPrice:0.00}" class="i_bg box60" onkeyup="javascript:clearNoNum(this);">
+		            </td>
+	            #end
+	            <td class="edItem"><input name="${metal.id}riseAndDrop" id="${metal.id}riseAndDrop" type="text" value="${detail != null?detail.riseAndDrop:0}" class="i_bg box80" onkeyup="javascript:clearNoNum(this);"></td>
+	            <td>${metal.unit}</td>
+	            <td class="edItem">
+	             <select id="${metal.id}la" metalId="${metal.id}" onchange="javascript:smm('${metal.id}');" style="width:120px;">
+						#for(com.ekfans.pub.util.datacrawling.SmmModel smmModel : smmModelList)
+						  <option id="${smmModel.smmId}" smmName="${smmModel.smmName}" price="${smmModel.price}" startPrice="${smmModel.startPrice}" endPrice="${smmModel.endPrice}" riseAndDrop="${smmModel.riseAndDrop}" area="${smmModel.area}" unit="${smmModel.unit}">${smmModel.smmName}-${smmModel.unit}-${smmModel.area}-${smmModel.spec}</option>
+						#end
+						<input name="${metal.id}smmId" id="${metal.id}smmId" type="text" value="${metal.smmId}" class="i_bg box80" style="display:none;">
+				</select>
+	            </td>
+	            <td class="cz">
+	                <a href="javascript:void(0);" class="saveLine">保存</a>
+	            </td>
+	        </tr>
+        #end
+    </table>
+    <div class="ht_pageBox">
+        <div class="ht_page_l">
+            <a href="javascript:void(0);" class="btn" id="saveBatch">批量保存</a>
+        </div>
+    </div>
+</div>
+
+</form>

@@ -1,0 +1,44 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url("personalBase.css");
+
+.rightContent h2 em{height:32px; line-height:32px; display:inline-block; border-bottom-style:solid;border-bottom-width:5px;padding:0 30px 0 15px;}
+.rightContent h2{border-bottom:solid 1px #CBCFCF; font-size:14px;}
+.siteTb{width:100%; margin-bottom:45px; border-bottom:solid 1px #ddd;}
+.siteTb th{height:40px; line-height:40px; color:#fff; font-size:14px;}
+.siteTb td{padding:10px; line-height:22px; color:#7f7f7f; border-top:solid 1px #f7f5f5;}
+.siteTb .siteEdit{color:#333; white-space:nowrap;}
+
+
+/*填写收货地址*/
+.siteAppend{margin-bottom:28px;}
+.formItem dd{min-height:0px;}
+.formRight{float:left; line-height:28px; position:relative;}
+.siteBox,.siteBox1,.siteBox2,.siteBox3{height:26px; line-height:26px\9; border:solid 1px #d3d3d3;}
+.siteBox{padding:0 5px; width:208px;}
+.siteBox1{width:46px; padding:0 5px;}
+.siteBox2{width:80px; padding:0 5px;}
+.siteBox3{width:54px; padding:0 5px;}
+.formRight textarea{width:448px; height:80px; line-height:20px; border:solid 1px #d3d3d3; display:block;}
+.formRight .btnBlue{width:62px; height:28px; line-height:28px; font-size:14px; display:inline-block; margin:20px 16px 0 0;}
+.textBoxFocus{border-color:#ff8400; background:#FEEFDF; outline:none;}
+.siteGps{background:url(../images/gps.png) no-repeat 198px 3px; _background:url(../images/gps.gif) no-repeat 198px 3px;}
+
+/*地区选择*/
+.gg_area{width:358px;background:#fff;border:1px solid #c7c7c7; border-top:solid 5px #FF9B00;position:absolute;left:-1px;top:28px;padding:10px 0; z-index:1; display:none;}
+.area_box{width:100%;font-size:14px;}
+.area_box .zimu{width:50px;text-align:right;float:left;color:#FF9B00;padding-top:10px;}
+.area_box ul{display:inline-block;width:290px;padding-left:10px;}
+.area_box li{float:left;color:#000;margin:10px 15px 0 0;pointer:relative;cursor:pointer;padding:0 5px;}
+.area_box li span{white-space:nowrap;}
+.area_two{width:338px;position:absolute;margin-left:-5px;border:1px solid #dbd8d8;background:#fff;padding:8px 0 10px 20px;font-size:12px;color:#565656;display:none;}
+.area_two label{float:left;margin-right:20px;pointer:relative;cursor:pointer;}
+.area_two label strong{font-weight:lighter;white-space:nowrap;}
+.area_two label strong:hover{color:#FF9B00}
+.area_three{width:200px;border:1px solid #dbd8d8;background:#fff;position:absolute;overflow:hidden;padding:6px 5px;display:none;}
+.area_three b{font-weight:lighter; display:inline-block; margin:0 5px;cursor:pointer;}
+.area_box li.xz_li {background:#FF9B00;color:#fff;}
+.area_box li.xz_li .area_two,.xz_label .area_three{display:block;}
+.xz_label{color:#027BDD;}
+.xz_label .area_three{color:#565656;}

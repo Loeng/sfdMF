@@ -1,0 +1,42 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{margin:0;padding:0; outline:none; font-family:Microsoft YaHei; word-break:break-all;}
+body{font-size:12px; color:#333; margin:0; padding:0; font-family:Microsoft YaHei; width:100%; height:100%;}
+table{border-collapse:collapse;border-spacing:0;}
+fieldset,img{border:none; border:0;}
+address,caption, cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}
+article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block;}
+ol,ul,li{list-style:none;}
+capation{text-align:left;}
+h1,h2,h3,h4,h5,h6{font-weight:normal;}
+h1{font-size:2em;}
+h2{font-size:1.5em;}
+h3{font-size:1.17em;}
+abbr,acronym,img{border:0;}
+
+.clear{clear:both;}
+a{color:inherit; text-decoration:none;}
+a:hover{color:#136333;}
+.orange{color:#f60;}
+.red{color:#fc0707;}
+.green{color:#136333;}
+a.green:hover{color:#072714;}
+.bgGreen{background:#339833; color:#fff;}
+.size12{font-size:12px;}
+.size14{font-size:14px;}
+.size16{font-size:16px;}
+.size18{font-size:18px;}
+
+
+input[type="text"]:focus,textarea:focus{background:#f9f9f9; box-shadow:1px 1px 2px #eee inset;}
+input[readonly],textarea[readonly],input[readonly]:focus,textarea[readonly]:focus{background:#efefef;}
+input::-webkit-input-placeholder {color:#dfdede;}
+input:-moz-placeholder {color:#dfdede;}
+input::-moz-placeholder {color:#dfdede;}
+input:-ms-input-placeholder {color:#dfdede;}
+textarea::-webkit-input-placeholder {color:#dfdede;}
+textarea:-moz-placeholder {color:#dfdede;}
+textarea::-moz-placeholder {color:#dfdede;}
+textarea:-ms-input-placeholder {color:#dfdede;}
+.placeholder{color:#dfdede;}

@@ -1,0 +1,124 @@
+﻿<!doctype html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+    	<title>审核人员信息</title>
+    	<link href="${webroot}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+    	<link href="${webroot}/resources/system/css/demand.css" rel="stylesheet" type="text/css" />
+    	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+			<!-- 文本插件 -->
+			<script type="text/javascript" src="${webroot}/resources/plugin/ckeditor/ckeditor.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/store/role/roleModify.js"></script>
+			
+	<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css">
+	<script src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+    	#define(com.ekfans.base.store.model.CarUser user)
+    	
+			<input type="hidden" id="ctxpath" value="${webroot}" />
+    	<form method="post"  id="f1">
+				<input type="hidden" name="id" value="${user.id}" />
+				<input type="hidden" name="storeId" value="${user.storeId}" />
+				<input type="hidden" value="${user.type}" name="type">
+				
+				<div class="ht_btn">
+					<a href="#" onclick="ajax1()" class="btn">审核</a>
+					<a href="${webroot}/system/store/driver/listSytem/${user.type}" class="btn">返回列表</a>
+				</div>
+				<div class="add_pro">
+					
+				<dl class="formBox">
+					<dt>姓名<em class="mustIco"></em></dt>
+					<dd class="">
+						<input type="text" class="i_bg" name="name" value="${user.name}"/>
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				<dl class="formBox">
+					<dt>性别</dt>
+					<dd class="">
+						<input type="text" class="i_bg" name="sex" value="${user.sex}"/>
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				<dl class="formBox">
+					<dt>手机号</dt>
+					<dd class="">
+						<input type="text" class="i_bg" name="mobile" value="${user.mobile}"/>
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				<dl class="formBox">
+					<dt>身份证号</dt>
+					<dd class="">
+						<input type="text" class="i_bg" name="cardNo" value="${user.cardNo}"/>
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				<dl class="formBox">
+					<dt>创建时间</dt>
+					<dd class="">
+						<input type="text" class="i_bg" name="createTime" value="${user.createTime}"/>
+					</dd>
+				</dl>
+				
+				
+				#if(user.type=="0")
+				<dl class="formBox">
+					<dt>行驶证有效期<em class="mustIco"></em></dt>
+					<dd class="">
+						<input type="text" class="i_bg" name="startTime" value="${user.startTime}"/> - 
+						<input type="text" class="i_bg" name="endTime" value="${user.endTime}"/>
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				<dl class="formBoxLine">
+					<dt>驾驶证附件</dt>
+					<dd> #tag picUpload("driverFile","1","20","20",user.driverFile) #end </dd>
+					<dd class="clear"></dd>
+				</dl>
+				#end
+				<dl class="formBoxLine">
+					<dt>从业资格证附件</dt>
+					<dd> #tag picUpload("licenseFile","1","20","20",user.licenseFile) #end </dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formBox">
+					<dt>从业资格证号</dt>
+					<dd class="">
+						<input type="text" class="i_bg" name="licenseNum" value="${user.licenseNum}"/>
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				<dl class="formBox">
+					<dt>审核备注<em class="mustIco"></em></dt>
+					<dd class="">
+						<textarea name="checkNote">${user.checkNote}</textarea>
+					</dd>
+				</dl>
+			</div>
+		</form>
+		
+		<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+		<script>
+			function ajax1(){
+				$.post('${webroot}/system/store/driver/checkCarUser',$("#f1").serialize(),function (data){
+					if(data==1 || data=="1"){
+						salertWithFunction("审核成功!", myupreset, null);
+					}else{
+						salertWithFunction("审核失败!", myupreset, null);
+					}
+		    });
+			}		
+			function myupreset(){
+		 		location.href="${webroot}/system/store/driver/listSytem/${user.type}";
+		 	}
+		</script>
+    </body>
+</html>

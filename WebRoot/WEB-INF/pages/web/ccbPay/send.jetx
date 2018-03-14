@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+<form id="ccbPayForm" action="${apiUrl}" method="POST" >
+    <input type="hidden" name="ThirdSysID" value='${ThirdSysID}'/>
+    <input type="hidden" name="TxCode" value='${TxCode}'/>
+    <input type="hidden" name="RequestType" value='${RequestType}'/>
+    <input type="hidden" name="Data" value='${Data}'/>
+    <input type="hidden" name="Auth" value='${Auth}'/>
+
+    <input type="button" value="submit" onclick="$('#ccbPayForm').submit();" />
+</form>
+
+</body>
+<script>
+    $(function(){
+        var ERROR = "${ERROR}";
+        if (ERROR) {
+            alert(ERROR);
+            window.close();
+        } else {
+            $('#ccbPayForm').submit();
+        }
+    });
+</script>
+
+</html>

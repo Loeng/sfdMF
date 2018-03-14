@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>新增合作银行</title>
+		<link href="${ctxpath}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+		<!-- 上传文件的CSS -->
+		<link href="${ctxpath}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.form.js"></script>
+		<script type="text/javascript" src="${ctxpath}/resources/system/js/tools.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/finance/bank/bankAdd.js"></script>
+		<!-- 上传文件控件  -->
+		<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.soChange.js"></script>
+		<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.json-2.2.min.js"></script>
+		<script type="text/javascript" src="${ctxpath}/resources/commons/js/ajaxupload.js"></script>
+		<script type="text/javascript" src="${ctxpath}/resources/commons/js/upload/upload.js"></script>
+		<script src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+		<style type="text/css">
+		.add_pro .formBox{float: left; width: 470px; clear: none;}
+		.add_pro .formBox dt{width:80px;}
+		.formBox dd{width: 380px;}
+		.formBox .i_bg{width:200px;}
+		h3{line-height: 30px; margin-top: 20px;}
+
+		</style>
+	</head>
+    <body>
+    	#define(com.ekfans.base.user.model.Bank bank)
+    	#define(List<com.ekfans.base.finance.model.BankPurview> purviewList)
+
+		<div class="ht_btn">
+			<a href="#" onclick="formSubmit();" class="btn">保存</a>
+			<a href="#" onclick="reset();" class="btn">重置</a>
+			<a href="#" onclick="goBack('${webroot}');" class="btn">返回列表</a>
+		</div>
+		<form action="${webroot}/system/bank/bankSave" name="add" method="post"  id="addBankForm">
+			<input type="hidden" id="ok" value="${addOk}" />
+			<input type="hidden" id="canCommit" value="1" />
+			<input type="hidden" id="ctxpath" value="${webroot}" />
+			<div class="add_pro">
+				<h3>银行基础设置</h3>
+				<dl class="formBox">
+					<dt><em class="mustIco"></em>银行名称</dt>
+					<dd id="NameDd" class="">
+						<input type="text" id="class_name" name="bankName" class="i_bg"  onblur="checkNameBlur();"/>
+						<span id="classNameSpan" class="ts_xx">1-32位字符组成</span>
+					</dd>
+				</dl>
+				<div class="clear"></div> 
+				<dl class="formBox">
+					<dt><em class="mustIco"></em>银行logo</dt>
+					<dd>
+						#tag picUpload("logo","1","100","100","") #end
+					</dd>
+				</dl>
+				<div class="clear"></div> 
+				<dl class="formBox">
+					<dt>所在省市区</dt>
+					<dd class="formSite" id ="addressDd">
+						#tag systemAreaSel("areaId","") #end
+					</dd>
+				</dl>
+
+				<dl class="formBox">
+					<dt><em class="mustIco"></em>支行地址</dt>
+					<dd id="addrDd" class="">
+						<input type="text" id="fulladdress" maxlength="128" class="i_bg"  name="address" onblur="checkAddressBlur();"/>
+						<span id="addressSpan" class="ts_xx">请输入支行地址</span>
+					</dd>
+				</dl> 
+				<div class="clear"></div> 
+				<dl class="formBox">
+					<dt><em class="mustIco"></em>支行全称</dt>
+					<dd id="fullNameDd" class="">
+						<input type="text" id="fullName" maxlength="128" class="i_bg"  name="fullName" onblur="checkFullName();"/>
+						<span id="fullNameSpan" class="ts_xx">请输入支行全称</span>
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				<dl class="formBox">
+					<dt><em class="mustIco"></em>银行状态</dt>
+					<dd>
+						<span class="zt"><label><input type="radio" name="status" value="1" checked>正常</label></span>
+						<span class="zt"><label><input type="radio" name="status" value="0">暂停</label></span>
+					</dd>
+				</dl>
+				<dl class="formBox">
+					<dt><em class="mustIco"></em>前台显示</dt>
+					<dd>
+						<span class="zt"><label><input type="radio" name="forenStatus" value="true" checked>显示</label></span>
+						<span class="zt"><label><input type="radio" name="forenStatus" value="false">不显示</label></span>
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				<dl class="formBox">
+					<dt><em class="mustIco"></em>线上支付</dt>
+					<dd>
+						<span class="zt"><label><input type="radio" onclick="changeOnline('1');" name="onlinePay" value="1" checked>支持</label></span>
+						<span class="zt"><label><input type="radio" onclick="changeOnline('0');" name="onlinePay" value="0">不支持</label></span>
+					</dd>
+				</dl>
+				<dl class="formBox">
+					<dt><em class="mustIco"></em>虚拟账户</dt>
+					<dd>
+						<span class="zt"><label><input type="radio" name="accountPay" value="true" checked>支持</label></span>
+						<span class="zt"><label><input type="radio" name="accountPay" value="false">不支持</label></span>
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				<div id="onlinePayDiv">
+					<dl class="formBox">
+						<dt><em class="mustIco"></em>B2B</dt>
+						<dd>
+							<span class="zt"><label><input type="radio" name="companyPay" value="1" checked>支持</label></span>
+							<span class="zt"><label><input type="radio" name="companyPay" value="0">不支持</label></span>
+						</dd>
+					</dl>
+					<dl class="formBox">
+						<dt><em class="mustIco"></em>C2B/C2C</dt>
+						<dd>
+							<span class="zt"><label><input type="radio" name="commonPay" value="true" checked>支持</label></span>
+							<span class="zt"><label><input type="radio" name="commonPay" value="false">不支持</label></span>
+						</dd>
+					</dl>
+				</div>
+				<div class="clear"></div>
+					<h3>监管系统管理员设置</h3>
+				<dl class="formBox">
+					<dt><em class="mustIco"></em>账号</dt>
+					<dd id="accountNameDd" class="">
+						<input type="text" id="accountName" maxlength="128" class="i_bg"  name="accountName" onblur="checkAccountName();"/>
+						<span id="accountNameSpan" class="ts_xx">请输入账号</span>
+					</dd>
+				</dl> 
+				<dl class="formBox">
+					<dt><em class="mustIco"></em>密码</dt>
+					<dd id="passwordDd" class="">
+						<input type="password" id="password" maxlength="128" class="i_bg"  name="password" onblur="checkAccountPassword();"/>
+						<span id="passwordSpan" class="ts_xx">请输入密码</span>
+					</dd>
+				</dl> 
+				<div class="clear"></div>
+				<dl class="formBox" style="width:550px;">
+					<dt style="width:150px;"><em class="mustIco"></em>初次登陆是否重置密码</dt>
+					<dd>
+						<span class="zt"><label><input type="radio" name="resetPwd" value="true" checked>是</label></span>
+						<span class="zt"><label><input type="radio" name="resetPwd" value="false">否</label></span>
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				<dl class="formBox">
+					<dt><em class="mustIco"></em>真实姓名</dt>
+					<dd id="realNameDd" class="">
+						<input type="text" id="realName" maxlength="128" class="i_bg"  name="realName" onblur="checkRealName();"/>
+						<span id="realNameSpan" class="ts_xx">请输入真实姓名</span>
+					</dd>
+				</dl> 
+				<dl class="formBox">
+					<dt>手机号</dt>
+					<dd class="">
+						<input type="text" id="phone" maxlength="128" class="i_bg"  name="phone"/>
+					</dd>
+				</dl> 
+
+
+				<div class="clear"></div>
+				<h3>权限设置</h3>
+				<h3 class="limitAll"><label><span class="check"><em><input type="checkbox" /></em></span>全选</label></h3>
+				#for(com.ekfans.base.finance.model.BankPurview purview : purviewList)
+					<div class="limitList limits">
+						<h3 class="limitItem">
+							<label>
+								<span class="check"><em><input type="checkbox" name="purviewId" value="${purview.id}" /></em></span>${purview.className}
+							</label>
+						</h3>
+						<div class="limitList">
+							#for(com.ekfans.base.finance.model.BankPurview purview1 : purview.childList)
+								<h3 class="limitItem">
+									<label>
+										<span class="check"><em><input type="checkbox" name="purviewId" value="${purview1.id}" /></em></span>
+										${purview1.className}
+									</label>
+								</h3>
+								<div class="limitList">
+									#for(com.ekfans.base.finance.model.BankPurview purview2 : purview1.childList)
+										<h3 class="limitItem">
+											<label>
+												<span class="check"><em><input type="checkbox" name="purviewId" value="${purview2.id}" /></em></span>
+												${purview2.className}
+											</label>
+										</h3>
+									#end	
+								</div>	
+							#end
+						</div>
+					</div>
+				#end
+			<div>
+		</form>
+			<script>
+				function changeOnline(act){
+					if(act == "1"){
+						$("#onlinePayDiv").show();
+					}else{
+						$("#onlinePayDiv").hide();
+					}
+				}
+			</script>
+    </body>
+</html>

@@ -1,0 +1,110 @@
+#define(List<com.ekfans.base.product.model.Product> plist)
+
+<input type="hidden" id="storeId" value="${storeId}" />
+<input type="hidden" id="areaId" value="${areaId}" />
+#if(plist!=null && plist.size()>0)
+	#for(com.ekfans.base.product.model.Product p : plist)
+		<div class="proItem">
+			<div class="proImg">
+				#if(p.recommendPicture3 == "")
+					<img src="${webroot}/resources/web/images/noPro.png">
+				#else
+					<img src="${webroot}${p.recommendPicture3}" />
+				#end	
+				<em>#if(p.store.storeRefer=="")${p.store.storeName}#else${p.store.storeRefer}#end#if(p.store.storeGroup)专区#end</em>
+			</div>
+			<dl class="proText">
+      	<dt>${p.name}#if(p.productValuation!=null && p.productValuation.size()>0)<em class="price jijiadan">计价单</em>#else<em class="price">${p.unitPrice}元/${p.unit}</em>#end</dt>
+      	<dd class="proInfo1">${p.note}</dd>
+        <dd class="proInfo2">
+        	<span>供货量：${p.quantity} ${p.unit}</span>
+	        <span>成交量：${p.cjl} ${p.unit}</span>
+	        <span>交割地：${p.deliceAddress}</span>
+	        <span>交割日：${p.deliceData}</span>
+	        <span>交&nbsp;&nbsp;货：${p.deliceType}</span>
+	        <span>付&nbsp;&nbsp;款：${p.payType}</span>
+	        <div class="clear"></div>
+        </dd>
+      </dl>
+       <!-- 未检测 
+           #if(p.jcFile=="")
+	            <dl class="detection">
+	            	<dt></dt>
+	              <dd class="detectionImg">
+	                <img src="${webroot}/resources/web/images/weijiance.png" alt="未检测" />
+	                <span class="weijiance">未检测</span>
+	              </dd>
+	              <dd class="detectionName"></dd>
+	            </dl>
+	           #else
+		           <dl class="detection">
+	                <dt>检测机构</dt>
+	                <dd class="detectionImg">
+	                  <img src="${webroot}/resources/web/images/yijiance.png" alt="已检测" />
+	                  <a href="${webroot}${p.jcFile}" target="_blank" class="yijiance" title="已检测">已检测</a>
+	                </dd>
+	                <dd class="detectionName">${p.jcjg}</dd>
+	            </dl>
+	           #end -->
+	           
+	           
+	           <dl class="detection">
+	                <dt>检测机构</dt>
+	                <dd class="detectionImg">
+	                  <img src="${webroot}/resources/web/images/yijiance.png" alt="已检测" />
+	                  <a href="javascript:void(0);" class="yijiance" title="已检测">已检测</a>
+	                </dd>
+	                <dd class="detectionName">${p.jcFile!=""?p.jcjg:""}</dd>
+	            </dl>
+	           
+      <div class="proRight">
+      	<em class="testData">测试</em>
+      	<a href="${webroot}/web/gouWu/order/${p.id}" class="btnRed">下单</a>
+      	<a href="#tag shortLink("01",p.id) #end" class="btnBlue">详情</a>
+    	</div>
+      <div class="clear"></div>
+      
+      <!-- 计价单 -->
+      #if(p.productValuation!=null && p.productValuation.size()>0)
+      	<div class="alterBox">
+	      	<div class="alterPoint"></div>
+	      	<a href="javascript:void(0);" class="layerClose"></a>
+	        <div class="alterContent">
+	        	<table border="0" cellspacing="0" cellpadding="0" class="jjTab">
+	          	<thead>
+	            	<tr class="bgColor">
+	                <th>名称</th>
+	                <th>数量</th>
+	                <th>价格</th>
+	                <th>单位</th>
+	              </tr>
+	            </thead>
+	            <tbody>
+	            	#for(com.ekfans.base.product.model.ProductValuation pv : p.productValuation)
+		              <tr>
+		                <td class="colorB">${pv.specName}</td>
+		                <td class="colorH">${pv.valuationNumber}</td>
+		                <td class="colorH">${pv.valuationPrice}</td>
+		                <td class="colorH">${pv.valuationUnit}</td>
+		              </tr>
+		          	#end
+	            </tbody>
+	          </table>
+	        </div>
+	      </div>
+      #end
+      <!-- 计价单 -->
+		</div>	
+	#end
+	
+	
+	 #else
+	       <div style="height:100px;background:#fff; padding:50px 0;">
+		        <div class="newNone">
+			        <div class="noInfo">暂无信息记录！</div>
+		      </div>
+	      </div>
+#end
+#if(plist!=null && plist.size()>0)
+	#include("../commons/channel-page.jetx")
+#end

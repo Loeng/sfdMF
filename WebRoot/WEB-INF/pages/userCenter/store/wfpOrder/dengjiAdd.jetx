@@ -1,0 +1,448 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>危废品报废信息登记</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/commons/css/proAdd.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/upload.js"></script>
+<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/ckeditor/ckeditor.js"></script>
+<style>
+.endNum{width:17%;}
+.endUnit{width:17%;}
+input::-webkit-input-placeholder {color:#999;}
+input:-moz-placeholder {color:#999;}
+input::-moz-placeholder {color:#999;}
+input:-ms-input-placeholder {color:#999;}
+textarea::-webkit-input-placeholder {color:#999;}
+textarea:-moz-placeholder {color:#999;}
+textarea::-moz-placeholder {color:#999;}
+textarea:-ms-input-placeholder {color:#999;}
+.selectList{width:100%;overflow:hidden;margin:5px 0;}
+.selectList li{float:left;min-height:130px;width:370px;height:130px;overflow-x:hidden; _overflow-y:scroll;border:1px solid #f6f6f6;}
+.selectList li a{display:block;height:25px;line-height:25px;padding-left:13px;overflow:hidden;}
+.selectList li a.cur,.selectList li a:hover{background:#ffedd7}
+.tabBox{height:232px; overflow-y:auto;overflow-x:hidden; margin-bottom:5px;}
+.tabList{width:758px;}
+.tabList th{padding:0px 10px; height:35px;line-height:35px;color:#292729; font-size:14px;}
+.tabList td{padding:8px 10px; line-height:22px; border-bottom:1px #DCDCDD solid;color:#7D7C7D; max-width:105px; overflow:hidden; text-align:center;}
+.tabList tr:hover{background:#F3F3F3;}
+.pageSize{margin-bottom:5px;}
+</style>
+</head>
+<body>
+	#define(com.ekfans.base.store.model.Store store)
+	#define(com.ekfans.base.user.model.Account account)
+	#define(List<com.ekfans.base.order.model.ValuationCategory> valuationCategotyList)
+	#define(String addOk)
+    <!--右侧主体-->
+    <div class="rightContent">
+    	<div class="contentTit budong borderColor">
+            <h3>新增报废登记</h3>
+            <a href="javascript:void(0);" class="btnBase btnCancel">取消</a>
+            <a href="javascript:formSubmit();" class="btnBase btnSave">保存</a>
+            <div class="clear"></div>
+    	</div>
+      <form action="${webroot}/store/wfpscrap/AddScrap" method="post" id="addWfpScrap">
+      	<input id="storeId" name="storeId" type="hidden" value="${store.id}"/> 
+			  <input id="valuationContent" name="valuationContent" type="hidden"/>
+			  <input id="addOk" name="addOk" type="hidden" value="${addOk}"/>
+			  <input id="ctxpath" name="valuationContent" type="hidden" value="${webroot}"/>
+			  <input type="hidden" name="parentId" id="parendId"/>
+			  
+        <div class="form borderColor">
+            <dl class="formItem">
+                <dt><em class="mustIco"></em>报废名称</dt>
+              <dd>
+                <input name="scarpName" id="scarpName" type="text" class="textBox box212" value="" placeholder="如:废渣、废料" maxlength="64">
+              </dd>
+              <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>包装方式</dt>
+                <dd>
+                  <input name="scarpType" id="scarpType" type="text" class="textBox box212" value="" placeholder="如:桶装、袋装" maxlength="64">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt><em class="mustIco"></em>报废数量</dt>
+                <dd>
+                  <input name="scarpNumber" id="scarpNumber" type="text" class="textBox box212" value="" placeholder="如:1吨" maxlength="16">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>产生工艺</dt>
+                <dd>
+                  <input name="scarpProcess" id="scarpProcess" type="text" readonly class="textBox box212" value="" placeholder="如:生产加工过程中产生" maxlength="64">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+             <dl class="formItem">
+                <dt>关联名录</dt>
+                <dd class="clickAbout">
+                  <input id="orderDirectory" name="orderDirectory" type="text" class="textBox box184" readonly value="" placeholder="点击右侧选择国家最新危废名录">
+                  <span class="pp clickBrand" onclick="loadDirectory('${webroot}')" title="关联名录"></span>
+                  <input id="wfpScrapId" name="wfpScrap" type="hidden" />
+                </dd>
+              <dd class="clear"></dd>
+            </dl>
+            <div id="mlDiv" style="float:left;width:758px;display:none;min-height:100px;margin:2px 0 10px 93px;" >
+            <table border="0" cellspacing="0" cellpadding="0" class="tabList" style="width:708px;">
+				        <thead>
+				          <tr class="bgColor">
+				            <th>废物代码</th>
+				            <th>危险废物</th>
+				            <th>危险特性</th>
+				          </tr>
+				        </thead>
+				        <tbody id="resultThree">
+				        	
+				        </tbody>
+				      </table>
+            </div>
+            <dl class="formItem formLine">
+                <dt>简要说明</dt>
+                <dd>
+                  <textarea name="scarpNote" cols="" rows="" placeholder="提示：若有更多废物，请按以上废物名称，包装方式等填写。" maxlength="256"></textarea>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formLine">
+                <dt>报废周期</dt>
+                <dd>
+                  <span class="radio"><label><input type="radio" name="scarpCyc"  value="2">每月报废</label></span>
+                  <span class="radio"><label><input type="radio" name="scarpCyc"  value="1">每年报废</label></span>
+                  <span class="radio"><label><input type="radio" name="scarpCyc" checked value="0">一次性报废</label></span>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formLine">
+                <dt>报废原因</dt>
+                <dd>
+                  <span class="radio"><label><input type="radio" name="scarpCause" value="1" >环评验收</label></span>
+                  <span class="radio"><label><input type="radio" name="scarpCause" value="2">体系认证</label></span>
+                  <span class="radio"><label><input type="radio" name="scarpCause" value="3">生产需要</label></span>
+                  <span class="radio"><label><input type="radio" name="scarpCause" value="4">第三方审核</label></span>
+                  <span class="radio"><label><input type="radio" name="scarpCause" value="5">计划供应商</label></span>
+                  <span class="radio"><label><input type="radio" name="scarpCause" value="6" checked>其他</label></span>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formLine">
+                <dt>体系认证</dt>
+                <dd>
+                  <span class="radio"><label><input type="radio" name="scarpAccreditation" value="1">正在申请</label></span>
+                  <span class="radio"><label><input type="radio" name="scarpAccreditation" value="2">已通过或复审中</label></span>
+                  <span class="radio"><label><input type="radio" name="scarpAccreditation" value="3" checked>暂无</label></span>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formLine">
+                <dt>报废单位</dt>
+                <dd>
+                  <input id="scarpUnit" name="scarpUnit" type="text" class="textBox"  style="width:655px;" value="${store.storeName}" readonly maxlength="128"/>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+           
+            <dl class="formItem">
+                <dt><em class="mustIco"></em>发货人</dt>
+                <dd>
+                  <input name="sendMan" id="sendMan" type="text" class="textBox box212" value="" maxlength="16">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt><em class="mustIco"></em>发货人电话</dt>
+                <dd> 
+                  <input name="sendManPhone" id="sendManPhone" type="text" onblur="checkTel(this.value);" class="textBox box212" value="" maxlength="13">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formLine">
+                <dt>发货人地址</dt>
+                <dd class="select4">#tag systemAreaSel("sendManAddress","") #end</dd>
+                <dd><input name="sendManDetailsAddress" type="text" class="textBox box212"  style="height:26px;margin-left:5px;" maxlength="64"></dd>
+                 <dd class="clear"></dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt><em class="mustIco"></em>收货人</dt>
+                <dd>
+                  <input name="takeMan" id="takeMan" type="text" class="textBox box212" value="" maxlength="16">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt><em class="mustIco"></em>收货人电话</dt>
+                <dd> 
+                  <input name="takeManPhone" id="takeManPhone" type="text" onblur="checkTel(this.value);" class="textBox box212" value="" maxlength="13">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formLine">
+                <dt>收货人地址</dt>
+                <dd class="select4">#tag systemAreaSel("takeManAddress","") #end</dd>
+                <dd><input name="takeManDetailsAddress" type="text" class="textBox box212"  style="height:26px;margin-left:5px;" maxlength="64"></dd>
+                 <dd class="clear"></dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+            <div class="priceZone">
+                <a href="javascript:addChild();" class="btnBase">添加危废品含量</a>
+                <span class="hint">点击添加危废品含量按钮,下面操作框填写具体信息！</span>
+                <div class="pfPriceList" id="guigeList">
+                    <div class="listHeader">
+                        <div class="listTd startNum">规格</div>
+                        <div class="listTd endNum">数量</div>
+                        <div class="listTd endUnit">单位</div>
+                        <div class="listTd listSet">操作</div>
+                    </div>
+                   	<div class="listItem" >
+                      <div class="listTd startNum">
+                      	<select name="select" onchange="chekcedvalue(this)">
+                      		 <option value = "">请选择</option>
+                      		#for(com.ekfans.base.order.model.ValuationCategory vc :valuationCategotyList)
+                      	   <option value="${vc.id}_${vc.specName}">${vc.specName}</option>
+                      	  #end
+                      	</select>
+                      </div>
+                      <div class="listTd endNum"><input name="endNum" type="text" class="textBox box50" value="0"></div>
+                      <div class="listTd endNum"><input name="endUnit" type="text" class="textBox box50" value="g"></div>
+                      <div class="listTd listSet" style="display:none;"><a href="javascript:removeChild(this);" class="closeIco" style="margin-left:3px;"></a></div>
+                      <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        	<div class="clear"></div>
+    	</div>
+    </form>
+    </div>
+    <!--右侧主体 end-->
+    <div class="clear"></div>
+<div class="clear"></div>
+<div class="apLayerBg"></div>
+<div id="Directory" class="apLayer borderColor alertBrand"> 
+</div>
+
+<div id="adchilds" style="display:none">
+ 	<div class="listItem" >
+    <div class="listTd startNum">
+    	<select name="select" onchange="chekcedvalue(this)">
+    		    <option value = "">请选择</option>
+			      #for(com.ekfans.base.order.model.ValuationCategory vc :valuationCategotyList)
+        	   <option value="${vc.id}_${vc.specName}">${vc.specName}</option>
+            #end
+        	  </select>
+     </div>
+    <div class="listTd endNum"><input name="endNum" type="text"  class="textBox box50" value="0"></div>
+    <div class="listTd endNum"><input name="endUnit" type="text" class="textBox box50" value="g"></div>
+    <div class="listTd listSet"><a href="javascript:void(0);" class="closeIco" style="margin-left:3px;"></a></div>
+    <div class="clear"></div>
+  </div>
+</div>
+<script src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+<script>
+function checkTel(val){
+	re = /^1\d{10}$/;
+	if(!re.test(val)){
+	  falert("联系方式格式不正确");
+	  return false;
+	}else{
+		return true;
+	}
+}
+
+
+function three(){
+	var chose = $("#wfmlChose").val();
+	if(chose==""){
+		$(".apLayerBg").hide();
+		$(".alertBrand").hide();
+	}else{
+		var cho = chose.split(";;;");
+		var choseHtml="";
+		var choseId="";
+		for(var i=0;i<cho.length;i++){
+		  if( cho[i] ==""){continue;}
+		  var va =  cho[i].split("___");
+		  choseHtml += "<tr><td>"+va[1]+"</td><td style=\"text-align:left;\">"+va[2]+"</td><td>"+va[3]+"</td></tr>";
+		  choseId+=va[0]+",";
+		}
+		$("#wfpScrapId").val(choseId.substring(0,choseId.length-1));
+		$("#resultThree").append(choseHtml);
+		$("#mlDiv").css("display","block");
+		$(".apLayerBg").hide();
+		$(".alertBrand").hide();
+	}
+	var one = $("#oneName").val();
+	var two = $("#twoName").val();
+	if(one!=''){
+	$("#orderDirectory").val(one);
+	}
+	if(two!=''){
+	$("#scarpProcess").val(two);
+	}
+}
+
+function choseMl(obj){
+	var chosedVal = $("#wfmlChose").val();
+	if(obj.checked){
+		chosedVal = chosedVal + obj.value + ";;;";
+		
+	}else{
+		chosedVal = chosedVal.replace(obj.value+";;;","");
+	}
+	$("#wfmlChose").val(chosedVal);
+}
+
+//跳转到新增页面
+function goAdd(ctxPath){
+	window.location.href=ctxPath+"/store/order/wfpOrderAddSkip";
+}	
+//跳转到列表页
+function goBack(ctxPath){
+	window.location.href=ctxPath+"/store/order/wfpOrderList";
+}
+function goBackWfpScrapList(){
+	window.location.href=$("#ctxpath").val()+"/store/wfpscrap/skipScrapList";
+}
+
+//删除选择的列
+$(document).ready(function() {
+	$(".closeIco").live("click",function(){
+		$(this).parent().parent().remove();
+	});
+  var ok = $("#addOk").val();
+  if(ok!="" && ok!=null){
+    if(ok=="0"){
+    	econfirm('添加成功,是否返回列表?',goBackWfpScrapList,null,null,null);
+    }else{
+    	econfirm('添加失败,是否返回列表?',goBackWfpScrapList,null,null,null);
+    }
+  }
+});	
+	
+
+	function checkdContract(con){
+		var contract = con.split("_");
+		//判断是甲方还是乙方选择运输企业
+		//如果是甲方ID等于当前ID、运输企业是甲方选择
+		if((contract[2]==$("#storeId").val() && contract[4]=="0") || (contract[5]==$("#storeId").val() && contract[4]=="1")){
+		   $("#ysContract").show();
+		}
+		if(contract[3]=='1'){
+		  $("#contractId").val(contract[0]);
+		  $("#contractName").val(contract[1]);
+		//运输契约
+		}else if(contract[3]=='2'){
+		
+			$("#ysContractId").val(contract[0]);
+			
+		  $("#ysStoreId").val(contract[1]);
+		}
+		$(".apLayerBg").hide();
+		$(".alertBrand").hide();
+	}
+	//load出契约列表
+	function loadDirectory(ctx){
+		 $("#orderDirectory").val("");
+		 $("#scarpProcess").val("");
+		 $("#mlDiv").css("display","none");
+		 $("#wfmlChose").val("");
+		 $("#resultThree").html("");
+		 $("#Directory").load(ctx+"/wfpscrap/wfpml");
+		 $(".apLayerBg").show();
+		 $(".alertBrand").show();
+	}
+	//点击添加
+	function addChild(){
+		var appends = $("#adchilds").children().clone();
+		$("#guigeList").append(appends);
+	}
+	function formSubmit(){
+	//获取含量的值
+	var val="" ;
+	var nume=0;
+	//规格型号
+	var n = $('#guigeList [name="select"]');
+	//含量
+	var num = $('#guigeList [name="endNum"]');
+	//单位
+	var unit = $('#guigeList [name="endUnit"]');
+	
+	for(var i=0;i<n.length;i++){
+		val =val + n[i].value+","+num[i].value+","+unit[i].value+";";
+		if(n[i].value==''||num[i].value==''||unit[i].value=='' || n[i].value=='0'||num[i].value=='0'){
+		  nume =nume + 1;
+		}
+	}
+	 $("#valuationContent").val(val.substr(0,val.length-1));
+	 	if($("#scarpName").val()==''){
+	      falert('报废名称不能为空');
+	      return ;	
+	  }
+	  if($("#scarpNumber").val()==''){
+	      falert('报废数量不能为空');
+	      return;	
+	  }
+	 
+	 $(addWfpScrap).submit();
+	}
+	
+	//判断选择的型号是否已选
+	function chekcedvalue(obj){
+	 var v = $('[name="select"]');
+	 if(v.length > 2){
+		var a = 0;
+	  for(var i=0;i < v.length;i++){
+			if(v[i].value == obj.value){
+				a = a + 1;
+			}
+	  }
+	  if(a>1){
+	  	falert('危废品含量已存在');
+	  	obj.value="";
+	  }
+	 }
+	}
+</script>
+<script>
+$(document).ready(function() {
+
+	/*全部复选框*/
+	$(".checkAll").live("click",function(){	
+	$main = $(this);
+	if($main.find("input").is(":checked")){
+		//下级都被选中
+		$main.find(".check").addClass("checked");
+		$main.parents(".tabBox").next().find("input").attr("checked",true);
+		$main.parents(".tabBox").next().find(".check").addClass("checked");
+	}else{
+		//下级都取消选中
+		$main.find(".check").removeClass("checked");
+		$main.parents(".tabBox").next().find(":checkbox").attr("checked",false);
+		$main.parents(".tabBox").next().find(".check").removeClass("checked")
+	}
+	});
+});
+
+
+
+
+
+</script>
+ </body>
+</html>

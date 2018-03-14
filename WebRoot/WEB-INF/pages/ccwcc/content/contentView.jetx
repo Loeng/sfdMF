@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>资讯详细页</title>
+    <meta name="keywords" content="互联网+、区块链、区块链应用、数字资产、供应链金融、供应链、产业B2B、大宗交易、智慧物流 、物流监控、SaaS服务、环保、环保供应链、 智慧园区、智能制造。" />
+    <meta name="description" content="易科远见针对环保、能源、农业、智慧园区等国家战略新兴领域，提供互联网+全产业链运营解决方案。" />
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script src="${webroot}/resources/ccwcc/js/jquery-1.8.3.min.js"></script>
+    <script src="${webroot}/resources/ccwcc/js/mui.min.js"></script>
+    <link href="${webroot}/resources/ccwcc/css/mui.min.css" rel="stylesheet"/>
+    <link href="${webroot}/resources/ccwcc/css/newsDetail.css" rel="stylesheet"/>
+<style>
+    _::-webkit-full-page-media, _:future, :root .safari_only {
+    @font-face{font-family:PingFangSC; src:url(${webroot}/resources/ccwcc/css/PingFangSC.ttf);}
+    }
+    *{-webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;font-family: PingFangSC,Lantinghei SC,Helvetica Neue,Helvetica,Arial,Microsoft YaHei,\\5FAE\8F6F\96C5\9ED1,STHeitiSC-Light,simsun,\\5B8B\4F53,WenQuanYi Zen Hei,WenQuanYi Micro Hei,'sans-serif';}
+    .xxstyle{color: #9fdae5;border-radius: 6px; display: inline-block; padding: 3px 4px 1px 4px; border:1px solid #9fdae5; margin-right: 15px;}
+    .zybox{border:1px dashed #999; border-radius: 5px; padding: 5px; color: #999;line-height: 12px;}
+</style>
+</head>
+<body><!-- 主页面容器 -->
+	  #define(com.ekfans.base.content.model.Content content)
+	  #define(List<com.ekfans.base.content.model.ContentModel> models)
+	  <div class="mui-inner-wrap">
+	    <!-- 主页面标题 -->
+	    
+	    <div class="mui-content mui-scroll-wrapper" id="pageMain">
+	      <div class="mui-scroll">
+              <div class="newsTitle">
+                  <h2>${content.contentName}</h2>
+
+                  <div class="date">
+                      #if(content.contentType == "1")
+                        <em class="xxstyle">广告</em>
+                      #else
+                        #if(content.contentLabel != null && content.contentLabel != "")<em class="xxstyle">${content.contentLabel}</em>#end
+                      #end
+                      ${content.createTime}
+                  </div>
+              </div>
+              <div class="newsContent">
+                  #if(content.navigationText != null && content.navigationText != "")
+                  <div class="zybox">
+                      <strong style="color:#4d4d4d;font-size: 1rem;">摘要：</strong>
+                      <div id="zhaiyao" style="display:inline;font-size: 0.8rem; line-height: 1.4rem;">${content.navigationText}</div>
+                  </div>
+                  #end
+                  <div id="newsMain" style="font-size:1.1rem;line-height: 1.6rem;">
+                      #for(com.ekfans.base.content.model.ContentModel model:models)
+                      	${model.content}
+                      #end
+                  </div>
+              </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+</body>
+</html>

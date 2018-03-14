@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>发布危废订单</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="../../../resources/commons/images/favicon.ico" type="image/x-icon">
+<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css">
+
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script> 
+<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+
+</head>
+<body>
+	#define(com.ekfans.base.store.model.Store Store)
+	#define(List<com.ekfans.base.order.model.Order> orderList)
+ <!--右侧主体-->
+  <div class="rightContent">
+  	<!--表单搜索区-->
+  	<form action="${webroot}/store/order/payorder/list/${listType}" method="post" id="searchForm">
+  		<input type="hidden" name="pageNum" value="" />
+	    <div class="formSearch borderColor">
+	    	#if(listType == "rec")
+		    	<dl class="formItem">
+		        <dt>付款企业</dt>
+		        <dd><input name="buyName" id="buyName" type="text" class="textBox box212" value="${buyName != null?buyName:""}"></dd>
+		        <dd class="clear"></dd>
+		      </dl>
+	      #else
+	      	<dl class="formItem">
+		        <dt>收款企业</dt>
+		        <dd><input name="salName" id="salName" type="text" class="textBox box212" value="${salName != null?salName:""}"></dd>
+		        <dd class="clear"></dd>
+		      </dl>
+	      #end
+	      
+	      <dl class="formItem">
+	        <dt>下单时间</dt>
+	        <dd>
+	          <input name="startTime" id="startTime" readonly type="text" class="timeBox box98 textBox" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value="${startTime!=null?startTime:""}">
+	        </dd>
+	        <dd class="lineColor">&nbsp;—&nbsp;</dd>
+	        <dd>
+	          <input name="endTime" id="endTime" type="text" readonly class="timeBox box98 textBox"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"  value="${endTime!=null?endTime:""}">
+	        </dd>
+	        <dd class="clear"></dd>
+	      </dl>
+	      <div class="clear"></div>
+	    </div>
+	    <!--表单搜索区end-->
+	  </form>
+    <!--表单按钮区-->
+    <div class="btnArea">
+      <a href="javascript:formSubmit();" class="btnBase btnSearch">搜索</a>
+      <a href="javascript:formReset();" class="btnBase btnReset">重置</a>
+      <div class="clear"></div>
+    </div>
+    <!--表单按钮区end-->
+    <!--表单列表区-->
+    <div class="formTable borderColor">
+      <ul class="secNav">
+        #if(listType == "pay")
+        	<li class="li1">付款列表</li>
+        	<li><a href="javascript:choseMenu('${webroot}','ORDER_PURCHASE_CJXX');" title="新增"  class="li3">新增</a></li>
+        #else
+        	<li class="li1">收款列表</li>
+        #end
+      </ul>
+      <div class="clear"></div>
+      <table border="0" cellspacing="0" cellpadding="0" class="tabList">
+        <tr class="bgColor">
+          #if(listType == "rec")
+          	<th>付款企业</th>
+          #else
+          	<th>收款企业</th>
+          #end
+			<th>订单状态</th>
+          <!--<th>付款方式</th>-->
+          <th>付款金额</th>
+          <th>下单时间</th>
+          <th></th>
+        </tr>
+        #for(com.ekfans.base.order.model.Order order:orderList)
+        <tr>
+        	#if(listType == "rec")
+          	 <td>${order.buyName}</td>
+          #else
+          	 <td>${order.salName}</td>
+          #end
+          <td>${@(com.ekfans.base.order.util.OrderConst).orderStatusNameMap.get(order.status)}</td>
+          <!--<td>${@(com.ekfans.base.order.util.OrderConst).orderPayTypeNamsMap.get(order.payType)}</td>-->
+          <td><em class="red">${order.totalPrice}</em></td>
+          <td>${order.createTime}</td>
+          <td>
+          	
+          	#if(order.status == @(com.ekfans.base.order.util.OrderConst).ORDER_STATUS_NEW_ORDER)
+          		#if(order.userId == Store.id)
+            		<a href="${webroot}/store/order/payorder/view/${order.id}/edit" class="eyeIco" title="编辑">编辑</a>
+            		<a href="${webroot}/store/order/payorder/view/${order.id}/sure" class="eyeIco" title="取消订单">取消订单</a>
+            	#else
+            		<a href="${webroot}/store/order/payorder/view/${order.id}/sure" class="eyeIco" title="确认订单信息">确定订单信息</a>
+            	#end
+           	#elseif(order.status == @(com.ekfans.base.order.util.OrderConst).ORDER_STATUS_WAIT_PAY)
+	           	#if(order.userId == Store.id)
+	            	<a href="${webroot}/store/order/payorder/view/${order.id}/pay" class="eyeIco" title="支付">支付</a>
+	            #end
+	          #elseif(order.status == @(com.ekfans.base.order.util.OrderConst).ORDER_STATUS_WAIT_PAY_SURE)
+	           	#if(order.storeId == Store.id)
+	            	<a href="${webroot}/store/order/payorder/view/${order.id}/paysure" class="eyeIco" title="确认收款">确认收款</a>
+	            #end
+            #end
+            <a href="${webroot}/store/order/payorder/view/${order.id}/view" class="eyeIco" title="查看">查看</a>
+            
+          </td>
+        </tr>
+       #end
+      </table>
+      #if(orderList == null || orderList.size()<=0)
+      <!--无记录Box-->
+      <div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+      <!--无记录Box end-->
+      #end
+      <!--分页-->
+      ${include("../common/page.jetx")}
+      <div class="clear"></div>
+      <!--分页end-->
+      
+    </div>
+    <!--表单列表区end-->
+  </div>
+  <!--右侧主体 end-->
+ 
+
+<script>
+	function formSubmit(){
+		$("#searchForm").submit();
+	}
+	function formReset(){
+		if($("#buyName")){
+			$("#buyName").val("");
+		}	
+		
+		if($("#salName")){
+			$("#salName").val("");
+		}	
+		$("#startTime").val("");
+		$("#endTime").val("");
+	}
+	
+	//分页跳转
+	function goPage(pageNum){
+		$("input[name='pageNum']").val(pageNum);
+		document.getElementById("searchForm").submit();
+	}
+
+</script>	
+ </body>
+</html>

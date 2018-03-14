@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url("personalBase.css");
+
+.safeLev{height:30px; line-height:30px; font-size:14px; padding:0 20px;}
+.safeLev span{display:block; float:left; margin-right:60px;}
+.safeLev .intensionLev1,.safeLev .intensionLev2,.safeLev .intensionLev3{display:inline-block; height:16px; width:300px; margin-top:7px;}
+.intensionLev1{background:#f00;}
+.intensionLev2{background:#ff8300;}
+.intensionLev3{background:#79d700;}
+.promoteSafe{padding:32px 0 24px 20px; border-bottom:solid 1px #e4e4e4;}
+.promoteSafe dt{height:20px; line-height:20px; margin-bottom:16px; color:#858585;}
+.promoteSafe dd{height:20px; line-height:20px;}
+.promoteSafe dd a{display:inline-block; margin-right:15px;}
+.loginInfo{padding:22px 0 5px 20px; border-bottom:solid 1px #e4e4e4;}
+.loginInfo dt,.safeInfo-Title{width:100px; line-height:20px; display:block; float:left; margin-right:16px; font-size:14px;}
+.loginInfo .loginInfo-right{float:left;}
+.loginInfo .loginInfo-right span{white-space:nowrap; display:block; height:21px; line-height:21px; color:#888; margin-bottom:20px;}
+.safeInfo{padding:22px 0 0 20px;}
+.safeInfo-right{width:480px; float:left;}
+.safeInfo dl{padding-bottom:24px; border-bottom:solid 1px #e4e4e4; margin-bottom:22px;}
+.safeInfo dl dt{height:20px; line-height:20px;}
+.safeInfo dl dd{line-height:20px; padding-top:12px; color:#939393; position:relative;}
+.safeInfo .intensionLev1,.safeInfo .intensionLev2,.safeInfo .intensionLev3{display:block; height:10px; width:100px; margin-bottom:10px;}
+.safeInfo dl .intensionText{color:#333;}
+.safeInfo .btnBlue{width:62px; height:28px; line-height:28px; position:absolute; right:0; bottom:6px; font-size:14px;}

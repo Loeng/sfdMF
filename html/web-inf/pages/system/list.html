@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>后台</title>
+<script type="text/javascript" src="js/jquery-1.5.1.min.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript" src="js/list.js"></script>
+<link href="css/demand.css" rel="stylesheet" type="text/css">
+<link href="css/list.css" rel="stylesheet" type="text/css">
+<style>
+.noEdit{border:0; background-color:#fff;}
+.baocunIco{display:inline-block; background:url(images/duigou.png) no-repeat; width:16px; height:16px;}
+</style>
+</head>
+<body>
+	<dl class="pro_ss">
+		<dt><b>查询</b><span class="span_down"></span><span class="span_up"></span></dt>
+		<dd class="pro_ss_item">
+			<span>品牌</span>
+			<input type="text" class="i_bg">
+		</dd>
+        <dd class="clear"></dd>
+	</dl>
+	<div class="pro_ss_btn">
+		<a href="javascript:void(0);" class="btn">搜索</a>
+		<a href="javascript:void(0);" class="btn">重置</a>
+	</div>
+	<div class="pro_ss_btn">
+		<a href="javascript:void(0);" class="btn btnadd">新增</a>
+	</div>
+	<div class="ht_list">
+		<table cellpadding="0" cellspacing="0" border="0"  id="orginTable">
+			<tr>
+				<th width="19%">字段1</th>
+				<th width="19%">字段2</th>
+				<th width="19%">字段3</th>
+				<th width="19%">字段4</th>
+        <th width="19%"></th>
+			</tr>
+			<tr class="newTr">
+				<td><input type="text" name="" class="noEdit" readonly disabled value="值1"></td>
+				<td><input type="text" name="" class="noEdit" readonly disabled value="值2"></td>
+				<td><input type="text" name="" class="noEdit" readonly disabled value="值3"></td>
+				<td><input type="text" name="" class="noEdit" readonly disabled value="值4"></td>
+				<td class="cz">
+        	<a href="javascript:void(0);" class="baocunIco" style="display:none;"></a>
+					<a href="javascript:void(0);" class="editIco"></a>
+					<a href="javascript:void(0);" class="del_list"></a>
+				</td>
+			</tr>
+		
+		</table>
+		<div class="ht_pageBox">
+			<div class="ht_page">
+				<a href="javascript:void(0);" class="btn">&lt;&lt;</a>
+				<a href="javascript:void(0);" class="btn"><</a>
+				<a href="javascript:void(0);" class="btn">1</a>
+				<a href="javascript:void(0);" class="btn">2</a>
+				<a href="javascript:void(0);" class="btn cur">3</a>
+				<a href="javascript:void(0);" class="btn">4</a>
+				<a href="javascript:void(0);" class="btn">5</a>
+				<a href="javascript:void(0);" class="btn">&gt;</a>
+				<a href="javascript:void(0);" class="btn">&gt;&gt;</a>
+			</div>
+		</div>
+	</div>
+  
+  
+  <table cellpadding="0" cellspacing="0" border="0" style="display:none;" id="newTable">
+			<tr class="newTr">
+				<td><input type="text" name="" ></td>
+				<td><input type="text" name="" ></td>
+				<td><input type="text" name=""></td>
+				<td><input type="text" name=""></td>
+				<td class="cz">
+        	<a href="javascript:void(0);" class="baocunIco"></a>
+					<a href="javascript:void(0);" class="editIco"></a>
+					<a href="javascript:void(0);" class="del_list"></a>
+				</td>
+			</tr>
+		</table>
+<script>
+$(document).ready(function() {
+    $(".btnadd").click(function() {
+      var obj=$("#newTable").children().find(".newTr").clone();
+			obj.find(".editIco").hide();
+			$("#orginTable").append(obj);
+    });
+	
+	$(".del_list").live("click",function(){
+		var obj=$(this).parents("tr").siblings(".newTr").length;
+		console.log(obj);
+		if(obj<=0){
+			alert("最后一行不能删除！");
+			}
+		else{
+		$(this).parents("tr").remove();
+		}
+	})
+	
+	$(".editIco").live("click",function(){
+			$(this).prev(".baocunIco").show();
+			$(this).hide();
+		 $(this).parents("tr").find("input").removeClass("noEdit");
+		 $(this).parents("tr").find("input").css("background-color","#fff")
+		 $(this).parents("tr").find("input").removeAttr("disabled","disabled");
+		 $(this).parents("tr").find("input").removeAttr("readonly","readonly");
+	});
+	
+	$(".baocunIco").live("click",function(){
+		$(this).next(".editIco").show();
+			$(this).hide();
+		 $(this).parents("tr").find("input").addClass("noEdit");
+		 $(this).parents("tr").find("input").attr("disabled","disabled");
+		 $(this).parents("tr").find("input").attr("readonly","readonly");
+	});
+	
+	$("tr").live("mouseover",function(){
+		$(this).find(".noEdit").css("background","#ebf6ff")
+	});
+	$("tr").live("mouseout",function(){
+		$(this).find(".noEdit").css("background","#fff")
+	});
+});
+</script>
+</body>
+</html>

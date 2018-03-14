@@ -1,0 +1,72 @@
+#define(com.ekfans.base.store.model.Store salStore)
+#define(com.ekfans.base.wfOrder.model.ScrapWfp salWfp)
+#set(com.ekfans.base.store.model.Accredit salAcc = salStore.salerAccredit)
+<h3>产生单位</h3>
+<dl class="formItem">
+	<dt><em class="mustIco"></em>单位名称</dt>
+	<dd>
+		<input name="salName" type="text" class="textBox box212" value="${salStore != null?salStore.storeName:""}" readonly>
+	</dd>
+	<dd class="clear"></dd>
+</dl>
+<dl class="formItem">
+	<dt><em class="mustIco"></em>单位地址</dt>
+	<dd>
+		<input name="salAddress" id="salAddress" type="text" class="textBox box212" value="${salWfp!=null?salWfp.salAddress:(salAcc!= null?salAcc.address:"")}">
+	</dd>
+	<dd class="clear"></dd>
+</dl>
+<dl class="formItem">
+	<dt><em class="mustIco"></em>邮政编码</dt>
+	<dd>
+		<input name="salZipCode" id="salZipCode" type="text" class="textBox box212" value="${salWfp!=null?salWfp.salZipCode:(salStore != null ? salStore.zipCode:"")}">
+	</dd>
+	<dd class="clear"></dd>
+</dl>
+<dl class="formItem">
+	<dt><em class="mustIco"></em>联系人</dt>
+	<dd>
+		<input name="salMan" id="salMan" type="text" class="textBox box212" value="${salWfp!=null?salWfp.salMan:(salStore != null ? salStore.contactName:"")}">
+	</dd>
+	<dd class="clear"></dd>
+</dl>
+<dl class="formItem">
+	<dt><em class="mustIco"></em>联系电话</dt>
+	<dd>
+		<input name="salPhone" id="salPhone" type="text" class="textBox box212" value="${salWfp!=null?salWfp.salPhone:(salStore != null ? salStore.contactPhone:"")}">
+	</dd>
+	<dd class="clear"></dd>
+</dl>
+
+<script>
+	function checkSalInfoSub(){
+		var salAddress = $("#salAddress").val();
+		if(trimStr(salAddress) == "" || trimStr(salAddress) == "null"){
+		alert(1);
+			falert("请输入产生单位所在地址");
+			return false;
+		}
+		
+		var salZipCode = $("#salZipCode").val();
+		if(trimStr(salZipCode) == "" || trimStr(salZipCode) == "null"){
+				alert(2);
+			falert("请输入产生单位邮政编码");
+			return false;
+		}
+		
+		var salMan = $("#salMan").val();
+		if(trimStr(salMan) == "" || trimStr(salMan) == "null"){
+				alert(3);
+			falert("请输入产生单位联系人");
+			return false;
+		}
+		
+		var salPhone = $("#salPhone").val();
+		if(trimStr(salPhone) == "" || trimStr(salPhone) == "null" || !checkMobile(salPhone)){
+				alert(4);
+			falert("请输入产生单位联系电话");
+			return false;
+		}
+		return true;
+	}
+</script>

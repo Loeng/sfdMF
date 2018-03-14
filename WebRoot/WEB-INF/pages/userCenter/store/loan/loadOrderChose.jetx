@@ -1,0 +1,123 @@
+#define(com.ekfans.base.store.model.Store Store)
+  <div class="apTit">
+    <span class="apClose"></span>选择订单
+  </div>
+  <div class="apContent">
+    <div class="shopSearch">
+      <form action="${webroot}/store/loan/loadorder" method="post" id="searchForm">
+        <input type="hidden" name="pageNo" id="pageNo" value="" />
+        <dl class="formItem" style="width:30%; margin:0px 0px 0px 0px;">
+          <dt>订单编号</dt>
+          <dd><input name="orderId" id="orderId" type="text" class="textBox box160" value="${orderId}"></dd>
+          <dd class="clear"></dd>
+        </dl>
+        
+        <dl class="formItem" style="width:30%;margin:0px 0px 0px 0px;">
+          <dt>下单时间</dt>
+          <dd>
+            <input name="startTime" id="startTime" type="text" class="textBox box96" value="${startTime}" style="display:inline;" readonly  onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:ss:mm',maxDate:'#F{$dp.$D(\'endTime\')}'})"> -
+            <input name="endTime" id="endTime" type="text" class="textBox box96" value="${endTime}" style="display:inline;" readonly onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:ss:mm',minDate:'#F{$dp.$D(\'startTime\')}'})"> 
+          </dd>
+          <dd class="clear"></dd>
+        </dl>
+        <dl class="formItem" style="width:40%;margin:0px 0px 0px 0px;">
+          <dt>订单类型</dt>
+          <dd>
+            <label class="radio"><input type="radio" name="orderType" value="0" #if("0" == orderType) checked #end>普通订单</label>
+            <label class="radio"><input type="radio" name="orderType" value="2" #if("2" == orderType) checked #end>绿色商城订单</label>
+            <label class="radio"><input type="radio" name="orderType" value="3" #if("3" == orderType) checked #end>危废处置订单</label>
+          </dd>
+          <dd class="clear"></dd>
+        </dl>
+      </form>
+      <div class="clear"></div>
+    </div>
+    <div class="btn">
+    <a href="javascript:void(0);" class="btnBase" onclick="searchForm();">搜索</a>
+    <a href="javascript:void(0);" class="btnBase" onclick="clearSearchForm();">重置</a>
+    </div>
+
+
+    <div style="margin-top:10px; position:relative;" class="tableBox">
+      #if("3" != orderType)
+        #for(Object[] obj:orderList)
+          <div class="tabListItem">
+            <div class="tabListHead">
+              <span class="span1">订单号:${obj[0]}</span>
+              <span class="span2">卖家:${obj[2]}</span>
+              <span class="span2">买家：${obj[4]}</span>
+            </div>
+            <div class="tabListBody">
+              <div class="ordermoney">订单金额：${obj[8]}元</div>
+              <div class="orderstate">订单状态：
+              		#if(obj[5] == "2") 待付款
+              		  #elseif(obj[5] == "3") 已付款
+               	      #elseif(obj[5] == "4") 确认收货
+               	      #elseif(obj[5] == "5") 完成
+   	  			    #end</div>
+              <div class="ordertime">下单时间:${obj[9]}</div>
+              <div class="orderChoose"><a href="javascript:void(0);" onclick="choseOrderOk('${obj[0]}','','0','${(String)obj[1] == Store.id?obj[3]:obj[1]}');">选择</a></div>
+              <div class="clear"></div>
+            </div>
+          </div>
+        #end
+      #else
+        #for(Object[] obj:orderList)
+          <div class="tabListItem">
+            <div class="tabListHead">
+              <span class="span1">订单号:${obj[0]}</span>
+              <span class="span2">危废名称:${obj[6]}</span>
+            </div>
+            <div class="tabListBody">
+              <div class="ordercsf">产生方：${obj[2]}</div>
+              <div class="orderczf">处置方：${obj[4]}</div>
+              <div class="clear"></div>
+              
+              <div class="orderstate">订单状态：${@(com.ekfans.base.wfOrder.util.WfOrderHelper).orderStatusMap?[obj[5]]}</div>
+              <div class="ordertime">下单时间:${obj[9]}</div>
+              <div class="ordermoney"></div>
+              <div class="orderChoose"><a href="javascript:void(0);" onclick="choseOrderOk('${obj[0]}','${obj[6]}','3','${(String)obj[1] == Store.id?obj[3]:obj[1]}');">选择</a></div>
+              <div class="clear"></div>
+            </div>
+          </div>
+        #end
+
+        
+      #end
+    </div>
+
+    ${include("../common/page.jetx")}
+  </div>
+
+  <script type="text/javascript">
+    function clearSearchForm(){
+      $("#orderId").val("");
+      $("#startTime").val("");
+      $("#endTime").val("");
+      $("input[name=orderType]:eq(0)").attr("checked",'checked');
+    }
+    function searchForm(){
+      $("#showOrderChoseDiv").load("${webroot}/store/loan/loadorder?nowTime="+Math.random(),$("#searchForm").serialize());
+    }
+
+    //分页跳转
+    function goPage(pageNum){
+      $("#pageNo").val(pageNum);
+      $("#showOrderChoseDiv").load("${webroot}/store/loan/loadorder?nowTime="+Math.random(),$("#searchForm").serialize());
+    }
+
+    function choseOrderOk(orderId,wfpName,orderType,otherStoreId){
+      var chosedId = $("#choseShowId").val();
+      $("#"+chosedId).val(orderId);
+      $("#"+chosedId+"Name").val(orderId);
+      $("#"+chosedId+"ValueType").val(orderType);
+      if("3" == orderType){
+        $("#"+chosedId+"Name").val(wfpName);
+      }
+      // 上下游企业id：Store.id/otherStoreId
+      $("#orderStoreId").val(otherStoreId);
+      $(".apLayerBg").hide();
+      $("#showOrderChoseDiv").hide();
+    }
+
+  </script>

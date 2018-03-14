@@ -1,0 +1,255 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/store/store.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/base.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/store/store.js"></script>
+	<!-- 日期插件 -->
+	<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+	<!-- 上传插件 -->
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/upload.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+	
+	<script src="${webroot}/resources/userCenter/commons/js/ckeditor/ckeditor.js"></script>
+</head>
+
+<body>
+#define(com.ekfans.base.store.model.Store store)
+<input type="hidden" id="ctxpath" value="${webroot}" />
+<input type="hidden" id="oldUserName" value="${store.userEntity.name}" />
+<input type="hidden" id="oldStoreName" value="${store.storeName}" />
+#if(flag!='2')
+	<input type="hidden" id="mark" value="${mark}" />
+#end
+
+<div class="ht_btn">
+	#if(flag!='2')
+		<a href="javascript:update();" class="btn">提交</a>
+	#end
+	<a href="javascript:goBack(${store.userEntity.type});" class="btn">返回列表</a>
+</div>
+<!-- enctype="multipart/form-data" -->
+<form action="${webroot}/system/store/updateStore" id="addStoreForm" method="post">
+	<input type="hidden" name="user.id" value="${store.userEntity.id}" />
+	<input type="hidden" name="store.id" value="${store.id}" />
+	<input type="hidden" name="store.roleId" value="${store.roleId}" />
+	<input type="hidden" name="store.commonStatus" value="${store.commonStatus}" />
+	<input type="hidden" name="store.bankStatus" value="${store.bankStatus}" />
+	<input type="hidden" name="store.buyerStatus" value="${store.buyerStatus}" />
+	<input type="hidden" name="store.salerStatus" value="${store.salerStatus}" />
+	<input type="hidden" name="store.transStatus" value="${store.transStatus}" />
+	<input type="hidden" name="store.createTime" value="${store.createTime}" />
+	<input type="hidden" name="store.areaId" value="${store.areaId}" />
+	<input type="hidden" name="store.accountSuccess" value="${store.accountSuccess}" />
+	<input type="hidden" name="store.accountDate" value="${store.accountDate}" />
+	<input type="hidden" name="store.accountStatus" value="${store.accountStatus}" />
+	<input type="hidden" name="store.account" value="${store.account}" />
+	<input type="hidden" name="store.accountNo" value="${store.accountNo}" />
+	<input type="hidden" name="store.payPassword" value="${store.payPassword}" />
+	<input type="hidden" name="store.emergencyPlanId" value="${store.emergencyPlanId}" />
+	<input type="hidden" name="store.emergencyPlanFile" value="${store.emergencyPlanFile}" />
+	
+	<div class="add_pro">
+		<div class="formSection">
+			<h3>帐号信息</h3>
+		  <div class="formIn">
+		  	<span class="formItem">
+		      <span class="formName"><em class="mustIco"></em>帐号</span>
+		      <input type="text" class="i_bg box100" style="width:200px;" name="user.name" value="${store.userEntity.name}" />
+		    </span>
+		    <span class="formItem">
+		      <span class="formName"><em class="mustIco"></em>密码</span>
+		      <input type="password" class="i_bg box100" style="width:200px;" name="user.password" value="${store.userEntity.password}" />
+		    </span>
+		    <span class="formItem">
+		      <span class="formName"><em class="mustIco"></em>重复密码</span>
+		      <input type="password" id="pwd" class="i_bg box100" style="width:200px;" value="${store.userEntity.password}" />
+		    </span>
+		    <div class="clear"></div>
+		    <span class="formItem">
+	        <span class="formName"><em class="mustIco"></em>企业状态</span>
+	        <span class="zt">
+						<label>
+							<input type="radio" name="user.status" value="0" #if(store.userEntity.status == 0) checked="checked" #end />禁用
+						</label>
+					</span>
+					<span class="zt">
+						<label>
+							<input type="radio" name="user.status" value="1" #if(store.userEntity.status == 1) checked="checked" #end />启用
+						</label>
+					</span>
+					<span class="zt">
+						<label>
+							<input type="radio" name="user.status" value="2" #if(store.userEntity.status == 2) checked="checked" #end />删除
+						</label>
+					</span>
+	    	</span>
+		  </div>
+		</div>
+		<div class="formSection">
+    	<h3>企业信息</h3>
+    	<div class="borderBox formIn">
+    		<div class="formItem">
+	        <span class="formName">企业LOGO</span>
+	       	#tag picUpload("storeLogo","1","200","200",store.storeLogo) #end
+	        <div class="clear"></div>
+        </div>
+        <div class="formItem">
+          <span class="formName">营业执照</span>
+        	#tag picUpload("businessLicense","1","200","200",store.businessLicense) #end
+          <div class="clear"></div>
+        </div>
+		    <div class="formItem">
+		      <span class="formName"><em class="mustIco"></em>信用代码证</span>
+		      #tag picUpload("creditCodeCard","1","200","200",store.creditCodeCard) #end
+		      <div class="clear"></div>
+		    </div>
+		    <div class="formItem">
+		      <span class="formName"><em class="mustIco"></em>公司章程</span>
+		      #tag fileUpload("articles","pdf",store.articles) #end
+		      <div class="clear"></div>
+		    </div>
+		    <div class="formItem">
+		      <span class="formName"><em class="mustIco"></em>公司简介(WORD版)</span>
+		      #tag fileUpload("synopsis","word",store.synopsis) #end
+		      <div class="clear"></div>
+		    </div>
+        <div class="clear"></div>
+	    	<span class="formItem">
+	        <span class="formName"><em class="mustIco"></em>企业名称</span>
+	        <input type="text" class="i_bg box280" name="store.storeName" value="${store.storeName}" />
+	    	</span>
+	    	<span class="formItem">
+	        <span class="formName">企业简称</span>
+	        <input type="text" class="i_bg box280" name="store.storeRefer" value="${store.storeRefer}" />
+	    	</span>
+	    	<span class="formItem">
+	        <span class="formName"><em class="mustIco"></em>集团企业</span>
+	        <span class="zt">
+						<label>
+							<input type="radio" name="store.storeGroup" value="true" #if(store.storeGroup) checked="checked" #end />是
+						</label>
+					</span>
+					<span class="zt">
+						<label>
+							<input type="radio" name="store.storeGroup" value="false" #if(!store.storeGroup) checked="checked" #end />否
+						</label>
+					</span>
+	    	</span>
+	    	#define(List<com.ekfans.base.system.model.Area> arealist)
+	    	<div class="clear"></div>
+	    	<span class="formItem" style="height:auto;min-height:28px;">
+	        <span class="formName">所属区域</span>
+	        #for(com.ekfans.base.system.model.Area ar : arealist)
+	        	<span class="zt">
+	        		<label>
+	        			<input type="checkbox" value="${ar.id}" #if(store.areaId.indexOf(ar.id)>=0)checked="checked"#end />${ar.name}	
+	        		</label>	
+	        	</span>
+	        #end
+        </span>
+       	<div class="clear"></div>
+       	<span class="formItem">
+	        <span class="formName">注册时间</span>
+	        <input type="text" class="i_bg box280" name="store.regTime" value="${store.regTime}" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" />
+        </span>
+        <span class="formItem">
+	        <span class="formName">通讯地址</span>
+	        <input type="text" class="i_bg box280" name="store.mailingAddress" value="${store.mailingAddress}" />
+        </span>
+        <span class="formItem">
+	        <span class="formName">单位类型</span>
+	        <select class="i_bg box280" name="store.unitType">
+	        	<option value="">---- 请选择 ----</option>
+	        	<option value="1" #if(store.unitType==1) selected="selected" #end>个人独资企业</option>
+	        	<option value="2" #if(store.unitType==2) selected="selected" #end>合伙企业</option>
+	        </select>
+        </span>
+        <span class="formItem">
+	        <span class="formName">邮政编码</span>
+	        <input type="text" class="i_bg box100" name="store.zipCode" value="${store.zipCode}" maxlength="6" />
+        </span>
+        <span class="formItem">
+	        <span class="formName">占地面积</span>
+	        <input type="text" class="i_bg box100" name="store.areaNumber" value="${store.areaNumber}" maxlength="8" /><span style="font-size:18px">㎡</span>
+        </span>
+        <span class="formItem">
+	        <span class="formName">联系人</span>
+	        <input type="text" class="i_bg box280" name="store.contactName" value="${store.contactName}" maxlength="15" />
+        </span>
+        <span class="formItem">
+	        <span class="formName">联系电话</span>
+	        <input type="text" class="i_bg box100" name="store.contactPhone" value="${store.contactPhone}" maxlength="14" />
+        </span>
+        <span class="formItem">
+	        <span class="formName">联系传真</span>
+	        <input type="text" class="i_bg box100" name="store.contactFax" value="${store.contactFax}"maxlength="14" />
+        </span>
+        <span class="formItem">
+	        <span class="formName">注册资金</span>
+	        <input type="text" class="i_bg box100" name="store.regCapital" value="${store.regCapital}" maxlength="8" />
+        </span>
+        <span class="formItem">
+	        <span class="formName">员工人数</span>
+	        <input type="text" class="i_bg box100" name="store.numberEmployees" value="${store.numberEmployees}"  maxlength="8" />
+        </span>
+        <span class="formItem">
+	        <span class="formName">工商登记机关</span>
+	        <input type="text" class="i_bg box280" name="store.bureau" value="${store.bureau}" maxlength="128"/>
+        </span>
+        <span class="formItem">
+	        <span class="formName">工商登记时间</span>
+	        <input type="text" class="i_bg box280" name="store.bureauTime" value="${store.bureauTime}" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" />
+        </span>
+        <span class="formItem">
+	        <span class="formName">营业执照号</span>
+	        <input type="text" class="i_bg box280" name="store.businessLicenseNumber" value="${store.businessLicenseNumber}" maxlength="50" />
+        </span>
+        <span class="formItem">
+	        <span class="formName">开户银行</span>
+	        <input type="text" class="i_bg box280" name="store.bank" value="${store.bank}" maxlength="50"/>
+        </span>
+        <span class="formItem">
+	        <span class="formName">银行开户时间</span>
+	        <input type="text" class="i_bg box280" name="store.openingTime" value="${store.openingTime}" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" />
+        </span>
+        <span class="formItem">
+	        <span class="formName">组织机构代码</span>
+	        <input type="text" class="i_bg box280" name="store.orgId" value="${store.orgId}" maxlength="32"/>
+        </span>
+        <span class="formItem">
+	        <span class="formName">贷款卡号</span>
+	        <input type="text" class="i_bg box280" name="store.reditCard" value="${store.reditCard}" maxlength="20"/>
+        </span>
+        <div class="clear"></div>
+        <div class="formItem">
+	        <span class="formName">经营范围</span>
+	        <textarea class="i_bg" name="store.businessScope" maxlength="512">${store.businessScope}</textarea>
+	        <div class="clear"></div>
+        </div>
+        <div class="formItem">
+	        <span class="formName">未来事业发展方向</span>
+	        <textarea class="i_bg" name="store.planning">${store.planning}</textarea>
+	        <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+        <div class="formItem">
+	        <span class="formName" style="float:none; text-align:left;">企业简介</span>
+	        <textarea class="ckeditor" id="notes1" style="height:200px;">${store.notes}</textarea>
+	        <input type="hidden" id="notes" name="store.notes">
+	        <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+	</div>
+</form>
+</body>
+</html>

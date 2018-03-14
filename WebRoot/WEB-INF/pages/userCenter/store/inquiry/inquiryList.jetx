@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>询价信息列表</title>
+<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css" />
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/layer/layer.js"></script>
+<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+<!-- 导入自定义的JS文件 -->
+<script type="text/javascript" src=""></script>
+<script>
+	//搜索列表
+	function formSubmit(){
+		$("#searchForm").submit();
+	}
+	//重置搜索栏
+	function formReset(){
+		$("input[name='linkPerson']").val("");
+		$("input[name='storeName']").val("");
+		$("select[name='status']").val("");
+	}
+	//跳转分页
+	function goPage(pageNum){
+		$("input[name='pageNum']").val(pageNum);
+		document.getElementById("searchForm").submit();
+	}
+	//关闭询价
+	function closeInq(id){
+		var ctxpath = $("#contextPath").val();
+		layer.confirm('确定要关闭这条询价消息么？', {
+		  btn: ['确定','取消'] //按钮
+		}, function(){
+			$.post(ctxpath+"/store/inquiry/closeInquiry/"+id,
+		 	 function(data){
+  				if(data){
+		 		 	layer.msg('关闭成功!');
+		 		 	location.reload();
+  				}else{
+  					layer.msg('关闭失败!');
+  					location.reload();
+  				}
+			});
+		},null)
+	};
+</script>
+</head>
+<body>
+	#define(List<com.ekfans.base.order.model.Inquiry> inquirys)
+	<input type="hidden" value="${webroot}" id="contextPath"/>
+	<input type="hidden" name="productType" id="productType" value="${productType}"/>
+	<input type="hidden" name="type" id="type" value="${type}"/>
+	    <div class="rightContent">
+		  <form action="${webroot}/store/inquiry/list/${productType}/${supplyType}/${sourceType}" method="post" id="searchForm">
+		  <input type="hidden" name="pageNum" value="" />
+          <div class="formSearch borderColor">
+					<dl class="formItem">
+						<dt>联系人</dt>
+						<dd><input name="linkPerson" id="linkPerson" value="${linkPerson }"  type="text" class="textBox box212"></dd>
+						<dd class="clear"></dd>
+					</dl>
+					<dl class="formItem">
+						<dt>企业名</dt>
+						<dd><input name="storeName" id="linkPerson" value="${storeName }"  type="text" class="textBox box212"></dd>
+		            <dd class="clear"></dd>
+		       	    </dl>
+					<dl class="formItem">
+		            <dt>#if(supplyType=="1")询价#else报价#end状态                                                                                                                                                                                                                                                                                                                                                                                                                         </dt>
+		            	<select name= "status" style="width:80px;height: 28px;line-height: 26px;border: solid 1px #E0E3EA;">
+		            		<option value="">请选择状态</option>
+		            		<!--(0:询价中 1:关闭2：已经下单)-->
+		            		#if(supplyType=="1")
+	            			<option value="0" #if(status=="0") selected ="selected" #end >报价中</option>
+	            			#else
+	            			<option value="0" #if(status=="0") selected ="selected" #end >询价中</option>
+	            			#end
+	            			<option value="1" #if(status=="1") selected ="selected" #end >已关闭</option>
+	            			<!--<option value="2" #if(status=="2") selected ="selected" #end >已下单</option>-->
+		            	</select>
+					</dl>
+					
+            <div class="clear"></div>
+        </div>
+		<div class="btnArea">
+			<a href="javascript:void(0);" class="btnBase btnSearch" onclick="formSubmit();">搜索</a>
+			<a href="javascript:void(0);" class="btnBase btnReset" onclick="formReset();">重置</a>
+			<div class="clear"></div>
+		</div>
+      </form>
+      
+      <div class="formTable borderColor">
+      	<ul class="secNav">
+        	<li class="li1">#if(supplyType=="1")询价#else报价#end信息列表</li>
+        </ul>
+        <div class="clear"></div>
+         <!--没有订单时-->
+          <div style="position:relative;" class="tableBox">   
+         <table border="0" cellspacing="0" cellpadding="0" class="tabList">
+         <thead>
+        	<tr class="bgColor">
+        	<th>标题</th>
+        	<th>企业名</th>
+        	#if(supplyType!="1")
+        	<th>数量</th>
+        	#end
+            <th>联系人</th>
+            <th>联系电话</th>
+            <th>状态</th>
+            <th style="padding-left:0px;padding-right:0px">创建时间</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          
+          #if(inquirys!=null && inquirys.size()>0)
+           #for(com.ekfans.base.order.model.Inquiry i: inquirys)
+              <tr>
+                <td>${i.title}</td>
+                <td>${i.storeName}</td>
+                #if(supplyType!="1")
+                <td>${i.number}${i.unit}</td>
+                #end
+                <td>${i.linkPerson}</td>
+                <td>${i.linkTel }</td>
+                <td>
+               		 <!--(0:询价中 1:关闭2：已经下单)-->
+        	      #if(i.status == "1") 关闭
+        	      #elseif(i.status == "0" && supplyType=="1")报价中
+        	      #elseif(i.status == "0" && supplyType=="0")
+        	     	 询价中
+            	  #end
+		        </td>
+                <td>${i.createTime.substring(0,10)}</td>
+                <td>
+                #if(i.status!="1")
+            		<a href="javascript:void(0);" onclick="closeInq('${i.id}');"  class="eyeIco" title="关闭" >关闭</a>
+            	#end
+                </td>
+              </tr>
+              #end
+             #end
+             </tbody>
+        </table>
+        </div>
+         #if(inquirys==null || inquirys.size()==0)
+                <div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+              #else
+         	<div class="listBottom">
+               <!-- <a href="javascript:void(0)" class="btnBase">导出订单</a>-->
+                <!-- 分页 -->
+                <input type="hidden" name="pageNum" value="${currentpageStr }" />
+                ${include("../common/page.jetx")}
+                <div class="clear"></div>
+            </div>
+           #end
+      	<div class="clear"></div>
+    
+     		</div>
+            
+          </div>
+        </div>
+<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+</body>
+</html>

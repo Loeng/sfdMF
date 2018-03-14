@@ -1,0 +1,18 @@
+#define(List<com.ekfans.base.order.model.Order> olist)
+<div class="newDeal">
+    <h3>最新交易</h3>
+    <div class="newDealContent">
+		#if(olist!=null && olist.size()>0)
+			#for(com.ekfans.base.order.model.Order o : olist)
+              <div class="dataLine">
+                <div class="dataItem dataLeft">${o.productName}</div> 
+                <div class="dataItem dataRight">${o.quantity}${o.unit}</div>
+              </div>
+            #end
+      	#end
+    </div>
+</div>
+<script>
+	//信息滚动
+	jQuery(".newDeal").slide({mainCell:".newDealContent",autoPlay:true,effect:"topMarquee",vis:7,interTime:50});
+</script>

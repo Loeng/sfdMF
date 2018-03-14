@@ -1,0 +1,28 @@
+#define(Map<String, com.ekfans.base.channel.model.ChannelConfig> configMap)
+#define(String configType)
+#define(String position)
+#define(String channelId)
+
+#set(com.ekfans.base.channel.model.ChannelConfig config = configMap.get(configType + position))
+
+#if(configStatus == "true")
+	#include("../../../channel/commons/config/configTitle.jetx",{"channelId":channelId,"configType":configType,"position":position})
+#end
+
+#if(config != null)
+	<h3>#if(config.configName!=null && !"".equals(config.configName) && !" ".equals(config.configName)) ${config.configName} #else 认证条件 #end</h3>
+	<ul>
+		#for(com.ekfans.base.content.model.Content content : config.details)
+			<li><a href="${webroot}/03-${content.id}-1.html" title="${content.contentName}">${content.contentName}</a></li>
+		#end
+	</ul>
+#end
+<!--
+<h3>认证条件</h3>
+<ul>
+  <li>公司成立18个月以上</li>
+  <li>供应链平台正式会员</li>
+  <li>无投诉记录</li>
+  <li>供应链平台认为其他必要的条件</li>
+</ul>
+-->

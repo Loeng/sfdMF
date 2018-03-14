@@ -1,0 +1,60 @@
+/* CSS Document */
+
+.proUp{padding:28px 40px 10px 40px; border:solid 1px #e4e4e4;}
+.pics{width:440px; float:left; margin-right:42px;}
+.picList{width:68px; float:left; margin-right:20px; padding-top:4px;}
+.picList li{width:64px; height:64px; border:solid 2px #fff; margin:10px 0; cursor:pointer;}
+.picList li.cur{border:solid 2px #F04D4D;}
+.thePic{float:left; width:350px; height:350px;}
+.proRight{float:left; width:570px;}
+.proRight h2{height:20px; line-height:20px; font-size:16px; font-weight:700; margin-bottom:20px;}
+.proInfo{padding:12px 30px; background:#F9F7F7; margin-bottom:30px;}
+.proInfo li{width:220px; float:left; line-height:30px; font-size:14px;}
+.proInfo li em{color:#4b4848;}
+.proInfo li .infoTitle{color:#999; display:inline-block; width:60px; padding-right:18px; text-align:right;}
+.proInfo li.infoLine{width:420px; clear:both; float:none;}
+.proInfo li .red{font-size:24px; font-weight:700;}
+.buyBtns{margin-bottom:30px;}
+.buyBtns a{width:200px; height:38px; line-height:38px; font-size:16px; margin-right:40px;}
+.btnRed{background:#EF4D4D; color:#fff; display:inline-block; text-align:center; border:none; cursor:pointer;}
+.btnRed:hover{background:#8A0D0D; color:#fff;}
+.service{height:22px; line-height:22px; position:relative; margin-right:-20px;}
+.service li{width:70px; margin-right:18px; color:#393; float:left; padding-left:30px;}
+.iconDetail1{background:url(../images/icon_prodetail_r1_c1.png) no-repeat left center;}
+.iconDetail2{background:url(../images/icon_prodetail_r1_c2.png) no-repeat left center;}
+.iconDetail3{background:url(../images/icon_prodetail_r1_c3.png) no-repeat left center;}
+.iconDetail4{background:url(../images/icon_prodetail_r1_c4.png) no-repeat left center;}
+.iconDetail5{background:url(../images/icon_prodetail_r1_c5.png) no-repeat left center;}
+.upBottom{height:28px; line-height:28px; color:#999; padding-left:88px;}
+.share{float:left; margin-right:10px;}
+.save{background:url(../images/icon_prodetail_r1_c6.png) no-repeat left center; padding-left:26px; display:block; float:left; margin-right:30px;}
+
+.detailTitle{height:40px; margin-top:20px;}
+.detailTitle a{display:block; width:98px; height:38px; line-height:38px; font-size:14px; color:#393; border:solid 1px #393; float:left; text-align:center;}
+.detailTitle a.cur{background:#393; color:#fff;}
+.proContent{border:solid 1px #e4e4e4; padding:20px;}
+.proContent h4{height:30px; line-height:30px; font-size:14px; margin-bottom:20px;}
+.proContent h4 em{display:block; width:8px; height:30px; background:#393; float:left; margin-right:10px;}
+.detailContent{margin-bottom:20px;}
+
+/*报价弹层*/
+.baojiaLayer{padding:20px 20px 0 20px;}
+.dataInfo{padding-bottom:15px; border-bottom:solid 1px #e6e6e6;}
+.dataInfo span{display:inline-block; font-size:14px; margin:0 30px; line-height:32px;}
+.dataInfo span em{color:#999;}
+.dataInfo span .red{padding-right:5px; font-size:18px;}
+.baojiaLayer .apForm{margin-top:20px; position:relative;}
+.baojiaLayer .formItem{width:440px; margin:0 0 20px 70px;}
+.baojiaLayer .formItem dt{width:60px; padding:0 10px; float:left; line-height:30px; text-align:right;}
+.baojiaLayer .formItem .formImport{width:360px; float:left;}
+.baojiaLayer .formBox{border:solid 1px #DFE2EA; width:258px; height:28px; text-indent:0.8em; margin-right:12px;}
+
+/*核价部分*/
+.formLeft{border:solid 1px #efefef; padding:16px 0 0 0; width:240px; margin-bottom:10px;}
+.hejiaLayer .formLeft .formItem{width:240px;}
+.hejiaLayer .formLeft .formImport{width:150px;}
+.hejiaLayer .box150{width:148px;}
+.hejiaLayer .hejia{width:320px; padding-top:16px; background:#99CC67; color:#fff; position:absolute; top:0; left:260px;}
+.hejiaLayer .hejia .formImport{width:250px;}
+.hejiaLayer .formItem{margin:0 0 16px 0;}
+.hejiaLayer .hejia .pointIcon{display:block; background:url(../images/left_point.png) no-repeat; width:8px; height:15px; position:absolute; left:-8px; top:43%;}

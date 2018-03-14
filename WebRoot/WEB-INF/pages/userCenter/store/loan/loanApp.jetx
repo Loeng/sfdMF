@@ -1,0 +1,405 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>融资申请</title>
+  <meta name="keywords" content="鑫裕环保" />
+  <meta name="description" content="鑫裕环保" />
+  <script src="${webroot}/resources/commons/js/layer/layer.js"></script>
+
+  <link href="${webroot}/resources/userCenter/commons/css/orderLoanApply.css" rel="stylesheet" type="text/css">
+  <link href="${webroot}/resources/userCenter/commons/css/rzapply.css" rel="stylesheet" type="text/css">
+  <link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css">
+
+  <script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+  <script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+  <script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+  <script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+  <script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+  <script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+  <script type="text/javascript" src="${webroot}/resources/commons/js/layer/layer.js"></script>
+  <script type="text/javascript" src="${webroot}/resources/userCenter/personal/js/ckeditor/ckeditor.js"></script>
+  <script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+</head>
+<body>
+  #define(com.ekfans.base.store.model.Store Store)
+  #if(Store.commonStatus != "3")
+    <script type="text/javascript">
+      
+      layer.confirm('您还未进行企业基础认证，请先认证后再做融资申请！是否立即前往认证？', {
+          btn: ['确定', '取消'], //可以无限个按钮
+          yes:function(index){
+              choseMenu('${webroot}','STORE_RENZHENG_BEIAN');
+              layer.close(index);
+          },cancel:function(index){
+              choseMenu('${webroot}','LOAN_APP_LIST');
+              layer.close(index);
+          }
+      });
+    </script>
+  #end
+  <form  action="${webroot}/store/loan/applysave" method="post" id="addSubmit">
+    <input type="hidden" name="bankId" id="bankId" value="${bankId }"/>
+    <input type="hidden" name="bankLogo" id="bankLogo"/>
+    <input type="hidden" name="typeId" id="typeId" value="${typeId }"/>
+    <input type="hidden" name="typeName" id="typeName"/>
+    <input type="hidden" name="typeNote" id="typeNote"/>
+    <input type="hidden" name="choseShowId" id="choseShowId"/>
+    <input type="hidden" name="orderStoreId" id="orderStoreId"/>
+    <input type="hidden" name="contractStoreId" id="contractStoreId"/>
+    
+    <input type="hidden" id="regCapital" value="${regCapital}"/>
+    <input type="hidden" id="type_name" value="${loanTypeName}"/>
+    <input type="hidden" id="type_note" value="${loanTypeNote}"/>
+    <input type="hidden" id="contractStoreId"/>
+    <div class="contentTit borderColor budong">
+      <h3>融资申请</h3>
+      <div class="applyState">
+        <div class="bgline cur">
+          <div class="stateList"></div>
+          <em class="statepoint"></em>
+          <p>选择融资银行</p>
+        </div>
+        <div class="bgline" id="stp1">
+          <div class="stateList"></div>
+          <em class="statepoint"></em>
+          <p>选择融资种类</p>
+        </div>
+        <div class="bgline" id="stp2">
+          <div class="stateList"></div>
+          <em class="statepoint"></em>
+          <p>确认融资资料</p>
+        </div>
+        <div class="bgline" id="stp3">
+          <div class="stateList"></div>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="form borderColor">
+
+
+
+    <div id="jdstep1">
+      <div class="jdbiaoti"><em class="mustIco"></em>请选择借贷银行</div>
+      <div class="bankBox">
+        #for(com.ekfans.base.user.model.Bank bank:bankList)
+          <div class="bankItem" onclick="changeBankSelect('${bank.id}','${bank.logo}');">
+            <img src="${webroot}${bank.logo}" width="198" height="56"/>
+            <em></em>
+          </div>
+        #end
+        <div class="clear"></div>
+      </div>
+      <div class="jabtnBox">
+      <a href="javascript:void(0);" class="nextBtn" style="margin-left:60px;">下一步</a>
+      </div>
+    </div>
+
+
+    <div id="jdstep2" style="display:none;">
+      <div class="xzBox">
+        <div class="jdresult"><em class="mustIco"></em>您选择的银行是：</div>
+        <div class="bankItem cur">
+          <img src="../../../resources/userCenter/commons/pic/csbank.png" width="198" height="56" id="showChangedBank"/>
+          <em></em>
+        </div>
+        <div class="clear"></div>
+      </div>
+
+      <div class="jdbiaoti"><em class="mustIco"></em>请选择融资种类：</div>
+      <div class="bankBox" id="showLoanTypes">
+        
+        
+        <div class="clear"></div>
+      </div>
+      <div class="jabtnBox">
+        <a href="javascript:void(0);" class="prevBtn">上一步</a>
+        <a href="javascript:void(0);" class="nextBtn">下一步</a>
+      </div>
+    </div>
+
+    <div id="jdstep3"  style="display:none;">
+      <div class="xzBox">
+        <div class="jdresult">您所选择的银行及融资类型为：</div>
+        <div class="bankItem cur">
+          <img src="../../../resources/userCenter/commons/pic/csbank.png" width="198" height="56" id="showChangedBank2"/>
+          <em></em>
+        </div>
+        <div class="jdItem cur" id="showChosedType" style="width:300px;height:46px;"></div>
+        <div class="clear"></div>
+        <div class="jdbiaoti"><em class="mustIco"></em>请确认融资资料：</div>
+        <div class="zlBox" id="showDetailDiv"></div>
+        <div class="tipsBox">带“星号”的为必须提交。不带“星号”的为选择性提交。(建议全部提交，可以加快放款审核进度)</div>
+        <div class="jabtnBox">
+          <a href="javascript:void(0);" class="prevBtn">上一步</a>
+          <a href="javascript:void(0);" class="nextBtn" onclick="commitApp();">确认</a>
+        </div>
+
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<!--弹窗-->
+<div class="apLayerBg"></div>
+<div class="apLayer" id="showOrderChoseDiv">
+  
+</div>
+
+
+
+<!--底部 end-->
+<script src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${webroot}/resources/userCenter/personal/js/ckeditor/ckeditor.js"></script>
+<script>
+
+  $(document).ready(function() {
+	var bankId = $("#bankId").val();
+	var typeId = $("#typeId").val();
+	// 判断bankid和typeId是否存在，存在直接跳申请第三步页面,不存在则从第一步开始
+	if(bankId != "" && typeId != ""){
+	        
+        $("#jdstep1").hide();
+        $("#showDetailDiv").load("${webroot}/store/loan/loaddetails/" + $("#typeId").val());
+        
+        choseLoanType(typeId,$("#type_name").val(),$("#type_note").val());
+        $("#jdstep2").hide();
+        $("#jdstep3").show();
+        $("#stp2").addClass("cur");
+        $("#stp3").addClass("cur");
+	 
+	}
+	  
+    $(".jdItem").live("click",function(){
+      $(this).addClass("cur").siblings(".jdItem").removeClass("cur");
+    });
+
+
+    $(".bankItem").live("click",function(){
+      $(this).addClass("cur").siblings(".bankItem").removeClass("cur");
+    });
+
+
+    $("#jdstep1 .nextBtn").live("click",function(){
+      var bankId = $("#bankId").val();
+      if(bankId == null || bankId == "" || bankId == " "){
+        layer.alert("请选择借贷银行！");
+      }else{
+        $.post("${webroot}/store/loan/loadtypes/" + $("#bankId").val(),function(data){
+          data = JSON.parse(data);
+          var optionStr = "";
+          $.each(data, function (n, value) {
+            optionStr = optionStr + "<div class=\"jdItem\" onclick=\"choseLoanType('" + value.id + "','" + value.loanName + "','" + value.note + "');\">";
+            optionStr = optionStr + value.loanName;
+            optionStr = optionStr + "<em></em>";
+            optionStr = optionStr + "<p>" + value.note + "</p>";
+            optionStr = optionStr + "</div>";
+          });  
+          optionStr = optionStr + "<div class=\"clear\"></div>";
+          $("#showLoanTypes").html(optionStr);
+        });
+
+        $("#jdstep1").hide();
+        $("#jdstep2").show();
+        $("#stp1").addClass("cur");
+      }
+    });
+
+
+    $("#jdstep2 .nextBtn").live("click",function(){
+      var typeId = $("#typeId").val();
+      if(typeId == null || typeId == "" || typeId == " "){
+        layer.alert("请选择融资种类！");
+      }else{
+        $("#showDetailDiv").load("${webroot}/store/loan/loaddetails/" + $("#typeId").val());
+        $("#jdstep2").hide();
+        $("#jdstep3").show();
+        $("#stp2").addClass("cur");
+        $("#stp3").addClass("cur");
+      }
+    });
+    $("#jdstep2 .prevBtn").live("click",function(){
+      $("#jdstep2").hide();
+      $("#jdstep1").show();
+      $("#stp1").removeClass("cur");
+    });
+
+    $("#jdstep3 .prevBtn").live("click",function(){
+      $("#jdstep3").hide();
+      $("#jdstep2").show();
+      $("#stp2").removeClass("cur");
+      $("#stp3").removeClass("cur");
+    });
+
+    //新弹窗js
+    $("#choseOrderSpan").live("click",function(){
+      $("#showOrderChoseDiv").html("");
+      $("#showOrderChoseDiv").load("${webroot}/store/loan/loadorder?nowTime="+Math.random());
+      $(".apLayerBg").show();
+      $("#showOrderChoseDiv").show();
+      $("#choseShowId").val($(this).attr("showId"));
+    });
+    //新弹窗js
+    $("#choseContractSpan").live("click",function(){
+      $("#showOrderChoseDiv").html("");
+      $("#showOrderChoseDiv").load("${webroot}/store/loan/loadcontract?nowTime="+Math.random());
+      $(".apLayerBg").show();
+      $("#showOrderChoseDiv").show();
+      $("#choseShowId").val($(this).attr("showId"));
+    });
+  });
+
+	function changeContractType(typeValue){
+		if("0" == typeValue){
+			$("#contractUpload").show();	
+			$("#contractUpload input").removeAttr("disabled");
+			$("#contractChose").hide();
+			$("#contractChose input").attr("disabled","disabled");
+		}else{
+			$("#contractChose").show();
+			$("#contractChose input").removeAttr("disabled");
+			$("#contractUpload").hide();
+			$("#contractUpload input").attr("disabled","disabled");
+		}
+	}
+  	
+  function changeBankSelect(bankId,bankLogo){
+    $("#bankId").val(bankId);
+    $("#bankLogo").val(bankLogo);
+    $("#showChangedBank").attr("src","${webroot}" + bankLogo);
+  }
+
+  function choseLoanType(typeId,typeName,note){
+    $("#typeId").val(typeId);
+    $("#typeName").val(typeName);
+    $("#typeNote").val(note);
+
+    $("#showChangedBank2").attr("src","${webroot}" + $("#bankLogo").val());
+    var showHtml = typeName + "<em></em>" + "<p>" + note + "</p>";
+    $("#showChosedType").html(showHtml);
+  }
+
+  function commitApp(){
+    var bankId = $("#bankId").val();
+    if(bankId == "" || bankId == null || bankId == " "){
+      layer.alert("请选择融资银行！");
+      return;
+    }
+    var typeId = $("#typeId").val();
+    if(typeId == "" || typeId == null || typeId == " "){
+      layer.alert("请选择融资种类！");
+      return;
+    }
+    var regCapital = $("#regCapital").val();
+    var price = $("#price").val();
+    if(parseFloat(price) > parseFloat(regCapital)){
+    	layer.alert("融资金额不能大于企业注册资金！");
+        return;
+    }
+    
+    var mustId = $("#mustId").val();
+    if(mustId != undefined && mustId != "" && mustId != " "){
+      var mustIds = mustId.split(";");
+      for(var i=0;i<mustIds.length;i++){
+        var mStr = mustIds[i];
+        if(mStr == "" || mStr == " "){
+          continue;
+        }
+        var mStrs = mStr.split("-");
+        var mId = mStrs[0];
+        if(mStrs[2] == "input"){
+          var inputValue = $("#"+mId).val();
+          if(inputValue == "" || inputValue == null || inputValue == " "){
+            layer.alert("请输入" + mStrs[1]);
+            return;
+          }
+        }else if(mStrs[2] == "chose"){
+          var inputValue = $("#"+mId).val();
+          if(inputValue == "" || inputValue == null || inputValue == " "){
+            layer.alert("请选择" + mStrs[1]);
+            return;
+          }
+        }else if(mStrs[2] == "choseOrfile"){
+			var contractType = $("input[name='contractType']:checked").val();
+			if(contractType == "0") {
+				if(!hasChoseFile(mId)){
+					layer.alert("请上传" + mStrs[1]);
+					return;
+				}
+			} else {
+				var inputValue = $("#"+mId).val();
+				if(inputValue == "" || inputValue == null || inputValue == " "){
+					layer.alert("请选择" + mStrs[1]);
+					return;
+				}
+			}
+        }else if(mStrs[2] == "file"){
+          if(!hasChoseFile(mId)){
+            layer.alert("请上传" + mStrs[1]);
+            return;
+          }
+        }else if(mStrs[2] == "testArea"){
+          var inputValue = $("#"+mId).val();
+          if(inputValue == "" || inputValue == null || inputValue == " "){
+            layer.alert("请输入" + mStrs[1]);
+            return;
+          }
+        }else if(mStrs[2] == "checkBox"){
+          var inputValue = $('input[name="'+mId+'"]:checked')
+          if(inputValue.length<=0){
+            layer.alert("请选择" + mStrs[1]);
+            return;
+          }
+        }else if(mStrs[2] == "radio"){
+          var inputValue = $('input[name="'+mId+'"]').val();
+          if(inputValue == "" || inputValue == null || inputValue == " "){
+            layer.alert("请选择" + mStrs[1]);
+            return;
+          }
+        }else if(mStrs[2] == "select"){
+          var inputValue = $("#"+mId).val();
+          if(inputValue == "" || inputValue == null || inputValue == " "){
+            layer.alert("请选择" + mStrs[1]);
+            return;
+          }
+        }
+      }
+    }
+    $("#addSubmit").ajaxSubmit(function(data){
+      if(data == "1"){
+        layer.confirm('融资申请提交成功，是否继续提交？', {
+          btn: ['确定', '取消'], //可以无限个按钮
+          yes:function(index){
+              choseMenu('${webroot}','LOAN_APP_ADD');
+              layer.close(index);
+          },cancel:function(index){
+              choseMenu('${webroot}','LOAN_APP_LIST');
+              layer.close(index);
+          }
+        });
+      }else{
+        layer.alert("融资申请提交失败，请稍后再试！");
+      }
+    });
+  }
+  
+  //查看跟下游企业往来流水
+  function viewWlls(storeId){
+	  //往来企业id
+	  var wlqyId = $("#orderStoreId").val();
+	  if(wlqyId == null || wlqyId=="" || wlqyId==" "){
+		  layer.alert("请先选择申请融资的业务订单！");
+	  }else{
+		  // 新建窗口
+		  window.open("${webroot}/store/loan/viewWlls?storeId="+storeId+"&wlqyId="+wlqyId);
+	  }
+			  
+  }
+  
+</script>
+
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>退换货管理</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/comList.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/personal/css/personalBase.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/personal/css/style.css" />
+	<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+	<!-- 导入私有JS -->
+	<script src="${webroot}/resources/userCenter/personal/js/exchange.js"></script>
+</head>
+
+<body>
+#define(List<com.ekfans.base.order.model.Refund> rlist)
+	
+<!-- 右侧主体 -->
+<div class="rightContent">
+	<form action="${webroot}/user/order/returnProduct" method="post" id="orderReturnProduct">
+		<input type="hidden" name="pageNum" value="" />
+		
+		<div class="formSearch borderColor">
+			<!--
+		  <dl class="formItem">
+		  	<dt>退款单号</dt>
+		    <dd>
+		      <input name="" type="text" class="textBox box212">
+		    </dd>
+		    <dd class="clear"></dd>
+		  </dl>
+		  -->
+		  <dl class="formItem">
+		  	<dt>订单号</dt>
+		    <dd>
+		      <input name="orderId" value="${orderId}" type="text" id="orderId" class="textBox box212" />
+		    </dd>
+		    <dd class="clear"></dd>
+		  </dl>
+		  <dl class="formItem">
+      	<dt>申请时间</dt>
+      	<dd>
+        	<input name="beginDate" id="beginDate" value="${beginDate}" type="text" class="textBox box212" style="width:100px;display:initial;" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})"></dd>
+        	<dd class="lineColor">&nbsp;—&nbsp;</dd>
+        	<dd><input name="endDate" id="endDate" value="${endDate}" type="text" class="textBox box212" style="width:100px;display:initial;" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})">
+        </dd>
+        <dd class="clear"></dd>
+    	</dl>
+		  <!--
+		  <dl class="formItem">
+		  	<dt>商品名称</dt>
+		    <dd>
+		      <input name="" type="text" class="textBox box212">
+		    </dd>
+		    <dd class="clear"></dd>
+		  </dl>
+		  <dl class="formItem">
+		  	<dt>商品状态</dt>
+		    <dd>
+		    	<span class="radio"><label><input type="radio" name="radio" value="">未审核</label></span>
+		      <span class="radio"><label><input type="radio" name="radio" value="">同意</label></span>
+		      <span class="radio"><label><input type="radio" name="radio" value="" checked>拒绝</label></span>
+		    </dd>
+		    <dd class="clear"></dd>
+		  </dl>
+		  -->
+		  <div class="clear"></div>
+		</div>
+	</form>
+	<div class="btnArea">
+  	<a href="javascript:submitRefund();" class="btnBase btnSearch">搜索</a>
+    <a href="javascript:formReset();" class="btnBase btnReset">重置</a>
+    <div class="clear"></div>
+	</div>
+	<div class="formTable borderColor">
+		<ul>
+  		<li class="li1">退换货订单</li>
+  	</ul>
+  	<div class="clear"></div>
+	  #if(rlist!=null && rlist.size()>0)
+	    <table border="0" cellspacing="0" cellpadding="0" class="tabList">
+		  	<tr class="tabTit bgColor">
+		      <th>订单号</th>
+		      <th>订单状态</th>
+		      <th>下单时间</th>
+		      <th>订单金额</th>
+		      <th>订单用户</th>
+		      <th></th>
+		    </tr>
+	    	#for(com.ekfans.base.order.model.Refund r : rlist)
+	    		<tr>
+            <td>${r.orderId}</td>
+            <td>
+            	#if(r.status=='0')等待卖家确认 
+            	#elseif(r.status=='1')不同意#if(r.type=='0')换货 #elseif(r.type=='1')退货 #end 
+            	#elseif(r.status=='2')#if(r.type=='0')换货 #elseif(r.type=='1')退货 #end 中
+            	#elseif(r.status=='3')#if(r.type=='0')换货 #elseif(r.type=='1')退货 #end 完成
+            	#end	
+            </td>
+            <td>${r.createTime}</td>
+            <td>${r.totalPrice}</td>
+            <td>${r.receiptName}</td>
+            <td>
+              <a href="javascript:refundDetail('${webroot}','${r.id}');" class="eyeIco" title="详情">查看</a>
+            </td>
+	    		</tr>
+	    	#end
+	  	</table>
+	  	${include("../common/page.jetx")}
+	  #else
+	  	<div class="orderNone">暂时没有符合条件的数据</div>
+			<!--
+			<div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+			-->
+		#end
+		<div class="clear"></div>
+	</div>
+</div>
+<!-- 右侧主体 -->
+
+</body>
+</html>

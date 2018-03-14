@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>跳转到安全中心</title>
+	<link href="${webroot}/resources/customer/css/user.css" rel="stylesheet" type="text/css" />
+	<link href="${webroot}/resources/customer/css/commons/site.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/customer/js/count/safeList.js"></script>
+</head>
+<body>
+	#define(com.ekfans.base.user.model.User user)
+		
+
+					
+<!--会员中心body部分                                                     -            -         -                  -->
+	<br><br>
+<div class="rightContent">
+    	<div class="safeLev"><span>账号安全等级</span><em class="intensionLev3"></em></div>
+        <dl class="promoteSafe">
+            <dt>您的账号当前安全级别为<span class="orange"　id="accountGrade">中级</span>，您可以通过以下方式提高等级</dt>
+            <dd>
+            	  <a href="${webroot}/user/pwd/toUpdate">1.修改密码</a>
+            	  <a href="${webroot}/user/count/email/toUpdateUserEmail">2.修改绑定邮箱</a>
+            	  <a href="${webroot}/user/count/mobile/toUpdateUserMobile">3.修改绑定手机</a></dd>
+        </dl>
+        <dl class="loginInfo">
+        	<dt>账号登录信息</dt>
+            <dd class="loginInfo-right">
+                <span>会 员 名<em>${user.name}</em></span>
+                <span>绑定邮箱<em>${user.email}</em></span>
+                <span>绑定手机<em>${user.mobile}</em></span>
+			</dd>
+            <dd class="clear"></dd>
+        </dl>
+        <div class="clear"></div>
+        <div class="safeInfo">
+        	<strong class="safeInfo-Title">账号安全信息</strong>
+            <div class="safeInfo-right">
+                <dl class="loginPassword">
+                    <dt>登录密码</dt>
+                    <dd>安全性高的密码可以使账号更安全。建议您定期更换密码，且设置一个包含数字和字母，并长度超过6位以上的密码</dd>
+                    <dd>
+                        <span class="intensionLev1"></span>
+                        <span class="intensionText">强度：<span id = "passwordStrong"> #if(user.passwordStrong=="1") 弱  #elseif(user.passwordStrong=="2") 中 #else 强  #end </span></span>
+                        <a href="${webroot}/user/pwd/toUpdate" class="btnBlue">修改</a>
+                    </dd>
+                </dl>
+                <dl class="mailBound">
+                    <dt>邮箱绑定</dt>
+                    <dd>邮箱绑定,当您选择“邮箱”找回密码时，填写正确的绑定邮箱后，我们会将修改新密码连接发到您的绑定邮箱</dd>
+                    <dd>
+                        <span class="intensionLev3"></span>
+                        <span class="intensionText"><span id = ""> #if(user.email.length()>0) 已开通  #else 未开通  #end </span></span>
+                        <a href="${webroot}/user/count/email/toUpdateUserEmail" class="btnBlue">修改</a>
+                    </dd>
+                </dl>
+                <dl class="phoneBound">
+                    <dt>手机绑定</dt>
+                    <dd>绑定手机后，您即可享受全网商城网丰富的手机服务，如手机登录、手机找回密码等</dd>
+                    <dd>
+                        <span class="intensionLev2"></span>
+                        <span class="intensionText"><span id = ""> #if(user.mobile.length()>0) 已开通  #else 未开通  #end </span></span>
+                        <a href="${webroot}/user/count/mobile/toUpdateUserMobile" class="btnBlue">修改</a>
+                    </dd>
+                </dl>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+		
+		
+	
+
+
+
+
+
+</body>
+</html>

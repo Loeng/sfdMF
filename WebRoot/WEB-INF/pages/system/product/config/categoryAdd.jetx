@@ -1,0 +1,101 @@
+
+<form action="${webroot}/system/product/productCategory/save" name="add" method="post"  id="addCategoryForm">
+	#define(com.ekfans.base.product.model.ProductCategory category)
+	
+	
+	<dl>
+		<dt>分类名<em class="mustIco"></em></dt>
+		<dd id="nameDd" class="">
+			<input type="text" class="i_bg"  name="name" value="" onblur="javascript:checkNameBlur();" onkeyup="javascript:checkName();" onfocus="javascript:checkName();" />
+			<span id="nameSpan" class="ts_xx">分类名为2-20位字符组成</span>
+		</dd>
+		<dd class="clear"></dd>
+	</dl>
+	
+	<dl>
+				<dt>关联品牌</dt>
+				<dd>
+					<div class="pro_glpp2">
+						<div class="pro_ppList">
+                        <div class="pro_ppList_title"><span class="check"><em><input name="" type="checkbox" value=""></em></span>全选</div>
+                            <ul>
+                            	#for(com.ekfans.base.product.model.ProductBrand brand: brands)
+                            	 <li>
+                            	 	<label>
+                            	 		<span class="check">
+                            	 			<em><input name="brand" type="checkbox" value="${brand.id}"></em>
+                            	 			</span>
+                            	 			${brand.name}
+                            	 	</label>
+                            	 </li>
+                            	#end  
+                            </ul>
+                    	</div>
+                    	
+						<div class="pp_yd">
+							<span class="x_right" onclick="javascript:goRight();"></span>
+							<span class="x_left" onclick="javascript:goLeft();"></span>
+						</div>
+						<div class="pro_ppList"></div>
+            <div class="clear"></div>
+						<div class="pro_glpp_btn">
+							<a href="javascript:void(0);" class="btn">优先级上升</a>
+							<a href="javascript:void(0);" class="btn">优先级下降</a>
+							<a href="javascript:void(0);" class="btn">优先级置顶</a>
+						</div>
+					</div>
+					
+				</dd>
+				<dd class="clear"></dd>
+			</dl>		
+			<dl>
+		<dt>关联模板</dt>
+		<dd >
+			<select  selected="selected" name="templateId">
+				#define(List<com.ekfans.base.product.model.ProductTemplate> pts)
+        <option value=''>--请选择--</option>
+        	#for(com.ekfans.base.product.model.ProductTemplate pt : pts)
+         <option value='${pt.id}'>${pt.name}</option>
+         #end
+			</select>
+		</dd>
+		<dd class="clear"></dd>
+	</dl>
+	<input type="hidden" id="parentId" name="parentId">
+	<dl>
+		<dt>分类描述</dt>
+		<dd>
+			<textarea name="note"></textarea>
+		</dd>
+		<dd class="clear"></dd>
+	</dl>
+	<dl>
+			<dt>排序位置<em class="mustIco"></em></dt>
+			<dd id="positionDd" class="">
+					<input type="text" class="i_bg"  name="position" onblur="javascript:checkPositionBlur();" onkeypress="return IsNum(event)" onkeyup="javascript:checkPosition();" />
+					<span id="positionSpan" class="ts_xx">请输入排序位置</span>
+			</dd>
+			<dd class="clear"></dd>
+	</dl>
+	   <dl class="formBox">
+			<dt>导航图片</dt>
+			<dd>
+				#tag picUpload("icon","1","200","200","") #end
+				
+  		</dd>
+  		<dd class="clear"></dd>
+		</dl>
+		<dl>
+			<dt>状态</dt>
+			<dd>
+				<span class="zt">
+					<input type="radio" value="true" name="status" checked=true/>显示
+				</span>
+				<span class="zt">
+					<input type="radio" value="false" name="status"/>不显示
+				</span>
+			</dd>
+			<dd class="clear"></dd>
+		</dl>
+	
+</form>

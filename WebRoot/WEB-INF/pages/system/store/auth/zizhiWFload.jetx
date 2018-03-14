@@ -1,0 +1,82 @@
+#define(com.ekfans.base.store.model.Accredit wfAccredit)
+<!--危险废物经营许可认证START-->
+<h2>危险废物经营许可</h2>
+<div class="rzTtem">
+	<span class="biaoti">认证状态</span>
+	<div class="rzDiv">
+		<span>危险废物经营许可认证</span>
+		<span class="#if(wfAccredit == null) failstate #elseif(wfAccredit.checkStatus) rzstate #else warnstate #end"></span>
+		<a href="javascript:void(0);" class="btn btnzk">展开</a>
+		<div class="clear"></div>
+		<input type="hidden" name="wfId" value="${wfAccredit!=null?wfAccredit.id:""}"/>
+		<dl class="formItem">
+			<dt>许可证号</dt>
+			<dd>${wfAccredit!=null?wfAccredit.licenseNo:""}</dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem">
+      <dt>发证机关</dt>
+      <dd>${wfAccredit!=null?wfAccredit.linceseAuthor:""}</dd>
+      <dd class="clear"></dd>
+    </dl>
+		<dl class="formItem">
+			<dt>证件有效期限</dt>
+			<dd>${wfAccredit!=null?wfAccredit.startTime:""}</dd>
+			<dd class="lineColor">&nbsp;—&nbsp;</dd>
+			<dd>${wfAccredit!=null?wfAccredit.endTime:""}</dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem">
+      <dt>经营规模</dt>
+      <dd>${wfAccredit!=null?wfAccredit.scale:""}</dd>
+      <dd class="clear"></dd>
+    </dl>
+		<div class="clear"></div>
+		<dl class="formItem">
+      <dt>经营所在区域</dt>
+      <dd>${wfAccredit!=null?wfAccredit.areaFullName:""}</dd>
+      <dd class="clear"></dd>
+    </dl>
+		<div class="clear"></div>
+		<dl class="formItem">
+      <dt>经营设施地址</dt>
+      <dd>${wfAccredit!=null?wfAccredit.address:""}</dd>
+      <dd class="clear"></dd>
+    </dl>
+		<div class="clear"></div>
+    <dl class="formItem">
+			<dt>危险废物许可证</dt>
+			<dd><a href="${webroot}${wfAccredit!=null?wfAccredit.licenseFile:""}"><img src="${webroot}${wfAccredit!=null?wfAccredit.licenseFile:""}"/></a></dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem">
+			<dt>危险废物许可证附件</dt>
+			<dd><a href="${webroot}${wfAccredit!=null?wfAccredit.licenseTwoFile:""}"><img src="${webroot}${wfAccredit!=null?wfAccredit.licenseTwoFile:""}"/></a></dd>
+			<dd class="clear"></dd>
+		</dl>
+		
+		<div class="clear"></div>
+		<dl class="formItem">
+			<dt><em class="mustIco"></em>核准危废类别</dt>
+			<dd>
+				<input type="hidden" name="wfDetails" id="wfDetails" value="${wfAccredit!=null?wfAccredit.childIds:""}"/>
+				<div class="clear"></div>
+				<div id="mlDiv" style="float:left;width:758px;display:none;min-height:100px;margin:2px 0 10px 20px;" ></div>
+				<div class="clear"></div>
+			</dd>
+			<dd class="clear"></dd>
+			
+		</dl>
+		
+		<div class="clear"></div>
+		
+	</div>
+  <div class="clear"></div>
+</div>
+<!--营业执照END-->
+
+<script>
+	var url = "${webroot}/wfpscrap/wfpml/show";
+	$("#mlDiv").load(url,{"mlIds":"${wfAccredit!=null?wfAccredit.childIds:""}"});
+	$("#mlDiv").show();
+</script>

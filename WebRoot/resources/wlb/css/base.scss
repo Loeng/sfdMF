@@ -1,0 +1,72 @@
+@function pxToRem($px) {
+  @return $px/1.8+px;
+}
+
+$default:#333;
+$green:#00AF86;
+$gray:#666;
+$grayBg:#F5F8FA;
+$borderLine:#ccc;
+$firstSize:pxToRem(32);
+$secondSize:pxToRem(28);
+
+
+*{margin:0;padding:0; outline:none; font-weight: normal;font-style: normal;list-style: none; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; word-break:break-all;font: PingFangSC, Lantinghei SC, Helvetica Neue, Helvetica, Arial, Microsoft YaHei, \\5FAE\8F6F\96C5\9ED1, STHeitiSC-Light, simsun, \\5B8B\4F53, WenQuanYi Zen Hei, WenQuanYi Micro Hei, "sans-serif";}
+a{text-decoration: none;}
+body {
+  color: $default;
+  background: $grayBg;
+  padding-bottom: pxToRem(124);
+}
+.clear{clear: both;}
+header{height: pxToRem(88);line-height:pxToRem(88);background: $green;text-align: center;margin-bottom: pxToRem(20);color: #fff;}
+.headerLeft{display: block;padding: pxToRem(16) pxToRem(30) 0 pxToRem(30);position: absolute;left: 0;top: 0;}
+.headerRight{display: block;padding: 0 pxToRem(30) 0 pxToRem(30);font-size: $secondSize;position: absolute;right: 0;top: 0;color: #fff;}
+header h1{font-size: pxToRem(36);}
+.pageZone{background: #fff;margin-bottom: pxToRem(20);position: relative;}
+.btnBase{width: pxToRem(450);height: pxToRem(80);line-height: pxToRem(80);border-radius: pxToRem(40);background: $green;color: #fff;display: block;text-align: center;font-size: $firstSize;}
+
+.address,.firstItems{margin: pxToRem(8) 0;padding:0 pxToRem(20) 0 pxToRem(68);background: url(../images/point_icon.png) no-repeat pxToRem(30) center;background-size: 2.5%;margin-right:pxToRem(78);}
+.address li,.firstItems li{line-height: pxToRem(62);font-size: pxToRem(32);clear: both;}
+.address li strong{padding-right:2%;font-weight: 700;display:block;width: 21%;float: left;}
+.address li span{display:block;width: 77%; float: left;font-size: pxToRem(28);}
+.date{position: absolute;right: pxToRem(30);top: pxToRem(36);color: #999;font-size: pxToRem(24);}
+.firstItems{padding:pxToRem(20) pxToRem(30);background: none;}
+.firstItems span{color: $gray;}
+
+.tableBox{margin: 0 pxToRem(30); padding: pxToRem(30) 0;}
+.cheInfo{
+    border: solid 1px $borderLine;width: 100%;border-collapse: collapse;
+    td{border: solid 1px $borderLine;padding: 0 pxToRem(20);font-size: $firstSize;padding: pxToRem(20);line-height: pxToRem(40);}
+    td:nth-child(2n+1){text-align: center;white-space: nowrap;}
+    td:nth-child(2n){color: $gray;}
+    tr:nth-child(2n+1){background: $grayBg;}
+    .tdItem{margin-bottom: pxToRem(10);}
+    .tdItem dt{display:block;height: pxToRem(40);width:12%;text-align:center;padding: 0 pxToRem(12);margin-right:2%;background: $green;color: #fff;font-size: pxToRem(22);line-height: pxToRem(40);float: left;}
+    .tdItem dd{width:79%;float: left;font-size: $secondSize;}
+
+}
+.bottomInfo{
+    padding: pxToRem(20) pxToRem(30) pxToRem(10) pxToRem(30);margin-bottom: pxToRem(40);
+    dt{height: pxToRem(50);line-height: pxToRem(50);margin-bottom: pxToRem(5);font-weight:bold;font-size: $firstSize;}
+    dd li{line-height: pxToRem(40);height: pxToRem(40);padding:pxToRem(10) 0;font-size: $firstSize;}
+    dd li span{color:$gray;}
+    .mark{display: inline-block;width:pxToRem(40);height:pxToRem(40);color: #fff;margin-right: pxToRem(30);border-radius: pxToRem(8);font-size: $secondSize;text-align: center;}
+    .blueMark{background: #58C3D7;}
+    .greenMark{background: #6DB869;}
+    .redMark{background: #E37676;}
+} 
+.btnBase{margin: 0 auto;margin-bottom: pxToRem(40);}
+
+.zhuangxie{
+    line-height: pxToRem(50);font-size: $firstSize;padding: pxToRem(20) pxToRem(30) pxToRem(20) 0;
+    dl{padding-left: pxToRem(100);margin-bottom: pxToRem(16);}
+    dd{color: $gray;}
+    .zhuang{background: url(../images/site_green.png) no-repeat pxToRem(30) center;background-size: 7%;}
+    .xie{background:url(../images/site_red.png)no-repeat pxToRem(30) center;background-size: 7%;}
+    .distance{height: pxToRem(30);line-height: pxToRem(30);color: #999;padding-left: pxToRem(100);font-size: pxToRem(24);}
+}
+
+.downLink{display: block;width: 100%;height: pxToRem(160);position: fixed;bottom: 0;left: 0;border-top: solid 1px $grayBg;}
+.downLink.chezhu{background: url(../images/down_chezhu.png) #fff no-repeat center center;background-size:100% auto;}
+.downLink.huozhu{background: url(../images/down_huozhu.png) #fff no-repeat center center;background-size:100% auto;}

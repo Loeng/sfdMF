@@ -1,0 +1,113 @@
+/* CSS Document */
+
+@import url("../../commons/css/base.css");
+
+.contentTit{background:#FFF;height:28px;padding:10px 16px 10px 30px;border-top-width:2px;border-top-style:solid;border-bottom-width:2px;border-bottom-style:solid;}
+.contentTit h3{font-size:18px;color:#333;float:left;}
+
+.form{padding:10px 20px 5px 30px; background:#FFF;min-height:306px; }
+.formItem{width:300px;float:left;margin:0px 44px 7px 0px;min-height:40px;display:block;}
+.formItem dt{float:left;font-size:12px;color:#303132;line-height:28px; margin-right:20px;}
+.formItem dd{float:left;line-height:28px;}
+.radio{font-size:12px;color:#303132;margin-right:25px;}
+.radio input{margin-right:8px;}
+.checkItem .check,.limitAll .check{display:inline-block;margin-right:15px;}
+.checkBox{margin-right:10px; display:inline-block;width:60px;}
+
+.btnBase{display:inline-block; background:#33A7FF;color:#FFF; padding:0 24px; height:28px;line-height:28px;text-align:center;margin:0 auto;font-size:12px; margin-right:5px;}
+.btnBase:hover{ background:#D4EBFD;color:#151515;}
+.btnEdit{float:right;}
+.btnBack{float:right;}
+
+/*表单详情*/
+.textBox{display:block;height:28px;line-height:22px;border:solid 1px #E0E3EA;text-indent:0.6em; background:#EFEFEF;color:#7D7C7D;}
+.textBox input{width:100%; height:26px; line-height:26px;border:solid 1px #E0E3EA; text-indent:0.6em; font-family:Microsoft YaHei;cursor:pointer;color:#7D7C7D;}
+.selList .textBox{position:relative; z-index:2; display:block; height:28px;border:none;text-indent:0px;background:#EFEFEF;color:#7D7C7D;}
+.selList .textBox input{ width:100%; height:26px; border:solid 1px #E0E3EA; text-indent:0.6em; font-family:Arial,Microsoft YaHei; line-height:26px;cursor:pointer;background:#EFEFEF;color:#7D7C7D;}
+
+.readOnly{z-index:-1;}
+
+/*随屏滚动*/
+.fixed{position:fixed;top:0px;width:732px;}
+.budong{z-index:90;width:732px;}
+
+
+/*订单详情*/
+.tit{width:100%;border-bottom:1px solid #e5e5e5;height:37px; position:relative;}
+.tit h2{float:left;font-size:14px;padding:0 20px 0 16px; font-weight:normal; height:32px; line-height:32px; cursor:pointer;position:relative; margin-right:20px;}
+.tit h2.cur{border-bottom-style:solid; border-bottom-width:5px;}
+.rightTitle em{height:32px; line-height:32px; display:inline-block;padding:0 20px 0 16px;border-bottom-width:5px;border-bottom-style:solid;}
+.rightTitle{font-weight:normal; height:37px; font-size:14px; border-bottom:1px solid #e5e5e5; position:relative; margin-bottom:20px;}
+.layerToggle{line-height:32px; padding-right:20px; background:url(../images/toup.png) no-repeat right center; position:absolute; right:20px; top:2px; font-size:12px;}
+.layerToggleDown{background:url(../images/todown.png) no-repeat right center;}
+
+.orderTable{width:100%; margin-bottom:20px;}
+.orderTable th{height:35px; line-height:35px;font-weight:normal; text-align:left; color:#fff; font-size:14px;}
+.orderTable td{padding:20px 0; color:#818181; border-bottom:solid 1px #e5e5e5;}
+.orderTable .tdProInfo{width:400px; padding-left:20px;}
+.orderTable .tdProInfo a img{max-width:78px;max-height:78px;line-height:78px;vertical-align:middle;text-align:center;}
+.tdProNum{width:120px;}
+.orderTable .tdProCount{width:120px; text-align:center;}
+.orderTable .tdSubtotal{width:140px; text-align:center;}
+td.tdSubtotal{text-align:right;}
+.orderImg{display:block; width:78px; height:78px; border:solid 1px #f2f2f2; float:left; margin-right:20px;}
+.proRight{float:left; width:272px;}
+.orderText{display:block; line-height:18px; margin-bottom:8px;}
+.nowPrice{display:inline-block; padding:0 10px; height:16px; line-height:16px; background:#f00; color:#fff; margin-bottom:8px;}
+.colorSize{display:block; width:113px; line-height:18px; margin-right:10px; float:left; color:#333;}
+.colorSize span{float:left; display:block; width:38px;}
+.colorSize em{color:#a9a9a9; float:left; display:block; width:75px;}
+
+.form dl dt{line-height:30px; height:30px; margin-bottom:10px; font-size:14px;}
+.form dl li,.payInfo li{line-height:24px; height:24px; color:#787878;}
+.form dl li em,.payInfo li em{color:#303132; padding-right:14px; width:50px; display:inline-block; text-align:right;}
+.consignee{padding:0px 0 16px 25px; border-bottom:1px solid #e5e5e5;}
+.paddingtop{padding-top:20px;}
+.payStyle{padding:20px 0 0 25px; float:left; width:415px;}
+.invoiceInfo{padding:20px 20px 0 0; float:left;}
+.orderInfo{padding-bottom:20px; border-bottom:1px solid #e5e5e5; margin-bottom:16px;}
+.payInfo ul{padding:0 0 10px 25px;}
+.payInfoLeft{float:left; width:390px;}
+.split{clear:both; height:1px; overflow:hidden; background:#e5e5e5; margin-bottom:20px;}
+
+/*无发票信息*/
+.invoiceNone{margin:60px 20px 0 -20px; position:relative; float:left; border:dotted 3px #ddd; width:190px; padding:20px 0; line-height:35px; text-align:center; font-size:30px; color:#d1d0d0;}
+
+.payInfo{padding: 0 0 20px 0; margin-bottom:16px; border-bottom:solid 1px #e5e5e5;}
+.money{height:44px; margin-bottom:6px;}
+.money em.price{font-size:24px; color:#f00; font-style:normal;}
+.moneyTotal{font-size:14px; display:block; height:32px; line-height:32px; padding-left:25px; float:left; margin-right:20px;}
+.money .btnOrange{width:62px; height:22px; line-height:22px; display:block; float:left; margin:5px 10px 0 0;}
+.editMoney{position:relative; float:left; display:none;}
+.editMoney .editBox{width:120px; height:34px; padding:5px; background:#efefef; display:block; position:relative; margin-top:-5px; float:left; margin-right:10px;}
+.editMoney .editBox input{width:98px; height:32px; line-height:26px; border:solid 1px #e5e5e5; background:url(../images/$2.png) no-repeat 5px center; background-color:#fff; padding-left:20px;}
+.editMoney .editBox em{display:block; background:url(../images/detailpoint2.png) no-repeat; width:7px; height:10px; overflow:hidden; position:absolute; top:16px; left:-7px;}
+.editMoney .btnBlue{display:block; float:left; width:60px; height:22px; line-height:22px; margin-top:5px;}
+.btnSubmit{width:62px; height:28px; line-height:28px; margin-left:25px;}
+
+/*错误提示*/
+.errorText{display:block; height:25px; line-height:25px; float:left; margin-top:4px; min-width:100px; _width:100px; margin-right:10px;}
+.errorText *{display:block; height:25px; float:left;}
+.errorBoxL{width:9px; overflow:hidden; background:url(../images/site.png) no-repeat -13px 0;}
+.errorBoxR{width:4px; overflow:hidden;  background:url(../images/site.png) no-repeat -22px 0;}
+.errorMain{padding:0 5px; background:#ff8900; white-space:nowrap; color:#fff;}
+.errorRed .errorBoxL{background:url(../images/site.png) no-repeat 0 0;}
+.errorRed .errorBoxR{background:url(../images/site.png) no-repeat -9px 0;}
+.errorRed .errorMain{background:#f00;}
+
+/*订单日志*/
+.orderLog{padding: 20px 0 10px 0; margin-bottom:16px; border-bottom:solid 1px #e5e5e5; display:none;}
+.orderLog li{line-height:26px; height:26px; padding-left:25px; color:#787878;}
+.freightText{height:20px; line-height:20px; padding-left:25px; margin-top:30px;}
+.freightText span{padding-right:40px;}
+
+/*待发货*/
+.logistics{padding:10px 0 0 25px; display:block; position:relative;}
+.logistics li{height:28px; margin-bottom:20px;}
+.logistics li.clear{height:0; clear:both; float:none; margin:0;}
+.logisticsTitle{display:inline-block; width:64px; line-height:28px; color:#7f7f7f;}
+.logistics input{display:inline-block; width:218px; height:26px; line-height:26px\9; border:solid 1px #d3d3d3;}
+.logistics .sortBox{width:80px; background:url(../../../personal/images/$.png) no-repeat 5px center; padding-left:20px;}
+.logistics .red{font-size:14px;}
+.logistics .errorText{display:block; margin:0 0 0 6px; position:static;}
+.logistics li *{float:left;}

@@ -1,0 +1,15 @@
+#define(com.ekfans.base.content.model.ContentCategory cc)
+#define(List<com.ekfans.base.content.model.ContentCategory> cclist)
+<input type="hidden" id="firstId" value="${firstId}" />
+<input type="hidden" id="firstName" value="${firstName}" />
+	
+<h2>${cc.name}</h2>
+<ul>
+	#for(com.ekfans.base.content.model.ContentCategory ccy : cclist)
+		<li #if(for.index==1)class="cur"#end onclick="loadConList(this, '${ccy.id}', '${ccy.name}')"><a href="javascript:void(0)"><em></em>${ccy.name}</a></li>
+	#end
+	<!--
+	<li><a href="javascript:void(0)"><em></em>办公厅(106)</a></li>
+	<li class="cur"><a href="javascript:void(0)"><em></em>规划财务司(126)</a></li>
+	-->
+</ul>

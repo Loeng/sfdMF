@@ -1,0 +1,26 @@
+<!doctype html>
+<html id="configBody">
+	<head>
+		<meta charset="UTF-8">
+		<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}-频道配置-${channelName}</title>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.resizable.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/diy.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.colorpicker.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/web/js/index/index.js"></script>
+  		<script type="text/javascript" src="${webroot}/resources/web/js/base.js"></script>
+	    <script type="text/javascript" src="${webroot}/resources/web/js/jquery.KinSlideshow-1.2.1.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/channel/channelConfig.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+
+		<link href="${webroot}/resources/commons/css/diy.css" rel="stylesheet" type="text/css">
+		<link href="${webroot}/resources/system/css/base.css" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+		#include("commons/channel_top.jetx")
+			#include("commons/channel_top_search.jetx")
+			<div class="pageIn"  ></div>
+		#include("commons/channel_buttom.jetx")
+		#include("commons/channel_config_tool.jetx")
+	</body>
+</html>

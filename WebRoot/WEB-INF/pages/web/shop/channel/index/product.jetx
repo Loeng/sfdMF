@@ -1,0 +1,27 @@
+<!-- 优选商城首页商品列表 -->
+
+#define(Map<String, com.ekfans.base.channel.model.ChannelConfig> configMap)
+#define(String configType)
+#define(String position)
+#define(String channelId)
+
+#set(com.ekfans.base.channel.model.ChannelConfig config = configMap.get(configType + position))
+#if(configStatus == "true")
+	#include("../../../channel/commons/config/configTitle.jetx",{"channelId":channelId,"configType":configType,"position":position})
+#end
+#set(java.util.Map<com.ekfans.base.product.model.ProductCategory,java.util.List<com.ekfans.base.product.model.Product>> details = (config != null)?config.details:null)
+	<ul class="tabNav">
+		#for(Map.Entry<com.ekfans.base.product.model.ProductCategory,java.util.List<com.ekfans.base.product.model.Product>> entry:details)
+			#set(com.ekfans.base.product.model.ProductCategory category = entry.key)
+			#if(for.first)
+				<li  class="cur">
+					<a  href="javascript:void(0)" id="configId1" value ="${config.id}"><em></em>${(config != null && config.configName != null && config.configName != "") ? config.configName:"全部商品"}</a>
+				</li>
+			#else
+				<li><a  href="javascript:void(0)" onClick=""><em></em>${(config != null && config.configName != null && config.configName != "") ? config.configName:category.name}</a></li>
+			#end
+		#end
+	</ul>
+	<div id="showProducts">	
+		<input type="hidden" value="#if(config!=null)${config.objectId}#end" id="objectId"/>
+</div>

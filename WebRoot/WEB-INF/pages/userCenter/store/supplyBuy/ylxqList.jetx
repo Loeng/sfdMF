@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>供求信息列表</title>
+<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css" />
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+<!-- 导入自定义的JS文件 -->
+<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/supplyBuy/ylxqSupplyBuyList.js"></script>
+</head>
+<body>
+	#define(List<com.ekfans.base.order.model.SupplyBuy> supplyBuys)
+		<input type="hidden" value="${webroot}" id="contextPath"/>
+		<input type="hidden" name="productType" id="productType" value="${productType}"/>
+		<input type="hidden" name="type" id="type" value="${type}"/>
+	<div class="rightContent">
+		  <form action="${webroot}/store/supplyBuy/ylxqList/${productType}/${type}" method="post" id="searchSupplyBuy">
+		  	
+		  	<input type="hidden" name="pageNum" value="" />
+        <div class="formSearch borderColor">
+						<dl class="formItem">
+							<dt>#if(type=="1" )求购#else供应#end标题</dt>
+							<dd><input name="title" id="title" value="${title }"  type="text" class="textBox box212"></dd>
+							<dd class="clear"></dd>
+						</dl>
+						<dl class="formItem">
+		          <dt>状态</dt>
+		          <dd>
+		            <div class="selList"> <span class="textBox">
+		              <input name="status" id="status" type="text" class="box184" placeholder="" value="#if(status == "0")关闭
+                	      #elseif(status == "1")正常
+                	      #elseif(status == "2")完成		            	 
+				            	  #end" readonly>
+		              <em class="iconDown"></em> </span>
+		              <ul>
+		                <li>关闭</li>
+		                <li>正常</li>
+		                <li>完成</li>
+		              </ul>
+		            </div>
+		          </dd>
+		          <dd class="clear"></dd>
+		        </dl>
+						<dl class="formItem">
+							<dt>创建时间</dt>
+							<dd>
+								<input name="beginDate" id="beginDate" value="${beginDate}" type="text" class="timeBox box98 textBox"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'endDate\')}'})">
+							</dd>
+							<dd>&nbsp;—&nbsp;</dd>
+							<dd>
+								<input name="endDate" id="endDate" value="${endDate }" type="text" class="timeBox box98 textBox" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'beginDate\')}'})">
+							</dd>
+							<dd class="clear"></dd>
+						</dl>
+					
+            <div class="clear"></div>
+        </div>
+				<div class="btnArea">
+					<a href="javascript:void(0);" class="btnBase btnSearch" onclick="formSubmit();">搜索</a>
+					<a href="javascript:void(0);" class="btnBase btnReset" onclick="formReset();">重置</a>
+					<div class="clear"></div>
+				</div>
+      </form>
+      
+      <div class="formTable borderColor">
+      	<ul class="secNav">
+        	<li class="li1">#if(type=="1" )求购#else供应#end信息列表</li>
+        </ul>
+        <div class="clear"></div>
+         <!--没有订单时-->
+          <div style="position:relative;" class="tableBox">   
+         <table border="0" cellspacing="0" cellpadding="0" class="tabList">
+         <thead>
+        	<tr class="bgColor">
+            <th>#if(type=="1" )求购#else供应#end标题</th>
+            <th>状态</th>
+            <th style="padding-left:0px;padding-right:0px">创建时间</th>
+            <th>联系人</th>
+            <th>联系方式</th>
+            <th>审核状态</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          
+          #if(supplyBuys!=null && supplyBuys.size()>0)
+           #for(com.ekfans.base.order.model.SupplyBuy sb:supplyBuys)
+              <tr>
+                <td>${sb.title}</td>
+                <td>
+                	      #if(sb.status == "0") 关闭
+                	      #elseif(sb.status == "1") 正常 
+                	      #elseif(sb.status == "2")完成			            	 
+				            	  #end
+				        </td>
+                <td style="padding-left:0px;padding-right:0px">${sb.createTime.substring(0,10)}</td>
+                <td>${sb.contactName }</td>
+                <td>${sb.contactPhone }</td>
+                <td>#if(sb.checkStatus == -1)不通过#elseif(sb.checkStatus == 0)未审核#elseif(sb.checkStatus == 1)通过#end</td>
+                <td>
+                		<a href="${webroot}/store/supplyBuy/ylxqQuery/${sb.id}/0/${productType}"  class="eyeIco" title="查看" >查看</a>
+						#if(sb.status == "1")<a href="${webroot}/store/supplyBuy/ylxqQuery/${sb.id}/1/${productType}" class="editIco" id="del${sb.id}" title="编辑">编辑</a>#end
+						#if(sb.status == "1")<a href="javascript:void(0);" onclick="econfirm('确定要关闭吗？',deleteSupplyBuy,['${sb.id}','${webroot}'],null,null);" class="del_list" title="关闭">关闭</a>#end
+						#if(sb.status == "1"&&sb.checkStatus == 1)<a href="javascript:void(0);" onclick="econfirm('确定要执行此操作吗？',finishSupplyBuy,['${sb.id}','${webroot}'],null,null);" class="del_list" title="完成">完成</a>#end
+						#if(sb.status == "0")<a href="javascript:void(0);" onclick="econfirm('确定要删除该条信息吗？',removeSupplyBuy,['${sb.id}','${webroot}'],null,null);" class="del_list" title="删除">删除</a>#end
+                </td>
+              </tr>
+              #end
+             #end
+             </tbody>
+        </table>
+        </div>
+         #if(supplyBuys==null || supplyBuys.size()==0)
+                <div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+              #else
+              
+         <div class="listBottom">
+               <!-- <a href="javascript:void(0)" class="btnBase">导出订单</a>-->
+                <!-- 分页 -->
+                <input type="hidden" name="pageNum" value="${currentpageStr }" />
+                ${include("../common/page.jetx")}
+                <div class="clear"></div>
+           </div>
+           #end
+      	<div class="clear"></div>
+    
+     		</div>
+            
+          </div>
+        </div>
+</body>
+</html>

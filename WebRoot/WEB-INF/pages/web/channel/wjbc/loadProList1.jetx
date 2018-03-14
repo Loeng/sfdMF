@@ -1,0 +1,59 @@
+#define(List<com.ekfans.base.product.model.Product> products)	
+<input type="hidden" id="pageNum" name="pageNum" value="${pageNum}" />	
+    #if(products!=null&&products.size()>0)
+        #for(com.ekfans.base.product.model.Product p:products)
+		    <div class="proList">
+		    	<div class="proLeft">
+		      	<div class="proLfList">
+					<!--URL追加分类ID，请查看下方Js代码 -->
+		        	<a href="#tag shortLink("01",p.id) #end" class="proUrl proLfListPic"><img src="${webroot}${p.smallPicture}" width="120" height="120"></a>
+		          <div class="proLfListD">
+					<!--URL追加分类ID，请查看下方Js代码 -->
+		          	<h3><a href="#tag shortLink("01",p.id) #end" class="proUrl">${p.name}</a></h3>
+		            <span>质量等级：${p.productModel}</span>
+		            <span>产地：${p.habitatAddress}</span>
+					<span>所属企业：${p.storeId}</span>
+		          </div>
+		          <div class="proLfListP">
+					 #if(p.unitPrice != null && p.unitPrice != "" && p.unitPrice != 0)
+					  	                                          ￥${p.unitPrice}元/${p.unit}
+					                 #else
+					                	待议
+					                #end
+							
+		          </div>
+		          <div class="proLfListS">
+		          	<em style="background:url(${webroot}/resources/web/images/you_icon.png) left center no-repeat;">优质资源</em>
+		            <!--<em style="background:url(${webroot}/resources/web/images/jr_icon.png) left center no-repeat;">金融服务</em>-->
+		            <em style="background:url(${webroot}/resources/web/images/zj_icon.png) left center no-repeat;">权威质检</em>
+		            <em style="background:url(${webroot}/resources/web/images/zjsafe_icon.png) left center no-repeat;">资金安全</em>
+		            <em style="background:url(${webroot}/resources/web/images/wl_icon.png) left center no-repeat;">物流服务</em>
+		            <div class="clear"></div>
+		          </div>
+		          <div class="clear"></div>
+	        </div>
+        #end
+    #else
+		<div class="proList">
+			<div class="proLeft">
+				<div class="proLfList">
+					<div class="noneBox">
+						<span>抱歉，没找到相关的信息！</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	#end
+	<!-- 分页-->
+  	 #if(products!=null&&products.size()>0)
+  		#include("../commons/channelNew-page.jetx")
+  	#end
+<script>
+	$(function() {
+		var rootCatgId = $("#categoryRootId").val();
+		$(".proUrl").each(function() {
+			var url = $(this).attr("href") + "?curProCatgId=" + rootCatgId;
+			$(this).attr("href",url)
+		});
+	});  	 
+</script>

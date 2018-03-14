@@ -1,0 +1,104 @@
+<!doctype html>
+#define(com.ekfans.base.order.model.OrderPhoto op)
+#define(com.ekfans.base.product.model.Product product)
+<html>
+<head>
+<meta charset="utf-8">
+<title>商品快照</title>
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+#if(op.type=="1")
+	<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/web/storeweb/css/proDetail.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/web/webcommon/css/snapshoot.css" rel="stylesheet" type="text/css">
+	<script src="${webroot}/resources/web/storeweb/js/base.js"></script>
+#elseif(op.type=="2")
+	<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/web/gylweb/css/proDetail.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/web/webcommon/css/snapshoot.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="${webroot}/resources/web/gylweb/js/gylCommons.js"></script>
+#end	
+</head>
+<body>
+#if(op.type=="1")
+	<input type="hidden" id="ctxpath" value="${webroot}" />
+	<input type="hidden" name="ctxpath" id="ctxpath" value="${ctxpath}" />
+	<input type="hidden" name="channelType" id="channelType" value="0" />
+#elseif(op.type=="2")
+	<input type="hidden" name="ctxpath" id="ctxpath" value="${webroot}" />
+	<input type="hidden" name="channelType" id="channelType" value="1" />
+	<input type="hidden" name="configStatus" id="configStatus" value="" />
+#end
+
+#if(op.type=="1")
+	<div class="wrapper">
+  	<div class="header" id="channelTop"></div>
+	</div>
+#elseif(op.type=="2")
+	<div class="header" id="channelTop"></div>
+#end
+
+<div class="wrapper upInfo">
+	<h1>${op.productName}</h1>
+	<!--商品图片-->
+	<dl class="leftPic">
+    	<div class="dtPic">
+        	<img src="${webroot}${op.centerPicture}"  width="418" height="418" alt="${op.productName}" title="${op.productName}">
+        </div>
+    </dl>
+    <!--商品图片 end-->
+    
+    <!--价格信息和选择-->
+    <div class="rightInfo">
+    	<div class="itemText"><span class="itemName">成交价</span><em>¥ ${op.lastPrice}/${op.unit}</em></div>
+        <div class="itemText"><span class="itemName">快递</span>¥${op.fare}</div> 
+        <div class="itemClass">商品类型<span>${op.mainCategory}</span></div>
+        <div class="itemInfo">
+            您现在查看的是 交易快照<br>
+            <a href="${webroot}/01-${op.productId}.html">点此查看商品详情</a>
+        </div>
+        #if(op.habitat != null || op.habitat != "" ||op.habitat != " ")<div class="itemSite">商品产地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${op.habitat}</div>#end
+  	</div>
+    <!--价格信息和选择 end-->
+  <div class="clear"></div>
+</div>
+<div class="wrapper">
+    <div class="main">
+        <div class="tabZone">
+            <ul class="detailTabs tabCheck">
+                <li class="cur"><a href="javascript:void(0)" >商品详情</a><em class="detailPoint"></em></li>
+            </ul>
+            
+            <!--商品详情-->
+         
+				
+            <div class="checkLayer proDetail">
+                <dl class="parameter">
+                  <dd>
+                 #for(com.ekfans.base.product.model.ProductInfo proInfo : product.infoList)
+									#if(proInfo.infoType=="0")
+									<li>${proInfo.infoName}: ${proInfo.infoValue}</li>
+									#end
+								#end              
+                    <div class="clear"></div>
+                  </dd>
+                </dl>
+                <div class="shopEdit">${op.description}</div><!--内容编辑就在此层-->
+            </div>
+            <!--商品详情 end-->
+        </div>
+
+  </div>
+    <div class="clear"></div>
+</div>
+
+<div class="bottomSplit"></div>
+<!--页脚-->
+#if(op.type=="1")
+	#include("../shop/channel/commons/buttom.jetx")
+#elseif(op.type=="2")
+	#include("../purchase/channel/commons/buttom.jetx")
+#end	
+
+<!--页脚 end-->
+</body>
+</html>

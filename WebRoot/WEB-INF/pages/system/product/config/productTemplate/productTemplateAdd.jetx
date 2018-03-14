@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+	<head>
+	<title>添加模板</title>
+	<link href="${webroot}/resources/system/css/product/templateCategory.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/product/productTemplate/productTemplateAdd.js"></script>
+
+	</head>
+	<body>
+		<input type="hidden" id="ok" value="${addOk}" />
+		<input type="hidden" id="ctxpath" value="${webroot}" />
+		<div class="ht_btn">
+				<a href="javascript:void(0);" class="btn" onclick="formSubmit();">保存</a>
+				<a href="javascript:void(0);" class="btn" onclick="reset();">重置</a>
+				<a href="javascript:void(0);" class="btn" onclick="goBack('${webroot}');">返回列表</a>
+		</div>
+		<form action="${webroot}/system/productTemplate/save" method="post"  id="addTemplateForm">
+			<div class="add_pro">
+				<dl class="pro_pp formBox">
+					<dt>模板名称<em class="mustIco"></em></dt>
+					<dd id="nameDd" >
+						<input type="text" class="i_bg"  name="name" onblur="javascript:checkNameBlur();" onkeyup="javascript:checkName();" onfocus="javascript:checkName();" />
+						<span id="nameSpan" class="ts_xx">模板名为1-20位字符组成</span>
+					</dd>
+				</dl>
+				<dl class="pro_pp formBox">
+        	<dt>分类名</dt>
+	        <dd>
+	            <input type="text" class="i_bg" id="cName"><span class="pp" title="选择分类菜单"></span>
+	        </dd>
+    		</dl>
+   	 	<div class="clear"></div>
+    	<div class="splitLine"></div>
+    	<div class="Tab">
+    	</div>
+		</div>
+	</form>
+	<div class="del_tcBg" style="display:none;"></div>
+	<div class="del_tc shopListAlert" style="display:none;" id="categoryDiv">
+	</div>
+	<input type="hidden" id="selectValue" value="checkBox"/>
+	#define(Map<String,String> productTempFieldsMap)
+	<div id="addFieldsDemo" style="display:none;">
+		<table>
+			<tr>
+		  	<td><input name='isSearch' type='checkbox' value=''></td>
+		    <td><input name='position' type='text' class='boxTd'></td>
+		    <td><input name='key' type='text' class='boxTd'></td>
+		    <td><input name='value' type='text' class='boxTd'></td>
+				<td>
+					<select name="valueType" >
+						#for(java.util.Map.Entry<String,List<String>> entry: productTempFieldsMap)
+							<option value="${entry.key}" >${entry.value}</option>
+						#end
+					</select>
+				</td>
+				<td>
+					<input name='common' type='checkbox' class="changeSel" value=''>
+					<input name='categoryId' id='categoryId' type='hidden' value=''>
+				</td>
+				<td>
+					<a href='javascript:void(0);' class='btnRemoveLine'>
+						<img src='${webroot}/resources/system/images/del2.jpg' width='16' height='16'>
+					</a>
+					<input type='hidden' class='i_bg' name='fieldId' >
+				</td>
+			</tr>
+		</table>
+	<div>
+	</body>
+</html>

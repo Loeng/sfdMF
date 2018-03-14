@@ -1,0 +1,17 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url("personalBase.css");
+
+body{background:url(../images/loginbody.jpg) no-repeat center center fixed; padding-top:17px;}
+.forgetLogo{display:block; float:right;}
+.forgetBox{width:796px; min-height:410px; background-color:#fff; margin:14px auto 0 auto; padding:36px 0 150px 184px; box-shadow:1px 1px 1px #c0c0c0;}
+.forgetBox h2{font-size:24px; height:36px; line-height:36px; margin-bottom:32px;}
+.findByPhone,.findByMail{width:244px; height:36px; float:left; padding-top:264px; margin-bottom:45px;}
+.findByPhone{margin-right:124px; background:url(../images/phoneico.png) no-repeat center top;}
+.findByMail{background:url(../images/mailico.png) no-repeat center 45px;}
+.btnFind{width:244px; height:36px; line-height:36px; font-size:18px;}
+.bottomText{height:20px; line-height:20px; color:#939393;}
+
+/*底部*/
+.footer{padding:16px 0; line-height:22px; margin-bottom:10px;}

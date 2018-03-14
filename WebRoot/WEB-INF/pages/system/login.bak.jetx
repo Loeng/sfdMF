@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>管理系统登录</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/login.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/des.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/login.js"></script>
+</head>
+
+<body onkeydown="keyLogin();">
+<input type="hidden" id="ctxpath" value="${webroot}" />
+<div class="ht_logo">
+	<img src="${webroot}/resources/system/images/login.jpg" />
+</div>
+<div class="ht_login">
+	<div class="ht_loginIn">
+		<form action="${webroot}/system/loginCheck" method="post" id="loginSubmit">
+			<input type="hidden" id="key1" value="${key1}" />
+			<input type="hidden" id="key2" value="${key2}" />
+			<input type="hidden" id="key3" value="${key3}" />
+			<input type="hidden" name="currentDate" value="${currentDate}" />
+			<input type="hidden" name="name" value="" />
+			<input type="hidden" name="password" value="" />
+			
+			<ul>
+				<li>
+					<span class="loginBox user">
+						<input type="text" placeholder="用户名" id="name" value="${cookieName}" onblur="checkName()" />
+					</span>
+					<div class="formError" style="display:none;">
+						<em class="errorLeft"></em>
+						<span class="errorText"></span>
+						<em class="errorRight"></em>
+					</div>
+	    	</li>
+				<li>
+					<span class="loginBox passw">
+						<input type="password" placeholder="密码" id="password" value="${cookiePsd}" onblur="checkPassword()" />
+					</span>
+					<div class="formError" style="display:none;">
+						<em class="errorLeft"></em>
+						<span class="errorText"></span>
+						<em class="errorRight"></em>
+					</div>
+				</li>
+				<li>
+					<span class="loginBox yzm">
+						<input type="text" placeholder="验证" name="verifyCode" value="" onblur="checkVerifyCode()" />
+						<img title="点击更换" onclick="javascript:refresh();" src="${webroot}/security/image" />
+					</span>
+					<div class="formError" style="display:none;">
+						<em class="errorLeft"></em>
+						<span class="errorText"></span>
+						<em class="errorRight"></em>
+					</div>
+				</li>
+				<li><a href="javascript:sysUserLogin();" title="登录" class="btn" tabIndex="4"></a></li>
+				<li class="jzmm"><input name="isCookie" type="checkbox" value="true" #if("true"==isCookie) checked=true #end>记住密码</li>
+			</ul>
+		</form>
+	</div>
+</div>
+</body>
+</html>

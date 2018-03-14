@@ -1,0 +1,139 @@
+/* CSS Document */
+
+*{outline:none;}
+body{padding-bottom:50px;}
+.apDiv{position:relative;}
+.diy{position:absolute; right:0; top:0; white-space:nowrap; background:rgba(255,255,255,0); z-index:0; font-size:12px; line-height:25px;}
+
+.diyTitle{position:relative;}
+
+.btnAdd,.btnAppend,.btnDelete,.btnBackground,.btnFontColor,.btnImg,.btnMove,.btnAddImg{height:25px; width:25px; line-height:25px; text-indent:25px; display:block; float:right; margin:5px 6px 0 0;}
+.diy .btnAdd,.diy .btnAppend,.diy .btnAddImg{background:url(../images/diy.png) no-repeat 0 0; width:85px;}
+.btnBackground{background:url(../images/diy.png) no-repeat -85px 0;}
+.btnBackground em{background:url(../images/diy.png) no-repeat -90px -5px; width:15px; height:15px; display:block; margin:5px;}
+.btnDelete{background:url(../images/diy.png) no-repeat -110px 0;}
+.btnImg{background:url(../images/diy.png) no-repeat -135px 0;}
+.btnFontColor{background:url(../images/diy.png) no-repeat -160px 0;}
+.btnMove{background:url(../images/diy.png) no-repeat -193px 0; cursor:move;}
+.sizeSel{display:block; margin:5px 6px 0 0; float:right; height:25px;}
+.diy span{display:block; float:right; line-height:25px; height:25px; margin-top:5px;}
+.shopNav .shopNavList{position:relative; z-index:3;}
+
+
+/*颜色选择器*/
+#colorpanel{z-index:99;}
+
+/*拖动层*/
+.resizeDiv{position:relative; overflow:hidden;}
+.resizeDiv .handler{width:15px; height:10px; border-right:solid 1px #888; border-bottom:solid 1px #888; position:absolute; right:1px; bottom:1px; cursor:nw-resize; z-index:12;}
+.move{width:100%; height:30px; position:absolute; top:0; left:0; z-index:11;}
+
+
+/*选择排版*/
+.diyOpen{width:88px; text-align:left; position:relative;  z-index:21; float:left; padding:0 5px; cursor:pointer;}
+.homeDiy{width:100%; margin:0 auto; display:none; background:#fff; position:fixed; z-index:21; top:0; padding-top:35px;}
+.homeDiy .btns{padding:20px 0; text-align:center; background:#dfdede;}
+.homeDiy .btnBlue{width:72px; height:31px; line-height:31px; display:inline-block; margin-right:30px;}
+.leftTab{width:88px; padding:0 0 20px 10px; background:#f8f8f8; float:left; padding-top:8px; border-right:solid 1px #DFDEDE;}
+.leftTab li{height:34px; line-height:34px; border:solid 1px #f8f8f8; cursor:pointer; text-align:center;}
+.leftTab li.cur{background:#fff; border:solid 1px #DFDEDE; border-right:solid 1px #fff; position:relative; margin-right:-1px;}
+.template{width:1040px; float:left; padding:24px 20px 0 30px;}
+.templateList{float:left; padding:20px 0 0 22px;}
+.templateList ul{clear:both; display:none;}
+.templateList li{width:80px; height:80px; border:solid 2px #fff; background-image:url(../images/muban.png); background-repeat:no-repeat; float:left; margin-right:30px; cursor:pointer;}
+.templateList li.cur{border:solid 2px #ccc;}
+.tempTitle .temp1{background-position:0 0;}
+.tempTitle .temp2{background-position:-80px 0;}
+.tempTitle .temp3{background-position:-160px 0;}
+.tempTitle .temp4{background-position:-240px 0;}
+.tempTitle .temp5{background-position:-320px 0;}
+.tempNav .temp1{background-position:0 -80px;}
+.tempNav .temp2{background-position:-80px -80px;}
+.tempNav .temp3{background-position:-160px -80px;}
+.tempBanner .temp1{background-position:0 -160px;}
+.tempBanner .temp2{background-position:-80px -160px;}
+.tempBanner .temp3{background-position:-160px -160px;}
+.tempBanner .temp4{background-position:-240px -160px;}
+.tempTab .temp1{background-position:0 -240px;}
+.tempTab .temp2{background-position:-80px -240px;}
+.tempDiy .temp1{background-position:0 -320px;}
+.tempDiy .temp2{background-position:-80px -320px;}
+.tempDiy .temp3{background-position:-160px -320px;}
+.tempDiy .temp4{background-position:-240px -320px;}
+.tempDiy .temp5{background-position:-320px -320px;}
+
+
+/*弹窗提示*/
+.alertLayerBg{filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8; opacity:0.8; background:#000; position:fixed; left:0; top:0; width:100%; height:100%; z-index:30; display:none;}
+.alertLayer{width:684px;border:8px solid #323a42;border-radius:8px;position:fixed; top:20%; left:50%; z-index:31; margin:-100px 0 0 -250px; background:#fff;overflow:hidden;  display:none;}
+.alertContent{}
+.alertLayer .tit{border-top:12px solid #ff8900; height:42px; line-height:42px; margin-bottom:20px; padding-left:18px; font-size:20px; position:relative;}
+.layerClose{display:block; width:18px; height:18px; position:absolute; top:16px; right:16px; background:url(../images/closeIco.png) no-repeat;}
+/*选择图片*/
+.imgList li{float:left; width:141px; height:244px; padding:0 15px; margin-bottom:24px;}
+.imgList li a{width:135px; height:238px; display:block; border:solid 3px #fff; position:relative;}
+.imgList li.cur em{display:block; width:18px; height:18px; background:url(../images/selico.png) no-repeat; position:absolute; top:0; right:0;}
+.imgList li.cur a{border:solid 3px #ff3600; border-radius:3px;}
+/*选择频道*/
+.linkCheckList li{float:left; width:260px;height:40px; line-height:40px; border:solid 1px #e4e4e4; float:left; margin:10px 30px; padding-left:20px;}
+.linkCheckList li input{display:block; float:left; margin:13px 10px 0 0;}
+.linkCheckList li label{display:block;}
+
+
+/*选项卡式面板*/
+.tabsLayer{display:none;}
+.tabsLayerIn1{background:#f0f0f0;}
+.tabsLayerIn1 .tabItem{height:40px; line-height:40px; background:#fff;}
+.tabsLayerIn1 .tabItem .diyItem2{padding:0 30px; display:block; margin-right:16px; float:left; background:#f0f0f0; position:relative; z-index:3; cursor:pointer;}
+.tabsLayerIn1 .tabItem .diyItem2 input{border:dashed 1px #535353; width:60px; height:30px; line-height:30px; margin:5px auto; background:none;}
+.tabContentItem{display:none; padding:20px; line-height:30px; height:350px;}
+.tabContentItem .apDiv{width:30%; height:50%; background:#f5f5f5; position:relative; z-index:3; margin:10px; display:inline-block;}
+.diyItem2 .diy,.textLine .diy{right:20px; top:6px;}
+.diyItem2 .btnDelete,.textLine .btnDelete{display:block; width:8px; height:8px; background-position:-119px -9px; margin:0; opacity:0.7;}
+.btnDelete:hover{opacity:1;}
+
+.tabsLayerIn2{margin-top:20px; background:#f0f0f0;}
+.tabsLayerIn2 .tabItem{width:12%; float:left; background:#fff;}
+.tabsLayerIn2 .tabItem .diyItem2{height:40px; line-height:40px; display:block; text-align:center; margin-bottom:10px; background:#f0f0f0; position:relative; z-index:3; cursor:pointer;}
+.tabsLayerIn2 .tabItem .diyItem2 input{border:dashed 1px #535353; width:60px; height:30px; line-height:30px; margin:5px auto; background:none;}
+.tabsLayerIn2 .tabContent{line-height:30px; float:left; width:88%;}
+.tabContent .diy{border:none;}
+.tabsLayerIn2 .tabItem .diy{top:100%; bottom:-80px; left:0; right:0; border:none;}
+.tabsLayerIn2 .tabItem .diy a{float:left; margin-bottom:10px;}
+
+.textLine{position:relative; z-index:3; display:inline-block; padding-right:30px;}
+.textLine .boxInput{color:#333; border:none; width:100%; height:30px; line-height:30px; outline:none; display:block;}
+
+/*title*/
+.titleLayer{display:none;}
+.titleItem2{width:50%; height:100%; float:left; background:#f0f0f0;}
+.titleItem3{width:33.333%; height:100%; float:left; background:#f0f0f0;}
+.titleItem4-1{width:40%; height:100%; float:left; background:#f0f0f0;}
+.titleItem4-2{width:60%; height:100%; float:left; background:#f0f0f0;}
+.titleItem5-1{width:60%; height:100%; float:left; background:#f0f0f0;}
+.titleItem5-2{width:40%; height:100%; float:left; background:#f0f0f0;}
+
+/*banner*/
+.bannerLayer{display:none;}
+.bannerItem1,.bannerItem2,.bannerItem3,.bannerItem4-1,.bannerItem4-2{float:left; background:#f0f0f0;}
+.bannerItem1{width:100%; height:100%;}
+.bannerItem2{width:33.333%; height:100%;}
+.bannerItem3{width:33.333%; height:50%;}
+.bannerItem4-1{width:100%; height:50%;}
+.bannerItem4-2{width:33.333%; height:50%;}
+
+/*导航条*/
+.diyNav .diy{border:none;}
+.diyNav .diyItem{border:dashed 1px #ccc; position:relative;}
+.diyNav .diyItem:hover{background:inherit;}
+.editItem{background:url(../images/diyedit.png) no-repeat center center; display:block; width:8px; height:8px; padding:2px; position:absolute; right:4px; top:4px; opacity:0.6;}
+.editItem:hover{opacity:1;}
+.diyNav .boxInput{text-align:center; color:#fff; background:none; border:none; width:60px; outline:none;}
+.sideLeftList{float:left;}
+.sideRightList{float:right;}
+
+/*自定义层*/
+.diyLayer{display:none;}
+.diyLayerItem{width:500px; height:500px; padding:30px 20px; line-height:30px; float:left; margin:10px; background:#f0f0f0;}
+.diyLayerList{width:1190px; margin:0 auto;}
+.diyLayerItem .apDiv{width:30%; height:50%; background:#f5f5f5; position:relative; z-index:3; margin:10px; display:inline-block;}

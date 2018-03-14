@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+
+<link href="${webroot}/resources/system/css/base.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/system/css/demand.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.form.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+<script src="${webroot}/resources/commons/js/layer/layer.js"></script>
+<script src="${webroot}/resources/system/js/base.js"></script>
+<script src="${webroot}/resources/commons/js/tools.js"></script>
+<script src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+<style type="text/css">
+.typeIn{margin:20px; position:relative;}
+.leftType{width:274px; position:absolute; left:0; top:0; border:solid 1px #DFDFDF; padding-bottom:50px;}
+.rightType{left:296px; right:0; position:absolute;}
+.leftType dt{height:30px; line-height:30px; padding:0 10px; border-bottom:solid 1px #dfdfdf; font-size:14px; position:relative; margin-bottom:10px;}
+.leftType li{margin:0 8px; padding:0 10px; height:30px; line-height:30px; border-bottom:solid 1px #dfdfdf;}
+.leftType li .name{float:left; white-space:nowrap;}
+.leftType li .link{float:right; white-space:nowrap;}
+.leftType li .name input{display:block; float:left; margin:9px 6px 0 0;}
+.box60{width:56px;}
+.box80{width:76px;}
+.box100{width:96px;}
+.box120{width:116px;}
+.box190{width:186px;}
+.ht_list .typeList td a{color:#48B0FD; opacity:1!important;}
+
+.serchDom{padding-bottom:16px; border-bottom:solid 1px #dfdfdf;}
+.formItem{height:28px; line-height:28px;}
+.formItem .formName{display:block; height:28px; line-height:28px; padding-right:14px; float:left; color:#888; min-width:66px; text-align:right;}
+.formItem .i_bg{display:block; height:25px; line-height:25px; margin-right:14px; float:left;}
+.ht_list .red{color:#f00; font-size:14px;}
+.ht_list .green{color:#259E00; font-size:14px;}
+</style>
+</head>
+
+<body>
+#define(List<com.ekfans.base.metal.model.PreciousMetalCategory> categorys)
+<div class="typeIn">
+    <dl class="leftType">
+        <dt>品类</dt>
+        <dd>
+	        #for(com.ekfans.base.metal.model.PreciousMetalCategory category:categorys)
+		        <li  onclick="javascript:loadDetails('${category.id}');">
+		        	<span class="name">
+		        		<label>
+		        			<input name="typeName1" id="${category.id}" type="radio" value="${category.id}" #if(for.first) checked #end><em>${category.name}</em>
+		        		</label>
+		        	</span>
+		        </li>
+		        #if(for.first)
+		        	<input type="hidden" name="chosedCategory"  id="chosedCategory" value="${category.id}"/>
+		        #end
+	        #end
+        </dd>
+    </dl>
+    <div class="rightType"> </div>
+    <div class="clear"></div>
+</div>
+<script>
+$(document).ready(function () {
+	//右侧信息保存
+	$(".saveLine").live("click",function(){
+		var trObj = $(this).parents("tr");
+		var metalId = trObj.find("input[name='metalId']").val();
+		var priceType = '0';
+		var radioObjs = trObj.find("input[type='radio']");
+		for (var i = 0; i < radioObjs.length; i++) {
+			if(radioObjs[i].checked){
+				priceType = $(radioObjs[i]).val();
+			}
+		};
+
+		var price = $("#"+metalId+"price").val();
+		var startPrice = $("#"+metalId+"startPrice").val();
+		var endPrice = $("#"+metalId+"endPrice").val();
+		var riseAndDrop = $("#"+metalId+"riseAndDrop").val();
+		var smmId = $("#"+metalId+"smmId").val();
+		var dateTime = $("#chosedDate").val();
+		
+		$.post('${webroot}/system/metal/detail/save',{metalId:metalId,priceType:priceType,price:price,startPrice:startPrice,endPrice:endPrice,riseAndDrop:riseAndDrop,smmId:smmId,dateTime:dateTime},function (data){
+			if(data == "1"){
+				layer.alert("行情保存成功!",{title:"信息提示",icon:1});
+			}
+		});
+	});
+
+    //自动更新所有元素信息
+	$("#saveAllSmm").live("click",function(){
+	    var index = layer.load(2, {time: 30*1000});
+	    $.get('${webroot}/system/metal/saveallsmm',function (data){
+	      layer.close(index); 
+	      if(data==""){
+	        layer.alert("更新完成");
+	        retrue;
+	      }
+			layer.alert(data,{
+			area: ['750px', '600px']
+			});
+		});
+	});
+	
+
+	//右侧信息批量保存
+	$("#saveBatch").live("click",function(){
+		$("#detailForm").ajaxSubmit(
+			function(data) {
+				if (data == "1") {
+					layer.alert("行情批量保存成功!",{title:"信息提示",icon:1});
+				} else {
+					layer.alert("行情批量保存失败，请稍后再试!",{title:"信息提示",icon:2});
+				}
+		});
+	});
+	
+	
+	
+	//右侧删除分类
+	$(".delLine").live("click",function(){
+		var obj=$(this);
+		layer.confirm('确定删除吗', {btn:['确定','取消']},function(index){ //不设置btn将默认为确定和取消两个按钮
+			obj.parents("tr").remove();//点击确定执行的语句
+			layer.close(index);
+		},function(){
+			//点击取消执行的语句
+		});
+	})
+
+	$(".dateBox").live("click",function(){
+		var zhi=$(this).val();
+		WdatePicker({
+			dateFmt:'yyyy-MM-dd',
+			onpicked:function(dp){
+				if($(this).val()!=zhi){
+					changeTimes($(this).val());
+				}
+			}
+		});
+	})
+});
+function loadDetails(categoryId){
+	$("#"+categoryId).attr("checked",true);
+	$("#chosedCategory").val(categoryId);
+	$(".rightType").load("${webroot}/system/metal/showdetails/"+categoryId+"/null");
+}
+
+loadDetails($("#chosedCategory").val());
+
+function changeTimes(chosedDate){
+	$(".rightType").load("${webroot}/system/metal/showdetails/"+$("#chosedCategory").val()+"/"+$("#chosedDate").val());
+}
+
+function changePriceType(obj){
+	var objVal = $(obj).val();
+	var metalId = $(obj).parents("tr").find("input[name='metalId']").val();
+	if(objVal == '0'){
+		$("#"+metalId+"junjia").show();
+		$("#"+metalId+"qujian").hide();
+	}else{
+		$("#"+metalId+"junjia").hide();
+		$("#"+metalId+"qujian").show();
+	}
+}
+function smm(id){
+ var option = $("#"+id+"la  option:selected");
+ $("#"+id+"price").val(option.attr("price"));
+ $("#"+id+"junjia").val(option.attr("riseAndDrop"));
+ $("#"+id+"startPrice").val(option.attr("startPrice"));
+ $("#"+id+"endPrice").val(option.attr("endPrice"));
+ $("#"+id+"riseAndDrop").val(option.attr("riseAndDrop"));
+ $("#"+id+"smmId").val(option.attr("id"));
+}
+</script>
+</body>
+</html>

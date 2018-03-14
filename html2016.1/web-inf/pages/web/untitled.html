@@ -1,0 +1,968 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="../../../resources/commons/js/jquery.superslide.2.1.1.js"></script>
+<script src="../../../resources/web/js/base.js"></script>
+<script src="../../../resources/commons/js/echarts.js"></script>
+<script src="../../../resources/commons/js/colResizable-1.5.min.js"></script>
+<link href="../../../resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/web/css/base.css" rel="stylesheet" type="text/css">
+<style>
+/* CSS Document */
+
+.main{margin:20px auto 20px auto;}
+.leftBox{width:850px; float:left;}
+.rightBox{width:331px; float:right;}
+
+.newbjs{ width:1200px; height:38px; line-height:38px; margin-bottom:20px;}
+.newbjs h2{float:left; width:90px; color:#fff; background-color:#339933; text-align:center; font-size:14px;}
+.txtScroll-left{float:left; border:1px solid #EFEFEF; border-left:0; height:36px; line-height:36px; font-size:14px; width:1089px; padding:0 10px; overflow:hidden;}
+.infoList li{ color:#999999; float:left; cursor:pointer; padding:0 25px;}
+.infoList li span{ color:#333333;}
+.infoList .red{margin:0 4px;}
+.infoList .green{margin:0 4px; color:#339933;}
+.infoList .normal{margin:0 4px;}
+
+/*璐ф簮*/
+.huoyuan{ margin-top:30px; margin-bottom:8px;position:relative;}
+.huoyuan span{color:#136333; font-size:16px; display:inline-block; padding-right:38px;}
+.btnFb{ font-size:14px; color:#333333; display:inline-block;}
+.btnMore{ font-size:14px; color:#136333; position:absolute; right:10px; top:10px;}
+
+.hyList{ margin-bottom:20px;}
+.tabTit{ background-color:#339933; height:38px; line-height:38px; color:#fff; font-size:14px;}
+.tabTit li{float:left; text-align:left; padding:0 5px; margin-right:5px;}
+
+.hyTab hytabList{width:100%; font-size:12px; color:#333333;}
+.hytabList li{height:48px;border-bottom:solid 1px #CBCBCB;line-height:24px; padding:18px 10px 14px 10px;margin-right:5px; vertical-align:middle; text-align:left; overflow:hidden;}
+.listFloat{float:left; font-size:14px; color:#333333;}
+.listFloat div{max-height:26px; overflow:hidden;padding-right:8px;}
+.hytabList li .green{font-size:16px; height:26px; overflow:hidden;}
+.hyCom{color:#999999; font-size:14px; height:24px; overflow:hidden;}
+.hyzl{color:#999999;height:24px; overflow:hidden;}
+.listFloat a{color:#136333; font-size:14px; margin:0 3px;}
+.gyrz{font-size:10px; color:#FFFFFF; width:20px; height:18px; line-height:18px;border-radius:5px; background-color:#339933; margin-right:4px; display:inline-block;text-align: center;}
+.gyls{font-size:10px; color:#333333; width:18px; height:16px; line-height:16px;border-radius:5px; border:1px solid #333333;margin-right:4px; display:inline-block;text-align: center;}
+
+.xhname{line-height:18px;}
+.xhyuansu{line-height:18px;}
+
+/*销售挂牌表格*/
+.cyTable table{width:100%; font-size:14px;}
+.cheyuanIn{}
+.cheyuanHeader{height:38px;}
+.cheyuanHeader th{height:38px; line-height:38px; background:#339933; color:#fff;padding:0 10px;}
+.cheyuanIn td{line-height:30px; padding:8px 10px; white-space: nowrap; text-align:center; border:solid 1px #f5f5f5; border-bottom:solid 1px #e6e6e6;}
+.cheyuanIn td span.gray{color:#999; display:block;}
+.cheyuanIn td a{color:#136333; margin-right:8px;}
+
+
+/*求购挂牌表格*/
+
+.hyTable table{font-size:14px; width:100%;}
+.huoyuanIn{}
+.huoyuanHeader{height:38px;}
+.huoyuanHeader th{height:38px; line-height:38px; background:#339933; color:#fff;padding:0 10px; text-align:center; white-space:nowrap;}
+table{border-collapse:collapse;}
+.huoyuanIn td{line-height:30px; padding:8px 10px; white-space: nowrap; text-align:center; border:solid 1px #f5f5f5; border-bottom:solid 1px #e6e6e6;}
+.huoyuanIn td span.gray{color:#999; display:block;}
+.huoyuanIn td a{color:#136333;margin-right:8px;}
+.oneAdpic{margin-bottom:20px;}
+.xhcomname{line-height:16px;}
+.oneAdpic{margin-bottom:20px;}
+
+/**鐑棬琛屾儏*/
+.hotHq{border:1px solid #EFEFEF;margin-bottom:25px;}
+.hotHq h2{width:106px; height:35px; line-height:35px;font-size:14px;background-color:#339933; color:#fff;text-align:center;}
+
+.classNav{height:35px;position:relative; border-bottom:1px solid #98CB67; color:#999999; font-size:14px; top:-35px; padding-left:106px;}
+.classNav li{ display:block; float:left; line-height:32px; padding:0 10px; margin:0 10px; cursor:pointer; min-width:20px; text-align:center;}
+.classNav li.cur,.classNav li:hover{ border-bottom:3px solid #98CB67; color:#136433;}
+.classContent{display:none; position:relative;top:-35px;height:302px;}
+.chartPic{float:left; width:635px; height:315px; padding:15px 0 0 15px;}
+.dataright{float:left; width:198px; height:337px; background-color:#F5F5F5;}
+.dataright h3{ color:#000000; font-size:18px; margin:18px 0 20px 20px;}
+.btndata{width:160px; height:28px; line-height:28px; text-align:center; background-color:#339933; color:#fff; display:block; font-size:14px; margin-bottom:12px; border-radius:1px; margin-left:20px;}
+
+.selList{position:relative; z-index:2;width:158px; margin:0 0 20px 20px;}
+.selList .textBox{position:relative; z-index:3; display:block; height:30px;border:none;}
+.selList .textBox input{ width:100%; height:28px; border:solid 1px #E0E3EA; text-indent:0.6em; font-family:Arial,Microsoft YaHei; line-height:26px;cursor:pointer;}
+.iconDown{ position:absolute; top:0px; right:-2px;display:block; width:28px; height:28px; background:url(../images/down_ico.png) no-repeat center center; cursor:pointer;}
+.selList ul{ position:absolute; top:29px; left:0;*left:7px; z-index:4;display:none; width:100%; border:solid 1px #e2e2e2; background:#fff;height: 150px;overflow-y: auto;}
+.selList li{height:36px; text-align:left;padding-left:15px;font-size:14px; line-height:36px; cursor:pointer;color:#303132;}
+.selList li:hover{background:#f0f0f0;}
+
+
+
+/*鍙抽儴*/
+.btnArea{margin:15px 0;}
+.fbBtns{display:block; width:164px; height:65px; line-height:65px; text-align:center; color:#fff; font-size:18px; background-color:#99CB67; float:left;}
+.fbBtns:hover{color:#fff; background-color:#393; }
+
+/**褰撴棩 娑ㄥ箙鎺掑悕**/
+.jmBox{border:1px solid #EFEFEF;margin-bottom:25px;}
+.jmBox .tabNav{height:34px; border-bottom:solid 1px #393;}
+.jmBox .tabContent{display:none;}
+.jmBox li{width:106px; height:32px; line-height:32px;font-size:14px; border-bottom:solid 2px #393; text-align:center; float:left; cursor:pointer;}
+.jmBox li.cur{background-color:#339933; color:#fff;}
+.boxTit{position:relative;}
+.boxTit h2{width:106px; height:35px; line-height:35px;font-size:14px;background-color:#339933; color:#fff;text-align:center;}
+.boxTit .btnjr{position:absolute; top:18px; right:10px; font-size:14px; color:#333333;}
+
+.zfBox{margin:0 4px; width:310px;}
+.zftab{width:100%; font-size:14px; }
+.zftab th{height:40px; border-bottom:solid 1px #999999; color:#999999;padding: 10px 10px;}
+.zftab td{height:20px; line-height:20px; padding:10px 10px; vertical-align:middle; text-align:center;color:#333333;border-bottom:solid 1px #E3E3E3;}
+.zftab .zup{color:#FF0000;}
+.zftab .zdown{color:#339933;}
+
+/**琛屼笟璧勮**/
+.borderbottom{border-bottom:1px solid #339933; margin-bottom:10px;}
+.zxList{ border-bottom:1px solid #999999; padding-bottom:14px; margin-bottom:14px;}
+.zxleft{float:left; width:228px; font-size:14px; color:#595757;}
+.zxleft a{ line-height:24px;height: 58px;overflow:hidden;display: block;margin-bottom: 20px;}
+.author{ font-size:14px; color:#212121; font-weight:bold;}
+.zxright{width:100px; float:right;}
+
+/**琛屼笟鏁版嵁**/
+.hydata{ width:310px;margin:0 8px;}
+.hydata li{border-bottom:1px solid #F1F1F1;line-height:29px; color:#333333; font-size:14px; padding:14px 10px 4px 0;height: 29px;overflow: hidden;}
+.wlList li a{display:block;}
+
+/*鍒嗙被绛涢�*/
+.listClass{background:#fff; border:1px solid #EFEFEF; padding:10px 8px; margin-bottom:20px;}
+.listClass .wrapper{width:1160px;}
+.listItem{padding:12px 0; border-top:dashed 1px #EFEFEF;}
+.listItem dt{width:60px; float:left; height:30px; line-height:30px;overflow:hidden; font-size:14px; color:#333333;padding-right: 20px; text-align:right;}
+.listLink{width:1022px; float:left; line-height:30px; height:30px; overflow:hidden;}
+.listLink a{display:inline-block; padding:0 12px; font-size:14px; color:#333333; margin:2px 0;}
+.listLink a:hover,.listLink a.cur{background:#339933; color:#fff;}
+.listMore{float:left; height:28px; width:56px;}
+.listMore a{display:inline-block; padding:0 20px 0 10px; height:28px; line-height:28px; background:url(../images/more_point.png) no-repeat center center; color:#fff; position:relative;}
+.listMore a.down{background:url(../images/more_point2.png) no-repeat center center;}
+.listLink input{width:160px; height:24px; line-height:24px; border:1px solid #E0E3EA; margin:0 5px; padding-left:5px;}
+.listLink .btnSearch{width:60px; height:26px; line-height:26px; text-align:center; color:#fff; background-color:#339933;}
+
+.listFloat .xhname{}
+.listFloat .xhyuansu{ color:#999999;}
+.listFloat .xhcomname{ font-size:12px;}
+.listFloat .xhsheng{font-size:12px;}
+.listFloat .xhcity{font-size:12px;}
+
+/*鍒嗛〉*/
+.pageSize{padding:18px 0; text-align:right;}
+.pageSize a{display:inline-block; height:21px; line-height:21px; padding:4px 10px; background:#fff; color:#333333; font-size:14px; margin:0 2px;}
+.pageSize a:hover,.pageSize .cur{background:#5FB01F; color:#fff;}
+.pageSize span{display:inline-block;font-size:14px; color:#333333; margin:0 10px;}
+.pageSize .surepage{display:inline-block;background-color:#136333; color:#fff;}
+.pageSize input{width:39px; height:22px; border:1px solid #999999; margin:0 5px; padding-left:5px;}
+
+/*报价弹层*/
+.baojiaLayer{padding:20px 20px 0 20px;}
+.dataInfo{padding-bottom:15px; border-bottom:solid 1px #e6e6e6;}
+.dataInfo span{display:inline-block; font-size:14px; margin:0 30px; line-height:32px;}
+.dataInfo span em{color:#999;}
+.dataInfo span .red{padding-right:5px; font-size:18px;}
+.dataInfo{padding-bottom:5px; border-bottom:solid 1px #e6e6e6;}
+.dataInfo li{font-size:14px; margin:0 1%; width:48%; line-height:22px; float:left; padding-bottom:18px;}
+.dataInfo li span{display:block; float:left; max-width:228px; height:22px; overflow:hidden; margin:0; line-height:22px;}
+.dataInfo li .red{font-size:18px; padding-right:5px;}
+.dataInfo li.line{width:98%;}
+.dataInfo li.line span{width:450px; max-width:none; height:auto;}
+.dataInfo li em{color:#999; display:block; width:80px; text-align:right; float:left;}
+.dataInfo li.clear{float:none; height:0; padding:0;}
+.baojiaLayer .apForm{margin-top:20px;}
+.baojiaLayer .formItem{width:490px; margin:0 0 20px 70px;}
+.baojiaLayer .formItem dt{width:60px; padding:0 10px; float:left; line-height:30px; text-align:right;}
+.baojiaLayer .formItem .formImport{width:360px; float:left;}
+.baojiaLayer .formBox{border:solid 1px #DFE2EA; width:258px; height:28px; text-indent:0.8em; margin-right:12px;}
+
+
+/*发布信息选择弹层*/
+.update{padding:0 40px;}
+.update .leftLayer,.update .rightLayer{width:180px; padding:27px 39px 24px 39px; margin:14px 0; float:left;}
+.update .leftLayer{border-right:solid 1px #f1f1f1;}
+.update .btnGreen{display:block; width:180px; height:46px; line-height:46px; text-align:center; font-size:20px;}
+.update .text{line-height:21px; color:#999; text-indent:-1em; padding-top:14px; padding-left:12px;}
+.update .text .red{padding-right:4px;}
+</style>
+</head>
+
+<body>
+
+<input type="hidden" name="ctxpath" id="ctxpath" value="http://www.sfdhb.com">
+<input type="hidden" name="channelId" id="channelId" value="xhjy">
+<input type="hidden" name="channelType" id="channelType" value="0">
+<!--头部-->
+<div id="channelTop">
+
+<input type="hidden" value=" " id="userId">
+<div class="header">
+	<div class="wrapper">
+		<h1 id="logo"><a href="http://www.sfdhb.com/" title="三分地环保产业链"><img src="http://www.sfdhb.com//customerfiles/content/20151012/categoryIco/e8d80c14-935a-49e0-9065-2e0e09b0109c.png" alt="三分地环保产业链"></a></h1>
+		<div class="headerRight">
+			<a href="http://www.sfdhb.com/" class="indexLink">首页</a> 
+				<a href="http://www.sfdhb.com/web/login">登录</a>
+				<a href="http://www.sfdhb.com/web/jumpRegPage">注册</a>
+			<span class="split">|</span>
+			<span class="serviceTel">服务热线：0731-89785233</span>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+
+<div class="nav">
+  <div class="firstNav">
+	<ul class="wrapper">
+			<li><a href="http://www.sfdhb.com/index.html" class="navBtn">首页</a></li>
+		<li class="show">
+			<a href="http://www.sfdhb.com/xhjy.html" class="navBtn cur  ">现货交易 <em></em></a>
+			<div class="navList">
+				<em></em>
+				<a href="http://www.sfdhb.com/xhjy.html" class="cur  ">现货交易</a>
+				<!-- 绿色商城显示商品分类 -->
+					<a href="http://www.sfdhb.com/xsgp.html">销售挂牌</a>
+					<a href="http://www.sfdhb.com/qggp.html">求购挂牌</a>
+			</div>
+		</li>
+		<li class="">
+			<a href="http://www.sfdhb.com/gqzx.html" class="navBtn   ">供求中心 <em></em></a>
+			<div class="navList">
+				<em></em>
+				<a href="http://www.sfdhb.com/gqzx.html" class="  ">供求中心</a>
+				<!-- 绿色商城显示商品分类 -->
+					<a href="http://www.sfdhb.com/gyxx.html">供应信息</a>
+					<a href="http://www.sfdhb.com/qgxx.html">求购信息</a>
+			</div>
+		</li>
+		<li class="">
+			<a href="http://www.sfdhb.com/wfys.html" class="navBtn   ">危废运输 <em></em></a>
+			<div class="navList">
+				<em></em>
+				<a href="http://www.sfdhb.com/wfys.html" class="  ">危废运输</a>
+				<!-- 绿色商城显示商品分类 -->
+					<a href="http://www.sfdhb.com/wfcy.html">危废车源</a>
+					<a href="http://www.sfdhb.com/wfhy.html">危废货源</a>
+			</div>
+		</li>
+		<li class="">
+			<a href="http://www.sfdhb.com/qyrz.html" class="navBtn   ">金融在线 <em></em></a>
+			<div class="navList">
+				<em></em>
+				<!-- 绿色商城显示商品分类 -->
+					<a href="http://www.sfdhb.com/qyrz.html">企业认证</a>
+					<a href="http://www.sfdhb.com/zxrz.html">在线融资</a>
+			</div>
+		</li>
+		<li class="">
+			<a href="http://www.sfdhb.com/hbzk.html" class="navBtn   ">环保智库 <em></em></a>
+			<div class="navList">
+				<em></em>
+				<a href="http://www.sfdhb.com/hbzk.html" class="  ">环保智库</a>
+				<!-- 绿色商城显示商品分类 -->
+					<a href="http://www.sfdhb.com/hyzx.html">行业资讯</a>
+					<a href="http://www.sfdhb.com/wfzs.html">危废知识</a>
+					<a href="http://www.sfdhb.com/zcfg.html">政策法规</a>
+					<a href="http://www.sfdhb.com/zjrw.html">专家人物</a>
+			</div>
+		</li>
+		<li class="">
+			<a href="http://www.sfdhb.com/lssc.html" class="navBtn  wjbclssc ">绿色商城 <em></em></a>
+			<div class="navList">
+				<em></em>
+				<a href="http://www.sfdhb.com/lssc.html" class=" wjbclssc ">绿色商城</a>
+				<!-- 绿色商城显示商品分类 -->
+					<a href="http://www.sfdhb.com/web/wjbcProduct/jumpToListPage?curProCatgId=ff8080815397d464015397d95d090098&amp;channelId=lssc" id="ff8080815397d464015397d95d090098">微晶板材</a>
+					<a href="http://www.sfdhb.com/web/wjbcProduct/jumpToListPage?curProCatgId=ff8080815397d464015397d98cea0099&amp;channelId=lssc" id="ff8080815397d464015397d98cea0099">设备器材</a>
+					<a href="http://www.sfdhb.com/web/wjbcProduct/jumpToListPage?curProCatgId=ff8080815397d464015397d9d05e009a&amp;channelId=lssc" id="ff8080815397d464015397d9d05e009a">车辆出租</a>
+					<a href="http://www.sfdhb.com/web/wjbcProduct/jumpToListPage?curProCatgId=ff8080815397d464015397da0785009b&amp;channelId=lssc" id="ff8080815397d464015397da0785009b">周边产品</a>
+			</div>
+		</li>
+ 	</ul>
+  </div>
+  <div class="secondNav"></div>
+</div>
+<!-- 0 -->
+<!-- xhjy -->
+
+</div>
+<!--头部end-->
+
+<div class="wrapper main">
+	<!--最新报价-->
+  <div class="newbjs" id="newPrices">
+    <h2>最新报价</h2>
+    <div class="txtScroll-left">
+      <div class="hd"></div>
+      <div class="bd">
+        <ul class="infoList" style="width: 1829px; margin-left: 0px;">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        <li><span>3#银</span><span><em class="red">4285.00</em>元/千克</span></li><li><span>黄金</span><span><em class="normal">287.50</em>元/克</span></li><li><span>黄金</span><span><em class="normal">287.20</em>元/克</span></li><li><span>铂</span><span><em class="normal">256.00</em>元/克</span></li><li><span>钯</span><span><em class="normal">171.00</em>元/克</span></li><li><span>钌</span><span><em class="normal">11.50</em>元/克</span></li><li><span>铑</span><span><em class="green">162.00</em>元/克</span></li><li><span>铱</span><span><em class="normal">144.50</em>元/克</span></li><li><span>银粉</span><span><em class="normal">4600.00</em>元/公斤</span></li><li><span>1#银</span><span><em class="red">4315.00</em>元/千克</span></li><li><span>2#银</span><span><em class="red">4300.00</em>元/千克</span></li></ul>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <!--最新报价 end-->
+  
+	<div class="leftBox">
+    <!--热门行情-->
+    <div class="hotHq" id="hotQuotation">
+
+
+
+
+<h2>热门行情</h2>
+<input type="hidden" name="chosedCategoryId" id="chosedCategoryId" value="ff8080815397d464015397df2a4d00b0">
+<input type="hidden" name="chosedMetalId" id="chosedMetalId" value="ff8080815397d4640153980c41ad0129">
+<ul class="classNav">
+    <li class="cur" onclick="javascript:loadHotEhcart('ff8080815397d4640153980c41ad0129');" id="ff8080815397d4640153980c41ad0129TopChose">1#银</li>
+    <li onclick="javascript:loadHotEhcart('ff8080815397d4640153980ca2ba012a');" id="ff8080815397d4640153980ca2ba012aTopChose">2#银</li>
+    <li onclick="javascript:loadHotEhcart('ff8080815397d4640153980ccb30012b');" id="ff8080815397d4640153980ccb30012bTopChose">3#银</li>
+    <li onclick="javascript:loadHotEhcart('ff8080815397d4640153980cee68012c');" id="ff8080815397d4640153980cee68012cTopChose">黄金</li>
+    <li onclick="javascript:loadHotEhcart('ff8080815397d4640153980d07ee012d');" id="ff8080815397d4640153980d07ee012dTopChose">黄金</li>
+    <li onclick="javascript:loadHotEhcart('ff8080815397d4640153980d2f0a012e');" id="ff8080815397d4640153980d2f0a012eTopChose">铂</li>
+    <li onclick="javascript:loadHotEhcart('ff8080815397d4640153980d5528012f');" id="ff8080815397d4640153980d5528012fTopChose">钯</li>
+    <li onclick="javascript:loadHotEhcart('ff8080815397d4640153980d78a00130');" id="ff8080815397d4640153980d78a00130TopChose">钌</li>
+    <li onclick="javascript:loadHotEhcart('ff8080815397d4640153980da5300131');" id="ff8080815397d4640153980da5300131TopChose">铑</li>
+    <li onclick="javascript:loadHotEhcart('ff8080815397d4640153980dc1f30132');" id="ff8080815397d4640153980dc1f30132TopChose">铱</li>
+    <li onclick="javascript:loadHotEhcart('ff8080815397d4640153980e0e780133');" id="ff8080815397d4640153980e0e780133TopChose">银粉</li>
+  <div class="clear"></div>
+</ul>
+<div class="classContent" style="display:block;">
+  <div class="chartPic" style="width: 635px; height: 322px; -webkit-tap-highlight-color: transparent; -webkit-user-select: none; position: relative; background-color: transparent;" id="chartPicShow" _echarts_instance_="ec_1471422607067"><div style="position: relative; overflow: hidden; width: 635px; height: 322px; cursor: default;"><canvas width="635" height="322" data-zr-dom-id="zr_0" style="position: absolute; left: 0px; top: 0px; width: 635px; height: 322px; -webkit-user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></canvas></div><div style="position: absolute; display: none; border: 0px solid rgb(51, 51, 51); white-space: nowrap; transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1), top 0.4s cubic-bezier(0.23, 1, 0.32, 1); border-radius: 4px; color: rgb(255, 255, 255); font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 14px; font-family: 'Microsoft YaHei'; line-height: 21px; padding: 5px; left: 268.275px; top: 217px; background-color: rgba(50, 50, 50, 0.701961);">08/12<br>当前行情 : 4,340.0</div></div>
+  <div class="dataright">
+  	<h3>2016年08月17日</h3>
+    <div class="selList"> <span class="textBox" style="width:158px;">
+      <input name="cCategory" id="cCategory" type="text" class="box184" placeholder="品类名称" readonly style="width:158px;">
+      <em class="iconDown readOnly"></em> </span>
+      <ul>
+        <li onclick="choseCategorys('ff8080815397d464015397dd77fe00a2','铜','1');">铜</li>
+        <li onclick="choseCategorys('ff8080815397d464015397dd9ce400a3','铝','1');">铝</li>
+        <li onclick="choseCategorys('ff8080815397d464015397ddca3e00a4','铅','1');">铅</li>
+        <li onclick="choseCategorys('ff8080815397d464015397dde5cd00a5','锌','1');">锌</li>
+        <li onclick="choseCategorys('ff8080815397d464015397de34fc00a6','锡','1');">锡</li>
+        <li onclick="choseCategorys('ff8080815397d464015397de4d2600a7','镍','1');">镍</li>
+        <li onclick="choseCategorys('ff8080815397d464015397de631600a8','锰','1');">锰</li>
+        <li onclick="choseCategorys('ff8080815397d464015397de789300a9','硅','1');">硅</li>
+        <li onclick="choseCategorys('ff8080815397d464015397de8de500aa','钴锂','1');">钴锂</li>
+        <li onclick="choseCategorys('ff8080815397d464015397dea13400ab','锑','1');">锑</li>
+        <li onclick="choseCategorys('ff8080815397d464015397decf8200ac','钨','1');">钨</li>
+        <li onclick="choseCategorys('ff8080815397d464015397deefbc00ad','铟锗镓','1');">铟锗镓</li>
+        <li onclick="choseCategorys('ff8080815397d464015397df041900ae','铋硒碲','1');">铋硒碲</li>
+        <li onclick="choseCategorys('ff8080815397d464015397df15a800af','小金属','1');">小金属</li>
+        <li onclick="choseCategorys('ff8080815397d464015397df2a4d00b0','贵金属','1');">贵金属</li>
+            
+        <li onclick="choseCategorys('ff8080815397d464015397df43cb00b1','废旧','1');">废旧</li>
+        <li onclick="choseCategorys('ff8080815397d464015397df580a00b2','稀土','1');">稀土</li>
+        <li onclick="choseCategorys('ff8080815397d464015397df6d2f00b3','再生金属','1');">再生金属</li>
+        <li onclick="choseCategorys('ff8080815397d464015397df83a700b4','利源','1');">利源</li>
+      </ul>
+    </div>
+    <div class="selList"> <span class="textBox" style="width:158px;">
+      <input name="cMetal" id="cMetal" type="text" class="box184" placeholder="品目" readonly style="width:158px;">
+      <em class="iconDown readOnly"></em> </span>
+      <ul id="cMetalUl">
+          <li onclick="javascript:choseMetal('ff8080815397d4640153980c41ad0129','1#银');">1#银</li>
+            
+          <li onclick="javascript:choseMetal('ff8080815397d4640153980ca2ba012a','2#银');">2#银</li>
+          <li onclick="javascript:choseMetal('ff8080815397d4640153980ccb30012b','3#银');">3#银</li>
+          <li onclick="javascript:choseMetal('ff8080815397d4640153980cee68012c','黄金');">黄金</li>
+          <li onclick="javascript:choseMetal('ff8080815397d4640153980d07ee012d','黄金');">黄金</li>
+          <li onclick="javascript:choseMetal('ff8080815397d4640153980d2f0a012e','铂');">铂</li>
+          <li onclick="javascript:choseMetal('ff8080815397d4640153980d5528012f','钯');">钯</li>
+          <li onclick="javascript:choseMetal('ff8080815397d4640153980d78a00130','钌');">钌</li>
+          <li onclick="javascript:choseMetal('ff8080815397d4640153980da5300131','铑');">铑</li>
+          <li onclick="javascript:choseMetal('ff8080815397d4640153980dc1f30132','铱');">铱</li>
+          <li onclick="javascript:choseMetal('ff8080815397d4640153980e0e780133','银粉');">银粉</li>
+        
+      </ul>
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>
+</div>
+     <!--热门行情 end-->
+    
+    
+    <!--销售挂牌-->
+    <div class="huoyuan"><span>销售挂牌</span><a href="javaScript:void(0);" class="btnFb updateLink" datatype="0">发布销售</a><a href="http://www.sfdhb.com/xsgp.html" class="btnMore">更多...</a></div>
+    <div class="hyList" id="xsgp"><!--现货-销售挂牌-->
+<div class="hyTable">
+      <div class="huoyuanIn">
+          <table border="0" cellspacing="0" cellpadding="0" width="100%">
+              <tr class="huoyuanHeader">
+                  <th style="width: 82px;">品名</th>
+                  <th style="width: 218px;">厂家</th>
+                  <th style="width: 65px;">质量等级</th>
+                  <th style="width: 82px;">交货地</th>
+                  <th style=" width: 99px;">数量</th>
+                  <th style=" width: 99px;">价格</th>
+                  <th style="width: 65px;">&nbsp;&nbsp;</th>
+              </tr>
+              <tbody>
+              <tr>
+                  <td style="width:12%;"><div class="xhname">99.99以上电解铅以上电解铅</div><div class="xhyuansu" style="color:#999999;">AuAuAuAuAuAuAuAuAuAuAuAuAuAuAuAuAuAuAuAuAuAuAuAuAuAuAuAuAuAuAuAuAuAu</div></td>
+                  <td style="width:28%;"><div><div class="xhcomname">
+ <em class="gyrz">证</em> 永兴鑫裕环保镍业有限公司永兴鑫裕环保镍业有限公司永兴鑫裕环保镍业有限公司永兴鑫裕环保镍业有限公司永兴鑫裕环保镍业有限公司
+                  </div></div></td>
+                  <td style="width:10%;"><div> &nbsp; </div></td>
+                  <td style="width:12%;"><div class="xhsheng"></div><div class="xhcity">湖南 </div></td>
+                  <td style="width:14%; white-space:nowrap;"><div>1000(吨)</div></td>
+                  <td style="width:14%; white-space:nowrap;"><div>13000.00元/吨</div>13000.00元/吨13000.00元/吨13000.00元/吨13000.00元/吨13000.00元/吨</td>
+                  <td style="width:10%;"><a href="javascript:void(0);" onclick="validUser('00000172','0','xhjy');">购买</a><a href="javascript:void(0);" class="yijiaLink" onclick="yijia('00000172','000000004d74fbb6014d799b7d93006c')">议价</a></td>
+              </tr>
+              <tr>
+                  <td style="width:12%;"><div class="xhname">氧化钇</div><div class="xhyuansu" style="color:#999999"></div></td>
+                  <td style="width:28%;"><div class="xhcomname">
+ <em class="gyrz">证</em> 永兴鑫裕环保镍业有限公司
+                  </div></td>
+                  <td style="width:10%;"><div>Y2O3/TREO 99.995-99.999%</div></td>
+                  <td style="width:12%;"><div class="xhsheng"></div><div class="xhcity"> &nbsp;  </div></td>
+                  <td style="width:14%; white-space:nowrap;"><div>50(吨)</div></td>
+                  <td style="width:14%; white-space:nowrap;"><div>21500.00元/吨</div></td>
+                  <td style="width:10%;"><a href="javascript:void(0);" onclick="validUser('00000167','0','xhjy');">购买</a><a href="javascript:void(0);" class="yijiaLink" onclick="yijia('00000167','000000004d74fbb6014d799b7d93006c')">议价</a></td>
+              </tr>
+              <tr>
+                  <td style="width:12%;"><div class="xhname">无定形硼粉无定形硼粉无定形硼粉无定形硼粉无定形硼粉无定形硼粉无定形硼粉无定形硼粉无定形硼粉无定形硼粉无定形硼粉无定形硼粉无定形硼粉</div><div class="xhyuansu" style="color:#999999"></div></td>
+                  <td style="width:28%;"><div class="xhcomname">
+ <em class="gyrz">证</em> 永兴鑫裕环保镍业有限公司
+                  </div></td>
+                  <td style="width:10%;"><div>-200目</div></td>
+                  <td style="width:12%;"><div class="xhsheng"></div><div class="xhcity"> &nbsp;  </div></td>
+                  <td style="width:14%; white-space:nowrap;"><div>60(吨)</div></td>
+                  <td style="width:14%; white-space:nowrap;"><div>16440.00元/吨</div></td>
+                  <td style="width:10%;"><a href="javascript:void(0);" onclick="validUser('00000171','0','xhjy');">购买</a><a href="javascript:void(0);" class="yijiaLink" onclick="yijia('00000171','000000004d74fbb6014d799b7d93006c')">议价</a></td>
+              </tr>
+              <tr>
+                  <td style="width:12%;"><div class="xhname"> 铂</div><div class="xhyuansu" style="color:#999999"></div></td>
+                  <td style="width:28%;"><div class="xhcomname">
+ <em class="gyrz">证</em> 湖南永鑫环保科技有限公司
+                  </div></td>
+                  <td style="width:10%;"><div> &nbsp; </div></td>
+                  <td style="width:12%;"><div class="xhsheng"></div><div class="xhcity"> &nbsp;  </div></td>
+                  <td style="width:14%; white-space:nowrap;"><div>1000(克)</div></td>
+                  <td style="width:14%; white-space:nowrap;"><div>264.00元/克</div></td>
+                  <td style="width:10%;"><a href="javascript:void(0);" onclick="validUser('00000139','0','xhjy');">购买</a><a href="javascript:void(0);" class="yijiaLink" onclick="yijia('00000139','1')">议价</a></td>
+              </tr>
+              <tr>
+                  <td style="width:12%;"><div class="xhname">供应进口铜锭 </div><div class="xhyuansu" style="color:#999999">Cu</div></td>
+                  <td style="width:28%;"><div class="xhcomname">
+ <em class="gyrz">证</em> 湖南永鑫环保科技有限公司
+                  </div></td>
+                  <td style="width:10%;"><div>99.95%</div></td>
+                  <td style="width:12%;"><div class="xhsheng"></div><div class="xhcity"> &nbsp;  </div></td>
+                  <td style="width:14%; white-space:nowrap;"><div>5000(吨)</div></td>
+                  <td style="width:14%; white-space:nowrap;"><div>35300.00元/吨</div></td>
+                  <td style="width:10%;"><a href="javascript:void(0);" onclick="validUser('00000163','0','xhjy');">购买</a><a href="javascript:void(0);" class="yijiaLink" onclick="yijia('00000163','1')">议价</a></td>
+              </tr>
+              <tr>
+                  <td style="width:12%;"><div class="xhname">氧化铽</div><div class="xhyuansu" style="color:#999999"></div></td>
+                  <td style="width:28%;"><div class="xhcomname">
+ <em class="gyrz">证</em> 永兴鑫裕环保镍业有限公司
+                  </div></td>
+                  <td style="width:10%;"><div>Tb4O7/TREO 99.95-99.99%</div></td>
+                  <td style="width:12%;"><div class="xhsheng"></div><div class="xhcity"> &nbsp;  </div></td>
+                  <td style="width:14%; white-space:nowrap;"><div>50(吨)</div></td>
+                  <td style="width:14%; white-space:nowrap;"><div>2675.00元/吨</div></td>
+                  <td style="width:10%;"><a href="javascript:void(0);" onclick="validUser('00000165','0','xhjy');">购买</a><a href="javascript:void(0);" class="yijiaLink" onclick="yijia('00000165','000000004d74fbb6014d799b7d93006c')">议价</a></td>
+              </tr>
+              <tr>
+                  <td style="width:12%;"><div class="xhname">氧化钐</div><div class="xhyuansu" style="color:#999999">Sm2O3</div></td>
+                  <td style="width:28%;"><div class="xhcomname">
+ <em class="gyrz">证</em> 湖南永鑫环保科技有限公司
+                  </div></td>
+                  <td style="width:10%;"><div>Sm2O3/TREO 99.5-99.9%</div></td>
+                  <td style="width:12%;"><div class="xhsheng"></div><div class="xhcity"> &nbsp;  </div></td>
+                  <td style="width:14%; white-space:nowrap;"><div>30(吨)</div></td>
+                  <td style="width:14%; white-space:nowrap;"><div>12500.00元/吨</div></td>
+                  <td style="width:10%;"><a href="javascript:void(0);" onclick="validUser('00000164','0','xhjy');">购买</a><a href="javascript:void(0);" class="yijiaLink" onclick="yijia('00000164','1')">议价</a></td>
+              </tr>
+              </tbody>
+          </table>
+      </div>
+    </div>
+
+
+</div>
+    <!--销售挂牌 end-->
+    
+    <!--单图广告-->
+    <div class="oneAdpic">
+<!-- 广告展示 -->
+
+
+
+
+
+
+<div class="danAdv" style="" id="CONTENTS">
+	        
+	    <div id="details">
+	            <a href="" title="" class="danLink">
+	                <img src="http://www.sfdhb.com/customerfiles/content/20160325/ad/51c69cb9-5cba-4cc7-81d2-72c9a3c57cd5.jpg" style="" id="IMGS">
+	            </a>
+	        </div></div>    </div>
+    <!--单图广告 end-->
+    
+    <!--采购挂牌-->
+    <div class="huoyuan">
+      <span>采购挂牌</span>
+      <a href="javaScript:void(0);" class="btnFb updateLink" datatype="1">发布采购</a>
+      <a href="http://www.sfdhb.com/cggp.html" class="btnMore">更多...</a>
+    </div>
+    <div class="hyList" id="qggp"><!--现货-求购-->
+
+<div class="cyTable">
+      <div class="cheyuanIn">
+          <table border="0" cellspacing="0" cellpadding="0">
+              <tr class="cheyuanHeader">
+                  <th>品名</th>
+                  <th>厂家</th>
+                  <th>质量等级</th>
+                  <th>交货地</th>
+                  <th>交货方式</th>
+                  <th>数量</th>
+                  <th>&nbsp;&nbsp;</th>
+              </tr>
+              <tbody>
+              <tr>
+                  <td><div class="xhname">求购氧化钇求购氧化钇求购氧化钇求购氧化钇求购氧化钇求购氧化钇求购氧化钇求购氧化钇</div></td>
+                  <td> <div class="xhcomname">
+ <em class="gyrz">证</em> 永兴鑫裕环保镍业有限公司永兴鑫裕环保镍业有限公司永兴鑫裕环保镍业有限公司永兴鑫裕环保镍业有限公司
+</div></td>
+                  <td> <div class="xhcomname">AAAAAAAAAAAAAAAAAA</div></td>
+                  <td><div class="xhsheng">湖南长沙市湖南长沙市湖南长沙市湖南长沙市湖南长沙市湖南长沙市</div></td>
+                  <td> <div>自提</div></td>
+                  <td><div>50.00(吨)</div></td> 
+                  <td> <a href="javascript:void(0)" class="xunjiaLink" onclick="loadXunjia('e4a1a58655b5d063015625f644a30824','000000004d74fbb6014d799b7d93006c');" dataname="求购氧化钇">询价</a></td>
+                  <!--<td> <a href="javascript:void(0);" class="opendetail" dataname="求购氧化钇">详情</a></td>-->
+              </tr>
+              <tr>
+                  <td><div class="xhname">长期求购氧化铕</div></td>
+                  <td> <div class="xhcomname">
+ <em class="gyrz">证</em> 永兴鑫裕环保镍业有限公司
+</div></td>
+                  <td> <div class="xhcomname">AAA</div></td>
+                  <td><div class="xhsheng">四川德阳市</div></td>
+                  <td> <div>自提</div></td>
+                  <td><div>80.00(吨)</div></td> 
+                  <td> <a href="javascript:void(0)" class="xunjiaLink" onclick="loadXunjia('e4a1a58655b5d063015625f363900822','000000004d74fbb6014d799b7d93006c');" dataname="长期求购氧化铕">询价</a></td>
+                  <!--<td> <a href="javascript:void(0);" class="opendetail" dataname="长期求购氧化铕">详情</a></td>-->
+              </tr>
+              <tr>
+                  <td><div class="xhname">求购氧化铽</div></td>
+                  <td> <div class="xhcomname">
+ <em class="gyrz">证</em> 永兴鑫裕环保镍业有限公司
+</div></td>
+                  <td> <div class="xhcomname">AAA</div></td>
+                  <td><div class="xhsheng">湖南长沙市</div></td>
+                  <td> <div>自提</div></td>
+                  <td><div>70.00(吨)</div></td> 
+                  <td> <a href="javascript:void(0)" class="xunjiaLink" onclick="loadXunjia('e4a1a58655b5d063015625f0b8a00821','000000004d74fbb6014d799b7d93006c');" dataname="求购氧化铽">询价</a></td>
+                  <!--<td> <a href="javascript:void(0);" class="opendetail" dataname="求购氧化铽">详情</a></td>-->
+              </tr>
+              <tr>
+                  <td><div class="xhname">长期求购氧化钐</div></td>
+                  <td> <div class="xhcomname">
+ <em class="gyrz">证</em> 永兴鑫裕环保镍业有限公司
+</div></td>
+                  <td> <div class="xhcomname">AAA</div></td>
+                  <td><div class="xhsheng">湖南长沙市</div></td>
+                  <td> <div>自提</div></td>
+                  <td><div>60.00(吨)</div></td> 
+                  <td> <a href="javascript:void(0)" class="xunjiaLink" onclick="loadXunjia('e4a1a58655b5d063015625efcb630820','000000004d74fbb6014d799b7d93006c');" dataname="长期求购氧化钐">询价</a></td>
+                  <!--<td> <a href="javascript:void(0);" class="opendetail" dataname="长期求购氧化钐">详情</a></td>-->
+              </tr>
+              <tr>
+                  <td><div class="xhname">长期求购锗粉</div></td>
+                  <td> <div class="xhcomname">
+ <em class="gyrz">证</em> 永兴鑫裕环保镍业有限公司
+</div></td>
+                  <td> <div class="xhcomname">AAA</div></td>
+                  <td><div class="xhsheng">湖南长沙市</div></td>
+                  <td> <div>自提</div></td>
+                  <td><div>50.00(吨)</div></td> 
+                  <td> <a href="javascript:void(0)" class="xunjiaLink" onclick="loadXunjia('e4a1a58655b5d063015625e974c4081f','000000004d74fbb6014d799b7d93006c');" dataname="长期求购锗粉">询价</a></td>
+                  <!--<td> <a href="javascript:void(0);" class="opendetail" dataname="长期求购锗粉">详情</a></td>-->
+              </tr>
+              <tr>
+                  <td><div class="xhname">长期求购镓</div></td>
+                  <td> <div class="xhcomname">
+ <em class="gyrz">证</em> 永兴鑫裕环保镍业有限公司
+</div></td>
+                  <td> <div class="xhcomname">AAA</div></td>
+                  <td><div class="xhsheng">湖南长沙市</div></td>
+                  <td> <div>自提</div></td>
+                  <td><div>40.00(吨)</div></td> 
+                  <td> <a href="javascript:void(0)" class="xunjiaLink" onclick="loadXunjia('e4a1a58655b5d063015625e850ea081e','000000004d74fbb6014d799b7d93006c');" dataname="长期求购镓">询价</a></td>
+                  <!--<td> <a href="javascript:void(0);" class="opendetail" dataname="长期求购镓">详情</a></td>-->
+              </tr>
+              <tr>
+                  <td><div class="xhname">长期求购铜锭</div></td>
+                  <td> <div class="xhcomname">
+ <em class="gyrz">证</em> 永兴鑫裕环保镍业有限公司
+</div></td>
+                  <td> <div class="xhcomname">AAA</div></td>
+                  <td><div class="xhsheng">上海市市辖区</div></td>
+                  <td> <div>自提</div></td>
+                  <td><div>20.00(吨)</div></td> 
+                  <td> <a href="javascript:void(0)" class="xunjiaLink" onclick="loadXunjia('e4a1a58655b5d063015625e44948081d','000000004d74fbb6014d799b7d93006c');" dataname="长期求购铜锭">询价</a></td>
+                  <!--<td> <a href="javascript:void(0);" class="opendetail" dataname="长期求购铜锭">详情</a></td>-->
+              </tr>
+              <tr>
+                  <td><div class="xhname">长期求购电解镍</div></td>
+                  <td> <div class="xhcomname">
+ <em class="gyrz">证</em> 永兴鑫裕环保镍业有限公司
+</div></td>
+                  <td> <div class="xhcomname">AAA</div></td>
+                  <td><div class="xhsheng">河南开封市</div></td>
+                  <td> <div>自提</div></td>
+                  <td><div>30.00(吨)</div></td> 
+                  <td> <a href="javascript:void(0)" class="xunjiaLink" onclick="loadXunjia('e4a1a58655b5d063015625e2f2e0081c','000000004d74fbb6014d799b7d93006c');" dataname="长期求购电解镍">询价</a></td>
+                  <!--<td> <a href="javascript:void(0);" class="opendetail" dataname="长期求购电解镍">详情</a></td>-->
+              </tr>
+              <tr>
+                  <td><div class="xhname">长期求购金属硅</div></td>
+                  <td> <div class="xhcomname">
+ <em class="gyrz">证</em> 永兴鑫裕环保镍业有限公司
+</div></td>
+                  <td> <div class="xhcomname">AAA</div></td>
+                  <td><div class="xhsheng">湖南长沙市</div></td>
+                  <td> <div>自提</div></td>
+                  <td><div>30.00(吨)</div></td> 
+                  <td> <a href="javascript:void(0)" class="xunjiaLink" onclick="loadXunjia('e4a1a58655b5d063015625e17192081b','000000004d74fbb6014d799b7d93006c');" dataname="长期求购金属硅">询价</a></td>
+                  <!--<td> <a href="javascript:void(0);" class="opendetail" dataname="长期求购金属硅">详情</a></td>-->
+              </tr>
+              <tr>
+                  <td><div class="xhname">求购铟</div></td>
+                  <td> <div class="xhcomname">
+ <em class="gyrz">证</em> 永兴鑫裕环保镍业有限公司
+</div></td>
+                  <td> <div class="xhcomname">AAA</div></td>
+                  <td><div class="xhsheng">四川攀枝花市</div></td>
+                  <td> <div>自提</div></td>
+                  <td><div>20.00(kg)</div></td> 
+                  <td> <a href="javascript:void(0)" class="xunjiaLink" onclick="loadXunjia('e4a1a58655b5d063015625db3bb8081a','000000004d74fbb6014d799b7d93006c');" dataname="求购铟">询价</a></td>
+                  <!--<td> <a href="javascript:void(0);" class="opendetail" dataname="求购铟">详情</a></td>-->
+              </tr>
+              </tbody>
+          </table>
+      </div>
+
+    </div>
+</div>
+    <!--采购挂牌 end-->
+    
+	</div>
+  
+  
+  <div class="rightBox">
+  	<!--单图广告-->
+    <div class="oneAdpic">
+<!-- 广告展示 -->
+
+
+
+
+
+
+<div class="danAdv" style="width:331.0px;height:309.0px;" id="CONTENTS">
+	        
+	    <div id="details">
+	            <a href="" title="" class="danLink">
+	                <img src="http://www.sfdhb.com/customerfiles/content/20160323/ad/1b5a651f-4e9f-489b-94cf-40100be71d6b.jpg" style="width:331.0px;height:309.0px;" id="IMGS">
+	            </a>
+	        </div></div>    </div>
+    <!--单图广告 end-->
+    
+    <div class="btnArea">
+      <a href="javaScript:choseMenu('http://www.sfdhb.com','PRODUCT_ADD');" class="fbBtns" style="margin-right:2px;">我要销售</a><a href="javaScript:choseMenu('http://www.sfdhb.com','PRODUCT_PURCHASE_ADD');" class="fbBtns">我要采购</a>
+      <div class="clear"></div>
+    </div>
+    
+     <!--当日涨幅-->
+      <div class="jmBox">
+      	<div id="runUp"> <!--当日涨幅--> <!-- <div class="boxTit"> -->
+<!-- 	<h2>当日涨幅排名</h2> --> <!-- </div> -->
+
+	<ul class="tabNav">
+		<li class="cur">当日涨幅排名</li>
+		<li>当日跌幅排名</li>
+	</ul>
+	<div class="tabContent zfBox" style="display: block;">
+		<table border="0" cellspacing="0" cellpadding="0" class="zftab">
+			<tbody>
+                    <tr>
+                        <th>排名</th>
+                        <th>品类</th>
+                        <th>价格</th>
+                        <th>涨幅</th>
+                    </tr>
+				
+					<tr>
+						<td>1</td>
+						<td>2#锑锭</td> 
+						<td class="zup">500.0 ↑</td> 
+						<td>2%</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>2#锑锭</td> 
+						<td class="zup">500.0 ↑</td> 
+						<td>2%</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>1#锑锭</td> 
+						<td class="zup">500.0 ↑</td> 
+						<td>2%</td>
+					</tr>
+					<tr>
+						<td>4</td>
+						<td>0#锑锭</td> 
+						<td class="zup">500.0 ↑</td> 
+						<td>2%</td>
+					</tr>
+					<tr>
+						<td>5</td>
+						<td>三氧化二锑</td> 
+						<td class="zup">500.0 ↑</td> 
+						<td>2%</td>
+					</tr>
+					<tr>
+						<td>6</td>
+						<td>三氧化二锑</td> 
+						<td class="zup">500.0 ↑</td> 
+						<td>2%</td>
+					</tr>
+					<tr>
+						<td>7</td>
+						<td>精铋</td> 
+						<td class="zup">500.0 ↑</td> 
+						<td>1%</td>
+					</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="tabContent zfBox">
+		<table border="0" cellspacing="0" cellpadding="0" class="zftab">
+			<tbody>
+				<tr>
+					<th width="20%;">排名</th>
+					<th width="25%;">品类</th>
+					<th width="30%;">价格</th>
+					<th width="25%;">跌幅</th>
+				</tr>
+					<tr>
+						<td>1</td>
+						<td>黑钨精矿</td> 
+						<td class="zdown">1000.0 ↓</td> 
+						<td>-1%</td>
+					</tr>
+			</tbody>
+		</table>
+	</div>
+
+<!--当日涨幅end-->
+</div>
+      </div>
+	 <!--当日涨幅end-->
+     
+     <!--行业资讯-->
+      <div class="jmBox" style="border:0;min-height:100px;">
+
+
+
+  	<div class="boxTit borderbottom"><h2>行业资讯</h2></div>
+	  		<div class="zxList">
+			<div class="zxleft">
+	          	<a href="http://www.sfdhb.com/03-00001095-1.html" target="_blank" title="中国绿色金融稳步前进 为全球投资者带来巨大机遇">中国绿色金融稳步前进 为全球投资者带来巨大机遇</a>
+          </div>
+          <a href="http://www.sfdhb.com/03-00001095-1.html" target="_blank" title="中国绿色金融稳步前进 为全球投资者带来巨大机遇"><img src="http://www.sfdhb.com//customerfiles/content/20160815/contentIco/2a441165-74b1-4e2b-a202-ffc2191437cc.jpg" width="100" height="100" title="《每日经济新闻(博客,微博)》联合法国里昂商学院社会创新与可持续发展研究中心推出美好商业专栏，将发挥财经媒体+商学院的优势以开放的眼光进行严谨观察，关注企业社会责任和社会创新领域，用新视角关注商业可持续新发展。" class="zxright"></a>
+  			<p class="author"></p>
+		  <div class="clear"></div>
+		</div>
+	  		<div class="zxList">
+			<div class="zxleft">
+	          	<a href="http://www.sfdhb.com/03-00001073-1.html" target="_blank" title="大数据让环卫管理迈进“智慧时代” ">大数据让环卫管理迈进“智慧时代” </a>
+          </div>
+          <a href="http://www.sfdhb.com/03-00001073-1.html" target="_blank" title="大数据让环卫管理迈进“智慧时代” "><img src="http://www.sfdhb.com//customerfiles/content/20160812/contentIco/1c1514b8-4083-4acf-ac84-e762132b6b98.jpg" width="100" height="100" title="山东省泰安市建立数字化体系，运用互联网+建设智慧环卫管理平台，实现了环卫数字化、标准化、精细化。" class="zxright"></a>
+  			<p class="author"></p>
+		  <div class="clear"></div>
+		</div>
+	  		<div class="zxList">
+			<div class="zxleft">
+	          	<a href="http://www.sfdhb.com/03-00001061-1.html" target="_blank" title="首批国家试点一年考 海绵城市：时间紧 任务重 ">首批国家试点一年考 海绵城市：时间紧 任务重 </a>
+          </div>
+          <a href="http://www.sfdhb.com/03-00001061-1.html" target="_blank" title="首批国家试点一年考 海绵城市：时间紧 任务重 "><img src="http://www.sfdhb.com//customerfiles/content/20160811/contentIco/cde8f474-46c1-46d8-ac4a-5512df3e67e0.jpg" width="100" height="100" title="2015年4月，国家颁布了首批海绵城市试点。2016年入夏，16个试点城市有10个出现了内涝。住建部调研显示，项目完工率较高，但存在着小、散、碎片化现象。而百亿投资之后，海绵城市项目面临难以维护的窘境。" class="zxright"></a>
+  			<p class="author"></p>
+		  <div class="clear"></div>
+		</div>
+	  		<div class="zxList">
+			<div class="zxleft">
+	          	<a href="http://www.sfdhb.com/03-00001031-1.html" target="_blank" title=" 瀚蓝环境携国际环保巨头建危废处理中心"> 瀚蓝环境携国际环保巨头建危废处理中心</a>
+          </div>
+          <a href="http://www.sfdhb.com/03-00001031-1.html" target="_blank" title=" 瀚蓝环境携国际环保巨头建危废处理中心"><img src="http://www.sfdhb.com//customerfiles/content/20160808/contentIco/e3fb8ce5-c646-4e47-bf69-898f08d66703.jpg" width="100" height="100" title="瀚蓝环境已与欧洲领先的环保企业德国瑞曼迪斯成立中外合资公司，首个在佛山的危废实体项目(5万吨/年)已在前期准备。" class="zxright"></a>
+  			<p class="author"></p>
+		  <div class="clear"></div>
+		</div>
+	  		<div class="zxList">
+			<div class="zxleft">
+	          	<a href="http://www.sfdhb.com/03-00001029-1.html" target="_blank" title="破解垃圾围村等不起">破解垃圾围村等不起</a>
+          </div>
+          <a href="http://www.sfdhb.com/03-00001029-1.html" target="_blank" title="破解垃圾围村等不起"><img src="http://www.sfdhb.com//customerfiles/content/20160808/contentIco/b0e4d346-7b08-4116-bef5-0f9d05cd7579.jpg" width="100" height="100" title="垃圾围村不仅会降低农村的宜居度，还会对土壤和水体造成污染，对食品安全的影响也不容小觑，必须加快补齐农村环境治理短板" class="zxright"></a>
+  			<p class="author"></p>
+		  <div class="clear"></div>
+		</div>
+			<div class="zxList" style="border-bottom:0;">
+			<div class="zxleft">
+	          	<a href="http://www.sfdhb.com/03-00001015-1.html" target="_blank" title="上市环保公司为什么要收购那些亏损企业？">上市环保公司为什么要收购那些亏损企业？</a>
+          </div>
+          <a href="http://www.sfdhb.com/03-00001015-1.html" target="_blank" title="上市环保公司为什么要收购那些亏损企业？"><img src="http://www.sfdhb.com//customerfiles/content/20160805/contentIco/97694347-0b19-48f6-b3bd-b2680ec78426.jpg" width="100" height="100" title="从几家公司的表态中可以看出，主要还是出于公司的业务拓展和未来发展考虑，以及对标的公司有一定的信心可以扭亏为盈。但是，这些大公司可能忽视了并购的亏损公司短期内给自己带来的沉重负担。" class="zxright"></a>
+  			<p class="author"></p>
+		  <div class="clear"></div>
+		</div>
+
+      </div>
+		 <!--行业资讯end-->
+     
+     <!--行业数据-->
+      <div class="jmBox" style="min-height:100px;">
+
+
+
+  	<div class="boxTit"><h2>行业快讯</h2></div>
+  	<div style="position:relative;">
+	  	<ul class="hydata">
+				<li><a target="_blank" href="http://www.sfdhb.com/03-00000839-1.html" title="PPP的四大困境与对策">PPP的四大困境与对策</a></li>
+				<li><a target="_blank" href="http://www.sfdhb.com/03-00000429-1.html" title="现货交易市场盗版软件露头 喊价“十几万可包年”">现货交易市场盗版软件露头 喊价“十几万可包年”</a></li>
+				<li><a target="_blank" href="http://www.sfdhb.com/03-00000245-1.html" title="农产品衍生品市场迎来发展机遇">农产品衍生品市场迎来发展机遇</a></li>
+				<li><a target="_blank" href="http://www.sfdhb.com/03-00000244-1.html" title="湖南成立全国首个低碳技术交易中心">湖南成立全国首个低碳技术交易中心</a></li>
+				<li><a target="_blank" href="http://www.sfdhb.com/03-00000240-1.html" title="首单跨境碳资产回购 深圳能源与BP交易400万吨碳配额">首单跨境碳资产回购 深圳能源与BP交易400万吨碳配额</a></li>
+				<li><a target="_blank" href="http://www.sfdhb.com/03-00000239-1.html" title="公共资源交易平台整合试点启动 皖鄂粤黔宁率先开展">公共资源交易平台整合试点启动 皖鄂粤黔宁率先开展</a></li>
+		</ul>
+	</div>
+
+      </div>
+		 <!--行业数据end-->
+     
+  </div>
+  
+  <div class="clear"></div>
+    
+</div>
+
+<!--底部-->
+<div id="channelFoot"><div class="footer">
+  <div class="wrapper">
+	        <dl class="footerItem">
+	          <dt>新手指导</dt>
+	          <dd>
+	               <li><a href="http://www.sfdhb.com/web/help/00000063?cid=00000026" title="关于订单">关于订单</a></li>
+	               <li><a href="http://www.sfdhb.com/web/help/00000060?cid=00000026" title="注册登录">注册登录</a></li>
+	               <li><a href="http://www.sfdhb.com/web/help/00000061?cid=00000026" title="忘记密码">忘记密码</a></li>
+	               <li><a href="http://www.sfdhb.com/web/help/00000062?cid=00000026" title="企业认证">企业认证</a></li>
+	          </dd>
+	        </dl>
+	        <dl class="footerItem">
+	          <dt>业务流程</dt>
+	          <dd>
+	               <li><a href="http://www.sfdhb.com/web/help/00000065?cid=00000026" title="商品管理流程">商品管理流程</a></li>
+	               <li><a href="http://www.sfdhb.com/web/help/00000066?cid=00000026" title="危废再循环流程">危废再循环流程</a></li>
+	               <li><a href="http://www.sfdhb.com/web/help/00000064?cid=00000026" title="主营业务">主营业务</a></li>
+	               <li><a href="http://www.sfdhb.com/web/help/00000067?cid=00000026" title="技术和设备">技术和设备</a></li>
+	          </dd>
+	        </dl>
+	        <dl class="footerItem">
+	          <dt>安全保障</dt>
+	          <dd>
+	               <li><a href="http://www.sfdhb.com/web/help/00000068?cid=00000026" title="平台安全">平台安全</a></li>
+	               <li><a href="http://www.sfdhb.com/web/help/00000070?cid=00000026" title="平台交易规则">平台交易规则</a></li>
+	               <li><a href="http://www.sfdhb.com/web/help/00000069?cid=00000026" title="交易服务协议">交易服务协议</a></li>
+	               <li><a href="http://www.sfdhb.com/web/help/00000071?cid=00000026" title="信息发布规则">信息发布规则</a></li>
+	          </dd>
+	        </dl>
+	        <dl class="footerItem">
+	          <dt>关于我们</dt>
+	          <dd>
+	               <li><a href="http://www.sfdhb.com/web/help/00000074?cid=00000026" title="特点与优势">特点与优势</a></li>
+	               <li><a href="http://www.sfdhb.com/web/help/00000073?cid=00000026" title="公司介绍">公司介绍</a></li>
+	               <li><a href="http://www.sfdhb.com/web/help/00000072?cid=00000026" title="产品和服务">产品和服务</a></li>
+	               <li><a href="http://www.sfdhb.com/web/help/00000075?cid=00000026" title="联系我们">联系我们</a></li>
+	          </dd>
+	        </dl>
+	    	<dl class="footerItem" style="text-align:center;">
+            <dt>微信公众账号 扫码关注</dt>
+            <dd><img src="http://www.sfdhb.com/resources/web/images/sfd_ma.jpg" width="100" height="100" alt="三分地微信公众账号"></dd>
+        </dl>
+        <div class="clear"></div>
+	</div>
+    <div class="footerBottom">
+   	  <div class="wrapper">
+            <div class="footerBottomLeft">© 2016 湖南三分地环保信息科技有限公司 湘ICP备 16000953号</div>
+            <div class="footerBottomRight">总部基地：湖南省长沙市雨花区万家丽南路二段688号中南长沙总部基地2栋<br>技术中心：四川省成都市高新区吉泰路666号花样年·福年广场2-1309室</div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div></div>
+<!--底部 end-->
+<!--发布信息弹层-->
+<div id="updateHtml" style="display:none;">
+    <div class="update">
+        <div class="leftLayer">
+            <a href="http://www.sfdhb.com/web/login" class="btnGreen">登录后发布</a>
+            <div class="text">
+                <em class="red">*</em>保留完整的发布信息数据<br>
+                可编辑修改后再发布<br>
+                历史记录永久查阅
+            </div>
+        </div>
+        <div class="rightLayer">
+            <a href="javascript:void(0);" class="btnGreen" onclick="release();">发布临时信息</a>
+            <div class="text">
+                <em class="red">*</em>未注册用户可直接发布临时信息<br>
+                不可修改及查阅历史记录<br>
+            </div>
+        </div>
+    </div>
+</div>
+<!--发布信息弹层 end-->
+<!--发布弹层-->
+<div id="fbHtml" style="display:none;">
+</div>
+<!--发布弹层 end-->
+
+
+<!--议价弹层-->
+<div id="yijiaHtml" style="display:none;">
+</div>
+<!--议价弹层 end-->
+
+<!--询价弹层-->
+<div id="xunjiaHtml" style="display:none;">
+<script>
+$(document).ready(function() {
+	$(".leftBox table").colResizable();
+	cutString("table");
+
+	
+})
+</script>
+
+
+
+</div></body>
+</html>

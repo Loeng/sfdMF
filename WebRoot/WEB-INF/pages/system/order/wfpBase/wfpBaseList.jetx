@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>危废品基础管理</title>
+
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/demand.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/list.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/base.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/list.js"></script>
+	<script src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+		
+<style>
+.noEdit{border:0; background-color:#fff;}
+.baocunIco{display:inline-block; background:url(${webroot}/resources/system/images/duigou.png) no-repeat; width:16px; height:16px;}
+</style>
+</head>
+<body>
+	#define(List<com.ekfans.base.order.model.ValuationCategory> vcList)
+	
+	<form action="${webroot}/system/store/order/wfpOrder/getVCList" method="post" id="searchWfp">
+  	<input type="hidden" name="pageNum" />
+      <dl class="pro_ss">
+				<dt><b>查询</b><span class="span_down"></span><span class="span_up"></span></dt>
+				<dd class="pro_ss_item">
+					<span>含量名称</span>
+					<input type="text" name="contentName" class="i_bg">
+				</dd>
+		        <dd class="clear"></dd>
+			</dl>
+			<div class="pro_ss_btn">
+				<input type="submit" value="搜索" class="inputbtn">
+				<a onclick="reset()" class="btn">重置</a>
+			</div>
+
+  </form>    
+	
+	
+	<div class="pro_ss_btn">
+		<a href="javascript:void(0);" class="btn btnadd">新增</a>
+	</div>
+	
+	<div class="ht_list">
+		<table cellpadding="0" cellspacing="0" border="0"  id="orginTable">
+			<tr>
+				<th width="19%">序号</th>
+				<th width="19%">含量名称</th>
+				<th width="19%">状态</th>
+				<th width="19%"></th>
+			</tr>
+			#for(com.ekfans.base.order.model.ValuationCategory vc : vcList)
+			<tr class="newTr">
+				<td>${for.index}</td>
+				<td><input type="hidden" id="idStr" name="idStr" value="${vc.id}">
+						<input type="text" name="specName" id="specName" class="noEdit" readonly disabled value="${vc.specName}"></td>
+						<input type="hidden" id="createTime" name="createTime" value="${vc.createTime}">
+				<td><select name="status" id="status" readonly disabled>
+							<option value="0" #if(vc.status=='0')selected #end>禁用</option>
+							<option value="1" #if(vc.status=='1')selected #end>可用</option>
+						</select></td>
+				<td class="cz">
+        	<a href="javascript:void(0);" class="baocunIco" style="display:none;"></a>
+					<a href="javascript:void(0);" class="editIco"></a>
+					<a href="${webroot}/system/wfpOrder/delVC?id=${vc.id}" class="del_list"></a>
+				</td>
+			</tr>
+			#end
+		
+		</table>
+	</div>
+  
+  <table cellpadding="0" cellspacing="0" border="0" style="display:none;" id="newTable">
+		<tr class="newTr">
+			<td></td>
+			<td><input type="text" name="specName" id="specName" value=""></td>
+			<td><select name="status" id="status">
+						<option value="0">禁用</option>
+						<option value="1">可用</option>
+					</select>
+			</td>
+			<td class="cz">
+      	<a class="baocunIco"></a>
+				<a href="javascript:void(0);" class="editIco"></a>
+				<a href="javascript:void(0);" class="del_list"></a>
+			</td>
+		</tr>
+	</table>
+	
+	<div class="ht_pageBox">
+			${include( "../../common/page.jetx")}
+	</div>
+<script>
+	//分页跳转
+function goPage(pageNum){
+	$("input[name='pageNum']").val(pageNum);
+	$("#searchWfp").submit();
+}
+$(document).ready(function() {
+		if("${addFlog}"==1){
+			alert("添加成功");	
+		}
+		if("${delFlog}"==1){
+			alert("删除成功");	
+		}
+		if("${updateFlog}"==1){
+			alert("修改成功");	
+		}
+		var flog=0;
+    $(".btnadd").click(function() {
+    	flog=1;
+      var obj=$("#newTable").children().find(".newTr").clone();
+			obj.find(".editIco").hide();
+			$("#orginTable").append(obj);
+    });
+	
+	$(".del_list").live("click",function(){
+		var obj=$(this).parents("tr").siblings(".newTr").length;
+		console.log(obj);
+		if(obj<=0){
+			alert("最后一行不能删除！");
+			}
+		else{
+		$(this).parents("tr").remove();
+		}
+	})
+	
+	$(".editIco").live("click",function(){
+		flog=0;
+		$(this).prev(".baocunIco").show();
+		$(this).hide();
+		 $(this).parents("tr").find("input").removeClass("noEdit");
+		 $(this).parents("tr").find("input").css("background-color","#fff")
+		 $(this).parents("tr").find("input").removeAttr("disabled","disabled");
+		 $(this).parents("tr").find("input").removeAttr("readonly","readonly");
+		 $(this).parents("tr").find("select").removeAttr("readonly","readonly");
+		 $(this).parents("tr").find("select").removeAttr("disabled","disabled");
+	});
+	
+	$(".baocunIco").live("click",function(){
+			var specName = $(this).parents("tr").find("#specName").val();
+			var statusStr = $(this).parents("tr").find("#status").val();
+			var idStr = $(this).parents("tr").find("#idStr").val();
+			var createTime = $(this).parents("tr").find("#createTime").val();
+			if(flog==0){
+				location.href="${webroot}/system/wfpOrder/updateVC/" + encodeURI(specName) + "/" +statusStr+ "/" +idStr+"/"+createTime;
+			}else{
+				location.href="${webroot}/system/wfpOrder/addVC/" + encodeURI(specName) + "/" +statusStr;
+			}
+			
+			/**
+			$(this).next(".editIco").show();
+			$(this).hide();
+			$(this).parents("tr").find("input").addClass("noEdit");
+			$(this).parents("tr").find("input").attr("disabled","disabled");
+			$(this).parents("tr").find("input").attr("readonly","readonly");
+			**/
+	});
+	
+	$("tr").live("mouseover",function(){
+		$(this).find(".noEdit").css("background","#ebf6ff")
+	});
+	$("tr").live("mouseout",function(){
+		$(this).find(".noEdit").css("background","#fff")
+	});
+});
+
+function formSubmit(){
+		$("#searchWfp").submit();	
+	}
+	function reset(){
+		$("#contentName").val("");
+	}
+</script>
+</body>
+</html>

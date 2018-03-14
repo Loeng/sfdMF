@@ -1,0 +1,212 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>添加${userType=="0"?"驾驶员":"押运员"}</title>
+	<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css">
+	<script src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+	<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+	<style>
+		.box80,.inputSplit{display:inline-block;}
+		.box80{width:95px;}
+		.formItem dt{width:98px;}
+	</style>
+</head>
+
+<body>
+   <form method="post" id="f1">
+   	<input type="hidden" name="type" value="${userType}"/>
+		<div class="rightContent">
+			<div class="contentTit  borderColor budong">
+				<h3>添加${userType=="0"?"驾驶员":"押运员"}</h3>
+				<a href="${webroot}/store/driver/carUser/list/${userType}" class="btnBase btnCancel">取消</a>
+				<a href="javascript:void(0);" class="btnBase btnSave" onClick="ajax1();">保存</a>
+				<div class="clear"></div>
+			</div>
+			<div class="form borderColor">
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>姓名</dt>
+					<dd><input name="name" onblur="checkFocus(this,'姓名不能为空');" type="text" id="name" class="textBox box212" placeholder="1-30个字符"><span class="errorText" style="display:none;"></span></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>手机号</dt>
+					<dd><input name="mobile" type="text" onblur="checkFocus(this,'手机号不能为空');checkPhone()" id="phone" class="textBox box212"><span class="errorText" style="display:none;"></span></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>身份证号</dt>
+					<dd><input name="cardNo" id="cardNo" onblur="checkFocus(this,'身份证号不能为空');" type="text" class="textBox box212"><span class="errorText" style="display:none;"></span></dd>
+					<dd class="clear"></dd>
+				</dl>
+				
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>性别</dt>
+					<dd>
+						<span class="radio"><label><input name="sex" type="radio" checked id="driverVal" value="0">女</label></span>
+						<span class="radio"><label><input name="sex" type="radio" id="cyVal" value="1">男</label></span>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>危废通登录账号</dt>
+					<dd><input name="loginName" id="loginName" onblur="checkFocus(this,'危废通登录账号不能为空');" type="text" class="textBox box212"><span class="errorText" style="display:none;"></span></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>危废通登录密码</dt>
+					<dd><input name="password" id="password" onblur="checkFocus(this,'危废通登录密码不能为空');" type="password" class="textBox box212"><span class="errorText" style="display:none;"></span></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+						<dt><em class="mustIco"></em>从业资格证号</dt>
+						<dd><input name="licenseNum" id="licenseNum" onblur="checkFocus(this,'从业资格证不能为空');" type="text" class="textBox box184"><span class="errorText" style="display:none;"></span></dd>
+						<dd class="clear"></dd>
+					</dl>
+				#if(userType=="0")
+					<dl class="formItem">
+						<dt ><em class="mustIco"></em>行驶证有效期</dt>
+							<dd><input name="startTime" id="startTime" onblur="checkFocus(this,'开始时间不能为空');" type="text" class="textBox box80" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"><span class="errorText" style="display:none;"></span></dd>
+							<dd class="lineColor">&nbsp;—&nbsp;</dd>
+							<dd><input name="endTime" id="endTime" onblur="checkFocus(this,'结束时间不能为空');" type="text" class="textBox box80" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"><span class="errorText" style="display:none;"></span></dd>
+						</dd>
+						<dd class="clear"></dd>
+					</dl>
+					<dl class="formItem">
+						<dt><em class="mustIco"></em>行驶证附件</dt>
+						<dd> #tag picUpload("driverFile","0.5","20","20","") #end </dd>
+						<dd class="clear"></dd>
+					</dl>
+				#end
+				
+					<dl class="formItem">
+						<dt style="width:98px"><em class="mustIco"></em>从业资格证附件</dt>
+						<dd> #tag picUpload("licenseFile","0.5","20","20","") #end </dd>
+						<dd class="clear"></dd>
+					</dl>
+					
+			</div>
+		</div>  
+	</form>	
+<script>
+	
+	$(function(){
+		var driverVal=$('input:radio[id="driverVal"]:checked').val();
+		var cyVal=$('input:radio[id="cyVal"]:checked').val();
+		if(driverVal!=null&&cyVal==null){
+				$("#driverDiv").show();
+			$("#cyDiv").hide();
+		}else{
+			$("#cyDiv").show();
+			$("#driverDiv").hide();
+		}
+	})
+	
+	function checkFocus(obj,tit) {
+		if($(obj).val()!=null&&$(obj).val()!=""&&$(obj).val()!=" "){
+			$(obj).next().html("");
+			$(obj).next().hide();
+		}else{
+			$(obj).next().html(tit);
+			$(obj).next().show();
+		}
+	}
+	function checkPhone(){
+		var cNum=$("#phone").val();
+		var match=/^(1)\d{10}$/;
+		if(!match.test(cNum)){
+			$("#phone").val("");
+			$("#phone").next().html("格式错误");
+			$("#phone").next().show();
+		}else{
+			$("#phone").next().html("");
+			$("#phone").next().hide();
+		}
+	}
+	
+	function ajax1(){name
+		
+		/*if($("#name").val()==""||$("#name").val()==" "||$("#name").val()==null){
+			falert("姓名不能为空");
+			return false;
+		}
+		if($("#cardNo").val()==""||$("#cardNo").val()==" "||$("#cardNo").val()==null){
+			falert("身份证号不能为空");
+			return false;
+		}
+		if($("#loginName").val()==""||$("#loginName").val()==" "||$("#loginName").val()==null){
+			falert("危废通登录账号不能为空");
+			return false;
+		}
+		if($("#password").val()==""||$("#password").val()==" "||$("#password").val()==null){
+			falert("危废通登录密码不能为空");
+			return false;
+		}
+		if($("#licenseNum").val()==""||$("#licenseNum").val()==" "||$("#licenseNum").val()==null){
+			falert("从业资格证号不能为空");
+			return false;
+		}
+		#if(userType=="0")
+		if($("#startTime").val()==""||$("#startTime").val()==" "||$("#startTime").val()==null){
+			falert("开始时间不能为空");
+			return false;
+		}
+		if($("#endTime").val()==""||$("#endTime").val()==" "||$("#endTime").val()==null){
+			falert("结束时间不能为空");
+			return false;
+		}
+		if($("#driverFileFileUrl").val()==""||$("#driverFileFileUrl").val()==" "||$("#driverFileFileUrl").val()==null){
+			falert("行驶证附件不能为空");
+			return false;
+		}
+		#end
+		*/
+		
+		var flag=true;
+		$("input[type='text']").each(function(){
+			$(this).blur();
+			if($(this).next().is(':visible')){
+				flag=false;
+			}
+		})
+		
+		$("input[type='number']").each(function(){
+			$(this).blur();
+			if($(this).next().is(':visible')){
+				flag=false;
+			}
+		})
+		
+		if($("#licenseFileFileUrl").val()==""||$("#licenseFileFileUrl").val()==" "||$("#licenseFileFileUrl").val()==null){
+			falert("从业资格证附件不能为空");
+			return false;
+		}
+		if(flag){
+			$.post('${webroot}/store/driver/carUser/save',$("#f1").serialize(),function (data){
+				if(data==1 || data=="1"){
+					econfirm('添加成功，是否继续添加？',reloads,null,goBack,[$("#ctxpath").val()]);
+				}else{
+					falert("添加失败");
+				}
+			});
+		}
+	}	
+	function reloads(){
+		window.location.href="${webroot}/store/transport/caruser/add/${userType}";
+	}
+	function goBack(contextPath){
+		// 判定contextPath是否为空
+		if(contextPath==null||contextPath==""){
+			window.location.href="${webroot}/store/driver/carUser/list/${userType}";
+		}
+	}
+</script>
+</body>
+</html>

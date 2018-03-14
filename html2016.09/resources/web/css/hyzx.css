@@ -1,0 +1,137 @@
+/* CSS Document */
+
+.main{margin:20px auto 20px auto;}
+.leftBox{width:850px; float:left;}
+.rightBox{width:331px; float:right;}
+
+.slideBox{height:280px; overflow:hidden; position:relative; margin-bottom:20px;min-width:1200px;}
+.slideBox .danLink{width:100%; height:280px;display: block;overflow: hidden;text-align: center;}
+.slideBox .danLink img{ position: absolute;top: 0;left: 50%;margin-left: -960px;}
+
+
+
+/*hyzx*/
+.newsList{padding:20px 15px 20px 20px;border-bottom:1px solid #EFEFEF;}
+.newsList h3{margin-bottom:15px;}
+.newsList h3 a{ font-size:16px; color:#333333;    height: 20px;overflow: hidden;display: block;}
+.zxzys{display: block; max-height:84px;overflow: hidden;}
+.newsList a{font-size:14px; color:#999; line-height:21px;}
+.newsList h3 a:hover,.listRight a:hover{color:#136333;}
+
+/*hbzk*/
+.zxTit{ font-size:18px; color:#333333; height:38px; line-height:38px;}
+.rightZx {margin-bottom:20px;}
+.rightZx dl{border-bottom:1px solid #EFEFEF; padding:18px 0 20px 0;}
+.rightZx dt{ margin-bottom:14px;}
+.rightZx dt a{ font-size:14px;}
+.rightZx dd{ font-size:12px; color:#999999;}
+
+.zxBox{border-bottom:1px solid #EFEFEF; margin-bottom:15px;}
+.zkLeft{float:left;width:448px;}
+.zkLeft .leftUp{width:200px;}
+.zkLeft .leftUp .leftUptit{width:200px;}
+.leftUp{float:left; margin-right:24px;}
+.leftUp a,.leftUp a img{display:block;}
+.leftUptit{font-size:14px; margin:0 0 16px 0; width:190px; height:27px; line-height:27px; overflow:hidden;}
+.zkMid{float:left;width:353px; margin:0 24px 0 24px;}
+.zkMid a{font-size:14px; display:block; line-height:37px; height:37px; overflow:hidden;}
+.zkMid .zxcontent{ font-size:12px; color:#999999; line-height:22px; margin:10px 0 40px 0; height:88px; overflow:hidden;}
+.zkRight{float:right;width:331px;}
+
+.zk2left{float:left;width:856px;}
+.zk2right{float:right; position:relative; margin-top:-8px;}
+.zk2right a{display:block; font-size:14px; line-height:34px; height:34px; width:325px;overflow:hidden;}
+.zk2left .leftUp{width:190px;}
+.zk2left .leftUp .leftUptit{width:190px;}
+.zk2left dl{float:left; width:408px; height:100px; margin-bottom:25px; margin-right:20px;}
+.zk2left dl dt{float:left;width:100px; margin-right:15px;}
+.fgRight{float:left; width:247px;}
+.fgRight a{font-size:14px; height:58px; overflow:hidden; display:block;}
+.fgRight div{ font-size:14px; color:#999999; font-weight:bold;}
+.fgRight p{font-size:14px; color:#999999;}
+
+.zk3left{float:left; width:327px; margin-right:20px;}
+.zk3left a{display:block;}
+.zk3leftTit{font-size:18px; margin:10px 0;}
+.zk3leftCon{ font-size:14px; color:#999999;height: 60px;overflow: hidden;}
+.zk3mid{float:left; width:495px;}
+.zk3Float{float:left; margin:0 25px 10px 20px; width:120px;}
+.zk3Float a{display:block;}
+.zk3midTit{font-size:12px; margin:4px 0 10px 0;height:32px;overflow:hidden;}
+.zk3right{ float:right;}
+.zk3right dl{ margin-bottom:25px; display:block;}
+.zk3rleft{float:left; width:214px; margin-right:10px;}
+.zk3rleft a{font-size:14px; height:58px; overflow:hidden; display:block;}
+.zk3rleft div{ font-size:14px; color:#999999; font-weight:bold;}
+.zk3rleft p{font-size:14px; color:#999999;}
+.zk3right dl dd{float:left;}
+
+.frindLink{border:1px solid ##242424;}
+.hzjg{ width:200px; height:98px; line-height:98px; text-align:center; color:#fff; background-color:#339933; float:left; font-size:18px;}
+.hzList{float:left; width:768px; padding:0 10px;}
+.hzList a{display:inline-block; font-size:16px; color:#656565; padding:38px 15px; margin-right:5px;}
+.hzhbrk{display:block; float:left; width:190px; height:60px; line-height:60px; color:#fff;background-color:#339933; text-align:center; font-size:18px; margin-top:19px;}
+.hzhbrk:hover{color:#fff;background-color:#339933;}
+
+/*hyzxDetail*/
+.zxxqTit{ position:relative; width:849px; margin-bottom:20px;}
+.zxxqTit h2{ font-size:18px; color:#242424;    height: 26px;overflow: hidden;width: 680px;}
+.author{ font-size:14px; color:#393939; position:absolute; top:7px; right:0;}
+
+.zxDetails{width:787px; border:1px solid #F2F2F2; overflow:hidden;line-height:30px; font-size:14px; color:#4B4848;padding:30px 30px 5px 30px;position: relative;}
+.zxzy{ background-color:#F2F2F2; padding:25px 20px 25px 30px;}
+.zxDetails *{max-width:787px; font-size:14px!important; font-family:Microsoft YaHei!important;}
+zxDetails img{margin:20px 0;}
+.pages{ position:relative; margin:15px 0; height:40px;}
+.pages a{display:block; width:90px; height:27px; line-height:27px; text-align:center; background-color:#339933; color:#fff; font-size:16px; border-radius:16px;}
+.pageLasts{ position:absolute; left:10px; top:10px;}
+.pageNexts{position:absolute; right:10px; top:10px;}
+
+.share{  position: absolute;right:0;top:0;}
+.infoPage{padding:10px 0; border-top:solid 1px #C6C6C6;}
+.infoPage a{display:block; width:90px; height:27px; line-height:27px; border-radius:12px; background:#fff; font-size:14px; text-align:center;}
+
+strong{font-style:normal;font-weight:bold; line-height:40px;}
+
+
+/*right*/
+.jmBox{border:1px solid #EFEFEF;margin:25px 0;}
+.jmBox .tabNav{height:34px; border-bottom:solid 1px #393;}
+.jmBox .tabContent{display:none;}
+.jmBox li{width:106px; height:32px; line-height:32px;font-size:14px; border-bottom:solid 2px #393; text-align:center; float:left; cursor:pointer;}
+.jmBox li.cur{background-color:#339933; color:#fff;}
+.boxTit{position:relative;}
+.boxTit h2{width:106px; height:35px; line-height:35px;font-size:14px;background-color:#339933; color:#fff;text-align:center;}
+.boxTit .btnjr{position:absolute; top:18px; right:10px; font-size:14px; color:#333333;}
+
+.zfBox{margin:0 4px; width:310px;}
+.zftab{width:100%; font-size:14px; }
+.zftab th{height:40px; border-bottom:solid 1px #999999; color:#999999;}
+.zftab td{height:20px; line-height:20px; padding:10px 10px; vertical-align:middle; text-align:center;color:#333333;border-bottom:solid 1px #E3E3E3;}
+.zftab .zup{color:#FF0000;}
+.zftab .zdown{color:#339933;}
+
+/*wlkx*/
+.wlkx{border:1px solid #EFEFEF;margin-bottom:25px;}
+.wlList{border-left:1px solid #99CB67; margin-left:30px;}
+.wlList li{border-bottom:1px solid #F1F1F1; position:relative; line-height:29px; color:#333333; font-size:14px; padding:18px 10px 4px 0; margin-left:18px;}
+.wlList li a{display:block; margin-bottom:2px;max-height: 54px; overflow: hidden;}
+.wlList li span{color:#999999;}
+.wlList li em{position:absolute;left:-23px; top:27px; background:url(../images/list_point.png) 0 0 no-repeat; width:11px; height:11px; display:block;}
+
+
+/*pageSize*/
+.pageSize{ margin:30px auto 10px auto;height:25px; min-width:100px; text-align:center;}
+.pageSize a.btn{ display:inline-block;margin:0px 2px; height:24px; min-width:20px; border:solid 1px #ddd; border-radius:2px;text-align:center; font-size:12px; line-height:24px; color:#666;}
+.pageSize a.btn:hover,.pageSize a.btn.cur{ border:solid 1px #393;background:#393; color:#fff;}
+.pageSize a.btn em{ padding:0 12px; font-size:12px;font-family:sim sun;}
+.pageSize a.pageControl{/*font-family:SimSun;*/ min-width:42px; text-align:center;}
+.pageSize .pageGolink{border:solid 1px #ddd; display:inline-block; width:30px; padding:0 4px; line-height:24px; height:24px;border-radius:4px;}
+.pageSize a.btnslh,.pageSize a.btnslh:hover{border:0; background-color:#fff; color:#666;}
+.pageSize a.pageGo{ width:46px;}
+.pageSize a.disable,.pageSize a.disable:hover{background-color: #f6f6f6;cursor: default;border: none;color: #ddd;}
+
+
+
+.fixed{position:relative;}
+

@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>内容分类</title>
+		<link href="${webroot}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+		<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/content/contentIndex.js"></script>
+	</head>
+	<body>
+		<input type="hidden" id="ctxpath" value="${webroot}" />
+		<input type="hidden" id="categoryId"/>
+		
+		<div class="ht_btn" id="buttonDiv">
+        
+    </div>
+
+		<div class="ht_fl_box">
+			<div class="ht_fl">
+            <div class="ht_fl_btn">
+                <a href="#" onclick="addCategory();">添加子分类</a>
+            </div>
+			#for(com.ekfans.base.content.model.ContentCategory category: categories)
+				<div class="fl_nav">
+					<span class="fl_title" id="p${category.id}" onclick="showChilds('${category.id}')">
+						${category.name}
+						<label id="l${category.id}" onclick="showCategory('${category.id}')">选择</label>
+						<em class="borderLine"></em>
+					</span>
+					<div id="${category.id}" class="fl_in"></div>
+				</div>
+			#end
+		</div>
+		  <!-- load出一个分类详情信息的页面 -->
+			<div class="ht_fl_bj" id="dataArea">
+				
+			</div>
+		</div>
+	</body>
+</html>
+
+
+		

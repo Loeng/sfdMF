@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}-订单提交</title>
+<link rel="icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/commons/js/tools.js"></script>
+	<link href="${webroot}/resources/web/gylweb/css/base.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/web/webcommon/css/cart03.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="${webroot}/resources/web/storeweb/js/cart/shopCartPay.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/gylweb/js/gylCommons.js"></script>
+
+
+</head>
+
+<body>
+	
+	<input type="hidden" id="ctxpath" value="${webroot}" />
+	<input type="hidden" name="ctxpath" id="ctxpath" value="${ctxpath}" />
+	<input type="hidden" name="channelType" id="channelType" value="1" />
+	
+	<!-- 头部 -->	
+	<div class="header" id="channelTop"></div>
+		
+	<div class="wrapper">
+		<div class="main">
+			<div class="step"></div>
+			<dl class="suc">
+				<dt>订单提交成功！</dt>
+				<dd class="green">请选择支付方式尽快付款！</dd>
+				<dd>
+					<span>你的订单号：${totalOrderId}</span>
+					<span>应付金额：<em class="red">￥${sum}</em></span>
+					<span>#if(orderType == 2)<a href="${webroot}/store/manager/ORDER_CAIGOU">#else<a href="${webroot}/store/manager/PURCHASE_CAIGOU_ORDERS">#end查看详情</a></span>
+					<span class="orange">请在24小时内支付，超过24小时未支付订单将自动失效！</span>
+				</dd>
+			</dl>
+			<dl class="payStyle">
+				<dt><span class="btnOrange">选择支付方式</span></dt>
+				<dd>
+					<em class="point"></em>
+					<li><img src="${webroot}/resources/web/webcommon/images/caifutong.jpg" width="136" height="56" alt="财付通支付" title="财付通支付" class="payIcon"></li>
+					<li><img src="${webroot}/resources/web/webcommon/images/zhifubao.jpg" width="136" height="56" alt="支付宝支付" title="支付宝支付" class="payIcon"></li>
+					<li><img src="${webroot}/resources/web/webcommon/images/yinlian.jpg" width="136" height="56" alt="银联支付" title="银联支付" class="payIcon"></li>
+					<div class="clear"></div>
+				</dd>
+			</dl>
+			<a href="javascript:submit('${webroot}','${sum}','${totalOrderId}');" class="btnBlue">立即支付</a>
+		</div>
+		
+		<div class="bottomProList">
+			<h3>推荐商品</h3>
+			#for(com.ekfans.base.product.model.Product p : products)
+				<dl class="bottomPro">
+					<dt>
+						<a href="#tag shortLink("01",p.id)#end"  target="_black">
+							<img src="${webroot}${p.recommendPicture4}"   alt="${p.name}" title="${p.name}">
+						</a>
+					</dt>
+					<dd class="bottomProTitle">
+						<a href="#tag shortLink("01",p.id)#end" title="${webroot}${p.sortName}"  target="_black">${p.name}</a>
+					</dd>
+					<dd class="bottomProPrice">
+						<span class="originalPrice"> ${p.listPrice}元</span>
+						<span class="nowPrice"><em>${p.unitPrice}</em> 元</span>
+					</dd>
+				</dl>
+			#end
+			<div class="clear"></div>
+		</div>
+	</div>
+		<div class="bottomSplit"></div>
+		#include("../channel/commons/buttom.jetx")
+	
+	
+</body>
+</html>

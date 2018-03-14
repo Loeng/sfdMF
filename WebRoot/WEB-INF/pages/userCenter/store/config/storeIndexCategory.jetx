@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>商户中心</title>
+		<link href="${webroot}/resources/store/css/map/map.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=E3ed39df683a72ffe13a56804700ca74"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/modernizr.custom.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/store/js/product/storeProductAdd.js"></script>
+	</head>
+	<body>
+	
+			分类设置
+	</body>
+</html>

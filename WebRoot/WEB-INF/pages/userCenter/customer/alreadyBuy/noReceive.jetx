@@ -1,0 +1,84 @@
+	#define(List<com.ekfans.base.order.model.Order> orders)
+	<!-- 分页查询 -->
+	<input type="hidden" id="ctxpath" value="${webroot}" />
+	<input type="hidden" id="tempstatus" value="${status}" />
+	<input type="hidden" id="tempshippingStatus" value="${shippingStatus}" />
+	<input type="hidden" id="tempuserApp" value="${userApp}" />
+	#if(null==orders || orders.size()==0)
+		<div class="orderNone">暂时没有符合条件的数据</div>
+	#else
+		<!-- 分页查询 -->
+		<input type="hidden" id="ctxpath" value="${webroot}">
+		<form action="${webroot}/user/alreadyBuy"  method="post"  id="searchStoreOrder">
+			<input type="hidden" name="pageNum" value="${currentPage}">
+		</form>
+		#for(com.ekfans.base.order.model.Order order:orders)
+			<table border="0" cellspacing="0" cellpadding="0" class="orderTable">
+				<tr class="bgColor">
+        	<th colspan="7">
+          	<span>订单编号：${order.id}</span>
+            <span>下单时间：${order.createTime}</span>
+            <span class="orderPrice">订单合计：<em>¥${order.paid}</em>(含邮费:${order.fare})</span>
+          </th>
+        </tr>
+        #for(com.ekfans.base.order.model.OrderDetail od:order.details)
+        	<tr>
+          	<td class="tdProInfo">
+            	<a href="${webroot}/web/proDetail/${od.productId}" title="${od.productName}" class="orderImg">
+	            	#if(od.picture==null || od.picture=="")
+	            		<img src="${webroot}/resources/system/images/no_pic.jpg" width="78" height="78" alt="${od.productName}" />
+	            	#else
+	            		<img src="${webroot}${od.picture}" width="78" height="78" alt="${od.productName}" />
+	            	#end	
+            	</a>
+              <div class="proRight">
+              	<span class="orderText"><a href="${webroot}/web/proDetail/${od.productId}">${od.productName}</a></span>
+                #if(od.productInfoDetail!=null)
+                	<span class="colorSize">${od.productInfoDetail.infoName1}#if(od.productInfoDetail.infoName1!=null && od.productInfoDetail.infoName1!="")：#end<em>${od.productInfoDetail.infoValue1}</em></span>
+       	        	<span class="colorSize">${od.productInfoDetail.infoName2}#if(od.productInfoDetail.infoName2!=null && od.productInfoDetail.infoName2!="")：#end<em>${od.productInfoDetail.infoValue2}</em></span>
+                	<span class="colorSize">${od.productInfoDetail.infoName3}#if(od.productInfoDetail.infoName3!=null && od.productInfoDetail.infoName3!="")：#end<em>${od.productInfoDetail.infoValue3}</em></span>
+                	<span class="colorSize">${od.productInfoDetail.infoName4}#if(od.productInfoDetail.infoName4!=null && od.productInfoDetail.infoName4!="")：#end<em>${od.productInfoDetail.infoValue4}</em></span>
+                #end
+              </div>
+              <div class="clear"></div>
+            </td>
+            <td class="tdPrice"><span class="nowPrice">￥${od.totalPrice}</span></td>
+           	<td class="tdCount"><span>数量&nbsp;&nbsp;</span>${od.quantity}</td>
+           	#if(for.index==1)
+	            <td rowspan="2" class="tdState">
+	      				#if("0".equals(order.status))
+	      					<span class="orange">订单已取消</span>
+	      				#elseif("1".equals(order.status))
+	      					<span class="orange">订单已关闭</span>
+	      				#elseif("2".equals(order.status))
+	      					<span class="orange">待付款</span>
+	      					<a href="javascript:void(0)" class="btnOrange" onclick="userBuyNow('${webroot}','${order.id}');">立即付款</a>
+	      				#elseif("3".equals(order.status) && order.shippingStatus == true)
+	      					<span class="orange">已发货</span>
+	      					<a href="javascript:;" class="btnOrange" onclick="postok('${order.id}','${webroot}',2);">确认收货</a>
+	      				#elseif("3".equals(order.status) && order.shippingStatus == false)
+	      					<span class="orange">等待卖家发货</span>
+	      				#elseif("4".equals(order.status)&& order.shippingStatus == true && order.userApp==false)
+	      					<span class="orange">未评价</span>
+	      					<a href="${webroot}/user/order/evaluation/${order.id}" class="btnOrange" >评价商品</a> 
+	      				#elseif(order.userApp==true && order.storeApp==false)
+	      					<span class="orange">我已评价</span>
+	      				#elseif(order.userApp==true && order.storeApp==true)
+	      					<span class="orange">交易成功</span>
+	      				#end
+	            </td>
+	           	<td rowspan="2" class="tdLink">
+	           		<a href="${webroot}/user/returnProduct/view/${order.id}">查看详情</a><br>
+	           		#if(("3".equals(order.status) || "5".equals(order.status) || "4".equals(order.status)) && order.shippingStatus == true && order.serviceStatus=="")
+	           			<a href="${webroot}/user/returnProduct/${od.productId}"><font id="fontP">申请退/换货</font></a>
+	           		#elseif("2".equals(order.status) && order.shippingStatus == false)
+	           			<a href="javascript:;" onclick="cancel('${order.id}','${webroot}');" >取消订单</a>
+	           		#end
+	           	</td>
+	        	#end
+        	</tr>
+				#end
+			</table>
+		#end
+		${include( "../common/page.jetx")}
+	#end

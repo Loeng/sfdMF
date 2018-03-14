@@ -1,0 +1,42 @@
+    #define(com.ekfans.base.store.model.Consult consult)
+    	<div class="tit" id="tit">
+        	<em class="apNum">审核内容详情</em>
+            <span class="apClose"><img src="${webroot}/resources/system/images/del3.jpg"></span>
+        </div>
+   	  <div class="previewContent">
+       	<dl class="infoLine">
+            	<dt>创建者：</dt>
+                <dd class="infoRight">${consult.creatorName}</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>审核内容：</dt>
+                <dd class="infoRight">${consult.questionAnswer}</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>商品名：</dt>
+                <dd class="infoRight">${consult.productName}</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>店铺名：</dt>
+                <dd class="infoRight">${consult.storeName}</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>创建时间：</dt>
+                <dd class="infoRight">${consult.createTime}</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>内容类型</dt>
+                <dd class="infoRight">#if(consult.consultType == '0')咨询#else留言#end</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>是否回复：</dt>
+                <dd class="infoRight">#if(consult.replyStatus == true)已回复#else未回复#end</dd>
+				        <dd class="clear"></dd>
+            </dl>
+		</div>

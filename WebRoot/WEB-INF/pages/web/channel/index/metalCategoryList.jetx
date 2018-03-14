@@ -1,0 +1,8 @@
+#define(List<com.ekfans.base.metal.model.PreciousMetalCategory> categorys)
+#for(com.ekfans.base.metal.model.PreciousMetalCategory category:categorys)
+  <a href="javascript:void(0);" onclick="javascript:choseMetalCategory('${category.id}');" #if(category.id==chosedCategoryId) class="cur" #end id="${category.id}"> ${category.name} </a>
+#end
+<script type="text/javascript">
+  choseMetalCategory("${chosedCategoryId}");
+</script>
+<input type="hidden" name="oldMetalCategory" id="oldMetalCategory" value="${chosedCategoryId}"/>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>${webName}-订单提交</title>
+
+<link href="${webroot}/resources/web/storeweb/css/cart03.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="${webroot}/resources/web/storeweb/js/base.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+<script type="text/javascript" src="${webroot}/resources/web/storeweb/js/cart/shopCartPay.js"></script>
+
+</head>
+
+<body>
+	<input type="hidden" id="ctxpath" value="${webroot}" />
+	<div class="wrapper">
+	<!--购物车顶部-->
+	#include("../../web/channel/storeIndex/storeIndex-top.jetx")
+	<div class="main">
+		<div class="step"></div>
+	  <dl class="suc">
+	    	<dt>订单提交成功！</dt>
+	    	<dd class="green">请选择支付方式尽快付款！</dd>
+	        <dd>
+	            <span>你的订单号：${totalOrderId}</span>
+	            <span>应付金额：<em class="red">￥${sum}</em></span>
+	            <span><a href="${webroot}/user/returnProduct/view/${totalOrderId}">查看详情</a></span>
+	            <span class="orange">请在24小时内支付，超过24小时未支付订单将自动失效！</span>
+	        </dd>
+	     </dl>
+	     <dl class="payStyle">
+	     	<dt><span class="btnOrange">选择支付方式</span></dt>
+	        <dd>
+	        	<em class="point"></em>
+	        	<li>
+	            	<label>
+	            	<img src="${webroot}/resources/web/storeweb/images/caifutong.jpg" width="136" height="56" alt="财付通支付" title="财付通支付">
+	                <span><input name="payStyle" type="radio" value="1"><em>选择</em></span>
+	                </label>
+	            </li>
+	            <li>
+	            	<label>
+	            	<img src="${webroot}/resources/customer/images/zhifubao.jpg" width="136" height="56" alt="支付宝支付" title="支付宝支付">
+	                <span><input name="payStyle" type="radio" value="2"><em>选择</em></span>
+	                </label>
+	            </li>
+	            <li>
+	            	<label>
+	            	<img src="${webroot}/resources/customer/images/yinlian.jpg" width="136" height="56" alt="银联支付" title="银联支付">
+	                <span><input name="payStyle" type="radio" value="3"><em>选择</em></span>
+	                </label>
+	            </li>
+	            <div class="clear"></div>
+	        </dd>
+	     </dl>
+	     <a href="javascript:submit('${webroot}','${sum}','${totalOrderId}');" class="btnBlue" target="_blank">立即支付</a>
+		</div>
+		<div class="bottomProList">
+        <h3>推荐商品</h3>
+        #for(com.ekfans.base.product.model.Product p : products)
+        <dl class="bottomPro">
+            <dt>
+                <a href="${webroot}/web/proDetail/${p.id}">
+                    <img src="${webroot}${p.picture}" width="200" height="200" alt="冰糖橙" title="冰糖橙">
+                </a>
+            </dt>
+            <dd class="bottomProTitle">
+                <a href="${webroot}/web/proDetail/${p.id}" title="${webroot}${p.sortName}">
+                   ${p.name}
+                </a>
+            </dd>
+            <dd class="bottomProPrice">
+                <span class="originalPrice">原价 ${p.listPrice}元</span>
+                <span class="nowPrice"><em>${p.unitPrice}</em> 元</span>
+            </dd>
+        </dl>
+       #end
+       
+        <div class="clear"></div>
+    </div>
+	</div>
+	</div>
+	<!--购物车底部-->
+	${include( "../common/buttom.jetx")}
+</body>
+</html>

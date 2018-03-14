@@ -1,0 +1,6 @@
+#pager ul.pages {display:block;border:none;text-transform:uppercase;padding:0;}
+#pager ul.pages li {list-style:none;float:left;color:#000;text-decoration:none;margin:0 5px 0 0;padding:5px;}
+#pager ul.pages li:hover {color:#fff;background-color:#3070B8;}
+#pager ul.pages li.pgEmpty {color:#000;}
+#pager ul.pages li.pgEmpty:hover{color:#fff;}
+#pager ul.pages li.pgCurrent {color:#fff;background-color:#3070B8;}

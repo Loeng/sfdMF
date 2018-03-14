@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+    	<title>系统参数配置</title>
+    	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/add.css" />
+			<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/systemConfigs/systemParamConfig.css" />
+			<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/systemConfigs/systemParamConfig.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/upload.css" />
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+    </head>
+<body>
+		<div class="ht_btn">
+			<a href="#" class="btn" onclick="formSubmit();">保存</a>
+			<a href="#" class="btn" onclick="formReset();">重置</a>
+		</div>
+		<ul class="tabs">
+			<li class="cur"><a href="javascript:showConfigs('storeConfig');">商城配置参数<em></em></a></li>
+	    <li ><a href="javascript:showConfigs('productConfig');">商品系统参数<em></em></a></li>
+	    <li><a href="javascript:showConfigs('orderConfig');">订单系统参数<em></em></a></li>
+	    <li><a href="javascript:showConfigs('userConfig');">会员系统参数<em></em></a></li>
+	    <li><a href="javascript:showConfigs('appConfig');">危废通版本参数<em></em></a></li>
+		<li><a href="javascript:showConfigs('ccwccConfig');">核价宝参数<em></em></a></li>
+
+
+		</ul>
+		
+		<input type="hidden" id="ctxpath" value="${webroot}" />
+<div id="dataArea">
+	<form action="${webroot}/system/config/paramConfig/save" method="post"  id="paramConfigForm">
+		#define(List<com.ekfans.base.system.model.SystemParamConfig> configs)
+		#for(com.ekfans.base.system.model.SystemParamConfig paramConfig : configs)
+		<input type="hidden" name="id" value="${paramConfig.id}" />
+		<div class="add_pro">
+				<dl class="formBox">
+					<dt style="width:18%;float:left;">${paramConfig.key}</dt>
+					#if("text".equals(paramConfig.valueType))    
+					<dd id="dd${paramConfig.id}"  style="width:80%;float:left;">
+					  <input type="text" name="value${paramConfig.id}" class="i_bg" value="${paramConfig.value}" onblur="javascript:checkNumBlur('${paramConfig.id}','${paramConfig.note}');" onkeyup="javascript:checkNum('${paramConfig.id}','${paramConfig.note}');"/>
+					  #if("请输入数字".equals(paramConfig.note))<span class="ts_xx">${paramConfig.note}</span> #end
+					</dd>
+					 
+					#elseif("img".equals(paramConfig.valueType))
+					<dd style="width:80%;float:left;">
+						#tag picUpload("value"+paramConfig.id,"1","300","300",paramConfig.value) #end
+  					</dd>
+						
+					#elseif("textarea".equals(paramConfig.valueType))
+						<dd  style="width:80%;float:left;">
+							<textarea name="value${paramConfig.id}" >${paramConfig.value}</textarea>
+							${paramConfig.note}
+						</dd>
+					#elseif("radio".equals(paramConfig.valueType))
+						<dd  style="width:80%;float:left;">
+							<span class="zt"><label><input type="radio" value="1" name="value${paramConfig.id}" #if("1".equals(paramConfig.value)) checked=true #end/>是</label></span>
+							<span class="zt"><label><input type="radio" value="0" name="value${paramConfig.id}" #if("0".equals(paramConfig.value)) checked=true #end/>否</label></span>
+						</dd>
+					#end
+				</dl>
+	</div>
+	#end
+	
+</form>		
+</div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+#define(com.ekfans.base.store.model.Wftransport wftransport)
+	<div class="layerIn baojiaLayer">
+        <ul class="dataInfo">
+        	<li><em>出发地：</em><span>${wftransport.startFullPath.replace(",","")}</span></li>
+            <li><em>到达地：</em><span>${wftransport.endFullPath.replace(",","")}</span></li>
+            <li><em>详细地址：</em><span>${wftransport.habitatAddress}</span></li>
+            #if(type == '0')
+	            <li><em>罐体材质：</em><span>${wftransport.tankMaterialName}</span></li>
+            #else
+	            <li><em>货源名称：</em><span>${wftransport.supplyName}</span></li>
+            #end
+            <li><em>车辆类型：</em><span>${wftransport.carName}</span></li>
+            <li><em>货物类别：</em><span>${wftransport.categoryName}</span></li>
+            <li><em>危废品标准：</em><span>${wftransport.wfpysName}</span></li>
+            <li><em>联系人：</em><span>${wftransport.linkMan}</span></li>
+            <li><em>联系电话：</em><span>${wftransport.phone}</span></li>
+            <li><em>运价：</em><span class="red">#if(wftransport.price != null)${wftransport.price}元/#if(wftransport.unit)${wftransport.unit}#else吨#end#else待议#end</span></li>
+            <li><em>总量：</em><span class="red">${wftransport.wfpTotal}#if(wftransport.unit)${wftransport.unit}#else吨#end</span></li>
+            <li class="line"><em>说明：</em><span>${wftransport.content}</span></li>
+           	<li class="clear"></li>
+        </ul>
+        <form action="#if(type == '0')${webroot}/store/bargain/add#else${webroot}/web/supply/saveInquiry#end" method="post" id="bargainForm">
+        #if(type == '0')
+	        <input type="hidden" name="sourceId" value="${wftransport.id}"/>
+        	<input type="hidden" name="sourceType" value="1"/>
+	        <input type="hidden" name="sellerId" value="${wftransport.storeId}"/>
+        #else
+	        <input name="productId"  value="${wftransport.id}" type="hidden">
+	        <input type="hidden" name="type" value="1"/>
+	        <input type="hidden" name="soucreType" value="2"/>
+	        <input type="hidden" name="sellersId" value="${wftransport.storeId}"/>
+        #end
+        
+        <div class="apForm">
+            <dl class="formItem">
+                <dt><em class="red">*</em>商议价格</dt>
+                <dd class="formImport">
+                	<input name="price" type="text" class="formBox  onblur="checkFocus(this);" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="13">单位：元/#if(wftransport.unit)${wftransport.unit}#else吨#end
+                	<span id="priceSpan" class="errorText"></span>
+                	</dd>
+                <dd class="clear"></dd>
+            </dl>
+            
+        	#if(type == '0')
+	            <dl class="formItem">
+	                <dt><em class="red">*</em>货源总量</dt>
+	                <dd class="formImport">
+		                <input name="quantity" id="quantity" type="text" class="formBox" onblur="checkFocus(this);" maxlength="13" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" >单位：#if(wftransport.unit)${wftransport.unit}#else吨#end
+		                <span id="quantitySpan" class="errorText"></span>
+	                </dd>
+	                <dd class="clear"></dd>
+	            </dl>
+	            <dl class="formItem">
+	                <dt><em class="red">*</em>联系人</dt>
+	                <dd class="formImport">
+	                	<input name="contactMan" type="text" onblur="validInfo(this,'联系人不能为空');" class="formBox man" maxlength="16">
+	                	<span id="contactManSpan" class="errorText"></span>
+	                </dd>
+	                <dd class="clear"></dd>
+	            </dl>
+	            <dl class="formItem">
+	                <dt><em class="red">*</em>联系电话</dt>
+	                <dd class="formImport">
+	                	<input name="contactPhone" type="text" class="formBox phone" onblur="validInfo(this,'联系电话不能为空');" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="11">
+	                	<span id="contactPhoneSpan" class="errorText"></span>
+	                </dd>
+	                <dd class="clear"></dd>
+	            </dl>
+            #else
+	            <dl class="formItem">
+	                <dt><em class="red">*</em>联系人</dt>
+	                <dd class="formImport">
+	                	<input name="linkPerson" type="text" onblur="validInfo(this,'联系人不能为空');" class="formBox man" maxlength="32">
+	                	<span id="contactManSpan" class="errorText"></span>
+	                </dd>
+	                <dd class="clear"></dd>
+	            </dl>
+	            <dl class="formItem">
+	                <dt><em class="red">*</em>联系电话</dt>
+	                <dd class="formImport">
+	                	<input name="linkTel" type="text" class="formBox phone" onblur="validInfo(this,'联系电话不能为空');" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="11">
+	                	<span id="contactPhoneSpan" class="errorText"></span>
+	                </dd>
+	                <dd class="clear"></dd>
+	            </dl>
+            #end
+            <div class="clear"></div>
+        </div>
+        </form>
+    </div>

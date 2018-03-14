@@ -1,0 +1,340 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>危废品订单列表</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<link rel="shortcut icon" href="../../../resources/commons/images/favicon.ico" type="image/x-icon">
+<link href="../../../resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/userCenter/produce/css/style.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/userCenter/commons/css/pages.css" rel="stylesheet" type="text/css">
+<script src="../../../resources/userCenter/commons/js/template.js"></script>
+<style type="text/css">
+.tabList thead tr .header{background-image:url(../../../resources/userCenter/commons/images/small.gif);background-repeat: no-repeat;background-position: center right;cursor: pointer;}
+.tabList thead tr .headerSortUp {background-image: url(../../../resources/userCenter/commons/images/small_asc.gif);}
+.tabList thead tr .headerSortDown {background-image: url(../../../resources/userCenter/commons/images/small_desc.gif);}
+</style>
+</head>
+<body>
+
+<!--头部-->
+<div class="wrapper topArea">
+  <h1 class="logo">
+    <a href="javascript:void(0)" title="鑫裕环保供应链平台">
+    	<img src="../../../resources/commons/images/logo.png" alt="鑫裕环保供应链平台">
+    </a>
+  </h1>
+  <div class="topRight">
+    <a href="javascript:void(0)" class="linkIndex">首页</a>
+    <span class="topItem">您好，云飞扬</span>
+    <span class="topItem"><a href="javascript:void(0)">消息(99)</a></span>
+    <span class="topItem"><a href="javascript:void(0)">帮助中心</a></span>
+    <span class="topItem itemLast"><a href="javascript:void(0)">安全退出</a></span>
+    <em class="split"></em>
+    <span class="telPhone">4000-888-1000</span>
+  </div>
+  <div class="clear"></div>
+</div>
+
+<div class="logoBar">
+  <div class="wrapper">
+  	<a href="javascript:void(0)" class="logoName">产生企业-企业中心</a>
+    <div class="nav">
+      <a href="javascript:void(0)" class="navItem">订单管理</a>
+      <a href="javascript:void(0)" class="navItem">金融管理</a>
+      <a href="javascript:void(0)" class="navItem">企业认证</a>
+      <a href="javascript:void(0)" class="navItem">账户管理</a>
+    </div>
+  </div>
+</div>
+<!--头部end-->
+
+<div class="main">
+  <div class="wrapper">
+    <!--左侧菜单-->
+    <div class="leftNav budong">
+    <h2><a href="javascript:void(0)">管理中心首页</a></h2>
+    <dl class="leftList">
+        <dt>采购管理<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)">商品管理</a>
+            <a href="javascript:void(0)">订单管理</a>
+            <a href="javascript:void(0)">议价管理</a>
+        </dd>
+    </dl>
+    <dl class="leftList">
+        <dt>供应管理<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)">商品管理</a>
+            <a href="javascript:void(0)" class="cur">订单管理</a>
+            <a href="javascript:void(0)">议价管理</a>
+            <a href="javascript:void(0)">优选商城订单管理</a>
+        </dd>
+    </dl>
+    <dl class="leftList">
+        <dt>商品管理<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)">发布新商品</a>
+            <a href="javascript:void(0)">仓库中的商品</a>
+            <a href="javascript:void(0)">出售中的商品</a>
+        </dd>
+    </dl>
+    <dl class="leftList">
+        <dt>金融管理<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)">订单借贷申请</a>
+            <a href="javascript:void(0)">订单借贷管理</a>
+            <a href="javascript:void(0)">信用借贷申请</a>
+            <a href="javascript:void(0)">信用借贷管理</a>
+            <a href="javascript:void(0)">还款记录</a>
+        </dd>
+    </dl>
+    <dl class="leftList">
+        <dt>企业认证<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)">企业自助备案</a>
+            <a href="javascript:void(0)">企业信用测算</a>
+        </dd>
+    </dl>
+    <dl class="leftList">
+        <dt>账户管理<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)">基本资料管理</a>
+            <a href="javascript:void(0)">账户资金管理</a>
+            <a href="javascript:void(0)">安全设置</a>
+        </dd>
+    </dl>
+    <dl class="leftList">
+        <dt>银行卡管理<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)">绑定银行卡</a>
+            <a href="javascript:void(0)">银行卡管理</a>
+        </dd>
+    </dl>
+</div>
+    <!--左侧菜单 end-->
+      
+    <!--右侧主体-->
+    <div class="rightContent">
+			<div class="formSearch borderColor">
+      	<dl class="formItem">
+        	<dt>危废品名称</dt>
+            <dd>
+              <input name="name" type="text" class="textBox box212">
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+      	
+        <div class="clear"></div>
+      </div>
+      <div class="btnArea">
+        	<a href="javascript:utilLIst(1);" class="btnBase btnSearch">搜索</a>
+          <a href="javascript:resetinput();" class="btnBase btnReset">重置</a>
+          <div class="clear"></div>
+      </div>
+      <div class="formTable borderColor">
+      	<ul class="secNav">
+        <li class="li1">订单信息</li>
+        </ul>
+        <div class="clear"></div>
+				<div style="position:relative;" class="tableBox"  id="wxp_content_row">
+          <script id="wxp_content_row_con" type="text/html">
+						<table border="0" cellspacing="0" cellpadding="0" class="tabList">
+            <thead>
+              <tr class="tabTit bgColor">
+                <th>订单号</th>
+                <th class="accept">危废品名称</th>
+                <th class="accept">数量</th>
+                <th class="accept">采购方</th>
+                <th class="accept">订单金额</th>
+                <th class="accept">订单状态</th>
+                <th class="accept">下单时间</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+						{{if rows.length>0}}
+								
+						 {{each rows as value i}}
+							<tr>
+								<td>{{if value.id==1}}<a href="javascript:void(0);" >成功</a> {{else if value.id==2}}失败 {{else}}  {{value.id}} {{/if}}</td>
+								<td>{{value.name}}</td>
+								<td>{{value.createTime}}</td>
+								<td>{{value.updateTime}}</td>
+								<td>{{value.note}}</td>
+								<td>{{value.createTime.substr(start,10)}}</td>
+								<td>{{value.updateTime}}</td>
+								<td>
+									<a href="goodsDetail.html?a={{value.id}}" class="eyeIco" title="详情{{value.id}}">查看</a>
+									<a href="javascript:void(0);" class="eyeIco" title="金融服务">金融服务</a>
+								</td>
+							</tr>	
+					 {{/each}}
+					 {{else}}
+					 	{{/if}}
+					 </tbody>
+          </table>
+					</script>
+          </div>        
+          <div class="pagesCunt"></div>
+        	<div class="pageSize"><div id="pager"></div></div>
+     			<div class="clear"></div>	
+					<div class="alterbox" style="display:none;"><span class="warn"><span>暂无信息记录</span></span></div>
+      </div>
+    </div>
+    <!--右侧主体 end-->
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<!--底部-->
+<div class="bottomMenu">
+  <div class="wrapper">
+    <dl class="footItem">
+      <dt> <img src="../../../resources/commons/images/gyl_icon_r1_c4.png" width="49" height="48" /> <span>采购流程</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="下单流程">下单流程</a></li>
+        <li><a href="javascript:void(0);" title="订单跟踪">订单跟踪</a></li>
+        <li><a href="javascript:void(0);" title="安全支付">安全支付</a></li>
+        <li><a href="javascript:void(0);" title="企业认证">企业认证</a></li>
+        <li><a href="javascript:void(0);" title="常见问题">常见问题</a></li>
+      </dd>
+    </dl>
+    <dl class="footItem">
+      <dt> <img src="../../../resources/commons/images/gyl_icon_r1_c5.png" width="49" height="48" /> <span>服务与支持</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="物流配送">物流配送</a></li>
+        <li><a href="javascript:void(0);" title="经销商权益">经销商权益</a></li>
+        <li><a href="javascript:void(0);" title="不良品退货">不良品退货</a></li>
+        <li><a href="javascript:void(0);" title="在线咨询">在线咨询</a></li>
+        <li><a href="javascript:void(0);" title="融资操作手册">融资操作手册</a></li>
+      </dd>
+    </dl>
+    <dl class="footItem">
+      <dt> <img src="../../../resources/commons/images/gyl_icon_r1_c6.png" width="49" height="48" /> <span>我的账户</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="子账户管理">子账户管理</a></li>
+        <li><a href="javascript:void(0);" title="密码重置">密码重置</a></li>
+        <li><a href="javascript:void(0);" title="在线打款">在线打款</a></li>
+      </dd>
+    </dl>
+    <dl class="lastItem">
+      <dt> <img src="../../../resources/commons/images/gyl_icon_r1_c7.png" width="49" height="48" /> <span>关于我们</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="公司简介">公司简介</a></li>
+        <li><a href="javascript:void(0);" title="联系我们">联系我们</a></li>
+        <li><a href="javascript:void(0);" title="网站声明">网站声明</a></li>
+      </dd>
+    </dl>
+    <div class="clear"></div>
+  </div>
+</div>
+<!--底部 end--> 
+
+<!--尾部-->
+<div class="footer">
+  <div class="wrapper">
+    <p class="footerLeft">© 2014 成都易科远见科技有限公司 版权所有 蜀ICP备 14005736号</p>
+    <p class="footerRight">成都市高新区吉泰路666号花样年·福年广场2号楼1309室<br>
+      服务热线：028-83190368</p>
+    <div class="clear"></div>
+  </div>
+</div>
+<!--尾部 end--> 
+<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="../../../resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+<script src="../../../resources/userCenter/commons/js/base.js"></script>
+<script src="../../../resources/userCenter/commons/js/jquery.pager.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	utilLIst(1);
+});
+
+function utilLIst(pageclickednumber){
+	var name = $.trim($("input[name='name']").val());//搜索条件
+	//var Idname=$.trim($("input[name='Idname']").val());//搜索条件
+	var rowsPerPage = 4;//每页记录
+	var pagecount;//总页
+	var currentPage;//当前页
+	var totalRow;//总记录
+	$.ajax({
+		url: "http://192.168.0.104/MetaFscm/web/role/listtest",
+		type: 'GET',
+		data: {'name':name,'rowsPerPage':rowsPerPage,'pageNum':pageclickednumber},
+		dataType: 'JSONP',
+		jsonp: "callbackparam",
+		cache:false,
+		success: function (data) {	
+			//var s = JSON.stringify(data);//可以将json对象转换成json字符串
+			var html = template('wxp_content_row_con', data);
+			document.getElementById("wxp_content_row").innerHTML=html;
+			totalPages = data.pager.totalPage;//总页数
+			currentPage = data.pager.currentPage;//当前页
+			totalRow= data.pager.totalRow;//总记录
+			$("#pager").pager({ pagenumber: currentPage, pagecount: totalPages, buttonClickCallback: PageClick });//分页
+			$(".pagesCunt").html("共"+totalPages+"页/"+ totalRow +"条");//页数和记录数
+			var datano=data.rows.length;
+			if(datano>0){$(".alterbox").hide();
+			$(".pagesCunt").show();
+      $(".pageSize").show();
+			$(".tabList").tablesorter(
+				{headers: {7:{sorter:false},0: {sorter:"integer"} }}//类型double,是否参与排序，默认升降sortList: [[1,1],[2,0],[3,1]] //初始化表格时第二列按照降序排序，第三列按照升序排列，第四列按照降序排列
+			);
+			}
+			else{$(".alterbox").show();
+			$(".pagesCunt").hide();
+      $(".pageSize").hide();
+			
+			}
+		},
+		 async: true,
+     beforeSend: function () {ShowDiv();},
+     complete: function () {HiddenDiv();},
+		 error:function () {errorDiv(); },
+		 timeout:3000
+	})
+	
+}
+
+function resetinput(){
+	$('input').val("");
+}
+
+function ShowDiv(){
+	$(".loading").show();
+	}
+
+function errorDiv(){
+	$(".errorDiv").show();
+	setTimeout(function(){$(".errorDiv").fadeOut();}, 5000);
+	}
+
+function HiddenDiv(){
+	$(".loading").hide();
+	var aa=$("#wxp_content_row").children("tr").length;
+	}
+//翻页
+PageClick = function(pageclickednumber) {
+	$("#pager").pager({ pagenumber: pageclickednumber, pagecount: totalPages, buttonClickCallback: PageClick });
+	utilLIst(pageclickednumber);
+}
+</script>
+<div class="loading"></div>
+<div class="errorDiv">哎呀，我迷路了！请重新尝试</div>
+
+<!--支持拖动+宽度调节JS-->
+<script src="../../../resources/userCenter/commons/js/jquery.tablesorter.js"></script>
+<!--支持拖动+宽度调节JS  end-->
+</body>
+</html>

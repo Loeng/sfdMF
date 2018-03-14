@@ -1,0 +1,23 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+@import url("upload.css");
+
+.form dl dt{height:100%; margin-bottom:10px; line-height:100%;}
+.photo160 dt{width:160px; height:160px;}
+.photo60 dt{width:60px; height:60px;}
+.photo30 dt{width:30px; height:30px;}
+.hint{height:20px; line-height:20px; margin:0 0 6px 28px;}
+.imgLeft{width:200px; height:300px; overflow:visible; float:left; margin-right:84px; padding:20px 68px 0 48px; border-right:solid 1px #8d8d8d;}
+.uploadHint{float:left; height:400px; width:280px;}
+.uploadHint span{line-height:24px; display:block; margin-bottom:10px; font-size:14px; color:#894F04;}
+.sto_right .btnBlue{display:block; width:62px; height:28px; line-height:28px; margin:0 0 20px 28px;}
+.photo160{width:162px; float:left; margin-right:38px;}
+.photoMin{float:left;}
+.photo60{margin-bottom:20px;}
+.photo60{width:62px;}
+.photo30{width:62px;}
+.uploadHint dt{border:solid 1px #e5e5e5;}
+.uploadHint dd{line-height:20px;}
+.photo160 dd{line-height:30px; text-align:center;}

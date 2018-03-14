@@ -1,0 +1,210 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>自主备案</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/addGoods.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/bankInfo.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/tools.css" />
+	<!-- 日期插件 -->
+	<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+	<!-- 提示框插件 -->
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/radio.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/auth/center_bank.js"></script>
+</head>
+
+<body>
+#define(com.ekfans.base.store.model.Store tstore)
+#define(com.ekfans.base.store.model.StoreLegal sl)
+#define(List<com.ekfans.base.store.model.StoreLegalResume> slrlist)
+<input type="hidden" id="ctxpath" value="${webroot}" />
+
+<!-- 右侧主体 -->
+<div class="rightContent">
+	<div class="contentTit  borderColor budong borderbottom">
+		<h3>银行信息认证</h3>
+		<!-- 0：未认证，1：认证中，2：认证失败，3：认证成功 -->
+		#if(tstore.commonStatus != "2")
+			#if(tstore.bankStatus != "3")
+				<a href="javascript:bankTwoSubmit();" class="btnBase btnSave">确认提交</a>
+			#end
+		#end
+		<div class="clear"></div>
+	</div>
+  <div class="step">
+	  <div class="stepItem alreadyItem">
+	    <a href="${webroot}/store/auth/bank_one" onmouseout="tempOut(this,2)" onmouseover="tempOver(this)">
+	  		<em class="stepIcon">1</em>
+	  	</a>
+	    <span class="stepText">法人信息认证</span>
+	    #if(tstore.bankStatus=="0")
+	    
+	    #elseif(tstore.bankStatus=="1")
+	    	<em class="stateIcon ingIcon"></em>
+	    #elseif(tstore.bankStatus=="2")
+	    	<em class="stateIcon failIcon"></em>
+	    #elseif(tstore.bankStatus=="3")
+	    	<em class="stateIcon sucIcon"></em>
+	    #end
+	  </div>
+	  <div class="stepItem">
+	    <a href="${webroot}/store/auth/bank_two" onmouseout="tempOut(this,1)" onmouseover="tempOver(this)">
+	  		<em class="stepIcon">2</em>
+	  	</a>
+	    <span class="stepText">近期财务数据</span>
+	    #if(tstore.bankStatus==0)
+	    
+	    #elseif(tstore.bankStatus=="1")
+	    	<em class="stateIcon ingIcon"></em>
+	    #elseif(tstore.bankStatus=="2")
+	    	<em class=stateIcon" failIcon"></em>
+	    #elseif(tstore.bankStatus=="3")
+	    	<em class="stateIcon sucIcon"></em>
+	    #end
+	  </div>
+	  <div class="clear"></div>
+  </div>
+  #if(tstore.bankStatus=="0")
+  	<div class="stateLayer ingState">
+  		<span class="pointIcon"></span>
+  		未认证
+  	</div>
+  #elseif(tstore.bankStatus=="1")
+  	<div class="stateLayer ingState">
+  		<span class="pointIcon"></span>
+  		认证中
+  	</div>
+  #elseif(tstore.bankStatus=="2")
+  	<div class="stateLayer failState">
+  		<span class="pointIcon"></span>
+  		<dl>
+      	<dt>认证未通过理由：</dt>
+  			<dd></dd>
+  		</dl>
+  	</div>
+  #elseif(tstore.bankStatus=="3")
+  	<div class="stateLayer sucState">
+  		<span class="pointIcon"></span>
+  		认证已通过
+  	</div>
+  #end
+	<div class="formSection">
+  	<h3 class="borderBottom">法人信息</h3>
+  	<form action="${webroot}/store/auth/bank_one_save" method="post" id="twoSubmit">
+  		<input type="hidden" name="sl.id" value="${tstore.id}" />
+  		
+	    <div class="formIn">
+	      <span class="formItem">
+	        <span class="formName"><em class="mustIco"></em>姓名</span>
+	        <input type="text" class="textBox box191" name="sl.legalName" value="${sl.legalName}" />
+	      </span>
+	      <span class="formItem">
+	        <span class="formName"><em class="mustIco"></em>身份证号</span>
+	        <input type="text" class="textBox box280" name="sl.legalIdCard" value="${sl.legalIdCard}" />
+	      </span>
+	      <span class="formItem">
+	        <span class="formName">民族</span>
+	        <input type="text" class="textBox box191" name="sl.legalNation" value="${sl.legalNation}" />
+	      </span>
+	      <span class="formItem">
+          <span class="formName">出生日期</span>
+          <input type="text" class="textBox box191" name="sl.legalBirth" value="${sl.legalBirth}" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" />
+        </span>
+	      <span class="formItem">
+        	<span class="formName">性别</span>
+        	<span class="radioBox">
+	        	<div class="formsRadio">
+	            <label>
+	              <span class="radio #if(sl.legalSex) radioCheked #end"><input type="radio" name="sl.legalSex" value="true" #if(sl.legalSex) checked="checked" #end /></span>
+	              <em class="boy">男</em>
+	            </label>
+	            <label>
+	              <span class="radio #if(!sl.legalSex) radioCheked #end"><input type="radio" name="sl.legalSex" value="false" #if(!sl.legalSex) checked="checked" #end /></span>
+	              <em class="girl">女</em>
+	            </label>
+	            <div class="clear"></div>
+	          </div>
+          </span>
+        </span>
+        <span class="formItem">
+	        <span class="formName">政治面貌</span>
+	        <input type="text" class="textBox box191" name="sl.legalPan" value="${sl.legalPan}" />
+        </span>
+        <span class="formItem">
+            <span class="formName">学历</span>
+            <input type="text" class="textBox box191" name="sl.legalEducation" value="${sl.legalEducation}" />
+        </span>
+        <span class="formItem" style="width:600px;">
+            <span class="formName">籍贯</span>
+            <input type="text" class="textBox box191" name="sl.legalBplace" value="${sl.legalBplace}" />
+        </span>
+        <span class="formItem">
+            <span class="formName">职称</span>
+            <input type="text" class="textBox box191" name="sl.jobTitle" value="${sl.jobTitle}" />
+        </span>
+        <span class="formItem" style="line-height:28px;">
+            <span class="formName">任现职时间</span>
+            <input type="text" class="textBox box191" name="sl.hisCurrentTime" value="${sl.hisCurrentTime}" onpaste="return false" onblur="javascript:if(this.value==''){this.value=0.00;}" onkeyup="javascript:clearNoNum(this)" maxlength="13" onclick="this.value=''" style="margin-right:5px;"/>
+            年
+        </span>
+	      <div class="clear"></div>
+	    </div>
+	    <h3 class="borderBottom">简历信息</h3>
+	    <div class="formIn">
+	    	#if(slrlist==null || slrlist.size()<=0)
+	        <div class="resume listFirst">
+		        <span class="formName">时间</span>
+		        <input type="text" id="ddbegin1" class="textBox box100" name="slrlist[0].startTime" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'ddend1\')}'})" />
+		        <span class="formLine" style="margin-right:15px;">&#8212;</span>
+		        <input type="text" id="ddend1" class="textBox box100" name="slrlist[0].endTime" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'ddbegin1\')}'})" />
+		        <span class="formName">任职单位</span>
+		        <input type="text" class="textBox box160" name="slrlist[0].detailInfo" />
+		        <span class="formName">职务</span>
+		        <input type="text" class="textBox box80" name="slrlist[0].position" />
+		        <div class="clear"></div>
+		        <div class="resumeBtn">
+		        	<a href="javascript:void(0);" class="btnBase resumeAdd">继续添加</a>
+		        </div>
+	        </div>
+	    	#else
+	       	#for(com.ekfans.base.store.model.StoreLegalResume slr : slrlist)
+	       		#if(for.index==1)
+							<div class="resume listFirst">
+						#else
+							<div class="resume">
+						#end
+							<span class="formName">时间</span>
+			        <input type="text" id="ddbegin${for.index}" class="textBox box100" name="slrlist[${for.index-1}].startTime" value="${slr.startTime}" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'ddend${for.index}\')}'})" />
+			        <span class="formLine">-</span>
+			        <input type="text" id="ddend${for.index}" class="textBox box100" name="slrlist[${for.index-1}].endTime" value="${slr.endTime}" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'ddbegin${for.index}\')}'})" />
+			        <span class="formName">任职单位</span>
+			        <input type="text" class="textBox box160" name="slrlist[${for.index-1}].detailInfo" value="${slr.detailInfo}" />
+			        <span class="formName">职务</span>
+			        <input type="text" class="textBox box80" name="slrlist[${for.index-1}].position" value="${slr.position}" />
+			        <div class="clear"></div>
+							<div class="resumeBtn">
+								#if(for.index==1 && for.index==slrlist.size())
+									<a href="javascript:void(0);" class="btnBlue resumeAdd">继续添加</a>
+								#elseif(for.index!=1 && for.index<slrlist.size())
+									<a href="javascript:void(0);" class="btnBlue resumeRemove">删除</a>
+								#elseif(for.index==slrlist.size())
+									<a href="javascript:void(0);" class="btnBlue resumeRemove">删除</a>
+					        <a href="javascript:void(0);" class="btnBlue resumeAdd">继续添加</a>
+								#end
+			        </div>
+			    	</div>
+	    		#end
+	    	#end
+	    </div>
+	  </form>
+	</div>
+</div>
+<!-- 右侧主体 -->
+     
+<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+</body>
+</html>

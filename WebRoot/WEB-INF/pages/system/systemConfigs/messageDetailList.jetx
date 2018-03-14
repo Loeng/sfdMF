@@ -1,0 +1,80 @@
+<!doctype html>
+
+<html>
+	<head>
+		<meta charset="UTF-8">
+    	<title>信息配置模板管理</title>
+    	<link href="${webroot}/resources/system/css/demand.css" rel="stylesheet" type="text/css" />
+    	<link href="${webroot}/resources/system/css/list.css" rel="stylesheet" type="text/css" />
+			<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/systemConfigs/messageDetailList.js"></script>
+    </head>
+    <body>
+    <input type="hidden" id="ctxpath" value="${webroot}" />
+    
+     <div class="apPreviewBg" ></div>
+     <div class="apPreview" id="apPreview"></div>
+    
+    	<form action="${webroot}/system/message/detailList" method="post"  id="searchDetailForm">
+		<dl class="pro_ss">
+			<dt><b>查询</b><span class="span_down"></span><span class="span_up"></span></dt>
+			<dd class="pro_ss_item">
+				<span>模板id</span>
+				<input type="text" class="i_bg" name="id" value="${id}"/>
+			</dd>
+			<dd class="pro_ss_item">
+				<span>模板名</span>
+				<input type="text" class="i_bg" name="name" value="${name}"/>
+			</dd>
+			<input type="hidden" name="pageNum" value="" />
+		</dl>
+		<div class="pro_ss_btn">
+			<a href="javascript:void(0);"  class="btn" onclick="searchSubmit();">搜索</a>
+			<a href="javascript:void(0);"  class="btn" onclick="resetForm();">重置</a>
+		</div>
+		</form>
+		
+		
+		#define(List<com.ekfans.base.system.model.MessageConfigDetail> configDetails)
+		<!--没有数据的时候-->
+		#if(configDetails==null||configDetails.size()<=0)
+				<div class="ht_list_k">暂时没有符合条件的数据</div>	
+			#else
+		<!--有数据的时候-->
+			<div class="ht_list">
+				<table id="configDetailTab" cellpadding="0" cellspacing="0" border="0" >
+					<tr>
+						<th width="8%">序号</th>
+						<th width="25%">模板id</th>
+						<th width="22%">模板名</th>
+						<th width="20%">排序</th>
+						<th width="20%">状态</th>
+						<th width="10%">操作</th>
+					</tr>
+					#for(com.ekfans.base.system.model.MessageConfigDetail configDetail : configDetails)
+						<tr>
+						    <td></td>
+						    <td>${configDetail.id }</td>
+							<td>${configDetail.name }</td>
+							<td>${configDetail.index }</textarea></td>
+							<td> #if(configDetail.status) 启用 #else 停用 #end </td>
+						    <td class="cz">
+						      
+						        <a href="javascript:void(0);" class="eyeIco" onclick="eyeDetail('${configDetail.id}','${webroot}');"></a>
+				    		    <a href="javascript:void(0);" class="editIco"  onclick="configDetailModify('${configDetail.id}','${webroot}');"></a>
+						    
+						    </td>
+					   </tr>
+					   #end
+				</table>
+				<div class="ht_pageBox">
+				   ${include( "../common/page.jetx")}   <!-- 加载分页 并覆盖它的 go-->
+				</div>
+					
+			 </div>
+		 </div>
+	  #end
+	</body>
+</html>
+	

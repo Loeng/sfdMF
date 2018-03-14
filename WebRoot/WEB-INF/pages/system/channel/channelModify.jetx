@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>修改频道</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/add.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/channel/channelModify.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/plugin/ckeditor/ckeditor.js"></script>
+</head>
+    
+<body>
+
+#define(com.ekfans.base.channel.model.Channel channel)
+#define(List<com.ekfans.base.channel.model.Channel> channelList)
+
+<input type="hidden" id="ctxpath" value="${webroot}" />
+<input type="hidden" id="modifyOk" value="${requestScope.modifyOk}" />
+
+<div class="ht_btn">
+	<a href="#" class="btn" onclick="formSubmit();">保存</a>
+	<a href="#" class="btn" onclick="reset();">重置</a>
+	<a href="#" class="btn" onclick="goBack('${webroot}');">返回列表</a>
+</div>			
+<form action="${webroot}/system/channel/modify" name="modify" method="post" id="modifyChannelForm">
+	<input type="hidden" name="id" value="${channel.id}" />
+	<input type="hidden" name="createTime" value="${channel.createTime}" />
+	
+	<div class="add_pro">
+		<dl class="formBox">
+			<dt>频道名<em class="mustIco"></em></dt>
+			<dd id="nameDd" class="">
+				<input type="text" class="i_bg" name="name" value="${channel.name}" onblur="javascript:checkNameBlur();" onkeyup="javascript:checkName();" onfocus="javascript:checkName();" />
+				<span id="nameSpan" class="ts_xx">频道名为2-20位字符组成</span>
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt>所属频道频道</dt>
+			<dd>
+				<select name="parentId">
+					<option value="">请选择</option>
+					#for(com.ekfans.base.channel.model.Channel channels:channelList)
+						<option value="${channels.id}" #if(channels.id == channel.parentId) selected #end>${channels.name}</option>
+					#end
+				</select>
+			</dd>
+		</dl>
+		<div class="clear"></div>
+		
+		<dl class="formBox">
+			<dt>频道类型</dt>
+			<dd>
+				<span>
+					<span class="zt"><label><input type="radio" value="0" name="channelType" onclick="javascript:changeType(this.value);" #if(channel.channelType == "0") checked=true #end />普通频道</label></span>
+					<span class="zt"><label><input type="radio" value="1" name="channelType" onclick="javascript:changeType(this.value);" #if(channel.channelType == "1") checked=true #end />链接型频道</label></span>
+					<span class="zt"><label><input type="radio" value="2" name="channelType" onclick="javascript:changeType(this.value);" #if(channel.channelType == "2") checked=true #end />自定义频道</label></span>
+				</span>
+			</dd>
+		</dl>
+		
+		<dl class ="formBox" id="viewPathDl" style="display:none;">
+		 	<dt>模板路径<em class="mustIco"></em></dt>
+		 	<dd id="viewPathDd" class="">
+				<input type="text" class="i_bg" name="viewPath" value="${channel.viewPath}"  onblur="javascript:checkViewPath();" onkeyup="javascript:checkViewPath();" onfocus="javascript:checkViewPath();" maxlength="128"/>
+			  <span id="viewPathSpan" class="ts_xx">模板路径不能为空</span>
+			</dd>
+		</dl>
+		
+		<dl class ="formBox" id="linkDl" style="display:none;">
+		 	<dt>连接地址<em class="mustIco"></em></dt>
+		 	<dd id="linkUrlDd" class="">
+				<input type="text" class="i_bg" name="linkUrl" value="${channel.linkUrl}" onblur="javascript:checkLinkUrl();" onkeyup="javascript:checkLinkUrl();" onfocus="javascript:checkLinkUrl();" maxlength="128"/>
+			  <span id="linkUrlSpan" class="ts_xx">连接地址不能为空</span>
+			</dd>
+		</dl>
+		
+		<div class="clear" ></div>
+		<dl class="formBox">
+			<dt>排序位置</dt>
+			<dd class="">
+				<input type="text" class="i_bg" name="position" value="${channel.position}" />
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt>状态</dt>
+			<dd>
+				<span>
+					<span class="zt"><label><input type="radio" value="true" name="status" #if(channel.status) checked=true #end />显示</label></span>
+					<span class="zt"><label><input type="radio" value="false" name="status" #if(!channel.status) checked=true #end />不显示</label></span>
+				</span>
+			</dd>
+		</dl>
+		<div class="clear" ></div>
+		
+		
+		<input type="hidden" name="type" value="0"/>
+		<dl class="formBox">
+			<dt>访问频道是否需要登陆</dt>
+			<dd>
+				<span>
+					<span class="zt"><label><input type="radio" value="true" name="loginStatus" #if(channel.loginStatus) checked=true #end  />是</label></span>
+					<span class="zt"><label><input type="radio" value="false" name="loginStatus"  #if(!channel.loginStatus) checked=true #end />否</label></span>
+				</span>
+			</dd>
+		</dl>
+		<div class="clear"></div>
+		<dl class="formBox">
+			<dt>频道说明</dt>
+			<dd class="">
+				<textarea name="note" value="${channel.note}" maxlength="512">${channel.note}</textarea>
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt>KeyWords</dt>
+			<dd class="">
+				<textarea name="keyWords" value="${channel.keyWords}" maxlength="512">${channel.keyWords}</textarea>
+			</dd>
+		</dl>
+		<div class="clear"></div>
+		<dl class="formBox">
+			<dt>频道简介(description)</dt>
+			<dd class="">
+				<textarea name="description" value="${channel.description}" maxlength="512">${channel.description}</textarea>
+			</dd>
+		</dl>
+		<div class="clear"></div>
+		<dl class="formBox" id="desDl" style="display:none;">
+			<dt>自定义内容<em class="mustIco"></em></dt>
+			<dd class="">
+				<textarea name="des" id="des" class="ckeditor"></textarea>
+			</dd>
+		</dl>
+		<div class="clear" ></div>
+	</div>
+</form>
+<script>
+	if("${channel.channelType}" == "0"){
+		$("#viewPathDl").show();
+		$("#linkDl").hide();
+		$("#desDl").hide();
+	}else if("${channel.channelType}" == "1"){
+		$("#viewPathDl").hide();
+		$("#linkDl").show();
+		$("#desDl").hide();
+	}else if("${channel.channelType}" == "2"){
+		$("#viewPathDl").hide();
+		$("#linkDl").hide();
+		$("#desDl").show();
+	}
+</script>
+</body>
+</html>

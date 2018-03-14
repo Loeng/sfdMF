@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" >
+	<title>个人注册</title>
+		<link rel="icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+	<link rel="shortcut icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/web/webcommon/css/perReg.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/tools.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/webcommon/js/storeReg_two.js"></script>
+</head>
+
+<body>
+${include("../../commons/regAndLogin/userTop.jetx")}
+<input type="hidden" id="name" value="${name}" />
+<input type="hidden" id="type" value="${ttype}" />
+
+<div class="wrapper">
+  <div class="main">
+		<div class="rg2Content">
+    	<h2>还差一步，请激活您的帐户</h2>
+      <div class="userInfo">系统已经发送了一封激活邮件到您的邮箱</div>
+      <div class="userInfo">请访问您的邮箱：<em>${name}</em>，点击邮件中的链接便可激活您的帐户</div>
+      <div class="userTips2">没有收到邮件？</div>
+      <div class="tip2">1、查看邮箱的垃圾箱或广告箱，邮件可能被误认为垃圾邮件。</div>
+			<div class="tip2">2、如果超过5分钟仍未收到验证邮件，请点击</div>
+      <a href="javascript:resetSend();" class="btnGo">重新发送</a>
+    </div>
+  </div>
+</div>
+
+${include("../../commons/regAndLogin/bottom.jetx")}
+</body>
+</html>

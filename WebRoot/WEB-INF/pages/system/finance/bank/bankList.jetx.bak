@@ -1,0 +1,154 @@
+<!doctype html>
+
+<html>
+	<head>
+			<meta charset="UTF-8">
+    	<title>合作银行管理</title>
+    	<link href="${webroot}/resources/system/css/demand.css" rel="stylesheet" type="text/css" />
+    		<link href="${webroot}/resources/system/css/list.css" rel="stylesheet" type="text/css" />
+			<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/list.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/finance/bank/bankList.js"></script>
+    </head>
+    <body>
+    	<form action="${webroot}/system/bank/list" method="post"  id="searchUserForm">
+			<dl class="pro_ss">
+				<dt><b>查询</b><span class="span_down"></span><span class="span_up"></span></dt>
+				<dd class="pro_ss_item">
+					<span>银行名称</span>
+					<input type="text" class="i_bg" name="bankName" value="${bankName}"/>
+				</dd>
+				<dd>&nbsp;</dd>
+				<div class="clear"></div>
+				<dd class="pro_ss_item">
+					<span>支行全称</span>
+					<input type="text" class="i_bg" name="fullName" value="${fullName}"/>
+				</dd>
+			
+				
+				<input type="hidden" name="pageNum" value="" />
+			</dl>
+			</form>
+			<div class="pro_ss_btn">
+				<a href="#" onclick="searchSubmit();" class="btn">搜索</a>
+				<a href="#" onclick="resetForm();" class="btn">重置</a>
+			</div>
+			
+			<div class="pro_ss_btn">
+				<a href="#" onclick="userAdd('${webroot}');" class="btn">新增</a>
+			</div>
+		
+			<!--没有数据的时候-->
+			#define(List<com.ekfans.base.user.model.Bank> banks)
+			<!--没有数据的时候-->
+			#if(banks==null||banks.size()<=0)
+				<div class="ht_list_k">暂时没有符合条件的数据</div>	
+			#else
+			
+			<!--有数据的时候-->
+				<div class="ht_list">
+					<table id="userTab" cellpadding="0" cellspacing="0" border="0" >
+						<tr>
+							<th width="4%">全选</th>
+							<th width="4%">序号</th>
+							<th width="10%">银行logo</th>
+              <th width="17%">银行名称</th>
+              <th width="17%">详细地址</th>          
+              <th width="17%">支行全称</th>
+              <th width="17%">操作</th>
+						</tr>
+						#for(com.ekfans.base.user.model.Bank bank : banks)
+							<tr>
+						
+								<td class="qx"><input type="checkbox" value="${bank.id }"/></td>
+						    <td></td>
+						    <td>
+					        	 <img #if(bank.logo==null || bank.logo==" " || bank.logo=="") src="${webroot}/resources/system/images/imgdefault.jpg" #else src="${webroot}${content.navigationImage }" #end width="50px" />
+					      </td>
+						    <td>${bank.bankName }</td>
+			          <td>${bank.address }</td>         
+                <td>${bank.fullName }</td>
+							    <td class="cz">
+							    	<a href="javascript:void(0);" class="eyeIco" onclick="queryId('${bank.id}','${webroot}');" title="详细"></a>
+							    	<a href="javascript:void(0);" class="editIco" onclick="userModify('${bank.id}','${webroot}');" title="修改"></a>
+							    	<a href="javascript:void(0);" class="del_list" id="del${bank.id}" title="删除"
+							    	 onclick="econfirm('确定要删除此会员吗？',userDelete,['${bank.id}','${webroot}'],null,null);" ></a>
+							    </td>
+						   </tr>
+						 #end
+					</table>
+					<div class="ht_pageBox">
+					<div class="ht_page_l">
+						<a href="javascript:void(0);" onclick="selectAll();" class="btn">全选</a>
+						
+						<!-- 为删除前验证服务的隐藏域 -->
+						<input type="hidden" id="ctxpath" value="${webroot}" /> 
+						<a href="javascript:void(0);" onclick="checkSelect();" class="btn">删除</a>
+					</div>
+					<!-- 分页 -->
+					#define(com.ekfans.pub.util.Pager pager)
+					<div class="ht_page">
+							<a href="javascript:void(0);" onclick="goPage('1');"   value="1" class="btn"><<</a>
+							#if(pager.currentPage == 1)
+								<a href="javascript:void(0);" class="btn"><</a> 
+							#else
+								<a href="javascript:void(0);" onclick="goPage('${pager.currentPage-1 }');"   value="${pager.currentPage-1 }" class="btn"><</a>
+							#end
+							
+							#if(pager.totalPage>5)
+								#if(pager.currentPage-2>1 && pager.currentPage+2<pager.totalPage)
+									<a class="btn">..</a>
+									#for(int i : iterator(pager.currentPage-2,pager.currentPage+2))
+										#if(pager.currentPage==i)
+												<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="btn cur">${i }</a>
+										#else
+											<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="btn">${i }</a>
+										#end
+									#end
+									<a>..</a>
+								#elseif(pager.currentPage-2<=1)
+									#for(int i : iterator(1,5))
+										#if(pager.currentPage==i)
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+										#else
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn">${i }</a>
+										#end
+									#end
+									<a>..</a>
+								#else
+									<a>..</a>
+									#for(int i : iterator(pager.totalPage-4,pager.totalPage))
+										#if(pager.currentPage==i)
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+										#else
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn">${i }</a>
+										#end
+									#end
+								#end
+							#else
+								#for(int i : iterator(1,pager.totalPage))
+									#if(pager.currentPage==i)
+										<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+									#else
+										<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn">${i }</a>
+									#end
+								#end
+							#end
+							
+							#if(pager.currentPage==pager.totalPage)
+								<a href="javascript:void(0);" class="btn">></a>
+							#else
+								<a href="javascript:void(0);" onclick="goPage('${pager.currentPage+1 }');"   value="${pager.currentPage+1 }" class="btn">></a>
+							#end
+							<a  href="javascript:void(0);" onclick="goPage('${pager.totalPage }');"   value="${pager.totalPage }" class="btn">>></a>
+							
+						</div>
+					</div>
+				</div>
+		#end
+		<div class="apPreviewBg"></div>
+						<div id="div1"  class="apPreview">
+	</body>
+</html>
+	

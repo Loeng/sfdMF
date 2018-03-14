@@ -1,0 +1,48 @@
+#define(List<com.ekfans.base.product.model.ProductCategory> pcList)	
+#define(String childId)
+
+<div class="filtrate">
+ 	<dl class="filtrateItem">
+		<dt>分类</dt>
+		<dd class="filtrateLink">
+			<a href="javascript:void(0);" #if(childId=='')class="cur"#end onclick="loadPList('')">全部</a>
+			#if(pcList!=null&&pcList.size()>0)
+			#for(com.ekfans.base.product.model.ProductCategory pc:pcList)
+			<a href="javascript:void(0)" #if(childId!=null&&childId==pc.id)class="cur"#end onclick="loadPList('${pc.id}');">${pc.name}</a>
+			#end
+			#end
+		</dd>
+		<dd class="filtrateMore"><a href="javascript:void(0);"></a></dd>
+		<dd class="clear"></dd>
+	</dl>
+	<dl class="search">
+		<dt>搜索</dt>
+		<dd>
+			<input id="pname" name="pname" type="text" placeholder="品类名称" class="textBox nameBox">
+			<input id="minPrice" name="minPrice" type="text" placeholder="最低价" class="textBox minBox">
+			<span class="inputSplit">&mdash;</span>
+			<input id="maxPrice" name="maxPrice" type="text" placeholder="最高价" class="textBox maxBox">
+			<a href="javascript:void(0);" class="btnGreen" onclick="goQuery()">搜索</a>
+			<div class="clear"></div>
+		</dd>
+		<dd class="clear"></dd>
+	</dl>
+</div>
+
+<script>
+	//选项卡切换
+	$(".filtrateLink a").click(function(){
+		$(this).siblings().removeClass("cur");
+		$(this).addClass("cur");
+		var dom=$(this).parent().siblings(".tabContent");
+		var index=$(this).parent().children().index(this);
+		dom.hide();
+		dom.eq(index).show();
+	});
+
+	//展开筛选项
+	$(".filtrateMore").click(function(){
+		$(this).parents(".filtrateItem").toggleClass("filtrateAll");
+	});
+	
+</script>

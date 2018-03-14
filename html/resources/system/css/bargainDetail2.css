@@ -1,0 +1,39 @@
+/* CSS Document */
+
+.apBargain .apContent{padding:15px 8px 0 8px; overflow-x:hidden;}
+.bargainImg{width:150px; height:150px; display:block; float:left; margin: 0 28px 0 16px;}
+.apBargain .info{float:left; position:relative;}
+.apProTitle{color:#484848; font-size:20px; line-height:26px; max-height:52px; overflow:hidden; display:block; margin-bottom:10px;}
+.priceZone{border:solid 1px #FFDACE;}
+.apBargain .stair{width: 380px;}
+.apBargain .stair li{width: 170px; margin: 0 10px; float:left; height:30px; line-height:30px;}
+.apBargain .stair li span{display:inline-block; width: 80px; color:#666; text-align:right; padding-right:10px;}
+.apBargain .stair li em{color:#f00;}
+.apBargain .readAll{display:block; width:100%; height:15px; background-image:url(../images/icon_readall.png); background-repeat:no-repeat; background-position:center center; background-color:#FFDBCD; cursor:pointer;}
+.apBargain .allDown{background-image:url(../images/icon_readall2.png);}
+.apBargain .apForm{margin-left: 66px; padding:20px 0 0 0;}
+.apBargain .apForm dt{line-height:30px; width:86px; text-align:right; font-size: 14px; float:left;}
+.apBargain .formImport,.apBargain .formText{float:left; line-height:28px; margin-right:18px;}
+.apBargain .formImport .formBox{width:200px; height:28px; line-height:28px\9; font-size:14px; padding:0 8px; border:solid 1px #EEEFEF;}
+.apBargain .formText{font-size:12px; color:#888;}
+.apBargain .btnOrange,.apBargain .btnBlue{display:inline-block; width:170px; height:35px; line-height:35px; margin:0 10px; font-size:24px;}
+.apBargain .apForm textarea{display:block; width:452px; height:56px; line-height:28px\9; padding:0 8px; border:solid 1px #EEEFEF; font-size:14px;}
+.mustIco{background:url(../images/mustico.png) no-repeat right center; width:9px; height:7px; overflow:hidden; display:inline-block; margin-right:5px;}
+.apBargain .proNoImg .info{min-height:130px; width:400px; margin:0 auto; float:none;}
+.singular{font-size:22px; padding:20px 0; color:#f00; text-align:center; display:block;}
+
+
+/*供应议价*/
+.apBargain .ratifyForm{margin-left: 16px;}
+.apBargain .writeForm{ padding:5px 0 5px 0; margin-bottom:13px;}
+.apBargain .ratifyForm dt{width:70px; margin-right:10px; font-size:14px;}
+.apBargain .ratifyForm .formImport{width: 132px; margin-right:10px;}
+.apBargain .ratifyForm .formBox{width: 114px;}
+.apBargain .ratifyForm textarea{width:452px; height:64px;}
+.apBargain .ratifyForm .formText{margin-right:0; font-size:12px;}
+.apFormLeft{ margin-right:20px;}
+.apBargain .apFormLeft textarea{width:452px;}
+.bargainBtn{text-align:center; float:left; margin-top:6px;}
+.apBargain .btnBase{display:inline-block; width:130px; height:28px; line-height:28px; margin:0 4px; padding:0; font-size:18px;}
+
+.purchaseBtn .btnBase{display:block; width:160px; height:32px; line-height:32px; margin-left:62px;}

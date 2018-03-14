@@ -1,0 +1,280 @@
+
+		#define(com.ekfans.base.order.model.SupplyBuy sb)
+		#define(List<com.ekfans.base.product.model.ProductCategory> categories)
+
+<form action="${webroot}/web/supplyBuy/ylxqSave" name="addOk" method="post"  id="addForm">
+	<input type="hidden" name="productType" id="productType" value="${productType}"/>
+	<input type="hidden" name="type" id="type" value="${type}"/>
+	<div class="layerIn baojiaLayer">
+		<dl class="formItem dbformfloat">
+			<dt><em class="mustIco"></em>原料分类</dt>
+			<dd>
+				<select name="categoryId" id="categoryId" onchange="categoryBlur();" class="inputselect">
+					<option value="">请选择分类</option>
+					#for(com.ekfans.base.product.model.ProductCategory pc:categories)
+						<option value="${pc.id}">${pc.name}</option>
+					#end
+				</select>
+				<span id="categorySapn" class="errorText" style="display:none;"></span>
+			</dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem dbformfloat">
+				<dt><em class="mustIco"></em>#if(type == "0")供应标题#else求购标题#end</dt>
+				<dd>
+					  <input type="text" class="textBox box212" placeholder="请输入#if(type == "0")供应标题#else求购标题#end"  name="title"  onblur="checkTitleBlur();" maxlength="64"/>
+					  <span id="titleSpan" class="errorText" style="display:none;"></span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+		  <div class="clear"></div>
+		    <dl class="formItem dbformfloat">
+				<dt><em class="mustIco"></em>质量等级</dt>
+				<dd>
+						<input type="text" class="textBox box212" placeholder="请输入质量等级"  name="qualityLevel"  onblur="qualityLevelBlur();" maxlength="64"/>
+					  
+					  <span id="qualityLevelSpan" class="errorText" style="display:none;"></span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem dbformfloat">
+				<dt><em class="mustIco"></em>计量单位</dt>
+				<dd>
+					<input type="text" class="textBox box212" placeholder="请输入计价单位"  name="unit"  onblur="unitBlur();" maxlength="64"/>
+					
+					<span id="unitSpan" class="errorText" style="display:none;"></span>
+				</dd>						
+				<dd class="clear"></dd>
+			</dl>
+			<div class="clear"></div>
+			<dl class="formItem formLine">
+				<dt><em class="mustIco"></em>预估单价</dt>
+				<dd>
+					<input type="text" class="textBox box212" placeholder="请输入预估价(单价)"  name="futurePrices"  onblur="futurePricesBlur();" maxlength="8"/>
+					<span id="unitShow"></span>
+					<span id="futurePricesSpan" class="errorText" style="display:none;width:212px;"></span></dd>		
+				<dd class="clear"></dd>
+			</dl>
+			<div class="clear"></div>
+		    <dl class="formItem dbformfloat">
+				<dt><em class="mustIco"></em>预估数量</dt>
+				<dd>
+						<input type="text" class="textBox box212" placeholder="请输入预估数量"  name="number"  onblur="checkNumberBlur();" maxlength="8"/>
+					  	
+					  <span id="numberSpan" class="errorText" style="display:none;"></span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+		    <dl class="formItem dbformfloat">
+				<dt><em class="mustIco"></em>联系人</dt>
+				<dd>
+					<input type="text" class="textBox box212" placeholder="请输入联系人"  name="contactName"  onblur="checkContentNameBlur();" maxlength="64"/>
+					  
+					<span id="contactNameSpan" class="errorText" style="display:none;"></span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<div class="clear"></div>
+			<dl class="formItem dbformfloat">
+				<dt><em class="mustIco"></em>联系电话</dt>
+				<dd>
+					<input type="text" class="textBox box212" placeholder="请输入联系方式"  name="contactPhone"  onblur="checkContentPhoneBlur();" maxlength="11" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+  				 
+  				<span id="contactPhoneSpan" class="errorText" style="display:none;"></span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			
+			<dl class="formItem dbformfloat">
+				<dt><em class="mustIco"></em>交货方式</dt>
+				<dd>
+					<label style="height:28px;line-height:28px;display: inline-block; margin-right:12px;"><input name="deliveryType" type="radio" value="0" checked="checked" style="margin:8px 6px 0 0; display:block; float:left;" />自提 </label> 
+					<label style="height:28px;line-height:28px;display: inline-block; margin-right:12px;"><input name="deliveryType" type="radio" value="1" style="margin:8px 6px 0 0; display:block; float:left;" />送货上门 </label> 
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<div class="clear"></div>
+			<dl class="formItem dbformfloat">
+				<dt>有效时间</dt>
+				<dd>
+					<input name="endTime" readonly type="text" class="textBox box212"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-#{%d}'})" maxlength="19">
+				</dd>						
+				<dd class="clear"></dd>
+			</dl>
+			<div class="clear"></div>
+			<dl class="formItem formLine">
+				<dt><em class="mustIco"></em>交货地</dt>
+				<dd  style="line-height:28px;">
+				    #tag systemAreaSel("areaId",null) #end
+				</dd>
+				<dd class="clear"></dd>
+				<dd style="min-height:0;margin-left:120px;padding-right:10px;width:100px;"><span id="areaSpan" class="errorText" style="display:none;"></span></dd>
+				<dd class="clear"></dd>
+			</dl>
+			<div class="clear"></div>
+			<input type="hidden" value="" name="destination" id="destination"/ >
+			<dl class="formItem formLine">
+				<dt>详细地址</dt>
+				<dd>
+					<input type="text" class="textBox box212" placeholder="请输入详细地址"  name="address"   maxlength="16"/>
+  				 
+  				<span id="contactPhoneSpan" class="errorText" style="display:none;"></span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<div class="clear"></div>
+			
+			<dl class="formItem formLine" style="margin-right:0px;">
+		    	<dt style="height:28px;line-height:28px;">可见资质</dt>
+		      <dd style="height:auto;">
+		      	<ul class="zizhiList" style="float: left;max-width: 450px;">
+		      			<li title="选择你要认证的资质名称">选择你要认证的资质名称</li>
+		      			<div class="clear"></div>
+		      		</ul>
+		        <a href="javascript:void(0);" class="btnXuanze"  style="float: left;">请选择</a>
+		        <div class="clear"></div>
+		      </dd>
+		      <div class="clear"></div>
+		  	</dl>
+			<div class="clear"></div>
+		  	
+			<dl class="formItem formLine" >
+				<dt>详细描述</dt>
+				<dd style="float:left;">
+					<textarea id="content" name="content" style="width:350px;" maxlength="200"></textarea>
+				</dd> 
+				<dd class="clear"></dd>
+			</dl>
+		
+			<div class="clear"></div>
+        </div>
+        <!--弹窗 css-->
+		<div class="alertLayerBg" style="display:none"></div>
+		<!--选择弹窗-->
+		<div class="alterBox"></div>
+</form>
+<script>
+//校验js
+$(".areaIdArea").live("change",function(){
+  checkAreaBlur();
+});
+function checkAreaBlur(){
+	var areaInfo=$("#areaId").val();
+	if(areaInfo == ""||areaInfo=="null"){
+		$('#areaSpan').show();
+		$('#areaSpan').text("请选择交货地");
+		return false;
+	}
+	$('#areaSpan').hide();
+	return true;
+}
+
+function checkTitleBlur(){
+	var title = $.trim($("input[name='title']").val());
+	if(title == ""||title == " "){
+		$('#titleSpan').show();
+		$('#titleSpan').text("请输入标题");
+		return false;
+	}
+	$('#titleSpan').hide();
+	return true;
+}
+
+function checkNumberBlur(){
+	var number = $.trim($("input[name='number']").val());
+	var regexp = /^[1-9]d*.d*|0.d*[1-9]d*$/;
+	if(number == ""){
+		$('#numberSpan').show();
+		$('#numberSpan').text("请输入预估数量");
+		return false;
+	}
+	if(!regexp.test(number)){
+		$('#numberSpan').show();
+		$('#numberSpan').text("请输入正确的预估数量");
+		return false;
+	}
+	$('#numberSpan').hide();
+	return true;
+}
+function unitBlur(){
+	var unit = $.trim($("input[name='unit']").val());
+	if(unit == ""){
+		$('#unitSpan').show();
+		$('#unitSpan').text("请输入计价单位");
+		return false;
+	}
+	$('#unitShow').html("&nbsp单位:"+ "<em class='red'>元/" +unit +"</em>");
+	$('#unitSpan').hide();
+	return true;
+}
+function futurePricesBlur(){
+	var futurePrices = $.trim($("input[name='futurePrices']").val());
+	var regexp = /^[1-9]d*.d*|0.d*[1-9]d*$/;
+	if(futurePrices == ""){
+		$('#futurePricesSpan').show();
+		$('#futurePricesSpan').text("请输入预估价格");
+		return false;
+	}
+	if(!regexp.test(futurePrices)){
+		$('#futurePricesSpan').show();
+		$('#futurePricesSpan').text("请输入正确的预估价格");
+		return false;
+	}
+	$('#futurePricesSpan').hide();
+	return true;
+	
+}
+
+function categoryBlur(){
+	var categoryId = $("select[name='categoryId']").val(); 
+	if(categoryId == ""){
+		$('#categorySapn').show();
+		$('#categorySapn').text("请选择分类");
+		return false;
+	}
+	$('#categorySapn').hide();
+	return true;
+}
+
+function checkContentNameBlur(){
+	var contactName = $.trim($("input[name='contactName']").val());
+	
+	if(contactName == ""){
+		$('#contactNameSpan').show();
+		$('#contactNameSpan').text("请输入联系人");
+		return false;
+	}
+	$('#contactNameSpan').hide();
+	return true;
+}
+function qualityLevelBlur(){
+	var qualityLevel = $.trim($("input[name='qualityLevel']").val());
+	
+	if(qualityLevel == ""){
+		$('#qualityLevelSpan').show();
+		$('#qualityLevelSpan').text("请输入质量等级");
+		return false;
+	}
+	$('#qualityLevelSpan').hide();
+	return true;
+}
+function checkContentPhoneBlur(){
+	var contactPhone = $.trim($("input[name='contactPhone']").val());
+	if(contactPhone == ""){
+		$('#contactPhoneSpan').show();
+		$('#contactPhoneSpan').text("请输入联系电话");
+		return false;
+	}
+	$('#contactPhoneSpan').hide();
+	return true;
+}
+
+
+function checkFocus(obj) {
+	if($(obj).val()!=""){
+		$(obj).next().html("");
+	}
+}
+
+
+</script>

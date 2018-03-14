@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>确认订单</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/base.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/commons/js/tools.js"></script>
+<script type="text/javascript" src="${webroot}/resources/web/js/gouwu/cart2.js"></script>
+
+</head>
+
+<body>
+	<a href="${webroot}/test/bcs/getprices/000000004d74fbb6014d799b7d93006c">余额信息查询接口-鑫裕</a><br/>
+	<a href="${webroot}/test/bcs/getprices/1">余额信息查询接口-永兴</a><br/>
+	#if(type == "1")
+		总余额:${totalAval},可用余额:${aval}
+	#end
+	
+	<br/>
+	--------------------------------------------------
+	<br/>
+	
+	<a href="${webroot}/test/bcs/addprice">充值50元接口</a><br/>
+	#if(type == "2")
+		#if(status)
+			资金充值成功
+		#else
+			资金充值失败
+		#end
+	#end
+	
+	<br/>
+	--------------------------------------------------
+	<br/>
+	<a href="${webroot}/test/bcs/orderpay">交易接口</a><br/>
+	#if(type == "3")
+		#if(status)
+			交易成功。交易金额10元。
+		#else
+			资金充值失败
+		#end
+	#end
+	
+	<br/>
+	--------------------------------------------------
+	<br/>
+	#define(Map<String,Object> rMap)
+	<a href="${webroot}/test/bcs/orderstatus">交易状态查询接口</a><br/>
+	#if(type == "4")
+		
+		#for (Map.Entry<String,Object> entry : rMap.entrySet())
+			${entry.key} - ${entry.value};
+		#end
+	#end
+	
+	
+	<br/>
+	--------------------------------------------------
+	<br/>
+	<a href="${webroot}/test/bcs/uinfo/000000004d74fbb6014d799b7d93006c">用户资金动态查询接口-鑫裕</a><br/>
+	<a href="${webroot}/test/bcs/uinfo/1">用户资金动态查询接口-永兴</a><br/>
+	#if(type == "5")
+		
+		#for (Map.Entry<String,Object> entry : rMap.entrySet())
+			#if(entry.key != "List")
+				${entry.key} - ${entry.value} <br/>
+			#else
+				#set(List<Map<String,Object>> list = entry.value)
+				#for(Map<String,Object> cMap : list)
+					#for (Map.Entry<String,Object> entry2 : cMap.entrySet())
+						${entry2.key} - ${entry2.value} ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					#end
+				#end
+			#end
+		#end
+	#end
+	
+	<br/>
+	--------------------------------------------------
+	<br/>
+	
+	<a href="${webroot}/test/bcs/takeMoney/000000004d74fbb6014d799b7d93006c">提现20元接口-鑫裕</a><br/>
+	<a href="${webroot}/test/bcs/takeMoney/1">提现20元接口-永兴</a><br/>
+	#if(type == "2")
+		#if(status)
+			资金提现成功
+		#else
+			资金提现失败
+		#end
+	#end
+	
+	
+	<br/>
+
+	--------------------------------------------------
+	<br/>
+
+	<a href="${webroot}/test/bcs/unregist/MUf9a1c82b55416293d00ca1f3e7472b">解除绑定接口-三分地老账号</a><br/>
+	#if(type == "99")
+	#if(status)
+	解除绑定成功
+	#else
+	解除绑定失败
+	#end
+	#end
+
+
+	<br/>
+	--------------------------------------------------
+	<br/>
+	
+	<a href="${webroot}/test/bcs/addBanks">导入银行信息</a><br/>
+	#if(type == "7")
+		#if(status)
+			导入成功
+		#else
+			导入失败
+		#end
+	#end
+</body>
+<script src="${webroot}/resources/web/js/base.js"></script>
+</html>

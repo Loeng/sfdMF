@@ -1,0 +1,59 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url("../../../user/css/store.css");
+
+em{font-style:normal;}
+.tit{width:100%;border-bottom:1px solid #e5e5e5;height:37px; position:relative;}
+.tit h2{float:left;font-size:14px;border-bottom:5px solid #fff; padding:0 20px 0 16px; font-weight:normal; height:32px; line-height:32px; cursor:pointer;position:relative; margin-right:20px;}
+.tit h2.cur{border-color:#ff8a00;}
+.rightTitle em{height:32px; line-height:32px; display:inline-block; border-bottom:solid 5px #ff8900; padding:0 20px 0 16px; font-style:normal;}
+.rightTitle{font-weight:normal; height:37px; font-size:14px; border-bottom:1px solid #e5e5e5; position:relative; margin-bottom:20px;}
+.rightTitle .btnBlue{width:100px; height:28px; line-height:28px; position:absolute; right:0; top:4px;}
+
+.orderTable{width:100%; margin-bottom:20px;}
+.orderTable th{height:35px; line-height:35px; background:#FFEFDD; padding:0 2%; font-weight:normal; text-align:left;}
+.orderTable td{padding:20px 2%; color:#818181; border-bottom:solid 1px #e5e5e5;}
+.orderTable .tdProInfo{width:380px; padding-left:20px;}
+.tdProNum{width:200px;}
+.orderImg{display:block; width:78px; height:78px; border:solid 1px #f2f2f2; float:left; margin-right:20px;}
+.proRight{float:left; width:252px;}
+.orderText{display:block; line-height:20px; margin-bottom:10px;}
+.nowPrice{display:inline-block; padding:0 10px; height:16px; line-height:16px; background:#f00; color:#fff;}
+
+.sto_right dl dt{line-height:30px; height:30px; margin-bottom:10px; font-size:14px;}
+.sto_right dl li,.payInfo li{line-height:24px; height:24px; color:#787878;}
+.consignee{padding:20px 0 16px 25px; border-bottom:1px solid #e5e5e5;}
+.payStyle{padding:20px 0 0 25px; float:left; width:415px;}
+.invoiceInfo{padding:20px 20px 0 0; float:left;}
+.orderInfo{padding-bottom:20px; border-bottom:1px solid #e5e5e5; margin-bottom:16px;}
+.payInfo ul{padding:0 0 10px 25px;}
+.payInfoLeft{float:left; width:390px;}
+.split{clear:both; height:1px; overflow:hidden; background:#e5e5e5; margin-bottom:20px;}
+
+.payInfo{padding-bottom:20px; margin-bottom:16px; border-bottom:solid 1px #e5e5e5;}
+.money em.price{font-size:24px; color:#f00; font-style:normal;}
+.moneyTotal{font-size:14px; display:inline-block; height:32px; line-height:32px;}
+.btnOrange{background:#ff8900; text-align:center; color:#fff; font-size:12px;}
+.money .btnOrange{width:62px; height:22px; line-height:22px; display:inline-block; margin-left:20px;}
+.editMoney{position:relative;}
+.editMoney .editBox{width:120px; height:34px; padding:5px; background:#efefef; display:block; position:relative; margin:10px 0 0 150px;}
+.editMoney .editBox input{width:118px; height:32px; line-height:32px\9; border:solid 1px #e5e5e5;}
+.editMoney .editBox em{display:block; background:url(../../../user/images/detailpoint.png) no-repeat; width:10px; height:7px; overflow:hidden; position:absolute; top:-7px; left:55px;}
+.btnSubmit{width:62px; height:28px; line-height:28px; margin-left:25px;}
+
+/*错误提示*/
+.errorText{display:block; height:25px; line-height:25px; position:absolute; top:8px; left:290px; min-width:200px; _width:200px;}
+.errorText *{display:block; height:25px; float:left;}
+.errorBoxL{width:9px; overflow:hidden; background:url(../images/site.png) no-repeat -13px 0;}
+.errorBoxR{width:4px; overflow:hidden;  background:url(../images/site.png) no-repeat -22px 0;}
+.errorMain{padding:0 5px; background:#ff8900; white-space:nowrap; color:#fff;}
+.errorRed .errorBoxL{background:url(../images/site.png) no-repeat 0 0;}
+.errorRed .errorBoxR{background:url(../images/site.png) no-repeat -9px 0;}
+.errorRed .errorMain{background:#f00;}
+
+/*订单日志*/
+.orderLog{padding:20px 0 10px 0; margin-bottom:16px; border-bottom:solid 1px #e5e5e5; display:none;}
+.orderLog li{line-height:26px; height:26px; padding-left:25px; color:#787878;}
+.freightText{height:20px; line-height:20px; padding-left:25px; margin-top:30px;}
+.freightText span{padding-right:40px;}

@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+	 <link href="${webroot}/resources/customer/css/score.css" rel="stylesheet" type="text/css">
+   <script type="text/javascript" src="${webroot}/resources/commons/js/modernizr.custom.js"></script>
+	 <script type="text/javascript" src="${webroot}/resources/customer/js/refund/refundList.js"></script>
+</head>
+
+<body>
+
+<div class="wrapper main">
+	
+    <div class="rightContent">
+    	<h2><em>退货管理</em></h2>
+        <table border="0" cellspacing="0" cellpadding="0" class="scoreTable">
+          <tr>
+            <th class="scoreClass">退货类型</th>
+            <th class="scoreCount">订单号</th>
+            <th class="scoreTime">货运单号</th>
+            <th class="scoreText">退货状态</th>
+            <th class="scoreText">退货时间</th>
+            <th class="scoreText">操作</th>
+          </tr>
+          #define(List <com.ekfans.base.user.dto.RefundDto> refunds)
+          #for(com.ekfans.base.user.dto.RefundDto refund : refunds)
+          <tr>
+            <td class="scoreClass">#if(refund.type=='0') 换货  #else 退货  #end</td>
+            <td class="scoreCount">${refund.orderId}</td>
+            <td class="scoreCount">${refund.logisticsNo}</td>
+            <td class="scoreText">#if(refund.status=='0') 等待卖家确认  #elseif(refund.status=='1') 退换中 #else 退换完成  #end</td>
+            <td class="scoreText">${refund.createTime}</td>
+            <td class="scoreText"><a href="${webroot}/user/refund/edit/${refund.id}">操作</a></td>
+          </tr>
+          #end
+        </table>
+        <div class="listBottom">
+        	<div class="scoreInfo"></div>
+            #define(com.ekfans.pub.util.Pager pager)
+					<div class="pageSize">
+							<a href="javascript:void(0);" onclick="goPage('1');"   value="1" class="pageLast"><<</a>
+							#if(pager.currentPage == 1)
+								<a href="javascript:void(0);" class="page"><</a> 
+							#else
+								<a href="javascript:void(0);" onclick="goPage('${pager.currentPage-1 }');"   value="${pager.currentPage-1 }" class="pageLast"><</a>
+							#end
+							
+							#if(pager.totalPage>5)
+								#if(pager.currentPage-2>1 && pager.currentPage+2<pager.totalPage)
+									<a class="btn">..</a>
+									#for(int i : iterator(pager.currentPage-2,pager.currentPage+2))
+										#if(pager.currentPage==i)
+												<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="page nowPage">${i }</a>
+										#else
+											<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="page">${i }</a>
+										#end
+									#end
+									<a>..</a>
+								#elseif(pager.currentPage-2<=1)
+									#for(int i : iterator(1,5))
+										#if(pager.currentPage==i)
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="page nowPage" >${i }</a>
+										#else
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="page">${i }</a>
+										#end
+									#end
+									<a>..</a>
+								#else
+									<a>..</a>
+									#for(int i : iterator(pager.totalPage-4,pager.totalPage))
+										#if(pager.currentPage==i)
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="page nowPage" >${i }</a>
+										#else
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="page">${i }</a>
+										#end
+									#end
+								#end
+							#else
+								#for(int i : iterator(1,pager.totalPage))
+									#if(pager.currentPage==i)
+										<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="page nowPage" >${i }</a>
+									#else
+										<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="page">${i }</a>
+									#end
+								#end
+							#end
+							
+							#if(pager.currentPage==pager.totalPage)
+								<a href="javascript:void(0);" class="btn">></a>
+							#else
+								<a href="javascript:void(0);" onclick="goPage('${pager.currentPage+1 }');"   value="${pager.currentPage+1 }" class="pageNext">></a>
+							#end
+							<a  href="javascript:void(0);" onclick="goPage('${pager.totalPage }');"   value="${pager.totalPage }" class="pageNext">>></a>
+							
+						</div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+</body>
+</html>	

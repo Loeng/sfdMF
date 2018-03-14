@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>ECharts</title>
+<!-- 引入 echarts.js -->
+<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="../../../resources/commons/js/echarts.js"></script>
+</head>
+<body style="margin:0;">
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="width:635px;height:322px;"></div>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        myChart.showLoading();
+				var radomId = "dt" + new Date().getTime();
+			$.get('json.json?id='+radomId, function (data) {
+    myChart.hideLoading();
+    myChart.setOption(
+		
+		option = {
+			color:['#f3578a'],
+    title : {
+        text: '金',
+				left:'center'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+						splitNumber:1,
+            data: data.map(function (item) {
+                return item.date;
+            }),
+						axisLabel:{
+                 interval:0
+            }
+        }
+    ],
+		grid: {x:40,x2:40,y2:60,},
+
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'当前行情',
+            type:'line',
+            data: data.map(function (item) {
+                return item.value;
+            })
+        }
+    ]
+}
+)
+});
+    </script>
+</body>
+<script>
+/*option = {
+    title : {
+        text: '未来一周价格行情变化',
+        subtext: '纯属虚构'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['3-10','3-11','3-12','3-13','3-14','3-15','3-16']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            axisLabel : {
+                formatter: '{value} 元'
+            }
+        }
+    ],
+    series : [
+        {
+            type:'line',
+            data:[1100, 1100, 1500, 1300, 1200, 1300, 1000],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+    ]
+};*/
+</script>
+</html>

@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>运输企业注册</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<link rel="shortcut icon" href="../../../resources/commons/images/favicon.ico" type="image/x-icon">
+<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+<link href="../../../resources/web/css/zc.css" rel="stylesheet" type="text/css">
+<style>
+.nav a:hover, .nav a.cur{color:#177F00;}
+.nav{background-color:#177F00;}
+.regTab li a.cur{border-bottom:9px #177F00 solid;}
+</style>
+</head>
+
+<body>
+<div class="topArea wrapper">
+	<div class="logo">
+    	<a href="index.html" title="鑫裕环保供应链平台"><img src="../../../resources/commons/images/logo.png" alt="鑫裕环保供应链平台"></a>
+        <strong class="pageName">注册</strong>
+    </div>
+    <div class="topRight">
+    	<a href="index.html" class="linkIndex">首页</a>
+        <em class="split"></em>
+        <span class="telPhone">4000-888-1000</span>
+    </div>
+</div>
+<div class="nav">
+	<div class="wrapper">
+        <a href="gyszc1.html">供应商</a>
+        <a href="cgszc1.html">采购商</a>
+        <a href="ysqyzc1.html" class="cur">运输企业</a>
+    </div>
+</div>
+<div class="main" style="display:block;">
+	<ul class="regTab">
+    	<li><a href="javascript:void(0);" title="邮箱" class="cur">使用邮箱注册</a></li>
+        <li><a href="javascript:void(0);" title="手机">使用手机注册</a></li>
+        <div class="clear"></div>
+    </ul>
+    
+    <!--用邮箱注册-->
+    <div class="regContent" style="display:block;">
+    	<div class="regIn">
+        <div class="textBox box258 phoneBox errorBorder"><!--这是错误效果,追加class=errorBorder可以用来显示红色边框-->
+        	<input name="" type="text" class="box228" placeholder="企业机构名称" autocomplete="off">
+        </div>
+        <div class="boxHeight">
+          <div class="errorBox error">请输入企业／机构名称</div><!--这是提示框,追加class  =error可以用来显示错误-->
+        </div>
+        
+        <div class="textBox box258 phone userBox errorBorder"><input name="" type="text" class="box228" placeholder="邮箱" autocomplete="off"></div>
+        <span class="words2">使用常用邮箱注册</span>
+        <div class="clear"></div>
+        <div class="boxHeight">
+          <div class="errorBox error">请输入邮箱</div><!--这是提示框-->
+        </div>
+        
+        <div class="textBox box258 key keyBox errorBorder"><input name="" type="password" class="box228" placeholder="登录密码" autocomplete="off"></div>
+        <span class="words2">密码长度8~16位</span>
+        <div class="clear"></div>
+        <div class="boxHeight">
+          <div class="errorBox error">请输入密码</div><!--这是提示框-->
+        </div>
+        
+        <div class="textBox box258 key keyBox errorBorder"><input name="" type="password" class="box228" placeholder="确认密码" autocomplete="off"></div>
+        <div class="clear"></div>
+        <div class="boxHeight">
+          <div class="errorBox error">密码输入不一致</div><!--这是提示框-->
+        </div>
+        
+        <a href="cgszc2.html" class="btnReg">注册</a>
+        <div class="reLogin">
+          <div class="words4">如果您已有账号，可</div>
+          <a href="cgsdl.html" class="btnLogin">在此登录</a>
+          <div class="clear"></div>
+        </div>
+      </div>
+    </div>
+    <!--用邮箱注册 end-->
+    <!--用手机注册-->
+    <div class="regContent">
+    	<div class="textBox box258 phoneBox errorBorder"><input name="" type="text" class="box228" placeholder="企业机构名称" autocomplete="off"></div>
+      <div class="boxHeight">
+      	<div class="errorBox error">请输入企业／机构名称</div><!--这是提示框,,class  =error可以用来显示和隐藏-->
+      </div>
+      
+      <div class="textBox box258 phone userBox errorBorder"><input name="" type="text" class="box228" placeholder="手机号" autocomplete="off"></div>
+      <input type="button"  class="btnSend" id="btnSend" value="立即发送" />
+      <span class="words">非中国大陆用户输入手机号码时请增加区域前缀，如：台湾：+8869*******，香港：+8526*******</span>
+      <div class="clear"></div>
+      <div class="boxHeight">
+      	<div class="errorBox error">请输入手机号</div><!--这是提示框-->
+      </div>
+      
+      <div class="textBox box258 mailBox errorBorder"><input name="" type="text" class="box228" placeholder="短信验证码" autocomplete="off"></div>
+      <div class="boxHeight">
+      	<div class="errorBox error">请输入短信验证码</div><!--这是提示框-->
+      </div>
+      
+      <div class="textBox box258 key keyBox errorBorder"><input name="" type="password" class="box228" placeholder="登录密码" autocomplete="off"></div>
+      <span class="words2">密码长度8~16位</span>
+      <div class="clear"></div>
+      <div class="boxHeight">
+      	<div class="errorBox error">请输入密码</div><!--这是提示框-->
+      </div>
+      
+      <div class="textBox box258 key keyBox errorBorder"><input name="" type="password" class="box228" placeholder="确认密码" autocomplete="off"></div>
+      <div class="clear"></div>
+      <div class="boxHeight">
+      	<div class="errorBox error">密码输入不一致</div><!--这是提示框-->
+      </div>
+      
+      <a href="javascript:void(0);" class="btnReg btnFloat">注册</a>
+      <span class="words3">如果您已有账号，可</span>
+      <a href="javascript:void(0);" class="btnLogin">在此登录</a>
+      <div class="clear"></div>
+    </div>
+    <!--用手机注册 end-->
+</div>
+<div class="footer">
+	<div class="wrapper">
+  	<p class="footerLeft">© 2014 成都易科远见科技有限公司 版权所有 蜀ICP备 14005736号</p>
+    <p class="footerRight">成都市高新区吉泰路666号花样年·福年广场2号楼1309室<br>服务热线：028-83190368</p>
+    <div class="clear"></div>
+  </div>
+</div>
+</body>
+<script src="../../../resources/web/js/reg.js"></script>
+<script src="../../../resources/web/js/send.js"></script>
+<script src="../../../resources/web/js/ypxs.js"></script>
+</html>

@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>新增后台角色</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/add.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/role/role_add.js"></script>
+</head>
+
+<body>
+	
+#define(List<com.ekfans.base.system.model.ShopPurview> splist)
+<input type="hidden" id="ctxpath" value="${webroot}" />
+
+<div class="ht_btn">
+	<a href="javascript:void(0);" class="btn" onclick="formSubmit();">保存</a>
+	<a href="javascript:void(0);" class="btn" onclick="reset();">重置</a>
+	<a href="javascript:void(0);" class="btn" onclick="goBack();">返回列表</a>
+</div>
+<form action="${webroot}/system/role/save" method="post" id="addRoleForm">
+	<div class="add_pro">
+		<dl class="formBox">
+			<dt>角色名<em class="mustIco"></em></dt>	
+			<dd>
+				<input type="text" class="i_bg" name="name" onfocus="checkNameFocus()" onblur="checkNameBlur()" />
+				<span class="ts_xx">角色名为3-20位字符组成</span>
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt>角色描述</dt>
+			<dd>
+				<textarea name="note" maxlength="100"></textarea>
+			</dd>
+		</dl>
+		<div class="clear"></div>
+		<dl>
+			<dt>权限设置</dt>
+			<dd></dd>
+		</dl>
+		<h3 class="limitAll"><label><span class="check"><em><input type="checkbox" /></em></span>全选</label></h3>
+		#if(splist!=null && splist.size()>0)
+			#for(com.ekfans.base.system.model.ShopPurview sp : splist)
+				#if(sp.level==1)
+					<div class="limitList limits">
+						<h3 class="limitItem">
+							<label>
+								<span class="check">
+									<em>
+										<input type="checkbox" name="purviewId" value="${sp.id}" />
+									</em>
+								</span>
+								${sp.className}
+							</label>
+						</h3>
+						<div class="limitList">
+							#for(com.ekfans.base.system.model.ShopPurview sp1 : splist)
+								#if(sp1.level==2 && sp.id==sp1.parentId)
+									<h3 class="limitItem">
+										<label>
+											<span class="check">
+												<em>
+													<input type="checkbox" name="purviewId" value="${sp1.id}" />
+												</em>
+											</span>
+											${sp1.className}
+										</label>
+									</h3>
+									<div class="limitList">
+										#for(com.ekfans.base.system.model.ShopPurview sp2 : splist)
+											#if(sp2.level==3 && sp1.id==sp2.parentId)
+												<h3 class="limitItem">
+													<label>
+														<span class="check">
+															<em>
+																<input type="checkbox" name="purviewId" value="${sp2.id}" />
+															</em>
+														</span>
+														${sp2.className}
+													</label>
+												</h3>
+												<div class="limitList">
+													#for(com.ekfans.base.system.model.ShopPurview sp3 : splist)
+														#if(sp3.level==4 && sp2.id==sp3.parentId)
+															<h3 class="limitItem">
+																<label>
+																	<span class="check">
+																		<em>
+																			<input type="checkbox" name="purviewId" value="${sp3.id}" />
+																		</em>
+																	</span>
+																	${sp3.className}
+																</label>
+															</h3>
+														#end
+													#end	
+												</div>
+											#end
+										#end
+									</div>		
+								#end
+							#end
+						</div>
+					</div>
+				#end
+			#end
+		#end
+	</div>
+</form>
+</body>
+</html>

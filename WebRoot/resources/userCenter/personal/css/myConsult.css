@@ -1,0 +1,20 @@
+@charset "utf-8";
+/* CSS Document */
+
+.consultItem{padding:10px 0 0 0; border-bottom:solid 1px #dbdbdb;margin-bottom:10px;}
+.proInfo{position:relative; padding:0 16px; margin-bottom:10px;}
+.orderImg{display:block; width:78px; height:78px; border:solid 1px #f2f2f2; float:left; margin-right:12px;}
+.orderText{display:block; width:200px; line-height:20px; float:left;}
+.shopLink{display:block; white-space:nowrap; height:20px; line-height:20px; position:absolute; right:16px; top:0;}
+.shopLink em{display:block; background:url(../images/shopico.png) no-repeat; width:16px; height:16px; float:left; margin:2px 6px 0 0;}
+.shopLink a{color:#018FD5; font-size:14px;}
+.auditState{height:24px; line-height:24px; color:#F84810; text-align:right; padding-right:24px;}
+.consultContent{padding:2px 16px;}
+.myConsult,.serviceReply{background:#fff; padding:10px; line-height:20px; border-radius:5px; color:#818181;}
+.myConsult strong,.serviceReply strong{color:#333; font-weight:normal;}
+.myConsult{margin-bottom:0px; position:relative;}
+.serviceReply{margin-left:75px; position:relative;}
+.consultPoint{display:block; background:url(../images/whitepoint.png) no-repeat; width:9px; height:11px; position:absolute;}
+.myConsult .consultPoint{left:-9px; top:30%;}
+.serviceReply .consultPoint{right:-9px; top:30%; background:url(../images/whitepoint2.png) no-repeat;}
+.consultTime{height:40px; line-height:40px; text-align:right; padding-right:20px;}

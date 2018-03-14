@@ -1,0 +1,406 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>发布危废订单</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/commons/css/proAdd.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.form.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+<script src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+<script src="${webroot}/resources/commons/js/upload.js"></script>
+
+<style>
+.formItem{width:370px;}
+.formItem{margin-bottom:20px;}
+.formItem .textBox{display:inline-block;}
+.formItem .hint{display:inline-block; padding-left:5px; margin:0; line-height:28px;}
+.formItem4{width:230px; margin-right:12px;}
+.formItem3{width:300px; margin-right:12px;}
+.box120{width:118px;}
+.formItem dt{width:110px;}
+.formItem dd{}
+.endUnit{width:17%;}
+
+.tbHeader{height:30px; line-height:30px; padding-top:6px; font-size:14px; width:100%; text-indent:0.5em;}
+.tbLine{height:40px; line-height:40px; font-size:14px; width:100%; clear:both; margin-bottom:6px;}
+.jiage,.danwei,.guige,.mingcheng{height:28px; line-height:28px; float:left;}
+.tbLine input{width:158px; height:28px; border:solid 1px #e5e5e5;}
+.budongItem{border-bottom:0;}
+.budongItem .formItem{ width:420px; margin-right:5px;}
+.tbLine .formItem{ width:260px; margin-right:5px;}
+.danwei{width:100px;}
+.tbLine .guige,.tbLine .danwei{color:#717171;}
+.tbLine .jiage,.tbLine .jiage *{color:#f00;}
+.tbTitle{height:30px; padding-top:13px; font-size:16px; border-top:solid 3px #FF4100; border-bottom:solid 1px #d0d0d0;}
+.danwei .btnBase{margin-left:20px;}
+.tbAdd{padding:10px 0 20px 16px;margin-left: 30px;}
+.hideBox{border:1px solid #e5e5e5;padding-top:20px;display:block;}
+.addBtns{margin-left:30px;margin-bottom:10px;}
+.tips{margin-left:30px;height:25px;color:#939393;}
+.hideBox2{border:1px solid #e5e5e5;padding-top:20px;}
+.budongItem{margin:0 auto;padding:0;}
+
+em{font-style:normal;}
+.tit{border-bottom:1px solid #e5e5e5;height:37px; position:relative;}
+.tit h2{float:left;font-size:14px;border-bottom:5px solid #fff; padding:0 20px 0 16px; font-weight:normal; height:32px; line-height:32px; cursor:pointer;position:relative; margin-right:20px;}
+.tit h2.cur{border-color:#ff8a00;}
+.rightTitle em{height:32px; line-height:32px; display:inline-block; border-bottom-width:5px; border-bottom-style:solid; padding:0 20px 0 16px; font-style:normal;}
+.rightTitle{ height:37px; font-size:14px; border-bottom:1px solid #e5e5e5;margin:0 0 10px 0;}
+.rightTitle .btnBlue{width:100px; height:28px; line-height:28px; position:absolute; right:0; top:4px;}
+
+/*银行账户*/
+.bankList{margin-bottom:30px;}
+.bankList li{width:280px; background:#f5f5f5; border:solid 1px #d7d7d7; float:left; margin:0 30px 12px 0; cursor:pointer; padding:5px;}
+.bankList li.cur{border:solid 1px #FF6B49; background:#fff;}
+.bankList li span{padding-left:5px; display:block; line-height:22px;}
+.bankList li em{color:#999; width:50px; display:inline-block; text-align:right; padding-right:20px;}
+.bankList .fullBank{border-bottom:#e5e5e5 solid 1px; padding-bottom:5px; margin-bottom:5px;}
+.bankList .num{letter-spacing:2px;}
+.bankList .cardAdd{border:dashed 1px #72A8D7; background:url(${webroot}/resources/userCenter/commons/images/icon_add2.png) no-repeat center 20px; padding-top:50px; height:54px; line-height:30px; text-align:center; color:#0087CB; font-size:14px;}
+.apLayer .errorText{background:none;}
+</style>
+</head>
+<body>
+<!--右侧主体-->
+#define(com.ekfans.base.wfOrder.model.Contract contract)
+#define(List<com.ekfans.base.wfOrder.model.ContractContent> contents)
+#define(com.ekfans.base.wfOrder.model.ScrapWfp scrapWfp)
+#define(String storeId)
+<input id="ctxpath" type="hidden" value="${webroot}"/>
+<form action="${webroot}/store/order/wfOrderSave" method="post" id="addWfOrder">
+	<input id="creator" type="hidden" value="${storeId}"/>
+	<input id="payBankId" type="hidden" name="payBankId" value=""/>
+	<input id="lineId" type="hidden" value="${scrapWfp.lineId}"/>
+	<div class="rightContent">
+		<div class="contentTit budong borderColor">
+			<h3>新增危废品订单</h3>
+			<a href="javascript:returnList();" class="btnBase btnCancel">取消</a>
+			<a href="javascript:checkSubmit();" class="btnBase btnSave">保存</a>
+			<div class="clear"></div>
+		</div>
+		<div class="form borderColor">
+			<h2 class="rightTitle">
+				<em class="borderBottomColor">订单基础信息</em>
+			</h2> 
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>危废名称</dt>
+				<dd>
+					<input id="wfpName" name="wfpName" type="text" class="textBox box212" value="${scrapWfp != null?scrapWfp.wfName:""}" readonly  onclick="javascript:showScrapWfp('${scrapWfp != null?scrapWfp.id:""}');"  style="cursor:pointer; display:block;">
+					<input name="scrapId" id ="scrapId" type="hidden" value="${scrapWfp != null?scrapWfp.id:""}"/>
+					<span>点击查看危废申报详细信息。</span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>危废处置合同</dt>
+				<dd>
+					<input id="contractName" name="contractName" type="text" class="textBox box212" readonly value="${contract!=null?contract.name:""}" onclick="javascript:showContract('${contract!=null?contract.id:""}');"  style="cursor:pointer; display:block;">
+					<input id ="contractId" name="contractId" type="hidden" value="${contract!=null?contract.id:""}"/>
+					<span>点击查看合同详细信息。</span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>产生方</dt>
+				<dd>
+					<input type="text"  name="saleName" value="${contract!=null?contract.firstName:""}" readonly class="textBox box212"> 
+					<input type="hidden" name="saleId" value="${contract!=null?contract.firstId:""}" />
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>处置方</dt>
+				<dd>
+					<input type="text"  name="buyName" value="${contract!=null?contract.secondName:""}" readonly class="textBox box212"> 
+					<input type="hidden" name="buyId" value="${contract!=null?contract.secondId:""}" />
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			
+			<div class="clear"></div>
+			<h2 class="rightTitle">
+				<em class="borderBottomColor">订单详细信息</em>
+			</h2> 
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>本次转移数量</dt>
+				<dd>
+					<input name="wfpTotal" type="text"  id="wfpTotal" value="${listQuantity}" onblur="javascript:checkWfpTotal(this.value,'${scrapWfp != null ?scrapWfp.id:""}');" class="textBox box212" style="display:block;">
+					<span>转移数量都是以"吨"为计量单位。</span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="clear"></dl>
+			<dl class="formItem">
+			  <dt><em class="mustIco"></em>支付方式</dt>
+			  <dd>
+			  	<label><input name="yfType" id="yfTypeA" onclick="changeBanks(this.value)" type="radio" value="false" checked >&nbsp;付款 </label>&nbsp; &nbsp;
+	      	<label><input name="yfType" id="yfTypeB" onclick="changeBanks(this.value)" type="radio" value="true" >&nbsp;收款</label>
+			  </dd>
+			  <dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+			  <dt><em class="mustIco"></em>预付款金额</dt>
+			  <dd>
+			  	<input name="yfPrice" type="text" id="yfPrice" value="0.00" class="textBox box212"  style="display:block;" onblur="checkContent(this);">
+			  	<span>预付款金额以"元"为计量单位。</span>
+			  </dd>
+			  <dd class="clear"></dd>
+			</dl>
+			
+			<div id="loadBanks"></div>
+			
+			<div class="clear"></div>
+			<h2 class="rightTitle">
+				<em class="borderBottomColor">运输信息</em>
+			</h2>
+			
+			<dl class="formItem" style="width:100%;">
+			  <dt><em class="mustIco"></em>运输企业</dt>
+			  <dd style="width:80%;">
+			  	#if(contract!=null && "0" == contract.partyAORpartyB)
+			  		<span style="color:red;">运输企业由产生方选择！</span>
+			  	#else
+			  		#define(List<com.ekfans.base.store.model.Store> transStores)
+			  		#for(com.ekfans.base.store.model.Store st : transStores)
+			  			<label><input name="transportStoreId" type="checkbox" value="${st.id}">&nbsp;${st.storeName}</label>&nbsp;&nbsp;
+			  		#end
+			  	#end
+			  </dd>
+			  <dd class="clear"></dd>
+			</dl>
+			
+      <dl class="formItem">
+			  <dt>#if(needMileage) <em class="mustIco"></em> #end 预估总里程</dt>
+			  <dd>
+			  	<input name="mileage" type="text" id="mileage" class="textBox box212" value="${scrapWfp.course}" style="display:block;">
+			  	<span>预估总里程必须为数字，以"公里"为计量单位</span>
+			  </dd>
+			  <dd class="clear"></dd>
+			</dl>   
+         
+      <div class="clear"></div>
+			<h2 class="rightTitle">
+				<em class="borderBottomColor">发货人信息</em>
+			</h2> 
+			<dl class="formItem">
+			  <dt>联系人</dt>
+			  <dd><input name="sendLinkMan" type="text"  readonly id="sendLinkMan" class="textBox box212" value="${scrapWfp!=null?scrapWfp.salMan:""}"></dd>
+			  <dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+			  <dt>发货地址</dt>
+			  <dd><input name="sendAddress" type="text" readonly id="sendAddress" class="textBox box212" value="${scrapWfp!=null?scrapWfp.salAddress:""}"></dd>
+			  <dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+			  <dt>联系方式</dt>
+			  <dd><input name="sendLinkPhone" type="text" id="sendLinkPhone" class="textBox box212" value="${scrapWfp!=null?scrapWfp.salPhone:""}"></dd>
+			  <dd class="clear"></dd>
+			</dl>
+			
+			
+      <div class="clear"></div>
+      <h2 class="rightTitle">
+				<em class="borderBottomColor">收货人信息</em>
+			</h2>
+			<dl class="formItem">
+			  <dt>收货人</dt>
+			  <dd><input name="takeLinkMan" type="text" onblur="checkTakeMan()" id="takeMan" class="textBox box212" value="${scrapWfp!=null?scrapWfp.buyMan:""}"></dd>
+			  <dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+			  <dt>收货地址</dt>
+			  <dd><input name="takeAddress" type="text" onblur="checkAddress()" readonly id="address" class="textBox box212" value="${scrapWfp!=null?scrapWfp.buyAddress:""}"></dd>
+			  <dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+			  <dt>联系方式</dt> 
+			  <dd><input name="takeLinkPhone" type="text" onblur="checkPhone()" id="phone" class="textBox box212" value="${scrapWfp!=null?scrapWfp.buyPhone:""}"></dd>
+			  <dd class="clear"></dd>
+			</dl>   
+         
+         
+		</div>
+	</div>
+ </form>   
+    <!--右侧主体 end-->
+<div class="clear"></div>
+<div class="apLayerBg"></div>
+<div id="qiyue" class="apLayer borderColor alertBrand">
+</div>
+<div class="apLayer apConfirm borderColor" style="max-height:400px;" id="addBankCard">
+	
+</div>
+
+<script>
+	function checkNumStr(num){
+		var exp = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;
+    if(exp.test(num)){
+    	return true;
+    }else{
+    	return false;
+    }
+	}
+	
+	function changeBanks(val){
+		if("true" == val){
+			$("#loadBanks").load("${webroot}/store/order/loadBanks");
+		}else{
+			$("#payBankId").val("");
+			$("#loadBanks").html("");
+		}
+	}
+	
+	
+	function showContract(contractId){
+		window.open("${webroot}/store/contract/contractById/0/"+contractId+"/${viewType}");
+	}
+	
+	function showScrapWfp(scrapId){
+		window.open("${webroot}/store/wfpscrap/skipView/${viewType}/" + scrapId);	
+	}
+	
+	function checkWfpTotal(wfTotal,scrapId){
+		if(!checkNumStr(wfTotal)){
+			falert("本次转移数量必须为数字");
+			$("#wfpTotal").val("${listQuantity}");
+			return;
+		}
+		if(parseFloat(wfTotal) > parseFloat("${listQuantity}")){
+			falert("本次转移数量不得超过${listQuantity}吨");
+			$("#wfpTotal").val("${listQuantity}");
+			return;
+		}
+		//countTotalPrice();
+	}
+	
+	
+	function checkContent(obj){
+		if(!checkNumStr(obj.value)){
+			falert("请输入数字！");
+			obj.value = "0.00";
+			obj.focus();
+		}
+		//countTotalPrice();
+	}
+	
+	
+	function countTotalPrice(){
+		var quantity = $("#wfpTotal").val();
+		if(parseFloat(quantity) <= 0.00){
+			$("#totalPrice").val("0.00");
+			return;
+		}
+		if($("#showContractContents") && $("#showContractContents").html() != "undefined" && $("#showContractContents").html() != undefined){
+			var contractContents = $("#showContractContents").find("#contractContents").val();
+			var cons = contractContents.split(";");
+			var contents = "";
+			var shuifen = "";
+			if($("#hasShuifen") && $("#hasShuifen").val() != "" && $("#hasShuifen").val() != undefined){
+				shuifen = $("#hasShuifen").val();	
+			}
+			for (i=0;i<cons.length ;i++ ){   
+				var conNum = $("#"+cons[i]+"Number").val();
+				if(conNum != null && conNum != "" && conNum != " " && parseFloat(conNum)>0){
+					if(cons[i] != shuifen){
+						contents = contents + cons[i] + "-" + conNum + ";";
+					}else{
+						contents = contents + "shuifen|" + cons[i] + "-" +conNum + ";";
+					}
+				}
+			}
+			$.ajax({
+				url: "${webroot}/store/order/getOrderTotalPrice",
+				type:'post',
+				data:{'contractId':'${contract.id}','number':$("#wfpTotal").val(),'contents':contents},
+				cache:false,
+				success:function(data){
+					$("#totalPrice").val(data);
+					return;
+				}
+			})
+			
+		}else{
+			var djPrice = 0;
+			#if(contract.payType=="1")
+				djPrice = ${contract.ykjPrice};
+			#end
+			$("#totalPrice").val(quantity * djPrice);
+			return;
+		}
+	}
+	
+	
+	function checkSubmit(){
+	 	
+	 	
+	 	var wfpTotal = $("#wfpTotal").val();
+	 	if(!checkNumStr(wfpTotal) || parseFloat(wfpTotal)<=0){
+	 		falert("请输入货物数量！")
+	 		$("#wfpTotal").val("0.00");
+	 		$("#wfpTotal").focus();
+	 		return false;
+	 	}
+	 	
+	 	var yfPrice = $("#yfPrice").val();
+	 	if(!checkNumStr(yfPrice)){
+	 		falert("预付款金额必须为数字！")
+	 		$("#yfPrice").val("0.00");
+	 		$("#yfPrice").focus();
+	 		return false;
+	 	}
+	 	
+	 	
+	 	
+	 	var transportStoreId = $("input[name='transportStoreId']");
+	 	if(transportStoreId != "" && transportStoreId !=" " && transportStoreId !="undefined" && transportStoreId !=undefined && transportStoreId.length>0){
+		 	var transportStoreIdChecked = $("input[name='transportStoreId']:checked");
+		 	if(transportStoreIdChecked == "" || transportStoreIdChecked ==" " || transportStoreIdChecked =="undefined" || transportStoreIdChecked ==undefined || transportStoreIdChecked.length<=0){
+		 			falert("请选择运输企业");
+		 			return false;
+			}
+		}
+		
+		#if(needMileage)
+		 	if($("#mileage").val() == "" || parseFloat($("#mileage").val())<=0){
+		 			falert("请输入预估里程");
+		 			return false;
+		 	}
+	 	#end
+	 	
+	 	if(parseFloat(yfPrice) == 0){
+	 		econfirm("确定不需要支付预付款吗？",submitForm,null,null,null);
+	 	}else{
+	 		submitForm();
+	 	}
+	 	
+	}
+	
+	function submitForm(){
+		$("#addWfOrder").ajaxSubmit(
+			function(data) {
+				if (data == true) {
+					salertWithFunction('订单添加成功',returnList,null);
+				} else {
+					falert("订单添加失败，请稍后提交");
+				}
+		});
+	}
+	
+	function returnList(){
+		location.href="${webroot}/store/order/contractOrder/orderList/${viewType}";
+	}
+</script>	
+ </body>
+</html>

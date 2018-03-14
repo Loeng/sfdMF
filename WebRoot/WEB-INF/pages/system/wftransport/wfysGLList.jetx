@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/demand.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/list.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/list.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/supplyBuy/wfysGLList.js"></script>
+</head>
+
+<body>
+
+#define(List<com.ekfans.base.store.model.Wftransport> list)
+
+<input type="hidden" id="ctxpath" value="${webroot}" />
+<input type="hidden" id="productType" value="${type}" />
+<form action="${webroot}/sysytem/wftransport/wfysGL/${ty}" method="post" id="searchSupplyBuyForm">
+	<input type="hidden" name="pageNum" value="" />	
+	<dl class="pro_ss">
+		<dt><b>查询</b><span class="span_down"></span><span class="span_up"></span></dt>
+		<dd class="pro_ss_item_h">
+			<span class="zt">
+				<label>
+					<input type="radio" name="type" value="" #if(type==null||type=="") checked=true #end/>所有
+				</label>
+			</span>
+			<span class="zt">
+				<label>
+					<input type="radio" name="type" value="1" #if(type=="1") checked=true #end/>企业
+				</label>
+			</span>
+			<span class="zt">
+				<label>
+					<input type="radio" name="type" value="2" #if(type=="2") checked=true #end/>游客
+				</label>
+			</span>
+			<span class="zt">
+				<label>
+					<input type="radio" name="type" value="3" #if(type=="3") checked=true #end/>上架
+				</label>
+			</span>
+			<span class="zt">
+				<label>
+					<input type="radio" name="type" value="4" #if(type=="4") checked=true #end/>下架
+				</label>
+			</span>
+			<span class="zt">
+				<label>
+					<input type="radio" name="type" value="5" #if(type=="5") checked=true #end/>已审核
+				</label>
+			</span>
+			<span class="zt">
+				<label>
+					<input type="radio" name="type" value="6" #if(type=="6") checked=true #end/>未审核
+				</label>
+			</span>
+			<span class="zt">
+				<label>
+					<input type="radio" name="type" value="7" #if(type=="7") checked=true #end/>审核未通过
+				</label>
+			</span>
+		</dd>
+        <dd class="pro_ss_item">
+			<span>标题</span>
+			<input type="text" class="i_bg" name="name" value="${name}" />
+		</dd>
+		<dd class="clear"></dd>
+	</dl>
+</form>
+<div class="pro_ss_btn">
+	<a href="javascript:searchSubmit();" class="btn">搜索</a>
+	<a href="javascript:resetForm();" class="btn">重置</a>
+</div>
+<!--没有数据的时候-->
+#if(list==null||list.size()<=0)
+	<div class="ht_list_k">暂时没有符合条件的数据</div>	
+#else
+	<!--有数据的时候-->
+	<div class="ht_list">
+		<table id="storeTab" cellpadding="0" cellspacing="0" border="0" >
+			<tr>
+				<th width="4%">序号</th>
+		        <th width="16%">标题</th>
+		        <th width="12%">企业名称</th>              
+		        <th width="10%">#if(type == "0")车辆类型#else货源名称#end</th>
+		        <th width="13%">#if(type == "0")车载总量#else货源总量#end</th>
+		        <th width="5%">联系人</th>
+		        <th width="9%">联系电话</th>
+		        <th width="5%">状态</th>
+		        <th width="12%">更新时间</th>
+		        <th colspan="10%">操作</th>
+			</tr>
+			#for(com.ekfans.base.store.model.Wftransport w : list)
+				 <tr id="${w.id}">
+					<td>${for.index}</td>
+					<td>${w.name}</td>
+					<td>${w.storeName}</td>
+		          <td>#if(w.type == 0)${w.carName}#else${w.supplyName}#end</td>
+		          <td>${w.wfpTotal}${w.unit}</td>
+		          <td>${w.linkMan}</td>
+				  <td>${w.phone}</td>
+		          <td>#if(w.checkStatus == 0)未审核#elseif(w.checkStatus == 1)已审核#end</td>        
+		          <td>${w.updateTime}</td>
+				  <td class="cz">
+				  	<a href="javascript:void(0);" class="eyeIco" onclick="queryId('${w.id}');" title="查看" ></a>
+				   	<!-- <a href="javascript:void(0);" class="editIco" onclick="storeModify('${w.id}');" title="修改" ></a> 
+				   	<a href="javascript:void(0);" class="del_list" title="删除" onclick="singleDetele('${w.id}')" ></a>-->
+				  </td>
+			  </tr>
+			#end
+		</table>
+		<div class="ht_pageBox">
+			${include( "../common/page.jetx")}
+		</div>
+	</div>
+#end
+
+
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>待付款订单详情</title>
+	<link href="${webroot}/resources/store/commons/css/goodsDetail.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+	<script src="${webroot}/resources/store/commons/js/goodsDetail.js"></script>
+	<script src="${webroot}/resources/store/commons/js/ckeditor/ckeditor.js"></script>
+	<!-- 引入私有js -->
+	<script type="text/javascript" src="${webroot}/resources/store/commons/js/order/orderManager/orderHandle/StoreOrderWaitPayHandle.js"></script>
+</head>
+
+<body>
+	<!-- 一个订单所对应的商品信息 -->
+  #define(List<com.ekfans.base.product.model.Product> products)
+  <!-- 订单地址 -->
+  #define(com.ekfans.base.order.model.OrderAddress address)
+  <!-- 订单信息 -->
+  #define(com.ekfans.base.order.model.Order order)
+   <!-- 付款时间块 -->
+  #define(com.ekfans.base.order.model.OrderTreatDetail treatDetail)
+  <!-- 订单操作的详情信息 -->
+  #define(List<com.ekfans.base.order.model.OrderTreatDetail> treatDetails)
+	
+	
+	
+	<div class="rightContent">
+		<div class="contentTit borderColor budong">
+      	<h3>订单详情</h3>
+        <a href="javascript:void(0);" class="btnBase btnBack" onclick="goBack();">返回列表</a>
+        <div class="clear"></div>
+      </div>			
+		<div class="form borderColor">
+		<table border="0" cellspacing="0" cellpadding="0" class="orderTable">
+    	<tr>
+      	<th class="tdProInfo bgColor">商品信息</th>
+        <th class="tdProNum bgColor">商品编号</th>
+        <th class="tdProCount bgColor">数量</th>
+        <th class="tdSubtotal bgColor">小计</th>
+      </tr>
+      #for(com.ekfans.base.product.model.Product product:products)
+      	<tr>
+        	<td class="tdProInfo">
+          	<a href="${webroot}/web/proDetail/${product.id}" title="${product.name}" class="orderImg">
+          		#if(product.recommendPicture1==null || product.recommendPicture1=="")
+          			<img src="${webroot}/resources/customer/images/imgdefault.jpg" width="78" height="78" alt="${product.name}" />
+          		#else
+          			<img src="${webroot}${product.recommendPicture1}" alt="${product.name}" alt="${product.name}" />
+          		#end
+          	</a>
+            <div class="proRight">
+            	<span class="orderText"><a href="${webroot}/web/proDetail/${product.id}" title="${product.name}">${product.name}</a></span>
+              <span class="nowPrice">￥${product.unitPrice}</span>
+              #if(product.productInfoDetails!=null && product.productInfoDetails.size()>0)
+              <div class="clear"></div>
+              <div class="colorSize"><span>${product.productInfoDetails[0].infoName1}#if(product.productInfoDetails[0].infoName1!=null && product.productInfoDetails[0].infoName1!="")：#end</span><em>${product.productInfoDetails[0].infoValue1}</em></div>
+              <div class="colorSize"><span>${product.productInfoDetails[0].infoName2}#if(product.productInfoDetails[0].infoName2!=null && product.productInfoDetails[0].infoName2!="")：#end</span><em>${product.productInfoDetails[0].infoValue2}</em></div>
+             	<div class="clear"></div>
+             	<div class="colorSize"><span>${product.productInfoDetails[0].infoName3}#if(product.productInfoDetails[0].infoName3!=null && product.productInfoDetails[0].infoName3!="")：#end</span><em>${product.productInfoDetails[0].infoValue3}</em></div>
+              <div class="colorSize"><span>${product.productInfoDetails[0].infoName4}#if(product.productInfoDetails[0].infoName4!=null && product.productInfoDetails[0].infoName4!="")：#end</span><em>${product.productInfoDetails[0].infoValue4}</em></div>
+            	<div class="clear"></div>
+            	#end
+            </div>
+            <div class="clear"></div>
+            </td>
+            <td class="tdProNum">${product.productNumber}</td>
+            <td class="tdProCount">${product.buyCount}</td>
+            <td class="tdSubtotal">￥${product.tempProductTotalPrice}</td>
+				</tr>
+			#end
+    </table>
+   
+    <div class="tit">
+			<h2 class="orderInfoTab cur">订单信息</h2>
+			<h2 class="orderLogTab">订单跟踪</h2>
+			<a href="javascript:void(0)" class="layerToggle">收起</a>
+		</div>
+		<div class="toggles orderInfo">
+			<dl class="consignee paddingtop">
+      	<dt>收货人信息</dt>
+      	<dd>
+        	<li><span class="biaotiL">收货人：</span>${address.name}</li>
+          <li><span class="biaotiL">收货地址：</span>${address.provincial}#if(address.city!=null && address.city!="")${" "+address.city}#end#if(address.area!=null && address.area!="")${" "+address.area}#end${" "+address.address}</li>
+          <li><span class="biaotiL">固定电话：</span>${address.phoneNum}</li>
+          <li><span class="biaotiL">手机号码：</span>${address.mobile}</li>
+          <li><span class="biaotiL">电子邮件：</span>${address.email}</li>
+        </dd>
+      </dl>
+			<dl class="payStyle">
+				<dt>支付及配送方式</dt>
+				<dd>
+        	<li><span class="biaotiL">支付方式：</span>#if(order.paymentId=="1")财付通#elseif(order.paymentId=="2")支付宝#elseif(order.paymentId=="3")网银支付#end</li>
+        	<li><span class="biaotiL">运费：</span>￥${order.fare}</li>
+      	</dd>
+    	</dl>
+    	#if(order.invoice)
+    		<dl class="invoiceInfo">
+	      	<dt>发票信息</dt>
+	      	<dd>
+		      	<li>发票类型：#if(order.invoiceType)普通发票#else增值税发票#end</li>
+		        <li>发票抬头：${order.invoiceTitle}</li>
+		        <li>发票内容：${order.invoiceContent}</li>
+	       	</dd>	
+	      </dl>
+  		#else
+    		<div class="invoiceNone" style="margin-top:24px;">无发票信息</div>
+    	#end
+    	<!--
+    	<dl class="invoiceInfo" style="display:none;">
+    		<dt>发票信息</dt>
+      	<dd>
+        	<li>发票类型：普通发票</li>
+        	<li>发票抬头：个人</li>
+        	<li>发票内容：明细</li>
+      	</dd>
+      </dl>
+      -->
+      <!--无发票信息-->
+      <!-- <div class="invoiceNone" style="margin-top:24px;">无发票信息</div> -->
+      <!--无发票信息 end-->
+      <div class="clear"></div>
+		</div>
+		<div class="orderLog">
+    	<ul>
+    		#for(com.ekfans.base.order.model.OrderTreatDetail otd:treatDetails)
+      		<li>${otd.createTime}&nbsp;&nbsp;&nbsp;${otd.creater}&nbsp;&nbsp;&nbsp;${otd.note}</li>
+      	#end
+      </ul>
+      <div class="freightText"><span>送货方式：${order.shipment}</span><span>承运人：${order.logisticsName}</span><span>货运单号：${order.logisticsNo}</span></div>
+		</div>
+		<h2 class="rightTitle"><em>付款信息</em><a href="javascript:void(0)" class="layerToggle">收起</a></h2>
+		<div class="toggles payInfo">
+			<ul class="payInfoLeft">
+      	<li>付款方式：#if(order.paymentId=="1")财付通#elseif(order.paymentId=="2")支付宝#elseif(order.paymentId=="3")网银支付#end</li> 
+      	<li>商品金额：￥${order.totalPrice}</li> 
+      	<li>优惠金额：￥0.00</li> 
+      	<li>支付金额：￥0.00</li>
+      </ul>
+      <ul>
+      	<li>运费金额：￥${order.fare}</li>
+      	<li>实际运费：￥0.00</li>
+      	<li>付款时间：</li>
+      </ul>	
+		</div>
+		<div class="split"></div>
+		<div class="money">
+			<span class="moneyTotal">商品总计：<em class="price" id="qpPrice">￥${order.totalPrice}</em></span>
+			<a href="javascript:void(0)" class="btnBase btnChange">修改金额</a>
+			<div class="editMoney" id="qpModel">
+      	<span class="editBox"><em></em><input type="text" id="newQPprice" onfocus="checkPriceJudgFocus(1)" onblur="checkPriceJudgBlur('newQPprice',1)" /></span>
+      	<span class="errorText errorRed" id="qpPriceError" style="display:none;">
+        	<em class="errorBoxL"></em>
+        	<em class="errorMain">请输入正确价格！</em>
+        	<em class="errorBoxR"></em>
+      	</span>
+        <a href="javascript:void(0)" class="btnBase btnSave" onclick="modifyPrice('${webroot}','${order.id}','newQPprice',1)">保存</a>
+      </div>
+			<div class="clear"></div>
+		</div>
+		<div class="money">
+			<span class="moneyTotal">运费总计：<em class="price" id="qpFare">￥${order.fare}</em></span>
+			<a href="javascript:void(0)" class="btnBase btnChange">修改金额</a>
+			<div class="editMoney" id="qpModelFare">
+				<span class="editBox"><em></em><input type="text" id="newQPfare" onfocus="checkPriceJudgFocus(2)" onblur="checkPriceJudgBlur('newQPfare',2)" /></span>
+				<span class="errorText errorRed" id="qpFareError" style="display:none;">
+        	<em class="errorBoxL"></em>
+        	<em class="errorMain">请输入正确价格！</em>
+        	<em class="errorBoxR"></em>
+      	</span>
+        <a href="javascript:void(0)" class="btnBase btnSave" onclick="modifyPrice('${webroot}','${order.id}','newQPfare',2)">保存</a>
+    	</div>
+      <div class="clear"></div>
+    </div>
+		<div class="money">
+			<span class="moneyTotal">订单总计：<em class="price" id="qpPriceYunTotal">￥${ordersTotalPrice}</em></span>
+		</div>
+		<!-- 修改后商品总计金额 -->
+		<input type="hidden" id="newProductPriceTotal" />
+		<!-- 修改后运费总计 -->
+		<input type="hidden" id="newFaress" />
+		
+		
+  	<a href="javascript:void(0)" class="btnBase btnSubmit" onclick="updateSubmitPrice('${webroot}','${order.id}')">提交</a>
+		 <div class="clear"></div>
+	</div>
+	</div>
+</body>
+</html>

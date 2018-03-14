@@ -1,0 +1,31 @@
+/* CSS Document */
+
+
+.main{margin-top:60px;}
+
+.companyHead{ padding:25px 20px; margin-bottom:20px;}
+.companyImg{height:198px; width:258px; border:solid 1px #efefef; margin-bottom:20px;}
+.companyImg .imgBox{position:relative; width:148px; height:148px; border:solid 1px #efefef; margin:25px auto;}
+.companyImg .imgBox img{max-width:100%; max-height:100%;}
+.companyInfo{margin-bottom:20px;}
+.companyInfo h2{font-size:22px;height:46px; line-height:46px; border:solid 1px #efefef; padding-left:20px; position:relative;}
+.rzCom{background-color:#FF5947; color:#fff; width:90px; height:30px; line-height:30px; text-align:center; font-size:16px; position:absolute; right:20px; top:8px;}
+
+.leftCon{float:left;width:260px;}
+.leftCon h3{background-color:#393; color:#fff; height:38px; line-height:38px; font-size:16px; padding-left:20px;}
+.comInfo{padding:16px 20px; display:block; min-height:100px;}
+.comInfo li{height:25px; line-height:25px;list-style-type:disc; list-style-position:inside;}
+
+.rightCon{float:right; width:920px;}
+.rightCon h3{ background-color:#393; color:#fff; height:38px; line-height:38px; font-size:14px; padding-left:20px;}
+.comIntro{padding:16px 20px; line-height:28px; color:#666; border:solid 1px #efefef; margin-bottom:20px;}
+.comIntro *{max-width:880px;}
+
+.comDangan{padding:0 16px; margin-top:20px; border:solid 1px #efefef;}
+.companyItems{padding:12px 1%; height:44px;}
+.dangan{color:#595757;width:26%; padding-right:2%; margin-right:5%; float:left; border-right:solid 1px #d1d1d1;}
+.dangan:last-child{border-right:none;}
+.dangan li{height:22px; line-height:22px; overflow:hidden;}
+.jinying{border-top:1px solid #e1e1e1;; color:#666; line-height:24px; padding:8px 10px;}
+.zizhiContent{border:solid 1px #efefef; margin-bottom:20px;}
+.zizhiItem{position:relative; width:178px; height:178px; border:solid 1px #efefef; display:inline-block; margin:20px 23px;}

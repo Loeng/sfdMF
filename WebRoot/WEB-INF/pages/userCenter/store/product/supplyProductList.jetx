@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>出售中的商品</title>
+	<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/userCenter/commons/css/proList.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/product/productList.js"></script>
+	
+
+</head>
+<body>
+	<input type="hidden" name="ctxpath" id="ctxpath" value="${ctxpath}" />
+	<form action="${webroot}/store/product/sales" method="post"  id="searchProductForm">
+		<div class="formSearch borderColor">
+			<dl class="formItem">
+				<dt>商品名称</dt>
+				<dd><input name="name" type="text"  class="textBox box212" value="${name}"></dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt>商城价</dt>
+				<dd><input name="minUnitPrice" type="text" class="box98 textBox" value="${minUnitPrice}"/></dd>
+				<dd>&nbsp;—&nbsp;</dd>
+				<dd><input name="maxUnitPrice" type="text" class="box98 textBox" value="${maxUnitPrice}"/></dd>
+				<dd class="clear"></dd>
+			</dl>
+			<div class="clear"></div>
+		</div>
+		<div class="btnArea">
+			<a href="javascript:void(0);" class="btnBase btnSearch" onclick="searchSubmit();">搜索</a>
+			<a href="javascript:void(0);" class="btnBase btnReset" onclick="resetForm();">清空</a>
+			<div class="clear"></div>
+		</div>
+	</form>
+		
+	#define(List<com.ekfans.base.product.model.Product> products)
+	<div class="formTable borderColor">
+		<ul class="secNav">
+			<li class="li1">商品信息</li>
+			<li><a href="javascript:void(0);" onclick="javascript:checkSelect();" title="删除"  class="li2">删除所选</a></li>
+			<li><a href="javascript:void(0);" onclick="javascript:choseMenu('${ctxpath}','PRODUCT_ADD');" title="新增"  class="li3">新增</a></li>
+		</ul>
+		<div class="clear"></div>
+		#if(products != null && products.size()>0)
+		<div style="position:relative;" class="tableBox">
+			<table border="0" cellspacing="0" cellpadding="0" class="tabList">
+			<thead>
+				<tr class="bgColor">
+					<th class="tdCheck"><label class="checkAll"><span class="check"><em><input name="checkbox1" type="checkbox" value=true></em></span></label></th>
+					<th class="tdInfo accept">商品名称</th>
+					<th class="tdState accept">状态</th>
+					<th class="tdCount accept">库存</th>
+					<th class="tdBrand accept">审核状态</th>
+					<th class="tdEdit accept"></th>
+				</tr>
+				</thead>
+				<tbody>
+				#for(com.ekfans.base.product.model.Product product : products)
+				<tr>
+					<td class="tdCheck"><label class="checkItem"><span class="check"><em><input name="delProducts" type="checkbox" value="${product.id}"></em></span></label></td>
+					<td class="tdInfo tabLeft">
+						<a href="#tag shortLink('01',product.id) #end" title="查看商品" class="orderImg"><img #if(product.smallPicture == "" || product.smallPicture == " " || product.smallPicture == null) src="${ctxpath }/resources/store/images/imgdefault.jpg" 
+                    	#else src="${webroot }${product.smallPicture }" #end width="78" height="78" alt="ipad"></a>
+						<div class="proRight">
+							<span class="orderText"><a href="#tag shortLink('01',product.id) #end" title="${product.name}">${product.name}</a></span>
+							<span class="nowPrice">商城价<em>￥${product.unitPrice}</em></span>
+							<span class="marketPrice">市场价<em>￥${product.listPrice}</em></span>
+						</div>
+						<div class="clear"></div>
+					</td>
+					<td class="tdState">#if(product.status) 上架 #else 下架 #end</td>
+					<td class="tdCount">${product.quantity }</td>
+					<td class="tdBrand">
+						#if(product.checkStatus==0)
+							未审核
+						#elseif(product.checkStatus==1)
+							审核通过
+						#elseif(product.checkStatus==-1)
+							审核未通过
+						#end
+					</td>
+					<td class="tdEdit">
+						<a href="#tag shortLink('01',product.id) #end" target="_black" class="eyeIco" title="预览"></a>
+						<a href="javascript:void(0);" class="editIco" id="del${product.id}" onclick="javascript:productModify('${product.id}','${webroot}');" title="编辑"></a>
+						<a href="javascript:void(0);" onclick="javascript:deleteP('${product.id}','${ctxpath}')" class="del_list" title="删除"></a>
+					</td>
+				</tr>
+				#end
+				</tbody>
+			</table>
+			</div>
+			<input type="hidden" name="pageNum" value="${pager }" />
+			${include("../common/page.jetx")}
+			<div class="clear"></div>
+		#else
+			<div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+		#end
+	</div>
+
+<!--支持拖动+宽度调节JS-->
+<script src="${webroot}/resources/userCenter/commons/js/jquery-ui-1.9.2.custom.js"></script> 
+<script src="${webroot}/resources/userCenter/commons/js/jquery.dragtable.js"></script> 
+<script src="${webroot}/resources/userCenter/commons/js/jquery-migrate-1.1.1.js"></script> 
+<script src="${webroot}/resources/userCenter/commons/js/jquery.chili-2.2.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/jquery.resizableColumns.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+  $(".tabList").dragtable({dragaccept:'.accept'});
+	$(".tabList").resizableColumns({});
+});
+</script>
+<style type="text/css">
+.tableBox{width:100%;}
+.tabList{width:99%;}
+.tabList th{border-right:solid 1px #e3e3e3;}
+.tabList th:first-child{border-left:0;}
+.tabList th:last-child{border-right:0;}
+.rc-handle-container{position:relative;}
+.rc-handle{position:absolute;width:7px;cursor:ew-resize;*cursor:pointer;margin-left:-3px;}
+/* defaultTable sar-table listext tablesorter*/
+.tabList th.accept {cursor:move;}
+.dragtable-sortable {list-style-type: none; margin: 0; padding: 0; -moz-user-select: none; border:0;}
+.dragtable-sortable li {margin: 0; padding: 0; float: left; font-size: 1em; background:#fff; border:0px solid #F00;;text-align:center;}
+.dragtable-sortable th, .dragtable-sortable td{border-left: 0px #FF0000 solid;}
+.dragtable-sortable li:first-child th, .dragtable-sortable li:first-child td {border-left: 0px solid #CCC; }
+.ui-sortable-helper {opacity: 0.7;filter: alpha(opacity=70);border:0;}
+.ui-sortable-placeholder { -moz-box-shadow: 4px 5px 4px #C6C6C6 inset;-webkit-box-shadow: 4px 5px 4px #C6C6C6 inset;box-shadow: 4px 5px 4px #C6C6C6 inset;border-bottom: 1px solid #CCCCCC;border-top: 1px solid #CCCCCC; visibility: visible !important;background: #EFEFEF !important; visibility: visible !important;}
+.ui-sortable-placeholder * { opacity: 0.0; visibility: hidden; }
+</style>
+<!--支持拖动+宽度调节JS  end-->
+</body>
+</html>

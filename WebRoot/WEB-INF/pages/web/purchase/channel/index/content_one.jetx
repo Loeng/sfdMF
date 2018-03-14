@@ -1,0 +1,21 @@
+#define(Map<String, com.ekfans.base.channel.model.ChannelConfig> configMap)
+#define(String configType)
+#define(String position)
+#define(String channelId)
+
+#set(com.ekfans.base.channel.model.ChannelConfig config = configMap.get(configType + position))
+
+#if(configStatus == "true")
+	#include("../../../channel/commons/config/configTitle.jetx",{"channelId":channelId,"configType":configType,"position":position})
+#end
+
+#if(config != null)
+	<dl>
+		<dt>#if(config.configName!=null && !"".equals(config.configName) && !" ".equals(config.configName)) ${config.configName} #else 行业资讯 #end</dt>
+		<dd>
+			#for(com.ekfans.base.content.model.Content content : config.details)
+				<li><a href="${webroot}/03-${content.id}-1.html" title="${content.contentName}"><em></em>${content.contentName}</a></li>
+			#end
+		</dd>
+	</dl>
+#end

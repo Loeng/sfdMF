@@ -1,0 +1,403 @@
+#define(com.ekfans.base.channel.model.Channel channel)
+#define(com.ekfans.base.user.model.User User)
+#define(com.ekfans.base.store.model.Store Store)
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}-${channel.name}</title>
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<meta name="Keywords" content="${channel.keyWords}">
+<meta name="description" content="${channel.description}">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.superslide.2.1.1.js"></script>
+<script src="${webroot}/resources/web/js/base.js"></script>
+<script src="${webroot}/resources/commons/js/layer/layer.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/wfys.js"></script>
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/base.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/wfysList.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+#if(configStatus == "true")
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/control.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/upload.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/control.js"></script>	
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+#end
+<style>
+.errorText{display:block;color:red;}
+.startPlaceArea,.endPlaceArea{border:1px solid #e4e4e4;}
+
+
+.txtScroll-left .bd .tempWrap{ width:750px !important; }
+.txtScroll-left .bd ul{ overflow:hidden; zoom:1; }
+.txtScroll-left .bd ul li{ margin-right:40px;  float:left; height:34px; line-height:34px;  text-align:left; _display:inline; width:auto !important;  }
+
+.apLayerBg{position:fixed; z-index:99999998; top:0; left:0; right:0; bottom:0; background:#000; filter:alpha(opacity=60); opacity:0.6; display:none;}
+.apLayer{position:fixed; z-index:99; top:12%; bottom:12%; left:20%; right:20%; background:#fff; border-top:12px solid #339933; border-radius:8px; display:none;}
+.apTit{height:40px; line-height:40px; border-bottom:solid 1px #e5e5e5; font-size:16px; margin:0 8px; text-indent:0.5em; position:relative;}
+.apTit .apClose{position:absolute; background:url(${webroot}/resources/commons/images/del3.jpg) no-repeat; width:20px; height:20px; top:10px; right:10px; cursor:pointer;}
+.apContent{position:absolute; top:41px; left:0; right:0; bottom:0; overflow-y:auto; min-height:60px;}
+.hintApLayer{height:254px;}
+.apConfirm .apContent{bottom:68px;}
+.apBtns{padding:20px; height:28px; text-align:center; border-top:solid 1px #e4e4e4; text-align:right; position:absolute; bottom:0; left:0; right:0; background:#fff;}
+.apBtns .btnBase{margin:0 10px;}
+
+.apLayer {position: fixed;z-index:99999999;top: 12%;bottom: 12%;left: 20%;right: 20%;background: #fff;border-top: 12px solid #339933;border-radius: 8px;display: none;}
+
+.btnBase,.btnXuanze{background:#393; color:#fff; display:inline-block; padding:0 24px; height:28px;line-height:28px;text-align:center;margin:0 auto;font-size:12px; margin-right:5px; border:none; cursor:pointer;}
+.select4 select{border:1px solid #e4e4e4;}
+
+
+.danxuan input,.fuxuan input{float:left; display:block;}
+span.pp{cursor:pointer; display:block; float:left; width:27px; height:28px; border:1px solid #e0e3ea; margin-left:-1px; position:relative; background:url(http://localhost:8080/sfd/resources/userCenter/commons/images/rightpoint2.png) no-repeat center center;}
+span.pp:hover{background:url(http://localhost:8080/sfd/resources/userCenter/commons/images/rightpoint.png) #999 no-repeat center center; width:29px; height:30px; border:none;}
+		
+		/**资质选择弹框**/
+.selectList{width:100%;overflow:hidden;margin:5px 0;}
+.selectList li{float:left;min-height:130px;width:370px;height:130px;overflow-x:hidden; _overflow-y:scroll;border:1px solid #f6f6f6;}
+.selectList li a{display:block;height:25px;line-height:25px;padding-left:13px;overflow:hidden;}
+.selectList li a.cur,.selectList li a:hover{background:#ffedd7}
+.tabBox{overflow-y:auto;overflow-x:hidden; margin-bottom:5px;}
+.tableBox{width:100%;}
+.tabBox .tabList{clear:bouth;width:758px;}
+.tabBox .tabList th{padding:0px 10px; height:35px;line-height:35px;color:#fff; background-color: #339933;}
+.tabBox .tabList td{padding:8px 10px; line-height:22px; border-bottom:1px #e5e5e5 solid;color:#7D7C7D; max-width:105px; overflow:hidden; text-align:center;}
+.tabBox .tabList tr:hover{background:#F3F3F3;}
+.tabBox .pageSize{margin-bottom:5px;}
+
+.bgColor{background:#393;color:#fff;}
+#mlDiv th{padding:0px 0px; height:35px;font-size:14px;color:#fff; border:1px #DCDCDD solid;}
+#mlDiv td{padding:8px 10px; line-height:22px; border:1px #DCDCDD solid;color:#7D7C7D; max-width:105px; overflow:hidden; text-align:center;}
+#mlDiv .tabRight{text-align:right;}
+#mlDiv .tabLeft{text-align:left;}
+</style>
+</head>
+<input type="hidden" name="ctxpath" id="ctxpath" value="${ctxpath}" />
+<input type="hidden" name="channelId" id="channelId" value="${channelId}" />
+<input type="hidden" name="channelType" id="channelType" value="${channel.type}" />
+#if(configStatus == "true")
+	<!-- 频道配置导航条 -->
+	#include("commons/config/config-top.jetx")
+	<!-- 频道配置导航条 -->
+#end
+<body>
+<!--一极菜单-->
+<!-- 导航 -->
+<div id="channelTop"></div>
+
+<!--一极菜单 end--> 
+
+<div class="wrapper main" >
+	<!---顶部分类-->
+  	<div class="listClass">
+        <div class="wrapper">
+	        <input type="hidden" name="startFullPathIndex" id="startFullPathIndex"  value="">
+	        <input type="hidden" name="endFullPathIndex" id="endFullPathIndex"  value="">
+	        <input type="hidden" id="pageNum" name="pageNum" value="${pageNum}"/>	
+            <dl class="listItem" style="border-top:0;">
+                <dt>出发地</dt>
+                <dd class="listLink fromAdress">
+                    <a href="#" class="cur">全部</a>
+                    #for(com.ekfans.base.system.model.SystemArea s:@(com.ekfans.plugin.cache.base.Cache).getProvinces())
+                    	<a href="javascript:void(0);" class="cfd #if(starPlace=='s.areaName')cur#end" id="${s.areaName}">${s.areaName}</a>
+                    #end
+                </dd>
+                <dd class="listMore" style="visibility:hidden;"><a href="#" title="更多"></a></dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="listItem">
+                <dt>目的地</dt>
+                <dd class="listLink goAdress">
+                    <a href="#" class="cur" id="all">全部</a>
+                    #for(com.ekfans.base.system.model.SystemArea s:@(com.ekfans.plugin.cache.base.Cache).getProvinces())
+                    	<a href="javascript:void(0);" class="mdd #if(endPlace=='s.areaName')cur#end" id="${s.areaName}" datatype="${s.id}">${s.areaName}</a>
+                    #end
+                </dd>
+                <dd class="listMore" style="visibility:hidden;"><a href="#" title="更多"></a></dd>
+                <dd class="clear"></dd>
+            </dl>
+            
+            <dl class="listItem">
+                <dt>车辆类型</dt>
+                <dd class="listLink carName">
+                    <a href="#" class="cur" >全部</a>
+                    #for(com.ekfans.base.store.model.VehicleType vt:@(com.ekfans.plugin.cache.base.Cache).getVehicleTypeList())
+                    	<a href="javascript:void(0);" class="#if(carName=='vt.areaName')cur#end" id="${vt.name}" datatype="${vt.id}">${vt.name}</a>
+                    #end
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="listItem ">
+                <dt>货物类型</dt>
+                <dd class="listLink categoryName">
+                    <a href="#" class="cur" >全部</a>
+                    #for(com.ekfans.base.store.model.CategoryGoods cg:@(com.ekfans.plugin.cache.base.Cache).getCategoryGoodsList())
+                    	<a href="javascript:void(0);" class="#if(categoryName=='cg.name')cur#end" id="${cg.name}" datatype="${cg.id}">${cg.name}</a>
+                    #end
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="listItem">
+                <dt>货物种类</dt>
+                <dd class="listLink wfpysParentId">
+                    <a href="#" class="cur" >全部</a>
+                    #for(com.ekfans.base.store.model.Wfpys wfpys:@(com.ekfans.plugin.cache.base.Cache).getWfpysList())
+                    	<a href="javascript:void(0);" class="#if(wfpysParentId=='wfpys.id')cur#end" id="${wfpys.id}" datatype="${wfpys.id}">${wfpys.name}</a>
+                    #end
+                </dd>
+             	<dd class="listMore" ><a href="#" title="更多"></a></dd>
+                <dd class="clear"></dd>
+            </dl>
+            <!--
+             <dl class="listItem">
+                <dt>罐体材质</dt>
+                <dd class="listLink tankMaterialName">
+                    <a href="#" class="cur" >全部</a>
+                     #for(com.ekfans.base.store.model.TankMaterial tm:@(com.ekfans.plugin.cache.base.Cache).getTankMaterialList())
+                    	<a href="javascript:void(0);" class="#if(tankMaterialName=='tm.name')cur#end" id="${tm.name}" datatype="${tm.id}">${tm.name}</a>
+                    #end
+                </dd>
+                <dd class="listMore" ><a href="#" title="更多"></a></dd>
+                <dd class="clear"></dd>
+            </dl>
+            -->
+        </div>
+    </div>
+    <!---顶部分类 end -->
+    <span id="wfhyList"></span>
+
+</div>
+
+
+<!--底部-->
+<div id="channelFoot"></div>
+<!--底部 end-->
+
+<!--议价弹层-->
+<div id="yijiaHtml" style="display:none;">
+
+</div>
+<!--议价弹层 end-->
+<!--发布弹层-->
+	<div id="fbHtml" style="display:none;">
+	    
+	</div>
+<!--发布弹层 end-->
+
+<!--发布信息弹层-->
+<div id="updateHtml" style="display:none;">
+    <div class="update">
+        <div class="leftLayer">
+            <a href="${webroot}/web/login" class="btnGreen">登录后发布</a>
+            <div class="text">
+                <em class="red">*</em>保留完整的发布信息数据<br>
+                可编辑修改后再发布<br>
+                历史记录永久查阅
+            </div>
+        </div>
+        <div class="rightLayer">
+            <a href="javascript:void(0);" class="btnGreen" onclick="release();">发布临时信息</a>
+            <div class="text">
+                <em class="red">*</em>未注册用户可直接发布临时信息<br>
+                不可修改及查阅历史记录<br>
+            </div>
+        </div>
+    </div>
+</div>
+<!--发布信息弹层 end-->
+<div class="apLayerBg"></div>
+<div class="alertBrand" style="wdith:1000px;display:none;" id="showLoads"></div>
+<div id="Directory" class="apLayer borderColor alertBrand" style="display:none;"></div>
+<script>
+
+$(document).ready(function() {
+	//筛选条件	
+	$(".listLink").each(function(){
+		var sumWidth =0;
+		$(this).find("a").each(function(){
+			var a=$(this).width();
+			sumWidth += a;
+		});
+		console.log(sumWidth);
+		if (sumWidth>1007){$(this).next(".listMore").css("visibility"," visible")}
+		else{$(this).next(".listMore").css("visibility","hidden")}
+		
+    $(".listMore a").toggle(function(){
+		$(this).parent().siblings(".listLink").css("height","auto");
+		$(this).addClass("down");
+	},function(){
+		$(this).parent().siblings(".listLink").css("height","30px");
+		$(this).removeClass("down");
+	})
+	})
+	
+	$(".listLink a").live("click",function(){
+	  $(this).siblings("a").removeClass("cur");
+	  $(this).addClass("cur");
+	  goQuery();
+	});
+	
+	$("input[name = 'type']").live("click",function(){
+		var type = $(this).val();
+		if(type == "0"){
+			$(".cy").show();
+			$(".hy").hide();
+			$("#supplyName").val("");
+		}else{
+			$(".cy").hide();
+			$(".hy").show();
+			$("#carName").val("");
+		}
+	});	
+	
+	function goQuery(){
+		var pageNum = $("#pageNum").val();
+		var starPlace = $(".fromAdress a.cur").attr("id");
+		var endPlace = $(".goAdress a.cur").attr("id");
+		var carName = $(".carName a.cur").attr("id");
+		var tankMaterialName = $(".tankMaterialName a.cur").attr("id");
+		var categoryName = $(".categoryName a.cur").attr("id");
+		var wfpysParentId = $(".wfpysParentId a.cur").attr("id");
+		$("#wfhyList").load($("#ctxpath").val() + "/web/wftransport/getWftransportList/1/2",{pageNum:1,starPlace:starPlace,endPlace:endPlace,carName:carName,tankMaterialName:tankMaterialName,categoryName:categoryName,wfpysParentId:wfpysParentId});
+	}	
+	
+	$("#channelTop").load($("#ctxpath").val() + "/web/channel/commons/channel-top.jetx",{"channelId":$("#channelId").val(),"channelType":$("#channelType").val(),"returnUrl":window.location.href});
+	$("#channelFoot").load($("#ctxpath").val() + "/web/channel/commons/channel-footer.jetx");
+	
+	$("#wfhyList").load($("#ctxpath").val() + "/web/wftransport/getWftransportList/1/2");
+	
+	//分页跳转
+	$(".surepage").live("click",function(){
+		var pageNum = $("input[name='gopage']").val();
+		var starPlace = $(".fromAdress a.cur").attr("id");
+		var endPlace = $(".goAdress a.cur").attr("id");
+		var carName = $(".carName a.cur").attr("id");
+		var tankMaterialName = $(".tankMaterialName a.cur").attr("id");
+		var categoryName = $(".categoryName a.cur").attr("id");
+		var wfpysParentId = $(".wfpysParentId a.cur").attr("id");
+		$("#wfhyList").load($("#ctxpath").val() + "/web/wftransport/getWftransportList/1/2",{pageNum:pageNum,starPlace:starPlace,endPlace:endPlace,carName:carName,tankMaterialName:tankMaterialName,categoryName:categoryName,wfpysParentId:wfpysParentId});
+	});
+	
+	//发布信息弹层
+	$(".updateLink").live("click",function(){
+		var userId = $("#userId").val();
+		// 判断用户否登陆
+		if(userId != null && userId != "" && userId != " "){
+			choseMenu('${webroot}','WFYS_WFHY_ADD');	
+		}else{
+			layer.open({
+				type: 1,
+				title: '发布信息',
+				skin: 'layer-class',
+				area: '600px', //宽高
+				content: $("#updateHtml")
+			});
+		}
+	})
+	
+	//  获取首页点击搜索参数
+	var endFullPath = getQueryString("endFullPath");
+	// 当首页参数不为空,拼装参数搜索
+	if(endFullPath != null && endFullPath != "undefined"){
+		$("#all").removeClass("cur");
+		// 选中搜索条件地区
+		$(".mdd").each(function(){
+			if($(this).attr("datatype") == endFullPath){
+				$(this).addClass("cur");
+			}
+		});	
+		$("#wfhyList").load($("#ctxpath").val() + "/web/wftransport/getWftransportList/1/2",{pageNum:1,endPlaceForIndex:endFullPath});
+	}else{
+		$("#wfhyList").load($("#ctxpath").val() + "/web/wftransport/getWftransportList/1/2");
+	}
+	
+});
+
+
+	function yijia(id,type,storeId){
+		var title = "";
+		var userId=$("#userId").val();
+		if("0" == type){
+			title = "议价";
+			if(userId == storeId){
+				layer.alert("不能对自己发布的信息操作");
+				return;
+			}
+		}else{
+			title = "报价";
+			if(userId == storeId && storeId!=""){
+				layer.alert("不能对自己发布的信息操作");
+				return;
+			}
+		}
+		if(null!=userId&&""!=userId&&" "!=userId || type=="1"){
+			$("#yijiaHtml").load($("#ctxpath").val() + "/web/wftransport/getwf/"+id+"/"+"1",function(){
+				//议价弹层
+				layer.open({
+					type: 1,
+					title: title + '信息',
+					skin: 'layer-class',
+					area: '600px', //宽高
+					content: $("#yijiaHtml"),
+					btn:['确认','取消'],
+					yes:function(index){
+						//点击确定执行的语句
+						if(checkPrice() && validInfo($(".man"),'联系人不能为空') && validInfo($(".phone"),'联系电话不能为空')){
+							$("#bargainForm").ajaxSubmit(function(data){
+					    		if(data=="1"){
+					    			layer.close(index);
+			    					layer.alert(title+"成功");
+					    		}else{
+					    			layer.close(index);
+			    					layer.alert(title+"失败!");
+					    		}
+					    	});
+				    	}else{
+				    		checkPrice(); 
+				    		validInfo($(".man"),'联系人不能为空') ;
+				    		validInfo($(".phone"),'联系电话不能为空');
+				    	}
+					},
+					cancel:function(){
+						//点击取消执行的语句
+					}
+				});
+			});
+		}else{ //未登录跳转登录页面
+			location.href=$("#ctxpath").val()+"/web/login";
+		}
+	}
+	
+
+	function goPage(pageNum){
+		$("#pageNum").val(pageNum);
+		var pageNum = $("#pageNum").val();
+		var starPlace = $(".fromAdress a.cur").attr("id");
+		var endPlace = $(".goAdress a.cur").attr("id");
+		var carName = $(".carName a.cur").attr("id");
+		var tankMaterialName = $(".tankMaterialName a.cur").attr("id");
+		var categoryName = $(".categoryName a.cur").attr("id");
+		var wfpysParentId = $(".wfpysParentId a.cur").attr("id");
+		$("#wfhyList").load($("#ctxpath").val() + "/web/wftransport/getWftransportList/1/2",{pageNum:pageNum,starPlace:starPlace,endPlace:endPlace,carName:carName,tankMaterialName:tankMaterialName,categoryName:categoryName,wfpysParentId:wfpysParentId});
+	}
+
+	//获取url参数
+	function getQueryString(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null)
+			return unescape(r[2]);
+		return null;
+	}
+</script>
+<div style="display:none;">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255237573'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1255237573' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>

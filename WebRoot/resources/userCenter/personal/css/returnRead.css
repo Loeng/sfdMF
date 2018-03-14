@@ -1,0 +1,39 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url("exchange.css");
+
+/*订单表头*/
+.rightTitle{margin-bottom:0;}
+.exchangeOrder{height:35px; line-height:35px; margin-bottom:10px; color:#fff; font-size:14px;}
+.orderNumber{padding:0 80px 0 20px;}
+.orderTime{padding-right:80px;}
+.orderTable th{height:26px; line-height:26px;text-align:left;}
+.orderTable .tdProNum,.orderTable .tdSubtotal{}
+
+/*服务单明细*/
+.returnInfo{margin-top:10px;}
+.serviceItem{margin:15px 0px;}
+.rightContent .serviceItem dt{width:90px; float:left; line-height:20px; height:20px; margin:0;}
+.rightContent .serviceItem dd{float:left; line-height:20px;}
+.rightContent .serviceItem dd.clear{clear:both; float:none; height:0;}
+.serviceLine,.serviceItem{padding-left:24px;}
+.serviceLine .serviceItem{float:left; width:238px; padding-left:0;}
+.serviceItem dd{width:600px; color:#787878;}
+.serviceLine dd{width:148px;}
+.serviceItem .price{font-size:18px; color:#f00;}
+
+.proImgs{border-top:solid 1px #e4e4e4; padding:20px 0 0 24px;}
+.proImgs{padding:0 0 0 100px;}
+.rightContent .proImgs li{width:200px; height:200px; padding:20px 120px 30px 0; float:left;}
+.bottomBtn{padding:0 0 20px 24px; margin-top:20px;}
+.bottomBtn .btnBlue{display:inline-block; width:90px; height:28px; line-height:28px; font-size:14px; margin-right:10px;}
+.decline{width:589px; height:171px; padding:14px 0 0 12px; background:#f0f0f0; position:relative; margin-left:75px; text-align:right;}
+.decline textarea{display:block; width:571px; height:126px; line-height:20px; border:solid 1px #e5e5e5; margin-bottom:8px;}
+.textPoint{display:block; background:url(../../../user/images/detailpoint.png) no-repeat; width:10px; height:7px; position:absolute; top:-7px; left:50px;}
+.btnOrange{background:#ff8900; text-align:center; color:#fff; font-size:12px; width:62px; height:28px; line-height:28px; display:inline-block; margin-right:16px;}
+.payInfo{padding-left:0; margin-bottom:0;}
+.payInfo .serviceLine{border-bottom:solid 1px #e4e4e4;}
+.payInfo .serviceLine .serviceItem{width:362px;}
+.size14 dd{font-size:14px;}
+

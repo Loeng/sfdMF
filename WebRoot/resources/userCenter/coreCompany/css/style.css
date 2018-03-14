@@ -1,0 +1,13 @@
+/* CSS Document */
+
+.logoBar{background:#FF6B49;}/*顶导航*/
+.leftNav h2{background:#FF4100;}/*左导航*/
+.leftList dt{background:#FF6B49;}/*左导航子项*/
+.leftList dd a:hover,.leftList dd a.cur{background:url(../../commons/images/cur_core.png) no-repeat left center;}
+.bgColor{background:#FF6B49!important; color:#000;}/*背景色*/
+.bgColor:hover{background:#FF6B49!important; color:#000;}/*背景色经过色*/
+.borderColor{border-color:#FF4100;}/*边框色*/
+.borderBottomColor{border-bottom-color:#FF4100;}/*下边框色*/
+.bgColor{background:#FFD9C4;}/*背景色*/
+.navItem:hover{background:#FF4100;}/*导航经过色*/
+.tableThBgColor{background:#FDDCD4;}/*首页表头色*/

@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="gb2312">
+	<title>后台</title>
+	<link href="${ctxpath }/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${ctxpath }/resources/commons/js/jquery-1.8.3.min.js"></script>
+  <script type="text/javascript" src="${ctxpath }/resources/system/js/base.js"></script>
+  <!-- 导入自定义JS -->
+  <script type="text/javascript" src="${ctxpath }/resources/system/js/order/orderAdd.js"></script>
+</head>
+<body>
+    <div class="ht_btn">
+        <a href="javascript:void(0);" class="btn">保存</a>
+        <a href="javascript:void(0);" class="btn">取消</a>
+    </div>
+    
+	<div class="add_pro">
+		<form>
+		#define(com.ekfans.base.order.model.Order order)
+		#define(com.ekfans.base.order.model.OrderAddress orderAddress)
+		#define(List<com.ekfans.base.order.model.OrderDetail> orderDetails)
+		#define(com.ekfans.base.order.model.OrderTreatDetail orderTreatDetail)
+		
+		<dl>
+			<dt>用户名:<em class="mustIco"></em></dt>
+			<dd>
+				<input type="text" value="" class="i_bg">
+				<input type="hidden" name="" />
+			</dd>
+		</dl>
+		
+		<dl>
+			<dt>用户手机:<em class="mustIco"></em></dt>
+			<dd>
+				<input type="text" value="" class="i_bg">
+				<input type="hidden" name="" />
+			</dd>
+		</dl>
+		
+		<dl>
+			<dt>会员类型:<em class="mustIco"></em></dt>
+			<dd>
+				<input type="text" value="" class="i_bg">
+				<input type="hidden" name="" />
+			</dd>
+		</dl>
+        
+    <dl>
+			<dt>所购商品:<em class="mustIco"></em></dt>
+			<dd>
+				<input type="text" value="" class="i_bg">
+				<input type="hidden" name="" />
+			</dd>
+		</dl>       
+        
+		<dl class="formBox">
+			<dt>收件地址</dt>
+			<dd class="formSite">
+				        <select name="">
+                	<option>四川省</option>
+                </select>
+                <select name="">
+                	<option>成都市</option>
+                </select>
+                <select name="">
+                	<option>双流县</option>
+                </select>
+			</dd>
+		</dl>
+		
+		<dl class="formBox">
+			<dt>详情地址</dt>
+			<dd><input type="text" value="" class="i_bg"></dd>
+		</dl>
+        <div class="clear"></div>
+        
+    <dl>
+			<dt>收货手机:<em class="mustIco"></em></dt>
+			<dd>
+				<input type="text" value="" class="i_bg">
+				<input type="hidden" name="" />
+			</dd>
+		</dl>
+		
+		<dl>
+			<dt>收件邮箱:<em class="mustIco"></em></dt>
+			<dd>
+				<input type="text" value="" class="i_bg">
+				<input type="hidden" name="" />
+			</dd>
+		</dl>  
+        <div class="clear"></div>
+	</form>
+	</div>
+</body>
+</html>

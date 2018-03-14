@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>站内信息管理</title>
+		<link href="${webroot}/resources/store/css/store.css" rel="stylesheet" type="text/css" />
+		<link href="${webroot}/resources/system/css/base.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/store/js/common/tools.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/store/js/common/base.js"></script>
+		<script type="text/javascript">
+		   function send(path){
+		   	window.location.href = path+"/store/count/myMessage2";
+		   	}	
+		</script>
+		
+		<sitemesh:write property="head"></sitemesh:write>
+		
+	</head>
+	<body>
+		
+				<div class="sto_right">
+		<div class="mess_ts">
+			<a href="#"></a>
+			<span>提示:警惕一切站内信虚假中奖信息，避免被骗！</span>
+		</div>
+		
+		<div class="mess_list" id="sjx">
+			<div class="tit">
+				<h3 class="cur">收件箱</h3>
+				<h3>发件箱</h3>
+			</div>
+			<div class="box">
+				<ul>
+					<li><span><a href="#">商户店铺搭配教程1</a></span>2013-03-11</li>
+					<li><span><a href="#">2014店铺促销优惠规则1</a></span>2013-03-11</li>
+				</ul>
+				<div class="sto_page">
+					<a href="#"><<</a>
+					<a href="#" class="cur">1</a>
+					<a href="#">2</a>
+					<a href="#">3</a>
+					<a href="#">4</a>
+					<a href="#">5</a>
+					<span>...</span>
+					<a href="#">>></a>
+				</div>
+				<a href="javascript:;" class="f_xin" onclick="send('${webroot}');">发送信息</a>
+			</div>
+		
+		<div class="mess_list" id="all_xx">
+			<div class="tit">
+				<h3 class="cur">所有信息</h3>
+				<h3>系统信息</h3>
+				<h3>私人信息<div>99</div></h3>
+			</div>
+			
+			<div class="box2">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<tr>
+						<td width="45%" class="bt bt_bg">商户店铺搭配教程</td>
+						<td width="20%">系统管理员</td>
+						<td width="23%" class="time">2013-03-11</td>
+						<td>
+							<a href="#">回复</a>
+							<a href="#">删除</a>
+						</td>
+					</tr>
+					<tr class="bg">
+						<td class="bt bt_bg">商户店铺搭配教程</td>
+						<td>系统管理员</td>
+						<td class="time">2013-03-11</td>
+						<td>
+							<a href="#">回复</a>
+							<a href="#">删除</a>
+						</td>
+					</tr>
+					<tr>
+						<td class="bt">商户店铺搭配教程</td>
+						<td>系统管理员</td>
+						<td class="time">2013-03-11</td>
+						<td>
+							<a href="#">回复</a>
+							<a href="#">删除</a>
+						</td>
+					</tr>
+				</table>
+			  </div>
+			
+				<div class="sto_page">
+					<a href="#"><<</a>
+					<a href="#" class="cur">1</a>
+					<a href="#">2</a>
+					<a href="#">3</a>
+					<a href="#">4</a>
+					<a href="#">5</a>
+					<span>...</span>
+					<a href="#">>></a>
+				</div>
+				
+			  </div>
+			  
+			  </div>
+		
+	 </div>
+		
+	</body>
+</html>

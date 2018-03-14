@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>审核商品信息</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/demand.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/product/productCheck.js"></script>
+</head>
+
+<body>
+<input type="hidden" id="modifyOk" value="${requestScope.modifyOk}" />
+<input type="hidden" id="ctxpath" value="${webroot}" />
+<input type="hidden" id="type" value="${type}" />
+#define(com.ekfans.base.product.model.Product product)
+
+<div class="ht_btn sh_btn">
+	#if(product.checkStatus == 0)
+		<a href="javascript:formSubmit();" class="btn">通过</a>
+		<a href="javascript:formSubmitFalse();" class="btn">拒绝</a>
+	#end
+	<a href="javascript:history.go(-1);" class="btn">返回</a>
+</div>
+<form action="${webroot}/system/product/checkModify/${type}" name="modify" method="post" id="modifyProductForm">
+	<input type="hidden" name="sortName" value="${product.sortName}" />
+	<input type="hidden" name="quantity" value="${product.quantity}" />
+	<input type="hidden" name="id" value="${product.id}" />
+	<input type="hidden" name="bigPicture" value="${product.bigPicture}" />
+	<input type="hidden" name="centerPicture" value="${product.centerPicture}" />
+	<input type="hidden" name="smallPicture" value="${product.smallPicture}" />
+	<input type="hidden" name="templateId" value="${product.templateId}" />
+	<input type="hidden" name="checkMan" value="${product.checkMan}" />
+	<input type="hidden" name="checkTime" value="${product.checkTime}" />
+	<input type="hidden" name="searchKey" value="${product.searchKey}" />
+	<input type="hidden" name="visitCount" value="${product.visitCount}" />
+	<input type="hidden" name="buyCount" value="${product.buyCount}" />
+	<input type="hidden" name="checkStatus" id="checkStatus" />
+	
+	<div class="add_pro">
+		<dl class="pro_sh">
+			<dt>商&nbsp;品&nbsp;名：&nbsp;&nbsp;&nbsp; ${product.name}</dt>
+		</dl>
+		<dl class="pro_sh">
+			<dt>店铺名字：&nbsp;&nbsp; ${sName}</dt>
+		</dl>
+		<dl class="pro_sh">
+			<dt>商&nbsp;城&nbsp;价：&nbsp;&nbsp;&nbsp;${product.unitPrice}</dt>
+		</dl>
+		<dl class="pro_sh">
+			<dt>市&nbsp;场&nbsp;价：&nbsp;&nbsp;&nbsp;${product.listPrice}</dt>
+		</dl>
+		<dl class="pro_sh">
+			<dt>品&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;牌：&nbsp;&nbsp;${pbName}</dt>
+		</dl>
+		<dl class="pro_sh">
+			<dt>商品描述：&nbsp;&nbsp;${product.description}</dt>
+		</dl>
+		<dl class="pro_sh">
+			<dt>商品备注：&nbsp;&nbsp;${product.note}</dt>
+		</dl>
+		<dl class="pro_sh">
+			<dt>状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：&nbsp;&nbsp;#if(product.status) 上架 #else 下架 #end</dt>
+		</dl>
+		<dl class="pro_sh">
+			<dt>商品分类：&nbsp;&nbsp;${pcName}</dt>
+		</dl>
+		<div class="sh_sm">
+			<span>如果拒绝通过审核请先手动输入或在列表中选择拒绝原因</span>
+			拒绝原因说明
+			<textarea name="checkNote"></textarea>
+		</div>
+	</div>
+</form>
+</body>
+</html>

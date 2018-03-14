@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+    	<title>修改角色信息</title>
+    	<link href="${webroot}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+    	<link href="${webroot}/resources/system/css/demand.css" rel="stylesheet" type="text/css" />
+    	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+			<!-- 文本插件 -->
+			<script type="text/javascript" src="${webroot}/resources/plugin/ckeditor/ckeditor.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/store/role/roleModify.js"></script>
+    </head>
+    <body>
+    	<input type="hidden" id="modifyOk" value="${requestScope.modifyOk}" />
+			<input type="hidden" id="ctxpath" value="${webroot}" />
+    	<form action="${webroot}/system/store/role/modify" name="modify" method="post"  id="modifyRoleForm">
+				#define(com.ekfans.base.store.model.StoreRole storeRole)
+				<div class="ht_btn">
+					<a href="#" onclick="formSubmit();" class="btn">保存</a>
+					<a href="#" onclick="reset();" class="btn">重置</a>
+					<a href="#" onclick="goBack('${webroot}');" class="btn">返回列表</a>
+				</div>
+				<div class="add_pro">
+					<input type="hidden" name="id" value="${storeRole.id}" />
+				<dl class="formBox">
+					<dt>角色名<em class="mustIco"></em></dt>
+					<dd id="nameDd" class="">
+						<input type="text" class="i_bg"  name="name" value="${storeRole.name}" onblur="javascript:checkNameBlur();" onkeyup="javascript:checkName();" onfocus="javascript:checkName();" />
+							<span id="nameSpan" class="ts_xx">角色名为3-20位字符组成</span>
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				
+				<input type="hidden" name="createTime" value="${storeRole.createTime}" />
+				<input type="hidden" name="updateTime" value="${storeRole.updateTime}" />
+				
+				<dl class="formBox">
+					<dt>角色描述</dt>
+					<dd class="">
+						<textarea name="note"  maxlength="256">${storeRole.note}</textarea>
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				<dl class="formBox">
+					<dt>修改权限</dt>
+					
+					<dd>
+						<span>如需修改，请在底下修改</span>
+					</dd>
+						
+				</dl>
+				
+				<div class="clear"></div>
+				
+				<h3 class="limitAll"><label><span class="check"><em><input type="checkbox" /></em></span>全选</label></h3>
+#for(com.ekfans.base.store.model.StorePurview sp : sps)
+<div class="limitList limits">
+	<h3 class="limitItem"><label><span #if(sp.checked) class="check checked" #else class="check" #end><em><input type="checkbox" name="purviewId" value="${sp.id}" #if(sp.checked) checked="checked"#end/></em></span>${sp.className}</label></h3>
+    <div class="limitList">
+    	#if(sp.childList != null && sp.childList.size()>0)
+						#for(com.ekfans.base.store.model.StorePurview childPurview: sp.childList)
+    	<h3 class="limitItem"><label><span #if(childPurview.checked) class="check checked" #else class="check" #end><em><input type="checkbox" name="purviewId" value="${childPurview.id}" #if(childPurview.checked) checked="checked"#end/></em></span>${childPurview.className}</label></h3>
+    	
+        <div class="limitList">
+        #if(sp.childList != null && sp.childList.size()>0)
+								#for(com.ekfans.base.store.model.StorePurview lastPurview: childPurview.childList)
+        	<h3 class="limitItem"><label><span #if(lastPurview.checked) class="check checked" #else class="check" #end><em><input type="checkbox" name="purviewId" value="${lastPurview.id}" #if(lastPurview.checked) checked="checked"#end/></em></span>${lastPurview.className}</label></h3>
+        	#end
+        	#end
+        </div>
+        #end
+        #end
+    </div>
+</div>
+#end
+				
+				
+			</div>
+		</form>
+		
+    </body>
+</html>

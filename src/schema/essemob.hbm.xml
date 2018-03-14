@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ekfans.plugin.wftong.base.easemob.model">
+        <!-- 群组表 -->
+    <class name="Groups" table="GROUPREL" dynamic-update="false">
+        <id name="id" column="id" type="string" unsaved-value="null">
+			<generator class="assigned" />
+		</id>
+		<property name="groupsId" type="string" column="groups_id" />
+        <property name="userId" type="string" column="user_id" />
+        <property name="createTime" type="string" column="create_time" />
+        <property name="groupName" type="string" column="group_name" />
+    </class>
+
+</hibernate-mapping>

@@ -1,0 +1,38 @@
+#define(Map<String, com.ekfans.base.channel.model.ChannelConfig> configMap)
+#define(String configType)
+#define(String position)
+#define(String channelId)
+
+#set(com.ekfans.base.channel.model.ChannelConfig config = configMap.get(configType + position))
+
+#if(configStatus == "true")
+	#include("../../../channel/commons/config/configTitle.jetx",{"channelId":channelId,"configType":configType,"position":position})
+#end
+
+#if(config != null)
+	<h3>#if(config.configName!=null && !"".equals(config.configName) && !" ".equals(config.configName)) ${config.configName} #else 准备资料 #end</h3>
+	<ul>
+		#for(com.ekfans.base.content.model.Content content : config.details)
+			#if(for.index%2==0)
+				<li class="right">
+			#else
+				<li class="left">
+			#end
+			<a href="${webroot}/03-${content.id}-1.html" title="${content.contentName}">${content.contentName}</a></li>
+		#end
+		<div class="clear"></div>
+	</ul>
+#end
+<!--
+<h3>准备资料</h3>
+<ul>
+  <li class="left">企业简介</li>
+  <li class="right">企业法人营业执照复印件</li>
+  <li class="left">税务登记证复印件</li>
+  <li class="right">企业组织机构代码证复印件</li>
+  <li class="left">公司章程复印件</li>
+  <li class="right">法人身份证复印件</li>
+  <li class="left">验资报告复印件</li>
+  <div class="clear"></div>
+</ul>
+-->

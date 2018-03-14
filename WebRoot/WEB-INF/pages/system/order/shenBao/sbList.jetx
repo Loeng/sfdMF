@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>申报列表</title>
+
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/demand.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/list.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/base.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/list.js"></script>
+	<script src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+		
+<style>
+.noEdit{border:0; background-color:#fff;}
+.baocunIco{display:inline-block; background:url(${webroot}/resources/system/images/duigou.png) no-repeat; width:16px; height:16px;}
+</style>
+</head>
+<body>
+	#define(List<com.ekfans.base.wfOrder.model.ScrapWfp> sbList)
+	#define(List<com.ekfans.base.store.model.Store> salList)
+	#define(List<com.ekfans.base.store.model.Store> buyList)
+	<form action="${webroot}/system/order/shenBao/listSytem" method="post" id="searchWfp">
+  	<input type="hidden" name="pageNum" />
+      <dl class="pro_ss">
+				<dt><b>查询</b><span class="span_down"></span><span class="span_up"></span></dt>
+				<dd class="pro_ss_item">
+					<span>合同名称</span>
+					<input type="text" name="contractName" value="${contractName}" class="i_bg">
+				</dd>
+		    <dd class="pro_ss_item">
+					<span>合同编号</span>
+					<input type="text" name="contractNo" value="${contractNo}" class="i_bg">
+				</dd>
+		    <dd class="pro_ss_item">
+					<span>危废名称</span>
+					<input type="text" name="wfName" value="${wfName}" class="i_bg">
+				</dd>
+				<dd class="pro_ss_item" class="i_bg">
+					<span>审核状态</span>
+					<select name="checkStatus">
+						<option value="">--请选择</option>
+						<option value="1" #if(checkStatus=="1")selected #end>审核通过</option>
+						<option value="0" #if(checkStatus=="0")selected #end>待审核</option>
+						<option value="2" #if(checkStatus=="2")selected #end>审核失败</option>
+					</select>
+				</dd>
+		    <dd class="clear"></dd>
+			</dl>
+			<div class="pro_ss_btn">
+				<input type="submit" value="搜索" class="inputbtn">
+				<a onclick="reset()" class="btn">重置</a>
+			</div>
+
+  </form>    
+	
+	<!--
+	<div class="pro_ss_btn">
+		<a href="javascript:void(0);" class="btn btnadd">新增</a>
+	</div>
+	-->
+	<div class="ht_list">
+		<table cellpadding="0" cellspacing="0" border="0"  id="orginTable">
+			<tr>
+				<th width="5%">序号</th>
+				<th width="10%">合同名称</th>
+				<th width="8%">合同编号</th>
+				<th width="10%">路线名称</th>
+				<th width="5%">转移数量</th>
+				<th width="7%">拟转移批次</th>
+				<th width="7%">报批类型</th>
+				<th width="15%">产生单位</th>
+				<th width="15%">接收单位</th>
+				<th width="8%">审核状态</th>
+				<th width="15%"></th>
+			</tr>
+			#if(sbList==null || sbList.size()<=0)
+				<div class="ht_list_k">暂时没有符合条件的数据</div>	
+			#else
+				#for(com.ekfans.base.wfOrder.model.ScrapWfp sw : sbList)
+					<tr class="newTr">
+						<td>${for.index}</td>
+						<td>${sw.contractName}</td>
+						<td>${sw.contractNo}</td>
+						<td>${sw.wfName}</td>
+						<td>${sw.quantity}</td>
+						<td>${sw.batch}</td>
+						<td>#if(sw.type=="1")移入 #elseif(sw.type=="0")移出 #end</td>
+						<td>${sw.salName}</td>
+						<td>${sw.buyName}</td>
+						<td>#if(sw.checkStatus=="1")审核通过 #elseif(sw.checkStatus=="2")审核失败 #else 待审核 #end</td>
+						<td class="cz">
+		        	<a href="${webroot}/system/order/shenBao/getSBById/1?sbId=${sw.id}" class="eyeIco"></a>
+		        	#if(sw.checkStatus!="1")
+							<a href="${webroot}/system/order/shenBao/getSBById/2?sbId=${sw.id}" class="editIco"></a>
+							#end
+						</td>
+					</tr>
+				#end
+			#end
+		</table>
+	</div>
+  
+	
+	<div class="ht_pageBox">
+			${include( "../../common/page.jetx")}
+	</div>
+<script>
+	//分页跳转
+function goPage(pageNum){
+	$("input[name='pageNum']").val(pageNum);
+	$("#searchWfp").submit();
+}	
+	function reset(){
+		$("#contentName").val("");
+	}
+</script>
+</body>
+</html>

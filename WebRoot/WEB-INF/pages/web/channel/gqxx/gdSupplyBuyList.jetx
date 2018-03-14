@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>供求信息列表</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/base.css" rel="stylesheet" type="text/css">
+<style>
+.bread{height:38px; line-height:38px; background:#FCF4E5; font-size:14px; color:#A78749; margin-bottom:20px;}
+.curPages{color:#000;}
+.leftLayer{}
+.rightLayer{}
+.info h2{height:26px; line-height:26px; margin-bottom:3px; display:inline-block;}
+.infoHeader{height:38px; line-height:38px; background:#FF5947; color:#fff;}
+.infoHeader .headerItem{font-size:14px; white-space:nowrap; text-align:left; text-indent:10px; float:left;}
+.tableBox{min-height:200px;}
+.infoTable{width:100%; background:#fff;}
+.infoTable th{height:38px; line-height:38px; background:#FF5947; color:#fff; font-size:14px; white-space:nowrap; text-align:left; text-indent:10px;}
+.infoTable td{padding:10px; color:#484848; line-height:20px; vertical-align:top; border-bottom:solid 1px #f1f1f1;}
+.infoTable tr:hover{ background-color:#F1F1F1;}
+.infoTable em{display:block; line-height:20px; color:#FF5947; font-size:14px;}
+.infoTable a{color:#FF5947;}
+.infoTable a:hover{color:#008cd6;}
+.leftLayer .info h2{border-bottom:solid 4px #FF5947;}
+.more{color:#4B4947; font-size:14px; display:inline-block; padding-left:470px;}
+.rightLayer .info h2{border-bottom:solid 4px #0085FD;}
+.rightLayer .infoHeader{background:#0085FD;}
+.biaoti{width:360px; height:22px; overflow:hidden;}
+.neirong{width:360px; height:56px; line-height:19px;overflow:hidden;display:block;}
+
+.bottomCompany{margin-bottom:30px;}
+.bottomCompany h2{height:28px; line-height:28px; border-bottom:solid 5px #4594F9;}
+.leftList{width:244px; padding:10px 20px 10px 30px; border-right:solid 1px #dedede; float:left; height:216px; overflow:hidden;}
+.rightList{width:272px; padding:10px 0 10px 23px; float:left; height:216px; overflow:hidden;}
+.bottomCompany li{height:24px; line-height:24px; width:100%; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-size:14px;}
+.listContent{padding:7px 0 10px 0; background:#fff;}
+.leftClass{width:285px; float:left;}
+.rightClass{width:285px; float:right;}
+.leftClass ul,.rightClass ul{padding:17px 18px 20px 18px; background:#fff; height:216px; overflow:hidden;}
+
+.bottomAdv{height:130px; padding:20px 10px; background:#fff;}
+.bottomAdv .autoAdv{float:left; width:275px; padding:0 10px;}
+
+/*选项卡*/
+.tabs{position:relative;}
+.tabNav{height:26px; line-height:26px; margin-bottom:8px;}
+.tabNav li{margin-right:40px; float:left; *display:inline; height:26px; line-height:26px; color:#4B4947; font-size:18px; padding:0 20px; cursor:pointer;}
+.tabNav .li1{ border-bottom:4px solid #FF5947;}
+.tabNav .li2{ border-bottom:4px #0085FD solid;}
+.ckDetail{}
+
+/*页码*/
+.pageSize{text-align:center; padding:10px 0; background:#D3D3D3; margin-top:20px;}
+.pageSize a{display:inline-block; height:21px; line-height:21px; margin-right:8px; padding:0 8px; color:#12369b;}
+.pageLast,.pageNext{font-family:SimSun;}
+.pageSize a:hover,.pageSize .nowPage{background:#4594f9; color:#fff;}
+
+/*弹窗背景公共样式*/
+.alertLayerBg{filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8; opacity:0.8; background:#000; position:fixed; left:0; top:0; width:100%; height:100%; z-index:100; display:none;}
+.layerClose{display:block; width:20px; height:17px; position:absolute; top:22px; right:10px; background:url(${webroot}/resources/web/images/closeLayer.png) no-repeat;}
+
+/*详情弹窗*/
+.alterBox{position:fixed;top:50%;left:50%;margin:-160px 0 0 -300px;width:600px;height:320px;z-index:101;background:#fff;overflow:hidden; border-top:10px #0085FD solid;display:none;}
+.alterBox .layHeader{background-color:#FDF5E5; padding:10px 0 10px 22px; position:relative;}
+.alterBox .layHeader h6{height:30px; line-height:30px;color:#313030; font-size:24px; margin-bottom:10px;overflow: hidden; width: 500px;}
+.h6Detail{color:#777777; font-size:14px;height:100px;  margin:10px 0;line-height:20px;width:560px;overflow-y: auto;}
+.alterContent{padding:10px 0px 10px 22px;}
+.alterContent .proDetailLi{ float:left; border-right:1px solid #D3D2D2; padding:10px 10px 10px 0;width:273px;}
+.alterContent .proDetailLi li{ color:#777777; font-size:14px; height:28px; line-height:28px;}
+.alterContent .contact{ float:left;padding:10px 0px 10px 50px;}
+.alterContent .contact li{color:#777777; font-size:14px;height:28px; line-height:28px;}
+
+/*登录弹窗*/
+.loginBox{position:fixed;top:50%;left:50%;margin:-211px 0 0 -193px;width:387px;height:422px;z-index:101;background:#fff;overflow:hidden;display:none;border:solid 8px rgba(0,0,0,0.4); border-radius:8px;}
+.apTit{height:60px; line-height:60px; background:#0085FD; position:relative;}
+.apTit h3{font-size:24px; color:#fff; text-indent:1em;}
+.apContent{background:#fff;}
+.apLogin{width:350px; margin:0 auto;}
+.formLine{padding-top:2px; padding-bottom:10px;width:350px; }
+.formLine dt{height:37px; line-height:37px; font-size:14px; position:relative;}
+.formLine dd{height:42px; position:relative; clear:both; width:350px; text-align:right;}
+.textBox{height:35px; line-height:35px\9; border-radius:3px; border:1px solid #e0e0e0;border-top-width:2px;width:345px;padding-left:2px;}
+.textBoxFocus{border-color:#eee;outline:none;}
+.codeBox{width:160px; display:block; float:left; margin-right:24px;}
+.codeImg{display:block; width:160px; height:36px; float:right;}
+.refreshCode{display:block; float:right; color:#adadad;}
+.formBottom{ margin-bottom:5px;}
+.code{margin-bottom:0px; padding-bottom:0px;}
+.errorText2{height:21px; line-height:21px; color:#FF0101;font-size:14px;}
+.yanleft{float:left;}
+.btnLogin{display:block;width:349px; height:36px; line-height:36px; background-color:#01AFED; color:#fff; border-radius:6px; text-align:center; font-size:16px;}
+.bottomText{margin-top:5px;}
+.btnLeft{color:#313030; font-size:12px; float:left;}
+.btnReg{color:#FF0000; font-size:18px; margin-left:10px;}
+.btnLost{ float:right; color:#FF8900; font-size:12px;}
+</style>
+</head>
+
+<body>
+<input type="hidden" name="ctxpath" id="ctxpath" value="${ctxpath}" />
+<div id="channelTop"></div>
+<div class="bread">
+	<div class="wrapper"><a href="${webroot}">首页</a>&nbsp;&gt;&nbsp;<em class="curPages">供求信息列表</em>
+</div>
+<div class="wrapper">
+	<div class="tabs">
+    <ul class="tabNav">
+      <li class="li1" onclick="loadGyGdlist();">供应信息</li>
+      <li class="li2" onclick="loadCgdlist();">采购信息</li>
+    </ul>
+    <div class="clear"></div>
+    <div class="tabContent"  id="loadTabContent">
+    	
+    </div>
+   
+  </div>
+</div>
+<!--底部-->
+<div id="channelFoot"></div>
+<script src="${webroot}/resources/web/js/base.js"></script>
+<script>
+$(document).ready(function() {
+		
+	/*选项卡切换
+	$(".tabNav li").click(function(){
+		var dom=$(this).parent().siblings(".tabContent");
+		var index=$(this).parent().children().index(this);
+	})
+	*/
+	$("#channelTop").load($("#ctxpath").val() + "/web/channel/commons/channel-top.jetx",{"channelId":null,"channelType":null,"returnUrl":window.location.href});
+	$("#channelFoot").load($("#ctxpath").val() + "/web/channel/commons/channel-footer.jetx")
+	$("#loadTabContent").load($("#ctxpath").val() + "/web/supplyBuy/gdlistLoad",{type:"0",pagNum:"0"});
+});
+
+function openAl(obj){
+			var d="#al"+obj;
+			var d2 = "#alert"+obj;
+			$(d).show();
+			$(d2).show();
+		}	
+
+function closeAl(obj){
+			var d="#al"+obj;
+			var d2 = "#alert"+obj;
+			$(d).hide();
+			$(d2).hide();
+		}	
+
+function loadGyGdlist(){
+	var pageNum = $("#pageNum").val();
+	$("#loadTabContent").load($("#ctxpath").val() + "/web/supplyBuy/gdlistLoad",{type:"0",pageNum:pageNum});
+	}
+
+function loadCgdlist(){
+	var pageNum = $("#pageNum").val();
+	$("#loadTabContent").load($("#ctxpath").val() + "/web/supplyBuy/gdlistLoad",{type:"1",pageNum:pageNum});
+	}	
+function goPage(pageNum){
+		var obj = $("#type").val();
+		$("#pageNum").val(pageNum);
+		var pageNum = $("#pageNum").val();
+		$("#loadTabContent").load($("#ctxpath").val() + "/web/supplyBuy/gdlistLoad",{type:obj,pageNum:pageNum});
+	}		
+</script>
+</body>
+</html>

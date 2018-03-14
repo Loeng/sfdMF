@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>修改角色信息</title>
+	<link href="${webroot}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/role/role_update.js"></script>
+</head>
+
+<body>
+#define(com.ekfans.base.system.model.ShopRole sr)
+#define(List<com.ekfans.base.system.model.ShopPurview> splist)    	
+<input type="hidden" id="ctxpath" value="${webroot}" />
+#if(ttype==1)
+<form action="${webroot}/system/role/modify" method="post" id="modifyRoleForm">
+	<input type="hidden" name="id" value="${sr.id}" />
+	<input type="hidden" name="parentId" value="${sr.parentId}" />
+	<input type="hidden" name="createTime" value="${sr.createTime}" />
+	<input type="hidden" name="updateTime" value="${sr.updateTime}" />
+#end	
+	<div class="ht_btn">
+		#if(ttype==1)
+			<a href="#" class="btn" onclick="formSubmit();">保存</a>
+		#end
+		<a href="#" class="btn" onclick="goBack();">返回列表</a>
+	</div>
+	<div class="add_pro">
+		<dl class="formBox">
+			<dt>角色名<em class="mustIco"></em></dt>	
+			<dd>
+				#if(ttype==1)
+					<input type="text" class="i_bg" name="name" value="${sr.name}" onfocus="checkNameFocus();" onblur="checkNameBlur();" />
+				#else
+					<input type="text" class="i_bg" value="${sr.name}" />
+				#end
+				<span class="ts_xx"></span>
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt>角色描述</dt>
+			<dd>
+				<textarea name="note" maxlength="100">${sr.note}</textarea>
+			</dd>
+		</dl>
+		<div class="clear"></div>
+		<dl>
+			<dt>修改权限</dt>
+			<dd><span style="color:red">如需修改，请在底下修改</span></dd>
+		</dl>
+		<h3 class="limitAll"><label><span class="check"><em><input type="checkbox" /></em></span>全选</label></h3>
+		#if(splist!=null && splist.size()>0)
+			#for(com.ekfans.base.system.model.ShopPurview sp : splist)
+				#if(sp.level==1)
+					<div class="limitList limits">
+						<h3 class="limitItem">
+							<label>
+								<span class="check #if(sp.checked) checked #end">
+									<em>
+										<input type="checkbox" name="purviewId" value="${sp.id}" #if(sp.checked) checked="checked" #end />
+									</em>
+								</span>
+								${sp.className}
+							</label>
+						</h3>
+						<div class="limitList">
+							#for(com.ekfans.base.system.model.ShopPurview sp1 : splist)
+								#if(sp1.level==2 && sp.id==sp1.parentId)
+									<h3 class="limitItem">
+										<label>
+											<span class="check #if(sp1.checked) checked #end">
+												<em>
+													<input type="checkbox" name="purviewId" value="${sp1.id}" #if(sp1.checked) checked="checked" #end />
+												</em>
+											</span>
+											${sp1.className}
+										</label>
+									</h3>
+									<div class="limitList">
+										#for(com.ekfans.base.system.model.ShopPurview sp2 : splist)
+											#if(sp2.level==3 && sp1.id==sp2.parentId)
+												<h3 class="limitItem">
+													<label>
+														<span class="check #if(sp2.checked) checked #end">
+															<em>
+																<input type="checkbox" name="purviewId" value="${sp2.id}" #if(sp2.checked) checked="checked" #end />
+															</em>
+														</span>
+														${sp2.className}
+													</label>
+												</h3>
+												<div class="limitList">
+													#for(com.ekfans.base.system.model.ShopPurview sp3 : splist)
+														#if(sp3.level==4 && sp2.id==sp3.parentId)
+															<h3 class="limitItem">
+																<label>
+																	<span class="check #if(sp3.checked) checked #end">
+																		<em>
+																			<input type="checkbox" name="purviewId" value="${sp3.id}" #if(sp3.checked) checked="checked" #end />
+																		</em>
+																	</span>
+																	${sp3.className}
+																</label>
+															</h3>
+														#end
+													#end	
+												</div>
+											#end
+										#end
+									</div>		
+								#end
+							#end
+						</div>
+					</div>
+				#end
+			#end
+		#end
+	</div>
+#if(ttype==1)
+</form>
+#end
+		
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>在线申报列表</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+
+</head>
+<body oncontextmenu=self.event.returnValue=false onselectstart="return false">
+	#define(List<com.ekfans.base.wfOrder.model.ScrapWfp> scrapWfpList)
+	#define(com.ekfans.base.store.model.Store Store)
+		<input type="hidden" id="delStatus" value="${delStatus}"/>
+		
+    <!--右侧主体-->
+    <div class="rightContent">
+    <form action="${webroot}/store/wfpscrap/skipScrapList/${viewType}" method="post" id="contractFormList">
+    	<input name="pageNum" id="pageNum" type="hidden" value="${pageNum}"/>
+    	<input name="contractId" id="contractId" type="hidden" value="${contractId}"/>
+    	<!--表单搜索区-->
+      <div class="formSearch borderColor">
+      	<dl class="formItem">
+          <dt>合同名称</dt>
+          <dd><input id="contractName" name="contractName" type="text" class="textBox box212" value="${contractName}"></dd>
+          <dd class="clear"></dd>
+        </dl>
+        <dl class="formItem">
+          <dt>合同编号</dt>
+          <dd><input id="contractNo" name="contractNo" type="text" class="textBox box212" value="${contractNo}"></dd>
+          <dd class="clear"></dd>
+        </dl>
+				<dl class="formItem">
+          <dt>废物名称</dt>
+          <dd><input id="wfName" name="wfName" type="text" class="textBox box212" value="${wfName}"></dd>
+          <dd class="clear"></dd>
+        </dl>
+        <dl class="formItem formLine">
+          <dt>审核状态</dt>
+          <dd>
+          	<span class="radio"><label><input name="checkStatus" type="radio" value="" checked>所有</label></span>
+          	<span class="radio"><label><input name="checkStatus" type="radio"  #if(checkStatus == "0") checked #end  value="0">待审核</label></span>
+          	<span class="radio"><label><input name="checkStatus" type="radio"  #if(checkStatus == "1") checked #end  value="1">审核通过</label></span>
+          	<span class="radio"><label><input name="checkStatus" type="radio"  #if(checkStatus == "2") checked #end  value="2">审核未通过</label></span>
+          </dd>
+          <dd class="clear"></dd>
+        </dl>
+        <div class="clear"></div>
+      </div>
+    </form>  
+      <!--表单搜索区end-->
+      <!--表单按钮区-->
+      <div class="btnArea">
+        <a onclick="formsubmit();" style="cursor:pointer" class="btnBase btnSearch">搜索</a>
+        <a onclick="reset();" style="cursor:pointer" class="btnBase btnReset">重置</a>
+        <div class="clear"></div>
+      </div>
+      <!--表单按钮区end-->
+      <!--表单列表区-->
+      <div class="formTable borderColor">
+        <ul class="secNav">
+          <li class="li1">在线申报信息</li>
+          #if(contractId != "" && contractId != null)
+          	<li><a onclick="addContract('${webroot}');" title="新增" style="cursor:pointer;" class="li3">新增</a></li>
+          #end
+        </ul>
+        <div class="clear"></div>
+        <div style="position:relative;" class="tableBox">
+        <table border="0" cellspacing="0" cellpadding="0" class="tabList">
+        <thead>
+          <tr class="bgColor">
+            <th>合同名称</th>
+            <th>合同编号</th>
+            <th>废物名称</th>
+            <th>转移数量</th>
+            <th>拟转移批次</th>
+            <th>审核状态</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          #for(com.ekfans.base.wfOrder.model.ScrapWfp scrapWfp: scrapWfpList)
+          <tr>
+            <td>${scrapWfp.contractName}</td>
+            <td>${scrapWfp.contractNo}</td>
+            <td>${scrapWfp.wfName}</td>
+            <td>${scrapWfp.quantity}</td>
+            <td>${scrapWfp.batch}</td>
+            <td>${"1"==viewType?scrapWfp.nowStatus:(scrapWfp.checkStatus=="0"?"待环保厅审核":(scrapWfp.checkStatus=="1"?"环保厅审核通过":"环保厅审核未通过"))}</td>
+            <td>
+            	#if(scrapWfp.checkStatus !="1")
+                <a onclick="javascript:modify('${webroot}','${scrapWfp.id}','${scrapWfp.contractId}')" style="cursor:pointer" class="eyeIco" title="编辑">编辑</a> 
+                <a onclick="javascript:removeThis('${webroot}','${scrapWfp.id}');" style="cursor:pointer" class="eyeIco" title="删除">删除</a> 
+              #else
+                <a onclick="javascript:view('${webroot}','${scrapWfp.id}')" style="cursor:pointer" class="eyeIco" title="查看">查看</a>
+                #if(scrapWfp.canOrder)
+                	<a onclick="javascript:addOrder('${webroot}','${scrapWfp.id}')" style="cursor:pointer" class="eyeIco" title="查看">创建订单</a>
+                	<a onclick="javascript:viewOrder('${scrapWfp.id}')" style="cursor:pointer" class="eyeIco" title="查看">订单处理/查看</a>
+                #end
+                #if("1"==viewType && scrapWfp.checkStatus == "1")
+                	<a onclick="javascript:viewOrder('${scrapWfp.id}')" style="cursor:pointer" class="eyeIco" title="查看">订单处理/查看</a>
+                #end
+              #end
+              #if(("0"==viewType && scrapWfp.contractChoseAOrB=="1") || ("1"==viewType && scrapWfp.contractChoseAOrB=="0"))
+              	<a onclick="javascript:changContract('${scrapWfp.id}')" style="cursor:pointer" class="eyeIco" title="变更运输合同">变更运输合同</a>
+              #end
+            </td>
+          </tr>   
+         #end
+         </tbody>
+        </table>
+        </div>
+        #if(scrapWfpList.size() ==0 || scrapWfpList ==  null )
+        	<div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+        #end 
+        #if(scrapWfpList !=null)
+        <!--分页-->
+        <div>
+			      ${include("../common/page.jetx")}
+			   <div class="clear"></div>
+			  </div>
+        <div class="clear"></div>
+        <!--分页end-->
+        #else
+        <!--无记录Box-->
+        <div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+        <!--无记录Box end-->
+        #end
+      </div>
+      <!--表单列表区end-->
+    </div>
+    <!--右侧主体 end-->
+    <div class="clear"></div>
+
+<script>
+	function formsubmit(){
+		$(contractFormList).submit();
+	}
+	//新增按钮
+	function addContract(ctx){
+		window.location.href=ctx + "/store/wfpscrap/skipAdd/${viewType}/${contractId}";
+	}
+	//删除
+	function removeThis(ctx,cid){
+	   econfirm('确定删除?',goDelete,[ctx,cid],null,null);	
+	}
+	function goDelete(ctx,cid){
+	  window.location.href=ctx+"/store/wfpscrap/skipDel/${viewType}/"+ cid + "?contractId=${contractId}";
+	}
+	function reset(){
+		$("#contractName").val("");
+		$("#contractNo").val("");
+		$("#wfName").val("");
+		$("input[name='checkStatus']:eq(0)").attr("checked",true);
+	}
+	function modify(ctx,wfpId,contractId){
+		window.location.href=ctx + "/store/wfpscrap/skipEdit/${viewType}/" + contractId + "/" + wfpId;
+	}
+	
+	function view(ctx,scrapWfpId){
+		window.location.href=ctx + "/store/wfpscrap/skipView/${viewType}/" + scrapWfpId;
+	}
+	
+	function addOrder(ctx,scrapWfpId){
+		#if(Store.accountSuccess && Store.accountStatus)
+			window.location.href=ctx + "/store/order/wfOrderAdd/" + scrapWfpId + "/${viewType}";
+		#else
+			salertWithFunction("您还未设置银行账户，点击确定立即设置！",choseMenu,['${webroot}','ACCOUNT_BANK_VIEW']);
+		#end
+	}
+	
+	function goPage(pageNum){
+		$("#pageNum").val(pageNum);
+		formsubmit();
+	}
+	
+	if($("#delStatus").val() == "true"){
+		ealert("删除成功");
+	}
+	
+	function viewOrder(scrapId){
+		location.href="${webroot}/store/order/contractOrder/orderList/${viewType}?scrapId="+scrapId;	
+	}
+	
+	function changContract(scrapId){
+		location.href="${webroot}/store/wfpscrap/changeContract/${viewType}/"+scrapId;
+	}
+</script>
+<script src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+
+</body>
+</html>

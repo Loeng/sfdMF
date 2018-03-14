@@ -1,0 +1,102 @@
+#define(com.ekfans.base.channel.model.Channel channel)
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}-${channel.name}66</title>
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<meta name="keywords" content="${channel.keyWords}" />
+<meta name="description" content="${channel.description}" />
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.superslide.2.1.1.js"></script>
+<script src="${webroot}/resources/web/js/base.js"></script>
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/base.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/hyzx.css" rel="stylesheet" type="text/css">
+#if(configStatus == "true")
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/control.js"></script>	
+	<link href="${webroot}/resources/commons/css/control.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script
+	<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+#end
+</head>
+
+<body>
+<input type="hidden" name="ctxpath" id="ctxpath" value="${ctxpath}" />
+<input type="hidden" name="channelId" id="channelId" value="${channelId}" />
+<input type="hidden" name="channelType" id="channelType" value="${channel.type}" />
+#if(configStatus == "true")
+	<!-- 频道配置导航条 -->
+	#include("../commons/config/config-top.jetx")
+	<!-- 频道配置导航条 end -->
+#end
+<!--头部及导航条展示-->
+<div id="channelTop"></div>
+
+<div class="slideBox">
+    <div class="bd">
+        #include("../commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"1"})
+    </div>
+</div>
+
+<div class="wrapper main">
+
+	<div  class="leftBox">
+		#include("contentLeft.jetx",{"channelId":channelId,"configType":"c","position":"1"})
+	</div>
+
+	<div class="zkRight " >
+        <div style="position:relative;min-height:100px;">#include("../commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"3"})</div>
+        <div style="position:relative;min-height:100px;" class="rightZx" >
+        	#include("hbzk_ten.jetx",{"channelId":channelId,"configType":"c","position":"3"})
+        </div>
+		<div id="runUp" class="jmBox"></div>
+    </div>
+    <div class="clear"></div>
+		
+
+	<div class="clear"></div>
+</div>
+<!--底部-->
+<div id="channelFoot"></div>
+<!--底部 end-->
+
+<input type="hidden" value="" id="catgIdNew">
+<script>
+$(document).ready(function() {
+
+	$("#catgIdNew").val($("#catgId").val());
+	
+	//焦点图切换
+    jQuery(".slideBox").slide({mainCell:".bd ul",autoPlay:true});
+	$("#channelTop").load($("#ctxpath").val() + "/web/channel/commons/channel-top.jetx",{"channelId":$("#channelId").val(),"channelType":$("#channelType").val(),"returnUrl":window.location.href});
+	$("#channelFoot").load($("#ctxpath").val() + "/web/channel/commons/channel-footer.jetx");
+	#if(configStatus == "false")
+		var rows=$("#rowsPerPage").val();
+		$(".hyzxList").load($("#ctxpath").val() + "/web/information/detail/"+$("#catgIdNew").val()+"/1",{rows:rows});
+	#end
+	//加载涨幅排名数据
+	$("#runUp").load($("#ctxpath").val()+"/web/metal/getRunUps",{num:8});
+	
+	var rows=$("#rowsPerPage").val();
+	
+});
+	//分页跳转
+	$(".surepage").live("click",function(){
+		var pageNum = $("input[name='gopage']").val();
+		var rows=$("#rowsPerPage").val();
+		$(".leftBox").load($("#ctxpath").val() + "/web/information/detail/"+$("#catgIdNew").val()+"/" + pageNum,{rows:rows});
+	});
+	
+	function goPage(num){
+		var rows=$("#rowsPerPage").val();
+		$(".leftBox").load($("#ctxpath").val() + "/web/information/detail/"+$("#catgIdNew").val()+"/" + num,{rows:rows});
+	}
+</script>
+</body>
+</html>

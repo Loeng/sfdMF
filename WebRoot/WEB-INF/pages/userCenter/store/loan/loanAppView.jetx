@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>融资申请查看</title>
+  <meta name="keywords" content="鑫裕环保" />
+  <meta name="description" content="鑫裕环保" />
+  <script src="${webroot}/resources/commons/js/layer/layer.js"></script>
+
+  <link href="${webroot}/resources/userCenter/commons/css/orderLoanApply.css" rel="stylesheet" type="text/css">
+  <link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css">
+  <link href="${webroot}/resources/userCenter/commons/css/rzapply.css" rel="stylesheet" type="text/css">
+  <script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+  <script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+  <script type="text/javascript" src="${WEBROOT}/resources/commons/js/jquery.form.js"></script>
+  <script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+  <script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+  <script type="text/javascript" src="${webroot}/resources/commons/js/layer/layer.js"></script>
+  <script type="text/javascript" src="${webroot}/resources/userCenter/personal/js/ckeditor/ckeditor.js"></script>
+  <script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+  <style>
+      .upName {font-size: 12px;color: #4C4C4C;width: 400px;height: 34px;overflow: hidden;}
+      .btnlook {width: 46px;}
+      .upBox .fileUpload .btnUpload {background-color: #339933;}
+      .upBox .fileUpload .btnUpload:hover {background-color: #2E752E;color: #fff;}
+  </style>
+</head>
+<body>
+  #define(com.ekfans.base.store.model.Store Store)
+  #define(com.ekfans.base.loan.model.LoanApp loanApp)
+ 
+  <div class="contentTit borderColor budong">
+    <a href="javascript:choseMenu('${webroot}','LOAN_APP_LIST');" class="btnBase btnCancel">返回列表页</a>
+    <div class="clear"></div>
+  </div>
+  <div class="form borderColor">
+    <dl class="formItem">
+      <dt><em class="mustIco"></em>融资银行</dt>
+      <dd>
+        <input type="text" name="bankName" id="bankName" value="${loanApp.bankName}" readonly class="textBox box212" />
+      </dd>
+      <dd class="clear"></dd>
+    </dl>
+    <dl class="formItem">
+      <dt><em class="mustIco"></em>融资种类</dt>
+        <dd>
+          <input type="text" name="loanTypeName" id="loanTypeName" value="${loanApp.loanTypeName}" readonly class="textBox box212" />
+        </dd>
+        <dd class="clear"></dd>
+    </dl>
+    <dl class="formItem">
+      <dt><em class="mustIco"></em>融资金额</dt>
+      <dd>
+        <input name="price" id="price" type="text" class="textBox box212" value="${loanApp.price}" readonly/>
+        <span class="errorText" style="visibility:hidden;">不能为空</span>
+        <div class="clear"></div>
+      </dd>
+      <dd>&nbsp;&nbsp;元</dd>
+      <dd class="clear"></dd>
+    </dl>
+    <div class="clear"></div>
+
+    <div class="doubleBox">
+      <ul class="tabNav">
+        <li class="cur">提交的材料</li>
+        <li>操作日志</li>
+      </ul>
+      <div class="tabContent" style="display:block;">
+        #set(List<com.ekfans.base.loan.model.LoanAppDetail> details = loanApp.details)
+        #for(com.ekfans.base.loan.model.LoanAppDetail detail:details)
+          <div class="upBox #if(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_CKEDITOR == detail.type) upBoxLine #end">
+            <div class="upName">${detail.name}</div>
+            #if(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_SHOP == detail.type)
+              #if(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_CODE_YW == detail.nameCode)
+		        <div class="fileUpload">
+		          <a href="${webroot}/store/loan/viewHistoreOrders?storeId=${loanApp.companyId}" class="btnUpload btnlook" target="_blank" style="width:120px">查看历史业务数据</a>
+		        </div>
+		      #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_CODE_WL == detail.nameCode)
+		        <div class="fileUpload">
+		          <a href="javascript:viewWlls('${loanApp.companyId}','${detail.value}');" class="btnUpload btnlook" target="_blank" style="width:140px">查看跟下游企业往来流水</a>
+		        </div>
+		      #end
+            #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_PIC == detail.type)
+              <a href="${webroot}/${detail.value}" target="_blank"><img src="${webroot}/${detail.value}" width="165" /></a>
+            #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_EXCEL == detail.type || @(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_WORD == detail.type)
+              #set(String lastP = "doc")
+              #if(!@(com.ekfans.pub.util.StringUtil).isEmpty(detail.value) && detail.value.indexOf(".")!= -1)
+                #set(lastP = detail.value.split("\\.")[1])
+              #end
+              <a href="${webroot}/${detail.value}" class="fileLook" target="_blank">${detail.name}.${lastP}</a>
+
+            #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_PDF == detail.type)
+              
+              #if(!@(com.ekfans.pub.util.StringUtil).isEmpty(detail.nameCode) && @(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_CODE_ORDER == detail.nameCode)
+                <a href="${webroot}/store/order/orderById/${detail.value}" class="fileLook" target="_blank">订单ID：${detail.value}</a>
+
+              #elseif(!@(com.ekfans.pub.util.StringUtil).isEmpty(detail.nameCode) && @(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_CODE_CONTRACT == detail.nameCode)
+              	#if(!@(com.ekfans.pub.util.StringUtil).isEmpty(detail.valueType) && "9" == detail.valueType )
+              		<a href="${webroot}/${detail.value}" class="fileLook" target="_blank">${detail.name}.pdf</a>
+              	#elseif(!@(com.ekfans.pub.util.StringUtil).isEmpty(detail.valueType) && "4" == detail.valueType )
+                	<a href="${webroot}/store/contract/contractById/1/${detail.value}/1" class="fileLook" target="_blank">合同ID：${detail.value}</a>
+                #end
+              #else
+                <a href="${webroot}/${detail.value}" class="fileLook" target="_blank">${detail.name}.pdf</a>
+              #end
+            #else
+              <div class="xxvalue">${detail.value}</div>
+            #end
+          </div>
+        #end
+        <div class="clear"></div>
+      </div>
+      <div class="tabContent">
+        <table border="0" cellspacing="0" cellpadding="0" class="tabList" style="width:100%;">
+          <tbody>
+            <tr class="tabTit bgColor">
+              <th>操作时间</th>
+              <th>操作人</th>
+              <th>操作内容</th>
+            </tr>
+            #set(List<com.ekfans.base.loan.model.LoanAppLog> logs = loanApp.logs)
+            #for(com.ekfans.base.loan.model.LoanAppLog appLog:logs)
+            <tr>
+              <td>${appLog.createTime}</td>
+              <td>${appLog.creator}</td>
+              <td>${appLog.note}</td>
+            </tr>
+            #end
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+
+<!--弹窗-->
+<div class="apLayerBg"></div>
+<div class="apLayer" id="showOrderChoseDiv"></div>
+
+
+<!--底部 end-->
+<script src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${webroot}/resources/userCenter/personal/js/ckeditor/ckeditor.js"></script>
+<script>
+
+  $(document).ready(function() {
+    $(".tabNav li").click(function() {
+      $(this).addClass("cur").siblings().removeClass("cur");
+      var index = $(this).parent().children().index(this);
+      var content = $(this).parent().siblings(".tabContent");
+      content.eq(index).show().siblings(".tabContent").hide();
+    });
+  });
+  
+  //查看跟下游企业往来流水
+  function viewWlls(storeId,wlqyId){
+	  // 新建窗口
+	  window.open("${webroot}/store/loan/viewWlls?storeId="+storeId+"&wlqyId="+wlqyId);
+			  
+  }
+
+</script>
+
+</body>
+</html>

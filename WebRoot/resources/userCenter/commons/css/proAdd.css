@@ -1,0 +1,99 @@
+/* CSS Document */
+
+@import url("../../../commons/css/upload.css");
+
+.sto_fl_ss{overflow:hidden;padding:10px 14px;margin-bottom:18px;border-bottom:1px solid #f6f6f6; background:#fff;}
+.sto_fl_ss input{height:26px;border:1px solid #d3d3d3;width:220px;padding-left:2px;*line-height:26px\9;vertical-align:middle;color:#7d7d7d;outline:none;margin:0 15px 0 10px;}
+.sto_fl_ss a{display:inline-block;height:28px;line-height:28px;vertical-align:middle;}
+
+.select_fl{background:#fff; padding:10px 14px;}
+.select_fl h3{font-weight:lighter;font-size:14px;margin:-4px 0 12px;}
+.select_fl .selectList{width:100%;overflow:hidden;margin-bottom:14px;}
+.select_fl .selectList li{float:left;width:180px;height:250px;overflow-x:hidden; _overflow-y:scroll;border:1px solid #f6f6f6;margin-right:13px;}
+.select_fl .selectList li a{display:block;height:25px;line-height:25px;padding-left:13px;overflow:hidden;}
+.select_fl .selectList li a.cur,.select_fl li a:hover{background:#ffedd7}
+.ts{height:23px;background:#393;margin-bottom:14px;color:#fff;padding-top:5px;}
+.ts b{display:inline-block;width:12px;height:13px;overflow:hidden;background:url(../images/sto_bg.gif) no-repeat -170px -79px;vertical-align:middle;}
+.ts a{color:#fff;margin:0 8px;}
+
+/*鎼滅储鍒楄〃*/
+.searchClass{border:1px solid #e4e4e4; padding:5px 10px; margin:14px 0;}
+.searchClass li{height:28px; line-height:28px; color:#939393;}
+.searchClass li span{font-family:sim sun; padding:0 5px; color:#333;}
+
+/*绗簩姝*/
+.form .ts{width:500px; float:left; margin-right:20px;}
+.xz_sto_fl{width:212px;height:200px;padding:5px 0;border:1px solid #f6f6f6;overflow-x:hidden;_overflow-y:scroll;}
+.xz_sto_fl span{display:block;padding:3px 10px;cursor:pointer;color:#2f2f2f}
+.xz_sto_fl span b{display:inline-block;width:12px;height:13px;overflow:hidden;background:url(../images/sto_bg.gif) no-repeat -24px -80px;vertical-align:middle;margin-right:5px;}
+.xz_sto_fl p{padding-left:28px;line-height:22px;color:#a3a3a3;}
+.xz_sto_fl p input{vertical-align:middle;_margin-top:-2px;}
+.xz_sto_fl span.p_hide b{background-position:-70px -80px;}
+
+span.pp{cursor:pointer; display:block; float:left; width:27px; height:28px; border:1px solid #e0e3ea; margin-left:-1px; position:relative; background:url(../images/rightpoint2.png) no-repeat center center;}
+span.pp:hover{background:url(../images/rightpoint.png) #999 no-repeat center center; width:29px; height:30px; border:none;}
+
+/*澶氳搴﹁鍥*/
+.colorItem .imgUpload{display:none;}
+.uploadItem{float:left; margin-right:20px; position:relative; padding-right:20px; margin-bottom:10px;}
+.btnAdd{display:block; float:left; margin-top:194px;}
+.closeIco{display:block; filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity:0.5;opacity:0.5; background:url(../images/del4.jpg) no-repeat; width:16px; height:16px;}
+.uploadItem .closeIco{position:absolute; top:0; right:-2px;}
+.closeIco:hover{filter:alpha(opacity=100);-moz-opacity:1;-khtml-opacity:1;opacity:1;}
+
+/*浠锋牸鍖洪棿*/
+.priceZone,.colorSize{margin-bottom:20px; padding:10px 0; border:solid 1px #e4e4e4;}
+.priceZone .btnBase{margin:0 10px;}
+.listHeader{height:30px; line-height:30px;}
+.listTd{float:left; padding:0 2%;}
+.listItem{padding:10px 0; width:100%;}
+.startNum{width:22%;}
+.endNum{width:22%;}
+.listPrice{width:24%;}
+.listItem .closeIco{margin-top:6px;}
+.hint{line-height:22px; color:#888; display:block; margin:10px;}
+
+
+/*寮瑰眰*/
+.alertBrand .pageSize{padding-right:8px;}
+.alertTemp,.alertBrand{}
+.itemLayer{margin:0 12px; margin-bottom:20px;  border-top:solid 1px #333;} 
+.classItem{width:30%; margin:0 1.5%; float:left; height:50px; line-height:50px; border-bottom:solid 1px #e4e4e4;}
+.classItem label{display:block;}
+.classItem .check{display:block; float:left; margin:19px 20px 0 0;}
+
+/*搴楅摵鍝佺墝鍗曢�鍒楄〃*/
+.shopListAlert{display:none;}
+.shopListAlert .shopListContent{width:100%;}
+.shopListAlert .pageSize{padding-right:8px;}
+.apLayer .btn{padding: 0 0 20px 72px;}
+.shopSearch{padding:16px 10px 0 16px;}
+.shopSearch dl{width:320px; float:left;}
+.shopSearch dt{height:20px; line-height:20px;}
+.shopListAlert div.btn a{float:none;}
+.shopListAlert .ht_page{margin-bottom:20px; padding-right:20px;}
+.shopTable{width:96%; margin:0 2% 20px 2%; border-collapse:collapse; font-size:12px;}
+.shopTable th{text-align:center; border-top:solid 1px #333; border-bottom:solid 1px #333; height:20px; line-height:20px; padding:8px 0;}
+.shopTable td{text-align:center; border-top:solid 1px #dedede; border-bottom:solid 1px #dedede; height:30px; line-height:30px; padding:8px 0;}
+
+/*棰滆壊灏虹爜*/
+.disabled{background:#dedede;}
+.itemBox{width:148px; margin-bottom:2px;}
+
+.colorSize dd,.sizeList dd{float:left;}
+.colorSize dd.clear,.sizeList dd.clear{float:none;}
+.colorItem{float:left; padding-left:20px; position:relative; margin:0 44px 20px 0;}
+.colorItem .itemCheck{position:absolute; left:0; top:0; display:block;}
+.sizeItem{float:left; padding-left:20px; margin-right:44px; position:relative;}
+.sizeItem .itemCheck{position:absolute; left:0; top:5px; display:block;}
+
+.colorSizeTable{margin:20px auto 0 auto; width:96%;}
+.itemBox2{width:88px; display:inline-block;}
+.colorSizeTable th{font-weight:normal; height:30px; line-height:30px;}
+.colorSizeTable td{width:16%; padding:5px 0; text-align:center;}
+.colorSizeTable td img{border:solid 1px #e4e4e4;}
+.checkAll{cursor:pointer;}
+.checkAll input{display:none;}
+.add_pro .bigBox{width:360px; height:160px; max-width:360px; max-height:160px;}
+.countBox dd{position:relative;}
+.sizeCount{position:absolute; bottom:10px; left:320px;}

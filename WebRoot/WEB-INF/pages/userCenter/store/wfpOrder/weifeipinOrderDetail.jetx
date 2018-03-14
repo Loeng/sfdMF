@@ -1,0 +1,333 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>订单详情</title>
+	<meta name="keywords" content="鑫裕环保" />
+	<meta name="description" content="鑫裕环保" />
+	<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/goodsDetail.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/addGoods.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/proAdd.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/tools.css" />
+	<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+	<script src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+	<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script src="${webroot}/resources/commons/js/upload.js"></script>
+<style>
+.orderTable{width:100%; margin-bottom:0;}
+.orderTable .red{color:#f00;}
+.orderTable th{height:35px; line-height:35px;font-weight:normal; text-align:center; color:#000; font-size:14px;}
+.orderTable td{padding:20px 0; color:#818181; text-align:center; border:none;}
+.orderInfo{border-bottom:none; position:relative;}
+.pdfLink{display:block; font-size:14px; max-width:170px; max-height:72px; overflow:hidden; line-height:36px; padding:0 20px; border:solid 1px #e5e5e5; background:#f3f2f2; position:absolute; top:0; right:16px;}
+
+.moreInfo h3{padding-top:4px; line-height:32px; border-top-style:solid; border-top-width:1px; text-indent:1em; position:relative;}
+.moreInfo .point{display:block; background:url(${webroot}/resources/userCenter/commons/images/zhishang.png) no-repeat; width:23px; height:13px; position:absolute; top:-13px; left:130px;}
+.moreInfo .point2{display:block; width:23px; height:13px; position:absolute; top:-14px; left:130px;}
+
+.hanliang{width:100%; margin-bottom:20px;}
+.hanliang th{background:#FDEAE6; height:31px; line-height:31px;}
+.hanliang td{text-align:center; height:30px; line-height:30px; border-bottom:solid 1px #e3e3e3;}
+
+
+span.pp{cursor:pointer; display:block; float:left; width:27px; height:28px; border:1px solid #e0e3ea; margin-left:-1px; position:relative; background:url(${webroot}/resources/userCenter/commons/images/rightpoint2.png) no-repeat center center;}
+span.pp:hover{background:url(${webroot}/resources/userCenter/commons/images/rightpoint.png) #999 no-repeat center center; width:29px; height:30px; border:none;}
+/*弹层*/
+.alertBrand .pageSize{padding-right:8px;}
+.alertTemp,.alertBrand{max-height:500px;}
+.itemLayer{margin:0 12px; margin-bottom:20px;  border-top:solid 1px #333;} 
+.classItem{width:30%; margin:0 1.5%; float:left; min-height:30px;padding:15px 0; border-bottom:solid 1px #e4e4e4;}
+.classItem label{display:block;}
+.classItem .check{display:block; float:left; margin:19px 20px 0 0;}
+.apLayer .btn{padding: 0 0 20px 72px;height:30px;}
+.shopSearch{padding:16px 10px 0 16px;}
+.shopSearch dl{width:320px; float:left;}
+.shopSearch dt{height:20px; line-height:20px;}
+.shopListAlert div.btn a{float:none;}
+
+.triangle_border_up{width:0;height:0;border-width:0 13px 13px; border-style:solid;border-color:transparent transparent #69D759;position:relative;}
+.triangle_border_up span{display:block;  width:0; height:0; border-width:0 13px 13px;  border-style:solid; border-color:transparent transparent #fff;position:absolute; top:1px; left:-13px;}
+
+.pdfL{color:#09F; font-size:14px; padding-left:20px;}
+.pdfL:hover{color:#0065A8; text-decoration:underline;}
+</style>
+#define(com.ekfans.base.user.model.User User)
+#define(com.ekfans.base.store.model.Store Store)
+#if(User.type == "1")
+	<style>
+		.sjColor{border-color:transparent transparent #DECDAC;}
+	</style>
+#end
+#if(User.type == "2")
+	<style>
+		.sjColor{border-color:transparent transparent #D5EBFF;}
+	</style>
+#end
+#if(User.type == "3")
+	<style>
+		.sjColor{border-color:transparent transparent #FF4100;}
+	</style>
+#end
+#if(User.type == "4")
+	<style>
+		.sjColor{border-color:transparent transparent #69D759;}
+	</style>
+#end
+</head>
+
+<body>
+	
+<input type="hidden" id="ctxpath" value="${webroot}"/>
+<input type="hidden" id="updateOk" value="${updateOk}"/>
+	
+#define(com.ekfans.base.store.model.ContractOrder coDetail)
+#define(com.ekfans.base.store.model.Store store)
+
+<!-- begin 右侧主体 -->
+<form action="${webroot}/store/orderwfp/update" method="post" id="updateWeifeipin">
+	<input type="hidden" name="orderId" value="${coDetail.id}"/>
+	
+	<div class="rightContent">
+		<div class="contentTit borderColor budong">
+    	<h3>订单详情</h3>
+      <a href="javascript:golist();" class="btnBase btnBack">返回列表</a>
+      #if(coDetail.saleId == Store.id || coDetail.buyId == Store.id)
+      	<a href="javascript:gaoBankService('${coDetail.id}');" class="btnBase btnBack">金融服务</a>
+      #end
+      <!-- <a href="javascript:updateYunShu('${coDetail.id}');" class="btnBase btnBack btnSubmit">提交</a>  -->
+      <div class="clear"></div>
+    </div>
+		<div class="form borderColor">
+			<h2 class="rightTitle">
+				<em class="borderBottomColor">基础信息</em>
+				<a href="javascript:void(0)" class="layerToggle">收起</a>
+			</h2>
+      <div class="toggles orderInfo">
+				<dl class="consignee">
+	        <dd>
+	          <li>
+	          	<em>订单状态</em>#if(coDetail.approveStatus=="0")环保未审核#elseif(coDetail.approveStatus=="1")环保已审核#end
+	          	<span style="margin-left:125px;" class="red">
+	          		<a href="${webroot}/store/wfpScrap/detail?wfpScrapId=${coDetail.wfpScrap.id}&type=1">查看申报详情</a>
+	          	</span>
+	          </li>
+	          <li>
+	          	<em>下单时间</em>#if(coDetail.createTime!=null)${coDetail.createTime.substring(0,10)}#end&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	          	<span style="margin-left:100px;" class="red">
+	          		<a href="${webroot}/store/contract/contractById/1/${coDetail.contract.id}">查看合同详情</a>
+	          	</span>
+	          </li>
+	          
+	          <!--
+	          <li style="margin-top:12px;">
+	          	#if(coDetail.contract.partyAORpartyB == "0" && coDetail.contract.firstId == Store.id)
+		          	<select name="transportId" class="textBox">
+			          	<option value="">选择运输企业</option>
+			          	#define(List<com.ekfans.base.store.model.Store> storelist)
+			          	#for(com.ekfans.base.store.model.Store st : storelist)
+			          		<option value="${st.id + ',' + st.storeName}">${st.storeName}</option>
+			          	#end
+			          </select>
+	          	#elseif(coDetail.contract.partyAORpartyB == "1" && coDetail.contract.secondId == Store.id)
+		          	<select name="transportId" class="textBox">
+			          	<option value="">选择运输企业</option>
+			          	#define(List<com.ekfans.base.store.model.Store> storelist)
+			          	#for(com.ekfans.base.store.model.Store st : storelist)
+			          		<option value="${st.id + ',' + st.storeName}" #if(st.id==coDetail.transportStoreId)selected#end>${st.storeName}</option>
+			          	#end
+			          </select>
+	          	#else
+	          		<em>运输企业</em>#if(coDetail.transportStoreName==null || coDetail.transportStoreName=="")未选择运输企业#else${coDetail.transportStoreName}#end
+	          	#end
+	          </li>
+	          -->
+	        </dd>
+        </dl>
+				<div class="clear"></div>
+				#if(coDetail.contract != null && coDetail.contract.type == "0")
+					<a href="${webroot}${coDetail.contract.file}" target="_bank" class="pdfLink">危废处置合同.pdf</a>
+				#else
+					<a href="${webroot}${coDetail.contract.file}" target="_bank" class="pdfLink" style="top:43px;">危废运输合同.pdf</a>
+				#end
+      </div>
+      #if(coDetail.approveStatus!="0" && coDetail.saleId == store.id)
+				<div style="margin-bottom:10px;">
+					<a href="${webroot}/store/childOrder/getContractOrder?contractOrderId=${coDetail.id}" class="btnBase" style="float:none;">添加子订单</a>
+		    </div>
+	    #end
+			<h2 class="rightTitle">
+				<em class="borderBottomColor">子订单信息</em>
+				<a href="javascript:void(0)" class="layerToggle">收起</a>
+			</h2>
+			<div class="toggles orderInfo">
+				<table border="0" cellspacing="0" cellpadding="0" class="orderTable">
+          <tr>
+            <th class="bgColor">名称</th>
+            <th class="bgColor">危废品数量</th>
+            <th class="bgColor">收费类型</th>
+            <th class="bgColor">订单总额</th>
+            <th class="bgColor">订单状态</th>
+            <th class="bgColor">产生企业</th>
+            <th class="bgColor">处置企业</th>
+            <th class="bgColor">运输企业</th>
+            <th class="bgColor">下单时间</th>
+            <th class="bgColor">操作</th>
+          </tr>
+        	#if(coDetail.cocList != null || coDetail.cocList.size() > 0)
+        		#for(com.ekfans.base.store.model.ContractOrderChild coc : coDetail.cocList)
+		          <tr>
+		            <td>${coc.wfpName}</td>
+		            <td>${coc.wfpTotal}</td>
+		            <td>#if(coc.totalPrice.compareTo(new java.math.BigDecimal(0)) == 1 && coc.orderChildStoreId==storeId) 收费 #else 付费 #end</td>
+		            <td>
+		            	
+		            	#if(coc.totalPrice.compareTo(new java.math.BigDecimal(0)) == 1) 
+		            		${coc.totalPrice} 
+		            	#else
+		            		${new java.math.BigDecimal(0).subtract(coc.totalPrice) }
+		            	#end
+		            	
+		            </td>
+		            <td>${@(com.ekfans.base.store.util.ChildOrderConst).orderStatusMap.get(coc.orderStatus)}</td>
+		            <td>${coc.saleName}</td>
+		            <td>${coc.buyName}</td>
+		            <td>${coc.transportStoreName}</td>
+		            <td>${coc.createTime.substring(0,10)}</td>
+		            <td class="red">
+		            	<a href="${webroot}/store/childOrder/view?childOrderId=${coc.id}">查看</a>
+		            	#if(coc.orderStatus == "0" && coDetail.saleId == store.id)
+		            		<a href="${webroot}/store/childOrder/edit?childOrderId=${coc.id}">编辑</a>
+		            	#elseif(coc.orderStatus == "0" && coDetail.buyId == store.id)
+		            		<a href="${webroot}/store/childOrder/view?childOrderId=${coc.id}&pageType=1">确认订单</a>
+		            	#elseif(coc.orderStatus == "2" && coDetail.saleId == store.id)
+		            		<a href="${webroot}/store/childOrder/view?childOrderId=${coc.id}&pageType=5">确认物流信息</a>
+		            	#elseif(coc.orderStatus == "3" && coDetail.buyId == store.id)
+		            		<a href="${webroot}/store/childOrder/view?childOrderId=${coc.id}&pageType=6"">确认收货</a>
+		            	#end
+		            </td>
+		          </tr>
+		      	#end
+	      	#end
+        </table>
+        #if(coDetail.cocList == null || coDetail.cocList.size() <= 0)
+        	<div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+        #end
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</form> 
+<!-- end 右侧主体 -->
+   
+<div class="apLayerBg"></div>
+<div id="store" class="apLayer borderColor alertBrand"></div>
+	
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/goodsDetail.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/ckeditor/ckeditor.js"></script>
+<script>
+$(document).ready(function() {
+	var update = $("#updateOk").val();
+	if(update !=null && update!="" ){
+		if(update=="0"){
+			econfirm('更新成功,是否返回列表?',goBack,[$("#ctxpath").val()],null,null);
+	 	}else{
+			econfirm('更新失败,是否继续更新？',goUpdate,[$("#ctxpath").val()],goBack,[$("#ctxpath").val()]);
+		}	
+	}
+});
+
+// 跳转到列表页
+function golist(){
+	var ctxpath = $("#ctxpath").val();
+	#if(store.id == coDetail.saleId)
+		window.location.href = ctxpath + "/store/order/contractOrder/orderList";
+	#else
+		window.location.href = ctxpath + "/store/order/contractOrder/buyList";
+	#end
+}
+
+// 申请金融服务
+function gaoBankService(id){
+	var ctxpath = $("#ctxpath").val();
+	window.location.href = ctxpath + "/store/finance/jumpDaiPape/4?orderId=" + id;
+}
+
+// 修改运输企业
+function updateYunShu(id){
+	var ctxpath = $("#ctxpath").val();
+	var ys = $("select[name='transportId']").val();
+	
+	if(ys == ""){
+		falert("请选择运输企业！");
+	}else{
+		$.post("${webroot}/store/order/contractOrder/getUpdateContractYunShu",{id:id,ys:ys},function(data){
+			if(data == 2){
+					window.location.reload();
+			}
+		});	
+	}
+}
+
+
+	//跳转到列表页
+function goBack(ctxPath){
+	window.location.href=ctxPath+"/store/order/wfpOrderList";
+}
+//跳转到列表页
+function goUpdate(ctxPath){
+	window.location.href=ctxPath+"/store/order/wfpOrderDetail?orderId="+$("#orderId").val();
+}
+	
+	function loadys(ctx){
+		$("#store").load(ctx+"/order/wfpOrder/loadContract?idType=2");
+		$(".apLayerBg").show();
+		$(".alertBrand").show();
+	}
+	//点击搜索运输合同
+	function searcheContractName(ctx,id){
+		$("#store").load(ctx+"/order/wfpOrder/loadContract",{idType:id,contractName:$("#contractNameId").val()});
+	}
+	//重置
+function reset(){
+	$("#searcherStoreName").val("");
+	
+}
+	function checkdContract(con){
+		var contract = con.split("_");
+		$("#ysStoreId").val(contract[0]);	
+		$("#ysStoreName").val(contract[1]);
+		$(".apLayerBg").hide();
+		$(".alertBrand").hide();
+	}
+  
+  function checkedStoreFirst(value){
+		var storeId = value.split("_");
+		$("#ysStoreId").val(storeId[0]);
+		$("#ysStoreName").val(storeId[1]);
+		$(".apLayerBg").hide();
+		$(".alertBrand").hide();
+  }
+  
+  function  submitForm(ctx,storeId,ysfirst,yssecond,buyStoreId,first,second,shoppingStatus){
+  	if( buyStoreId==storeId && shoppingStatus=='2'){
+  		 if(!hasChoseFile("fourCouplet")){
+	 		  falert('第四联单不能为空');
+			  return;
+			 } 
+			  if(!hasChoseFile("fiveCouplet")){
+	 		  falert('第五联单不能为空');
+			  return;
+			 }
+  	}
+    $("#updateWeifeipin").submit();
+  }
+</script>
+</body>
+</html>

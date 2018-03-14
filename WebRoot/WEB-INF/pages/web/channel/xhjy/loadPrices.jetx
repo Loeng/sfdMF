@@ -1,0 +1,38 @@
+
+  #define(List<com.ekfans.base.metal.model.PreciousMetal> priceMetals)
+    <h2>最新报价</h2>
+    <div class="txtScroll-left">
+      <div class="hd"></div>
+      <div class="bd">
+        <ul class="infoList">
+          #for(com.ekfans.base.metal.model.PreciousMetal priceMetal:priceMetals)
+          #set(com.ekfans.base.metal.model.PreciousMetalDetail priceDetail = priceMetal.detail)
+            #if(priceDetail != null)
+            <li><span>${priceMetal.name}</span><span><em class="${(priceDetail.riseAndDrop>0)?"red":(priceDetail.riseAndDrop<0?"green":"normal")}">${priceDetail.price}</em>${priceMetal.unit}</span></li>
+            #end
+          #end
+        </ul>
+      </div>
+    </div>
+    <div class="clear"></div>
+  <script>
+	var box=0;
+	$(".txtScroll-left li").each(function() {
+		box+=$(this).outerWidth();
+	});
+	$(".txtScroll-left ul").css("width",box+"px");
+	function first(){
+		var str=$(".txtScroll-left").find("li").eq(0);
+		var gao=str.outerWidth();
+		$(".txtScroll-left ul").animate({"marginLeft" : -gao+"px" }, 600,function(){
+			$(this).css("marginLeft","0px").find("li:eq(0)").appendTo(".txtScroll-left ul");
+		})
+	}
+	var rongqi=0;
+	for(i=0;i<$(".txtScroll-left").find("li").length;i++){
+		rongqi+=$(".txtScroll-left").find("li").eq(i).outerWidth();
+	}
+	if(rongqi>1089){
+		setInterval(first,3500);
+	}
+  </script>

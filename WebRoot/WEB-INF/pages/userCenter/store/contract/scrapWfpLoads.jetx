@@ -1,0 +1,128 @@
+
+<div class="apTit">
+	<span class="apClose"></span>选择委托方(甲方)申报信息
+</div>
+<div class="apContent">
+	#define(List
+	<com.ekfans.base.wfOrder.model.ScrapWfp> scrapWfpList)
+	<form action="${webroot}/store/wfpscrap/loadWfps" method="post" id="contractFormList">
+		<input name="loadPageNum" id="loadPageNum" type="hidden" value="${loadPageNum}" />
+		<input name="contractId" id="contractId" type="hidden" value="${contractId}" />
+		<!--表单搜索区-->
+		<div class="formSearch borderColor" style="margin-top: 10px;">
+			<dl class="formItem" style="width: 335px;">
+				<dt>合同名称</dt>
+				<dd>
+					<input id="loadContractName" name="loadContractName" type="text" class="textBox box212" value="${loadContractName}">
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem" style="width: 335px;">
+				<dt>合同编号</dt>
+				<dd>
+					<input id="loadContractNo" name="loadContractNo" type="text" class="textBox box212" value="${loadContractNo}">
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem" style="width: 335px;">
+				<dt>废物名称</dt>
+				<dd>
+					<input id="loadWfName" name="loadWfName" type="text" class="textBox box212" value="${loadWfName}">
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<div class="clear"></div>
+		</div>
+	</form>
+	<!--表单搜索区end--> <!--表单按钮区-->
+	<div class="btnArea" style="margin: 0 0 20px 24px;">
+		<a onclick="loadSearch();" style="cursor: pointer" class="btnBase btnSearch">搜索</a>
+		<a onclick="reset();" style="cursor: pointer" class="btnBase btnReset">重置</a>
+		<div class="clear"></div>
+	</div>
+	<!--表单按钮区end--> <!--表单列表区-->
+	<div class="formTable borderColor">
+
+		<div style="position: relative; margin-top: 10px;" class="tableBox">
+			<table border="0" cellspacing="0" cellpadding="0" class="tabList">
+				<thead>
+					<tr class="bgColor">
+						<th>合同名称</th>
+						<th>合同编号</th>
+						<th>废物名称</th>
+						<th>转移数量</th>
+						<th>拟转移批次</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					#for(com.ekfans.base.wfOrder.model.ScrapWfp scrapWfp: scrapWfpList)
+					<tr>
+						<td>${scrapWfp.contractName}</td>
+						<td>${scrapWfp.contractNo}</td>
+						<td>${scrapWfp.wfName}</td>
+						<td>${scrapWfp.quantity}</td>
+						<td>${scrapWfp.batch}</td>
+						<td><a onclick="addReload('${scrapWfp.id}')" style="cursor: pointer" class="eyeIco" title="选择">选择</a></td>
+					</tr>
+					#end
+				</tbody>
+			</table>
+		</div>
+		#if(scrapWfpList !=null && scrapWfpList.size()>0)
+		<!--分页-->
+		<div style="padding-left: 2%;">
+			${include("../common/page.jetx")}
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+		<!--分页end-->
+		#else
+		<!--无记录Box-->
+		<div class="alterbox">
+			<span class="warn"><span>暂无信息记录</span></span>
+		</div>
+		<!--无记录Box end-->
+		#end
+	</div>
+</div>
+<!--表单列表区end-->
+
+<script>
+	function loadSearch() {
+		var contractId = $("#contractId").val();
+		var loadContractName = $("#loadContractName").val();
+		var loadWfName = $("#loadWfName").val();
+		var loadContractNo = $("#loadContractNo").val();
+		var loadPageNum = $("#loadPageNum").val();
+
+		$("#showLoads").load("${webroot}/store/wfpscrap/loadWfps", {
+			contractId : contractId,
+			loadContractName : loadContractName,
+			loadWfName : loadWfName,
+			loadContractNo : loadContractNo,
+			loadPageNum : loadPageNum
+		});
+		$(".apLayerBg").show();
+		$(".alertBrand").show();
+	}
+
+	function reset() {
+		$("#loadContractName").val("");
+		$("#loadContractNo").val("");
+		$("#loadWfName").val("");
+	}
+
+	function goPage(loadPageNum) {
+		$("#loadPageNum").val(loadPageNum);
+		loadSearch();
+	}
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".tabList").dragtable();
+		$(".tabList").resizableColumns({});
+	});
+</script>
+<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/base.js"></script>

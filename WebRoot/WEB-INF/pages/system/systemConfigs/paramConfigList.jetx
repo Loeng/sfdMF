@@ -1,0 +1,34 @@
+<form action="${webroot}/system/config/paramConfig/save" method="post"  id="paramConfigForm">
+		#define(List<com.ekfans.base.system.model.SystemParamConfig> configs)
+		#for(com.ekfans.base.system.model.SystemParamConfig paramConfig : configs)
+		<input type="hidden" name="id" value="${paramConfig.id}" />
+		<div class="add_pro">
+				<dl class="formBox">
+					<dt style="width:18%;float:left;">${paramConfig.key}</dt>
+					#if("text".equals(paramConfig.valueType))    
+					<dd id="dd${paramConfig.id}"  style="width:80%;float:left;">
+					  <input type="text" name="value${paramConfig.id}" class="i_bg" value="${paramConfig.value}" onblur="javascript:checkNumBlur('${paramConfig.id}','${paramConfig.note}');" onkeyup="javascript:checkNum('${paramConfig.id}','${paramConfig.note}');"/>
+					  #if("请输入数字".equals(paramConfig.note))<span class="ts_xx">${paramConfig.note}</span> #end
+					</dd>
+					 
+					#elseif("img".equals(paramConfig.valueType))
+					<dd style="width:80%;float:left;">
+						#tag picUpload("value"+paramConfig.id,"1","300","300",paramConfig.value) #end
+  					</dd>
+						
+					#elseif("textarea".equals(paramConfig.valueType))
+						<dd style="width:80%;float:left;">
+							<textarea name="value${paramConfig.id}" >${paramConfig.value}</textarea>
+							${paramConfig.note}
+						</dd>
+					#elseif("radio".equals(paramConfig.valueType))
+						<dd style="width:80%;float:left;">
+							<span class="zt"><label><input type="radio" value="1" name="value${paramConfig.id}" #if("1".equals(paramConfig.value)) checked=true #end/>是</label></span>
+							<span class="zt"><label><input type="radio" value="0" name="value${paramConfig.id}" #if("0".equals(paramConfig.value)) checked=true #end/>否</label></span>
+						</dd>
+					#end
+				</dl>
+	</div>
+	#end
+	
+</form>		

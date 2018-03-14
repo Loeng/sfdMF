@@ -1,0 +1,43 @@
+#define(List<com.ekfans.base.store.model.Contract> contractList)
+#define(String idType)
+#define(String contractNameByS)
+<div class="apTit">
+    	<span class="apClose"></span>
+        选择合同
+    </div>
+    <div class="apContent">
+    	<form action="${webroot}/" id="">
+        <div class="shopSearch">
+            <dl class="formItem" style="width:370px;">
+                <dt>合同名称</dt>
+                <dd>
+                <input id="contractNameId" name ="contractName" type="text" class="textBox box212" value="${contractNameByS}">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+        </div>
+      </form>
+        <div class="btn">
+            <a onclick="searcheContractName('${webroot}','1',);" class="btnBase">搜索</a>
+            <a onclick="reset();" class="btnBase">重置</a>
+        </div>
+        <div class="itemLayer">
+            #for(com.ekfans.base.store.model.Contract con : contractList)
+            	<div class="classItem" style="min-height:30px; height:auto; padding:15px 0;line-height:20px;">
+            	<label>
+            		    <label>
+                    <span><em><input id="listStoreId" type="radio" onclick="checkdContract(this.value);"  value=${con.id}_${con.name}_${con.firstId}_${idType}_${con.partyAORpartyB}_${con.secondId}></em></span> ${con.name}
+                   </label>
+             </div>
+             #else
+               <div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+            #end
+            <div class="clear"></div>
+        </div>
+        <div style="padding-left:20px;">
+           <input id="pageNumYs" type="hidden" name="pageNum" value="${currentpageStr}" />
+                ${include("../common/page.jetx")}
+             <div class="clear"></div>
+        </div>
+    </div>

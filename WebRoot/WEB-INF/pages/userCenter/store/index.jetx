@@ -1,0 +1,214 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>企业中心-首页</title>
+<meta name="keywords" content="三分地环保产业链" />
+<meta name="description" content="三分地环保产业链" />
+<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/commons/css/index.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<!--头部-->
+<!--头部end-->
+#define(com.ekfans.base.user.model.User User)
+#define(com.ekfans.base.store.model.Store Store)
+
+
+    <!--主体-->
+    <div class="indexUp">
+        <dl class="userInfo">
+	        #if(Store != null && Store.storeLogo != "")
+				<dt>
+					<img src="${webroot}/${Store.storeLogo}" alt="${Store.storeName}" width="170" height="170" >
+				</dt>
+			#else
+	        	<dt><img src="${webroot}/resources/userCenter/commons/pic/photo.jpg"  width="170" height="170"></dt>
+			#end
+            <dd>
+                <span class="green">欢迎回来</span>
+                <em class="name">${Store.storeName}</em>
+                
+                #if(Store.accountStatus && Store.accountSuccess)
+					#define(java.math.BigDecimal[] accountPrices)
+					<span class="yue">账户余额:<em class="red">${accountPrices[0]}</em>元&nbsp;&nbsp;&nbsp;&nbsp;可用余额:<em class="red">${accountPrices[1]}</em>元</span>
+					<a href="javascript:choseMenu('${webroot}','ACCOUNT_BANK_ACCOUNT');" class="btnBase">充值/提现</a>
+				#else
+					<span class="yue">你还未设置银行账户</span><a href="javascript:choseMenu('${webroot}','ACCOUNT_BANK_VIEW');" class="btnBase">立即设置</a>
+				#end
+                
+               
+            </dd>
+        </dl>
+        <ul class="userInfo2">
+            <!-- <li>账户等级：<em class="lev">AAA</em><a href="javascript:choseMenu('${webroot}','STORE_RENZHENG_CHESUAN');">测评</a></li> -->
+            <li>绑定手机：${User.mobile}</li>
+            <li>注册邮箱：${User.email}</li>
+            <li><a href="${webroot}/store/auth/basis">修改企业资料</a></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <h2>自主备案</h2>
+    <ul class="beian">
+				#if(Store.commonStatus == "0")
+				#elseif(Store.commonStatus == "1")
+					<em class="itemUnfinished"></em>
+				#elseif(Store.commonStatus == "2")
+					<em class="itemNo"></em>
+				#elseif(Store.commonStatus == "3")
+					<em class="itemOk"></em>
+				#end 
+        <a href="javascript:choseMenu('${webroot}','STORE_RENZHENG_BEIAN');">
+        	<li class="#if(Store.commonStatus == "0" || Store.commonStatus == "1")ing#elseif(Store.commonStatus == "2")error#elseif(Store.commonStatus == "3")ready#end iconText"><em>基础信息</em><span class="icon"></span></li>
+        </a>
+        <a href="javascript:choseMenu('${webroot}','STORE_RENZHENG_YINHANG');">
+        	<li class="#if(Store.bankStatus == "0" || Store.bankStatus == "1")ing#elseif(Store.bankStatus == "2")error#elseif(Store.bankStatus == "3")ready#end iconCaiwu"><em>工商财务信息</em><span class="icon"></span></li>
+        </a>
+        <a href="javascript:choseMenu('${webroot}','STORE_RENZHENG_GYLUH');">
+        	<li class="#if(Store.salerStatus == "0" || Store.salerStatus == "1")ing#elseif(Store.salerStatus == "2")error#elseif(Store.salerStatus == "3")ready#end iconPerson"><em>企业家关系</em><span class="icon"></span></li>
+        </a>
+    </ul>
+    <div class="clear"></div>
+    <h2>待办事项</h2>
+    #if(User.type == "3" || User.type == "1")
+    <div class="daiban">
+        <dl class="indexItem">
+            <dt>订单管理<a href="javascript:choseMenu('${webroot}','ORDER_YDGYL');">进入</a></dt>
+            <dd>
+                <li>待付款订单<em class="red">${daDaiPaySum}</em>条</li>
+                <li>待发货订单<em class="red">${daDaiFaSum}</em>条</li>
+            </dd>
+        </dl>
+        <dl class="indexItem">
+            <dt>商品管理<a href="javascript:choseMenu('${webroot}','PRODUCT_SALES');">进入</a></dt>
+            <dd>
+                <li>仓库中的商品<em class="red">${wareHouserProduct}</em>件</li>
+                <li>出售中的商品<em class="red">${chuShouProduct}</em>件</li>
+            </dd>
+        </dl>
+        <dl class="indexItem">
+            <dt>金融服务<a href="javascript:choseMenu('${webroot}','FINANCE_MANGER_ORDER');">进入</a></dt>
+            <dd>
+                <li>借款<em class="red">${applyJiedaiSum}</em>元</li>
+                <li>待还款<em class="red">${applyJiedaiSum}</em>元</li>
+            </dd>
+        </dl>
+        <div class="clear"></div>
+    </div>
+    #elseif(User.type == "2")
+    <div class="daiban">
+        <dl class="indexItem">
+            <dt>订单管理<a href="javascript:choseMenu('${webroot}','CG_ORDER_CP_LIST');">进入</a></dt>
+            <dd>
+                <li>待付款订单<em class="red">${daDaiPaySum}</em>条</li>
+                <li>待发货订单<em class="red">${daDaiFaSum}</em>条</li>
+            </dd>
+        </dl>
+        <dl class="indexItem">
+            <dt>金融服务<a href="javascript:choseMenu('${webroot}','FINANCE_MANGER_ORDER');">进入</a></dt>
+            <dd>
+                <li>借款<em class="red">${applyJiedaiSum}</em>元</li>
+                <li>待还款<em class="red">${applyJiedaiSum}</em>元</li>
+            </dd>
+        </dl>
+        <div class="clear"></div>
+    </div>
+    #else
+    <div class="daiban">
+        <dl class="indexItem">
+           <dt>危废品订单管理<a href="javascript:choseMenu('${webroot}','ORDER_MANAGER_SUPPLEIER_PRICE');">进入</a></dt>
+            <dd>
+               <li>待付款订单<em class="red">${daDaiPaySum}</em>条</li>
+               <li>待确认收货订单<em class="red">${daDaiFaSum}</em>条</li>
+            </dd>
+        </dl>
+        <dl class="indexItem">
+            <dt>金融服务<a href="javascript:choseMenu('${webroot}','FINANCE_MANGER_ORDER');">进入</a></dt>
+            <dd>
+                <li>借款<em class="red">${applyJiedaiSum}</em>元</li>
+                <li>待还款<em class="red">${applyJiedaiSum}</em>元</li>
+            </dd>
+        </dl>
+        <div class="clear"></div>
+    </div>
+    #end
+    
+    #if(User.type == "3" || User.type == "1")
+		<h2>危废信息交互中心<a href="javascript:choseMenu('${webroot}','HXSTORE_WF_JH_LIIST');" class="green">查看更多</a></h2>
+		<table border="0" cellspacing="0" cellpadding="0" class="tabList">
+			<tr class="tableThBgColor">            
+				<th>供求标题</th>
+				<th>发布企业</th>           
+				<th>创建时间</th>
+				<th>联系人</th>
+				<th>联系方式</th>
+				<th>供求关系</th>
+			</tr>
+			#define(List<com.ekfans.base.order.model.SupplyBuy> supplyBuys)
+				#if(supplyBuys != null && supplyBuys.size() > 0)
+				#for(com.ekfans.base.order.model.SupplyBuy sb : supplyBuys)
+					#if(for.index <= 6)
+						<tr>
+							<td>${sb.title}</td>
+							<td>${sb.storeName}</td>
+							<td>${sb.createTime.substring(0,10)}</td>
+							<td>${sb.contactName }</td>
+							<td>${sb.contactPhone }</td>
+							<td>
+								#if(sb.type == "0") <em class="gongIcon">供</em>
+								#elseif(sb.type == "1") <em class="qiuIcon">求</em> 			            	 
+								#end
+							</td>
+						</tr>
+					#end
+				#end
+			#end
+		</table>
+		#if(supplyBuys == null || supplyBuys.size() <= 0)
+			<div class="listNone"><span class="warn"><span>暂无信息记录</span></span></div>
+		#end	
+	#else
+		<h2>最新借款记录<a href="javascript:choseMenu('${webroot}','FINANCE_MANGER_ORDER');" class="green">查看更多</a></h2>
+			<table border="0" cellspacing="0" cellpadding="0" class="tabList">
+				<tr  class="tableThBgColor">            
+					<th>借款金额</th>
+					<th>借款时间</th>
+					<th>借款方式</th>
+					<th>借款金额</th>
+					<th>借款期限</th>
+					<th>借款状态</th>
+				</tr>
+				#define(List<com.ekfans.base.store.model.MortgageApplication> maList)
+				#if(maList != null && maList.size() > 0)
+					#for(com.ekfans.base.store.model.MortgageApplication ma : maList)
+						#if(for.index <= 6)
+							<tr>
+								<td>${ma.amount}</td>
+								<td>${ma.createTime}</td>
+								<td>#if(ma.type == 1)订单申请#elseif(ma.type == 2) 信用借贷 #elseif(ma.type == 3)合同借贷 #end</td>
+								<td>${ma.amount}</td>
+								<td>${ma.manumber}</td>
+								<td>#if(ma.status == 1) 提交中 #elseif(ma.status == 2)审核中 #else 审核成功 #end</td>
+							</tr>
+						#end
+					#end
+				#end
+			</table>
+			#if(maList == null || maList.size() <= 0)
+				<div class="listNone"><span class="warn"><span>暂无信息记录</span></span></div>
+			#end
+	#end
+    
+<!--主体 end-->
+<div class="clear"></div>
+
+
+<!--底部-->
+<!--底部 end-->
+
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+</body>
+</html>

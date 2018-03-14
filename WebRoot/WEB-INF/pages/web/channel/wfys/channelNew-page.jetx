@@ -1,0 +1,65 @@
+#define(com.ekfans.pub.util.Pager pager)
+			
+<div class="pageSize" style="width:1200px">
+	<a href="javascript:void(0);" onclick="goPage('${pager.currentPage==1?1:pager.currentPage-1}');" class="pagePre" value="1">上一页</a>
+	#if(pager.totalPage>6)
+		#if(pager.currentPage-2>1 && pager.currentPage+3<pager.totalPage)
+			<a>..</a>
+			#for(int i : iterator(pager.currentPage-1,pager.currentPage+1))
+				#if(pager.currentPage==i)
+					<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="page cur">${i }</a>
+				#else
+					<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="page">${i }</a>
+				#end
+			#end
+			<a>..</a>
+			#for(int i : iterator(pager.totalPage-2,pager.totalPage))
+				<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="page">${i }</a>
+			#end
+		#elseif(pager.currentPage-2<=1)
+			#for(int i : iterator(1,3))
+				#if(pager.currentPage==i)
+					<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="page cur">${i }</a>
+				#else
+					<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="page">${i }</a>
+				#end
+			#end
+			<a>..</a>
+			#for(int i : iterator(pager.totalPage-2,pager.totalPage))
+				<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="page">${i }</a>
+			#end
+		#else
+			<a>..</a>
+			#for(int i : iterator(pager.totalPage-5,pager.totalPage))
+				#if(pager.currentPage==i)
+					<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="page cur">${i }</a>
+				#else
+					<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="page">${i }</a>
+				#end
+			#end
+		#end
+	#else
+		#for(int i : iterator(1,pager.totalPage))
+			#if(pager.currentPage==i)
+				<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="page cur">${i }</a>
+			#else
+				<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="page">${i }</a>
+			#end
+		#end
+	#end
+	<a href="javascript:void(0);" onclick="goPage('${pager.currentPage==pager.totalPage?pager.totalPage:pager.currentPage+1}');" class="pageNext" >下一页</a>						
+	<span>共${pager.totalPage}页</span>
+    <span>转<input type="text" name="gopage" id="gopage" onkeyup="value=value.replace(/[^\d]/g,'')" onblur="javascript:validInput($(this).val(),'${pager.totalPage}')">页</span>
+    <a href="javascript:void(0)" class="surepage">确认</a>
+</div>
+
+<script>
+	function validInput(val,max){
+		if(val>max){
+			$("#gopage").val(max);
+		}
+		if(val<=0){
+			$("#gopage").val(1);
+		}
+	}
+</script>

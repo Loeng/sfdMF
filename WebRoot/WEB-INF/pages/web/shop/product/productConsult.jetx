@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>咨询</title>
+<link href="${webroot}/resources/web/storeweb/css/proDetail.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/commons/js/tools.js"></script>
+<script src="${webroot}/resources/web/webcommon/js/alixixi_com.js"></script>
+<script src="${webroot}/resources/web/storeweb/js/base.js"></script>
+<script src="${webroot }/resources/web/storeweb/js/HJCproConsult.js"></script>
+</head>
+
+<body>
+<input type="hidden" id="ctxpath" value="${webroot}" />
+<input type="hidden" name="ctxpath" id="ctxpath" value="${ctxpath}" />
+<input type="hidden" name="channelType" id="channelType" value="0" />
+
+#define(com.ekfans.base.product.model.Product p)
+#define(List<com.ekfans.base.store.model.Consult> cs)
+<div class="wrapper">
+  <div class="header" id="channelTop"></div>
+</div>
+<div class="wrapper"> 
+  <!--商品信息-->
+  <div class="others"  style="margin-top:38px;">
+    <h3>商品信息</h3>
+    <div class="goodsInfo">
+      <div class="g-img">  <img width="170px" #if(p.recommendPicture3 != "") src="${webroot}${p.recommendPicture3}" #else src="${webroot}/resources/store/images/imgdefault.jpg" #end  alt="${p.name}" title="${p.name}"> </div>
+      <div class="g-item">${p.name}</div>
+      <div class="g-item"> 价格：<span class="orange">￥${p.unitPrice}</span> </div>
+      <div class="g-item"> 评价数：${proAppraiseSum}条 </div>
+    </div>
+  </div>
+  <!--商品信息 end-->
+	<input type="hidden" id="ctxpath" value="${webroot}">
+	<input type="hidden" id="proId" value="${p.id}">
+  <div class="main"> 
+    <!-- 商品 -->
+    <div class="tabZone">
+      <ul class="g-Tabs tabCheck">
+        <li class="cur"><a href="javascript:void(0)">商品咨询</a></li>
+        <li class="return"> <a href="${webroot}/01-${proId}.html">返回商品页</a> </li>
+      </ul>
+      <!-- 商品咨询 -->
+      <div class="checkLayer proDetail" id="loadVessel">
+        <div class="productItem">
+          <p>咨询前请选搜索，方便又快捷：</p>
+          <!-- 商品搜索 -->
+          <div class="consultSearch">
+            <input type="search" class="consultSearchBox" name="consultContent" value="${consultContent}" placeholder="请输入咨询关键字" />
+            <a href="javascript:void(0)" class="btnOrange btnConsultSearch" onclick="searchConsult();">搜索</a> </div>
+          <div class="prompt">
+            <p>温馨提示:因厂家更改产品包装、产地或者更换随机附件等没有任何提前通知，且每位咨询者购买情况、提问时间</p>
+            <p>等不同，为此以下回复仅对提问者3天内有效，其他网友仅供参考！若由此给您带来不便请多多谅解，谢谢！</p>
+          </div>
+          <!-- end 商品搜索 --> 
+        </div>
+        <!-- 网友问答 -->
+        #if(cs!=null && cs.size()>0)
+         #for(com.ekfans.base.store.model.Consult c:cs)
+          <div class="productItem">
+              <ul>
+                  <li>
+                      <span>会员：</span> 
+                      <a href="javascript:void(0)">${c.creatorName}</a>
+                      <span>${c.createTime}</span>
+                  </li>
+                  <li>
+                      <span>咨询内容： </span>
+                      <span class="problem">
+                          ${c.questionAnswer}
+                      </span>
+                  </li>
+                  #if(c.childList != null)
+	                  #for(com.ekfans.base.store.model.Consult cc:c.childList)
+	                  <li class="orange">客服回复： ${cc.questionAnswer}</li>
+	                  #end
+                  #end
+              </ul>
+          </div>
+          #end
+          <!-- end 网友问答 -->
+          <div class="clear"></div>
+           <!-- 咨询分页 -->
+                 #define(com.ekfans.pub.util.Pager pager)
+			      <input type="hidden" name="pageNum" value="${currentPage }">
+			      <div class="tabZone">
+				      <div class="published"></div>        
+							<div class="listPage">
+										 <a href="javascript:void(0);" onclick="goPage('1');" class="pageIndex" value="1">《</a>
+											#if(pager.currentPage == 1)
+												<a href="javascript:void(0);" class="pageIndex">&lt;</a> 
+											#else
+												<a href="javascript:void(0);" class="pageIndex" onclick="goPage('${pager.currentPage-1 }');"   value="${pager.currentPage-1 }" >&lt;</a>
+											#end
+											
+											#if(pager.totalPage>6)
+												#if(pager.currentPage-2>1 && pager.currentPage+3<pager.totalPage)
+													<a>..</a>
+													#for(int i : iterator(pager.currentPage-1,pager.currentPage+1))
+														#if(pager.currentPage==i)
+															  <a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="pageIndex nowPage" >${i }</a>
+														#else
+															  <a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="pageIndex" >${i }</a>
+														#end
+													#end
+													<a>..</a>
+													#for(int i : iterator(pager.totalPage-2,pager.totalPage))
+														<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="pageIndex" >${i }</a>
+													#end
+											   #elseif(pager.currentPage-2<=1)
+													#for(int i : iterator(1,3))
+														#if(pager.currentPage==i)
+															<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="pageIndex nowPage" >${i }</a>
+														#else
+															<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="pageIndex" >${i }</a>
+														#end
+													#end
+													<a>..</a>
+													#for(int i : iterator(pager.totalPage-2,pager.totalPage))
+														<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="pageIndex" >${i }</a>
+													#end
+											   #else
+													<a>..</a>
+													#for(int i : iterator(pager.totalPage-5,pager.totalPage))
+														#if(pager.currentPage==i)
+															<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="pageIndex nowPage" >${i }</a>
+														#else
+															<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="pageIndex" >${i }</a>
+														#end
+													#end
+												#end
+											#else
+												#for(int i : iterator(1,pager.totalPage))
+													#if(pager.currentPage==i)
+														<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="pageIndex nowPage" >${i }</a>
+													#else
+														<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="pageIndex" >${i }</a>
+													#end
+												#end
+											#end
+											
+											#if(pager.currentPage==pager.totalPage)
+												<a href="javascript:void(0);" class="btn">&gt;</a>
+											#else
+												<a href="javascript:void(0);" onclick="goPage('${pager.totalPage+1 }');" class="pageIndex">&gt;</a>
+											#end
+											
+											<a  href="javascript:void(0);" onclick="goPage('${pager.totalPage }');" class="pageIndex" >》</a>
+							</div>
+					  </div>
+
+        #end
+      </div>
+       
+	    <!-- end 商品 --> 
+	    
+	    <!-- 发表咨询 -->
+	   	<div class="consultingDiv"> 
+	                <h3>发表咨询</h3>
+	                <div class="prompt">
+	                    <p>声明：您可在购买前对产品包装、颜色、运输、库存等方面进行咨询，我们有专人进行回复！因厂家随时会更改一些产品的包装、颜色、产地等参数，所以该回复仅在当时对提前</p>
+	                    <p>者有效，其他网友仅供参考！咨询回复的工作时间为：周一至周五，9:00至18:00，请耐心等待工作人员回复。</p>
+	                </div>
+	                <div>
+	                    <label style="vertical-align: top;">咨询内容</label>
+	                    <textarea name="consultContent" class="area1"></textarea>
+	                </div>
+	                <div class="c-item">
+	                    <a href="javascript:void(0)" onclick="publishConsult();" class="btnOrange btnConsultSearch">提 交</a>
+	                </div>
+	    </div>
+	    <!-- end 发表咨询 --> 
+  	</div>
+  	<div class="clear"></div>
+	</div>
+	<div class="clear"></div>
+</div>
+<div class="bottomSplit"></div>
+<!--页脚-->
+#include("../channel/commons/buttom.jetx")
+<!--页脚 end-->
+</body>
+</html>

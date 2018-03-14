@@ -1,0 +1,272 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>新增子账号</title>
+	<meta name="keywords" content="鑫裕环保" />
+	<meta name="description" content="鑫裕环保" />
+	<link rel="shortcut icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/addGoods.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/proAdd.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/tools.css" />
+<style>
+/*复选框*/
+.check{display:block; width:10px; height:10px; border:solid 1px #d8d8d8; background:#fff; position:relative; cursor:pointer; left:0;}
+.checked em{background:#424242; width:6px; height:6px; display:block; margin:2px; overflow:hidden;}
+.check input{width:12px; height:12px; position:absolute; z-index:1; opacity:0;}
+
+/*权限管理*/
+.limits{padding:10px 10px 10px 10px; margin:0 -1px -1px 0; width:164px; border:solid 1px #e4e4e4; background:#f9f9f9; float:left;}
+.limitItem{height:24px; line-height:24px; position:relative; cursor:pointer; font-size:12px; font-weight:normal;}
+.limitItem .check,.limitAll .check{float:left; margin:6px 6px 0 0;}
+.limitList{padding-left:16px;}
+.limitAll{height:24px; line-height:24px; position:relative; cursor:pointer; font-size:12px; font-weight:normal; padding:10px 0; font-size:14px;}
+.limitAll .check{margin-top:8px;}
+</style>
+</head>
+
+<body>
+#define(List<com.ekfans.base.store.model.StorePurview> purviewList)
+#define(Map<String,Boolean> purviewMap)
+#define(com.ekfans.base.user.model.Account account)
+<input type="hidden" name="nameCheck" id="nameCheck" value="true"/>
+<input type="hidden" id="updateStatus" value="${updateStatus}"/>
+
+<form action="${webroot}/store/account/save" method="post" id="accountForm">
+	<input type="hidden" name="id" value="${account.id}"/>
+	<input type="hidden" name="storeId" value="${account.storeId}"/>
+	<input type="hidden" name="createTime" value="${account.createTime}"/>
+	<input type="hidden" name="updateTime" value="${account.updateTime}"/>
+	<input type="hidden" name="type" value="${account.type}"/>
+	<input type="hidden" name="status" value="${account.status}"/>
+	<input type="hidden" name="orgId" value="${account.orgId}"/>
+	<input type="hidden" name="orgId" value="${account.orgId}"/>
+	<input type="hidden" name="headPortrait" value="${account.headPortrait}"/>
+		
+	<!-- 右侧主体 -->
+	<div class="rightContent">
+		<div class="contentTit budong borderColor">
+			<h3>添加子账号</h3>
+			<a href="javascript:goList();" class="btnBase btnCancel">取消</a>
+			<a href="javascript:commitForm();" class="btnBase btnSave">保存</a>
+			<div class="clear"></div>
+		</div>
+		<div class="form borderColor">
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>登录邮箱</dt>
+				<dd>
+					<input type="text" name="name" value="${account.name}" class="textBox box212" placeholder="邮箱" onblur="nameCheck()" />
+					<span class="errorText" style="display:none;">请输入邮箱</span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>登录密码</dt>
+				<dd>
+					<input type="password" name="password" value="${account.password}" class="textBox box212" placeholder="6-32个字符" onblur="passwordCheck()" />
+					<span class="errorText" style="display:none;">请输入密码</span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt>部门名称</dt>
+				<dd>
+					<input type="text" name="department" value="${account.department}" class="textBox box212" placeholder="1-30个字符" />
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>昵称</dt>
+				<dd>
+					<input type="text" name="contactName" value="${account.contactName}" class="textBox box212" placeholder="1-30个字符" onblur="contactNameCheck()" />
+					<span class="errorText" style="display:none;">请输入昵称</span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt>联系电话</dt>
+				<dd>
+					<input type="text" name="contactPhone" value="${account.contactPhone}" class="textBox box212" placeholder="1-30个字符" />
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem formLine">
+				<dt>备注</dt>
+				<dd><textarea name="note">${account.note}</textarea></dd>
+				<dd class="clear"></dd>
+			</dl>
+			<h3 style="font-size:14px; font-weight:700;">权限配置</h3>
+			<div id="xuan">
+				<h3 class="limitAll"><label><span class="check"><em><input name="" type="checkbox" value=""></em></span>全选</label></h3>
+				#for(com.ekfans.base.store.model.StorePurview purview:purviewList)
+					<div class="limitList limits">
+						<h3 class="limitItem"><label><span class="check #if(purviewMap?[purview.id]) checked #end" ><em><input name="purviewId" type="checkbox" #if(purviewMap?[purview.id]) checked #end value="${purview.id}"></em></span>${purview.className}</label></h3>
+						#if(purview.childList != null && purview.childList.size()>0)
+							<div class="limitList">
+								#for(com.ekfans.base.store.model.StorePurview childPurview:purview.childList)
+									<h3 class="limitItem"><label><span class="check #if(purviewMap?[childPurview.id]) checked #end"><em><input name="purviewId" type="checkbox" #if(purviewMap?[childPurview.id]) checked #end value="${childPurview.id}"></em></span>${childPurview.className}</label></h3>
+									#if(childPurview.childList != null && childPurview.childList.size()>0)
+										<div class="limitList">
+											#for(com.ekfans.base.store.model.StorePurview threePurview:childPurview.childList)
+												<h3 class="limitItem"><label><span class="check #if(purviewMap?[threePurview.id]) checked #end"><em><input name="purviewId" type="checkbox" #if(purviewMap?[threePurview.id]) checked #end" value="${threePurview.id}"></em></span>${threePurview.className}</label></h3>
+											#end
+										</div>
+									#end
+								#end
+							</div>
+						#end
+					</div>
+				#end
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+	<!-- 右侧主体 -->
+</form>
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+<script src="${webroot}/resources/commons/js/tools.js"></script>
+<script type="text/javascript">
+if("true" == $("#updateStatus").val()){
+	if($("#pageType").val() == "add"){
+		econfirm("保存成功，是否继续新增?",goAdd,null,goList,null)
+	}else{
+		econfirm("保存成功，是否继续编辑?",null,null,goList,null)
+	}
+}
+
+$(document).ready(function(){ 
+	$(".limitItem").click(function(){
+		$main = $(this);
+		if($main.find("input").is(":checked")){
+			//下级都被选中
+			$main.find(".check").addClass("checked");
+			$main.find("input").attr("checked",true);
+			$main.next(".limitList").find("input").attr("checked",true);
+			$main.next(".limitList").find(".check").addClass("checked");
+			$main.parents().prev(".limitItem").find("input").attr("checked",true);
+			$main.parents().prev(".limitItem").find(".check").addClass("checked");
+		}else{
+			//下级都取消选中
+			$main.find(".check").removeClass("checked");
+			$main.find("input").attr("checked",false);
+			$main.next(".limitList").find(":checkbox").attr("checked",false);
+			$main.next(".limitList").find(".check").removeClass("checked");
+		}
+	});
+	$(".limitAll").click(function(){
+		$main = $(this);
+		if($main.find("input").is(":checked")){
+			//下级都被选中
+			$main.find(".check").addClass("checked");
+			$main.nextAll(".limitList").find("input").attr("checked",true);
+			$main.nextAll(".limitList").find(".check").addClass("checked");
+		}else{
+			//下级都取消选中
+			$main.find(".check").removeClass("checked");
+			$main.nextAll(".limitList").find(":checkbox").attr("checked",false);
+			$main.nextAll(".limitList").find(".check").removeClass("checked")
+		}
+	});
+	
+	var arr1 = new Array();
+	for(i = 0; i < $(".limits").length; i++){
+		arr1[i] = $(".limits").eq(i).height();
+	}
+	var maxHeight = Math.max.apply(null, arr1);
+	$(".limits").css("height", maxHeight + "px");
+});
+
+function nameCheck(){
+	var regexp = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	var obj = $("input[name='name']");
+	var name = $.trim($(obj).val());
+	
+	if(name == ""){
+		$(obj).next().html("请输入邮箱");
+		$(obj).next().show();
+		return false;
+	}
+	if(!regexp.test(name)){
+		$(obj).next().html("邮箱格式不正确");
+		$(obj).next().show();
+		return false;
+	}
+	var id = $("input[name='id']").val();
+	$.post("${webroot}/store/account/checkName",{id:id, name:name},function(data){
+		if(!data){
+			$(obj).next().html("该邮箱已存在！");
+			$(obj).next().show();
+		}else{
+			$(obj).next().html("");
+			$(obj).next().hide();
+		}
+	});
+	return true;
+}
+
+function passwordCheck(){
+	var obj = $("input[name='password']");
+	var password = $.trim($(obj).val());
+	
+	if(password == ""){
+		$(obj).next().html("请输入密码");
+		$(obj).next().show();
+		return false;
+	}
+	if(password.length < 6 || password.length > 32){
+		$(obj).next().html("密码长度6-32位字符");
+		$(obj).next().show();
+		return false;
+	}
+	$(obj).next().hide();
+	return true;
+}
+
+function contactNameCheck(){
+	var obj = $("input[name='contactName']");
+	var contactName = $.trim($(obj).val());
+	
+	if(contactName == ""){
+		$(obj).next().html("请输入昵称");
+		$(obj).next().show();
+		return false;
+	}
+	if(contactName.length > 30){
+		$(obj).next().html("管理员1-30个字符");
+		$(obj).next().show();
+		return false;
+	}
+	$(obj).next().hide();
+	return true;
+}
+	
+
+function commitForm(){
+	if(nameCheck() && passwordCheck() && contactNameCheck()){
+		var id = $("input[name='id']").val();
+		var name = $("input[name='name']").val();
+		$.post("${webroot}/store/account/checkName",{id:id, name:name},function(data){
+			if(!data){
+				$("input[name='name']").next().html("该邮箱已存在！");
+				$("input[name='name']").next().show();
+			}else{
+				$("input[name='name']").next().hide();
+				$("#accountForm").submit();
+			}
+		});
+	}
+}
+
+function goAdd(){
+	location.href="${webroot}/store/manager/ACCOUNT_DEPARTMENT_ADD";
+}
+function goList(){
+	location.href="${webroot}/store/manager/ACCOUNT_DEPARTMENT_LIST";
+}
+
+</script>
+</body>
+</html>

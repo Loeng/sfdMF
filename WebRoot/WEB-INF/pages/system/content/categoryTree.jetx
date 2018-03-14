@@ -1,0 +1,11 @@
+#define(List<com.ekfans.base.content.model.ContentCategory> categories)
+#if(categories!= null && categories.size()>0)
+		#for(com.ekfans.base.content.model.ContentCategory category: categories)
+			<span class="fl_title" id="p${category.id}" onclick="showChilds('${category.id}')">
+				${category.name}
+				<label id="l${category.id}" onclick="showCategory('${category.id}')">选择</label>
+				<em class="borderLine"></em>
+			</span>
+			<div id="${category.id}" class="fl_in"></div>
+		#end
+#end

@@ -1,0 +1,1030 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>查看危废订单</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css">
+
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.form.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+<script src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+<script src="${webroot}/resources/commons/js/upload.js"></script>
+	<script src="${webroot}/resources/commons/js/layer/layer.js"></script>
+<script src="${webroot}/resources/commons/js/pay.js"></script>
+<style>
+.rightContent .form h3{height:35px; border-bottom:solid 1px #e5e5e5; margin-bottom:20px;}
+.rightContent .form h3 em{display:inline-block; padding:0 30px; height:30px; line-height:30px; }
+.formItem{margin-bottom:20px;}
+.formItem .textBox{display:inline-block;}
+.formItem .hint{display:inline-block; padding-left:5px;}
+.formItem4{width:230px; margin-right:12px;}
+.formItem5{width:150px; margin-right:10px;}
+.formItem dd{min-height:28px;}
+.formItem5 dt{width:36px; margin-right:10px;}
+div.formItem5{width:335px;}
+.shouzhan{display:block; float:right; line-height:30px; color:#027FAC; cursor:pointer; font-size:14px;}
+.formItem5 .fileUpload{width:348px;}
+.formItem5 .btnUploadNo,.formItem5 .btnUpload{width:74px;}
+.formItemJcbg{width:335px;}
+.formItemJcbg dd{background:#f0f0f0; padding-left:8px; height:30px; min-height:30px; width:223px; padding-right:10px; overflow:hidden;}
+.orderItemBtn{border-bottom:solid 1px #e4e4e4; padding:12px 0; text-align:right;}
+.orderItemBtn .btnBase{display:inline-block;}
+.orderItemHeader .formItem{margin-bottom:15px;}
+.orderItemHeader{padding:12px 0 0 0;}
+.btnOrange{background:#FF6B49;}
+.btnOrange:hover{background:#E12700; color:#fff;}
+.orderStyle2 .orderItemBtn{float:right; padding:0; border:none; margin-top:-10px;}
+.orderStyle2 div.formItem5{margin-left:10px;}
+.orderItem{border-bottom:solid 1px #e4e4e4;}
+
+
+.box120{width:118px;}
+.btnBase{padding:0 18px;}
+.infoTitle{height:28px; line-height:28px; padding-left:20px; font-size:14px;}
+.infoTitle em{padding-right:20px;}
+.lineSplit{height:1px; background:#e4e4e4; margin-bottom:20px;}
+
+
+.bgColor{background:#393;color:#fff;}
+.companyItem{margin-bottom:20px;}
+.truckList{width:100%;margin-bottom:10px;}
+.truckList th{padding:0px 10px; height:35px;line-height:35px; font-size:14px;}
+.truckList td{padding:8px 10px; line-height:22px; border-bottom:1px #DCDCDD solid;color:#7D7C7D; max-width:105px; overflow:hidden; text-align:center;}
+.truckList .tabRight{text-align:right;}
+.truckList .tabLeft{text-align:left;}
+.truckList td:hover{background:#F3F3F3;}
+
+
+
+.infoTitle{height:28px; line-height:28px; padding-left:20px;}
+.infoTitle em{padding-right:20px;}
+.childItem{padding-top:20px;}
+.company{position:relative; padding-left:10px;}
+.company .itemCheck{position:absolute; top:28px; left:10px; display:block; z-index:2;}
+.itemControl{float:left;}
+.itemContent{display:none;}
+.removePerson{background:url(${webroot}/resources/userCenter/commons/images/close1.png) no-repeat center center; width:11px; height:11px; display:inline-block;}
+.lineSplit{height:1px; background:#e4e4e4; margin-bottom:20px;}
+.pointTop{border-top:solid 1px #e4e4e4; padding-top:20px; position:relative; margin-top:20px;}
+.pointIcon{display:block; background:url(${webroot}/resources/userCenter/commons/images/point_top.png) no-repeat; width:17px; height:10px; position:absolute; top:-10px; left:40px;}
+.grayBg{background:#f0f0f0; border-bottom:solid 1px #e4e4e4;}
+.grayBg .pointIcon{opacity:0.5;}
+.supercargo input,.driver input{float:left; display:block;}
+span.pp{cursor:pointer; display:block; float:left; width:27px; height:28px; border:1px solid #e0e3ea; margin-left:-1px; position:relative; background:url(${webroot}/resources/userCenter/commons/images/rightpoint2.png) no-repeat center center;}
+span.pp:hover{background:url(${webroot}/resources/userCenter/commons/images/rightpoint.png) #999 no-repeat center center; width:29px; height:30px; border:none;}
+
+
+.shopListAlert{top:20%; bottom:20%;}
+.shopListAlert .shopListContent{width:100%;}
+.shopListAlert .pageSize{padding-right:8px;}
+.apLayer .btn{padding: 0 0 20px 110px;}
+.shopSearch{padding:16px 10px 0 16px;}
+.shopSearch dl{width:320px; float:left;}
+.shopListAlert div.btn a{float:none;}
+.shopListAlert .ht_page{margin-bottom:20px; padding-right:20px;}
+.shopTable{width:96%; margin:0 2% 20px 2%; border-collapse:collapse; font-size:12px;}
+.shopTable th{text-align:center; border-top:solid 1px #333; border-bottom:solid 1px #333; height:20px; line-height:20px; padding:8px 0;}
+.shopTable td{text-align:center; border-top:solid 1px #dedede; border-bottom:solid 1px #dedede; height:30px; line-height:30px; padding:8px 0;}
+
+.alertBrand{max-height:440px;}
+.classItem{width:30%; margin:0 1.5%; float:left; height:50px; line-height:50px; border-bottom:solid 1px #e4e4e4;}
+.classItem label{display:block;}
+.classItem input{display:block; float:left; margin:19px 10px 0 8px;}
+.alertBrand .pageSize{padding:20px 20px 0 0;}
+
+.apLayer .btn{padding: 0 0 20px 95px;}
+.shopSearch{padding:16px 10px 0 0;}
+.shopSearch dl{width:320px; float:left;}
+.shopSearch dt{height:20px; line-height:20px;}
+
+
+
+
+.tabList{width:100%;margin-bottom:20px; background:#eeefef; border-top:solid 1px #e4e4e4;}
+.tabList th{padding:0px 10px; height:35px;line-height:35px;color:#292729; font-size:14px; border-bottom:solid 1px #e4e4e4;}
+.tabList td{padding:8px 7px; line-height:22px; color:#7D7C7D; max-width:105px; overflow:hidden; text-align:center;}
+.tabList .tabRight{text-align:right;}
+.tabList .tabLeft{text-align:left;}
+.tabList tr:hover{background:#F3F3F3;}
+.tabList input{display:inline-block; margin-right:6px;}
+.orderTotal{height:40px; line-height:40px; color:#777; font-size:14px; text-align:right; margin-bottom:20px;}
+.orderTotal em{font-size:24px; padding-right:6px;}
+input.orange,input.green{text-align:right; padding-right:6px;}
+
+.payApLayer{width:648px; margin-left:-324px; position:fixed; top:18%; left:50%; z-index:101;background:#fff;overflow:hidden; padding-bottom:30px;display:none;}
+.blueTit{width:100%; height:38px; background:#0085FC; position:relative;}
+.payApClose{background:url(${webroot}/resources/web/images/icon_close_white.png) no-repeat center center; display:block; width:28px; height:28px; position:absolute; top:5px; right:10px; cursor:pointer;}
+.payApContent{background:url(${webroot}/resources/web/images/icon_waring.png) no-repeat 53px 30px; padding:30px 0 0 216px;}
+.payApContent h4{height:30px; line-height:30px; font-size:24px; color:#636363; margin-bottom:24px;}
+.payText{line-height:28px; font-size:16px; color:#FF5400; margin-bottom:20px;}
+.payBtnBlue{background:#0085FC; padding:0 25px; height:35px; line-height:35px; font-size:16px; color:#fff; display:inline-block; margin-right:20px;}
+.payBtnBlue:hover{background:#00549F; color:#fff;}
+.backLink{display:block; margin-top:24px; font-size:14px; line-height:22px; height:22px; background:url(${webroot}/resources/web/images/icon_pointleft.png) no-repeat left center; padding-left:22px; color:#707070; float:left;}
+
+/*银行账户*/
+.bankList{margin-bottom:30px;}
+.bankList li{width:280px; background:#f5f5f5; border:solid 1px #d7d7d7; float:left; margin:0 30px 12px 0; cursor:pointer; padding:5px;}
+.bankList li.cur{border:solid 1px #FF6B49; background:#fff;}
+.bankList li span{padding-left:5px; display:block; line-height:22px;}
+.bankList li em{color:#999; width:50px; display:inline-block; text-align:right; padding-right:20px;}
+.bankList .fullBank{border-bottom:#e5e5e5 solid 1px; padding-bottom:5px; margin-bottom:5px;}
+.bankList .num{letter-spacing:2px;}
+.bankList .cardAdd{border:dashed 1px #72A8D7; background:url(${webroot}/resources/userCenter/commons/images/icon_add2.png) no-repeat center 20px; padding-top:50px; height:54px; line-height:30px; text-align:center; color:#0087CB; font-size:14px;}
+.apLayer .errorText{background:none;}
+
+#fukuan .apClose{background:url(${webroot}/resources/commons/images/del3.png) no-repeat center center; top:21px; right:21px;}
+#fukuan .apTit{height:60px; line-height:60px; background:#FDF5E5; margin:0; border-bottom:none;}
+#fukuan h3{display:inline-block; margin-right:50px;}
+#fukuan .yue{padding-right:20px;}
+.yue em{color:#ff4100; padding-left:8px;}
+.warning{height:58px; line-height:58px; background:#FFEEE8; font-size:20px; width:400px; margin:0 auto; text-align:center; color:#FF6533;}
+.warning a{color:#33A7FF; margin:0 5px;}
+.warning a:hover{color:#0073CA;}
+.apLayer .errorText{background:none;}
+.apLayer .formLine{min-height:55px; padding-left:13%; width:87%; margin-top:20px;}
+#fukuan{width:600px; height:300px; left:50%; margin-left:-300px;}
+</style>
+</head>
+<body>
+<!--右侧主体-->
+#define(com.ekfans.base.wfOrder.model.WfOrder wfOrder)
+#define(List<com.ekfans.base.wfOrder.model.WfOrderPrice> prices)
+#define(List<com.ekfans.base.wfOrder.util.WfOrderTransStore> storeList)
+#define(List<com.ekfans.base.wfOrder.model.WfOrderLog> orderLogs)
+#define(com.ekfans.base.wfOrder.model.Contract contract)
+#define(com.ekfans.base.store.model.Store Store)
+#set(Boolean isLast = (wfOrder.status == "07" || wfOrder.status == "08" || wfOrder.status == "09" || wfOrder.status == "10"))
+<input id="ctxpath" type="hidden" value="${webroot}"/>
+<input id="webroot" type="hidden" value="${webroot}"/>
+	<input type="hidden" name="wfOrderId" value="${wfOrder.id}"/>
+	<input type="hidden" name="payPrice" value="${wfOrder.yfPrice}">
+	<div class="rightContent">
+		<div class="contentTit budong borderColor">
+			<h3>查看危废品订单</h3>
+			
+			#if(pageType == "1" )
+				<a href="javascript:void(0)" onclick="orderSure()" class="btnBase btnSave">确认订单信息</a>
+			#elseif(pageType == "2")
+				<a href="javascript:void(0)" onclick="orderSureTrans()" class="btnBase btnSave">确认物流车辆信息</a>
+			#end
+			#if(wfOrder.status == @(com.ekfans.base.wfOrder.util.WfOrderHelper).WFORDER_STATUS_WAIT_PAY_YF)
+    		#if((!wfOrder.yfType && "0" == viewType && wfOrder.buyId==storeId) || (wfOrder.yfType && "1" == viewType && wfOrder.saleId==storeId))
+        	<!-- <a href="${webroot}/store/order/payYFPrice/${wfOrder.id}/${viewType}/3" target="_blank" onclick="payYFPrice()" class="btnBase btnSave">立即支付预付款</a> -->
+        	<a href="javascript:void(0);" onclick="orderPay('${wfOrder.id}','${@(com.ekfans.base.wfOrder.model.OrderPayLog).ORDER_TYPE_WF}','${@(com.ekfans.base.wfOrder.model.OrderPayLog).PAY_TYPE_YF}')" class="btnBase btnSave">立即支付预付款</a>
+				#end
+    	#end
+    	
+    	#if(wfOrder.status == @(com.ekfans.base.wfOrder.util.WfOrderHelper).WFORDER_STATUS_WAIT_FH && "1" == viewType && "4" == pageType && wfOrder.saleId == storeId)
+    		<a href="javascript:void(0)" onclick="orderFh()" class="btnBase btnSave">确认发货</a>
+    	#end
+    	
+    	#if(wfOrder.status == @(com.ekfans.base.wfOrder.util.WfOrderHelper).WFORDER_STATUS_WAIT_SH && "0" == viewType && "5" == pageType && wfOrder.buyId == storeId)
+    		<a href="javascript:void(0)" onclick="orderSh()" class="btnBase btnSave">确认收货</a>
+    	#end
+    	
+    	#if((wfOrder.status == @(com.ekfans.base.wfOrder.util.WfOrderHelper).WFORDER_STATUS_WAIT_SURE_PRICE || wfOrder.status == @(com.ekfans.base.wfOrder.util.WfOrderHelper).WFORDER_STATUS_WAIT_PW) && "0" == viewType && "6" == pageType && wfOrder.buyId == storeId)
+    		<a href="javascript:void(0)" onclick="orderSubPrice()" class="btnBase btnSave">提交最终品位并确认价格信息</a>
+    	#end
+    	
+    	
+    	#if(wfOrder.status == @(com.ekfans.base.wfOrder.util.WfOrderHelper).WFORDER_STATUS_WAIT_SURE_PRICE && "1" == viewType && wfOrder.saleId == storeId)
+    		<a href="javascript:void(0)" onclick="queRenPrice()" class="btnBase btnSave">确认价格信息</a>
+    	#end
+    	
+    	#if(wfOrder.status == @(com.ekfans.base.wfOrder.util.WfOrderHelper).WFORDER_STATUS_WAIT_PAY)
+				
+				#if((wfOrder.buyId == storeId && !wfOrder.yfType && wfOrder.listStatus != "1"&& wfOrder.listStatus != "3")||(wfOrder.saleId == storeId && wfOrder.yfType && wfOrder.listStatus != "1"&& wfOrder.listStatus != "3"))
+					#if((wfOrder.totalPrice.doubleValue() - wfOrder.payPrice.doubleValue())>=0)
+						<!-- <a href="${webroot}/store/order/payYFPrice/${wfOrder.id}/${viewType}/${pageType}" target="_blank" onclick="jieSuan()" class="btnBase btnSave">立即结算</a> -->
+						<a href="javascript:void(0);" onclick="orderPay('${wfOrder.id}','${@(com.ekfans.base.wfOrder.model.OrderPayLog).ORDER_TYPE_WF}','${@(com.ekfans.base.wfOrder.model.OrderPayLog).PAY_TYPE_JS}')" class="btnBase btnSave">立即结算</a>
+						
+						
+					#else
+						<!--
+						#if(canContinue)
+							<a href="javascript:void(0)" onclick="shenqing('1')" class="btnBase btnSave">申请转移到下批订单</a>
+							<a href="javascript:void(0)" onclick="shenqing('0')" class="btnBase btnSave">申请退款</a>
+						#else
+							<a href="javascript:void(0)" onclick="chosePayCount()" class="btnBase btnSave">选择退款账户</a>
+						#end
+						-->
+						<!--
+						#if(canContinue)
+							<a href="javascript:void(0)" onclick="shenqing('1')" class="btnBase btnSave">申请转移到下批订单</a>
+						#end
+						-->
+						<a href="javascript:void(0)" onclick="shenqing('0')" class="btnBase btnSave">申请退款</a>
+					#end
+				#elseif((wfOrder.buyId == storeId && wfOrder.yfType)||(wfOrder.saleId == storeId && !wfOrder.yfType))
+					#if(wfOrder.listStatus == "1")
+						<a href="javascript:void(0)" onclick="tkAlter('0')" class="btnBase btnSave">驳回退款申请</a>
+						<!-- <a href="${webroot}/store/order/tuikuan/${wfOrder.id}/${viewType}/${pageType}" target="_blank" onclick="tuikuan()" class="btnBase btnSave">退款</a>-->
+						<a href="javascript:void(0);" onclick="orderPay('${wfOrder.id}','${@(com.ekfans.base.wfOrder.model.OrderPayLog).ORDER_TYPE_WF}','${@(com.ekfans.base.wfOrder.model.OrderPayLog).PAY_TYPE_JSTK}')" class="btnBase btnSave">退款</a>
+					#elseif(wfOrder.listStatus == "3")
+						<!-- <a href="${webroot}/store/order/tuikuan/${wfOrder.id}/${viewType}/${pageType}" target="_blank" onclick="tuikuan()" class="btnBase btnSave">退款</a> -->
+						<a href="javascript:void(0);" onclick="orderPay('${wfOrder.id}','${@(com.ekfans.base.wfOrder.model.OrderPayLog).ORDER_TYPE_WF}','${@(com.ekfans.base.wfOrder.model.OrderPayLog).PAY_TYPE_JSTK}')" class="btnBase btnSave">退款</a>
+					#end
+				#end
+    	#end
+    	
+    	
+			<a href="javascript:returnList();" class="btnBase btnCancel">返回</a>
+			<div class="clear"></div>
+		</div>
+		<div class="form borderColor">
+			
+			<!--
+			由于引进了长沙银行的交易监管系统，所以这里不需要确认收款账户了！
+			#if(wfOrder.status == @(com.ekfans.base.wfOrder.util.WfOrderHelper).WFORDER_STATUS_WAIT_PAY)
+				
+				#if((wfOrder.buyId == storeId && !wfOrder.yfType && wfOrder.listStatus != "1"&& wfOrder.listStatus != "3")||(wfOrder.saleId == storeId && wfOrder.yfType && wfOrder.listStatus != "1"&& wfOrder.listStatus != "3"))
+					#if((wfOrder.totalPrice.doubleValue() - wfOrder.payPrice.doubleValue()) < 0)
+						#define(com.ekfans.base.user.model.BankBinding bankBinding)
+						<div id="loadReturnBanks"></div>
+						<input id="returnPayId" type="hidden" name="returnPayId" value="${wfOrder.returnPayId}"/>
+						<div class="clear"></div>
+						<script>
+							$("#loadReturnBanks").load("${webroot}/store/order/loadBanks",function(){
+								$("#loadReturnBanks").find("h2").replaceWith("<h3><em class=\"borderBottomColor\">退款账户信息</em></h3>");
+							});
+						</script>
+					#end
+				#elseif(wfOrder.listStatus == "1" || wfOrder.listStatus == "3")
+						#define(com.ekfans.base.user.model.BankBinding returnBinding)
+						<h3>
+							<em class="borderBottomColor">退款账户信息</em>
+						</h3>
+						<ul class="bankList" style="margin-left:50px;">
+							<li>
+								<span class="bank"><em>开户行</em>${returnBinding != null?returnBinding.bankName:""}</span>
+								<span class="fullBank"><em>全称</em>${returnBinding != null?returnBinding.address:""}</span>
+								<span class="num"><em>帐号</em>${returnBinding != null?returnBinding.cardNo:""}</span>
+								<span class="name"><em>户名</em>${returnBinding != null?returnBinding.fullName:""}</span>
+							</li>
+						</ul>
+						<div class="clear"></div>
+				#end
+    	#end
+			-->
+			
+			
+			<!--
+			理由同上
+			#if(pageType=="1" && wfOrder.yfType)
+				#define(com.ekfans.base.user.model.BankBinding bankBinding)
+				
+				<h3>
+					<em class="borderBottomColor">收款账户信息</em>
+				</h3>
+				<ul class="bankList" style="margin-left:50px;">
+					<li>
+						<span class="bank"><em>开户行</em>${bankBinding != null?bankBinding.bankName:""}</span>
+						<span class="fullBank"><em>全称</em>${bankBinding != null?bankBinding.address:""}</span>
+						<span class="num"><em>帐号</em>${bankBinding != null?bankBinding.cardNo:""}</span>
+						<span class="name"><em>户名</em>${bankBinding != null?bankBinding.fullName:""}</span>
+					</li>
+				</ul>
+				<div class="clear"></div>
+			#end
+			-->
+			#if(pageType=="1")
+				<form id="f1">
+					<!--
+					#if(!wfOrder.yfType)
+						<div id="loadBanks"></div>
+						<input id="payBankId" type="hidden" name="payBankId" value=""/>
+						<div class="clear"></div>
+						<script>
+							$("#loadBanks").load("${webroot}/store/order/loadBanks",function(){
+								$("#loadBanks").find("h2").replaceWith("<h3><em class=\"borderBottomColor\">收款账户信息</em></h3>");
+							});
+						</script>
+					#end
+					-->
+					#if(contract.partyAORpartyB == "0")
+					<h3><em class="borderBottomColor">运输信息</em></h3>
+						<dl class="formItem">
+						  <dt>预估总里程</dt>
+						  <dd>${wfOrder.mileage}公里</dd>
+						  <dd class="clear"></dd>
+						</dl>
+						<dl class="formItem" style="width:100%;">
+						  <dt><em class="mustIco"></em>运输企业</dt>
+						  <dd style="width:80%;">
+					  		#define(List<com.ekfans.base.store.model.Store> transStores)
+					  		#define(Map<String,Boolean> storeMap)
+					  		#for(com.ekfans.base.store.model.Store st : transStores)
+					  			<label><input name="transportStoreId" #if(storeMap.get(st.id)) checked #end type="checkbox" value="${st.id}">&nbsp;${st.storeName}</label>&nbsp;&nbsp;
+					  		#end
+						  </dd>
+						  <dd class="clear"></dd>
+						</dl>
+					<div class="clear"></div>
+					#end
+				</form>
+			#end
+			#if(pageType == "2")
+				<h3><em class="borderBottomColor">运输信息</em></h3>
+				<dl class="formItem">
+					<dt>预估总里程</dt>
+					<dd>${wfOrder.mileage}公里</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<div class="clear"></div>
+				#for(com.ekfans.base.wfOrder.util.WfOrderTransStore transStore:storeList)
+					#if(transStore.storeId == storeId)
+						<form action="${webroot}/store/order/wforderTransSure"  method="post" id="subTransInfo">
+							<input type="hidden" name="wfOrderId" value="${wfOrder.id}"/>
+							<input type="hidden" name="mileage" value="${wfOrder.mileage}"/>
+							<div class="childItem company">
+								<dl class="formItem" style="width:400px; margin-right:20px;">
+									<dt>运输企业</dt>
+									<dd>${transStore.storeName}</dd>
+									<dd class="clear"></dd>
+								</dl>
+								<div class="itemControl">
+									<a href="javascript:void(0);" class="btnBase btnshoufang">收起</a>
+								</div>
+								<div class="clear"></div>
+								<div class="childItem pointTop itemContent" style="display:block;">
+									<div class="infoTitle"><em>车辆信息</em><a href="javascript:void(0);" class="btnBase addTruck">添加车辆</a></div>
+									<div id="showCars"></div>
+								</div>
+							</div>
+							<script>
+								$("#showCars").load("${webroot}/store/order/wfOrderTransLoad/${wfOrder.id}/${pageType}");
+							</script>
+						</form>
+					#else
+						<div class="companyItem">
+							<div class="infoTitle">
+								<span>运输企业：${transStore.storeName}</span>
+							</div>
+							<table border="0" cellspacing="0" cellpadding="0" class="truckList">
+								<tr class="bgColor">
+									<th>车牌号</th>
+									<th>装货数量</th>
+									<th>押运员</th>
+									<th>驾驶员</th>
+								</tr>
+								#set(List<com.ekfans.base.wfOrder.model.WfOrderTrans> transList = transStore.transList)
+								#for(com.ekfans.base.wfOrder.model.WfOrderTrans trans:transList)
+								<tr>
+									<td>${trans.carNum}</td>
+									<td>${trans.num}吨</td>
+									<td>${trans.supercargoName}</td>
+									<td>
+										#set(List<com.ekfans.base.wfOrder.model.WfOrderTransDriver> driverList = trans.drivers)
+										#for(com.ekfans.base.wfOrder.model.WfOrderTransDriver driver:driverList)
+											${driver.driverName}&nbsp;&nbsp;&nbsp;&nbsp;
+										#end
+									</td>
+								</tr>
+								#else
+									<tr>
+										<td colspan="6" style="color:red;">还未确定运输车辆信息</td>
+									</tr>
+								#end
+							</table>
+						</div>
+					#end
+				#end
+			#end
+			
+			
+			<h3><em class="borderBottomColor">订单基础信息</em></h3>
+			
+			<dl class="formItem">
+				<dt>订单状态</dt>
+				<dd>
+					${@(com.ekfans.base.wfOrder.util.WfOrderHelper).orderStatusMap[wfOrder.status]}
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			
+			<div class="clear"></div>
+			<dl class="formItem">
+				<dt>危废名称</dt>
+				<dd>
+					#if("2"!=viewType)
+						<a href="${webroot}/store/wfpscrap/skipView/${viewType}/${wfOrder.scrapId}" target="_blank" style="float:left;width:100%;">${wfOrder.wfpName}</a>
+						<span  style="float:left;color:gainsboro">点击查看危废申报详细信息。</span>
+					#else
+						${wfOrder.wfpName}
+					#end
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt>处置合同</dt>
+				<dd>
+					#if("2"!=viewType)
+						<a href="${webroot}/store/contract/contractById/0/${wfOrder.contractId}/${viewType}" target="_blank" style="float:left;width:100%;">${wfOrder.contractName}</a>
+						<span  style="float:left;color:gainsboro">点击查看合同详细信息。</span>
+					#else
+						${wfOrder.contractName}
+					#end
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt>产生方</dt>
+				<dd style="width:64%">${wfOrder.saleName}</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt>处置方</dt>
+				<dd style="width:64%">${wfOrder.buyName}</dd>
+				<dd class="clear"></dd>
+			</dl>
+			
+			<div class="clear"></div>
+      <h3><em class="borderBottomColor">订单详细信息</em></h3>
+			<dl class="formItem">
+				<dt>${@(com.ekfans.base.wfOrder.util.WfOrderHelper).checkOrderView(wfOrder.status)?"货物总重":"预计拉货量"}：</dt>
+				<dd style="width:64%">${wfOrder.wfpTotal}<span style="color:#333;">吨</span></dd>
+				<dd class="clear"></dd>
+			</dl>
+			
+			#if(viewType != "2")
+				<dl class="formItem">
+					<dt>预付款总额：</dt>
+					<dd style="width:64%">
+						<em class="orange">
+							#if(!wfOrder.yfType && wfOrder.saleId == storeId || wfOrder.yfType && wfOrder.buyId == storeId) 
+								收款 
+							#else
+								付款
+							#end
+							#if(viewType != "2") ${@(java.lang.String).format("%.2f",wfOrder.yfPrice)} #else 0.00 #end
+						</em>
+						<span style="color:#333;">元</span>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+			
+				#if(viewType == "0" && pageType == "6" && (wfOrder.status == @(com.ekfans.base.wfOrder.util.WfOrderHelper).WFORDER_STATUS_WAIT_PW || wfOrder.status == @(com.ekfans.base.wfOrder.util.WfOrderHelper).WFORDER_STATUS_WAIT_SURE_PW || wfOrder.status == @(com.ekfans.base.wfOrder.util.WfOrderHelper).WFORDER_STATUS_WAIT_SURE_PRICE) && wfOrder.buyId == storeId)
+		    	<!--提交最终品味含量/水分信息-->
+					<div id="loadContents"></div>
+					#if(!wfOrder.countType)
+						<script>
+							$("#loadContents").load("${webroot}/store/order/wfOrderPricesLoad",{wfOrderId:"${wfOrder.id}",showType:"edit1"});
+						</script>
+					#else
+						<script>
+							$("#loadContents").load("${webroot}/store/order/wfOrderPricesLoad",{wfOrderId:"${wfOrder.id}",showType:"edit2"});
+						</script>
+					#end
+				#elseif(@(com.ekfans.base.wfOrder.util.WfOrderHelper).checkOrderView(wfOrder.status))
+					#if(!wfOrder.countType || (wfOrder.countType&&wfOrder.ykjType))
+						<div id="loadContents"></div>
+						<script>
+							$("#loadContents").load("${webroot}/store/order/wfOrderPricesLoad",{wfOrderId:"${wfOrder.id}",showType:"view"});
+						</script>
+					#else
+					<div class="clear"></div>
+					<dl class="formItem">
+						<dt>单价：</dt>
+						<dd style="width:64%">
+							<em class="orange">
+								#if(!wfOrder.yfType && wfOrder.saleId == storeId || wfOrder.yfType && wfOrder.buyId == storeId) 
+									收款 
+								#else
+									付款
+								#end
+								#if(viewType != "2") ${@(java.lang.String).format("%.2f",wfOrder.actualPrice)} #else 0.00 #end
+							</em>
+							<span style="color:#333;">元/吨</span>
+						</dd>
+						<dd class="clear"></dd>
+					</dl>
+					
+					<div class="orderStyle1">
+						<div class="orderTotal">订单总额：<em class="orange">${(!wfOrder.yfType && wfOrder.saleId == storeId || wfOrder.yfType && wfOrder.buyId == storeId)?"收款":"付款"} &nbsp;${@(java.lang.String).format("%.2f",wfOrder.realTotalPrice)}</em><span style="color:#333;">元</span></div>
+					</div>
+					#end
+				#end
+				
+				<!--			
+				#if(pageType!="1")
+					#define(com.ekfans.base.user.model.BankBinding bankBinding)
+					#if(bankBinding != null)
+						<div class="clear"></div>
+						<h3><em class="borderBottomColor">收款账户信息</em></h3>
+						<ul class="bankList" style="margin-left:50px;">
+							<li>
+								<span class="bank"><em>开户行</em>${bankBinding.bankName}</span>
+								<span class="fullBank"><em>全称</em>${bankBinding.address}</span>
+								<span class="num"><em>帐号</em>${bankBinding.cardNo}</span>
+								<span class="name"><em>户名</em>${bankBinding.fullName}</span>
+							</li>
+						</ul>
+					#end
+				#end
+				-->
+			#end
+			
+			<div class="clear"></div>
+			#if((pageType != "1" && pageType != "2") || contract.partyAORpartyB == "1")
+			<h3><em class="borderBottomColor">运输信息</em></h3>
+			<dl class="formItem">
+			  <dt>预估总里程</dt>
+			  <dd>${wfOrder.mileage}公里</dd>
+			  <dd class="clear"></dd>
+			</dl>
+			<div class="clear"></div>
+			<form id="fiveLD" action="${webroot}/store/order/wfOrderSh" method="post">
+				<input type="hidden" name="wfOrderId" value="${wfOrder.id}"/>
+				<input type="hidden" name="wfpTotal" value="${wfOrder.wfpTotal}"/>
+				#set(String transIds = "")
+				#for(com.ekfans.base.wfOrder.util.WfOrderTransStore  transStore:storeList)
+					<div class="companyItem">
+						<div class="infoTitle">
+							<span>运输企业：${transStore.storeName}</span>
+						</div>
+						<table border="0" cellspacing="0" cellpadding="0" class="truckList">
+							<tr class="bgColor">
+								<th>车牌号</th>
+								<th>装货数量</th>
+								<!-- <th>预估运费</th> -->
+								<th>五联单</th>
+								<th>押运员</th>
+								<th>驾驶员</th>
+							</tr>
+								#for(com.ekfans.base.wfOrder.model.WfOrderTrans trans:transStore.transList)
+									#set(transIds = transIds + trans.id + ";")
+									<tr>
+										<td>${trans.carNum}</td>
+										#if(wfOrder.status ==  @(com.ekfans.base.wfOrder.util.WfOrderHelper).WFORDER_STATUS_WAIT_SH && "0" == viewType && "5" == pageType && wfOrder.buyId == storeId)
+											<td><input name="${trans.id}Num" id="${trans.id}Num" type="text" class="textBox box80 sjnum" value="0.00" style="display:inline-block; margin-right:8px;">吨</td>
+										#else
+											#if(trans.num != 0.00)
+												<td>${trans.num}吨</td>
+											#else
+												<td style="color:red;">未录入</td>
+											#end
+										#end
+										<!-- <td>${trans.freight}</td> -->
+										<td>
+											#if(wfOrder.status == @(com.ekfans.base.wfOrder.util.WfOrderHelper).WFORDER_STATUS_WAIT_SH && "0" == viewType && "5" == pageType && wfOrder.buyId == storeId)
+							    			#tag picUpload(trans.id+'fiveSingle','2','30','30',trans.fiveSingle) #end
+							    		#else
+												#if(trans.fiveSingle != "") 
+													<a href="${webroot}${trans.fiveSingle}" target="_blank">
+														<img src="${webroot}${trans.fiveSingle}" width="50px"/>
+													</a>
+												#else
+												 <span style="color:red;">未上传</span>
+												#end
+											#end
+										</td>
+										<td>${trans.supercargoName}</td>
+										<td>
+											#set(List<com.ekfans.base.wfOrder.model.WfOrderTransDriver> driverList = trans.drivers)
+											#for(com.ekfans.base.wfOrder.model.WfOrderTransDriver driver:driverList)
+												${driver.driverName}&nbsp;&nbsp;&nbsp;&nbsp;
+											#end
+										</td>
+									</tr>
+									
+							#else
+							<tr><td colspan="6" style="color:red;">还未确定运输车辆信息</td></tr>
+							#end
+						</table>
+					</div>
+				#else
+					还未确认物流企业
+				#end
+					<input type="hidden" name="transIds" id="transIds" value="${transIds}"/>
+				</form>
+			#end  
+      <div class="clear"></div>
+      <h3><em class="borderBottomColor">发货人信息</em></h3>
+			<dl class="formItem">
+			  <dt>联系人</dt>
+			  <dd>${wfOrder.sendLinkMan}</dd>
+			  <dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+			  <dt>发货地址</dt>
+			  <dd>${wfOrder.sendAddress}</dd>
+			  <dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+			  <dt>联系方式</dt>
+			  <dd>${wfOrder.sendLinkPhone}</dd>
+			  <dd class="clear"></dd>
+			</dl>
+			
+			<div class="clear"></div>
+      <h3><em class="borderBottomColor">收货人信息</em></h3>
+			<dl class="formItem">
+			  <dt>收货人</dt>
+			  <dd>${wfOrder.takeLinkMan}</dd>
+			  <dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+			  <dt>收货地址</dt>
+			  <dd>${wfOrder.takeAddress}</dd>
+			  <dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+			  <dt>联系方式</dt> 
+			  <dd>${wfOrder.takeLinkPhone}</dd>
+			  <dd class="clear"></dd>
+			</dl>   
+         
+			<div class="clear"></div>  
+      <h3><em class="borderBottomColor">订单日志</em></h3>
+			<div class="companyItem">
+				<table border="0" cellspacing="0" cellpadding="0" class="truckList">
+					<tr class="bgColor">
+						<th>操作人</th>
+						<th>操作内容</th>
+						<th>操作时间</th>
+					</tr>
+					#for(com.ekfans.base.wfOrder.model.WfOrderLog orderLog:orderLogs)
+						<tr>
+							<td>${orderLog.creatorName}</td>
+							<td>${orderLog.note}</td>
+							<td>${orderLog.createTime}</td>
+						</tr>
+					#end
+				</table>
+			</div>
+		</div>
+	</div>
+    <!--右侧主体 end-->
+<div class="clear"></div>
+<div class="apLayerBg"></div>
+<div class="apLayer borderColor shopListAlert apConfirm" id="showCarInfo"></div>
+<div class="apLayer borderColor alertBrand apConfirm" id="supercargo"></div>
+<div class="payApLayer" id="payWaitLoad"></div>
+<div class="apLayer apConfirm borderColor" style="max-height:400px;" id="addBankCard"></div>
+<div class="apLayer apConfirm borderColor" id="fukuan"></div>
+<script>
+String.prototype.replaceAll = function(reallyDo, replaceWith, ignoreCase) {  
+  if (!RegExp.prototype.isPrototypeOf(reallyDo)) {  
+      return this.replace(new RegExp(reallyDo, (ignoreCase ? "gi": "g")), replaceWith);  
+  } else {  
+      return this.replace(reallyDo, replaceWith);  
+  }  
+}
+
+function changeBanks(val){
+	if("true" == val){
+		$("#loadBanks").load("${webroot}/store/order/loadBanks",function(){
+			$("#loadBanks").find("h2").replaceWith("<h3><em class=\"borderBottomColor\">收款账户信息</em></h3>");
+		});	
+	}else{
+		$("#payBankId").val("");
+		$("#loadBanks").html("");
+	}
+}
+	
+	
+$(".pointTop").append("<span class='pointIcon'></span>");
+//展开收起
+$(".btnshoufang").live("click",function(){
+	var dom=$(this).parent().parent().children(".itemContent");
+	if(dom.css("display")=="none"){
+		$(this).text("收起");
+		dom.slideDown('fast');
+	}else{
+		$(this).text("展开");
+		dom.slideUp('fast');
+	}
+})
+
+$(".addTruck").click(function(){
+	$("#showCarInfo").load("${webroot}/store/order/wfOrderCarInfoLoad",{contractId:"${wfOrder.contractId}"});
+	$(".shopListAlert,.apLayerBg").show();
+	
+})
+
+	
+	function checkNumStr(num){
+		var exp = /^([1-9][\d]{0,7}|0)(\.[\d]{1,4})?$/;
+    if(exp.test(num)){
+    	return true;
+    }else{
+    	return false;
+    }
+	}
+	function orderSure(){
+		
+		#if(Store.accountSuccess && Store.accountStatus)
+			var a = [];
+			$("input[name^='transportStoreId']:checked").each(function(i, o){
+			    a[i] = $(o).val();
+			});
+	
+			//if("${pageType}" == "1" && ${!wfOrder.yfType}){
+				//var payBankId = $("#payBankId").val();
+				//if(payBankId == "" || payBankId == " " || payBankId == null || payBankId == "null"){
+				//	falert("请选择收款账户信息");
+				//	return;
+				//}
+			//}
+	
+			if((a==null || a.length<=0) && "${pageType}" == "1" && "${contract.partyAORpartyB}" == "0"){
+				falert("请选择运输企业")
+				return;
+			}
+			$.post('${webroot}/store/order/wforderSure/${wfOrder.id}/${pageType}',$("#f1").serialize(),function (data){
+				if(data==1 || data=="1"){
+					salertWithFunction("确认订单成功",reloadUrl,null);
+				}else{
+					falertWithFunction("确认订单失败",reloadUrl,null);
+				}
+	  	});
+  	
+		#else
+			salertWithFunction("您还未设置银行账户，点击确定立即设置！",choseMenu,['${webroot}','ACCOUNT_BANK_VIEW']);
+		#end
+		
+	}
+	
+	function orderSureTrans(){
+		var carInfoIds = $("#carInfoIds").val();
+		if(carInfoIds == null || carInfoIds == ""){
+			falert("请选择运输车辆")
+			return;
+		}
+		
+		var yyyid = false;
+		$(".yyyid").each(function(i, o){
+		    if(trimStr($(o).val()) == ""){
+		    	alert("请选择押运员信息");
+		    	yyyid = true;
+		    	return;
+		    }
+		});
+		if(yyyid){
+			return;	
+		}
+		
+		var jsyid = false;
+		$(".jsyid").each(function(i, o){
+		    if(trimStr($(o).val()) == ""){
+		    	alert("请选择驾驶员信息");
+		    	jsyid = true;
+		    	return;
+		    }
+		});
+		if(jsyid){
+			return;	
+		}
+		
+		$("#subTransInfo").ajaxSubmit(
+			function(data) {
+				if (data == "1") {
+					salertWithFunction('危废运输车辆提交成功',returnList,null);
+				} else {
+					falert("危废运输车辆提交失败，请稍后提交");
+				}
+		});
+	}
+	
+function reloadUrl(){
+	location.href="${webroot}/store/order/contractOrder/orderList/${viewType}";
+}
+	function returnList(){
+		location.href="${webroot}/store/order/contractOrder/orderList/${viewType}";
+	}
+	
+	function cancelChoseCarInfo(){
+		$("#showCarInfo").html("");
+		$(".shopListAlert,.apLayerBg").hide();
+	}
+	function okChoseCarInfo(){
+		var chosedCarInfo = "";
+		$("input[name^='carInfos']:checked").each(function(i, o){
+		    chosedCarInfo = chosedCarInfo + $(o).val() + ";";
+		});
+		$("#carInfoIds").val(chosedCarInfo);
+		$("#showCarInfo").html("");
+		$(".shopListAlert,.apLayerBg").hide();
+		$("#showCars").load("${webroot}/store/order/wfOrderTransLoad/${wfOrder.id}/${pageType}",{carInfoIds:chosedCarInfo});
+	}
+	
+	function payYFPrice(){
+		$("#payWaitLoad").load("${webroot}/store/order/payWait",{wfOrderId:"${wfOrder.id}",type:"${@(com.ekfans.base.wfOrder.model.OrderPayLog).PAY_TYPE_YF}"});
+		$(".apLayerBg").show();
+		$(".payApLayer").show();
+	}
+
+/**
+	function orderPay(payType){
+		$("#fukuan").load("${webroot}/store/order/bcsPayWait",{wfOrderId:"${wfOrder.id}",type:payType});
+		$(".apLayerBg").show();
+		$("#fukuan").show();
+	}
+**/
+   function orderFh(){
+	econfirm("确认发货?",orderSureFh,null,null,null);
+  }
+  
+  function orderSureFh(){
+  $.post('${webroot}/store/order/wfOrderFh',{wfOrderId:"${wfOrder.id}"},function (data){
+			if(data==1 || data=="1"){
+	            salertWithFunction("发货成功",reloadUrl,null);
+			}else{
+				falertWithFunction("发货失败",reloadUrl,null);
+			}
+  	});
+  
+ 
+  }
+  
+  function orderSh(){
+  	var transIds = $("#transIds").val();
+  	var idStrs = transIds.split(";");
+  	var totalNum = 0.00;
+  	for(i=0;i<idStrs.length;i++){
+  		var transId = idStrs[i];
+  		if(trimStr(transId) != ""){
+  			var fhNum = $("#"+transId+"Num").val();
+  			if(fhNum == "" || fhNum == 0.00){
+  				falert("请录入实际载货数量");
+  				return;
+  			}
+  			if(!hasChoseFile( trimStr(transId) + "fiveSingle")){
+  				falert("请上传五联单");
+  				return;	
+  			}
+  			totalNum = totalNum + parseFloat(fhNum);
+  		}
+  	}
+  	if(totalNum != parseFloat("${wfOrder.wfpTotal}")){
+  		econfirm("您录入的实际载货量与预计拉货量不符合,确定使用"+totalNum+"作为实际拉货量吗?",orderSureSh,null,null,null)	;
+  	}else{
+  		orderSureSh();
+  	}
+  	
+  	
+  }
+  
+  function orderSureSh(){
+  	$("#fiveLD").ajaxSubmit(
+			function(data) {
+				if (data == "1") {
+					salertWithFunction('确认收货成功',reloadUrl,null);
+				} else {
+					falert("确认收货失败");
+				}
+		});
+  }
+  
+  function queRenPrice(){
+  	$.post('${webroot}/store/order/queRenPrice',{wfOrderId:"${wfOrder.id}"},function (data){
+			if(data==1 || data=="1"){
+				salertWithFunction("确认价格成功",reloadUrl,null);
+			}else{
+				falertWithFunction("确认价格失败",reloadUrl,null);
+			}
+  	});
+  }
+  
+  function orderSubPrice(){
+  	var priceIds = $("#priceIds").val();
+  	
+  	var totalWeight = 0.00;
+		$(".weights").each(function(){
+			totalWeight += parseFloat($(this).val());	
+			
+		});
+		
+		var ids = priceIds.split(";");
+  	for(i=0;i<ids.length;i++){
+  		var vId = ids[i];	
+  		
+  		if(vId != "" && !hasChoseFile(vId+"TestReport")){
+	  		falert("请上传相应的检测报告!")
+	  		return;
+  		}
+  	}
+		
+		if(parseFloat(totalWeight) != parseFloat("${wfOrder.wfpTotal}")){
+			falert("您输入的重量总和与实际拉货总重量不符合!");
+			return;
+		}
+  	
+  	$("#pricesLoadForm").ajaxSubmit(
+			function(data) {
+				if (data == "1") {
+					salertWithFunction('品位信息提交成功',returnList,null);
+				} else {
+					falert("品位信息提交失败");
+				}
+		});
+  }
+  
+  function chosePayCount(){
+  	var returnPayId = $("#returnPayId").val();
+		if(returnPayId == "" || returnPayId == null){
+			falert("请选择退款账户");
+		}
+  	
+		$.post('${webroot}/store/order/jiesuanChose',{wfOrderId:"${wfOrder.id}",returnPayId:$("#returnPayId").val(),type:"0"},function (data){
+			if(data==1 || data=="1"){
+				salertWithFunction("退款账户选择成功",reloadUrl,null);
+			}else{
+				falertWithFunction("退款账户选择失败",reloadUrl,null);
+			}
+		});
+  }
+  
+  
+  function shenqing(typeStr){
+  	if(typeStr == "0"){
+  		//var returnPayId = $("#returnPayId").val();
+  		//if(returnPayId == "" || returnPayId == null){
+  		//	falert("请选择退款账户");
+  		//	return;
+  		//} 
+  		econfirm("是否确定申请退还多余预付金${@(java.lang.String).format('%.2f',wfOrder.payPrice.subtract(wfOrder.totalPrice))}元？",tkShenqing,null,null,null);
+  	}else if(typeStr == "1"){
+  		econfirm("是否确定将多余预付金${@(java.lang.String).format('%.2f',wfOrder.payPrice.subtract(wfOrder.totalPrice))}元计入下批订单？",nextShenqing,null,null,null);
+  	}	
+  	
+  }
+  
+  function tkShenqing(){
+  	$.post('${webroot}/store/order/jiesuanChose',{wfOrderId:"${wfOrder.id}",returnPayId:$("#returnPayId").val(),type:"1"},function (data){
+			if(data==1 || data=="1"){
+				salertWithFunction("退还多余预付金申请提交成功！",reloadUrl,null);
+			}else{
+				falertWithFunction("退还多余预付金申请提交失败！",reloadUrl,null);
+			}
+		});
+  }
+  
+  function nextShenqing(){
+  	$.post('${webroot}/store/order/jiesuanChose',{wfOrderId:"${wfOrder.id}",returnPayId:$("#returnPayId").val(),type:"2"},function (data){
+			if(data==1 || data=="1"){
+				salertWithFunction("已将多余预付金计入下批订单！",reloadUrl,null);
+			}else{
+				falertWithFunction("将多余预付金计入下批订单失败！",reloadUrl,null);
+			}
+		});
+  }
+  
+  
+  function jieSuan(){
+  	//$("#payWaitLoad").load("${webroot}/store/order/jiesuan",{wfOrderId:"${wfOrder.id}",viewType:"${viewType}",pageType:"${pageType}"});
+		//$(".apLayerBg").show();
+		//$(".payApLayer").show();
+		
+		$("#payWaitLoad").load("${webroot}/store/order/payWait",{wfOrderId:"${wfOrder.id}",type:"${@(com.ekfans.base.wfOrder.model.OrderPayLog).PAY_TYPE_JS}"});
+		$(".apLayerBg").show();
+		$(".payApLayer").show();
+  }
+  
+  function tuikuan(){
+  	//$("#payWaitLoad").load("${webroot}/store/order/tuikuan",{wfOrderId:"${wfOrder.id}",viewType:"${viewType}",pageType:"${pageType}"});
+		//$(".apLayerBg").show();
+		//$(".payApLayer").show();
+		
+		$("#payWaitLoad").load("${webroot}/store/order/payWait",{wfOrderId:"${wfOrder.id}",type:"${@(com.ekfans.base.wfOrder.model.OrderPayLog).PAY_TYPE_JSTK}"});
+		$(".apLayerBg").show();
+		$(".payApLayer").show();
+  }
+  
+  function tkAlter(typeStr){
+  	if(typeStr == "0"){
+  		econfirm("是否确定驳回退款申请？",unTk,null,null,null);	
+  	}else{
+  		econfirm("是否确定退款？",tuikuan,null,null,null);	
+  	}
+  	
+  }
+  
+  function unTk(){
+  	$.post('${webroot}/store/order/jujuetk',{wfOrderId:"${wfOrder.id}"},function (data){
+			if(data==1 || data=="1"){
+				salertWithFunction("驳回退款申请成功",reloadUrl,null);
+			}else{
+				falertWithFunction("驳回退款申请成功",reloadUrl,null);
+			}
+  	});
+  }
+  
+  $(".payApClose").live("click",function(){
+		$(this).parents(".payApLayer").hide();
+		$(".apLayerBg").hide();
+	})
+	
+</script>	
+ </body>
+</html>

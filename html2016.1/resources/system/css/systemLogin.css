@@ -1,0 +1,39 @@
+/* CSS Document */
+
+*{margin:0;padding:0; outline:none; font-family:Microsoft YaHei; word-break:break-all;}
+body{font-size:12px; color:#333; margin:0; padding:0; font-family:Microsoft YaHei; width:100%; height:100%;}
+address,caption, cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}
+abbr,acronym,img{border:0;}
+ol,ul,li{list-style:none;}
+h1,h2,h3,h4,h5,h6{font-weight:normal;}
+
+.clear{clear:both;}
+a{color:inherit; text-decoration:none;}
+a:hover{color:#136333;}
+.wrapper{width:1200px; margin:0 auto;}
+
+.outer{min-height:610px; position:absolute; top:0; bottom:0; left:0; right:0;}
+.header{height:52px; position:absolute; top:3%; left:0; right:0;}
+.header .logo{display:block; float:left; margin-right:20px;}
+.header em{display:block; float:left; margin-top:18px; height:28px; padding-left:20px; border-left:solid 2px #222; font-size:28px; line-height:28px;}
+
+.main{position:absolute; top:13%; height:500px; width:100%; background:#393;}
+.left{float:left; margin:0 48px; height:500px; width:640px; color:#fff; text-align:center; background:url(../images/login_bg.jpg) no-repeat center bottom;}
+.left dt{margin-top:116px; height:60px; line-height:60px; font-size:32px; font-weight:700;}
+.left dd{line-height:40px; font-size:22px;}
+.loginBox{width:300px; background:#fff; margin:54px 0 0 0; float:left; padding:17px 35px 0 35px;}
+.topBox{height:28px; margin-bottom:10px;}
+.errorText{line-height:28px; background:#FFD9D9; color:#FF2C2C;}
+.errorText em{display:block; width:16px; height:16px; background:#FF2C2C; color:#fff; text-align:center; line-height:16px; border-radius:8px; float:left; margin:6px 10px 0 10px;}
+.formItem{width:298px; height:38px; border:solid 1px #ccc; margin-bottom:30px;}
+.formItem dt{width:38px; height:38px; float:left; margin-right:10px;}
+dt.userName{background:url(../images/user_icon.png) no-repeat center center;}
+dt.password{background:url(../images/password_icon.png) no-repeat center center;}
+.formItem dd{width:250px; float:left;}
+.formItem dd input{width:250px;}
+.textBox{display:block; height:38px; line-height:38px\9; font-size:14px; border:none;}
+.boxCode{width:170px; float:left;}
+.yanzhengma{display:block; width:130px; height:40px; float:left; position:relative; margin:-1px;}
+.btnLogin{display:block; width:300px; height:40px; background:#393; margin:50px auto; cursor:pointer; color:#fff; border:none; text-align:center; line-height:40px; font-size:16px;}
+
+.footer{position:absolute; bottom:1%; width:100%; line-height:20px; font-size:14px; text-align:center;}

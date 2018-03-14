@@ -1,0 +1,435 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>危险品运输线路列表</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<link rel="shortcut icon" href="../../../resources/commons/images/favicon.ico" type="image/x-icon">
+<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+<link href="../../../resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/web/css/base.css" rel="stylesheet" type="text/css">
+<style>
+.bread{height:38px; line-height:38px; background:#FCF4E5; font-size:14px; color:#A78749; margin-bottom:15px;}
+
+/*顶部搜索区域*/
+input::-webkit-input-placeholder {color:#010101;}
+input:-moz-placeholder {color:#010101;}
+input::-moz-placeholder {color:#010101;}
+input:-ms-input-placeholder {color:#010101;}
+.leftCon{width:792px; float:left; background-color:#fff;}
+.seaHead{padding:20px 10px;}
+.serachItem{width:215px; float:left; margin-right:5px;}
+.serachItem dt{color:#010101; font-size:14px;float:left; max-dth:60px; margin-right:5px; height:34px; line-height:34px;}
+.serachItem dd{float:left;}
+.selList .textBox{height:34px;}
+.selList .textBox input{height:32px;}
+.btnSearch{display:block; width:34px; height:34px; line-height:34px; color:#fff; background-color:#0085FD; background-image:url(../../../resources/web/images/search_icon.png); background-repeat:no-repeat; background-position: center center; float:left; margin-right:4px;}
+.btnMore{display:block; width:60px; height:34px; line-height:34px; color:#fff; background-color:#0085FD; text-align:center; font-size:14px;float:left;}
+.btnMore:hover{color:#fff;}
+
+/*滚动区域*/
+.infoHeader{height:50px; line-height:50px;background:#0085FD; color:#fff;}
+.infoHeader .headerItem{font-size:16px; white-space:nowrap; text-align:left; text-indent:10px; float:left;}
+.tableBox{}
+.infoTable{width:100%; background:#fff; margin-bottom:30px;}
+.infoTable th{height:50px; line-height:50px;color:#fff; font-size:14px; white-space:nowrap; text-align:left; text-indent:10px;}
+.infoTable td{padding:10px; color:#484848; line-height:20px; vertical-align:top; border-bottom:solid 1px #f1f1f1;font-size:14px;}
+.infoTable tr:hover{ background-color:#F1F1F1;}
+.infoTable em{line-height:20px; color:#060505; font-size:18px; margin-right:10px;}
+.wuliu{color:#595757; font-size:14px;}
+.look{color:#0085FD;}
+.look:hover{color:#0085FD;}
+.info{border-bottom:10px solid #f2f1f1;}
+
+/*页码*/
+.pageSize{text-align:center; padding:10px 0; background:#D3D3D3;}
+.pageSize a{display:inline-block; height:21px; line-height:21px; margin-right:8px; padding:0 8px; color:#12369b;}
+.pageLast,.pageNext{font-family:SimSun;}
+.pageSize a:hover,.pageSize .nowPage{background:#4594f9; color:#fff;}
+
+
+/*右部区域*/
+.rightCon{width:386px; float:right;}
+.gps{padding:15px; background-color:#fff; margin-bottom:20px;}
+.gps h3{font-size:24px; color:#020202; margin-bottom:10px;}
+.btnGps{background-color:#0085FD; width:355px; height:60px; line-height:60px; text-align:center; color:#fff; display:block; background-image:url(../../../resources/web/images/gps_icon.png); background-repeat:no-repeat; background-position:95px center; font-size:24px; margin-top:-3px;}
+.btnGps:hover{color:#fff;}
+
+.rightCon ul {background-color:#FFF; margin-bottom:10px; padding:5px 0px;} 
+.rightCon ul li{background: url(../../../resources/web/images/list.png) 0px 4px no-repeat; margin:10px 5px 20px 18px; padding-left:16px;display: block;max-height:55px; font-size:14px;} 
+.rightCon ul li .time{display:block; color:#939393;}
+.rightCon ul li a{display:block; max-height:36px;overflow:hidden;}
+
+/*弹窗背景公共样式*/
+.alertLayerBg{filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8; opacity:0.8; background:#000; position:fixed; left:0; top:0; width:100%; height:100%; z-index:100; display:none;}
+.layerClose{display:block; width:20px; height:17px; position:absolute; top:22px; right:10px; background:url(../../../resources/web/images/close_icon.png) no-repeat;}
+
+/*资质弹窗*/
+.alterBox{position:fixed;top:50%;left:50%;margin:-150px 0 0 -300px;width:600px;height:300px;z-index:101;background:#fff;overflow:hidden; border-top:10px #0085FD solid;display:none;}
+.alterBox h6{height:60px; line-height:60px;color:#313030; font-size:22px; padding-left:20px; margin-bottom:10px; display:inline-block; margin-right:10px;}
+.altHead{background-color:#FDF5E5; position:relative;}
+.alterContent{padding:15px 10px 0px 20px;min-height:220px;max-height:220px; overflow:auto;}
+.yzqy{color:#FFFFFF; font-size:18px; background-color:#FF5947; width:90px; height:30px; line-height:30px; text-align:center;display:inline-block;}
+.companyLeft{color:#313030;font-size:14px; float:left; width:260px; margin:0 0px 20px 0; border-right:1px solid #D3D2D2; padding:0 15px 20px 0;}
+.companyLeft li{ min-height:30px; line-height:30px;}
+.companyRight{color:#777777;font-size:14px; float:left; width:266px; margin:0 0px 20px 0;padding:0 0px 20px 15px;}
+.companyRight li{ min-height:30px; line-height:30px;}
+
+</style>
+</head>
+
+<body>
+<div class="wrapper topArea">
+	<h1 class="logo">
+    	<a href="index.html" title="鑫裕环保供应链平台"><img src="../../../resources/commons/images/logo.png" alt="鑫裕环保供应链平台"></a>
+    </h1>
+    <div class="topRight">
+    	<a href="index.html" class="linkIndex">首页</a>
+        <dl class="downList">
+        	<dt><a href="javascript:void(0)" class="linkLogin">登录</a></dt>
+            <dd>
+            	<div class="apBack">
+                  <em class="topPoint"></em>
+                  <div class="apLoadCont">
+                    <a href="cgsdl.html" class="btnLoad dlcg btnCart">采购商入口</a>
+                    <a href="gysdl.html" class="btnLoad dlgy btnRk">供应商入口</a>
+                    <a href="hxqydl.html" class="btnLoad dlhx btnhx">核心企业入口</a>
+                  </div>
+                </div>
+            </dd>
+        </dl>
+        <dl class="downList">
+        	<dt><a href="javascript:void(0)" class="linkReg">注册</a></dt>
+            <dd>
+                <div class="apBack2">
+                    <em class="topPoint2"></em>
+                    <div class="apRegCont">
+                      <a href="cgszc1.html" class="btnEnter zccg btnCart">采购商入口</a>
+                      <a href="gyszc1.html" class="btnEnter zcgy btnRk">供应商入口</a>
+                    </div>
+                </div>
+            </dd>
+        </dl>
+        <em class="split"></em>
+        <span class="telPhone">4000-888-1000</span>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="nav">
+	<div class="wrapper">
+    	<dl class="navItem">
+        	<dt>现货交易</dt>
+            <dd>
+            	<a href="gqxx.html">供求信息</a>
+                <a href="gjs.html">贵金属</a>
+                <a href="ylcg.html">原料采购</a>
+                <a href="wjbc.html">微晶板材</a>
+            </dd>
+        </dl>
+        <dl class="navItem">
+        	<dt>危废处置</dt>
+            <dd>
+            	<a href="wxpcs.html">危险品产生</a>
+                <a href="wxpys.html">危险品运输</a>
+                <a href="wxpcz.html">危险品处置</a>
+                <a href="zcfg.html">政策法规</a>
+            </dd>
+        </dl>
+        <dl class="navItem" style="margin-right:0;">
+        	<dt>网络金融</dt>
+            <dd>
+            	<a href="qyrz.html">企业认证</a>
+                <a href="wlrz.html" class="cur">网络融资</a>
+                <a href="xwzx.html">融资指引</a>
+                <a href="javascript:void(0)">建行专区</a>
+            </dd>
+        </dl>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="bread">
+	<div class="wrapper"><a href="javascript:void(0);">首页</a>&nbsp;&gt;&nbsp;<a href="javascript:void(0);">危险品运输</a>&nbsp;&gt;&nbsp;危险品运输信息</div>
+</div>
+<div class="wrapper">
+  <div class="leftCon">
+  	<div class="seaHead">
+      <dl class="serachItem">
+        <dt>出发地</dt>
+        <dd>
+          <div class="selList"> <span class="textBox">
+            <input name="" type="text" class="box184" placeholder="不限" readonly>
+            <em class="iconDown"></em> </span>
+            <ul>
+              <li>成都</li>
+              <li>湖南</li>
+            </ul>
+          </div>
+        </dd>
+        <div class="clear"></div>
+      </dl>
+      <dl class="serachItem">
+        <dt>目的地</dt>
+        <dd>
+          <div class="selList"> <span class="textBox">
+            <input name="" type="text" class="box184" placeholder="不限" readonly>
+            <em class="iconDown"></em> </span>
+            <ul>
+              <li>湖南</li>
+              <li>成都</li>
+            </ul>
+          </div>
+        </dd>
+        <div class="clear"></div>
+      </dl>
+      <dl class="serachItem">
+        <dt>车辆类型</dt>
+        <dd>
+          <div class="selList"> <span class="textBox">
+            <input name="" type="text" class="box184" placeholder="不限" readonly>
+            <em class="iconDown"></em> </span>
+            <ul>
+              <li>牵引车</li>
+              <li>挂车</li>
+            </ul>
+          </div>
+        </dd>
+        <div class="clear"></div>
+      </dl>
+      <a href="javascript:void(0);" class="btnSearch"></a>
+      <a href="wxpysxl.html" class="btnMore">更多...</a>
+      <div class="clear"></div>
+    </div>
+    <div class="info">
+      <div class="infoHeader">
+        <div class="headerItem" style="width:52%;">出发地→到达地 / 说明</div>
+        <div class="headerItem" style="width:12%;">车辆类型</div>
+        <div class="headerItem" style="width:12%;">载重</div>
+        <div class="headerItem" style="width:12%;">运价</div>
+        <div class="headerItem" style="width:12%;">详情</div>
+      </div>
+      <div class="tableBox">
+        <table border="0" cellspacing="0" cellpadding="0" class="infoTable">
+          <tr>
+            <td width="52%"><br><em>湖北到山东</em><span class="wuliu">国内危险品物流</span></td>
+            <td width="12%"><br>不锈钢罐车</td>
+            <td width="12%"><br>30吨</td>
+            <td width="12%"><br>面议</td>
+            <td width="12%"><br><a href="javascript:void(0)" class="look">查看</a></td>
+          </tr>
+          <tr>
+            <td width="52%"><br><em>成都到山东</em><span class="wuliu">国内危险品物流</span></td>
+            <td width="12%"><br>不锈钢罐车</td>
+            <td width="12%"><br>30吨</td>
+            <td width="12%"><br>面议</td>
+            <td width="12%"><br><a href="javascript:void(0)" class="look">查看</a></td>
+          </tr>
+          <tr>
+            <td width="52%"><br><em>湖北到山西</em><span class="wuliu">国内危险品物流</span></td>
+            <td width="12%"><br>不锈钢罐车</td>
+            <td width="12%"><br>30吨</td>
+            <td width="12%"><br>面议</td>
+            <td width="12%"><br><a href="javascript:void(0)" class="look">查看</a></td>
+          </tr>
+          <tr>
+            <td width="52%"><br><em>湖南到银川</em><span class="wuliu">国内危险品物流</span></td>
+            <td width="12%"><br>不锈钢罐车</td>
+            <td width="12%"><br>30吨</td>
+            <td width="12%"><br>面议</td>
+            <td width="12%"><br><a href="javascript:void(0)" class="look">查看</a></td>
+          </tr>
+          <tr>
+            <td width="52%"><br><em>湖北到广东</em><span class="wuliu">国内危险品物流</span></td>
+            <td width="12%"><br>不锈钢罐车</td>
+            <td width="12%"><br>30吨</td>
+            <td width="12%"><br>面议</td>
+            <td width="12%"><br><a href="javascript:void(0)" class="look">查看</a></td>
+          </tr>
+          <tr>
+            <td width="52%"><br><em>贵州到山东</em><span class="wuliu">国内危险品物流</span></td>
+            <td width="12%"><br>不锈钢罐车</td>
+            <td width="12%"><br>30吨</td>
+            <td width="12%"><br>面议</td>
+            <td width="12%"><br><a href="javascript:void(0)" class="look">查看</a></td>
+          </tr>
+          <tr>
+            <td width="52%"><br><em>新疆到山东</em><span class="wuliu">国内危险品物流</span></td>
+            <td width="12%"><br>不锈钢罐车</td>
+            <td width="12%"><br>30吨</td>
+            <td width="12%"><br>面议</td>
+            <td width="12%"><br><a href="javascript:void(0)" class="look">查看</a></td>
+          </tr>
+          <tr>
+            <td width="52%"><br><em>辽宁到山东</em><span class="wuliu">国内危险品物流</span></td>
+            <td width="12%"><br>不锈钢罐车</td>
+            <td width="12%"><br>30吨</td>
+            <td width="12%"><br>面议</td>
+            <td width="12%"><br><a href="javascript:void(0)" class="look">查看</a></td>
+          </tr>
+          <tr>
+            <td width="52%"><br><em>银川到山东</em><span class="wuliu">国内危险品物流</span></td>
+            <td width="12%"><br>不锈钢罐车</td>
+            <td width="12%"><br>30吨</td>
+            <td width="12%"><br>面议</td>
+            <td width="12%"><br><a href="javascript:void(0)" class="look">查看</a></td>
+          </tr>
+          <tr>
+            <td width="52%"><br><em>宁夏到山东</em><span class="wuliu">国内危险品物流</span></td>
+            <td width="12%"><br>不锈钢罐车</td>
+            <td width="12%"><br>30吨</td>
+            <td width="12%"><br>面议</td>
+            <td width="12%"><br><a href="javascript:void(0)" class="look">查看</a></td>
+          </tr>
+        </table>
+      </div>
+   </div>
+	
+  
+  <div class="pageSize">
+      <a href="javascript:void(0)" class="pageLast">&lt;&lt;</a>
+      <a href="javascript:void(0)" class="page">1</a>
+      <a href="javascript:void(0)" class="page">2</a>
+      <a href="javascript:void(0)" class="page nowPage">3</a>
+      <a href="javascript:void(0)" class="page">...</a>
+      <a href="javascript:void(0)" class="page">10</a>
+      <a href="javascript:void(0)" class="page">11</a>
+      <a href="javascript:void(0)" class="page">12</a>
+      <a href="javascript:void(0)" class="pageNext">&gt;&gt;</a>
+    </div>
+  </div>
+  <div class="rightCon">
+  	<div class="gps">
+    	<h3>北斗卫星定位 </h3>
+      <img src="../../../resources/web/images/gpsmap.jpg" width="355" height="170" alt="GPS"/>
+      <a href="javascript:void(0);" class="btnGps">在线查询</a>
+    </div>
+    <h2>相关政策</h2>
+    	<ul>
+        <li><a href="javascript:void(0);" title="">山西省财政厅拨3.6亿元支持基层医疗体系建设</a><span class="time">[2013-09-30]</span></li>
+        <li><a href="javascript:void(0);" title="">大同市评标过程公开 结果心服口服</a><span class="time">[2013-09-30]</span></li>
+        <li><a href="javascript:void(0);" title="">“煤都”转型 浇桐引凤</a><span class="time">[2013-09-30]</span></li>
+        <li><a href="javascript:void(0);" title="">山西大同资质考量前置 重视企业综合实力</a><span class="time">[2013-09-30]</span></li>
+        <li><a href="javascript:void(0);" title="">国际大赛“竞”出集采风骨</a><span class="time">[2013-09-30]</span></li>
+        <li><a href="javascript:void(0);" title="">我省减收增值税2亿余元</a><span class="time">[2013-09-30]</span></li>
+    	</ul>
+  </div>
+  <div class="clear"></div>
+</div>
+<!--底部-->
+<div class="bottomMenu">
+    <div class="wrapper">
+    	<dl class="footItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c4.png" width="49" height="48" />
+              <span>采购流程</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="下单流程">下单流程</a></li>
+                <li><a href="javascript:void(0);" title="订单跟踪">订单跟踪</a></li>
+                <li><a href="javascript:void(0);" title="安全支付">安全支付</a></li>
+                <li><a href="javascript:void(0);" title="企业认证">企业认证</a></li>
+                <li><a href="javascript:void(0);" title="常见问题">常见问题</a></li>
+            </dd>
+        </dl>
+        <dl class="footItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c5.png" width="49" height="48" />
+              <span>服务与支持</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="物流配送">物流配送</a></li>
+                <li><a href="javascript:void(0);" title="经销商权益">经销商权益</a></li>
+                <li><a href="javascript:void(0);" title="不良品退货">不良品退货</a></li>
+                <li><a href="javascript:void(0);" title="在线咨询">在线咨询</a></li>
+                <li><a href="javascript:void(0);" title="融资操作手册">融资操作手册</a></li>
+            </dd>
+        </dl>
+        <dl class="footItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c6.png" width="49" height="48" />
+              <span>我的账户</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="子账户管理">子账户管理</a></li>
+                <li><a href="javascript:void(0);" title="密码重置">密码重置</a></li>
+                <li><a href="javascript:void(0);" title="在线打款">在线打款</a></li>
+            </dd>
+        </dl>
+        <dl class="lastItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c7.png" width="49" height="48" />
+              <span>关于我们</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="公司简介">公司简介</a></li>
+                <li><a href="javascript:void(0);" title="联系我们">联系我们</a></li>
+                <li><a href="javascript:void(0);" title="网站声明">网站声明</a></li>
+            </dd>
+        </dl>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--底部 end-->
+
+<!--尾部-->
+<div class="footer">
+	<div class="wrapper">
+        <p class="footerLeft">© 2014 成都易科远见科技有限公司 版权所有 蜀ICP备 14005736号</p>
+        <p class="footerRight">成都市高新区吉泰路666号花样年·福年广场2号楼1309室<br>服务热线：028-83190368</p>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--尾部 end-->
+
+<!--弹窗 css-->
+<div class="alertLayerBg"></div>
+<!--选择弹窗-->
+<div class="alterBox">
+	<div class="altHead">
+  	<h6>车源信息</h6><span class="yzqy">认证企业</span>
+		<a href="javascript:void(0);" class="layerClose"></a>
+  </div>
+  <div class="alterContent">
+		<ul class="companyLeft">
+    	<li>出&nbsp;&nbsp;发&nbsp;&nbsp;地：河北邯郸市</li>
+      <li>到&nbsp;&nbsp;达&nbsp;&nbsp;地：山东</li>
+      <li>车&nbsp;&nbsp;牌&nbsp;&nbsp;号：翼A56982</li>
+      <li>车辆类型： 不锈钢罐车</li>
+      <li>车辆载重：吨</li>
+      <li>发布时间：2015-01-12 09:12</li>
+    </ul>
+    <ul class="companyRight">
+      <li>公&nbsp;&nbsp;&nbsp;司：中国化工合众危险品物流有限公司</li>
+      <li>联系人：王小亮</li>
+      <li>手&nbsp;&nbsp;&nbsp;机：13621061523</li>
+      <li>电&nbsp;&nbsp;&nbsp;话：13621061523</li>
+    </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+<!--选择弹窗 end-->
+
+<script src="../../../resources/web/js/base.js"></script>
+<script>
+$(document).ready(function() {
+
+	
+	/*选择弹窗*/
+	$(".look").live("click",function(){
+		$(".alertLayerBg").show();
+		$(".alertLayerBg").next(".alterBox").show();
+	});
+	
+	/*关闭弹窗*/
+	$(".layerClose").live("click",function(){
+		$(this).parents(".alterBox").hide();
+		$(this).parents(".alterBox").prev(".alertLayerBg").hide();
+	});
+});
+</script>
+</body>
+</html>

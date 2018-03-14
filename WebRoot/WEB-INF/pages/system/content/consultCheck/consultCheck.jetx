@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>后台</title>
+	<link href="${webroot}/resources/system/css/demand.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${ctxpath }/resources/commons/js/jquery-1.8.3.min.js"></script>
+  <script type="text/javascript" src="${ctxpath }/resources/system/js/base.js"></script>
+  <script type="text/javascript" src="${ctxpath }/resources/system/js/content/consult/consultCheck.js"></script>
+  <script type="text/javascript" src="${ctxpath }/resources/system/js/tools.js"></script>
+</head>
+<body>
+	#define(com.ekfans.base.store.model.Consult consult)
+	
+	<div class="ht_btn sh_btn">
+		<a href="javascript:void(0);" onclick="checkConsultSubmit('1',${consult.consultType});" class="btn">通过</a>
+		<a href="javascript:void(0);" onclick="checkConsultSubmit('-1',${consult.consultType});" class="btn">拒绝</a>
+	</div>
+	<dl class="pro_sh">
+		<dt>创建者：</dt>
+        <dd>${consult.creatorName}</dd>
+	</dl>
+	<dl class="pro_sh">
+		<dt>审核内容：</dt>
+        <dd>${consult.questionAnswer}</dd>
+	</dl>
+	<dl class="pro_sh">
+		<dt>商品名：</dt>
+        <dd>${consult.productName}</dd>
+	</dl>
+	<dl class="pro_sh">
+		<dt>店铺名：</dt>
+        <dd>${consult.storeName}</dd>
+	</dl>
+  <dl class="pro_sh">
+		<dt>内容类型：</dt>
+        <dd>#if(consult.consultType == '0')咨询#else留言#end</dd>
+	</dl>
+	<dl class="pro_sh">
+		<dt>创建时间：</dt>
+        <dd>${consult.createTime}</dd>
+	</dl>
+	<div class="sh_sm">
+		<span>如果拒绝通过审核请先手动输入或在列表中选择拒绝原因</span>
+		拒绝原因说明
+		<textarea id="checkNote"></textarea>
+	</div>
+	<input type="hidden" id="ctxpath" value="${webroot}">
+	<input type="hidden" id="consultId" value="${consult.id}">
+</body>
+</html>

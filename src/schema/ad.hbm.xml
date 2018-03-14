@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ekfans.base.content.model">
+
+<!-- 广告表 -->
+	<class name="ShopAd" table="SHOP_AD" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="name" type="string" column="NAME" />
+		<property name="type" type="string" column="TYPE" />
+		<property name="showType" type="string" column="SHOW_TYPE" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="width" type="double" column="WIDTH" />
+		<property name="high" type="double" column="HIGH" />
+		<property name="isConfigure" type="string" column="IS_CONFIGURE" />
+	</class>
+
+	<!-- 广告明细表 -->
+	<class name="AdDetail" table="AD_DETAIL" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="adId" type="string" column="AD_ID" />
+		<property name="adContent" type="string" column="AD_CONTENT" />
+		<property name="contentColor" type="string" column="CONTENT_COLOR" />
+		<property name="adPicture" type="string" column="AD_PICTURE" />
+		<property name="linkAddress" type="string" column="LINK_ADDRESS" />
+		<property name="position" type="int" column="POSITION" />
+	</class>
+
+</hibernate-mapping>

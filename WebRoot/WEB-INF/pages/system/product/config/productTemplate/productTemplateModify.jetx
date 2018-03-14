@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+	<head>
+	<title>修改模板</title>
+	<link href="${webroot}/resources/system/css/product/templateCategory.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/product/productTemplate/productTemplateModify.js"></script>
+	</head>
+	<body>
+		#define(Map<String,String> productTempFieldsMap)
+		<input type="hidden" id="modifyOk" value="${modifyOk}" />
+		<input type="hidden" id="ctxpath" value="${webroot}" />
+		<div class="ht_btn">
+				<a href="javascript:void(0);" class="btn" onclick="formSubmit();">保存</a>
+				<a href="javascript:void(0);" class="btn" onclick="reset();">重置</a>
+				<a href="javascript:void(0);" class="btn" onclick="goBack('${webroot}');">返回列表</a>
+		</div>
+		<form action="${webroot}/system/productTemplate/modify" method="post"  id="modifyTemplateForm">
+			#define(com.ekfans.base.product.model.ProductTemplate template)
+			<div class="add_pro">
+				<input type="hidden" name="id" value="${template.id}">
+				<input type="hidden" name="type" value="${template.type}">
+	 			<input type="hidden" name="createTime" value="${template.createTime}">
+				<dl>
+					<dt>模板名称<em class="mustIco"></em></dt>
+					<dd id="nameDd" >
+						<input type="text" class="i_bg"  name="name" value="${template.name}"  onblur="javascript:checkNameBlur();" onkeyup="javascript:checkName();" onfocus="javascript:checkName();" />
+						<span id="nameSpan" class="ts_xx">模板名为1-20位字符组成</span>
+					</dd>
+				</dl>
+   	 		<div class="clear"></div>
+    		<div class="splitLine"></div>
+				<div class="Tab">
+					<div class="tabUp">
+						<a href="javascript:void(0);" class="prev">&lt;</a>
+						<div class="tabItem">
+							<ul>
+								#for(com.ekfans.base.product.model.TemplateFieldsCategory category : categories)
+								 #if(for.index==1)
+								 	<li class="cur"><a href="javascript:void(0);">${category.categoryName}</a></li>
+									#else
+									<li><a href="javascript:void(0);">${category.categoryName}</a></li>
+									#end
+								#end
+							</ul>
+						</div>
+					  <a href="javascript:void(0);" class="next">&gt;</a>
+					  <div class="clear"></div>
+					</div>
+					<div class="tabContent">
+					#for(com.ekfans.base.product.model.TemplateFieldsCategory category : categories)
+						<div class="contentItem">
+					  	<a href="javascript:void(0);" class="btn btnAddLine">增加条目</a>
+					  	<div style="color:#F00">
+									注意：扩展字段值多个请用英文状态下的分号隔开“;”，如：红色;黄色;粉色;不能有斜线(/),括号()等特殊字符
+									</div>
+						  	<input type="hidden" value="${category.id}">
+						  	<table border="0" cellspacing="0" cellpadding="0" class="boxTable">
+					        <tbody>
+					          <tr>
+					            <td>前台可否搜索</td>
+					            <td>排序位置</td>
+					            <td>扩展字段名称</td>
+					            <td>扩展字段值</td>
+					            <td>扩展字段类型</td>
+					            <td>是否为可选字段</td>
+					            <td>操作</td>
+					          </tr>
+					          #for(com.ekfans.base.product.model.TemplateFields field : category.fields)
+					          	<tr>
+				                <td><input name="isSearch" type="checkbox" value="" #if(field.search) checked==true #end></td>
+				                <td><input type="text" class="boxTd" name="position" value="${field.position}"></td>
+				                <td><input type="text" class="boxTd" name="key" value="${field.fieldName}"></td>
+				                <td><input type="text" class="boxTd" name="value" value="${field.fieldValue}"></td>
+				                <td>
+													<select name="valueType" >
+														#for(java.util.Map.Entry<String,List<String>> entry:  productTempFieldsMap)
+															<option value="${entry.key}" #if(entry.key.equals(field.fieldType)) selected="true" #end>${entry.value}</option>
+														#end
+													</select>
+								        </td>
+				                <td>
+				                	<input type="hidden" name="categoryId" value="${field.fieldCategory}">
+				                	<input type="checkbox" name="common" class="changeSel" value="" #if(field.commons) checked==true #end>
+				                </td>
+				                <td>
+				                    <a href="javascript:void(0);" class="btnRemoveLine">
+				                        <img src="${webroot}/resources/system/images/del2.jpg" width="16" height="16">
+				                    </a>
+				                    <input type='hidden' class='i_bg' name='fieldId' value="${field.id}">
+				                </td>
+				              </tr>
+					          #end
+					          
+					          </tbody>
+					        </table>
+								</div>
+							#end
+					</div>
+		    </div>
+		  </div>
+	</form>
+	<input type="hidden" id="selectValue" value="checkBox"/>
+	<div id="addFieldsDemo" style="display:none;">
+		<table>
+			<tr>
+	    	<td><input name='isSearch' type='checkbox' value=''></td>
+	      <td><input name='position' type='text' class='boxTd'></td>
+	      <td><input name='key' type='text' class='boxTd'></td>
+	      <td><input name='value' type='text' class='boxTd'></td>
+				<td>
+					<select name="valueType" >
+						#for(java.util.Map.Entry<String,List<String>> entry: productTempFieldsMap)
+							<option value="${entry.key}" >${entry.value}</option>
+						#end
+					</select>
+				</td>
+				<td>
+					<input name='common' type='checkbox' class="changeSel" value=''>
+					<input name='categoryId' id='categoryId' type='hidden' value=''>
+				</td>
+				<td>
+					<a href='javascript:void(0);' class='btnRemoveLine'>
+						<img src='${webroot}/resources/system/images/del2.jpg' width='16' height='16'>
+					</a>
+					<input type='hidden' class='i_bg' name='fieldId' >
+				</td>
+			</tr>
+		</table>
+	<div>
+
+	</body>
+</html>
+

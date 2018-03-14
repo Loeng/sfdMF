@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemesh>
+	<!--======================================= CUSTOMER CENTER START ======================================= -->
+	<mapping path="/user*"
+		decorator="/userCenter/customer/decortor/customerDecortor.jetx" />
+	<mapping path="/user/login*" exclue="true" />
+	<mapping path="/user/productCollect/load*" exclue="true" />
+	<mapping path="/user/storeCollect/load*" exclue="true" />
+	<mapping path="/user/alreadyBuy/*" exclue="true" />
+	<mapping path="/user/cart/userShopCart*" exclue="true" />
+	<mapping path="/user/shopCart/account*" exclue="true" />
+	<mapping path="/user/shopCart/pay*" exclue="true" />
+	<mapping path="/user/adress/shopCartload*" exclue="true" />
+	<mapping path="/user/shopCart/paySuccess*" exclue="true" />
+	<mapping path="/user/addressUpdate/load/*" exclue="true" />
+	<mapping path="/user/target/list*" exclue="true" />
+	<mapping path="/user/appraisal/appraisalListContentLoad*"
+		exclue="true" />
+	<mapping path="/user/alreadyBuy/evaluation*" exclue="true" />
+	<mapping path="/user/center/top*" exclue="true" />
+	<mapping path="/user/shopCartAdress/change/utils" exclue="true" />
+	<!--======================================= CUSTOMER CENTER END ========================================= -->
+
+
+
+	<!--======================================= STORE CENTER START ======================================= -->
+	<mapping path="/store/*" decorator="/userCenter/store/decorator/storeDecortor.jetx" />
+	<mapping path="/store/index*"
+		decorator="/userCenter/store/decorator/storeIndexDecortor.jetx" />
+	<mapping path="/store/product/productCategory/search*" exclue="true" />
+	<mapping path="/store/productCategory/plist*" exclue="true" />
+	<mapping path="/store/product/brand/plistSearch*" exclue="true" />
+	<mapping path="/store/product/editLoad*" exclue="true" />
+	<mapping path="/store/product/tempfieldsLoad*" exclue="true" />
+	<mapping path="/store/product/brand/plist*" exclue="true" />
+	<mapping path="/store/login*" exclue="true" />
+	<mapping path="/store/finance/getOrderDetailByOrderId" exclue="true" />
+	<mapping path="/store/auth/jumpIntelPage/wfzz/load" exclue="true" />
+	<mapping path="/store/auth/jumpIntelPage/pwzz/load" exclue="true" />
+	<mapping path="/store/auth/jumpIntelPage/yszz/load" exclue="true" />
+	<mapping path="/store/order/wfOrderTransLoad/*" exclue="true" />
+	<mapping path="/store/order/wfOrderCarInfoLoad" exclue="true" />
+	<mapping path="/store/order/wfOrderCarUserLoad/*" exclue="true" />
+	<mapping path="/store/order/wfOrderPricesLoad" exclue="true" />
+	<mapping path="/store/order/bcsPayWait" exclue="true" />
+	<mapping path="/store/order/bcsPay" exclue="true" />
+	<mapping path="/store/account/bank/load" exclue="true" />
+	<mapping path="/store/order/payWait" exclue="true" />
+	<mapping path="/store/order/payYFPrice/*" exclue="true" />
+	<mapping path="/store/order/jiesuan/*" exclue="true" />
+	<mapping path="/store/order/tuikuan/*" exclue="true" />
+	<mapping path="/store/order/payorder/storelist" exclue="true" />
+	<mapping path="/store/order/payorder/contractList" exclue="true" />
+	<mapping path="/store/payorder/bcsPay" exclue="true" />
+	<mapping path="/store/payorder/bcsPayWait" exclue="true" />
+	<mapping path="/store/payorder/getStoreListPrice" exclue="true" />
+	<mapping path="/store/wfpscrap/loadSalStore/*" exclue="true" />
+	<mapping path="/store/wfpscrap/loadTransContracts/*" exclue="true" />
+	<mapping path="/store/childOrder/getOrderPrice" exclue="true" />
+	<mapping path="/store/order/wfOrderPricesReLoad" exclue="true" />
+	<mapping path="/store/wfpscrap/loadBuyStore/*" exclue="true" />
+	<mapping path="/store/order/loadBanks*" exclue="true" />
+	<mapping path="/store/account/bank/loglist" exclue="true" />
+	<mapping path="/store/account/bank/ajaxadd*" exclue="true" />
+	<mapping path="/store/account/bank/sxf*" exclue="true" />
+	<mapping path="/store/account/bank/unregedit*" exclue="true" />
+	<mapping path="/store/account/bank/getlistprice*" exclue="true" />
+	<mapping path="/store/wfpscrap/loadTransStores" exclue="true" />
+	<mapping path="/store/wfpscrap/loadWfps" exclue="true" />
+	<mapping path="/store/contract/ysContrants" exclue="true" />
+	<mapping path="/store/contract/add/loadPw" exclue="true" />
+	<mapping path="/store/contract/add/loadCars" exclue="true" />
+	<mapping path="/store/finance/getContractLoad" exclue="true" />
+	<mapping path="/store/finance/getContractLoad" exclue="true" />
+	<mapping path="/store/gouWu/order*" exclue="true" />
+	<mapping path="/store/finance/getOrderWfpByOrderId" exclue="true" />
+	<mapping path="/store/bargain/detail*" exclue="true" />
+	<mapping path="/store/bargain/auditDetail*" exclue="true" />
+	<mapping path="/store/bargain/bargainDetail*" exclue="true" />
+	<mapping path="/store/auth/accredit/wfpys*" exclue="true" />
+	<mapping path="/store/loan/loadtypes/*" exclue="true" />
+	<mapping path="/store/loan/loaddetails/*" exclue="true" />
+	<mapping path="/store/loan/loadorder" exclue="true" />
+	<mapping path="/store/loan/loadcontract" exclue="true" />
+	<mapping path="/store/loan/applysave" exclue="true" />
+	<mapping path="/store/loan/appcancel/*" exclue="true" />
+	<mapping path="/store/sfdorder/*" exclue="true"/>
+	<!--======================================= STORE CENTER END ========================================= -->
+
+	<mapping path="/system/*" exclue="true" />
+</sitemesh>

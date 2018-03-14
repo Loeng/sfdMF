@@ -1,0 +1,254 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>编辑银行账户</title>
+		<link href="${ctxpath}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+		<!-- 上传文件的CSS -->
+		<link href="${ctxpath}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.form.js"></script>
+		<script type="text/javascript" src="${ctxpath}/resources/system/js/tools.js"></script>
+		<!-- 上传文件控件  -->
+		<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.soChange.js"></script>
+		<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.json-2.2.min.js"></script>
+		<script type="text/javascript" src="${ctxpath}/resources/commons/js/ajaxupload.js"></script>
+		<script type="text/javascript" src="${ctxpath}/resources/commons/js/upload/upload.js"></script>
+		<script src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+		<style type="text/css">
+		.add_pro .formBox{float: left; width: 470px; clear: none;}
+		.add_pro .formBox dt{width:80px;}
+		.formBox dd{width: 380px;}
+		.formBox .i_bg{width:200px;}
+		h3{line-height: 30px; margin-top: 20px;}
+
+		</style>
+	</head>
+    <body>
+    	#define(List<com.ekfans.base.finance.model.BankDepartment> departments)
+    	#define(com.ekfans.base.finance.model.BankAccount account)
+
+		<div class="ht_btn">
+			<a href="#" onclick="formSubmit();" class="btn">保存</a>
+			<a href="#" onclick="reset();" class="btn">重置</a>
+			<a href="#" onclick="goBack('${webroot}');" class="btn">返回账户列表</a>
+		</div>
+		<form action="${webroot}/system/bankaccount/saveOrUpdate" name="add" method="post"  id="addBankForm">
+			<input type="hidden" id="ok" value="${addOk}" />
+			<input type="hidden" id="canCommit" value="1" />
+			<input type="hidden" id="ctxpath" value="${webroot}" />
+			<input type="hidden" id="id" name="id" value="${account.id}" />
+			<input type="hidden" id="bankId" name="bankId" value="${account.bankId}" />
+			<input type="hidden" id="bankName" name="bankName" value="${account.bankName}" />
+			<input type="hidden" id="bankLogo" name="bankLogo" value="${account.bankLogo}" />
+			<input type="hidden" id="password" name="password" value="${account.password}" />
+			<input type="hidden" id="createTime" name="createTime" value="${account.createTime}" />
+			<input type="hidden" id="oldPassword" name="oldPassword" value="${account.password}" />
+			
+			<div class="add_pro">
+				<dl class="formBox" style="width:550px;">
+					<dt><em class="mustIco"></em>所属部门</dt>
+					<dd>
+						<select name="department" id="department" value="${account.departmentId}-${account.department}" style="width:50%">
+						<option value="">---请选择---</option>
+						#for(com.ekfans.base.finance.model.BankDepartment depart:departments)
+							<option value="${depart.id}-${depart.name}" #if(depart.id == account.departmentId) selected="true" #end>${depart.name}</option>
+							#if(depart.childList != null && depart.childList.size()>0)
+								#for(com.ekfans.base.finance.model.BankDepartment depart1:depart.childList)
+									<option value="${depart1.id}-${depart1.name}" #if(depart1.id == account.departmentId) selected="true" #end>
+									&nbsp;&nbsp;&nbsp;&nbsp;${depart1.name}
+									</option>
+									#if(depart1.childList != null && depart1.childList.size()>0)
+										#for(com.ekfans.base.finance.model.BankDepartment depart2:depart1.childList)
+											<option value="${depart2.id}-${depart2.name}" #if(depart2.id == account.departmentId) selected="true" #end>
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${depart2.name}
+											</option>
+											#if(depart2.childList != null && depart2.childList.size()>0)
+												#for(com.ekfans.base.finance.model.BankDepartment depart3:depart2.childList)
+													<option value="${depart3.id}-${depart3.name}" #if(depart3.id == account.departmentId) selected="true" #end>
+													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${depart3.name}
+													</option>
+												#end
+											#end
+										#end
+									#end
+								#end
+							#end
+						#end
+					</select>
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				<dl class="formBox">
+					<dt><em class="mustIco"></em>账号</dt>
+					<dd id="nameDd" class="">
+						<input type="text" id="name" maxlength="128" class="i_bg"  name="name" onblur="checkname();" value="${account.name}"/>
+						<span id="nameSpan" class="ts_xx">请输入账号</span>
+					</dd>
+				</dl> 
+				<dl class="formBox">
+					<dt><em class="mustIco"></em>密码</dt>
+					<dd id="passwordDd" class="">
+						<input type="password" id="password" maxlength="128" class="i_bg"  name="password" onblur="checkAccountPassword();" value="${account.password}"/>
+						<span id="passwordSpan" class="ts_xx">请输入密码</span>
+					</dd>
+				</dl> 
+				<div class="clear"></div>
+				<dl class="formBox">
+					<dt style="width:150px;"><em class="mustIco"></em>初次登陆是否重置密码</dt>
+					<dd style="width:200px;">
+						<label><input type="radio" name="resetPwd" value="true" #if(account.resetPwd) checked #end>是</label>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<label><input type="radio" name="resetPwd" value="false" #if(!account.resetPwd) checked #end>否</label>
+					</dd>
+				</dl>
+				<dl class="formBox">
+					<dt><em class="mustIco"></em>会员状态</dt>
+					<dd>
+						<label><input type="radio" name="status" value="true" #if(account.status) checked #end>是</label>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<label><input type="radio" name="status" value="false" #if(!account.status) checked #end>否</label>
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				<dl class="formBox">
+					<dt><em class="mustIco"></em>真实姓名</dt>
+					<dd id="realNameDd" class="">
+						<input type="text" id="realName" maxlength="128" class="i_bg"  name="realName" onblur="checkRealName();" value="${account.realName}"/>
+						<span id="realNameSpan" class="ts_xx">请输入真实姓名</span>
+					</dd>
+				</dl> 
+				<dl class="formBox">
+					<dt>手机号</dt>
+					<dd class="">
+						<input type="text" id="phone" maxlength="128" class="i_bg"  name="phone" value="${account.phone}"/>
+					</dd>
+				</dl> 
+			<div>
+		</form>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				/*按钮浮动定位*/
+				$(".ht_btn").next().addClass("afterHt");
+				$("input[type='text']").each(function(){
+					$(this).focus(function(){
+						$(this).parent().removeAttr("class");
+					});
+				});
+				$("input[type='password']").each(function(){
+					$(this).focus(function(){
+						$(this).parent().removeAttr("class");
+					});
+				});
+
+				// 判定后台是否返回添加成功的信息
+				if($("#ok").val()=="true"){
+					econfirm('添加成功，是否继续添加？',null,null,goBack,[$("#ctxpath").val()]);
+				}else if($("#ok").val()=="false"){
+					ealert("添加失败！");
+				}
+
+				$("input.i_bg").focus(function (){ 
+					$(this).parent().addClass("text_ts");
+				});
+				$("input.i_bg").blur(function (){ 
+					$(this).parent().removeClass("text_ts");
+				}); 
+			});	
+
+
+			var flag = false;
+
+
+
+
+			function checkname(){
+				if($("#name").val() == '' || $("#name").val() == null || $("#name").val() == ' '){
+					$("#nameSpan").html("请输入账号");
+					$("#nameDd").addClass("text_c_ts");
+					return false;
+				}else{
+					var _contextPath = $("#ctxpath").val();
+					$.post(_contextPath + '/system/bank/checkaccount',{accountName:$("#name").val(),accountId:"${account.id}"},function (data){
+						if(data==1 || data=="1"){
+							$("#nameSpan").html("账号已被使用");
+							$("#nameDd").addClass("text_c_ts");
+							$("#canCommit").val("0");
+							return false;
+						}else{
+							document.getElementById("nameDd").className="";
+							return true;
+						}
+					});
+				}
+				
+			}
+			function checkAccountPassword(){
+				if($("#password").val() == '' || $("#password").val() == null || $("#password").val() == ' '){
+					$("#passwordDd").addClass("text_c_ts");
+					return false;
+				}else{
+					document.getElementById("passwordDd").className="";
+					return true;
+				}
+			}
+			function checkRealName(){
+				if($("#realName").val() == '' || $("#realName").val() == null || $("#realName").val() == ' '){
+					$("#realNameDd").addClass("text_c_ts");
+					return false;
+				}else{
+					document.getElementById("realNameDd").className="";
+					return true;
+				}
+			}
+
+			//重置
+			function reset(){
+				document.getElementById("addBankForm").reset();
+			}
+
+			//返回列表
+			function goBack(contextPath){
+				// 判定contextPath是否为空
+				if(contextPath==null||contextPath==""){
+					window.location.href=contextPath + "/system/bankaccount/list/${account.bankId}";
+				}
+				contextPath = $("#ctxpath").val();
+				window.location.href=contextPath + "/system/bankaccount/list/${account.bankId}";
+			}
+
+			//返回列表
+			function goAdd(){
+				contextPath = $("#ctxpath").val();
+				window.location.href=contextPath + "/system/bankaccount/add/${account.bankId}";
+			}
+
+			//提交
+			function formSubmit(){
+				if($("#department").val() == ""){
+					ealert("请选择所属部门");
+					return;
+				}
+				checkname();
+				checkAccountPassword();
+				checkRealName();
+				if($(".text_c_ts").length>0){
+					return;
+				}else{
+					$("#addBankForm").ajaxSubmit(function(data){
+						if(data == "1" || data == 1){
+							if(!confirm("账户信息保存成功，是否继续编辑？")){
+								goBack(null);
+							}
+							//econfirm("银行信息保存成功，是否继续新增？",goAdd,null,goBack,null);
+						}else{
+							ealert("账户信息保存失败，请稍后再试！");
+						}
+					});
+				}
+			}
+
+		</script>
+    </body>
+</html>

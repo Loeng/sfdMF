@@ -1,0 +1,143 @@
+
+<body>
+	
+	<div class="sto_right">
+		<table cellpadding="0" cellspacing="0" border="0" class="list_ss">
+			<tr>
+				<td>退款单号&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="i_text"></td>
+				<td>订单号&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="i_text"></td>
+			</tr>
+		</table>
+		<div class="list_ss_btn">
+			<a href="#">搜索</a>
+			<a href="#">清空</a>
+		</div>
+		<div class="list_bt"><h3>退款订单</h3></div>
+		<table cellpadding="0" cellspacing="0" border="0" class="sh_list">
+			<tr>
+            	<th width="6%"></th>
+				<th width="12%">退款单号</th>
+				<th width="12%">退款类型</th>
+				<th width="12%">订单号</th>
+				<th width="13%">退款状态</th>
+				<th width="15%">退款金额</th>
+                <th width="15%">申请时间</th>
+				<th width="15%">操作</th>
+			</tr>
+			<tr>
+            	<td><input name="" type="checkbox" value="" class="orderCheck"></td>
+            	<td>25417896</td>
+				<td>协议退款</td>
+				<td>874515963</td>
+				<td>等待卖家确认中</td>
+				<td>236.00</td>
+				<td>2014-05-08</td>
+				<td>
+					<a href="#">查看详情</a>
+				</td>
+			</tr>
+            <tr>
+            	<td><input name="" type="checkbox" value="" class="orderCheck"></td>
+            	<td>25417896</td>
+				<td>协议退款</td>
+				<td>874515963</td>
+				<td>等待卖家确认中</td>
+				<td>236.00</td>
+				<td>2014-05-08</td>
+				<td>
+					<a href="#">查看详情</a>
+				</td>
+			</tr>
+            <tr>
+            	<td><input name="" type="checkbox" value="" class="orderCheck"></td>
+            	<td>25417896</td>
+				<td>协议退款</td>
+				<td>874515963</td>
+				<td>等待卖家确认中</td>
+				<td>236.00</td>
+				<td>2014-05-08</td>
+				<td>
+					<a href="#">查看详情</a>
+				</td>
+			</tr>
+            <tr>
+            	<td><input name="" type="checkbox" value="" class="orderCheck"></td>
+            	<td>25417896</td>
+				<td>协议退款</td>
+				<td>874515963</td>
+				<td>等待卖家确认中</td>
+				<td>236.00</td>
+				<td>2014-05-08</td>
+				<td>
+					<a href="#">查看详情</a>
+				</td>
+			</tr>
+            <tr>
+            	<td><input name="" type="checkbox" value="" class="orderCheck"></td>
+            	<td>25417896</td>
+				<td>协议退款</td>
+				<td>874515963</td>
+				<td>等待卖家确认中</td>
+				<td>236.00</td>
+				<td>2014-05-08</td>
+				<td>
+					<a href="#">查看详情</a>
+				</td>
+			</tr>
+            <tr>
+            	<td><input name="" type="checkbox" value="" class="orderCheck"></td>
+            	<td>25417896</td>
+				<td>协议退款</td>
+				<td>874515963</td>
+				<td>等待卖家确认中</td>
+				<td>236.00</td>
+				<td>2014-05-08</td>
+				<td>
+					<a href="#">查看详情</a>
+				</td>
+			</tr>
+		</table>
+		<div class="sh_list_cz">
+			<div class="sto_page">
+				<a href="#"><<</a>
+				<a href="#" class="cur">1</a>
+				<a href="#">>></a>
+			</div>
+			<input type="checkbox" name="" value="">全选&nbsp;&nbsp;
+			<a href="#">同意退款</a>
+		</div>
+		
+	</div>
+
+
+<script>
+	$(function(){
+		$(".sto_top ul li").hover(
+			function(){
+				$(this).addClass("li_hover");
+				$(this).children("div").show();		
+			},function(){
+				//$(this).stop().fadeTo('slow',1);
+				$(this).removeClass("li_hover");
+				$(this).children("div").hide();	
+		});
+			
+		$(".sto_left dl dt").click(function(){
+			$(this).toggleClass("dl_hide");
+			$(this).nextAll("dd").slideToggle();		
+		});
+		$(".sh_list_cz .del").click(function(){
+			$(".del_tc").show();
+			$(".del_tc_bg").show();
+		});
+		$(".del_tc .tit span").click(function(){
+			$(".del_tc").hide();
+			$(".del_tc_bg").hide();
+		});
+		$(".del_tc .btn .close").click(function(){
+			$(".del_tc").hide();
+			$(".del_tc_bg").hide();
+		});
+	})	
+</script>
+</body>

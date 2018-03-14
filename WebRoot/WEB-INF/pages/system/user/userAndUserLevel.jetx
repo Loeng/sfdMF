@@ -1,0 +1,88 @@
+
+#define(List<com.ekfans.base.user.model.UserLevel> userLevels)
+		<div class="tit" id="divLoad">
+				<span class="apClose"><img src="${webroot}/resources/system/images/del3.jpg" onclick="apClose();"></span>
+				<span class="titName">会员等级选择</span>
+				<div class="clear"></div>
+		</div>
+		
+					<table id="productAndStoreTab" cellpadding="0" cellspacing="0" border="0" class="shopTable">
+						<tr>
+								  <th>图标</th>
+								  <th>会员等级名</th>
+								  <th>类型</th>
+								  <th>&nbsp;</th>
+						</tr>
+						#for(com.ekfans.base.user.model.UserLevel userLevel : userLevels)
+							<tr>
+									<td>
+										#if(userLevel.icon!="" && userLevel.icon!=null)
+											<img src="${userLevel.icon }" width="35" height="35"/>
+										#else
+											<img src="${webroot}/resources/system/images/imgdefault.jpg" width="35" height="35"/>
+										#end
+									</td>
+									<td>${userLevel.name }</td>
+									<td>#if(userLevel.type) 显示 #else 不显示 #end</td>
+									<td><a href="#" class="btn" onclick="sreachStore('${userLevel.name }','${userLevel.id }');">选择</a></td>
+						   </tr>
+						 #end
+					</table>
+					
+					#define(com.ekfans.pub.util.Pager pager)
+					<div class="ht_page">
+							<a href="#" onclick="goPage('1');"   value="1" class="btn"><<</a>
+							#if(pager.currentPage == 1)
+								<a href="#" class="btn"><</a> 
+							#else
+								<a href="#" onclick="goPage('${pager.currentPage-1 }');"   value="${pager.currentPage-1 }" class="btn"><</a>
+							#end
+							
+							#if(pager.totalPage>5)
+								#if(pager.currentPage-2>1 && pager.currentPage+2<pager.totalPage)
+									<a class="btn">..</a>
+									#for(int i : iterator(pager.currentPage-2,pager.currentPage+2))
+										#if(pager.currentPage==i)
+												<a href="#" onclick="goPage('${i }');" value="${i }" class="btn cur">${i }</a>
+										#else
+											<a href="#" onclick="goPage('${i }');" value="${i }" class="btn">${i }</a>
+										#end
+									#end
+									<a>..</a>
+								#elseif(pager.currentPage-2<=1)
+									#for(int i : iterator(1,5))
+										#if(pager.currentPage==i)
+											<a href="#" onclick="goPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+										#else
+											<a href="#" onclick="goPage('${i }');"   value="${i }" class="btn">${i }</a>
+										#end
+									#end
+									<a>..</a>
+								#else
+									<a>..</a>
+									#for(int i : iterator(pager.totalPage-4,pager.totalPage))
+										#if(pager.currentPage==i)
+											<a href="#" onclick="goPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+										#else
+											<a href="#" onclick="goPage('${i }');"   value="${i }" class="btn">${i }</a>
+										#end
+									#end
+								#end
+							#else
+								#for(int i : iterator(1,pager.totalPage))
+									#if(pager.currentPage==i)
+										<a href="#" onclick="goPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+									#else
+										<a href="#" onclick="goPage('${i }');"   value="${i }" class="btn">${i }</a>
+									#end
+								#end
+							#end
+							
+							#if(pager.currentPage==pager.totalPage)
+								<a href="#" class="btn">></a>
+							#else
+								<a href="#" onclick="goPage('${pager.currentPage+1 }');"   value="${pager.currentPage+1 }" class="btn">></a>
+							#end
+							<a  href="#" onclick="goPage('${pager.totalPage }');"   value="${pager.totalPage }" class="btn">>></a>
+							
+						</div>

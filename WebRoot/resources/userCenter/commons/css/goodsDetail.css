@@ -1,0 +1,144 @@
+/* CSS Document */
+
+@import url("base.css");
+
+.contentTit{background:#FFF;height:28px;padding:10px 0px 10px 60px;width:965px;}
+.contentTit h3{font-size:18px;color:#333;float:left;}
+
+.form{padding:10px 20px 5px 20px; background:#FFF;min-height:350px; border-top:1px solid #e5e5e5;}
+.formItem{width:330px; float:left; margin:0px 36px 10px 0px;min-height:30px;display:block;}
+.formItem dt{float:left;font-size:12px;color:#303132; width:74px; line-height:28px; margin-right:20px; text-align:right; position:relative;}
+.formItem dd{float:left;line-height:30px; min-height:30px; color:#787878;}
+.formItem dd.clear{float:none; clear:both; min-height:0;}
+.formLine{width:100%; margin-right:0; float:none; clear:both;}
+.radio{font-size:12px;color:#303132;margin-right:25px;}
+.radio input{margin-right:8px;}
+.formItem select{height:28px; line-height:28px; border:solid 1px #E0E3EA; text-indent:0.6em; font-family:Microsoft YaHei;cursor:pointer;}
+.formLine select{width:578px;}
+.formItem .select4 select{width:142px;}
+.formItem .select3 select{width:190px;}
+.formItem .select2 select{width:288px;}
+.formItem .checkItem .check,.formItem .limitAll .check{display:inline-block;margin-right:15px;}
+.checkBox{margin-right:23px;}
+.formItem textarea{display:block; border:solid 1px #E0E3EA; padding:0.6em; width:196px;}
+.formLine textarea{width:560px;}
+.clickAbout input{display:block; float:left;}
+.mustIco{background:url(../images/mustico.png) no-repeat right center; width:9px; height:7px; overflow:hidden; display:inline-block; margin-right:5px;}
+.formUpload{margin-top:20px;}
+.hint{color:#888;}
+.textItem{padding-right:20px;}
+
+.btnBase{padding:0 20px; margin-right:5px; float:left;}
+.btnEdit{float:right;}
+.btnBack{float:right;}
+
+/*琛ㄥ崟璇︽儏*/
+.textBox{display:block;height:28px;line-height:22px;border:solid 1px #E0E3EA;text-indent:0.6em; background:#EFEFEF;color:#7D7C7D;}
+.textBox input{width:100%; height:26px; line-height:26px;border:solid 1px #E0E3EA; text-indent:0.6em; font-family:Microsoft YaHei;cursor:pointer;color:#7D7C7D;}
+.selList .textBox{position:relative; z-index:2; display:block; height:28px;border:none;text-indent:0px;background:#EFEFEF;color:#7D7C7D;}
+.selList .textBox input{ width:100%; height:26px; border:solid 1px #E0E3EA; text-indent:0.6em; font-family:Arial,Microsoft YaHei; line-height:26px;cursor:pointer;background:#EFEFEF;color:#7D7C7D;}
+
+.readOnly{z-index:-1;}
+
+/*琛ㄥ崟閿欒鎻愮ず*/
+.errorText{display:block; height:25px; line-height:25px; background:#F9D1D3; color:#f00; padding-left:12px;}
+
+/*璁㈠崟璇︽儏*/
+.tit{width:100%;border-bottom:1px solid #e5e5e5;height:37px; position:relative;}
+.tit h2{float:left;font-size:14px;padding:0 20px 0 16px; font-weight:normal; height:32px; line-height:32px; cursor:pointer;position:relative; margin-right:20px;}
+.tit h2.cur{border-bottom:5px solid #393;}
+.rightTitle em{height:32px; line-height:32px; display:inline-block;padding:0 20px 0 16px;border-bottom:5px solid #393;}
+.rightTitle{font-weight:normal; height:37px; font-size:14px; border-bottom:1px solid #e5e5e5; position:relative; margin-bottom:20px;}
+.layerToggle{line-height:32px; padding-right:20px; background:url(../images/toup.png) no-repeat right center; position:absolute; right:20px; top:2px; font-size:12px;}
+.layerToggleDown{background:url(../images/todown.png) no-repeat right center;}
+
+.orderTable{width:100%; margin-bottom:20px;}
+.orderTable th{height:35px; line-height:35px;font-weight:normal; text-align:left;color:#fff; font-size:14px;background-color: #393;}
+.orderTable td{padding:20px 0; color:#818181; border-bottom:solid 1px #e5e5e5;}
+.orderTable .tdProInfo{width:400px; padding-left:20px;}
+.tdProNum{width:120px;}
+.orderTable .tdProCount{width:120px; text-align:center;}
+.orderTable .tdSubtotal{width:140px; text-align:center;}
+.orderTable td.tdSubtotal{font-size:14px; color:#f00;}
+td.tdSubtotal{text-align:right;}
+.orderImg{display:block; width:78px; height:78px; border:solid 1px #f2f2f2; float:left; margin-right:20px;}
+.proRight{float:left; width:272px;}
+.orderText{display:block; line-height:18px; margin-bottom:8px;}
+.nowPrice{display:inline-block; padding:0 10px; height:16px; line-height:16px; background:#f00; color:#fff; margin-bottom:8px;}
+.colorSize{display:block; width:113px; line-height:18px; margin-right:10px; float:left; color:#333;}
+.colorSize span{float:left; display:block; width:38px;}
+.colorSize em{color:#a9a9a9; float:left; display:block; width:75px;}
+
+.form dl dt{line-height:30px; height:30px; margin-bottom:10px; font-size:14px;}
+.form dl li,.payInfo li{line-height:24px; height:24px; color:#787878;}
+.form dl li em,.payInfo li em{color:#303132; padding-right:16px; display:inline-block; text-align:right; width:50px;}
+.form dl li a{color:#09F; font-size:14px;}
+.form dl li a:hover{color:#0065A8; text-decoration:underline;}
+.consignee{padding:0px 0 16px 25px; border-bottom:1px solid #e5e5e5;}
+.paddingtop{padding-top:20px;}
+.payStyle{padding:20px 0 0 25px; float:left; width:415px;}
+.invoiceInfo{padding:20px 20px 0 0; float:left;}
+.orderInfo{padding-bottom:20px; border-bottom:1px solid #e5e5e5; margin-bottom:16px;}
+.payInfo ul{padding:0 0 10px 25px;}
+.payInfoLeft{float:left; width:390px;}
+.split2{clear:both; height:1px; overflow:hidden; background:#e5e5e5; margin-bottom:20px;}
+
+/*鏃犲彂绁ㄤ俊鎭*/
+.invoiceNone{margin:60px 20px 0 -20px; position:relative; float:left; border:dotted 3px #ddd; width:190px; padding:20px 0; line-height:35px; text-align:center; font-size:30px; color:#d1d0d0;}
+
+.payInfo{padding: 0 0 20px 0; margin-bottom:16px; border-bottom:solid 1px #e5e5e5;}
+.money{height:44px; margin-bottom:6px;}
+.money em.price{font-size:24px; color:#f00; font-style:normal;}
+.moneyTotal{font-size:14px; display:block; height:32px; line-height:32px; padding-left:25px; float:left; margin-right:20px;}
+.money .btnOrange{width:62px; height:22px; line-height:22px; display:block; float:left; margin:5px 10px 0 0;}
+.editMoney{position:relative; float:left; display:none;}
+.editMoney .editBox{width:120px; height:34px; padding:5px; background:#efefef; display:block; position:relative; margin-top:-5px; float:left; margin-right:10px;}
+.editMoney .editBox input{width:98px; height:32px; line-height:26px; border:solid 1px #e5e5e5; background:url(../images/$2.png) no-repeat 5px center; background-color:#fff; padding-left:20px;}
+.editMoney .editBox em{display:block; background:url(../images/detailpoint2.png) no-repeat; width:7px; height:10px; overflow:hidden; position:absolute; top:16px; left:-7px;}
+.editMoney .btnBlue{display:block; float:left; width:60px; height:22px; line-height:22px; margin-top:5px;}
+.btnSubmit{margin-left:25px;}
+
+/*閿欒鎻愮ず*/
+.errorText{display:block; height:25px; line-height:25px; float:left; margin-top:4px; min-width:100px; _width:100px; margin-right:10px;}
+.errorText *{display:block; height:25px; float:left;}
+.errorBoxL{width:9px; overflow:hidden; background:url(../images/site.png) no-repeat -13px 0;}
+.errorBoxR{width:4px; overflow:hidden;  background:url(../images/site.png) no-repeat -22px 0;}
+.errorMain{padding:0 5px; background:#ff8900; white-space:nowrap; color:#fff;}
+.errorRed .errorBoxL{background:url(../images/site.png) no-repeat 0 0;}
+.errorRed .errorBoxR{background:url(../images/site.png) no-repeat -9px 0;}
+.errorRed .errorMain{background:#f00;}
+
+/*璁㈠崟鏃ュ織*/
+.orderLog{padding: 20px 0 10px 0; margin-bottom:16px; border-bottom:solid 1px #e5e5e5; display:none;}
+.orderLog li{line-height:26px; height:26px; padding-left:25px; color:#787878;}
+.freightText{height:20px; line-height:20px; padding-left:25px; margin-top:30px;}
+.freightText span{padding-right:40px;}
+
+/*寰呭彂璐*/
+.logistics{padding:10px 0 0 25px; display:block; position:relative;}
+.logistics li{height:28px; margin-bottom:20px;}
+.logistics li.clear{height:0; clear:both; float:none; margin:0;}
+.logisticsTitle{display:inline-block; width:64px; line-height:28px; color:#7f7f7f;}
+.logistics input{display:inline-block; width:218px; height:26px; line-height:26px\9; border:solid 1px #d3d3d3;}
+.logistics .sortBox{width:80px;}
+.logistics .red{font-size:14px;}
+.logistics .errorText{display:block; margin:0 0 0 6px; position:static;}
+.logistics li *{float:left;}
+
+/*琛ㄦ牸*/
+.formTable{padding:0px 20px 18px 20px; background:#FFF; border-top-width:2px; border-top-style:solid;}
+.secNav{height:42px;line-height:42px;}
+.secNav li{float:left; margin-right:25px;}
+.li1{color:#333;font-size:14px;}
+.li2{background:url(../images/icon_del.png) no-repeat;padding-left:22px;color:#AEAEAE;font-size:12px;}
+.li3{background:url(../images/icon_add.png) no-repeat 0px -1px;padding-left:22px;color:#AEAEAE;font-size:12px;}
+.li4{background:url(../images/icon_add.png) no-repeat 0px -1px;padding-left:22px;color:#AEAEAE;font-size:12px;}
+.tabList{width:100%;margin-bottom:10px;}
+.tabList th{padding:0px 10px; height:35px;line-height:35px; color:#000; font-size:14px;}
+.tabList td{padding:8px 10px; line-height:22px; border-bottom:1px #DCDCDD solid;color:#7D7C7D; max-width:105px; overflow:hidden; text-align:center;}
+.tabList .tabRight{text-align:right;}
+.tabList .tabLeft{text-align:left;}
+.tabList tr:hover{background:#F3F3F3;}
+.tabList .btnBase{height:22px; line-height:22px; width:70px; padding:0; margin:0 auto 6px auto; display:block;}
+.pagesCunt{float:left;font-size:12px;}
+.biaotiL{display:inline-block;width:60px;text-align:right;}

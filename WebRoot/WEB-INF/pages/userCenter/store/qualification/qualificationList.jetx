@@ -1,0 +1,166 @@
+﻿<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>道路紧急预案列表</title>
+	<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/userCenter/commons/css/proList.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+</head>
+
+<body>
+	#define(List<com.ekfans.base.store.model.EmergencyPlan> quaList)
+		
+	
+<form action="${webroot}/store/qualification/getQuaList" method="post" id="searchQua">
+	<div class="formSearch borderColor">
+	<dl class="formItem">
+		<dt>开始时间</dt>
+		<dd><input type="text" name="startTime" id="startTime" value="${startTime}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="textBox box212"></dd>
+	</dl>
+	<dl class="formItem">
+		<dt>结束时间</dt>
+		<dd><input type="text" name="endTime" id="endTime" value="${endTime}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="textBox box212"></dd>
+	</dl>
+	<input type="hidden" name="pageNum" value="" />
+	</div>
+	<div class="btnArea">
+		<input type="submit" value="搜索" class="btnBase btnSearch">
+		<input type="button" value="重置" onclick="resets()" class="btnBase btnReset">
+	</div>
+	
+</form>
+ 
+<div class="formTable borderColor">
+		<ul class="secNav">
+			<li><a href="javascript:void(0);" onclick="dels()" title="删除所选"  class="li2">删除所选</a></li>
+			<li><a href="${webroot}/store/qualification/add" title="新增"  class="li3">新增</a></li>
+		</ul>
+		<div class="clear"></div>
+		
+		<div style="position:relative;" class="tableBox">   
+			<table border="0" cellspacing="0" cellpadding="0" class="tabList">
+			<thead>
+				<tr class="bgColor">
+					<th class="tdCheck"><label class="checkAll"><span class="check"><em><input name="checkbox1" type="checkbox" value=true></em></span></label></th>
+					<th class="tdBrand">附件</th>
+					<th class="tdBrand accept">是否有效</th>
+					<th class="tdBrand accept">开始时间</th>
+					<th class="tdState accept">结束时间</th>
+					<th class="tdEdit accept">操作</th>
+				</tr>
+				</thead>
+				<tbody>
+				#if(quaList != null && quaList.size()>0)
+				<form action="${webroot}/store/qualification/delQuas" id="sub" method="post">
+					#for(com.ekfans.base.store.model.EmergencyPlan qua : quaList)
+					<tr>
+						<td class="tdCheck"><label class="checkItem"><span class="check"><em><input name="quaIds" type="checkbox" value="${qua.id}"></em></span></label></td>
+						<td class="tdBrand">${qua.file}</td>
+						<td class="tdBrand">#if(qua.type=="0")无效 #else 有效 #end</td>
+						<td class="tdState">${qua.startTime}</td>
+						<td class="tdCount">${qua.endTime}</td>
+						<td class="tdEdit">
+							<a href="${webroot}/store/qualification/getQuaById?quaId=${qua.id}&seeType=1" class="eyeIco">查看</a> 
+							<a href="${webroot}/store/qualification/getQuaById?quaId=${qua.id}&seeType=2" class="editIco">编辑</a> 
+							#if(qua.type=='0')
+							<a href="javascript:void(0);" class="startUse" id="${qua.id}">启用</a> 
+							#end
+							<a href="javascript:void(0);" class="deleteItem" id="${qua.id}">删除</a>
+						</td>
+					</tr>
+					#end
+				</form>
+				<input type="hidden" name="pageNum" value="${pager }" />
+				<script>
+					function goPage(pageNum){
+						$("input[name='pageNum']").val(pageNum);
+						$("#searchQua").submit();
+					}	
+				</script>
+				<div class="clear"></div>
+				#else
+				<div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+				#end
+				</tbody>
+			</table>
+			</div>
+			
+			${include( "../common/page.jetx")}
+			<div class="clear"></div>
+	</div>
+
+	<!--支持拖动+宽度调节JS-->
+<script src="${webroot}/resources/userCenter/commons/js/jquery-ui-1.9.2.custom.js"></script> 
+<script src="${webroot}/resources/userCenter/commons/js/jquery.dragtable.js"></script> 
+<script src="${webroot}/resources/userCenter/commons/js/jquery-migrate-1.1.1.js"></script> 
+<script src="${webroot}/resources/userCenter/commons/js/jquery.chili-2.2.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/jquery.resizableColumns.js"></script>
+<script type="text/javascript">
+	function dels(){
+		econfirm('是否确认删除？',deleteThis,[$("#ctxpath").val()],null,null);
+		function deleteThis(){
+  		$.post('${webroot}/store/qualification/delQuas',$("#sub").serialize(),function (data){
+					if(data==1 || data=="1"){
+						salertWithFunction("删除成功!", myupreset, null);
+          }else if(data==0 || data=="0"){
+          	salertWithFunction("删除失败!", myupreset, null);
+          }else{
+          	salertWithFunction("有效预案不能删除!", myupreset, null);
+          }
+    	});
+    }
+	}
+	
+ $(document).ready(function() {
+ 		$(".startUse").live("click",function(){
+ 		var item_id=$(this).attr("id")
+		var webroot = $("#ctxpath").val();
+ 		econfirm('是否确认启用？',useThis,[$("#ctxpath").val()],null,null);
+	    function useThis(){
+	    	$.post('${webroot}/store/qualification/startUse',{'quaId':item_id},function (data){
+							if(data==1 || data=="1"){
+								salertWithFunction("启用成功!", myupreset, null);
+              }else{
+              	salertWithFunction("启用失败!", myupreset, null);
+              }
+		        });
+					}
+		 	});
+ 	
+ 	/*删除*/
+	$(".deleteItem").live("click",function (){
+			var item_id=$(this).attr("id")
+			var webroot = $("#ctxpath").val();
+	    econfirm('是否确认删除？',deleteThis,[$("#ctxpath").val()],null,null);
+	    function deleteThis(){
+	    	$.post('${webroot}/store/qualification/delQua',{'quaId':item_id},function (data){
+							if(data==1 || data=="1"){
+								salertWithFunction("删除成功!", myupreset, null);
+              }else if(data==0 || data=="0"){
+              	salertWithFunction("删除失败!", myupreset, null);
+              }else{
+              	salertWithFunction("有效预案不能删除!", myupreset, null);
+              }
+        });
+			    }
+			});
+ 	});
+ 	
+ 	function myupreset(){
+ 		location.href="${webroot}/store/qualification/getQuaList";
+ 		}
+ 	//分页跳转
+	function goPage(pageNum){
+		$("input[name='pageNum']").val(pageNum);
+		$("#searchQua").submit();
+	}	
+	function resets(){
+		$("#startTime").val("");
+		$("#endTime").val("");
+	}
+ </script>
+</body>
+</html>

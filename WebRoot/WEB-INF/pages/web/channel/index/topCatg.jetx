@@ -1,0 +1,77 @@
+#define(Map<String, com.ekfans.base.channel.model.ChannelConfig> configMap)
+#define(String configType)
+#define(String position)
+#define(String channelId)
+
+#set(com.ekfans.base.channel.model.ChannelConfig config = configMap.get(configType + position))
+
+#if(configStatus == "true") 
+	<div style="top:-22px;">#include("../commons/config/configTitle.jetx",{"channelId":channelId,"configType":configType,"position":position})</div>
+#end
+#if(config != null)
+	<dd class="filtrateLink categoryContent">
+        <a href="javascript:void(0);" class="cur catgParent" value-data="all">全部</a>
+		#for(com.ekfans.base.product.model.ProductCategory pc : config.details)	
+			<a href="javascript:void(0);" id="${pc.id}" class="catgParent" value-data="${for.index}">${pc.name} </a>
+			#if(for.index==1)
+				<input type="hidden" value="${pc.parentId}" id="mainCatgId">
+			#end
+		#end
+		
+		<!-- 供求中心中，品类无子分类 -->
+		#if(config.details)
+			<!-- 全部子类 -->
+			<div class="filtrateLink filtrateLinkSub catgChild" value-data="all" >
+				#for(com.ekfans.base.product.model.ProductCategory pcIn : config.details)
+				#for(com.ekfans.base.product.model.ProductCategory pcc : pcIn.childList)
+	            <a href="javascript:void(0);" >${pcc.name} </a>
+				#end
+				#end
+	        </div>
+			#for(com.ekfans.base.product.model.ProductCategory pc : config.details)
+			#if(channelId != "gqzx" && pc.childList)
+			<div class="filtrateLink filtrateLinkSub catgChild" value-data="${for.index}" style="display:none" >
+				#for(com.ekfans.base.product.model.ProductCategory pcc : pc.childList)
+	            <a href="javascript:void(0);" >${pcc.name} </a>
+				#end
+	        </div>
+	        #end
+	        #end
+        #end
+	</dd>
+#end
+
+<script>
+	// 	$(".categoryContent div:not(:hidden) a.cur:last").html();
+	// 点击父类显示子类
+	$(".catgParent").die().live("click", function() {
+		// 根据绑定值找到另一个（父的值=子的值）
+		var bind_data = $(this).attr("value-data");
+		console.log(bind_data);
+		var child = $(".catgChild[value-data='"+bind_data+"']");
+		if(child){
+			$(".catgChild").hide();
+			child.show();
+			child.find("a").removeClass("cur"); // 默认不选中
+		}
+	});
+	
+	// 获取当前选中的子类
+	function getCurrChildVar() {
+		// :not(:hidden) 排除未显示项（这里没显示的设置的是display:none，这也是算未显示的） a.cur:last表示class为cur的a标签的最后一个元素
+		return $(".categoryContent div:not(:hidden) a.cur:last").html();
+	}
+	
+	// 获取当前选中品类
+	function getCurrSelectVar() {
+		// 优先返回更具体的子类，其次返回父类
+		var child = getCurrChildVar();
+		if(child) {
+			return child;
+		}
+		var parent = $(".categoryContent > a.cur").html();
+		return parent;
+	}
+
+</script>
+

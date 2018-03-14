@@ -1,0 +1,461 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>融资申请编辑</title>
+  <meta name="keywords" content="鑫裕环保" />
+  <meta name="description" content="鑫裕环保" />
+  <script src="${webroot}/resources/commons/js/layer/layer.js"></script>
+
+  <link href="${webroot}/resources/userCenter/commons/css/orderLoanApply.css" rel="stylesheet" type="text/css">
+  <link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css">
+  <link href="${webroot}/resources/userCenter/commons/css/rzapply.css" rel="stylesheet" type="text/css">
+  <script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+  <script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+  <script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+  <script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+  <script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+  <script type="text/javascript" src="${webroot}/resources/commons/js/layer/layer.js"></script>
+  <script type="text/javascript" src="${webroot}/resources/userCenter/personal/js/ckeditor/ckeditor.js"></script>
+  <script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+  <style>
+
+    .upBox{float:left; width:400px; margin:0 10px 8px 0px; border:1px dashed #339933; padding:0 4px; min-height:250px;}
+    .upName{ font-size:12px; color:#4C4C4C; width:400px; height:34px; overflow:hidden;}
+    .btnlook{width:46px;}
+    .upBox .fileUpload .btnUpload{background-color:#339933;}
+    .upBox .fileUpload .btnUpload:hover{background-color:#2E752E;color:#fff;}
+  </style>
+</head>
+<body>
+  #define(com.ekfans.base.store.model.Store Store)
+  #define(com.ekfans.base.loan.model.LoanApp loanApp)
+  #if(Store.commonStatus != "3")
+    <script type="text/javascript">
+      
+      layer.confirm('您还未进行企业基础认证，请先认证后再做融资申请！是否立即前往认证？', {
+          btn: ['确定', '取消'], //可以无限个按钮
+          yes:function(index){
+              choseMenu('${webroot}','STORE_RENZHENG_BEIAN');
+              layer.close(index);
+          },cancel:function(index){
+              choseMenu('${webroot}','LOAN_APP_LIST');
+              layer.close(index);
+          }
+      });
+    </script>
+  #end
+  <form  action="${webroot}/store/loan/applysave" method="post" id="addSubmit">
+    <input type="hidden" name="loanAppId" id="loanAppId" value="${loanApp.id}"/>
+    <input type="hidden" name="createTime" id="createTime" value="${loanApp.createTime}"/>
+    <input type="hidden" name="bankId" id="bankId" value="${loanApp.bankId}"/>
+    <input type="hidden" name="bankLogo" id="bankLogo"/>
+    <input type="hidden" name="typeId" id="typeId" value="${loanApp.loanTypeId}"/>
+    <input type="hidden" name="typeName" id="typeName"/>
+    <input type="hidden" name="typeNote" id="typeNote"/>
+    <input type="hidden" name="choseShowId" id="choseShowId"/>
+    <input type="hidden" name="orderStoreId" id="orderStoreId"/>
+    <input type="hidden" name="contractStoreId" id="contractStoreId"/>
+
+    <div class="contentTit borderColor budong">
+      <a href="javascript:choseMenu('${webroot}','LOAN_APP_LIST');" class="btnBase btnCancel">取消</a>
+      <a href="javascript:void(0);" class="btnBase btnSave" onclick="commitApp();">保存</a>
+      <div class="clear"></div>
+    </div>
+    <div class="form borderColor">
+      <dl class="formItem">
+        <dt><em class="mustIco"></em>融资银行</dt>
+        <dd>
+          <input type="text" name="bankName" id="bankName" value="${loanApp.bankName}" readonly class="textBox box212" />
+        </dd>
+        <dd class="clear"></dd>
+      </dl>
+        <dl class="formItem">
+          <dt><em class="mustIco"></em>融资种类</dt>
+            <dd>
+              <input type="text" name="loanTypeName" id="loanTypeName" value="${loanApp.loanTypeName}" readonly class="textBox box212" />
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="formItem">
+          <dt><em class="mustIco"></em>融资金额</dt>
+          <dd>
+            <input name="price" id="price" type="text" class="textBox box212" value="${loanApp.price}" />
+            <span class="errorText" style="visibility:hidden;">不能为空</span>
+            <div class="clear"></div>
+          </dd>
+          <dd>&nbsp;&nbsp;元</dd>
+          <dd class="clear"></dd>
+        </dl>
+        <div class="clear"></div>
+
+        <dl class="formItem formLine formUpload">
+          <dt>所需要资料</dt>
+            <dd style="width:880px;">
+              #set(String mustId = "")
+              #define(Map<String,com.ekfans.base.loan.model.LoanAppDetail> appDetailMap)
+              #define(List<com.ekfans.base.loan.model.LoanTypeDetail> typeDetailList)
+              #for(com.ekfans.base.loan.model.LoanTypeDetail detail:typeDetailList)
+                #set(String oldValue = appDetailMap != null?appDetailMap?[detail.id].value:"")
+                #set(String oldValueType = appDetailMap != null?appDetailMap?[detail.id].valueType:"")
+                <input name="${detail.id}TypeDetailId" id="${detail.id}TypeDetailId" type="hidden" class="textBox box184" value="${detail.id}" />
+                <div class="upBox #if(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_CKEDITOR == detail.type) upBoxLine #end">
+                  <div class="upName">#if(detail.commentType)<em class="mustIco"></em>#end ${detail.name}</div>
+                  #if(detail.commentType && @(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_SHOP != detail.type)
+                    #set(mustId = mustId + detail.id + "-" + detail.name +"-")
+                  #end
+                  #if(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_SHOP == detail.type)
+                    <div class="fileUpload">
+                      <a href="javascript:void(0);" class="btnUpload btnlook">查看</a>
+                    </div>
+                  #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_PIC == detail.type)
+                    #if(detail.commentType)
+                      #set(mustId = mustId + "file")
+                    #end
+                    #tag picUpload(detail.id,"5","20","20",oldValue) #end
+                  #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_EXCEL == detail.type)
+                    #if(detail.commentType)
+                      #set(mustId = mustId + "file")
+                    #end
+                    #tag fileUpload(detail.id,"excel",oldValue) #end  
+                  #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_WORD == detail.type)
+                    #if(detail.commentType)
+                      #set(mustId = mustId + "file")
+                    #end
+                    #tag fileUpload(detail.id,"word",oldValue) #end
+                  #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_PDF == detail.type)
+                    
+                    #if(!@(com.ekfans.pub.util.StringUtil).isEmpty(detail.nameCode) && @(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_CODE_ORDER == detail.nameCode)
+                      #if(detail.commentType)
+                        #set(mustId = mustId + "chose")
+                      #end
+                      <!-- 订单选择-->
+                      <div class="clickAbout">
+                        <input name="${detail.id}Name" id="${detail.id}Name" type="text" class="textBox box184" value="${oldValue}" placeholder="点击右侧按钮选择订单" readonly>
+                        <input name="${detail.id}" id="${detail.id}" type="hidden" class="textBox box184" value="${oldValue}" >
+                        <input name="${detail.id}ValueType" id="${detail.id}ValueType" type="hidden" class="textBox box184" value="${oldValueType}">
+                        <span class="pp clickBrand" title="点击选择订单" id="choseOrderSpan" showId="${detail.id}"></span>
+                      </div>
+                    #elseif(!@(com.ekfans.pub.util.StringUtil).isEmpty(detail.nameCode) && @(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_CODE_CONTRACT == detail.nameCode)
+                      #if(detail.commentType)
+                        #set(mustId = mustId + "choseOrfile")
+                      #end
+						<span class="radio"><label><input name="contractType" onclick="changeContractType('0')" type="radio" value="0" #if(oldValueType=="9")checked#end >上传</label></span> &nbsp; &nbsp;
+						<span class="radio"><label><input name="contractType" onclick="changeContractType('1')" type="radio" value="1" #if(oldValueType=="4")checked#end>选择</label></span>
+						<div id="contractUpload">
+							#tag fileUpload(detail.id+"ThisFile","pdf",oldValueType=="9"?oldValue:"") #end
+						</div>
+						<div id="contractChose" style="display:none">
+							<!-- 合同选择-->
+							<div class="clickAbout">
+								<a href="#if(oldValueType=="4")${webroot}/store/contract/contractById/1/${oldValue}/1#end" target="_blank" id="#if(oldValueType=="4")${detail.id}View#end">
+								<!-- 默认提交pdf文件形式，故disabled所有input -->
+								<input name="${detail.id}Name" id="${detail.id}Name" type="text" class="textBox box184" value="#if(oldValueType=="4")${oldValue}#end"  disabled="disabled" readonly style="cursor:pointer;" placeholder="点击右侧按钮选择合同"></a>
+								<input name="${detail.id}" id="${detail.id}" type="hidden" class="textBox box184" value="#if(oldValueType=="4")${oldValue}#end" disabled="disabled">
+								<input name="${detail.id}ValueType" id="${detail.id}ValueType" type="hidden" class="textBox box184" value="#if(oldValueType=="4")${oldValueType}#end" disabled="disabled">
+								<span class="pp clickBrand" title="点击选择合同" id="choseContractSpan" showId="${detail.id}"></span>
+							</div>
+						</div>
+                    #else
+                      #if(detail.commentType)
+                        #set(mustId = mustId + "file")
+                      #end
+                      #tag fileUpload(detail.id,"pdf",oldValue) #end
+                    #end
+                  #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_INPUT == detail.type)
+                    #if(detail.commentType)
+                      #set(mustId = mustId + "input")
+                    #end
+                    <input type="text" name="${detail.id}" id="${detail.id}" class="textBox box184" value="${oldValue}" placeholder="${detail.note}"/>
+                  #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_TEXTAREA == detail.type)
+                    #if(detail.commentType)
+                      #set(mustId = mustId + "testArea")
+                    #end
+                    <textarea name="${detail.id}" id="${detail.id}" cols="" rows="" class="textarea" value="${oldValue}">${oldValue}</textarea>
+                  #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_CHECKBOX == detail.type)
+                    #if(detail.commentType)
+                      #set(mustId = mustId + "checkBox")
+                    #end
+                    #set(String[] typeValues = detail.typeValue.split(";"))
+                    #for(String typeValue:typeValues)
+                      <label class="checkbox"><input type="checkbox" name="${detail.id}" value="${typeValue}" #if(typeValue.equals(oldValue)) checked #end>${typeValue}</label>
+                    #end  
+                  #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_RADIO == detail.type)
+                    #if(detail.commentType)
+                      #set(mustId = mustId + "radio")
+                    #end
+                    #set(String[] typeValues = detail.typeValue.split(";"))
+                    #for(String typeValue:typeValues)
+                      <label class="radio"><input type="radio" name="${detail.id}" value="${typeValue}"  #if(typeValue.equals(oldValue)) checked #end>${typeValue}</label>
+                    #end
+                  #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_SELECT == detail.type)
+                    #if(detail.commentType)
+                      #set(mustId = mustId + "select")
+                    #end
+                    #set(String[] typeValues = detail.typeValue.split(";"))
+                    <select name="${detail.id}" id="${detail.id}">
+                      <option>请选择</option>
+                      #for(String typeValue:typeValues)
+                        <option value="${typeValue}" #if(typeValue.equals(oldValue)) selected #end>${typeValue}</option>
+                      #end
+                    </select>
+                  #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_DATE == detail.type)
+                    #if(detail.commentType)
+                      #set(mustId = mustId + "input")
+                    #end
+                    <input type="text" name="${detail.id}" id="${detail.id}" class="textBox box184" value="${oldValue}" placeholder="${detail.note}" readonly onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"/> 
+                  #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_DATETIME == detail.type)
+                    #if(detail.commentType)
+                      #set(mustId = mustId + "input")
+                    #end
+                    <input type="text" name="${detail.id}" id="${detail.id}" class="textBox box184" value="${oldValue}" placeholder="${detail.note}" readonly onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/> 
+                  #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_CKEDITOR == detail.type)
+                    #if(detail.commentType)
+                      #set(mustId = mustId + "ckeditor")
+                    #end
+                    <textarea name="${detail.id}" id="${detail.id}" class="ckeditor" value="${oldValue}">${oldValue}</textarea>
+                    <script type="text/javascript">
+                      CKEDITOR.replace("${detail.id}"); 
+                    </script>
+                  #end
+                  #if(detail.commentType && @(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_SHOP != detail.type)
+                    #set(mustId = mustId + ";")
+                  #end
+                  
+                </div>
+               #end
+               <input type="hidden" name="mustId" id="mustId" value="${mustId}"/>
+               <div class="clear"></div>
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+        <div class="clear"></div>
+    </div>
+  </form>
+
+<!--弹窗-->
+<div class="apLayerBg"></div>
+<div class="apLayer" id="showOrderChoseDiv"></div>
+
+
+<!--底部 end-->
+<script src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${webroot}/resources/userCenter/personal/js/ckeditor/ckeditor.js"></script>
+<script>
+
+  $(document).ready(function() {
+	// 打开页面后执行一次选中，来初始化合同处的界面
+	$("input[name='contractType']:checked").trigger("click");
+	
+    $(".jdItem").live("click",function(){
+      $(this).addClass("cur").siblings(".jdItem").removeClass("cur");
+    });
+
+
+    $(".bankItem").live("click",function(){
+      $(this).addClass("cur").siblings(".bankItem").removeClass("cur");
+    });
+
+
+    $("#jdstep1 .nextBtn").live("click",function(){
+      var bankId = $("#bankId").val();
+      if(bankId == null || bankId == "" || bankId == " "){
+        layer.alert("请选择借贷银行！");
+      }else{
+        $.post("${webroot}/store/loan/loadtypes/" + $("#bankId").val(),function(data){
+          data = JSON.parse(data);
+          var optionStr = "";
+          $.each(data, function (n, value) {
+            optionStr = optionStr + "<div class=\"jdItem\" onclick=\"choseLoanType('" + value.id + "','" + value.loanName + "','" + value.note + "');\">";
+            optionStr = optionStr + value.loanName;
+            optionStr = optionStr + "<em></em>";
+            optionStr = optionStr + "<p>" + value.note + "</p>";
+            optionStr = optionStr + "</div>";
+          });  
+          optionStr = optionStr + "<div class=\"clear\"></div>";
+          $("#showLoanTypes").html(optionStr);
+        });
+
+        $("#jdstep1").hide();
+        $("#jdstep2").show();
+        $("#stp1").addClass("cur");
+      }
+    });
+
+
+    $("#jdstep2 .nextBtn").live("click",function(){
+      var typeId = $("#typeId").val();
+      if(typeId == null || typeId == "" || typeId == " "){
+        layer.alert("请选择融资种类！");
+      }else{
+        $("#showDetailDiv").load("${webroot}/store/loan/loaddetails/" + $("#typeId").val());
+        $("#jdstep2").hide();
+        $("#jdstep3").show();
+        $("#stp2").addClass("cur");
+        $("#stp3").addClass("cur");
+      }
+    });
+    $("#jdstep2 .prevBtn").live("click",function(){
+      $("#jdstep2").hide();
+      $("#jdstep1").show();
+      $("#stp1").removeClass("cur");
+    });
+
+    $("#jdstep3 .prevBtn").live("click",function(){
+      $("#jdstep3").hide();
+      $("#jdstep2").show();
+      $("#stp2").removeClass("cur");
+      $("#stp3").removeClass("cur");
+    });
+
+    //新弹窗js
+    $("#choseOrderSpan").live("click",function(){
+      $("#showOrderChoseDiv").html("");
+      $("#showOrderChoseDiv").load("${webroot}/store/loan/loadorder?nowTime="+Math.random());
+      $(".apLayerBg").show();
+      $("#showOrderChoseDiv").show();
+      $("#choseShowId").val($(this).attr("showId"));
+    });
+    //新弹窗js
+    $("#choseContractSpan").live("click",function(){
+      $("#showOrderChoseDiv").html("");
+      $("#showOrderChoseDiv").load("${webroot}/store/loan/loadcontract?nowTime="+Math.random());
+      $(".apLayerBg").show();
+      $("#showOrderChoseDiv").show();
+      $("#choseShowId").val($(this).attr("showId"));
+    });
+  });
+
+	function changeContractType(currType){
+		// 选中类型
+		if("0" == currType){
+			$("#contractUpload").show();	
+			$("#contractUpload input").removeAttr("disabled");
+			$("#contractChose").hide();
+			$("#contractChose input").attr("disabled","disabled");
+		}else{
+			$("#contractChose").show();
+			$("#contractChose input").removeAttr("disabled");
+			$("#contractUpload").hide();
+			$("#contractUpload input").attr("disabled","disabled");
+		}
+
+	}
+	
+  function changeBankSelect(bankId,bankLogo){
+    $("#bankId").val(bankId);
+    $("#bankLogo").val(bankLogo);
+    $("#showChangedBank").attr("src","${webroot}" + bankLogo);
+  }
+
+  function choseLoanType(typeId,typeName,note){
+    $("#typeId").val(typeId);
+    $("#typeName").val(typeName);
+    $("#typeNote").val(note);
+
+    $("#showChangedBank2").attr("src","${webroot}" + $("#bankLogo").val());
+    var showHtml = typeName + "<em></em>" + "<p>" + note + "</p>";
+    $("#showChosedType").html(showHtml);
+  }
+
+  function commitApp(){
+    var bankId = $("#bankId").val();
+    if(bankId == "" || bankId == null || bankId == " "){
+      layer.alert("请选择融资银行！");
+      return;
+    }
+    var typeId = $("#typeId").val();
+    if(typeId == "" || typeId == null || typeId == " "){
+      layer.alert("请选择融资种类！");
+      return;
+    }
+    var mustId = $("#mustId").val();
+    if(mustId != undefined && mustId != "" && mustId != " "){
+      var mustIds = mustId.split(";");
+      for(var i=0;i<mustIds.length;i++){
+        var mStr = mustIds[i];
+        if(mStr == "" || mStr == " "){
+          continue;
+        }
+        var mStrs = mStr.split("-");
+        var mId = mStrs[0];
+        if(mStrs[2] == "input"){
+          var inputValue = $("#"+mId).val();
+          if(inputValue == "" || inputValue == null || inputValue == " "){
+            layer.alert("请输入" + mStrs[1]);
+            return;
+          }
+        }else if(mStrs[2] == "chose"){
+          var inputValue = $("#"+mId).val();
+          if(inputValue == "" || inputValue == null || inputValue == " "){
+            layer.alert("请选择" + mStrs[1]);
+            return;
+          }
+        }else if(mStrs[2] == "choseOrfile"){
+			var contractType = $("input[name='contractType']:checked").val();
+			if(contractType == "0") {
+				if(!hasChoseFile(mId+"ThisFile")){
+					layer.alert("请上传" + mStrs[1]);
+					return;
+				}
+			} else {
+				// id后缀避免重复
+				var inputValue = $("#"+mId).val();
+				if(inputValue == "" || inputValue == null || inputValue == " "){
+					layer.alert("请选择" + mStrs[1]);
+					return;
+				}
+			}
+        }else if(mStrs[2] == "file"){
+          if(!hasChoseFile(mId)){
+            layer.alert("请上传" + mStrs[1]);
+            return;
+          }
+        }else if(mStrs[2] == "testArea"){
+          var inputValue = $("#"+mId).val();
+          if(inputValue == "" || inputValue == null || inputValue == " "){
+            layer.alert("请输入" + mStrs[1]);
+            return;
+          }
+        }else if(mStrs[2] == "checkBox"){
+          var inputValue = $('input[name="'+mId+'"]:checked')
+          if(inputValue.length<=0){
+            layer.alert("请选择" + mStrs[1]);
+            return;
+          }
+        }else if(mStrs[2] == "radio"){
+          var inputValue = $('input[name="'+mId+'"]').val();
+          if(inputValue == "" || inputValue == null || inputValue == " "){
+            layer.alert("请选择" + mStrs[1]);
+            return;
+          }
+        }else if(mStrs[2] == "select"){
+          var inputValue = $("#"+mId).val();
+          if(inputValue == "" || inputValue == null || inputValue == " "){
+            layer.alert("请选择" + mStrs[1]);
+            return;
+          }
+        }
+      }
+    }
+    $("#addSubmit").ajaxSubmit(function(data){
+      if(data == "1"){
+        layer.confirm('融资申请修改成功，是否继续修改？', {
+          btn: ['确定', '取消'], //可以无限个按钮
+          yes:function(index){
+              //choseMenu('${webroot}','LOAN_APP_ADD');
+              layer.close(index);
+          },cancel:function(index){
+              choseMenu('${webroot}','LOAN_APP_LIST');
+              layer.close(index);
+          }
+        });
+      }else{
+        layer.alert("融资申请修改失败，请稍后再试！");
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

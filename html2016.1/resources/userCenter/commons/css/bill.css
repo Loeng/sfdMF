@@ -1,0 +1,16 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*搜索表单*/
+.searchForm{border-bottom:solid 1px #dedede; padding:20px 0 20px 10px;}
+.formLine{height:28px; width:300px; margin-bottom:18px;}
+.formLine dt{width:70px; float:left; line-height:28px;}
+.formLine .formRight{width:230px; float:left;}
+.searchBox,.dateBox{height:26px; line-height:26px\9; border:solid 1px #DEDEDE;}
+.optionDefault{color:#cbcbcb;}
+.searchBox{width:218px;}
+
+.tit{width:100%;border-bottom:1px solid #e5e5e5;height:37px; position:relative; margin-top:10px; margin-bottom:10px;}
+.tit h2{float:left;font-size:14px;padding:0 20px 0 16px; height:32px; line-height:32px; cursor:pointer;position:relative; margin-right:20px;}
+.tit h2.cur{border-bottom-width:5px;border-bottom-style:solid; border-bottom-color:#DA73FA;}
+

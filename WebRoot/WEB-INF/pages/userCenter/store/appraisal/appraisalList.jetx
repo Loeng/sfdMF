@@ -1,0 +1,175 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+		<title>咨询管理</title>
+		<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css" />
+		<link href="${webroot}/resources/userCenter/commons/css/evaluate.css" rel="stylesheet" type="text/css">
+		<link href="${webroot}/resources/userCenter/commons/css/tools.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/userCenter/core/js/appraisal/appraisalList.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/consult.js"></script> 
+	</head>
+	<body>
+	
+	<input type="hidden" id="ok" value="${updateOk}" />
+    <input type="hidden" id="ctxpath" value="${webroot}" />
+	
+	  <form action="${webroot}/store/appraisal/list"  method="post"  id="appraiseForm">
+			    <input type="hidden" name="pageNum" value="" />
+			    <!--
+	        <div class="searchForm">
+	        
+	            <dl class="formLine">
+	                <dt>商品名称</dt>
+	                <dd class="formRight"><input name="productName" id="productName" type="text"  class="searchBox" value="${productName}"></dd>
+	                <dd class="clear"></dd>
+                </dl>
+	            <dl class="formLine rightForm">
+	                <dt>评&nbsp;&nbsp;价&nbsp;&nbsp;人</dt>
+	                <dd class="formRight"><input name="userName" type="text"  class="searchBox"  id="userName" value="${userName}"></dd>
+	                <dd class="clear"></dd>
+	            </dl>
+	            
+	            <dl class="formLine">
+	                <dt>评价时间</dt>
+	                 <dd class="formRight">
+		                <input name="beginDate" id="beginDate" type="text" value="${beginDate}" class="dateBox" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:new Date()})">
+		                <span class="sortSplit">-</span>
+		                <input name="endDate"  id="endDate" type="text"   value="${endDate}" class="dateBox" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:new Date()})"></dd>
+	                <dd class="clear"></dd>
+              </dl>
+	            
+	            <dl class="formLine rightForm">
+	                <dt>是否回复</dt>
+	                <dd class="formRight">
+	                	<label><span class="zt"><input type="radio" name="replyStatus" #if(replyStatus==null||replyStatus=="") checked=true #end value="">全部</span></label>
+	                    <label><span class="zt"><input type="radio" name="replyStatus" #if(replyStatus=="true")  checked=true #end value="true">是</span></label>
+	                    <label><span class="zt"><input type="radio" name="replyStatus" #if(replyStatus=="false")  checked=true  #end value="false">否</span></label>
+	                </dd>
+	                <dd class="clear"></dd>
+               </dl>
+                <div class="clear"></div>
+	        </div>
+	        -->
+     </form>
+     <!--
+     <div class="searchBtn">
+         <a href="javascript:void(0)" class="btnBlue"  onclick="submitForm();">搜索</a>
+         <a href="javascript:void(0)" class="btnBlue"  onclick="resetForm();">清空</a>
+     </div>
+     -->
+     <div class="formTable borderColor">
+        <ul class="secNav">
+          <li class="li1">累计评价</li>
+        </ul>
+        <div class="clear"></div>
+     #define(List<com.ekfans.base.store.dto.AppraiseContDto> appraiseContDtos)
+     <div style="position:relative;" class="tableBox">
+     <table border="0" cellspacing="0" cellpadding="0" class="evaluateTb">
+          <tr>
+            <th class="evaluateLev">&nbsp;</th>
+            <th>最近一周</td>
+            <th>最近一个月</th>
+            <th>最近六个月</th>
+            <th>六个月以前</th>
+          </tr>
+           #for(com.ekfans.base.store.dto.AppraiseContDto acd:appraiseContDtos)
+           	<tr>
+	            #if(acd.type=='1')
+	               <td class="evaluateLev"><span class="good"><em></em>好评</span></td>
+	            #elseif(acd.type=='2')
+	              <td class="evaluateLev"><span class="ordinary"><em></em>中评</span></td>
+	            #elseif(acd.type=='3')
+	              <td class="evaluateLev"><span class="bad"><em></em>差评</span></td>
+	            #else
+	               <td class="evaluateLev"><span>总计</span></td>
+	            #end
+	               
+              <td>${acd.weekNumber}</td>
+              <td>${acd.monthNumber}</td>
+              <td>${acd.sixNumber}</td>
+              <td>${acd.sixAgoNumber}</td>
+      
+	          </tr>
+                   
+           #end
+      </table>
+      </div>
+      </div>
+		<div class="form">   
+      <div class="li1 evaList">评价管理</div>
+      <div class="listHeader  bgColor">
+        	<div class="consultText">评价内容</div>
+            <div class="proName">商品名称</div>
+            <div class="consultTime">评价人</div>
+            <div class="consultEdit">操作</div>
+            <div class="clear"></div>
+      </div>
+      
+      #define(List<com.ekfans.base.store.dto.AppraiseDto> appraiseDtos)
+      
+      #if(appraiseDtos.size()==0)
+         	<div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+      #else
+      
+	      #for(com.ekfans.base.store.dto.AppraiseDto appraiseDto:appraiseDtos)
+	       
+	       <div class="consultLine">
+	        	<div class="consultText">
+	            	#if(!appraiseDto.replyStatus)<input name="${appraiseDto.replyStatus}" type="checkbox"  value="${appraiseDto.id}" onclick="isChecked(this)" 
+			            	#if (appraiseDto.replyStatus) disabled='disabled' #else  #end > #end
+	            	<span>${appraiseDto.appraiseContent }</span>
+	            	#if(appraiseDto.replyStatus)
+	                	<div class="replyText"><em class="pointTop"></em>${appraiseDto.replyContent}</div>
+	                #end
+	            </div>
+	            
+	            
+	            <div class="proName">
+	            	<a href="javascript:void(0)" class="proImg">
+	            	  <img src="${ctxpath+appraiseDto.productImgUrl}" width="43" height="43" alt="${appraiseDto.productSortName}" onerror="this.src='${webroot}/resources/store/images/imgdefault.jpg'">
+	            	</a>
+	            	<span class="proNameText">${appraiseDto.productName}</span>
+	            </div>
+	            <div class="consultTime">${appraiseDto.appraiseName}</div>
+	            <div class="consultEdit">#if(!appraiseDto.replyStatus) <a href="javascript:void(0)" class="replyLink">回复</a>  #end</div>
+	            <div class="clear"></div>
+	        </div>
+	        
+	        
+	        
+	        #if(!appraiseDto.replyStatus)
+	            <div class="replyLayer">
+		        	<em class="pointTop"></em>
+		        	<textarea name="" cols="" rows="" ></textarea>
+		            <a href="javascript:void(0)" class="btnBase" onclick="reply(this,'${appraiseDto.id}')">提交</a>
+		            <a href="javascript:void(0)" class="btnBase canselBtn">取消</a>
+		        </div>
+	        #end       
+		  #end
+      
+       <div class="listBottom">
+            <span class="checkAll"><input id="selectAll" name="" type="checkbox" value="" onclick="selectAll();">全选</span>
+            <a href="javascript:void(0)" class="btnBase replyMore">批量回复</a>
+            
+            ${include( "../common/page.jetx")}   <!-- 加载分页 -->
+            
+            <div class="clear"></div>
+            <div class="replyLayer">
+                <em class="pointTop"></em>
+                <textarea name="" cols="" rows="" id="saveReplyAll"></textarea>
+                <a href="javascript:void(0)" class="btnBase" onclick="replyAll()">提交</a>
+                <a href="javascript:void(0)" class="btnBase canselBtn" >取消</a>
+            </div>
+        </div>  
+      #end 
+      </div>      
+	</div>
+	
+
+  </body>
+</html>

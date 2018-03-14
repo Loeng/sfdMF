@@ -1,0 +1,43 @@
+#define(Map<String, com.ekfans.base.channel.model.ChannelConfig> configMap)
+#define(String channelId)
+
+#set(com.ekfans.base.channel.model.ChannelConfig config = configMap.get("c4"))
+#set(com.ekfans.base.channel.model.ChannelConfig config2 = configMap.get("c5"))
+
+
+<ul class="tabNav">
+	<li class="cur">
+		#if(configStatus == "true")
+			#include("../../../channel/commons/config/configTitle.jetx",{"channelId":channelId,"configType":"c","position":"4"})
+		#end
+		#if(config != null && config.configName!=null && !"".equals(config.configName) && !" ".equals(config.configName)) ${config.configName} #else 农业资讯 #end
+  </li>
+  <li>
+		#if(configStatus == "true")
+			#include("../../../channel/commons/config/configTitle.jetx",{"channelId":channelId,"configType":"c","position":"5"})
+		#end
+		#if(config2 != null &&config2.configName!=null && !"".equals(config2.configName) && !" ".equals(config2.configName)) ${config2.configName} #else 热点推荐 #end
+  </li>
+</ul>
+
+<div class="clear"></div>
+
+<div class="tabContent">
+ 	<ul>
+	 	#if(config != null)
+		  #for(com.ekfans.base.content.model.Content content : config.details)
+				<li><a href="${webroot}/03-${content.id}-1.html" title="${content.contentName}">${content.contentName}</a><span class="time">${content.createTime}</span></li>
+			#end
+		#end
+  </ul>
+</div>
+
+<div class="tabContent">
+  <ul>
+	  #if(config2 != null)
+		  #for(com.ekfans.base.content.model.Content content : config2.details)
+				<li><a href="${webroot}/03-${content.id}-1.html" title="${content.contentName}">${content.contentName}</a><span class="time">${content.createTime}</span></li>
+			#end
+		#end
+  </ul>
+</div>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>会员管理</title>
+	<link href="${webroot}/resources/system/css/demand.css" rel="stylesheet" type="text/css" />
+	<link href="${webroot}/resources/system/css/list.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/list.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/warehouse/warehouseLogList.js"></script>
+</head>
+
+<body>
+
+<input type="hidden" id="ctxpath" value="${webroot}" /> 
+
+<form action="${webroot}/system/warehouseLog/warehouseLogList" method="post"  id="searchUserForm">
+	<input type="hidden" name="pageNum" value="" />
+	
+	<dl class="pro_ss">
+		<dt><b>查询</b><span class="span_down"></span><span class="span_up"></span></dt>
+		<dd class="pro_ss_item">
+			<span>状态</span>
+			<span class="zt"><label><input type="radio" value="" name="status" #if(status == null  || status == "" || status == " ") checked=true #end/>所有</label></span>
+			<span class="zt"><label><input type="radio" value="true" name="status" #if("true".equals(status)) checked=true #end/>入库</label></span>
+			<span class="zt"><label><input type="radio" value="false" name="status" #if("false".equals(status)) checked=true #end/>出库</label></span>
+		</dd>
+		<dd>&nbsp;</dd>
+		<div class="clear"></div>
+		<dd class="pro_ss_item">
+			<span>用户名</span>
+			<input type="text" class="i_bg" name="name" value="${name}"/>
+		</dd>
+	</dl>
+</form>
+<div class="pro_ss_btn">
+	<a href="#" class="btn" onclick="searchSubmit();">搜索</a>
+	<a href="#" class="btn" onclick="resetForm();">重置</a>
+</div>
+<!-- 
+<div class="pro_ss_btn">
+	<a href="#" onclick="userAdd('${webroot}');" class="btn">新增</a>
+</div>
+-->
+#define(List<com.ekfans.base.store.model.WarehouseLog> whls)
+			
+#if(whls==null||whls.size()<=0)
+	<!-- 没有数据的时候 -->
+	<div class="ht_list_k">暂时没有符合条件的数据</div>	
+#else
+	<!-- 有数据的时候 -->
+	<div class="ht_list">
+		<table id="userTab" cellpadding="0" cellspacing="0" border="0" >
+			<tr>
+				<th width="4%">全选</th>
+				<th width="4%">序号</th>
+	      <th width="15%">商品名</th>
+	      <th width="10%">数量</th>          
+	      <th width="10%">状态</th>
+	      <th width="15%">创建时间</th>
+	      <th width="13%">操作</th>
+			</tr>
+			#for(com.ekfans.base.store.model.WarehouseLog whl : whls)
+				<tr>
+					<td class="qx"><input type="checkbox" value="${whl.id}" /></td>
+					<td></td>
+			    <td>${whl.productId}</td>
+          <td>${whl.number}</td>         
+          <td>#if(whl.type) 入库 #else 出库 #end </td>
+					<td>${whl.createTime}</td>
+			    <td class="cz">
+			    	<a href="javascript:void(0);" class="eyeIco" onclick="queryId('${whl.id}','${webroot}');" title="详细"></a>			    	
+			    </td>
+				</tr>
+			#end
+		</table>
+		<div class="ht_pageBox">
+		
+			 ${include( "../common/page.jetx")}		
+		</div>
+	</div>
+#end
+
+	
+</body>
+</html>
+	

@@ -1,0 +1,58 @@
+#define(List<com.ekfans.base.wfOrder.model.Contract> transCons)
+#define(Map<String,Boolean> transMap)
+
+#define(com.ekfans.base.store.model.Store buyStore)
+#define(com.ekfans.base.store.model.Store salStore)
+#set(String storeIds = "")
+#set(String transConIds = "")
+#if((transCons != null && transCons.size()>0) || buyStore.transStatus == "3" || salStore.transStatus == "3")
+	#for(com.ekfans.base.wfOrder.model.Contract transCon:transCons)
+		<li id="${transCon.id}Li"><label><input name="transContractId"  #if(transMap.get(transCon.id)) checked #end type="checkbox" value="${transCon.id + ";" + transCon.secondId}" onclick="choseTransContract(this,'${transCon.id}','${transCon.secondId}')">${transCon.name}</label></li>
+		#if(transMap.get(transCon.id))
+			#set(storeIds=storeIds + transCon.secondId + ";")
+			#set(transConIds=transConIds + transCon.id + ";")
+		#end
+	#end
+	#if(buyStore.transStatus == "3")
+		<li><label><input name="transContractId"  #if(transMap.get(buyStore.id)) checked #end type="checkbox" value="${";" + buyStore.id}" onclick="choseTransContract(this,'','${buyStore.id}')">${buyStore.storeName}</label></li>
+		#if(transMap.get(buyStore.id))
+			#set(storeIds=storeIds + buyStore.id + ";")
+		#end
+	#end
+	#if(salStore.transStatus == "3")
+		<li><label><input name="transContractId"  #if(transMap.get(salStore.id)) checked #end type="checkbox" value="${";" + salStore.id}" onclick="choseTransContract(this,'','${salStore.id}')">${salStore.storeName}</label></li>
+		#if(transMap.get(salStore.id))
+			#set(storeIds=storeIds + salStore.id + ";")
+		#end
+	#end
+	<span id="addStores">
+			
+	</span>
+#else
+	<li style="padding-left:15px;color:red;">您的危废处置合同还未选择运输合同</li>
+#end
+
+<input type="hidden" name="transStoreIds" id="transStoreIds" value="${storeIds}"/>
+<input type="hidden" name="transContracts" id="transContracts" value="${transConIds}"/>
+
+<script>
+	loadTransInfo();
+	
+function choseTransContract(obj,contractId,storeId){
+	var transStoreIds = $("#transStoreIds").val();
+	var transContracts = $("#transContracts").val();
+	if(obj.checked){
+		transStoreIds = transStoreIds.replaceAll( storeId + ";","");
+		transStoreIds = transStoreIds + storeId + ";";
+		if(contractId != ""){
+			transContracts = transContracts + contractId + ";";
+		}
+	}else{
+		transStoreIds = transStoreIds.replaceAll( storeId + ";","");
+		transContracts = transContracts.replaceAll( contractId + ";","");
+	}
+	$("#transStoreIds").val(transStoreIds);
+	$("#transContracts").val(transContracts);
+	loadTransInfo();
+}
+</script>

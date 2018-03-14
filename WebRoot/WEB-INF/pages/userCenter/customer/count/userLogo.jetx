@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>个人中心-头像设置</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/goodsDetail.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/personal/css/personalBase.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/personal/css/style.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/userPhoto.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/tools.css" />
+	<!-- 上传文件的CSS -->
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/upload.css" />
+	<!-- 上传文件控件  -->
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload.js"></script>
+	<!-- private -->
+	<script type="text/javascript" src="${webroot}/resources/userCenter/personal/js/userLogo.js"></script>
+</head>
+
+<body>
+#define(com.ekfans.base.user.model.User User)
+<input type="hidden" id="ctxpath" value="${webroot}" />
+
+<!-- 右侧主体 -->
+<div class="rightContent">
+	<div class="contentTit borderColor  borderBottomColor budong">
+	  <h3>头像设置</h3>
+	  <a href="javascript:updateUserLogo();" class="btnBase btnBack btnFloat">保存</a>
+	  <div class="clear"></div>
+	</div>
+	<form action="${webroot}/user/logo/modify" method="post" id="updateUserLogo">
+		<div class="form borderColor">
+			<div class="hint">仅支持JPG、GIF、PNG图片文件，且文件小于5M</div>
+			<div class="imgLeft">
+		  	#tag picUpload("headPortrait","1","200","200",User.headPortrait) #end
+		  </div>
+	  	<div class="uploadHint">
+	      <span>您上传的头像会自动生成三种尺寸，<br>请注意中小尺寸的头像是否清晰</span>
+	      <!--
+	      <dl class="photo160">
+	      	<dt>
+	      		#if(User.headPortrait==null || User.headPortrait=="")
+	      			<img src="${webroot}/resources/userCenter/commons/images/photo160.jpg" width="160" height="160" />
+	      		#else
+	      			<img src="${webroot}${User.headPortrait}" width="160" height="160" />
+	      		#end
+	      	</dt>
+	      	<dd>大尺寸头像，160X160像素</dd>
+	      </dl>
+	      <div class="photoMin">
+		      <dl class="photo60">
+		        <dt>
+		        	#if(User.headPortrait==null || User.headPortrait=="")
+	      				<img src="${webroot}/resources/userCenter/commons/images/photo60.jpg" width="60" height="60" />
+		      		#else
+		      			<img src="${webroot}${User.headPortrait}" width="60" height="60" />
+		      		#end
+		      	</dt>
+		        <dd>中尺寸头像60X60像素</dd>
+		      </dl>
+		      <dl class="photo30">
+		        <dt>
+		        	#if(User.headPortrait==null || User.headPortrait=="")
+	      				<img src="${webroot}/resources/userCenter/commons/images/photo30.jpg" width="30" height="30" />
+		      		#else
+		      			<img src="${webroot}${User.headPortrait}" width="30" height="30" />
+		      		#end
+		        </dt>
+		        <dd>小尺寸头像30X30像素</dd>
+		      </dl>
+	      </div>
+	      -->
+	      <div class="clear"></div>
+	  	</div>
+		</div>
+	</form>
+</div>
+<!-- 右侧主体 -->
+      
+</body>
+</html>

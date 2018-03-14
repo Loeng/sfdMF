@@ -1,0 +1,10 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+<h1>支付成功！</h1>
+</body>
+
+</html>

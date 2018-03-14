@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>支付成功</title>
+	<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script src="${webroot/resources/commons/js/layer/layer.js"></script>
+	<link href="${webroot/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="${webroot/resources/userCenter/commons/css/base.css" />
+	<style>
+		.paySuc{background:#fff; padding-top:20px;}
+		.bank{width:280px; float:left; border-right:solid 1px #393; height:198px; text-align:center; margin-right:57px; padding-left:263px;}
+		.bank img{margin-top:79px;}
+		.sucInfo{background:url(${webroot/resources/userCenter/images/pay_suc.png) no-repeat left center; float:left; padding-left:142px; height:102px; margin-top:48px;}
+		.sucInfo dt{height:42px; line-height:42px; font-size:20px; color:#8FC31F;}
+		.sucInfo dd{height:30px; line-height:30px; font-size:14px;}
+		.paySucBtns{text-align:center; padding:70px 0 40px 0;}
+		.paySucBtns .btnBase{width:160px; height:42px; padding:0; margin:0; line-height:42px; font-size:14px;}
+		.paySucBtns .splitText{padding:0 20px; font-size:14px;}
+	</style>
+</head>
+
+<body>
+<div id="channelTop"></div>
+
+<div class="wrapper paySuc">
+	<div class="bank"><img src="${webroot}/${bankImg}" width="158" height="40"></div>
+	<dl class="sucInfo">
+		<dt>已成功支付！</dt>
+		<dd>订单编号：${bankId}</dd>
+		<dd>支付金额：<em class="red">${price}</em></dd>
+	</dl>
+	<div class="clear"></div>
+	<div class="paySucBtns">
+		<a href="javascript:void(0);" class="btnBase">查看订单详情</a><span class="splitText">或</span><a href="javascript:void(0);" class="btnBase">继续支付</a>
+	</div>
+</div>
+
+<!--底部-->
+<div id="channelFoot"></div>
+<!--底部 end-->
+<script>
+	$("#channelTop").load($("#ctxpath").val() + "/web/channel/commons/channel-top.jetx",{"channelId":"","channelType":"","returnUrl":window.location.href});
+	$("#channelFoot").load($("#ctxpath").val() + "/web/channel/commons/channel-footer.jetx");
+
+</script>
+</body>
+</html>

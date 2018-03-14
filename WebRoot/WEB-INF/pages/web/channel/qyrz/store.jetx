@@ -1,0 +1,20 @@
+#define(List
+<com.ekfans.base.store.model.Store> slist)
+
+<h2 id="goLink"></h2>
+#if(slist!=null && slist.size()>0) #for(com.ekfans.base.store.model.Store s : slist)
+<dl class="newsList">
+	<dt>
+		<a href="${webroot}/web/storedetail/${s.id}"> <em>认证企业</em> <img src="${webroot}${s.storeLogo}" class="vertical"></a>
+	</dt>
+	<dd class="listRight">
+		<div class="vertical">
+			<h3>
+				<a href="${webroot}/web/storedetail/${s.id}">${s.storeName}</a>
+			</h3>
+			<a href="${webroot}/web/storedetail/${s.id}"><p>${s.notes}</p></a>
+		</div>
+	</dd>
+	<dd class="clear"></dd>
+</dl>
+#end #include("../commons/channelNew-page.jetx") #end 

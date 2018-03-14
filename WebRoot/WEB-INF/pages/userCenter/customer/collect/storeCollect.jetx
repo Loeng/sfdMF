@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}-店铺收藏</title>
+	<link href="${webroot}/resources/customer/css/collect/favorites.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/customer/js/base.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload/ upload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/customer/js/collect/storeCollect.js"></script>
+</head>
+<body>
+	<input type="hidden" id="ctxpath" value="${webroot}" />
+
+
+    <div class="rightContent">
+        <div class="saveHeader">
+        	<a href="javascript:void(0)" onclick="loadProductCollect();">商品收藏</a>
+            <a href="javascript:void(0)" class="nowItem" onclick="loadStoreCollect();">店铺收藏</a>
+            <div class="clear"></div>
+        </div>
+        <!--商品收藏-->
+        <div class="userSave" style="display:none;">
+            <ul class="listDelete">
+                <li class="listCheck"></li>
+                <li class="listInfo"><a href="javascript:void(0)" onclick="selectAll();">全选</a><a href="javascript:void(0)">删除</a></li>
+            </ul>
+            <div class="proOfShop">店铺：百货市场</div>
+            <ul class="saveList">
+                <li class="listCheck"><input name="" type="checkbox" value=""></li>
+                <li class="listInfo">
+                    <a href="javascript:void(0)" title="查看商品" class="listImg"><img src="images/orderimg.jpg" width="76" height="99" alt="ipad"></a>
+                    <div class="listRight">
+                        <span class="listText"><a href="javascript:void(0)">苹果（Apple）iPad2 9.7英寸平板电脑，苹果（Apple）iPad2 9.7英寸平板电脑</a></span>
+                        <span class="nowPrice">￥4987.00</span>
+                    </div>
+                    <div class="clear"></div>
+                </li>
+                <li class="listOperate"><a href="javascript:void(0)">购买</a>&nbsp;|&nbsp;<a href="javascript:void(0)">删除</a></li>
+            </ul>
+            <ul class="saveList">
+                <li class="listCheck"><input name="" type="checkbox" value=""></li>
+                <li class="listInfo">
+                    <a href="javascript:void(0)" title="查看商品" class="listImg"><img src="images/orderimg.jpg" width="76" height="99" alt="ipad"></a>
+                    <div class="listRight">
+                        <span class="listText"><a href="javascript:void(0)">苹果（Apple）iPad2 9.7英寸平板电脑，苹果（Apple）iPad2 9.7英寸平板电脑</a></span>
+                        <span class="nowPrice">￥4987.00</span>
+                    </div>
+                    <div class="clear"></div>
+                </li>
+                <li class="listOperate"><a href="javascript:void(0)">购买</a>&nbsp;|&nbsp;<a href="javascript:void(0)">删除</a></li>
+            </ul>
+            <div class="listBottom">
+                <span class="checkAll"><input name="" type="checkbox" value="" >全选</span>
+                <a href="javascript:void(0)" class="btnBlue">加入购物车</a>
+                <div class="pageSize">
+                    <a href="javascript:void(0)" class="pageLast">&lt;&lt;</a>
+                    <a href="javascript:void(0)" class="page">1</a>
+                    <a href="javascript:void(0)" class="page">2</a>
+                    <a href="javascript:void(0)" class="page nowPage">3</a>
+                    <a href="javascript:void(0)" class="page">...</a>
+                    <a href="javascript:void(0)" class="page">10</a>
+                    <a href="javascript:void(0)" class="page">11</a>
+                    <a href="javascript:void(0)" class="page">12</a>
+                    <a href="javascript:void(0)" class="pageNext">&gt;&gt;</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <!--商品收藏 end-->
+        
+         <!--店铺收藏-->
+         <div id="userSave">
+        <div class="shopSave">
+            <ul class="listDelete">
+                <li class="listCheck"></li>
+                <li class="listInfo"><a href="javascript:void(0)" onclick="selectAll();">全选</a><a href="javascript:void(0)" onclick="checkStoreCollectSelect();">删除</a></li>
+            </ul>
+            #define(List<com.ekfans.base.store.model.StoreCollect> scs)
+            #if(scs == null || scs.size() == 0)
+            <div class="orderNone">暂时没有符合条件的数据</div>
+            #else
+            #for(com.ekfans.base.store.model.StoreCollect sc : scs)
+            <dl class="shopList">
+                  <dt class="shopInfo">
+                  	 #if(sc.logo == "" || sc.logo == " "|| sc.logo == null)
+                  	<a href="${webroot}/web/proscenium/${sc.storeId}" class="shopImg"><img src="${webroot}/resources/customer/images/imgdefault.jpg" width="198" height="198" ></a>
+                		#else <a href="${webroot}/web/proscenium/${sc.storeId}" class="listImg"><img src="${webroot}/${sc.logo}" width="76" height="99" ></a>
+                		#end
+                      <span class="shopBg"></span>
+                      <span class="shopName"><a href="${webroot}/web/proscenium/${sc.storeId}">${sc.name}</a></span>
+                  </dt>
+                  <dd class="shopBottom">
+                      <input name="" type="checkbox" value="${sc.id}"/>
+                      <a href="${webroot}/web/proscenium/${sc.storeId}">进入该店铺</a><a href="javascript:void(0)" id="del${sc.id}" onclick="econfirm('确定要删除此店铺吗？',storeCollectDelete,['${sc.id}','${webroot}'],null,null);">删除该店铺</a>
+                  </dd>
+              </dl>
+              #end
+              #end
+              <div class="clear"></div>
+
+             
+            
+            <!-- 分页 -->
+					#define(com.ekfans.pub.util.Pager pager)
+					<div class="pageSize">
+							<a href="javascript:void(0);" onclick="goPage('1');"   value="1" class="pageLast"><<</a>
+							#if(pager.currentPage == 1)
+								<a href="javascript:void(0);" class="page"><</a> 
+							#else
+								<a href="javascript:void(0);" onclick="goPage('${pager.currentPage-1 }');"   value="${pager.currentPage-1 }" class="pageLast"><</a>
+							#end
+							
+							#if(pager.totalPage>5)
+								#if(pager.currentPage-2>1 && pager.currentPage+2<pager.totalPage)
+									<a class="btn">..</a>
+									#for(int i : iterator(pager.currentPage-2,pager.currentPage+2))
+										#if(pager.currentPage==i)
+												<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="page nowPage">${i }</a>
+										#else
+											<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="page">${i }</a>
+										#end
+									#end
+									<a>..</a>
+								#elseif(pager.currentPage-2<=1)
+									#for(int i : iterator(1,5))
+										#if(pager.currentPage==i)
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="page nowPage" >${i }</a>
+										#else
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="page">${i }</a>
+										#end
+									#end
+									<a>..</a>
+								#else
+									<a>..</a>
+									#for(int i : iterator(pager.totalPage-4,pager.totalPage))
+										#if(pager.currentPage==i)
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="page nowPage" >${i }</a>
+										#else
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="page">${i }</a>
+										#end
+									#end
+								#end
+							#else
+								#for(int i : iterator(1,pager.totalPage))
+									#if(pager.currentPage==i)
+										<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="page nowPage" >${i }</a>
+									#else
+										<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="page">${i }</a>
+									#end
+								#end
+							#end
+							
+							#if(pager.currentPage==pager.totalPage)
+								<a href="javascript:void(0);" class="btn">></a>
+							#else
+								<a href="javascript:void(0);" onclick="goPage('${pager.currentPage+1 }');"   value="${pager.currentPage+1 }" class="pageNext">></a>
+							#end
+							<a  href="javascript:void(0);" onclick="goPage('${pager.totalPage }');"   value="${pager.totalPage }" class="pageNext">>></a>
+							
+						</div>
+					</div>
+			
+		
+          </div>
+        </div>
+        <!--店铺收藏 end-->
+    </div>
+    <div class="clear"></div>
+</div>
+
+</body>
+
+
+</html>

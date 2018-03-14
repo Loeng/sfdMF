@@ -1,0 +1,23 @@
+#define(int number)
+#for(int i : iterator(1,number))
+	<dl class="formBoxLine">
+	    <dt>广告图片</dt>
+	    <dd>
+	        #tag picUpload("adPic"+for.index,"1","200","200","") #end
+	    </dd>
+	    <dd class="clear"></dd>
+	</dl>
+	<dl class="formBoxLine countBox">
+	    <dt>广告文字</dt>
+	    <dd><textarea name="adContent" cols="" rows="" class="bigBox"></textarea><span class="sizeCount">0/100</span></dd>
+	    <dd class="clear"></dd>
+	</dl>
+	<dl class="formBoxLine">
+	    <dt>链接地址</dt>
+	    <dd>
+	        <input type="text" class="i_bg" name="linkUrl">
+	        <span class="hint">连接地址以http://或https://开头</span>
+	    </dd>
+	    <dd class="clear"></dd>
+	</dl>
+#end

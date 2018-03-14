@@ -1,0 +1,349 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>企业直付</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<link rel="shortcut icon" href="../../../resources/commons/images/favicon.ico" type="image/x-icon">
+<link href="../../../resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/userCenter/produce/css/style.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/commons/css/upload.css" rel="stylesheet" type="text/css">
+
+<style>
+.rightContent .form h3{height:35px; border-bottom:solid 1px #e4e4e4; margin-bottom:20px;}
+.rightContent .form h3 em{display:inline-block; padding:0 30px; height:30px; line-height:30px; border-bottom-style:solid; border-bottom-width:5px;}
+.formItem{margin-bottom:20px;}
+.formItem .textBox{display:inline-block;}
+.formItem .hint{display:inline-block; padding-left:5px;}
+.btnBase{padding:0 18px;}
+
+/*上传控件*/
+.fileUpload{width:auto; height:30px; margin-top:0; float:left;}
+.fileUpload .fileLoading{height:30px; width:30px;}
+.fileUpload .btnUpload{margin-top:0;}
+.btnNo,.btnNo:hover{background:#ccc; color:#fff; cursor:default;}
+.pingzheng{padding:10px 0;}
+
+/*付款方式*/
+.tabContent{display:none; padding:20px 0;}
+.tabNav{height:36px; line-height:36px; border-bottom:solid 1px #e4e4e4; padding-left:140px; position:relative; margin-top:-57px;}
+.tabNav li{padding:0 20px; height:35px; font-size:14px; color:#666; float:left; border:solid 1px #e4e4e4; position:relative; margin:0 -1px -1px 0; z-index:1; cursor:pointer;}
+.tabNav li.cur{border-bottom:solid 1px #fff; color:#333;}
+.upInfo{height:58px; background:#f9f7f7; line-height:58px; padding-left:20px; margin:20px 0;}
+.upInfo span{font-size:16px;}
+.upInfo span em{ padding-left:10px;}
+.yue{padding-right:30px;}
+.yue em{color:#ff4100;}
+
+
+.checkList{padding-left:50px;}
+.checkList li{width:280px; float:left; height:40px; margin:0 50px 10px 0;}
+.checkList li input{display:block; float:left; margin:12px 10px 0 0;}
+.checkList li span{display:block; width:250px; height:38px; text-align:center; line-height:38px; border:solid 1px #e4e4e4; background:#f3f2f2; overflow:hidden;}
+.shopSearch .btn{padding: 0 0 20px 0; float:left;}
+.shopSearch{padding:16px 10px 0 0;}
+.shopSearch dl{width:310px; float:left; margin-right:16px;}
+.shopSearch dt{height:20px; line-height:20px;}
+.apLayer .pageSize{padding:20px 20px 0 0; float:none; text-align:center;}
+
+
+/*银行账户*/
+.bankList{margin-bottom:30px;}
+.bankList li{width:280px; background:#f5f5f5; border:solid 1px #d7d7d7; float:left; margin:0 30px 12px 0; cursor:pointer; padding:5px;}
+.bankList li.cur{border:solid 1px #FF6B49; background:#fff;}
+.bankList li span{padding-left:5px; display:block; line-height:22px;}
+.bankList li em{color:#999; width:50px; display:inline-block; text-align:right; padding-right:20px;}
+.bankList .fullBank{border-bottom:#e5e5e5 solid 1px; padding-bottom:5px; margin-bottom:5px;}
+.bankList .num{letter-spacing:2px;}
+.bankList .cardAdd{border:dashed 1px #72A8D7; background:url(../../../resources/userCenter/commons/images/icon_add2.png) no-repeat center 20px; padding-top:50px; height:54px; line-height:30px; text-align:center; color:#0087CB; font-size:14px;}
+.apLayer .errorText{background:none;}
+</style>
+</head>
+<body>
+<!--头部-->
+<div class="wrapper topArea">
+  <h1 class="logo">
+    <a href="javascript:void(0)" title="鑫裕环保供应链平台">
+    	<img src="../../../resources/commons/images/logo.png" alt="鑫裕环保供应链平台">
+    </a>
+  </h1>
+  <div class="topRight">
+    <a href="javascript:void(0)" class="linkIndex">首页</a>
+    <span class="topItem">您好，云飞扬</span>
+    <span class="topItem"><a href="javascript:void(0)">消息(99)</a></span>
+    <span class="topItem"><a href="javascript:void(0)">帮助中心</a></span>
+    <span class="topItem itemLast"><a href="javascript:void(0)">安全退出</a></span>
+    <em class="split"></em>
+    <span class="telPhone">4000-888-1000</span>
+  </div>
+  <div class="clear"></div>
+</div>
+
+<div class="logoBar">
+  <div class="wrapper">
+  	<a href="javascript:void(0)" class="logoName">产生企业-企业中心</a>
+    <div class="nav">
+      <a href="javascript:void(0)" class="navItem">订单管理</a>
+      <a href="javascript:void(0)" class="navItem">金融管理</a>
+      <a href="javascript:void(0)" class="navItem">企业认证</a>
+      <a href="javascript:void(0)" class="navItem">账户管理</a>
+    </div>
+  </div>
+</div>
+<!--头部end-->
+
+<div class="main">
+  <div class="wrapper">
+    <!--左侧菜单-->
+    <div class="leftNav budong">
+      <h2><a href="javascript:void(0)">管理中心首页</a></h2>
+      <dl class="leftList">
+        <dt>采购管理<em class="itemIco"></em></dt>
+        <dd>
+          <a href="javascript:void(0)">商品管理</a>
+          <a href="javascript:void(0)">订单管理</a>
+          <a href="javascript:void(0)">议价管理</a>
+        </dd>
+      </dl>
+      <dl class="leftList">
+        <dt>供应管理<em class="itemIco"></em></dt>
+        <dd>
+          <a href="javascript:void(0)">商品管理</a>
+          <a href="javascript:void(0)">订单管理</a>
+          <a href="javascript:void(0)">议价管理</a>
+          <a href="javascript:void(0)">优选商城订单管理</a>
+        </dd>
+      </dl>
+      <dl class="leftList">
+        <dt>商品管理<em class="itemIco"></em></dt>
+        <dd>
+          <a href="javascript:void(0)">发布新商品</a>
+          <a href="javascript:void(0)">仓库中的商品</a>
+          <a href="javascript:void(0)">出售中的商品</a>
+        </dd>
+      </dl>
+      <dl class="leftList">
+        <dt>单据管理<em class="itemIco"></em></dt>
+        <dd>
+          <a href="javascript:void(0)">合同管理</a>
+          <a href="javascript:void(0)">仓单管理</a>
+        </dd>
+      </dl>
+      <dl class="leftList">
+        <dt>金融服务<em class="itemIco"></em></dt>
+        <dd>
+          <a href="javascript:void(0)">订单借贷申请</a>
+          <a href="javascript:void(0)">订单借贷管理</a>
+          <a href="javascript:void(0)">信用借贷申请</a>
+          <a href="javascript:void(0)">信用借贷管理</a>
+          <a href="javascript:void(0)">还款记录</a>
+        </dd>
+      </dl>
+      <dl class="leftList">
+        <dt>企业认证<em class="itemIco"></em></dt>
+        <dd>
+          <a href="javascript:void(0)">企业自助备案</a>
+          <a href="javascript:void(0)">企业信用测算</a>
+        </dd>
+      </dl>
+      <dl class="leftList">
+        <dt>账户管理<em class="itemIco"></em></dt>
+        <dd>
+          <a href="javascript:void(0)">基本资料管理</a>
+          <a href="javascript:void(0)">账户资金管理</a>
+          <a href="javascript:void(0)">安全设置</a>
+        </dd>
+      </dl>
+      <dl class="leftList">
+        <dt>银行卡管理<em class="itemIco"></em></dt>
+        <dd>
+          <a href="javascript:void(0)">绑定银行卡</a>
+          <a href="javascript:void(0)" class="cur">银行卡管理</a>
+        </dd>
+      </dl>
+    </div>
+    <!--左侧菜单 end--> 
+      
+    <!--右侧主体-->
+    <div class="rightContent">
+        <div class="contentTit  borderColor budong">
+            <h3>企业直付</h3>
+            <a href="javascript:void(0);" class="btnBase btnCancel">返回列表</a>
+            <div class="clear"></div>
+    	</div>
+        <div class="form borderColor">
+        	<h3><em class="borderBottomColor">收款方信息</em></h3>
+            <dl class="formItem formLine">
+                <dt>收款企业</dt>
+                <dd>
+                    成都易科远见科技有限公司
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+          <dl class="formItem formLine">
+                <dt>付款说明</dt>
+                <dd>
+                    这个钱是用来付货款和运费的
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formLine">
+                <dt>相关合同</dt>
+                <dd>
+                    
+                    <!--已上传-->
+                  	<div class="fileUpload">
+                    	<div class="fileNameBox">
+                            <input name="" type="text" value="用户体验交互视觉设计方法论.pdf" class="textBox box300" class="fileName" readonly>
+                        </div>
+                    </div>
+                    <a href="javascript:void(0)" class="btnBase">预览</a>
+                    
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+            <h3><em class="borderBottomColor">付款方式</em></h3>
+            <ul class="tabNav">
+            	<li class="cur">账户余额</li>
+                <li>网上银行</li>
+                <li>线下转账</li>
+            </ul>
+            <div class="tabContent" style="display:block;">
+            	<div class="upInfo">
+                    <span class="yue">账户余额<em>999999999.99</em></span>
+                    <span class="yue">可用金额<em>999999.99</em></span>
+                    <span class="yue">冻结金额<em>99999999.99</em></span>
+                </div>
+                <h3><em class="borderBottomColor">支付信息</em></h3>
+                <dl class="formItem">
+                    <dt>金额</dt>
+                    <dd>
+                        <em class="red" style="font-size:14px;">180.00</em>
+                    </dd>
+                    <dd class="clear"></dd>
+                </dl>
+                <dl class="formItem formLine">
+                    <dt>备注</dt>
+                    <dd style="width:600px;">
+                        第三方三等奖粉红色的很疯狂是的很疯狂速度回复可速度回复思考的很疯狂速度回复
+                    </dd>
+                    <dd class="clear"></dd>
+                </dl>
+            </div>
+            <div class="tabContent">
+            	<ul class="bankList">
+                    <li class="bankItem cur">
+                        <span class="bank"><em>开户行</em>中国工商银行</span>
+                        <span class="fullBank"><em>全称</em>姐儿堰支行</span>
+                        <span class="num"><em>帐号</em>6228480461000596</span>
+                        <span class="name"><em>户名</em>成都易科远见科技有限公司</span>
+                    </li>
+                    <div class="clear"></div>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="tabContent">
+            	<div class="pingzheng">
+                    <div class="fileUpload">
+                        <div class="fileNameBox">
+                            <input name="" type="text" value="用户体验交互视觉设计方法论.pdf" class="textBox box300" class="fileName" readonly>
+                        </div>
+                    </div>
+                    <a href="javascript:void(0)" class="btnBase companyCheck">预览</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--右侧主体 end-->
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<!--底部-->
+<div class="bottomMenu">
+  <div class="wrapper">
+    <dl class="footItem">
+      <dt>
+        <img src="../../../resources/commons/images/gyl_icon_r1_c4.png" width="49" height="48" />
+        <span>采购流程</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="下单流程">下单流程</a></li>
+        <li><a href="javascript:void(0);" title="订单跟踪">订单跟踪</a></li>
+        <li><a href="javascript:void(0);" title="安全支付">安全支付</a></li>
+        <li><a href="javascript:void(0);" title="企业认证">企业认证</a></li>
+        <li><a href="javascript:void(0);" title="常见问题">常见问题</a></li>
+      </dd>
+    </dl>
+    <dl class="footItem">
+      <dt>
+      	<img src="../../../resources/commons/images/gyl_icon_r1_c5.png" width="49" height="48" />
+        <span>服务与支持</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="物流配送">物流配送</a></li>
+        <li><a href="javascript:void(0);" title="经销商权益">经销商权益</a></li>
+        <li><a href="javascript:void(0);" title="不良品退货">不良品退货</a></li>
+        <li><a href="javascript:void(0);" title="在线咨询">在线咨询</a></li>
+        <li><a href="javascript:void(0);" title="融资操作手册">融资操作手册</a></li>
+      </dd>
+    </dl>
+    <dl class="footItem">
+      <dt>
+        <img src="../../../resources/commons/images/gyl_icon_r1_c6.png" width="49" height="48" />
+        <span>我的账户</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="子账户管理">子账户管理</a></li>
+        <li><a href="javascript:void(0);" title="密码重置">密码重置</a></li>
+        <li><a href="javascript:void(0);" title="在线打款">在线打款</a></li>
+      </dd>
+    </dl>
+    <dl class="lastItem">
+      <dt>
+        <img src="../../../resources/commons/images/gyl_icon_r1_c7.png" width="49" height="48" />
+        <span>关于我们</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="公司简介">公司简介</a></li>
+        <li><a href="javascript:void(0);" title="联系我们">联系我们</a></li>
+        <li><a href="javascript:void(0);" title="网站声明">网站声明</a></li>
+      </dd>
+    </dl>
+    <div class="clear"></div>
+  </div>
+</div>
+<!--底部 end--> 
+
+<!--尾部-->
+<div class="footer">
+  <div class="wrapper">
+    <p class="footerLeft">© 2014 成都易科远见科技有限公司 版权所有 蜀ICP备 14005736号</p>
+    <p class="footerRight">成都市高新区吉泰路666号花样年·福年广场2号楼1309室<br>服务热线：028-83190368</p>
+    <div class="clear"></div>
+  </div>
+</div>
+<!--尾部 end--> 
+<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="../../../resources/userCenter/commons/js/base.js"></script>
+<script>
+
+/*选项卡切换*/
+$(".tabNav li").click(function(){
+	$(this).addClass("cur");
+	$(this).siblings().removeClass("cur");
+	var dom=$(this).parent().siblings(".tabContent");
+	var index=$(this).parent().children().index(this);
+	dom.hide();
+	dom.eq(index).show();
+})
+</script>
+</body>
+</html>

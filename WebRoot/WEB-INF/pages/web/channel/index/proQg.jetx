@@ -1,0 +1,36 @@
+#define(Map<String, com.ekfans.base.channel.model.ChannelConfig> configMap)
+#define(String configType)
+#define(String position)
+#define(String channelId)
+
+#set(com.ekfans.base.channel.model.ChannelConfig config = configMap.get(configType + position))
+
+
+<div class="tabContent qiugou" style="display:none;">
+
+#if(configStatus == "true")
+	<div>#include("../commons/config/configTitle.jetx",{"channelId":channelId,"configType":configType,"position":position})</div>
+#end
+		
+#if(config != null)
+	#for(com.ekfans.base.order.model.SupplyBuy p : config.details)	
+        <div class="metalItem">
+    		<div class="dt">
+            	<span class="qiugouTitle">${p.title}</span>
+            </div>
+            <ul class="itemInfo">
+                <li><span class="size16">${p.content}</span><span class="size14">${p.qualityLevel}</span></li>
+                <li class="size18">求购<em class="green">${p.number}</em>${p.unit}</li>
+                <li>${p.destination}</li>
+                <li>${p.storeName}</li>
+            </ul>
+            <div class="itemBtns">
+                <a href="javascript:void(0);" class="btnGreen" onclick="loadBaojia('${p.id}','${p.storeId}');" style="width:100%;">报价</a>
+            </div>
+        </div>
+	#end
+#end
+</div>
+
+
+

@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>待发货订单详情</title>
+	<link href="${webroot}/resources/store/commons/css/goodsDetail.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+	<script src="${webroot}/resources/store/commons/js/goodsDetail.js"></script>
+	<script src="${webroot}/resources/store/commons/js/ckeditor/ckeditor.js"></script>
+	<!-- 引入私有js -->
+	<script type="text/javascript" src="${ctxpath }/resources/store/commons/js/order/orderManager/orderHandle/StoreOrderWaitShipments.js"></script>
+</head>
+<body>
+<div class="rightContent">
+	<div class="contentTit borderColor budong">
+      	<h3>订单详情</h3>
+        <a href="javascript:void(0);" class="btnBase btnBack" onclick="goBack();">返回列表</a>
+        <div class="clear"></div>
+      </div>	
+	<div class="form borderColor">
+	<table border="0" cellspacing="0" cellpadding="0" class="orderTable">
+		<tr>
+			<th class="tdProInfo bgColor">商品信息</th>
+			<th class="tdProNum bgColor">商品编号</th>
+			<th class="tdProCount bgColor">数量</th>
+			<th class="tdSubtotal bgColor">小计</th>
+		</tr>
+		<!-- 循环订单商品详情信息 -->
+		#define(List<com.ekfans.base.order.model.vo.OderDetailProduct> odpList)
+		#for(com.ekfans.base.order.model.vo.OderDetailProduct odp:odpList)
+    	<tr>
+      	<td class="tdProInfo">
+        	<a href="${webroot}/web/proDetail/${odp.product.id}" title="${odp.product.name}" class="orderImg">
+        		#if(odp.product.recommendPicture1==null || odp.product.recommendPicture1=="")
+        			<img src="${webroot}/resources/system/images/no_pic.jpg" width="78" height="78" alt="${odp.product.name}" />
+        		#else
+        			<img src="${odp.product.recommendPicture1}" width="78" height="78" alt="${odp.product.name}" />
+        		#end
+        	</a>
+          <div class="proRight">
+          	<span class="orderText"><a href="${webroot}/web/proDetail/${odp.product.id}">${odp.product.name}</a></span>
+            <span class="nowPrice">￥${odp.orderDetail.price}</span>
+            <div class="clear"></div>
+            <!--
+            <div class="colorSize"><span>颜色：</span><em>大红色大红色大红色大红色</em></div>
+           	<div class="colorSize"><span>尺码：</span><em>好马</em></div>
+           	-->
+           	<div class="colorSize"><span>${odp.productInfoDetail.infoName1}#if(odp.productInfoDetail.infoName1!=null && odp.productInfoDetail.infoName1!="")：#end</span><em>${odp.productInfoDetail.infoValue1}</em></div>
+           	<div class="colorSize"><span>${odp.productInfoDetail.infoName2}#if(odp.productInfoDetail.infoName2!=null && odp.productInfoDetail.infoName2!="")：#end</span><em>${odp.productInfoDetail.infoValue2}</em></div>
+            <div class="clear"></div>
+            <!--
+            <div class="colorSize"><span>版本：</span><em>美国原版</em></div>
+            <div class="colorSize"><span>网络：</span><em>WCDMA</em></div>
+            -->
+            <div class="colorSize"><span>${odp.productInfoDetail.infoName3}#if(odp.productInfoDetail.infoName3!=null && odp.productInfoDetail.infoName3!="")：#end</span><em>${odp.productInfoDetail.infoValue3}</em></div>
+            <div class="colorSize"><span>${odp.productInfoDetail.infoName4}#if(odp.productInfoDetail.infoName4!=null && odp.productInfoDetail.infoName4!="")：#end</span><em>${odp.productInfoDetail.infoValue4}</em></div>
+            <div class="clear"></div>
+          </div>
+          <div class="clear"></div>
+        </td>
+      	<td class="tdProNum">${odp.product.productNumber}</td>
+      	<td class="tdProCount">${odp.orderDetail.quantity}</td>
+      	<td class="tdSubtotal">￥${odp.orderDetail.totalPrice}</td>
+   		</tr>
+    #end
+  </table>  
+  
+  <!-- 订单地址 -->
+	#define(com.ekfans.base.order.model.OrderAddress address)
+	<!-- 订单信息 -->
+	#define(com.ekfans.base.order.model.Order order)
+  <div class="tit">
+		<h2 class="orderInfoTab cur">订单信息</h2>
+    <h2 class="orderLogTab">订单跟踪</h2>
+    <a href="javascript:void(0)" class="layerToggle">收起</a>
+  </div>
+  <div class="toggles orderInfo">
+  	<dl class="consignee paddingtop">
+    	<dt>收货人信息</dt>
+      <dd>
+      	<li><span class="biaotiL">收货人：</span>${address.name}</li>
+      	<li><span class="biaotiL">收货地址：</span>${address.provincial}#if(address.city!=null && address.city!="")&nbsp;${address.city}#if(address.area!=null && address.area!="")&nbsp;${address.area}#end#end&nbsp;${address.address}</li>
+        <li><span class="biaotiL">固定电话：</span>${address.phoneNum}</li>
+        <li><span class="biaotiL">手机号码：</span>${address.mobile}</li>
+        <li><span class="biaotiL">电子邮件：</span>${address.email}</li>
+      </dd>
+    </dl>
+    <dl class="payStyle">
+    	<dt>支付及配送方式</dt>
+      <dd>
+      	<li><span class="biaotiL">支付方式：</span>#if(order.paymentId=="1")财付通#elseif(order.paymentId=="2")支付宝#elseif(order.paymentId=="3")网银支付#end</li>
+        <li><span class="biaotiL">运费：</span>￥${order.fare}</li>
+      </dd>
+    </dl>
+   	#if(order.invoice)
+    	<dl class="invoiceInfo">
+      	<dt>发票信息</dt>
+      	<dd>
+	      	<li>发票类型：#if(order.invoiceType)普通发票#else增值税发票#end</li>
+	        <li>发票抬头：${order.invoiceTitle}</li>
+	        <li>发票内容：${order.invoiceContent}</li>
+       	</dd>	
+      </dl>
+  	#else
+    	<div class="invoiceNone" style="margin-top:24px;">无发票信息</div>
+    #end
+      <!--
+      <dl class="invoiceInfo" style="display:none;">
+      	<dt>发票信息</dt>
+      	<dd>
+        	<li>发票类型：普通发票</li>
+          <li>发票抬头：个人</li>
+          <li>发票内容：明细</li>
+        </dd>
+      </dl>
+      -->
+      <!-- 无发票信息-->
+      <!-- <div class="invoiceNone" style="margin-top:24px;">无发票信息</div> -->
+      <!-- 无发票信息 end-->
+      <div class="clear"></div>
+	</div>
+ 	<!-- 订单日志记录 -->
+  <div class="orderLog">
+  	<ul>
+    <!-- 订单操作信息 -->
+  	#define(List<com.ekfans.base.order.model.OrderTreatDetail> treatDetails)
+  	#for(com.ekfans.base.order.model.OrderTreatDetail trd:treatDetails)	
+    	<li>${trd.createTime}&nbsp;&nbsp;&nbsp;${trd.creater}&nbsp;&nbsp;&nbsp;${trd.note}</li>
+    #end            
+  	</ul>
+    <div class="freightText"><span>送货方式：${order.shipment}</span><span>承运人：${order.logisticsName}</span><span>货运单号：${order.logisticsNo}</span></div>
+  </div>     
+	<h2 class="rightTitle"><em>付款信息</em><a href="javascript:void(0)" class="layerToggle">收起</a></h2>
+	<div class="toggles payInfo">
+		<ul class="payInfoLeft">
+    	<li>付款方式：#if(order.paymentId=="1")财付通#elseif(order.paymentId=="2")支付宝#elseif(order.paymentId=="3")网银支付#end</li> 
+      <li>商品金额：￥${order.totalPrice}</li> 
+      <li>优惠金额：￥${order.paid.subtract(order.totalPrice)}</li> 
+      <li>支付金额：￥${paymentPrice}</li>
+    </ul>
+		<ul>
+			<li>运费金额：￥${order.fare}</li>
+      <li>实际运费：￥0.00</li>
+      <!-- <li>交易余额：￥0.00</li> -->
+      #define(com.ekfans.base.order.model.OrderTreatDetail treatDetail)
+      <li>付款时间：${treatDetail.createTime}</li>
+		</ul>
+		<div class="split"></div>
+		<div class="money">
+			<span class="moneyTotal">金额总计：<em class="price">￥${order.totalPrice}</em></span>
+			<span style="color:rgb(133, 133, 133); font-family:arial,microsoft yahei,simsun; font-size:12px">&nbsp;运费：${order.fare}</span>
+		</div>
+	</div>
+	<h2 class="rightTitle"><em>物流信息</em></h2>
+	<ul class="logistics">
+  	<li>
+  		<em class="logisticsTitle">物流公司</em><input type="text" id="logisticsName" onfocus="checkTextValue('logisticsNameError',1)" onBlur="checkTextValue('logisticsNameError',2)" />
+  		<span class="errorText errorRed" id="logisticsNameError" style="display:none;">
+      	<em class="errorBoxL"></em>
+        <em class="errorMain">请输入物流公司名称</em>
+        <em class="errorBoxR"></em>
+      </span>
+  	</li>
+    <li>
+    	<em class="logisticsTitle">运单号码</em><input type="text" id="logisticsNo" onfocus="checkTextValue('logisticsNoError',1)" onBlur="checkTextValue('logisticsNoError',2)" />
+    	<span class="errorText errorRed" id="logisticsNoError" style="display:none;">
+      	<em class="errorBoxL"></em>
+        <em class="errorMain">请输入运单号</em>
+        <em class="errorBoxR"></em>
+      </span>
+    </li>
+    <li>
+    	<em class="logisticsTitle">实际运费</em><input type="text" id="actualShipping" class="sortBox" onfocus="checkTextValue('actualShippingError',1)" onBlur="checkTextValue('actualShippingError',22)" />
+      <span class="errorText errorRed" id="actualShippingError" style="display:none;">
+      	<em class="errorBoxL"></em>
+        <em class="errorMain">运费金额不对</em>
+        <em class="errorBoxR"></em>
+      </span>
+    </li>
+    <li class="clear"></li>
+  </ul>
+  <div class="clear"></div>
+	<a href="javascript:void(0)" class="btnBase btnSubmit" onclick="delivery('${ctxpath }','${order.id }')">提交</a>
+ <div class="clear"></div>
+ </div>
+<div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>修改管理员信息</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/add.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/manager/manager_update.js"></script>
+</head>
+
+<body>
+#define(List<com.ekfans.base.system.model.ShopRole> shopRoles)
+#define(com.ekfans.base.system.model.Manager manager)
+<input type="hidden" id="ctxpath" value="${webroot}" />
+
+<div class="ht_btn">
+	<a href="#" class="btn" onclick="formSubmit()">保存</a>
+	<a href="#" class="btn" onclick="reset('${manager.id}')">重置</a>
+	<a href="#" class="btn" onclick="goBack()">返回列表</a>
+</div>
+<form action="${webroot}/system/manager/modify" method="post" id="modifyManagerForm">
+	<input type="hidden" name="id" value="${manager.id}" />
+	<input type="hidden" name="createTime" value="${manager.createTime}" />
+	
+	<div class="add_pro">
+		<dl>
+			<dt>管理员名<em class="mustIco"></em></dt>	
+			<dd>
+				<input type="text" class="i_bg" name="name" value="${manager.name}" onblur="checkNameBlur()" onfocus="checkFocus(this)" />
+				<span class="ts_xx"></span>
+			</dd>
+		</dl>
+		<dl>	
+			<dt>密码<em class="mustIco"></em></dt>	
+			<dd>
+				<input class="i_bg" type="password" name="password" value="${manager.password}" onblur="checkPasswordBlur()" onfocus="checkFocus(this)" />
+				<span class="ts_xx"></span>
+			</dd>
+		</dl>
+		<div class="clear" ></div>	
+		<dl>	
+			<dt>确认密码<em class="mustIco"></em></dt>	
+			<dd>
+				<input type="password" id="cpwd" class="i_bg" value="${manager.password}" onblur="checkPwdSameBlur()" onfocus="checkFocus(this)" />
+			 	<span class="ts_xx"></span>
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt>关联角色<em class="mustIco"></em></dt>
+			<dd id="roleIdDd" class="formSiteSelect">
+				<select name="roleId" onblur="checkRole()">
+        	<option value=''>--------请选择--------</option>
+					#for(com.ekfans.base.system.model.ShopRole shopRole : shopRoles)
+						<option value='${shopRole.id}' #if(shopRole.id == manager.roleId) selected #end>${shopRole.name}</option>
+					#end
+        </select>
+        <span class="ts_xx"></span>
+			</dd>
+		</dl>
+		<div class="clear" ></div>
+		<dl>
+			<dt>状态</dt>
+			<dd>
+				<span class="zt"><label><input type="radio" value="true" name="status" #if(manager.status) checked=true #end />启用</label></span>
+				<span class="zt"><label><input type="radio" value="false" name="status" #if(!manager.status) checked=true #end />禁用</label></span>
+			</dd>
+		</dl>
+		<dl>
+			<dt>手机号<em class="mustIco"></em></dt>	
+			<dd>
+				<input type="text" class="i_bg" name="mobile" value="${manager.mobile}" onblur="checkMobileBlur()" onfocus="checkFocus(this)" />
+				<span class="ts_xx"></span>
+			</dd>
+		</dl>
+		<div class="clear" ></div>
+		<dl>
+			<dt>email<em class="mustIco"></em></dt>	
+			<dd>
+				<input type="text" class="i_bg" name="email" value="${manager.email}" onblur="checkEmailBlur()" onfocus="checkFocus(this)" />
+				<span class="ts_xx"></span>
+			</dd>
+		</dl>
+		<dl>
+			<dt>真实姓名</dt>
+			<dd>
+				<input type="text" class="i_bg" name="realName" value="${manager.realName}" maxlength="128" />
+			</dd>
+		</dl>
+		<div class="clear" ></div>
+	</div>
+</form>
+</body>
+</html>

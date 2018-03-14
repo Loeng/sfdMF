@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>店铺中心</title>
+		<link href="${webroot}/resources/store/css/store.css" rel="stylesheet" type="text/css" />
+		<link href="${webroot}/resources/system/css/base.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/store/js/common/tools.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/store/js/common/base.js"></script>
+		<script type="text/javascript">
+		   function	returnx(path){
+		   	window.location.href = path+'/store/count/myMessage';
+		   	}
+		</script>
+		<sitemesh:write property="head"></sitemesh:write>
+	</head>
+	<body>
+    <div class="sto_right">
+		<div class="sto_path"><a href="javascript:;" onclick="returnx('${webroot}');">返回</a>查看站内信</div>
+		<div class="see_mess">
+			<span>刘瑶玉</span>
+			<p>你所有的私信文件均保存在你的站内信管理中哦。默认每个人都有哦，当文件过多时，就来清理掉不必要的信息吧！你所有的私信文件均保存在你的站内信管理中哦。默认每个人都有哦，当文件过多时，就来清理掉不必要的信息吧！</p>
+			<label>2014-03-07</label><b>回复</b>
+			<div>
+				<textarea></textarea><br />
+				<a href="#">发送</a>
+			</div>
+		</div>
+		<div class="see_mess">
+			<span>刘瑶玉</span>
+			<p>你所有的私信文件均保存在你的站内信管理中哦。默认每个人都有哦，当文件过多时，就来清理掉不必要的信息吧！你所有的私信文件均保存在你的站内信管理中哦。默认每个人都有哦，当文件过多时，就来清理掉不必要的信息吧！</p>
+			<label>2014-03-07</label><b>回复</b>
+			<div>
+				<textarea></textarea><br />
+				<a href="#">发送</a>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>

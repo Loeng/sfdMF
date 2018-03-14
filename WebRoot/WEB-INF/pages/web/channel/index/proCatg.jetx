@@ -1,0 +1,18 @@
+#define(Map<String, com.ekfans.base.channel.model.ChannelConfig> configMap)
+#define(String configType)
+#define(String position)
+#define(String channelId)
+
+#set(com.ekfans.base.channel.model.ChannelConfig config = configMap.get(configType + position))
+
+#if(configStatus == "true")
+	<div style="top:-22px;">#include("../commons/config/configTitle.jetx",{"channelId":channelId,"configType":configType,"position":position})</div>
+#end
+#if(config != null)
+	<a href="${webroot}/xsgp.html" id="infoMore" target="_blank" class="gongxuMore green">查看更多...</a>
+    <ul class="tabNav classNav onejie">
+		#for(com.ekfans.base.product.model.ProductCategory pc : config.details)	
+            <li #if(for.first) class="cur" #end>${pc.name}</li>
+		#end
+    </ul>
+#end

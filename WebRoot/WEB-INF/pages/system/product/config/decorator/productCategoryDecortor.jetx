@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>店铺中心</title>
+		<link href="${webroot}/resources/system/css/base.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/store/js/common/tools.js"></script>
+		<script type="text/javascript"> 
+			$(document).ready(function(){
+				$('.fl_nav p').click(function(){
+					
+					$(this).next("div").slideToggle();
+					$(this).toggleClass("ht_fl_zk");
+				});
+				$('.fl_nav label').click(function(){
+					$(".fl_nav label").removeClass("cur");
+					$(this).addClass("cur");
+				});
+			}
+			)
+				
+			</script>
+		<sitemesh:write property="head"></sitemesh:write>
+	</head>
+	<body>
+			<div class="ht_fl_btn">
+				<a href="#">添加根分类</a>
+				<a href="#">添加子分类</a>
+				<a href="#">批量添加子分类</a>
+			</div>
+		<div class="ht_fl_box">
+			<!--左侧分类树-->
+			${include( "../index.jetx")}
+			
+			<div class="ht_fl_bj">
+				<sitemesh:write property='body'></sitemesh:write>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,45 @@
+#define(List<com.ekfans.base.store.model.Wfpys> mlList)
+
+<table cellspacing="0" cellpadding="0" class="tabList">
+	<thead>
+	<tr class="bgColor">
+		<th width="8%">大类序号</th>
+		<th width="10%">类别</th>
+		<th width="8%">小类序号</th>
+		<th width="15%">项</th>
+		<th width="50%">描述</th>
+	</tr>
+	</thead>
+	<tbody id="resultThree">
+		#set(int a = 1)
+		#set(int b = 1)
+		#for(com.ekfans.base.store.model.Wfpys wfml:mlList)
+			#set(List<com.ekfans.base.store.model.Wfpys> childList = wfml.childs)
+			#set(int c = 1)
+			#for(com.ekfans.base.store.model.Wfpys child:childList)
+			<tr>
+				#if(c == 1)
+					<td style="text-align:center;" #if(childList != null && childList.size()>0) rowspan="${childList.size()}"  #end>${a}</td>
+					<td style="text-align:center;" #if(childList != null && childList.size()>0) rowspan="${childList.size()}"  #end>${wfml.name}</td>
+				#end
+				<td style="text-align:center;">${b}</td>
+				<td style="text-align:center;">${child.name}</td>
+				<td>${child.descr}</td>
+					#set(b = b + 1)
+					#set(c = c + 1)
+			</tr>
+			#else
+			<tr>
+				#if(c == 1)
+					<td style="text-align:center;">${a}</td>
+					<td style="text-align:center;">${wfml.name}</td>
+				#end
+				<td style="text-align:center;"></td>
+				<td style="text-align:center;"></td>
+				<td>${wfml.descr}</td>
+			</tr>
+			#end
+			#set(a = a + 1)
+		#end
+	</tbody>
+</table>

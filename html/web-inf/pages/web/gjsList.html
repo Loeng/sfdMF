@@ -1,0 +1,341 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>贵金属列表</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<link rel="shortcut icon" href="../../../resources/commons/images/favicon.ico" type="image/x-icon">
+<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+<link href="../../../resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/web/css/base.css" rel="stylesheet" type="text/css">
+<style>
+.bread{height:38px; line-height:38px; background:#FCF4E5; font-size:14px; color:#A78749; margin-bottom:20px;}
+.proList{}
+.proHeader{height:28px; line-height:28px; margin-bottom:2px; font-size:18px;}
+.proHeader h2{display:inline-block; border-bottom:solid 4px #A78749; height:24px; line-height:24px; float:left; font-size:18px;}
+.proHeader .danwei{font-size:14px; color:#A78749; padding-left:26px;}
+.proHeader .date{display:block; float:right; padding:0 16px; background:#BF9953; color:#fff;}
+.tableBox{height:318px;background:#fff;}
+.proTable{width:100%; color:#856933; border-collapse:collapse; position:relative;}
+.proTable th{height:38px; line-height:38px; background:#FCE7BF; font-size:14px; color:#333; border:solid 1px #FBCB71;}
+.proTable td{text-align:center; height:34px; line-height:34px; font-size:14px; border:solid 1px #FBCB71;}
+.proTable td a{display:inline-block; margin:0 5px;}
+.nowData{display:block; position:relative;}
+.qxt{position:absolute;display:none;width:380px; height:167px; background-image:url(../../../resources/web/images/icon_pointBg.png); background-repeat:no-repeat; z-index:10;}
+.qxt img{padding:17px 10px 10px 8px;}
+.proTable td span{color:#717171;}
+.proTable tr:hover td{background:#F2F2F2;}
+
+
+/*页码*/
+.pageSize{text-align:center; padding:10px 0; background:#D3D3D3; margin-top:20px;}
+.pageSize a{display:inline-block; height:21px; line-height:21px; margin-right:8px; padding:0 8px; color:#12369b;}
+.pageLast,.pageNext{font-family:SimSun;}
+.pageSize a:hover,.pageSize .nowPage{background:#4594f9; color:#fff;}
+
+</style>
+</head>
+
+<body>
+<div class="wrapper topArea">
+	<h1 class="logo">
+    	<a href="index.html" title="鑫裕环保供应链平台"><img src="../../../resources/commons/images/logo.png" alt="鑫裕环保供应链平台"></a>
+    </h1>
+    <div class="topRight">
+    	<a href="index.html" class="linkIndex">首页</a>
+        <dl class="downList">
+        	<dt><a href="javascript:void(0)" class="linkLogin">登录</a></dt>
+            <dd>
+            	<div class="apBack">
+                  <em class="topPoint"></em>
+                  <div class="apLoadCont">
+                    <a href="cgsdl.html" class="btnLoad dlcg btnCart">采购商入口</a>
+                    <a href="gysdl.html" class="btnLoad dlgy btnRk">供应商入口</a>
+                    <a href="hxqydl.html" class="btnLoad dlhx btnhx">核心企业入口</a>
+                  </div>
+                </div>
+            </dd>
+        </dl>
+        <dl class="downList">
+        	<dt><a href="javascript:void(0)" class="linkReg">注册</a></dt>
+            <dd>
+                <div class="apBack2">
+                    <em class="topPoint2"></em>
+                    <div class="apRegCont">
+                      <a href="cgszc1.html" class="btnEnter zccg btnCart">采购商入口</a>
+                      <a href="gyszc1.html" class="btnEnter zcgy btnRk">供应商入口</a>
+                    </div>
+                </div>
+            </dd>
+        </dl>
+        <em class="split"></em>
+        <span class="telPhone">4000-888-1000</span>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="nav">
+	<div class="wrapper">
+    	<dl class="navItem">
+        	<dt>现货交易</dt>
+            <dd>
+            	<a href="gqxx.html">供求信息</a>
+                <a href="gjs.html" class="cur">贵金属</a>
+                <a href="ylcg.html">原料采购</a>
+                <a href="wjbc.html">微晶板材</a>
+            </dd>
+        </dl>
+        <dl class="navItem">
+        	<dt>危废处置</dt>
+            <dd>
+            	<a href="wxpcs.html">危险品产生</a>
+                <a href="wxpys.html">危险品运输</a>
+                <a href="wxpcz.html">危险品处置</a>
+                <a href="zcfg.html">政策法规</a>
+            </dd>
+        </dl>
+        <dl class="navItem" style="margin-right:0;">
+        	<dt>网络金融</dt>
+            <dd>
+            	<a href="qyrz.html">企业认证</a>
+                <a href="wlrz.html">网络融资</a>
+                <a href="javascript:void(0)">融资指引</a>
+                <a href="javascript:void(0)">建行专区</a>
+            </dd>
+        </dl>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="bread">
+	<div class="wrapper"><a href="javascript:void(0);">首页</a>&nbsp;&gt;&nbsp;<a href="javascript:void(0);">贵金属</a>&nbsp;&gt;&nbsp;稀贵金属</div>
+</div>
+<div class="wrapper">
+	<div class="proList">
+    	<div class="proHeader">
+        <h2>贵金属</h2>
+          <span class="danwei">单位：元/克</span>
+          <span class="date">2014-11-20</span>
+          <div class="clear"></div>
+      </div>
+      <div class="tableBox">
+          <table border="0" cellspacing="0" cellpadding="0" class="proTable">
+            <tr>
+              <th>产品</th>
+              <th>规格</th>
+              <th>价格</th>
+              <th>涨跌</th>
+              <th>库存</th>
+              <th>行情</th>
+              <th>操作</th>
+            </tr>
+            <tr>
+              <td>黄金</td>
+              <td>99.99%</td>
+              <td>1408.23</td>
+              <td class="red">↑ 120</td>
+              <td>342568</td>
+              <td>
+                <div style="position:relative;">
+                  <a href="javascript:void(0);" class="nowData">行情</a>
+                  <div class="qxt"><img src="../../../resources/web/pic/zoushi.jpg" width="364" height="143"/></div>
+                </div>
+              </td>
+              <td class="red"><a href="javascript:void(0);">订购</a><a href="javascript:void(0);">下单</a></td>
+            </tr>
+            <tr>
+              <td>白银</td>
+              <td>99.99%</td>
+              <td>1408.23</td>
+              <td class="green">↓ 120</td>
+              <td>342568</td>
+              <td>
+                <div style="position:relative;">
+                  <a href="javascript:void(0);" class="nowData">行情</a>
+                  <div class="qxt"><img src="../../../resources/web/pic/zoushi.jpg" width="364" height="143"/></div>
+                </div>
+              </td>
+              <td class="red"><a href="javascript:void(0);">订购</a><a href="javascript:void(0);">下单</a></td>
+            </tr>
+            <tr>
+              <td>红铜</td>
+              <td>99.99%</td>
+              <td>1408.23</td>
+              <td class="red">↑ 120</td>
+              <td>342568</td>
+              <td>
+                <div style="position:relative;">
+                  <a href="javascript:void(0);" class="nowData">行情</a>
+                  <div class="qxt"><img src="../../../resources/web/pic/zoushi.jpg" width="364" height="143"/></div>
+                </div>
+              </td>
+              <td class="red"><a href="javascript:void(0);">订购</a><a href="javascript:void(0);">下单</a></td>
+            </tr>
+            <tr>
+              <td>黑铁</td>
+              <td>99.99%</td>
+              <td>1408.23</td>
+              <td class="red">↑ 120</td>
+              <td>342568</td>
+              <td>
+                <div style="position:relative;">
+                  <a href="javascript:void(0);" class="nowData">行情</a>
+                  <div class="qxt"><img src="../../../resources/web/pic/zoushi.jpg" width="364" height="143"/></div>
+                </div>
+              </td>
+              <td class="red"><a href="javascript:void(0);">订购</a><a href="javascript:void(0);">下单</a></td>
+            </tr>
+            <tr>
+              <td>黄金</td>
+              <td>99.99%</td>
+              <td>1408.23</td>
+              <td class="red">↑ 120</td>
+              <td>342568</td>
+              <td>
+                <div style="position:relative;">
+                  <a href="javascript:void(0);" class="nowData">行情</a>
+                  <div class="qxt"><img src="../../../resources/web/pic/zoushi.jpg" width="364" height="143"/></div>
+                </div>
+              </td>
+              <td class="red"><a href="javascript:void(0);">订购</a><a href="javascript:void(0);">下单</a></td>
+            </tr>
+            <tr>
+              <td>白银</td>
+              <td>99.99%</td>
+              <td>1408.23</td>
+              <td class="green">↓ 120</td>
+              <td>342568</td>
+              <td>
+                <div style="position:relative;">
+                  <a href="javascript:void(0);" class="nowData">行情</a>
+                  <div class="qxt"><img src="../../../resources/web/pic/zoushi.jpg" width="364" height="143"/></div>
+                </div>
+              </td>
+              <td class="red"><a href="javascript:void(0);">订购</a><a href="javascript:void(0);">下单</a></td>
+            </tr>
+            <tr>
+              <td>红铜</td>
+              <td>99.99%</td>
+              <td>1408.23</td>
+              <td class="red">↑ 120</td>
+              <td>342568</td>
+              <td>
+                <div style="position:relative;">
+                  <a href="javascript:void(0);" class="nowData">行情</a>
+                  <div class="qxt"><img src="../../../resources/web/pic/zoushi.jpg" width="364" height="143"/></div>
+                </div>
+              </td>
+              <td class="red"><a href="javascript:void(0);">订购</a><a href="javascript:void(0);">下单</a></td>
+            </tr>
+            <tr>
+              <td>黑铁</td>
+              <td>99.99%</td>
+              <td>1408.23</td>
+              <td class="red">↑ 120</td>
+              <td>342568</td>
+              <td>
+                <div style="position:relative;">
+                  <a href="javascript:void(0);" class="nowData">行情</a>
+                  <div class="qxt"><img src="../../../resources/web/pic/zoushi.jpg" width="364" height="143"/></div>
+                </div>
+              </td>
+              <td class="red"><a href="javascript:void(0);">订购</a><a href="javascript:void(0);">下单</a></td>
+            </tr>
+          </table>
+      </div>
+  </div>
+  <div class="pageSize">
+    <a href="javascript:void(0)" class="pageLast">&lt;&lt;</a>
+    <a href="javascript:void(0)" class="page">1</a>
+    <a href="javascript:void(0)" class="page">2</a>
+    <a href="javascript:void(0)" class="page nowPage">3</a>
+    <a href="javascript:void(0)" class="page">...</a>
+    <a href="javascript:void(0)" class="page">10</a>
+    <a href="javascript:void(0)" class="page">11</a>
+    <a href="javascript:void(0)" class="page">12</a>
+    <a href="javascript:void(0)" class="pageNext">&gt;&gt;</a>
+  </div>
+</div>
+<!--底部-->
+<div class="bottomMenu">
+    <div class="wrapper">
+    	<dl class="footItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c4.png" width="49" height="48" />
+              <span>采购流程</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="下单流程">下单流程</a></li>
+                <li><a href="javascript:void(0);" title="订单跟踪">订单跟踪</a></li>
+                <li><a href="javascript:void(0);" title="安全支付">安全支付</a></li>
+                <li><a href="javascript:void(0);" title="企业认证">企业认证</a></li>
+                <li><a href="javascript:void(0);" title="常见问题">常见问题</a></li>
+            </dd>
+        </dl>
+        <dl class="footItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c5.png" width="49" height="48" />
+              <span>服务与支持</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="物流配送">物流配送</a></li>
+                <li><a href="javascript:void(0);" title="经销商权益">经销商权益</a></li>
+                <li><a href="javascript:void(0);" title="不良品退货">不良品退货</a></li>
+                <li><a href="javascript:void(0);" title="在线咨询">在线咨询</a></li>
+                <li><a href="javascript:void(0);" title="融资操作手册">融资操作手册</a></li>
+            </dd>
+        </dl>
+        <dl class="footItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c6.png" width="49" height="48" />
+              <span>我的账户</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="子账户管理">子账户管理</a></li>
+                <li><a href="javascript:void(0);" title="密码重置">密码重置</a></li>
+                <li><a href="javascript:void(0);" title="在线打款">在线打款</a></li>
+            </dd>
+        </dl>
+        <dl class="lastItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c7.png" width="49" height="48" />
+              <span>关于我们</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="公司简介">公司简介</a></li>
+                <li><a href="javascript:void(0);" title="联系我们">联系我们</a></li>
+                <li><a href="javascript:void(0);" title="网站声明">网站声明</a></li>
+            </dd>
+        </dl>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--底部 end-->
+
+<!--尾部-->
+<div class="footer">
+	<div class="wrapper">
+        <p class="footerLeft">© 2014 成都易科远见科技有限公司 版权所有 蜀ICP备 14005736号</p>
+        <p class="footerRight">成都市高新区吉泰路666号花样年·福年广场2号楼1309室<br>服务热线：028-83190368</p>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--尾部 end-->
+<script src="../../../resources/web/js/base.js"></script>
+<script>
+$(document).ready(function() {
+	/*曲线图*/
+	$(".nowData").click(function(){
+		var qxt=$(this).next(".qxt");
+		qxt.css("right","-101px");
+		qxt.css("bottom","-161px");
+		$(".qxt").hide();
+		qxt.show();
+	});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="${webroot}/resources/wlb/css/base.css" rel="stylesheet" type="text/css">
+    <script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+    <script src="${webroot}/resources/commons/js/layer/layer.js"></script>
+    <title>车源详情</title>
+    <script type="text/javascript">
+    /** 智能机浏览器版本信息:**/
+    var browser = {
+          versions: function() {
+            var u = navigator.userAgent, app = navigator.appVersion;
+            return {//移动终端浏览器版本信息
+              trident: u.indexOf('Trident') > -1, //IE内核
+              presto: u.indexOf('Presto') > -1, //opera内核
+              webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+              gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+              mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端
+              ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+              android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+              iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器
+              iPad: u.indexOf('iPad') > -1, //是否iPad
+              webApp: u.indexOf('Safari') == -1 ,//是否web应该程序，没有头部与底部
+              weixin: u.indexOf('MicroMessenger') > -1, //是否微信 （2015-01-22新增）
+              qq: u.match(/\sQQ/i) == " qq" //是否QQ
+              };
+              }(),
+              language: (navigator.browserLanguage || navigator.language).toLowerCase()
+              }
+             if (browser.versions.ios || browser.versions.iPhone || browser.versions.iPad) {
+            	 $(".downLink huozhu").click(function(){
+            	     window.location="https://www.baidu.com";
+            	 });
+             }else if (browser.versions.android) {
+            	 $(".downLink huozhu").click(function(){
+            		 window.location="http://www.sfdhb.com/";
+                 });
+            	
+             } 
+    </script>
+   
+</head>
+#define(com.ekfans.plugin.wuliubao.yunshu.controller.model.CarSource car)
+#define(com.ekfans.base.user.model.User user)
+<body>
+
+	<div class="pageZone">
+		<ul class="address">
+			<li><strong>${car.startList[0]}</strong>#for(String start : car.startList) #if(for.index==2)${start}#end  #end<div class="clear"></div></li>
+			<li><strong>${car.endList[0]}</strong>#for(String end : car.endList) #if(for.index==2)${end}#end  #end<div class="clear"></div></li>
+		</ul>
+		<span class="date">${endTime}</span>
+	</div>
+	<div class="pageZone">
+		<div class="tableBox">
+			<table border="0" cellspacing="0" cellpadding="0" class="cheInfo">
+				<tr>
+					<td width="30%">车牌号码</td>
+					<td>${car.carNumber}</td>
+				</tr>
+				<tr>
+					<td>经营范围</td>
+					<td>
+						#for(String wfpy : car.wfpysList)
+						<dl class="tdItem">
+						#define(String[] wfpyType)
+		                #set(wfpyType = wfpy.split("："))
+		                    #for(String type : wfpyType)
+							 #if(for.index==1)
+							   <dt>${type}</dt>
+							 #end
+							 #if(for.index==2)
+							    <dd>${type}</dd>
+							 #end
+							#end
+						</dl>
+					#end
+					</td>
+				</tr>
+				<tr>
+					<td>车辆类型</td>
+					<td>${car.carName}</td>
+				</tr>
+				<tr>
+					<td>罐体材质</td>
+					<td>${car.tankMaterialName}</td>
+				</tr>
+				<tr>
+					<td>车辆载重</td>
+					<td>#if(car.wfpTotal!=null&&!car.wfpTotal.equals(""))${car.wfpTotal} ${car.unit}#end</td>
+				</tr>
+				<tr>
+					<td>车身尺寸</td>
+					<td><tl>#if(car.carLength!=null&&!car.carLength.equals(""))${car.carLength}*#end</tl>
+					  <tl>#if(car.carWidth!=null&&!car.carWidth.equals(""))${car.carWidth}*#end</tl>
+					  <tl>#if(car.carHeight!=null&&!car.carHeight.equals(""))${car.carHeight}#end</tl>
+				      <tl>${car.sizeUnit}</tl></td>
+				</tr>
+			</table>
+		</div>
+		
+	</div>
+	<div class="pageZone bottomInfo">
+		<dl>
+			#if(car.storeName!=null&&!car.storeName.equals(""))
+			<dt>${car.storeName}</dt>
+		    #end
+			<dd>
+				<li>
+					<em>许可证：</em>
+					<span class="mark blueMark">营</span>
+					<span class="mark greenMark">运</span>
+					<span class="mark redMark">危</span>
+				</li>
+				<li><em>联系人：</em><span>${car.linkMan}</span></li>
+				<li><em>联系电话：</em><span>${car.phone}</span></li>
+				<li><em>备注：</em><span>${car.content}</span></li>
+			</dd>
+		</dl>
+	</div>
+	<a href="http://www.sfdhb.com/" class="downLink huozhu"></a>
+</body>
+</html>

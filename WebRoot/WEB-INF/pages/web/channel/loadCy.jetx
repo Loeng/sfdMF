@@ -1,0 +1,63 @@
+#define(List<com.ekfans.base.store.model.Wftransport> wftransports)	
+<table border="0" cellspacing="0" cellpadding="0">
+  <tbody>
+    #for(com.ekfans.base.store.model.Wftransport wftransport : wftransports)
+    <tr>
+    	<td>
+    		<div class="tdRz">
+    			#if(!@(com.ekfans.pub.util.StringUtil).isEmpty(wftransport.storeName) && !@(com.ekfans.pub.util.StringUtil).isEmpty(wftransport.storeId))
+            <em class="gyrz vertical">证</em>
+          #else
+            <em class="gyls vertical">临</em>
+          #end
+    		</div>
+    	</td>
+      <td>
+        <div class="xlxx">
+          <span class="xxName" title="${wftransport.storeName}">${wftransport.storeName}</span>
+        </div>
+        <div class="xlxx">
+          <span class="tablecName">出发地点：</span>
+          <span class="tablecContent" title="${wftransport.startFullPath}">${wftransport.startFullPath}</span>
+        </div>
+        <div class="xlxx">
+          <span class="tablecName">到达地点：</span>
+          <span class="tablecContent" title="${wftransport.endFullPath}">${wftransport.endFullPath}</span>
+        </div>
+      </td>
+      <td>
+        <div class="clxx">
+          <span class="tablecName">车辆载重：</span><span class="tablecContent mowi" title="${wftransport.wfpTotal}">${wftransport.wfpTotal}${wftransport.unit}</span><span class="tablecName">车辆类型：</span>
+          <span class="tablecContent" title="${wftransport.carName}">${wftransport.carName}</span>
+        </div>
+        <div class="clxx">
+          <span class="tablecName">罐体材质：</span><span class="tablecContent mowi" title="${wftransport.tankMaterialName}">${wftransport.tankMaterialName}</span><span class="tablecName">货物类别：</span><span class="tablecContent" title="${wftransport.categoryName}">${wftransport.categoryName}</span>
+        </div>
+        <div class="clxx">
+          <span class="tablecName">货物种类：</span>
+          <span class="tablecContent mowi" style="width:210px;" title="${wftransport.wfpysName}">${wftransport.wfpysName}</span>
+        </div>
+      </td>
+      <td style="width:100px;" class="money">
+        <div class="borderRight">
+        	<div>#if(wftransport.price!=null && wftransport.price!="" && wftransport.price!=0)${wftransport.price}元/<span class="font12">公里/${wftransport.unit}#else待议#end</span></div>
+        </div>
+      </td>
+
+      <td style="width:100px;" class="date"><div class="borderRight">${wftransport.createTime.substring(0,10)}</div></td>
+      <td style="width:100px; text-align:center;">
+        <a href="javascript:void(0);" class="btnYj" onclick="wfYijia('${wftransport.id}','0','${wftransport.storeId}')">议价</a>
+      </td>
+    </tr>
+    #end
+  </tbody>
+</table>
+<script>
+//浏览器版本
+if($.browser.msie) { 
+	var count=parseInt($.browser.version);
+	if(count<=9){
+		$(".vertical").addClass("ieLow");
+	}
+}
+</script>

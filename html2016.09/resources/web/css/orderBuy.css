@@ -1,0 +1,67 @@
+/* CSS Document */
+
+.main{margin:30px auto;}
+.proUp{padding:40px 30px 40px 104px; height:200px; border:solid 1px #e4e4e4;}
+.proUp .pic{width:200px; height:200px; float:left; margin-right:30px;}
+.proInfo{float:left; width:400px; font-size:14px;}
+.proInfo dt{height:30px; line-height:30px; font-size:16px;}
+.infoLine1{height:40px; line-height:40px; margin-bottom:10px;}
+.proInfo .price{height:32px; line-height:32px;}
+.proInfo .price .red{font-size:24px;}
+.infoLine2{height:20px; line-height:20px; padding-top:10px;}
+.proInfo dd em{display:inline-block; width:64px; color:#8d8d8d; margin-right:6px;}
+.proRight{float:right; width:304px; padding-top:30px;}
+.count{height:28px; line-height:28px; margin-bottom:22px;}
+.count dt,.totalPrice dt{width:100px; font-size:14px; float:left;}
+.countBox{height:28px; width:134px; float:left;}
+.minus,.plus{width:28px; height:28px; text-align:center; background:#e3e3e3; font-size:20px;}
+.countBox *{display:block; float:left;}
+.countBox input{width:76px; height:26px; border:solid 1px #e3e3e3; text-align:center; font-size:14px;}
+.totalPrice{height:32px; line-height:32px; margin-bottom:32px;}
+.totalPrice dd{float:left; width:200px; font-size:24px;}
+.btnSubmit,.btnCansel{width:116px; height:38px; line-height:38px; font-size:16px; display:block; float:left; margin-right:5px;}
+.btnSubmit:hover,.btnCansel:hover{width:112px; height:34px; line-height:34px; border:solid 2px #393; background:none; color:#393;}
+
+.order{border:solid 1px #e4e4e4; border-top:none;}
+/*siteList*/
+.siteList{padding-top:10px;}
+.siteList li{height:28px; line-height:28px; margin-bottom:10px; position:relative; padding-left:35px;}
+.locationIco{display:block; width:15px; height:24px; position:absolute; left:10px; top:2px; background:url(../images/order_r2_c2.png) no-repeat 0 0;}
+.siteList span{padding-right: 20px;_padding-right:30px; width:80%; display:block; white-space:nowrap; overflow:hidden; text-overflow: ellipsis; float:left;}
+.siteList span em{color:#999; padding-right:10px;}
+.siteList a{display:block; height:28px; line-height:28px; width:86px; text-align:center; float:right;}
+.siteList a:hover{background:#393; color:#fff;}
+.siteList label{cursor:pointer;}
+.siteNow{background:#fffcd9;}
+.siteNow .locationIco{background:url(../images/order_r2_c2.png) no-repeat -15px 0;}
+.siteNow span em{color:#333;}
+.siteNow a{color:#999;}
+.siteBottom{margin:26px 0 20px 20px;}
+.btnNew{display:inline-block; width:96px; height:28px; line-height:28px; color:#6e6e6e; font-size:16px; padding-left:34px; background:url(../images/order_r2_c3.png) no-repeat; margin-right:20px;}
+
+/*address*/
+.address{border-top:solid 1px #e4e4e4; padding:16px 12px; position:relative; display:none; margin-bottom:-2px;}
+.pointTop{background:url(../images/pointtop.png) no-repeat; width:18px; height:10px; position:absolute; left:70px; top:-11px;}
+.address h2 em{height:32px; line-height:32px; display:inline-block; border-bottom:solid 5px #ff8900; padding:0 30px 0 15px;}
+.address h2{border-bottom:solid 1px #CBCFCF; font-size:14px;}
+.siteAppend{margin-bottom:28px;}
+.formLine{padding-bottom:23px;}
+.formLine dt{height:28px; line-height:28px; width:84px; float:left; position:relative; padding-left:8px;}
+.formLine dt .red{font-size:14px; position:absolute; left:0; top:2px;}
+.formRight{float:left; line-height:28px; position:relative;}
+.formRight select{margin-right:10px;}
+.siteBox{height:26px; line-height:26px; border:solid 1px #d3d3d3; margin-right:10px;}
+.formRight textarea{width:448px; height:80px; line-height:20px; border:solid 1px #d3d3d3; display:block;}
+
+.textBoxFocus{border-color:#ff8400; background:#FEEFDF; outline:none;}
+.boxDouble{color:#999;}
+.boxDouble .siteBox{width:135px;}
+.rightDt{color:#333; padding:0 20px 0 10px;}
+.siteDetail .siteBox{width:440px;}
+.siteCheckText{padding-right:5px;}
+.addressBtn{padding:5px 0 0 92px;}
+.addressBtn .btnGreen{width:62px; height:28px; line-height:28px; font-size:14px; display:inline-block; margin:0 16px 0 0;}
+.formError{color:#ff6c00;}
+.closeAddress{width:62px; height:28px; line-height:28px; background:#F04D4D; text-align:center; color:#fff; display:block; position:absolute; right:10px; top:10px;}
+.closeAddress:hover{background:#8A0D0D; color:#fff;}
+.userAdress{ display:inline-block; height:30px;overflow:hidden;vertical-align:middle;}

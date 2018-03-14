@@ -1,0 +1,36 @@
+#define(com.ekfans.base.content.model.ContentCategory dzHelp)
+<div class="footer">
+  <div class="wrapper">
+	  	#for(com.ekfans.base.content.model.ContentCategory cc:dzHelp.childList)
+	        <dl class="footerItem">
+	          <dt>${cc.name}</dt>
+	          <dd>
+	          #for(com.ekfans.base.content.model.Content content:cc.contents)
+	               <li><a href="${webroot}/web/help/${content.id}?cid=${cc.parentId}" title="${content.contentName}">${content.contentName}</a></li>
+	          #end
+	          </dd>
+	        </dl>
+	    #end
+	    	<dl class="footerItem" style="text-align:center;">
+            <dt>微信公众账号 扫码关注</dt>
+            <dd><img src="${webroot}/resources/web/images/sfd_ma.jpg" width="100" height="100" alt="三分地微信公众账号"></dd>
+        </dl>
+        <div class="clear"></div>
+	</div>
+	<div class="friendLink">
+        <div class="wrapper">
+            <span>友情链接：</span>
+            <a href="http://www.zhb.gov.cn/hjzli/gtfwgl/gtfwjck/" target="_blank">中华人民共和国环境保护部</a>
+            <a href="http://www.hbt.hunan.gov.cn/new/gfgl/default.htm" target="_blank">湖南省环境保护厅</a>
+            <a href="http://www.weifei-china.com/" target="_blank">中国危废产业网</a>
+            <a href="http://www.51gufei.com/" target="_blank">无忧固废网</a>
+        </div>
+    </div>
+    <div class="footerBottom">
+   	  <div class="wrapper">
+            <div class="footerBottomLeft">${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("底部版权信息")}</div>
+            <div class="footerBottomRight">${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("底部联系信息")}</div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>

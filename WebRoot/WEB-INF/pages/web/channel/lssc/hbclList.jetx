@@ -1,0 +1,27 @@
+#define(Map<String, com.ekfans.base.channel.model.ChannelConfig> configMap)
+#define(String configType)
+#define(String position)
+#define(String channelId)
+
+#set(com.ekfans.base.channel.model.ChannelConfig config = configMap.get(configType + position))
+
+#if(configStatus == "true")
+	#include("../commons/config/configTitle.jetx",{"channelId":channelId,"configType":configType,"position":position})
+#end
+
+#if(config != null)
+	#for(com.ekfans.base.product.model.Product product : config.details)
+	 	#if(for.index <= 4)
+ 			<div class="mallPro" #if(for.index == 4) style="margin-right:0;" #end>
+	    		<a href="javascript:void(0);" title="" class="proName">${product.name}</a>
+	            <span class="proXh">${product.productModel}</span>
+	            <a href="${webroot}/01-${product.id}.html" class="proPic"><img src="${webroot}/${product.picture}" width="180" height="180" alt="" title=""></a>
+	            <span class="price">¥${product.unitPrice}</span>
+	            <div class="proBtns">
+	        	  <a href="${webroot}/01-${product.id}.html" class="proBtn">详情</a>
+	              <a href="${webroot}/web/gouWu/order/${product.id}" class="proBtn" style="border-left:0;">下单</a>
+	          	</div>
+            </div>
+	 	#end
+ 	#end
+#end

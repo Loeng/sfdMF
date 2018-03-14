@@ -1,0 +1,709 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>危废品报废信息登记</title>
+	<meta name="keywords" content="鑫裕环保" />
+	<meta name="description" content="鑫裕环保" />
+	<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+	<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/userCenter/commons/css/proAdd.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+	<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+	<script src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+	<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/ckeditor/ckeditor.js"></script>
+<style>
+.endNum{width:17%;}
+.endUnit{width:17%;}
+
+input::-webkit-input-placeholder {color:#999;}
+input:-moz-placeholder {color:#999;}
+input::-moz-placeholder {color:#999;}
+input:-ms-input-placeholder {color:#999;}
+textarea::-webkit-input-placeholder {color:#999;}
+textarea:-moz-placeholder {color:#999;}
+textarea::-moz-placeholder {color:#999;}
+textarea:-ms-input-placeholder {color:#999;}
+.selectList{width:100%;overflow:hidden;margin:5px 0;}
+.selectList li{float:left;min-height:130px;width:370px;height:130px;overflow-x:hidden; _overflow-y:scroll;border:1px solid #f6f6f6;}
+.selectList li a{display:block;height:25px;line-height:25px;padding-left:13px;overflow:hidden;}
+.selectList li a.cur,.selectList li a:hover{background:#ffedd7}
+.tabBox{height:232px; overflow-y:auto;overflow-x:hidden; margin-bottom:5px;}
+.tabList{width:758px;}
+.tabList th{padding:0px 10px; height:35px;line-height:35px;color:#292729; font-size:14px;}
+.tabList td{padding:8px 10px; line-height:22px; border-bottom:1px #DCDCDD solid;color:#7D7C7D; max-width:105px; overflow:hidden; text-align:center;}
+.tabList tr:hover{background:#F3F3F3;}
+.pageSize{margin-bottom:5px;}
+</style>
+</head>
+
+<body>
+	
+#define(com.ekfans.base.order.model.WfpScrap wfpscrap)
+#define(String type)
+#define(List<com.ekfans.base.order.model.Wfpml> wfpml)
+#define(List<com.ekfans.base.order.model.OrderValuation> orderv)
+#define(List<com.ekfans.base.order.model.ValuationCategory> valuationCategotyList)
+    
+<!-- begin 右侧主体 -->
+<div class="rightContent">
+	<div class="contentTit budong borderColor">
+		#if(type=="2")
+			<h3>修改报废信息</h3>
+			<a href="javascript:backlist('${webroot}');" class="btnBase btnCancel">返回列表</a>
+			<a href="javascript:formSubmit();" class="btnBase btnSave">保存</a>
+			<div class="clear"></div>
+	</div>
+	<form action="${webroot}/store/wfpScrap/updateDetail" method="post" id="addWfpScrap">
+	  <input id="valuationContent" name="valuationContent" type="hidden"/>
+	  <input id="ctxpath"  type="hidden" value="${webroot}"/>
+	  <input name="wfpscrapId"  type="hidden" value="${wfpscrap.id}"/>
+	  <input id="updateOk"  type="hidden" value="${updateOk}"/>
+	  <input name="StoreId"  type="hidden" value="${wfpscrap.storeId}"/>
+	  <input name="createTime"  type="hidden" value="${wfpscrap.createTime}"/>
+        
+        <div class="form borderColor">
+            <dl class="formItem">
+                <dt><em class="mustIco"></em>报废名称</dt>
+              <dd>
+                <input name="scarpName" id="scarpName" type="text" class="textBox box212" value="${wfpscrap.scarpName}" placeholder="如:废渣、废料">
+              </dd>
+              <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>包装方式</dt>
+                <dd>
+                  <input name="scarpType" id="scarpType" type="text" class="textBox box212" value="${wfpscrap.scarpType}" placeholder="如:桶装、袋装">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt><em class="mustIco"></em>报废数量</dt>
+                <dd>
+                  <input name="scarpNumber" id="scarpNumber" type="text" class="textBox box212" value="${wfpscrap.scarpNumber}" placeholder="如:1吨">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>产生工艺</dt>
+                <dd>
+                  <input name="scarpProcess" id="scarpProcess" type="text" class="textBox box212" value="${twostr}" placeholder="如:生产加工过程中产生">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+             <dl class="formItem">
+                <dt>关联名录</dt>
+                <dd class="clickAbout">
+                  <input id="orderDirectory" name="orderDirectory" type="text" class="textBox box184" readonly value="${onestr}" placeholder="点击右侧选择国家最新危废名录">
+                  <span class="pp clickBrand" onclick="loadDirectory('${webroot}')" title="关联名录"></span>
+                  <input id="wfpScrapId" name="wfpScrap" type="hidden" value="${wfpscrap.orderDirectory}"/>
+                </dd>
+              <dd class="clear"></dd>
+            </dl>
+            #if(wfpml!=null && wfpml.size()>0)
+            <div id="mlDiv" style="float:left;width:758px;min-height:100px;margin:2px 0 10px 93px;" >
+            <table border="0" cellspacing="0" cellpadding="0" class="tabList" style="width:708px;">
+				        <thead>
+				          <tr class="bgColor">
+				            <th>废物代码</th>
+				            <th>危险废物</th>
+				            <th>危险特性</th>
+				          </tr>
+				        </thead>
+				        <tbody id="resultThree">
+				        	#for(com.ekfans.base.order.model.Wfpml m:wfpml)
+				        	  <tr><td>${m.no}</td><td style="text-align:left;">${m.name}</td><td>${m.identity}</td></tr>
+				        	 
+            	    #end
+				        </tbody>
+				      </table>
+            </div>
+            #end
+            <dl class="formItem formLine">
+                <dt>简要说明</dt>
+                <dd>
+                  <textarea name="scarpNote" cols="" rows="" placeholder="提示：若有更多废物，请按以上废物名称，包装方式等填写。">${wfpscrap.scarpNote}</textarea>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formLine">
+                <dt>报废周期</dt>
+                <dd>
+                  <span class="radio"><label><input type="radio" name="scarpCyc" #if(wfpscrap.scarpCyc=="2") checked #end value="2">每月报废</label></span>
+                  <span class="radio"><label><input type="radio" name="scarpCyc" #if(wfpscrap.scarpCyc=="1") checked #end value="1">每年报废</label></span>
+                  <span class="radio"><label><input type="radio" name="scarpCyc" #if(wfpscrap.scarpCyc=="0") checked #end  value="0">一次性报废</label></span>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formLine">
+                <dt>报废原因</dt>
+                <dd>
+                	<span class="radio"><label><input type="radio" name="scarpCause" #if(wfpscrap.scarpCause=="1") checked #end value="1" >环评验收</label></span>
+                  <span class="radio"><label><input type="radio" name="scarpCause" #if(wfpscrap.scarpCause=="2") checked #end value="2">体系认证</label></span>
+                  <span class="radio"><label><input type="radio" name="scarpCause" #if(wfpscrap.scarpCause=="3") checked #end value="3">生产需要</label></span>
+                  <span class="radio"><label><input type="radio" name="scarpCause" #if(wfpscrap.scarpCause=="4") checked #end value="4">第三方审核</label></span>
+                  <span class="radio"><label><input type="radio" name="scarpCause" #if(wfpscrap.scarpCause=="5") checked #end value="5">计划供应商</label></span>
+                  <span class="radio"><label><input type="radio" name="scarpCause" #if(wfpscrap.scarpCause=="6") checked #end value="6">其他</label></span>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formLine">
+                <dt>体系认证</dt>
+                <dd>
+                  <span class="radio"><label><input type="radio" name="scarpAccreditation" #if(wfpscrap.scarpAccreditation=="1") checked #end value="1">正在申请</label></span>
+                  <span class="radio"><label><input type="radio" name="scarpAccreditation" #if(wfpscrap.scarpAccreditation=="2") checked #end value="2">已通过或复审中</label></span>
+                  <span class="radio"><label><input type="radio" name="scarpAccreditation" #if(wfpscrap.scarpAccreditation=="3") checked #end value="3">暂无</label></span>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formLine">
+                <dt>报废单位</dt>
+                <dd>
+                  <input id="scarpUnit" name="scarpUnit" type="text" class="textBox"  style="width:655px;" value="${wfpscrap.scarpUnit}" readonly>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            
+            <dl class="formItem">
+                <dt><em class="mustIco"></em>发货人</dt>
+                <dd>
+                  <input name="sendMan" id="sendMan" type="text" class="textBox box212" value="${wfpscrap.sendMan}" maxlength="16">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt><em class="mustIco"></em>发货人电话</dt>
+                <dd> 
+                  <input name="sendManPhone" id="sendManPhone" type="text" onblur="checkTel(this.value);" class="textBox box212" value="${wfpscrap.sendManPhone}" maxlength="13">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formLine">
+                <dt>发货人地址</dt>
+                <dd class="select4">#tag systemAreaSel("sendManAddress",wfpscrap.sendManAddress) #end</dd>
+                <dd><input name="sendManDetailsAddress" value="${wfpscrap.sendManDetailsAddress}" type="text" class="textBox box212"  style="height:26px;margin-left:5px;" maxlength="64"></dd>
+                 <dd class="clear"></dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt><em class="mustIco"></em>收货人</dt>
+                <dd>
+                  <input name="takeMan" id="takeMan" type="text" class="textBox box212" value="${wfpscrap.takeMan}" maxlength="16">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt><em class="mustIco"></em>收货人电话</dt>
+                <dd> 
+                  <input name="takeManPhone" id="takeManPhone" type="text" onblur="checkTel(this.value);" class="textBox box212" value="${wfpscrap.takeManPhone}" maxlength="13">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formLine">
+                <dt>收货人地址</dt>
+                <dd class="select4">#tag systemAreaSel("takeManAddress",wfpscrap.takeManAddress) #end</dd>
+                <dd><input name="takeManDetailsAddress" value="${wfpscrap.takeManDetailsAddress}" type="text" class="textBox box212"  style="height:26px;margin-left:5px;" maxlength="64"></dd>
+                 <dd class="clear"></dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+            <div class="priceZone">
+                <a href="javascript:addChild();" class="btnBase">添加危废品含量</a>
+                <span class="hint">点击添加危废品含量按钮,下面操作框填写具体信息！</span>
+                <div class="pfPriceList" id="guigeList">
+                    <div class="listHeader">
+                        <div class="listTd startNum">规格</div>
+                        <div class="listTd endNum">数量</div>
+                        <div class="listTd endUnit">单位</div>
+                        <div class="listTd listSet">操作</div>
+                    </div>
+                   	
+                    <!--加载含量-->
+                      #for(com.ekfans.base.order.model.OrderValuation v:orderv)
+	                      <div class="listItem" >
+		                      <div class="listTd startNum">
+		                      	<select name="list${for.index}Select" onchange="chekcedvalue(this)">
+		                      		 <option value = "">请选择</option>
+		                      		#for(com.ekfans.base.order.model.ValuationCategory vc :valuationCategotyList)
+		                      	   <option value="${vc.id}_${vc.specName}" #if(v.valuationId == vc.id) selected #end>${vc.specName}</option>
+		                      	  #end
+		                      	</select>
+		                      </div>
+		                      <input name="endids" type="hidden" value="list${for.index}">
+		                      <div class="listTd endNum"><input name="list${for.index}EndNum" type="text" class="textBox box50" value="${v.valuationNumber}"></div>
+		                      <div class="listTd endNum"><input name="list${for.index}EndUnit" type="text" class="textBox box50" value="${v.valuationUnit}"></div>
+		                      <div class="listTd listSet" ><a href="javascript:removeChild(this);" class="closeIco" style="margin-left:3px;"></a></div>
+		                      <div class="clear"></div>
+		                    </div>
+	                    #end
+	                   
+                    <!--加载含量结束-->
+                </div>
+            </div>
+        	<div class="clear"></div>
+    	  </div>
+    
+      </div>
+       </form>
+    </div>
+    <!--右侧主体 end-->
+    <div class="clear"></div>
+<div class="clear"></div>
+</div>
+<div class="apLayerBg"></div>
+<div id="Directory" class="apLayer borderColor alertBrand">
+</div>
+<div id="adchilds" style="display:none">
+ 	<div class="listItem" >
+    <div class="listTd startNum">
+    	<select name="cloneListSelect" onchange="chekcedvalue(this)">
+    		    <option value = "">请选择</option>
+			      #for(com.ekfans.base.order.model.ValuationCategory vc :valuationCategotyList)
+        	   <option value="${vc.id}_${vc.specName}">${vc.specName}</option>
+            #end
+        	  </select>
+     </div>
+     <input name="endids" type="hidden" value="cloneList">
+    <div class="listTd endNum"><input name="cloneListEndNum" type="text"  class="textBox box50" value="0"></div>
+    <div class="listTd endNum"><input name="cloneListEndUnit" type="text" class="textBox box50" value="g"></div>
+    <div class="listTd listSet"><a href="javascript:void(0);" class="closeIco" style="margin-left:3px;"></a></div>
+    <div class="clear"></div>
+  </div>
+</div>
+#else
+     <h3>查询报废信息</h3>
+      <a href="javascript:backlist('${webroot}');" class="btnBase btnCancel">返回列表</a>
+    </div>
+			  <input id="ctxpath" type="hidden" value="${webroot}"/>
+        <div class="form borderColor">
+            <dl class="formItem">
+                <dt><em class="mustIco"></em>报废名称</dt>
+              <dd>
+                <input name="scarpName" id="scarpName" type="text" readonly class="textBox box212" value="${wfpscrap.scarpName}" placeholder="如:废渣、废料">
+              </dd>
+              <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>包装方式</dt>
+                <dd>
+                  <input name="scarpType" id="scarpType" type="text" readonly class="textBox box212" value="${wfpscrap.scarpType}" placeholder="如:桶装、袋装">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt><em class="mustIco"></em>报废数量</dt>
+                <dd>
+                  <input name="scarpNumber" id="scarpNumber" type="text" readonly class="textBox box212" value="${wfpscrap.scarpNumber}" placeholder="如:1吨">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>产生工艺</dt>
+                <dd>
+                  <input name="scarpProcess" id="scarpProcess" readonly type="text" class="textBox box212" value="${twostr}" placeholder="如:生产加工过程中产生">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+             <dl class="formItem">
+                <dt>关联名录</dt>
+                <dd class="clickAbout">
+                  <input id="orderDirectory" name="orderDirectory" type="text" class="textBox box184" readonly value="${onestr}" placeholder="点击右侧选择国家最新危废名录">
+                  <span class="pp clickBrand" readonly title="关联名录"></span>
+                  <input id="wfpScrapId" name="wfpScrap" type="hidden" />
+                </dd>
+              <dd class="clear"></dd>
+            </dl>
+            #if(wfpml!=null && wfpml.size()>0)
+            <div id="mlDiv" style="float:left;width:758px;min-height:100px;margin:2px 0 10px 93px;" >
+            <table border="0" cellspacing="0" cellpadding="0" class="tabList" style="width:708px;">
+				        <thead>
+				          <tr class="bgColor">
+				            <th>废物代码</th>
+				            <th>危险废物</th>
+				            <th>危险特性</th>
+				          </tr>
+				        </thead>
+				        <tbody id="resultThree">
+				        	#for(com.ekfans.base.order.model.Wfpml m:wfpml)
+				        	  <tr><td>${m.no}</td><td style="text-align:left;">${m.name}</td><td>${m.identity}</td></tr>
+				        	 
+            	    #end
+				        </tbody>
+				      </table>
+            </div>
+            #end
+           <dl class="formItem formLine">
+                <dt>简要说明</dt>
+                <dd>
+                  <textarea name="scarpNote" cols="" rows="" readonly placeholder="提示：若有更多废物，请按以上废物名称，包装方式等填写。">${wfpscrap.scarpNote}</textarea>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formLine">
+                <dt>报废周期</dt>
+                <dd>
+                  <span class="radio"><label><input type="radio" disabled name="scarpCyc" #if(wfpscrap.scarpCyc=="2") checked #end value="2">每月报废</label></span>
+                  <span class="radio"><label><input type="radio"  disabled name="scarpCyc" #if(wfpscrap.scarpCyc=="1") checked #end value="1">每年报废</label></span>
+                  <span class="radio"><label><input type="radio" disabled name="scarpCyc" #if(wfpscrap.scarpCyc=="0") checked #end  value="0">一次性报废</label></span>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formLine">
+                <dt>报废原因</dt>
+                <dd>
+                	<span class="radio"><label><input type="radio" disabled name="scarpCause" #if(wfpscrap.scarpCause=="1") checked #end value="1" >环评验收</label></span>
+                  <span class="radio"><label><input type="radio" disabled name="scarpCause" #if(wfpscrap.scarpCause=="2") checked #end value="2">体系认证</label></span>
+                  <span class="radio"><label><input type="radio" disabled name="scarpCause" #if(wfpscrap.scarpCause=="3") checked #end value="3">生产需要</label></span>
+                  <span class="radio"><label><input type="radio" disabled name="scarpCause" #if(wfpscrap.scarpCause=="4") checked #end value="4">第三方审核</label></span>
+                  <span class="radio"><label><input type="radio" disabled name="scarpCause" #if(wfpscrap.scarpCause=="5") checked #end value="5">计划供应商</label></span>
+                  <span class="radio"><label><input type="radio" disabled name="scarpCause" #if(wfpscrap.scarpCause=="6") checked #end value="6" >其他</label></span>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formLine">
+                <dt>体系认证</dt>
+                <dd>
+                  <span class="radio"><label><input type="radio" disabled name="scarpAccreditation" #if(wfpscrap.scarpAccreditation=="1") checked #end value="1">正在申请</label></span>
+                  <span class="radio"><label><input type="radio" disabled name="scarpAccreditation" #if(wfpscrap.scarpAccreditation=="2") checked #end value="2">已通过或复审中</label></span>
+                  <span class="radio"><label><input type="radio" disabled name="scarpAccreditation" #if(wfpscrap.scarpAccreditation=="3") checked #end value="3" >暂无</label></span>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formLine">
+                <dt>报废单位</dt>
+                <dd>
+                  <input id="scarpUnit" name="scarpUnit" type="text" disabled class="textBox"  style="width:655px;" value="${wfpscrap.scarpUnit}" readonly>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            
+            <dl class="formItem">
+                <dt><em class="mustIco"></em>发货人</dt>
+                <dd>
+                  <input name="sendMan" id="sendMan" disabled type="text" class="textBox box212" value="${wfpscrap.sendMan}" maxlength="16">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt><em class="mustIco"></em>发货人电话</dt>
+                <dd> 
+                  <input name="sendManPhone" disabled id="sendManPhone" type="text" onblur="checkTel(this.value);" class="textBox box212" value="${wfpscrap.sendManPhone}" maxlength="13">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formLine">
+                <dt>发货人地址</dt>
+                <dd class="select4">#tag systemAreaSel("sendManAddress",wfpscrap.sendManAddress) #end</dd>
+                <dd><input disabled name="sendManDetailsAddress" value="${wfpscrap.sendManDetailsAddress}" type="text" class="textBox box212"  style="height:26px;margin-left:5px;" maxlength="64"></dd>
+                 <dd class="clear"></dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt><em class="mustIco"></em>收货人</dt>
+                <dd>
+                  <input name="takeMan" disabled id="takeMan" type="text" class="textBox box212" value="${wfpscrap.takeMan}" maxlength="16">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt><em class="mustIco"></em>收货人电话</dt>
+                <dd> 
+                  <input name="takeManPhone" disabled id="takeManPhone" type="text" onblur="checkTel(this.value);" class="textBox box212" value="${wfpscrap.takeManPhone}" maxlength="13">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formLine">
+                <dt>收货人地址</dt>
+                <dd class="select4">#tag systemAreaSel("takeManAddress",wfpscrap.takeManAddress) #end</dd>
+                <dd><input name="takeManDetailsAddress" disabled value="${wfpscrap.takeManDetailsAddress}" type="text" class="textBox box212"  style="height:26px;margin-left:5px;" maxlength="64"></dd>
+                 <dd class="clear"></dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt><em class="mustIco"></em>审核资料</dt>
+                <dd> 
+                  #tag fileUpload("approveInfo","pdf",wfpscrap.approveInfo) #end
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            	#define(com.ekfans.base.store.model.Contract contract)
+            <dl class="formItem">
+                <dt><em class="mustIco"></em>合同文件</dt>
+                <dd> 
+                  #tag fileUpload("approveInfo","pdf",contract == null ? "" : contract.file) #end
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+            <div class="priceZone">
+                <a href="javascript:addChild();" disabled class="btnBase">添加危废品含量</a>
+                <span class="hint">点击添加危废品含量按钮,下面操作框填写具体信息！</span>
+                <!--加载含量-->
+                      #if(orderv!=null && orderv.size()>0)
+                      #for(com.ekfans.base.order.model.OrderValuation v:orderv)
+	                      <div class="listItem" >
+	                      <div class="listTd startNum">
+	                      	<select name="select" onchange="chekcedvalue(this)">
+	                      		 <option value = "">请选择</option>
+	                      		#for(com.ekfans.base.order.model.ValuationCategory vc :valuationCategotyList)
+	                      	   <option value="${vc.id}_${vc.specName}" #if(v.specName == vc.specName) selected #end>${vc.specName}</option>
+	                      	  #end
+	                      	</select>
+	                      </div>
+	                      <input name="endids" type="hidden" value="${v.id}">
+	                      <div class="listTd endNum"><input name="endNum" type="text" class="textBox box50" value="${v.valuationNumber}"></div>
+	                      <div class="listTd endNum"><input name="endUnit" type="text" class="textBox box50" value="${v.valuationUnit}"></div>
+	                      #if(for.index!=1)
+	                      <div class="listTd listSet" style="display:none;"><a href="javascript:removeChild(this);" class="closeIco" style="margin-left:3px;"></a></div>
+	                      #end
+	                      <div class="clear"></div>
+	                    </div>
+                    #end
+                    <!--加载含量结束-->
+                     #end
+            </div>
+        	<div class="clear"></div>
+    	</div>
+    </form>
+    </div>
+    <!--右侧主体 end-->
+    <div class="clear"></div>
+<div class="clear"></div>
+<div class="apLayerBg"></div>
+<div id="Directory" class="apLayer borderColor alertBrand">
+</div>
+
+<div id="adchilds" style="display:none">
+ 	<div class="listItem" >
+    <div class="listTd startNum">
+    	<select name="cloneListSelect" onchange="chekcedvalue(this)">
+    		    <option value = "">请选择</option>
+			      #for(com.ekfans.base.order.model.ValuationCategory vc :valuationCategotyList)
+        	   <option value="${vc.id}_${vc.specName}">${vc.specName}</option>
+            #end
+        	  </select>
+     </div>
+     <input name="endids" type="hidden" value="cloneList">
+    <div class="listTd endNum"><input name="cloneListEndNum" type="text"  class="textBox box50" value="0"></div>
+    <div class="listTd endNum"><input name="cloneListEndUnit" type="text" class="textBox box50" value="g"></div>
+    <div class="listTd listSet"><a href="javascript:void(0);" class="closeIco" style="margin-left:3px;"></a></div>
+    <div class="clear"></div>
+  </div>
+</div>
+#end
+           
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/ckeditor/ckeditor.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+<script>
+function backlist(ctx){
+   window.location.href=ctx+"/store/wfpscrap/skipScrapList";
+}	
+	
+function checkTel(val){
+	re =   /(^0{0,1}1[3|4|5|6|7|8|9][0-9]{9}$)/; ;
+	if(!re.test(val)){
+	  falert("联系方式格式不正确");
+	  return fasle;
+	}else{
+		return true;
+	}
+}
+function backList(ctx){
+  window.location.hreg=ctx+"/store/wfpscrap/skipScrapList";
+}
+	
+//load出二级页面
+function	searchertwo(ctx,partenId,name){
+	$("#oneName").val(name);
+	$.ajax({
+			url:ctx+"/wfpscrap/wfpml/two",
+		  data:{parentId:partenId},
+		  success:function(data){
+		  	var product = $.parseJSON(data);
+		  	var val="";
+		  	for(var i=0;i<product.length;i++){
+		  		val+="<a href=\"javascript:searcherthree('"+product[i].id+"','"+product[i].name+"')\">"+product[i].name+"</a>";
+		  	}
+        $("#searchtwo").html(val);
+		  }
+		})
+}
+// load出三级页面
+function searcherthree(partenId,name){
+	$("#twoName").val(name);
+	  $("#parendId").val(partenId);
+		$("#three").load($("#ctxpath").val()+"/wfpscrap/wfpml/pager",{"parentId":partenId});
+}
+function three(){
+	var chose = $("#wfmlChose").val();
+	if(chose==""){
+		 
+	}else{
+		$("#wfmlChose").val("");
+		$("#resultThree").html("");
+		
+		var cho = chose.split(";;;");
+		var choseHtml="";
+		var choseId="";
+		for(var i=0;i<cho.length;i++){
+		  if( cho[i] ==""){continue;}
+		  var va =  cho[i].split("___");
+		  choseHtml += "<tr><td>"+va[1]+"</td><td style=\"text-align:left;\">"+va[2]+"</td><td>"+va[3]+"</td></tr>";
+		  choseId+=va[0]+",";
+		}
+		$("#wfpScrapId").val(choseId.substring(0,choseId.length-1));
+		$("#resultThree").append(choseHtml);
+		$("#mlDiv").css("display","block");
+		$(".apLayerBg").hide();
+		$(".alertBrand").hide();
+		var one = $("#oneName").val();
+		var two = $("#twoName").val();
+		//alert(one + "----" +two);
+		if(one!=''){
+			$("#orderDirectory").val(one);
+		}
+		if(two!=''){
+			$("#scarpProcess").val(two);
+		}
+	}
+}
+
+function choseMl(obj){
+	var chosedVal = $("#wfmlChose").val();
+	if(obj.checked){
+		chosedVal = chosedVal + obj.value + ";;;";
+		
+	}else{
+		chosedVal = chosedVal.replace(obj.value+";;;","");
+	}
+	$("#wfmlChose").val(chosedVal);
+}
+
+//跳转到新增页面
+function goAdd(ctxPath){
+	window.location.href=ctxPath+"/store/order/wfpOrderAddSkip";
+}	
+//跳转到列表页
+function goBack(ctxPath){
+	window.location.href=ctxPath+"/store/wfpscrap/skipScrapList";
+}
+	
+	//删除选择的列
+	$(document).ready(function() {
+		$(".closeIco").live("click",function(){
+			$(this).parent().parent().remove();
+		});
+	  var ok = $("#updateOk").val();
+	  if(ok!="" && ok!=null){
+	    if(ok=="0"){
+	    	econfirm('更新成功,是否返回列表?',goBack,[$("#ctxpath").val()],null,null);
+	    }else{
+	    	econfirm('更新失败,是否继续修改?',null,null,goBack,[$("#ctxpath").val()]);
+	    }
+	  }
+	});	
+	
+	function checkdContract(con){
+		var contract = con.split("_");
+		//判断是甲方还是乙方选择运输企业
+		//如果是甲方ID等于当前ID、运输企业是甲方选择
+		if((contract[2]==$("#storeId").val() && contract[4]=="0") || (contract[5]==$("#storeId").val() && contract[4]=="1")){
+		   $("#ysContract").show();
+		}
+		if(contract[3]=='1'){
+		  $("#contractId").val(contract[0]);
+		  $("#contractName").val(contract[1]);
+		//运输契约
+		}else if(contract[3]=='2'){
+			$("#ysContractId").val(contract[0]);
+			
+		  $("#ysStoreId").val(contract[1]);
+		}
+		$(".apLayerBg").hide();
+		$(".alertBrand").hide();
+	}
+	//load出契约列表
+	function loadDirectory(ctx){
+		 //$("#wfmlChose").val("");
+		 //$("#resultThree").html("");
+		 $("#Directory").load(ctx+"/wfpscrap/wfpml");
+		 $(".apLayerBg").show();
+		 $(".alertBrand").show();
+	}
+	
+	
+	String.prototype.replaceAll = function(reallyDo, replaceWith, ignoreCase) {  
+    if (!RegExp.prototype.isPrototypeOf(reallyDo)) {  
+        return this.replace(new RegExp(reallyDo, (ignoreCase ? "gi": "g")), replaceWith);  
+    } else {  
+        return this.replace(reallyDo, replaceWith);  
+    }  
+}  
+	//点击添加
+	function addChild(){
+		//var appends = $("#adchilds").children().clone();
+		var radomId = "list" + new Date().getTime();
+		var obj = $("#adchilds").html();
+		obj = obj.replaceAll("cloneList", radomId);
+		$("#guigeList").append(obj);
+	}
+	function formSubmit(){
+
+	 	if($("#scarpName").val()==''){
+	      falert('报废名称不能为空');
+	      return false;	
+	  }
+	  if($("#scarpNumber").val()==''){
+	      falert('报废数量不能为空');
+	      return false;	
+	  }
+	 
+	 $(addWfpScrap).submit();
+	}
+	
+	//判断选择的型号是否已选
+	function chekcedvalue(obj){
+	 var v = $('[name="select"]');
+	 if(v.length > 2){
+		var a = 0;
+	  for(var i=0;i < v.length;i++){
+			if(v[i].value == obj.value){
+				a = a + 1;
+			}
+	  }
+	  if(a>1){
+	  	falert('该规格已选');
+	  	obj.value="";
+	  }
+	 }
+	}
+</script>
+<script>
+$(document).ready(function() {
+
+	/*全部复选框*/
+	$(".checkAll").live("click",function(){	
+	$main = $(this);
+	if($main.find("input").is(":checked")){
+		//下级都被选中
+		$main.find(".check").addClass("checked");
+		$main.parents(".tabBox").next().find("input").attr("checked",true);
+		$main.parents(".tabBox").next().find(".check").addClass("checked");
+	}else{
+		//下级都取消选中
+		$main.find(".check").removeClass("checked");
+		$main.parents(".tabBox").next().find(":checkbox").attr("checked",false);
+		$main.parents(".tabBox").next().find(".check").removeClass("checked")
+	}
+	});
+});
+</script>
+ </body>
+</html>

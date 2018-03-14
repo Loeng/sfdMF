@@ -1,0 +1,189 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>退/换货详情</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/goodsDetail.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/proExchangeDetail.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/upload.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/tools.css" />
+	
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload.js"></script>
+	<!-- 导入私有JS -->
+	<script type="text/javascript" src="${webroot}/resources/userCenter/purchase/js/refund.js"></script>
+</head>
+
+<body>
+#define(com.ekfans.base.order.model.OrderAddress orderAddress)
+#define(com.ekfans.base.order.model.Order order)
+#define(com.ekfans.base.order.model.OrderTreatDetail orderTreatDetail)
+#define(com.ekfans.base.order.model.OrderDetail orderDetail)
+#define(com.ekfans.base.order.model.Refund refund)
+
+<div class="contentTit borderColor budong">
+  <h3>退换货处理</h3>
+  <a href="javascript:history.go(-1);" class="btnBase btnBack">返回</a>
+  <div class="clear"></div>
+</div>
+<div class="form borderColor">
+  <div class="exchangeOrder bgColor">
+    <span class="orderNumber">订单编号：${order.id}</span>
+    <span class="orderTime">下单时间：${order.createTime}</span>
+    <span>收货人：${orderAddress.name}</span>
+  </div>
+  <table border="0" cellspacing="0" cellpadding="0" class="orderTable">
+    <tr>
+      <th class="tdProInfo bgColor">商品信息</th>
+      <th class="tdProNum bgColor">单价</th>
+      <th class="tdProCount bgColor">数量</th>
+      <th class="tdSubtotal bgColor">小计</th>
+    </tr>
+    <tr>
+      <td class="tdProInfo">
+      	<a href="javascript:void(0)" title="查看商品" class="orderImg">
+      		<img src="${webroot}${orderDetail.productImage}" width="78" height="78" alt="${orderDetail.productName}" />
+      	</a>
+        <div class="proRight"> 
+        	<span class="orderText"><a href="javascript:void(0)">${orderDetail.productName}</a></span> 
+        	<span class="nowPrice">￥${orderDetail.price}</span>
+          <div class="clear"></div>
+          #if(orderDetail.infoName1!=null && orderDetail.infoName1!="")
+		        <div class="colorSize"><span>${orderDetail.infoName1}：</span><em>${orderDetail.infoValue1}</em></div>
+		    	#end
+		      #if(orderDetail.infoName2!=null && orderDetail.infoName2!="")
+		        <div class="colorSize"><span>${orderDetail.infoName2}：</span><em>${orderDetail.infoValue2}</em></div>
+		    	#end
+		      <div class="clear"></div>
+	        #if(orderDetail.infoName3!=null && orderDetail.infoName3!="")
+		        <div class="colorSize"><span>${orderDetail.infoName3}：</span><em>${orderDetail.infoValue3}</em></div>
+		    	#end
+		      #if(orderDetail.infoName4!=null && orderDetail.infoName4!="")
+		        <div class="colorSize"><span>${orderDetail.infoName4}：</span><em>${orderDetail.infoValue4}</em></div>
+		    	#end
+          <div class="clear"></div>
+        </div>
+        <div class="clear"></div></td>
+      <td class="tdProNum">￥${orderDetail.price}</td>
+      <td class="tdProCount">${orderDetail.quantity}</td>
+      <td class="tdSubtotal">￥${orderDetail.totalPrice}</td>
+    </tr>
+  </table>
+  <h2 class="rightTitle"><em class="borderBottomColor">服务单明细</em></h2>
+  <div class="returnInfo">
+    <div class="serviceLine">
+      <dl class="formItem">
+        <dt>服务类型</dt>
+        <dd>#if(refund.type=='0')换货#elseif(refund.type=='1')退货#end</dd>
+      </dl>
+      <dl class="formItem">
+        <dt>提交数量</dt>
+        <dd>1</dd>
+      </dl>
+      <div class="clear"></div>
+    </div>
+    <dl class="formItem formLong">
+      <dt>退货理由</dt>
+      <dd style="width:400px;">${refund.note}</dd>
+      <dd class="clear"></dd>
+    </dl>
+    <div class="clear"></div>
+    <ul class="proImgs">
+      <li><img src="${webroot}${refund.imageOne}" width="200" height="200" /></li>
+      <li><img src="${webroot}${refund.imageTwo}" width="200" height="200" /></li>
+      <li><img src="${webroot}${refund.imageThree}" width="200" height="200" /></li>
+      <li><img src="${webroot}${refund.imageFour}" width="200" height="200" /></li>
+      <div class="clear"></div>
+    </ul>
+  </div>
+  <!--
+  <div class="bottomBtn">
+    <a href="javascript:void(0)" class="btnBase">同意</a>
+    <a href="javascript:void(0)" class="btnBase btnRefuse">拒绝</a>
+    <div class="clear"></div>
+  </div>
+  
+  <div class="decline">
+  	<em class="textPoint"></em>
+    <textarea name="" cols="" rows="" placeholder="请输入拒绝理由"></textarea>
+    <a href="javascript:void(0)" class="btnBase">提交</a>
+    <a href="javascript:void(0)" class="btnBase btnCansel">取消</a>
+  </div>
+  -->
+  <h2 class="rightTitle">
+    <em class="borderBottomColor">订单信息</em>
+    <a href="javascript:void(0)" class="layerToggle">收起</a>
+  </h2>
+  
+  <div class="toggles orderInfo">
+    <dl class="consignee">
+      <dt>收货人信息</dt>
+      <dd>
+	      <li><em>收货人</em>${orderAddress.name}</li>
+	      <li><em>地址</em>${orderAddress.provincial+"/"+orderAddress.city+"/"+orderAddress.area+"/"+orderAddress.address}</li>
+	      <li><em>固定电话</em>${orderAddress.phoneNum}</li>
+	      <li><em>手机号码</em>${orderAddress.mobile}</li>
+	      <li><em>电子邮件</em>${orderAddress.email}</li>
+	    </dd>
+    </dl>
+    <dl class="payStyle">
+      <dt>支付及配送方式</dt>
+      <dd>
+	      <li><em>支付方式</em>${order.payment}</li>
+	      <li><em>运费</em>￥${order.fare}</li>
+	      <li><em>物流公司</em>${order.logisticsName}</li>
+	      <li><em>运单号码</em>${order.logisticsNo}</li>
+	      <li><em>送货日期</em>2014-04-23</li>
+	      <li><em>配送时间</em>9:00-15:00</li>
+	    </dd>
+    </dl>
+    #if(order.invoice)
+	  	<dl class="invoiceInfo">
+		    <dt>发票信息</dt>
+		    <dd>
+		      <li><em>发票类型</em>#if(order.invoiceType=="false") 普通发票 #elseif(order.invoiceType=="true") 增值税发票 #end</li>
+		      <li><em>发票抬头</em>${order.invoiceTitle}</li>
+		      <li><em>发票内容</em>${order.invoiceContent}</li>
+		    </dd>
+		  </dl>
+		#else
+			<div class="invoiceNone">无发票信息</div>
+	  #end
+    <div class="clear"></div>
+  </div>
+  
+  <h2 class="rightTitle"><em  class="borderBottomColor">付款信息</em><a href="javascript:void(0)" class="layerToggle">收起</a></h2>
+  <div class="toggles payInfo">
+    <ul class="payInfoLeft">
+	    <li><em>付款方式</em>${order.paymentId}</li> 
+	    <li><em>商品金额</em>￥${orderDetail.price}</li> 
+	    <li><em>优惠金额</em>￥0.00</li> 
+	  </ul>
+	  <ul>
+	    <li><em>运费金额</em>￥${order.fare}</li>
+	    <!--
+	    <li><em>实际运费</em>￥5.00</li>
+	    <li><em>交易余额</em>￥0.00</li>
+	     -->
+	    <li><em>支付金额</em>￥${order.paid}</li>
+	    <li><em>付款时间</em>${orderTreatDetail.createTime}</li>
+	  </ul>
+    <div class="clear"></div>
+  </div>
+  
+  <div class="money">
+    <span>运费总计：<em>￥${order.fare}</em></span>
+    <span>商品总计：<em>￥${order.totalPrice}</em></span>
+    <span>订单总计：<em>￥${order.paid}</em></span>
+  </div>
+  
+</div>
+
+</body>
+</html>

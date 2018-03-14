@@ -1,0 +1,49 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url("personalBase.css");
+
+/*列表筛选*/
+.filtrate li{width:49%; padding:0 0 19px 1%; height:28px; line-height:28px; float:left;}
+.filtrate li span{padding-right:22px;}
+.filtrate li input{height:26px; line-height:26px\9; width:218px; border:solid 1px #d3d3d3;}
+.filtrate li .boxDouble{width:105px;}
+.filtrate li em{color:#d3d3d3; padding:0 2px;}
+.filtrateDown span{display:block; white-space:nowrap; float:left;}
+.filtrate .mod_select{float:left; background:#fff;}
+.filtrate .select_box{float:left; color:#444;position:relative;cursor:pointer;width:218px; height:26px; line-height:26px; border:solid 1px #d3d3d3;}
+.filtrate .selet_open{display:inline-block;position:absolute;right:9px;top:9px;width:11px;height:8px; background:url(../images/downico.png) no-repeat;;}
+.filtrate .select_txt{display:inline-block;width:218px; height:28px; text-indent:0.8em;cursor:pointer;overflow:hidden;}
+.filtrate .option{width:218px;position:absolute;top:26px;left:-1px;z-index:2;overflow:hidden;display:none; border:solid 1px #eee;}
+.filtrate .option a{display:block;height:28px;line-height:28px;text-align:left;padding:0 10px;width:100%;background:#fff; color:#666; text-decoration:none;}
+.filtrate .option a:hover{background:#efefef;}
+.btns{padding:12px 0; border-bottom:solid 1px #e4e4e4; border-top:solid 1px #e4e4e4; margin-bottom:15px;}
+.btns .btnBlue{width:62px; height:28px; line-height:28px; font-size:14px; display:block; float:left; margin-right:16px;}
+.orderHeader{height:41px; line-height:36px; border-bottom:solid 1px #CBCFCF;}
+.orderHeader a{display:block; height:36px; width:132px; text-align:center; font-size:14px; float:left;}
+.nowItem{border-bottom:solid 5px #ff8900;}
+
+/*订单列表*/
+.orderTb{width:100%;}
+.orderTb li{float:left;}
+.orderTb .orderTitle{height:35px; line-height:35px; border-bottom:solid 1px #f3f3f3;}
+.orderList{border-bottom:solid 1px #f3f3f3; height:99px; padding:10px 0; }
+.orderInfo{width:40%;}
+.earnest,.proCount,.status,.orderPrice{width:11%; text-align:center; line-height:20px; padding:10px 0;}
+.orderSet{line-height:20px;}
+.orderSet a:hover{text-decoration:underline;}
+.orderImg{display:block; width:76px; height:99px; float:left; margin-right:12px;}
+.orderText{display:block; width:180px; line-height:20px; float:left;}
+.orderText a{color:#818181;}
+.orderText a:hover{text-decoration:underline;}
+.orderList li{height:99px;}
+.listHover{background:#f9f9f9;}
+
+/*页码*/
+.pageSize{text-align:right; padding-top:20px;}
+.pageSize a{display:inline-block; height:21px; line-height:21px; margin-right:8px; padding:0 8px; background:#f6f6f6; color:#12369b;}
+.pageLast,.pageNext{font-family:SimSun;}
+.pageSize a:hover,.pageSize .nowPage{background:#4594f9; color:#fff;}
+
+/*没有订单时*/
+.orderNone{height:50px; line-height:50px; font-size:24px; background:#FFFCD9; text-align:center; margin-top:20px;}

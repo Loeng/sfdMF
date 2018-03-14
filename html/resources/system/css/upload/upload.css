@@ -1,0 +1,31 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+
+.imgUpload{}
+.imgWindow{width:100%; height:86%; position:relative; border:solid 1px #e4e4e4;}
+.imgWindow table{width:100%; height:100%; vertical-align:middle; text-align:center;}
+.imgControl{height:14%; width:100%;}
+.bottomBg{width:100%; height:22px; background:#000; filter:alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity:0.5; opacity:0.5; position:absolute; left:0; bottom:0; z-index:2; display:none;}
+.imgRemove{display:block; width:16px; height:16px; background-image:url(../../images/upload/imgdelete.png); _background-image:url(../../images/upload/imgdelete.gif); position:absolute; right:10px; bottom:3px; z-index:3; display:none;}
+.imgRemove:hover{background-position:-16px 0;}
+.btnUpload,.btnUploadNo{display:block; text-align:center;}
+.btnUpload{color:#fff; background:#02AFED; position:relative;}
+.btnUpload:hover{background:#018ec5;}
+.btnUploadNo,.btnUploadNo:hover{background:#f4f4f4; color:#e4e4e4;}
+.btnUpload input{position:absolute; display:block; top:0; right:0; z-index:2; font-size:480px; filter:alpha(opacity=0); -moz-opacity:0; -khtml-opacity:0; opacity:0;}
+.imgUpload .btnUpload,.imgUpload .btnUploadNo{width:100%;display:block; overflow:hidden;}
+.imgUpload .btnUpload input{width:100%; height:100%;}
+.uploadingBg{display:block; width:100%; height:100%; background-image:url(../../images/upload/loding02.gif); background-position:center center; background-repeat:no-repeat; background-color:#000; filter:alpha(opacity=85); -moz-opacity:0.55; -khtml-opacity:0.55; opacity:0.55; position:absolute; left:0; top:0;}
+
+
+/*上传文件*/
+.fileUpload .btnUpload{color:#fff; background:#02AFED; position:relative; float:left; width:64px; height:28px; text-align:center; line-height:28px; margin:10px 40px 0 0;}
+.fileUpload .btnUpload:hover{background:#018ec5;color:#fff;}
+.fileUpload .btnUploadNo{color:#fff; background:#ccc; position:relative; float:left; width:64px; height:28px; text-align:center; line-height:28px; margin:10px 40px 0 0; cursor:default;}
+.fileUpload .btnUploadNo:hover{color:#fff;}
+.fileUpload input{position:absolute; display:block; top:0; right:0; z-index:2; font-size:28px; filter:alpha(opacity=0); -moz-opacity:0; -khtml-opacity:0; opacity:0;}
+.fileUpload .fileLoading{width:40px; height:40px; background-image:url(../../images/upload/big_load.gif); background-position:center center; background-repeat:no-repeat; background-color:#e4e4e4; filter:alpha(opacity=85); -moz-opacity:0.85; display:block; float:left; margin-right:40px; border-radius:2px;}
+.fileName{display:block; padding:0 28px 0 5px; height:28px; line-height:28px; color:#262626; background:#f4f4f4; float:left; margin-top:10px; position:relative;}
+.fileDelete{display:block; width:16px; height:16px; background:url(../../images/upload/imgdelete.png) no-repeat -32px 0; position:absolute; right:5px; top:6px;}

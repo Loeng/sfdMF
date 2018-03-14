@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>福利采购详情</title>
+<link href="${webroot}/resources/userCenter/commons/css/goodsDetail.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/commons/css/tools.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/core/css/flDetail.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/commons/js/tools.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+<script src="${webroot}/resources/userCenter/core/js/flcg/flcgQuery.js"></script>
+</head>
+<body>
+    <!--右侧主体-->
+    <div class="rightContent">
+    	<input type="hidden" id="ok" value="${ok}">
+    	#define(com.ekfans.base.user.model.WelfarePurchase purchase)
+        <div class="contentTit borderColor budong">
+           <h3>福利申购详情</h3>
+            #if(purchase.status=="0")
+            <a href="${webroot}/store/flcg/list" class="btnBase btnBack">返回列表</a>
+            <a href="${webroot}/store/flcg/close/${purchase.id}" class="btnBase btnEdit">关闭</a>
+            <a href="${webroot}/store/flcg/handle/${purchase.id}" class="btnBase btnEdit">处理</a>
+            #else
+            <a href="${webroot}/store/flcg/list" class="btnBase btnBack">返回列表</a>
+            #end
+            <div class="clear"></div>
+        </div>
+        <div class="form borderColor">
+            <div class="forms">
+                <div class="formsLeft">
+                	<dl class="formItem">
+                        <dt>状态</dt>
+                        <dd>
+                         	#if(purchase.status=="0")未处理
+							          	#elseif(purchase.status=="1")已处理
+							          	#elseif(purchase.status=="2")关闭
+							          	#end
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt>商品编号</dt>
+                        <dd>
+                            <input name="" type="text" value="${purchase.productNo}" disabled class="textBox box140"/>
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+										<dl class="formItem">
+                        <dt>希望到货时间</dt>
+                        <dd>
+                            <input name="" type="text" value="${purchase.reciveTime}" disabled class="timeBox textBox box140" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt>采购数量</dt>
+                        <dd>
+                            <input name="" type="text" value="${purchase.quantity}" disabled class="textBox box140"/>${purchase.unit}
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt>企业机构名称</dt>
+                        <dd>
+                            <input name="" type="text" value="${purchase.companyName}" disabled class="textBox box140"/>
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt>联系人姓名</dt>
+                        <dd>
+                        	<input name="" type="text" disabled value="${purchase.linkMan}" class="textBox box140"/>
+                        	
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt>手机号码</dt>
+                        <dd>
+                            <input name="" type="text" value="${purchase.mobile}" disabled class="textBox box140"/>
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt>希望联系时间</dt>
+                        <dd>
+                            <div class="selList">
+                                <input name="" type="text" disabled value="${purchase.linkTime}" class="textBox box212" style="text-indent:0.5em;" readonly>
+                                
+                            </div>
+                            <div class="clear"></div>
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                     <dl class="formItem" style="width:730px;">
+                      <dt>留言</dt>
+                      <dd>
+                         <textarea name="" cols="" rows="" style="width:350px; height:72px;" readonly>${purchase.note}</textarea>
+                      </dd> 
+                      <dd class="clear"></dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--右侧主体 end-->
+    <div class="clear"></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+﻿<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>道路紧急预案查看</title>
+	<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css">
+	<script src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+	<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+	<style>
+		.box80,.inputSplit{display:inline-block;}
+		.box80{width:95px;}
+		.formItem{width:446px;}
+		.formItem dt{width:85px;}
+	</style>
+</head>
+
+<body>
+	#define(com.ekfans.base.store.model.EmergencyPlan qua)
+		<div class="rightContent">
+			<div class="contentTit  borderColor budong">
+				<h3>道路紧急预案</h3>
+				<a href="${webroot}/store/qualification/getQuaList" class="btnBase btnCancel">返回列表</a>
+				<div class="clear"></div>
+			</div>
+			<div class="form borderColor">
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>附件</dt>
+					<dd> #tag fileUpload("file","word",qua.file) #end </dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>状态</dt>
+					<dd><input name="type" type="radio" #if(qua.type=="1")checked #end value="1">有效
+						<input name="type" type="radio" #if(qua.type=="0")checked #end value="0">无效</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>有效期</dt>
+					<dd>
+						<input name="startTime" value="${qua.startTime}" type="text" class="textBox box80" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+						<span class="inputSplit">&mdash;</span>
+						<input name="endTime" value="${qua.endTime}" type="text" class="textBox box80" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>创建时间</dt>
+					<dd><input name="createTime" value="${qua.createTime}" type="text" class="textBox box212" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>最新更新时间</dt>
+					<dd><input name="updateTime" value="${qua.updateTime}" type="text" class="textBox box212" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+					<dd class="clear"></dd>
+				</dl>
+			</div>
+		</div>  
+	
+</body>
+</html>

@@ -1,0 +1,879 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>资质认证</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<link rel="shortcut icon" href="../../../resources/commons/images/favicon.ico" type="image/x-icon">
+<link href="../../../resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/userCenter/commons/css/zizhi.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/userCenter/coreCompany/css/style.css" rel="stylesheet" type="text/css">
+<style>
+/* 选项切换 */
+.tab{width:1010px;overflow:hidden;margin-left:10px; position:relative;}
+.tabNav{height:52px; line-height:52px; font-size:18px;overflow:hidden;border-bottom-style:solid; border-bottom-width:2px;}
+.btnBox{ position:absolute ;right:0; top:10px;}
+.tabNav li{cursor:pointer;display:block; min-width:134px; padding:0 12px;text-align:center;float:left;color:#595757;}
+.tabNav .cur{display:block;color:#fff;}
+.tabContent{ display:none;padding:20px 0px; min-height:80px;}
+.boxchecked{margin-right:10px; display:inline-block;vertical-align: middle; width:15px; height:15px;}
+.tabContent h2{border-bottom:1px solid #CCC; margin-left:40px; margin-right:20px; height:35px; line-height:35px;}
+.rzTtem{margin:10px 0 10px 75px;}
+.biaoti{display:inline-block; width:100px; height:28px; line-height:28px; float:left;}
+.rzDiv{float:left; height:28px; overflow:hidden; width:815px;}
+.rzDiv span{display:inline-block; height:28px; line-height:28px; float:left; margin-right:20px;}
+.rzDiv .formItem{ min-width:330px; width:auto; max-width:810px; margin-top:15px; margin-left:-30px;}
+.rzstate{background:url(../../../resources/userCenter/commons/images/icon_suc.png) no-repeat left center; width:46px; height:31px;background-size:28px 15px;}
+.failstate{background:url(../../../resources/userCenter/commons/images/icon_fail.png) no-repeat left center; width:46px; height:31px;background-size:20px 20px;}
+.warnstate{background:url(../../../resources/userCenter/commons/images/icon_un.png) no-repeat left center; width:46px; height:31px;background-size:20px 20px;}
+
+.btnDiv{margin-left:20px;}
+.zhengming{margin-left:-30px;}
+.box280{margin-right: 10px;}
+.fixed2{width:1015px;position:fixed;top:0px; background-color:#fff; z-index:90;}
+</style>
+</head>
+<body>
+
+<!--头部-->
+<div class="wrapper topArea">
+  <h1 class="logo">
+    <a href="javascript:void(0)" title="鑫裕环保供应链平台">
+    	<img src="../../../resources/commons/images/logo.png" alt="鑫裕环保供应链平台">
+    </a>
+  </h1>
+  <div class="topRight">
+    <a href="javascript:void(0)" class="linkIndex">首页</a>
+    <span class="topItem">您好，云飞扬</span>
+    <span class="topItem"><a href="javascript:void(0)">消息(99)</a></span>
+    <span class="topItem"><a href="javascript:void(0)">帮助中心</a></span>
+    <span class="topItem itemLast"><a href="javascript:void(0)">安全退出</a></span>
+    <em class="split"></em>
+    <span class="telPhone">4000-888-1000</span>
+  </div>
+  <div class="clear"></div>
+</div>
+
+<div class="logoBar">
+  <div class="wrapper">
+  	<a href="javascript:void(0)" class="logoName">核心企业-企业中心</a>
+    <div class="nav">
+      <a href="javascript:void(0)" class="navItem">订单管理</a>
+      <a href="javascript:void(0)" class="navItem">金融管理</a>
+      <a href="javascript:void(0)" class="navItem">企业认证</a>
+      <a href="javascript:void(0)" class="navItem">账户管理</a>
+    </div>
+  </div>
+</div>
+<!--头部end-->
+
+
+<div class="main">
+  <div class="wrapper">
+    <!--左侧菜单-->
+    <div class="leftNav budong">
+    <h2><a href="javascript:void(0)">管理中心首页</a></h2>
+    <dl class="leftList">
+        <dt>采购管理<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)">商品管理</a>
+            <a href="javascript:void(0)">订单管理</a>
+            <a href="javascript:void(0)">议价管理</a>
+        </dd>
+    </dl>
+    <dl class="leftList">
+        <dt>供应管理<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)">商品管理</a>
+            <a href="javascript:void(0)">订单管理</a>
+            <a href="javascript:void(0)">议价管理</a>
+            <a href="javascript:void(0)">优选商城订单管理</a>
+        </dd>
+    </dl>
+    <dl class="leftList">
+        <dt>商品管理<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)">发布新商品</a>
+            <a href="javascript:void(0)">仓库中的商品</a>
+            <a href="javascript:void(0)">出售中的商品</a>
+        </dd>
+    </dl>
+    <dl class="leftList">
+        <dt>金融管理<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)">订单借贷申请</a>
+            <a href="javascript:void(0)">订单借贷管理</a>
+            <a href="javascript:void(0)">信用借贷申请</a>
+            <a href="javascript:void(0)">信用借贷管理</a>
+            <a href="javascript:void(0)">还款记录</a>
+        </dd>
+    </dl>
+    <dl class="leftList">
+        <dt>企业认证<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)" class="cur">企业自助备案</a>
+            <a href="javascript:void(0)">企业信用测算</a>
+        </dd>
+    </dl>
+    <dl class="leftList">
+        <dt>账户管理<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)">基本资料管理</a>
+            <a href="javascript:void(0)">账户资金管理</a>
+            <a href="javascript:void(0)">安全设置</a>
+        </dd>
+    </dl>
+    <dl class="leftList">
+        <dt>银行卡管理<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)">绑定银行卡</a>
+            <a href="javascript:void(0)">银行卡管理</a>
+        </dd>
+    </dl>
+</div>
+
+    <!--左侧菜单 end-->
+      
+    <!--右侧主体-->
+    <div class="rightContent"  style="background-color:#fff;">
+      	<!--选项卡-->
+      	<div class="tab">
+          <ul class="tabNav borderBottomColor budongBar">
+              <li class="cur bgColor">选项一</li>
+              <li>选项二</li>
+              <li>选项三</li>
+              
+              <div class="btnBox">
+              	<a href="javascript:void(0);" class="btnBase btnCancel">返回</a>
+                <a href="javascript:void(0);" class="btnBase btnSave">保存</a>
+              </div>
+          </ul>
+          
+          <div class="clear"></div>
+          <!--第一个-->
+          <div class="tabContent">
+          	<div class="stateLayer ingState"><!--sucState是成功-->
+            认证审核中
+        		</div>
+            
+            <!--第一部分-->
+            <h2>第一部分</h2>
+            <div class="rzTtem">
+            	<span class="biaoti">认证状态</span>
+            	<div class="rzDiv">
+                <span>我是认证的信用</span>
+                <span class="failstate"></span><!--rzstate是通过，failstate是失败，warnstate是警告，-->
+                <a href="javascript:void(0);" class="btnBase btnzk">展开</a>
+                <div class="clear"></div>
+                <dl class="formItem">
+                  <dt><em class="mustIco"></em>资质名称</dt>
+                  <dd>
+                    <ul class="zizhiList">
+                      <li title="易爆危险品处理认证">易爆危险品处理认证<a href="javascript:void(0);" class="closeLi"></a></li>
+                    </ul>
+                    <a href="javascript:void(0);" class="btnXuanze">请选择</a>
+                    <div class="clear"></div>
+                  </dd>
+                  <div class="clear"></div>
+                 </dl>
+                <div class="clear"></div>
+                <div class="zhengming">
+                     <!--默认有文件开始-->
+                     <dl class="zhengmingLtem">
+                      <dt><em class="mustIco"></em>证明文件</dt>
+                      <dd class="formRight">
+                        <div class="inputCont">
+                          <input name="" type="text" class="textBox box280"  value="危险品运输认证书" readonly>
+                          <a href="javascript:void(0);"  class="closeUp"></a>
+                        </div>
+                        <div class="fileUpload">
+                          <a href="javascript:void(0);" class="btnUpload btnSc"><input name="" type="file">请选择</a>
+                        </div>
+                        <div class="clear"></div>
+                      </dd>
+                      <dd class="clear"></dd>
+                      <dd class="new2">
+                        <div class="btnArea">
+                          <a href="javascript:void(0);"  class="btnDelZm">删除</a>
+                          <a href="javascript:void(0);"  class="btnUpZm">添加文件</a>
+                        </div>
+                      </dd>
+                      <div class="clear"></div>
+                     </dl>
+                     <!--默认有文件结束-->
+                   </div>
+                   <div class="clear"></div>
+                <dl class="formItem">
+                <dt>营业资格证</dt>
+                <dd>
+                    <div class="imgUpload" style="width:220px;height:220px;">
+                        <div class="imgWindow">
+                            <table border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td><img src="../../../resources/userCenter/commons/images/add_noP.gif" width="198" height="198"></td>
+                              </tr>
+                            </table>
+                        </div>
+                        <a href="javascript:void(0);" class="btnUpload" style="height:32px;font-size:24px;"><input name="" type="file">上传图片</a>
+                    </div>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            		<dl class="formItem">
+                <dt>交通运输资格证</dt>
+                <dd>
+                    <div class="imgUpload" style="width:220px;height:220px;">
+                        <div class="imgWindow">
+                            <table border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td><img src="../../../resources/userCenter/commons/images/add_noP.gif" width="198" height="198"></td>
+                              </tr>
+                            </table>
+                        </div>
+                        <a href="javascript:void(0);" class="btnUpload" style="height:32px;font-size:24px;"><input name="" type="file">上传图片</a>
+                    </div>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+                <dl class="formItem">
+                    <dt>资格证</dt>
+                    <dd>
+                        <div class="imgUpload" style="width:220px;height:220px;">
+                            <div class="imgWindow">
+                                <table border="0" cellspacing="0" cellpadding="0">
+                                  <tr>
+                                    <td><img src="../../../resources/userCenter/commons/images/add_noP.gif" width="198" height="198"></td>
+                                  </tr>
+                                </table>
+                            </div>
+                            <a href="javascript:void(0);" class="btnUpload" style="height:32px;font-size:24px;"><input name="" type="file">上传图片</a>
+                        </div>
+                    </dd>
+                    <dd class="clear"></dd>
+                </dl>
+                <dl class="formItem">
+                    <dt>资格证</dt>
+                    <dd>
+                        <div class="imgUpload" style="width:220px;height:220px;">
+                            <div class="imgWindow">
+                                <table border="0" cellspacing="0" cellpadding="0">
+                                  <tr>
+                                    <td><img src="../../../resources/userCenter/commons/images/add_noP.gif" width="198" height="198"></td>
+                                  </tr>
+                                </table>
+                            </div>
+                            <a href="javascript:void(0);" class="btnUpload" style="height:32px;font-size:24px;"><input name="" type="file">上传图片</a>
+                        </div>
+                    </dd>
+                    <dd class="clear"></dd>
+                </dl>
+                 <dl class="formItem">
+                    <dt>订单号</dt>
+                    <dd>
+                      <input name="" type="text" class="textBox box212" value="">
+                    </dd>
+                    <dd class="clear"></dd>
+                  </dl>
+                  <dl class="formItem">
+                    <dt>订单状态</dt>
+                    <dd> <span class="radio">
+                      <label>
+                        <input type="radio" name="radio" value="">
+                        所有</label>
+                      </span> <span class="radio">
+                      <label>
+                        <input type="radio" name="radio" value="">
+                        付款</label>
+                      </span> <span class="radio">
+                      <label>
+                        <input type="radio" name="radio" value="" checked>
+                        发货</label>
+                      </span> </dd>
+                    <dd class="clear"></dd>
+                  </dl>
+                  <dl class="formItem">
+                    <dt>下单时间</dt>
+                    <dd>
+                      <input name="" type="text" class="timeBox box98 textBox" value="" >
+                    </dd>
+                    <dd class="lineColor">&nbsp;—&nbsp;</dd>
+                    <dd>
+                      <input name="" type="text" class="timeBox box98 textBox" value="" >
+                    </dd>
+                    <dd class="clear"></dd>
+                  </dl>
+                  <dl class="formItem">
+                    <dt>订单状态</dt>
+                    <dd>
+                      <div class="selList"> <span class="textBox">
+                        <input name="" type="text" class="box184" placeholder="请选择状态" readonly>
+                        <em class="iconDown readOnly"></em> </span>
+                        <ul>
+                          <li>下单</li>
+                          <li>付款</li>
+                          <li>发货</li>
+                          <li>成功</li>
+                        </ul>
+                      </div>
+                    </dd>
+                    <dd class="clear"></dd>
+                  </dl>
+                  
+                  <dl class="formItem">
+                    <dt>订单号</dt>
+                    <dd>
+                      <textarea name="" cols="" rows="" ></textarea>
+                    </dd>
+                    <dd class="clear"></dd>
+                  </dl>
+                  <dl class="formItem">
+                    <dt>订单状态</dt>
+                    <dd> <span class="checkBox">
+                      <label><input type="checkbox" name="checkbox" value="" checked class="boxchecked">所有</label>
+                      </span>
+                      <span class="checkBox">
+                      <label><input type="checkbox" name="checkbox" value="" checked class="boxchecked">发货</label>
+                      </span>
+                     <span class="checkBox">
+                      <label><input type="checkbox" name="checkbox" value="" checked class="boxchecked">未发货</label>
+                      </span>  </dd>
+                    <dd class="clear"></dd>
+                  </dl>
+                  <div class="clear"></div>
+                  
+                  <div class="btnDiv">
+                  <a href="javascript:void(0);" class="btnBase btnEdit">编辑</a>
+            			<a href="javascript:void(0);" class="btnBase btnSave2">保存</a>
+                  </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <!--第一部分 end-->
+            
+            <!--第二部分-->
+            <h2>第二部分</h2>
+            <div class="rzTtem">
+            	<span class="biaoti">认证状态</span>
+            	<div class="rzDiv">
+                <span>我是认证的信用</span>
+                <span class="warnstate"></span>
+                <a href="javascript:void(0);" class="btnBase btnzk">展开</a>
+                <div class="clear"></div>
+                <dl class="formItem">
+                  <dt><em class="mustIco"></em>资质名称</dt>
+                  <dd>
+                    <ul class="zizhiList">
+                      <li title="易爆危险品处理认证">易爆危险品处理认证<a href="javascript:void(0);" class="closeLi"></a></li>
+                    </ul>
+                    <a href="javascript:void(0);" class="btnXuanze">请选择</a>
+                    <div class="clear"></div>
+                  </dd>
+                  <div class="clear"></div>
+                 </dl>
+                <div class="clear"></div>
+                <dl class="formItem">
+                <dt>营业资格证</dt>
+                <dd>
+                    <div class="imgUpload" style="width:220px;height:220px;">
+                        <div class="imgWindow">
+                            <table border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td><img src="../../../resources/userCenter/commons/images/add_noP.gif" width="198" height="198"></td>
+                              </tr>
+                            </table>
+                        </div>
+                        <a href="javascript:void(0);" class="btnUpload" style="height:32px;font-size:24px;"><input name="" type="file">上传图片</a>
+                    </div>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            		<dl class="formItem">
+                <dt>交通运输资格证</dt>
+                <dd>
+                    <div class="imgUpload" style="width:220px;height:220px;">
+                        <div class="imgWindow">
+                            <table border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td><img src="../../../resources/userCenter/commons/images/add_noP.gif" width="198" height="198"></td>
+                              </tr>
+                            </table>
+                        </div>
+                        <a href="javascript:void(0);" class="btnUpload" style="height:32px;font-size:24px;"><input name="" type="file">上传图片</a>
+                    </div>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+                <dl class="formItem">
+                    <dt>资格证</dt>
+                    <dd>
+                        <div class="imgUpload" style="width:220px;height:220px;">
+                            <div class="imgWindow">
+                                <table border="0" cellspacing="0" cellpadding="0">
+                                  <tr>
+                                    <td><img src="../../../resources/userCenter/commons/images/add_noP.gif" width="198" height="198"></td>
+                                  </tr>
+                                </table>
+                            </div>
+                            <a href="javascript:void(0);" class="btnUpload" style="height:32px;font-size:24px;"><input name="" type="file">上传图片</a>
+                        </div>
+                    </dd>
+                    <dd class="clear"></dd>
+                </dl>
+                <dl class="formItem">
+                    <dt>资格证</dt>
+                    <dd>
+                        <div class="imgUpload" style="width:220px;height:220px;">
+                            <div class="imgWindow">
+                                <table border="0" cellspacing="0" cellpadding="0">
+                                  <tr>
+                                    <td><img src="../../../resources/userCenter/commons/images/add_noP.gif" width="198" height="198"></td>
+                                  </tr>
+                                </table>
+                            </div>
+                            <a href="javascript:void(0);" class="btnUpload" style="height:32px;font-size:24px;"><input name="" type="file">上传图片</a>
+                        </div>
+                    </dd>
+                    <dd class="clear"></dd>
+                </dl>
+                 <dl class="formItem">
+                    <dt>订单号</dt>
+                    <dd>
+                      <input name="" type="text" class="textBox box212" value="">
+                    </dd>
+                    <dd class="clear"></dd>
+                  </dl>
+                  <dl class="formItem">
+                    <dt>订单状态</dt>
+                    <dd> <span class="radio">
+                      <label>
+                        <input type="radio" name="radio" value="">
+                        所有</label>
+                      </span> <span class="radio">
+                      <label>
+                        <input type="radio" name="radio" value="">
+                        付款</label>
+                      </span> <span class="radio">
+                      <label>
+                        <input type="radio" name="radio" value="" checked>
+                        发货</label>
+                      </span> </dd>
+                    <dd class="clear"></dd>
+                  </dl>
+                  <dl class="formItem">
+                    <dt>下单时间</dt>
+                    <dd>
+                      <input name="" type="text" class="timeBox box98 textBox" value="" >
+                    </dd>
+                    <dd class="lineColor">&nbsp;—&nbsp;</dd>
+                    <dd>
+                      <input name="" type="text" class="timeBox box98 textBox" value="" >
+                    </dd>
+                    <dd class="clear"></dd>
+                  </dl>
+                  <dl class="formItem">
+                    <dt>订单状态</dt>
+                    <dd>
+                      <div class="selList"> <span class="textBox">
+                        <input name="" type="text" class="box184" placeholder="请选择状态" readonly>
+                        <em class="iconDown readOnly"></em> </span>
+                        <ul>
+                          <li>下单</li>
+                          <li>付款</li>
+                          <li>发货</li>
+                          <li>成功</li>
+                        </ul>
+                      </div>
+                    </dd>
+                    <dd class="clear"></dd>
+                  </dl>
+                  
+                  <dl class="formItem">
+                    <dt>订单号</dt>
+                    <dd>
+                      <textarea name="" cols="" rows="" ></textarea>
+                    </dd>
+                    <dd class="clear"></dd>
+                  </dl>
+                  <dl class="formItem">
+                    <dt>订单状态</dt>
+                    <dd> <span class="checkBox">
+                      <label><input type="checkbox" name="checkbox" value="" checked class="boxchecked">所有</label>
+                      </span>
+                      <span class="checkBox">
+                      <label><input type="checkbox" name="checkbox" value="" checked class="boxchecked">发货</label>
+                      </span>
+                     <span class="checkBox">
+                      <label><input type="checkbox" name="checkbox" value="" checked class="boxchecked">未发货</label>
+                      </span>  </dd>
+                    <dd class="clear"></dd>
+                  </dl>
+                  <div class="clear"></div>
+                  
+                  <div class="btnDiv">
+                  <a href="javascript:void(0);" class="btnBase btnEdit">编辑</a>
+            			<a href="javascript:void(0);" class="btnBase btnSave2">保存</a>
+                  </div>
+              </div>
+              <div class="clear"></div>
+              
+              
+            </div>
+            <!--第二部分 end-->
+            
+            <!--第三部分-->
+            <h2>第三部分</h2>
+            <div class="rzTtem">
+            	<span class="biaoti">认证状态</span>
+            	<div class="rzDiv">
+                <span>我是认证的信用</span>
+                <span class="rzstate"></span>
+                <a href="javascript:void(0);" class="btnBase btnzk">展开</a>
+                <div class="clear"></div>
+                <dl class="formItem">
+                  <dt><em class="mustIco"></em>资质名称</dt>
+                  <dd>
+                    <ul class="zizhiList">
+                      <li title="易爆危险品处理认证">易爆危险品处理认证<a href="javascript:void(0);" class="closeLi"></a></li>
+                      <li title="易爆危险品处理认证">易爆危险品处理认证<a href="javascript:void(0);" class="closeLi"></a></li>
+                      <li title="易爆危险品处理认证">易爆危险品处理认证<a href="javascript:void(0);" class="closeLi"></a></li>
+                      <li title="易爆危险品处理认证">易爆危险品处理认证<a href="javascript:void(0);" class="closeLi"></a></li>
+                      <li title="易爆危险品处理认证">易爆危险品处理认证<a href="javascript:void(0);" class="closeLi"></a></li>
+                      <li title="易爆危险品处理认证">易爆危险品处理认证<a href="javascript:void(0);" class="closeLi"></a></li>
+                      <li title="易爆危险品处理认证">易爆危险品处理认证<a href="javascript:void(0);" class="closeLi"></a></li>
+                    </ul>
+                    <a href="javascript:void(0);" class="btnXuanze">请选择</a>
+                    <div class="clear"></div>
+                  </dd>
+                  <div class="clear"></div>
+                 </dl>
+                <div class="clear"></div>
+                <dl class="formItem">
+                <dt>营业资格证</dt>
+                <dd>
+                    <div class="imgUpload" style="width:220px;height:220px;">
+                        <div class="imgWindow">
+                            <table border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td><img src="../../../resources/userCenter/commons/images/add_noP.gif" width="198" height="198"></td>
+                              </tr>
+                            </table>
+                        </div>
+                        <a href="javascript:void(0);" class="btnUpload" style="height:32px;font-size:24px;"><input name="" type="file">上传图片</a>
+                    </div>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            		<dl class="formItem">
+                <dt>交通运输资格证</dt>
+                <dd>
+                    <div class="imgUpload" style="width:220px;height:220px;">
+                        <div class="imgWindow">
+                            <table border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td><img src="../../../resources/userCenter/commons/images/add_noP.gif" width="198" height="198"></td>
+                              </tr>
+                            </table>
+                        </div>
+                        <a href="javascript:void(0);" class="btnUpload" style="height:32px;font-size:24px;"><input name="" type="file">上传图片</a>
+                    </div>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+                <dl class="formItem">
+                    <dt>资格证</dt>
+                    <dd>
+                        <div class="imgUpload" style="width:220px;height:220px;">
+                            <div class="imgWindow">
+                                <table border="0" cellspacing="0" cellpadding="0">
+                                  <tr>
+                                    <td><img src="../../../resources/userCenter/commons/images/add_noP.gif" width="198" height="198"></td>
+                                  </tr>
+                                </table>
+                            </div>
+                            <a href="javascript:void(0);" class="btnUpload" style="height:32px;font-size:24px;"><input name="" type="file">上传图片</a>
+                        </div>
+                    </dd>
+                    <dd class="clear"></dd>
+                </dl>
+                <dl class="formItem">
+                    <dt>资格证</dt>
+                    <dd>
+                        <div class="imgUpload" style="width:220px;height:220px;">
+                            <div class="imgWindow">
+                                <table border="0" cellspacing="0" cellpadding="0">
+                                  <tr>
+                                    <td><img src="../../../resources/userCenter/commons/images/add_noP.gif" width="198" height="198"></td>
+                                  </tr>
+                                </table>
+                            </div>
+                            <a href="javascript:void(0);" class="btnUpload" style="height:32px;font-size:24px;"><input name="" type="file">上传图片</a>
+                        </div>
+                    </dd>
+                    <dd class="clear"></dd>
+                </dl>
+                 <dl class="formItem">
+                    <dt>订单号</dt>
+                    <dd>
+                      <input name="" type="text" class="textBox box212" value="">
+                    </dd>
+                    <dd class="clear"></dd>
+                  </dl>
+                  <dl class="formItem">
+                    <dt>订单状态</dt>
+                    <dd> <span class="radio">
+                      <label>
+                        <input type="radio" name="radio" value="">
+                        所有</label>
+                      </span> <span class="radio">
+                      <label>
+                        <input type="radio" name="radio" value="">
+                        付款</label>
+                      </span> <span class="radio">
+                      <label>
+                        <input type="radio" name="radio" value="" checked>
+                        发货</label>
+                      </span> </dd>
+                    <dd class="clear"></dd>
+                  </dl>
+                  <dl class="formItem">
+                    <dt>下单时间</dt>
+                    <dd>
+                      <input name="" type="text" class="timeBox box98 textBox" value="" >
+                    </dd>
+                    <dd class="lineColor">&nbsp;—&nbsp;</dd>
+                    <dd>
+                      <input name="" type="text" class="timeBox box98 textBox" value="" >
+                    </dd>
+                    <dd class="clear"></dd>
+                  </dl>
+                  <dl class="formItem">
+                    <dt>订单状态</dt>
+                    <dd>
+                      <div class="selList"> <span class="textBox">
+                        <input name="" type="text" class="box184" placeholder="请选择状态" readonly>
+                        <em class="iconDown readOnly"></em> </span>
+                        <ul>
+                          <li>下单</li>
+                          <li>付款</li>
+                          <li>发货</li>
+                          <li>成功</li>
+                        </ul>
+                      </div>
+                    </dd>
+                    <dd class="clear"></dd>
+                  </dl>
+                  
+                  <dl class="formItem">
+                    <dt>订单号</dt>
+                    <dd>
+                      <textarea name="" cols="" rows="" ></textarea>
+                    </dd>
+                    <dd class="clear"></dd>
+                  </dl>
+                  <dl class="formItem">
+                    <dt>订单状态</dt>
+                    <dd> <span class="checkBox">
+                      <label><input type="checkbox" name="checkbox" value="" checked class="boxchecked">所有</label>
+                      </span>
+                      <span class="checkBox">
+                      <label><input type="checkbox" name="checkbox" value="" checked class="boxchecked">发货</label>
+                      </span>
+                     <span class="checkBox">
+                      <label><input type="checkbox" name="checkbox" value="" checked class="boxchecked">未发货</label>
+                      </span>  </dd>
+                    <dd class="clear"></dd>
+                  </dl>
+                  <div class="clear"></div>
+                  
+                  <div class="btnDiv">
+                  <a href="javascript:void(0);" class="btnBase btnEdit">编辑</a>
+            			<a href="javascript:void(0);" class="btnBase btnSave2">保存</a>
+                  </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <!--第三部分 end-->
+            
+        	</div>
+        </div>
+        <!--选项卡end-->
+    </div>
+    <!--右侧主体 end-->
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<!--底部-->
+<div class="bottomMenu">
+  <div class="wrapper">
+    <dl class="footItem">
+      <dt> <img src="../../../resources/commons/images/gyl_icon_r1_c4.png" width="49" height="48" /> <span>采购流程</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="下单流程">下单流程</a></li>
+        <li><a href="javascript:void(0);" title="订单跟踪">订单跟踪</a></li>
+        <li><a href="javascript:void(0);" title="安全支付">安全支付</a></li>
+        <li><a href="javascript:void(0);" title="企业认证">企业认证</a></li>
+        <li><a href="javascript:void(0);" title="常见问题">常见问题</a></li>
+      </dd>
+    </dl>
+    <dl class="footItem">
+      <dt> <img src="../../../resources/commons/images/gyl_icon_r1_c5.png" width="49" height="48" /> <span>服务与支持</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="物流配送">物流配送</a></li>
+        <li><a href="javascript:void(0);" title="经销商权益">经销商权益</a></li>
+        <li><a href="javascript:void(0);" title="不良品退货">不良品退货</a></li>
+        <li><a href="javascript:void(0);" title="在线咨询">在线咨询</a></li>
+        <li><a href="javascript:void(0);" title="融资操作手册">融资操作手册</a></li>
+      </dd>
+    </dl>
+    <dl class="footItem">
+      <dt> <img src="../../../resources/commons/images/gyl_icon_r1_c6.png" width="49" height="48" /> <span>我的账户</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="子账户管理">子账户管理</a></li>
+        <li><a href="javascript:void(0);" title="密码重置">密码重置</a></li>
+        <li><a href="javascript:void(0);" title="在线打款">在线打款</a></li>
+      </dd>
+    </dl>
+    <dl class="lastItem">
+      <dt> <img src="../../../resources/commons/images/gyl_icon_r1_c7.png" width="49" height="48" /> <span>关于我们</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="公司简介">公司简介</a></li>
+        <li><a href="javascript:void(0);" title="联系我们">联系我们</a></li>
+        <li><a href="javascript:void(0);" title="网站声明">网站声明</a></li>
+      </dd>
+    </dl>
+    <div class="clear"></div>
+  </div>
+</div>
+<!--底部 end--> 
+
+<!--尾部-->
+<div class="footer">
+  <div class="wrapper">
+    <p class="footerLeft">© 2014 成都易科远见科技有限公司 版权所有 蜀ICP备 14005736号</p>
+    <p class="footerRight">成都市高新区吉泰路666号花样年·福年广场2号楼1309室<br>
+      服务热线：028-83190368</p>
+    <div class="clear"></div>
+  </div>
+</div>
+<!--尾部 end-->
+
+<!--弹窗 css-->
+<div class="alertLayerBg"></div>
+<!--选择弹窗-->
+<div class="alterBox">
+	<h6>选择资质名称</h6>
+	<a href="javascript:void(0);" class="layerClose"></a>
+    <div class="alterContent">
+    	<label class="checkItem">
+      	<span class="check checked"><em><input name="checkbox" type="checkbox" value=true checked></em></span>
+        <span class="zizhiLi">易爆危险品处理认证</span>
+      </label>
+      <label class="checkItem">
+      	<span class="check"><em><input name="checkbox" type="checkbox" value=true></em></span>
+        <span class="zizhiLi">易爆危险品处理认证</span>
+      </label>
+      <label class="checkItem">
+      	<span class="check"><em><input name="checkbox" type="checkbox" value=true></em></span>
+        <span class="zizhiLi">易爆危险品处理认证</span>
+      </label>
+      <label class="checkItem">
+      	<span class="check"><em><input name="checkbox" type="checkbox" value=true></em></span>
+        <span class="zizhiLi">易爆危险品处理认证</span>
+      </label>
+      <label class="checkItem">
+      	<span class="check"><em><input name="checkbox" type="checkbox" value=true></em></span>
+        <span class="zizhiLi">易爆危险品处理认证</span>
+      </label>
+      <label class="checkItem">
+      	<span class="check"><em><input name="checkbox" type="checkbox" value=true></em></span>
+        <span class="zizhiLi">易爆危险品处理认证</span>
+      </label>
+      <label class="checkItem">
+      	<span class="check"><em><input name="checkbox" type="checkbox" value=true></em></span>
+        <span class="zizhiLi">易爆危险品处理认证</span>
+      </label>
+      <label class="checkItem">
+      	<span class="check"><em><input name="checkbox" type="checkbox" value=true></em></span>
+        <span class="zizhiLi">易爆危险品处理认证</span>
+      </label>
+      <label class="checkItem">
+      	<span class="check"><em><input name="checkbox" type="checkbox" value=true></em></span>
+        <span class="zizhiLi">易爆危险品处理认证</span>
+      </label>
+      <label class="checkItem">
+      	<span class="check"><em><input name="checkbox" type="checkbox" value=true></em></span>
+        <span class="zizhiLi">易爆危险品处理认证</span>
+      </label>
+      <label class="checkItem">
+      	<span class="check"><em><input name="checkbox" type="checkbox" value=true></em></span>
+        <span class="zizhiLi">易爆危险品处理认证</span>
+      </label>
+      <label class="checkItem">
+      	<span class="check"><em><input name="checkbox" type="checkbox" value=true></em></span>
+        <span class="zizhiLi">易爆危险品处理认证</span>
+      </label>
+      <div class="clear"></div>
+    </div>
+    <div class="btnArea2">
+        <a href="javascript:void(0);" class="altBtnBlue altSure">确定</a>
+        <a href="javascript:void(0);" class="altBtnBlue altCancel">取消</a>
+    </div>
+</div>
+<!--选择弹窗 end-->
+
+<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="../../../resources/userCenter/commons/js/base.js"></script>
+<script src="../../../resources/userCenter/commons/js/zizhi.js"></script>
+<script>
+	$(document).ready(function(){
+	/*选项卡切换*/
+	$(".tabContent").eq(0).show();
+	$(".tabNav li").click(
+		function(){
+			$(this).siblings().removeClass("cur");
+			$(this).siblings().removeClass("bgColor");
+			$(this).addClass("cur");
+			$(this).addClass("bgColor");
+		}
+	)
+	
+	$(".btnzk").live("click",function(){
+		$(this).parent(".rzDiv").css("height","auto");
+		$(this).parent(".rzDiv").css("overflow","visible");
+		$(this).text("收起");
+		$(this).addClass("btnsq");
+	});
+	
+	$(".btnsq").live("click",function(){
+		$(this).parent(".rzDiv").css("height","28px");
+		$(this).parent(".rzDiv").css("overflow","hidden");
+		$(this).text("展开");
+		$(this).removeClass("btnsq");
+	});
+	
+	//随屏滚动js
+	var scrollH2;
+	$(window).scroll(function(){
+		scrollH2 = $(document).scrollTop();
+		if(scrollH2 >= 147){
+			$(".budongBar").addClass("fixed2");
+		}
+		else{
+			$(".budongBar").removeClass("fixed2");
+		}
+	});
+	});
+</script>
+</body>
+</html>

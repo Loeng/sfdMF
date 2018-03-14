@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>咨询管理</title>
+<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/personal/css/myConsult.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/personal/css/personalBase.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/personal/css/style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${webroot}/resources/userCenter/personal/js/appraisal/userConsultMessage.js"></script>
+</head>
+<body>
+	    <div class="rightContent">
+	    <form action="${webroot}/user/appraisal/cobsultMessage"  method="post"  id="consultMessageForm">
+			<input type="hidden" name="pageNum" value="" />	
+	    <div class="formSearch borderColor" >
+            <dl class="formItem">
+                <dt>商品名称</dt>
+                <dd><input id="productName" name="productName" type="text"  class="textBox box212" value="${productName}"/></dd>
+                <dd class="clear"></dd>
+            </dl>
+           
+            <dl class="formItem">
+                <dt>咨询时间</dt>
+                <dd>
+		                <input name="beginDate" id="beginDate" type="text" value="${beginDate}" class="timeBox box98 textBox" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:new Date()})">
+		            </dd>
+		              <dd class="lineColor">&nbsp;—&nbsp;</dd>
+		           <dd>     
+		                <input name="endDate"  id="endDate" type="text"   value="${endDate}" class="timeBox box98 textBox" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:new Date(),minDate:'#F{$dp.$D(\'beginDate\')}'})">
+		           </dd>
+	              <dd class="clear"></dd>
+            </dl>
+             <dl class="formItem">
+	                <dt>是否回复</dt>
+	                <dd>
+	                	<span class="radio"><label><input type="radio" name="replyStatus" #if(replyStatus==null||replyStatus=="") checked=true #end value="">全部</label></span>
+	                   <span class="radio"> <label><input type="radio" name="replyStatus" #if(replyStatus=="true")  checked=true #end value="true">是</label></span>
+	                   <span class="radio"> <label><input type="radio" name="replyStatus" #if(replyStatus=="false")  checked=true  #end value="false">否</label></span>
+	                </dd>
+	                <dd class="clear"></dd>
+                </dl>
+            <div class="clear"></div>
+       </div>
+       </form>
+        <div class="btnArea">
+            <a href="javascript:void(0)" class="btnBase btnSearch" onclick="submitForm();">搜索</a>
+            <a href="javascript:void(0)" class="btnBase btnReset" onclick="resetForm();">清空</a>
+        </div>
+         <div class="formTable borderColor">
+    		<ul>
+        <li class="li1">我的咨询</li>
+        </ul>
+    	  #define(List<com.ekfans.base.store.model.Consult> consults)
+    	  	#if(consults != null && consults.size()==0)
+             	<div class="orderNone">暂时没有符合条件的数据</div>
+          #else
+	    	    #for(com.ekfans.base.store.model.Consult consult:consults)
+			        <div class="consultItem">
+			        	<div class="proInfo">
+			            	<a href="#tag shortLink("01",consult.productId) #end" title="查看商品" class="orderImg" target="_blank">
+			            		<img #if(consult.productPicture != "")src="${webroot}${consult.productPicture }" 
+			            		#else src="${webroot}/resources/store/images/imgdefault.jpg" #end width="76" height="76" alt="${consult.productName }">
+			            	</a>
+			                <span class="orderText"><a href="#tag shortLink("01",consult.productId) #end" target="_blank">${consult.productName }</a></span>
+			              
+			                <div class="clear"></div>
+			            </div>
+			            <div class="auditState">审核状态：
+			            	#if(consult.checkStatus == 1)已通过审核 
+			            	#elseif(consult.checkStatus == -1) 未通过审核
+			            	#elseif(consult.checkStatus == 0) 等待管理员审核
+			            	#end
+			            </div>
+			            <div class="consultContent">
+			            	<div class="myConsult">
+			                	<em class="consultPoint"></em>
+			                	<strong>我的咨询：</strong>${consult.questionAnswer }
+			                </div>
+			                #if(consult.checkStatus == -1)
+				                <div class="serviceReply">
+				                		<em class="consultPoint"></em>	
+					                	<strong>未通过审核原因：${consult.checkNote}</strong>
+				                </div>    
+				              #else
+			              		#if(consult.childList.size()>0)
+				                	<div class="serviceReply">
+				                		<em class="consultPoint"></em>
+					                	#for(com.ekfans.base.store.model.Consult cconsult:consult.childList)
+					                			<strong>客服回复：${cconsult.questionAnswer }</strong>
+					                	#end
+				                	</div>
+				              	#end
+				              #end
+			            </div>
+			            <div class="consultTime">${consult.createTime}</div>
+			        </div>
+	          #end
+	          	${include( "../common/page.jetx")}
+        	#end
+					 <div class="clear"></div>
+					
+					         
+				</div>
+    </div>
+</body>
+</html>

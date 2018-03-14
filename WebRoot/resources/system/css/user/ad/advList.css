@@ -1,0 +1,71 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url("../../demand.css");
+@import url("../../list.css");
+
+/*横排广告*/
+.hengAdv{overflow:hidden; margin:0 auto;}
+.hengAdv li{padding:0 5px; float:left;}
+.hengAdv li img{border:solid 1px #e4e4e4;}
+.hengAp{left:26%; width:auto;}
+.advText{color:#666; display:block; height:28px; line-height:28px; overflow:hidden; text-align:center;}
+
+/*竖排广告*/
+.shuAdv{margin:0 auto; overflow:hidden;}
+.shuAp{height:auto;}
+.shuAdv li{margin:0 auto; text-align:center;}
+.shuAdv li img{border:solid 1px #e4e4e4; height:100%;}
+
+/*单图广告*/
+.danAdv{text-align:center;}
+
+/*图文切换2*/
+.changePic2{height:100%; margin:0 auto;}
+.advDownList{width:100%; margin:-1px auto 0 auto;}
+.advDownList dt{border:solid 1px #e4e4e4; cursor:pointer; text-align:center;}
+.advDownList dd{border:solid 1px #e4e4e4; display:none; text-align:center; border-top:none;}
+.advDownList dd img{width:100%; height:100%;}
+
+
+/*数字按钮样式*/
+.bannerIn .num {overflow:hidden; height: 25px;position: absolute; bottom:12px; left:0; zoom:1; z-index:3 }
+.bannerIn .num li {height:30px; display:block; overflow:hidden; margin-right:1px; line-height:30px; cursor:pointer; background-color:#000; background:rgba(0,0,0,0.5);filter:alpha(opacity=50); float:left;}
+.bannerIn .num li.cur {background:rgba(0,0,0,0.9);filter:alpha(opacity=90);} /*当前项*/
+.bannerIn .num li p{position:relative; color:#fff;}
+
+/*图文切换1*/
+.bannerIn{margin:0 auto; position:relative; overflow:hidden;}
+.bannerPic{height:100%;}
+.bannerPic li{float:left; height:100%;}
+.bannerPic img{display:block; width:100%; height:100%;}
+.bannerIn .text_nav{bottom:0;}
+
+/*大小图切换*/
+.bannerIn .img_nav{width:100%; height:54px; text-align:center; bottom:10px;}
+.bannerIn .img_nav li{width:12%; height:50px; border:solid 2px #ececec; margin:0 3px; display:inline-block; float:none;}
+.bannerIn .img_nav li.cur{border-color:#02AFED;}
+
+/*数字切换*/
+.bannerIn .num_nav{width:100%; text-align:right; bottom:10px; left:0; padding-right:10px;}
+.bannerIn .num_nav li{width:20px; height:20px; line-height:20px; text-align:center; background:#eee; margin:0 4px; display:inline-block; float:none;}
+.bannerIn .num_nav li.cur{background:#02AFED;}
+
+/*图文*/
+.areaContent{line-height:20px; padding:20px; width:800px;}
+.areaContent img{float:left; margin:0 15px 15px 0;}
+
+/*圆点切换*/
+.point_nav{width:100%; position:absolute; text-align:center; bottom:10px;}
+.bannerIn .point_nav li{background:#7d7d7d; display:inline-block; margin:0 5px; width:10px; height:10px; border-radius:5px; cursor:pointer; float:none;}
+.bannerIn .point_nav li.cur{background:#fff;}
+
+/*圆点在右侧*/
+.pointRight .bannerIn{position:relative; padding-right:40px; overflow:hidden;}
+.pointRight .bannerContent{overflow:hidden;}
+.previewContent .pointRight{padding-right:40px; overflow:hidden;}
+.pointRight .bannerPic{height:100%; position:relative; border:none;}
+.pointRight .bannerPic li{float:left; height:100%; width:350px;}
+.pointRight .num{position:absolute; text-align:center; top:0; right:17px; width:10px; height:auto; bottom:auto; left:auto; zoom:1;}
+.pointRight .num li{background:#e6e6e6; display:block; margin:10px auto; width:5px; height:5px; border-radius:2.5px; cursor:pointer; float:none;}
+.pointRight .num li.cur{background:#fff; border:solid 1px #333; width:8px; height:8px; border-radius:5px;}

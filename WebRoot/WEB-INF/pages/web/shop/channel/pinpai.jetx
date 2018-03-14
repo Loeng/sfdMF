@@ -1,0 +1,176 @@
+#define(com.ekfans.base.channel.model.Channel channel)
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>${channel.name}|${webName}</title>
+	<link rel="icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+	<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script src="${webroot}/resources/commons/js/jquery.lazyload.mini.js"></script>
+	<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/web/storeweb/css/base.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/web/storeweb/css/pinpai.css" rel="stylesheet" type="text/css">
+	#if(configStatus == "true")
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/control.js"></script>	
+		<link href="${webroot}/resources/commons/css/control.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script
+		<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+	#end
+	<meta name="Keywords" content="${channel.keyWords}">
+	<meta name="description" content="${channel.description}">
+	<script>
+		// JavaScript Document
+$(document).ready(function() {
+	/*模拟下拉菜单*/
+	$(".select_box").click(function(event){   
+		event.stopPropagation();
+		$(this).find(".option").toggle();
+		$(this).parent().siblings().find(".option").hide();
+	});
+	$(document).click(function(event){
+		var eo=$(event.target);
+		if($(".select_box").is(":visible") && eo.attr("class")!="option" && !eo.parent(".option").length)
+		$('.option').hide();									  
+	});
+	$(".option a").click(function(){
+		var value=$(this).text();
+		$(this).parent().siblings(".select_txt").text(value);
+		$("#select_value").val(value)
+	 })
+	 
+	 $("#channelTop").load($("#ctxpath").val() + "/web/shop/channel/commons/top.jetx",{"channelId":$("#channelId").val(),"channelType":$("#channelType").val(),"returnUrl":window.location.href});
+	 
+	/*current滑动效果*/
+	/*var curLeft=$(".navCur").offset().left;
+	var curWidth=$(".navCur").innerWidth();
+	$(".navHoverCur").css("left",curLeft+"px");
+	$(".navHoverCur").css("width",curWidth+"px");
+	window.onresize=function(){
+		curLeft=$(".navCur").offset().left;
+		$(".navHoverCur").css("left",curLeft+"px");
+	}
+	$(".navLink").mouseover(function(){
+		var ofLeft=$(this).offset().left;
+		var kuan=$(this).innerWidth();
+		if($(this).attr("class").indexOf("navCur")<0){
+			$(".navCur").css("color","#333");
+		}
+		else{
+			$(".navCur").css("color","#fff");
+		}
+		$(".navHoverCur").animate({left:ofLeft+"px"},100);
+		$(".navHoverCur").animate({width:kuan+"px"},100);
+	})
+	
+	$(document).mousemove(function(e){
+		if(e.pageY>70||e.pageY==0){
+			$(".navHoverCur").css("left",curLeft+"px");
+			$(".navHoverCur").css("width",curWidth+"px");
+			$(".navCur").css("color","#fff");
+		}
+	})*/
+});
+
+function changIndexs(url,name){
+	if($("#indexHtml")){
+		$("#indexHtml").attr("href",url);
+		$("#indexHtml").html(name);
+	}
+}
+
+function setCookie(c_name, value, expiredays){
+	var exdate=new Date(); 
+	exdate.setDate(exdate.getDate() + expiredays); 
+	document.cookie=c_name+ "=" + escape(value) + ((expiredays==null) ? "" : ";expires="+exdate.toGMTString());
+}
+
+/*var jq=jQuery.noConflict();
+jq(function(){jq("img").lazyload({placeholder:"../../../commons/images/big_load.gif",effect:"fadeIn"});});*/
+	</script>
+	<script>
+		$(document).ready(function() {
+    $(".hotPro .autoAdv").hover(function(){
+		$(this).css("margin-top","-5px");
+	},function(){
+		$(this).css("margin-top","0");
+	})
+	
+	$(".proList").each(function(){
+		for(i=0;i<4;i++){
+			$(this).children(".proItem").eq(i).css("margin-top","0")
+		}
+    });
+	
+	/*选项卡切换*/
+	$(".tabNav li").click(function(){
+		$(this).siblings().removeClass("cur");
+		$(this).addClass("cur");
+		var dom=$(this).parent().siblings(".tabContent");
+		var index=$(this).parent().children().index(this);
+		dom.hide();
+		dom.eq(index).show();
+	})
+	//load加载
+	$("#showProducts").load($("#ctxpath").val() + "/web/storeweb/channelConfigByLoad/"+$('#objectId').val());
+	
+	var ctxpath = $('#ctxpath').val();
+	$.post(ctxpath + "/user/center/top",function(data){
+		$("#shopCartNumShow").empty();
+		$("#shopCartNumShow").html(data);
+	});
+	
+	
+});
+
+		
+	</script>
+</head>
+<body>
+	<input type="hidden" name="ctxpath" id="ctxpath" value="${ctxpath}" />
+	<input type="hidden" name="channelId" id="channelId" value="${channelId}" />
+	<input type="hidden" name="channelType" id="channelType" value="${channel.type}" />
+	#if(configStatus == "true")
+		<!-- 频道配置导航条 -->
+		#include("../../channel/commons/config/config-top.jetx")
+		<!-- 频道配置导航条 end -->
+  #end
+	<div class="wrapper">
+	  <div class="header" id="channelTop"></div>
+	</div>
+	
+	<div class="headerLine">
+		<div class="wrapper">
+			<a href="${webroot}/user/cart/userShopCart" title="购物车" class="shoppingCart"><em id="shopCartNumShow">99</em>购物车</a>
+		<!--	<span title="吃货热线：${webPhone}" class="hotLine">吃货热线：${webPhone}</span> -->
+			<img src="${webroot}/resources/web/storeweb/images/bingtang.png" alt="冰冰糖糖" class="bingtangImg">
+		</div>
+		<div class="orangeLine"></div>
+	</div>
+	
+	<div class="main">
+		<div class="content">
+			<!--编辑器写的内容-->
+			<img src="${webroot}/resources/web/storeweb/pic/pinpai.jpg" width="424" height="569" alt="品牌故事" style="float:left; margin:0 20px 20px 0;">
+			<div style="float:left; width:455px;">
+				<p>永兴冰糖橙是永兴县农技人员通过株系选育而成的一种优质水果，甜润爽口，品质极优。1995年获第二届中国农博会金奖，1999年-2005年连续七届获得湖南省农博会金奖和最畅销产品奖，是湖南省柑橘名牌产品。2009年11月29日，在陕西西安举办的2009年全国名优果品展评暨中国果蔬产业品牌论坛上，永兴冰糖橙被正式授予“中国十大名橙”称号，这是该橙继成功在国家工商总局注册“永兴冰糖橙”原产地证明商标后，继后又获得国家级“金字招牌”。</p>
+				<p>永兴县位于湖南省东南部、郴州市北部，以其独特的地理位置，素有“冰糖橙之乡”的美誉。[1] 永兴县属中亚热带季风湿润气候，高温多湿，雨量集中，严寒期短，无霜期长，春湿多变，夏秋多旱，冬寒雪少。年均太阳辐射总量为108大卡/cm2，年均日照1629.2小时，年平均气温17.6℃，极端最高气温39.8℃，极端最低气温-8.3℃，≥10℃年活动积温5537℃，年均无霜期314天，年降水量为1417mm，年蒸发量1361.9mm，相对湿度83%，年平均雾日42.9天。该县因独特的自然气候盛产永兴冰糖橙，使该县还获全国唯一的“中国优质冰糖橙基地重点县”等称号。永兴冰糖橙于1978年引进后，经永兴县农业科技人员精心选育，培育出了优良的柑橘品种。，可保证永兴冰糖橙每年种植面积增长10%以上的需要。2009年底，永兴冰糖橙种植面积已达11万亩，总产量达6.5万吨，实现产值2.6亿元。种植区域遍布全县21个乡镇、204个村，拥有专业种植户10000余户，有上百家上规模的专业合作社组织，基本形成了稳定的发展格局。到“十二五”期末，永兴冰糖橙种植面积将从现有的10多万亩翻一个番达到20万亩，实现年产原果25万吨，产值15亿元。</p>
+			</div>
+			<div class="clear"></div>
+			<!--编辑器写的内容 end-->
+		</div>
+	</div>
+	<div class="bottomSplit"></div>
+	
+  <div id="buttomDiv"></div>
+  <script src="${webroot}/resources/web/gylweb/js/backtop.js"></script>
+  <div style="display:none">
+		<script src="http://s95.cnzz.com/z_stat.php?id=1253965659&web_id=1253965659" language="JavaScript"></script>
+	</div>
+</body>
+</html>

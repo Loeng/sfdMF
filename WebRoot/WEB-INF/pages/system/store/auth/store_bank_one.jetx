@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/store/storeCheck.css">
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/base.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/store/auth/store_bank.js"></script>
+</head>
+
+<body>
+#define(com.ekfans.base.store.model.Store store)
+#define(com.ekfans.base.store.model.StoreLegal storelegal)
+#define(List<com.ekfans.base.store.model.StoreLegalResume> slrlist)
+<input type="hidden" id="ctxpath" value="${webroot}" />
+
+<div class="ht_btn sh_btn">
+	<a href="${webroot}/system/store/bank/jumplist" class="btn">返回列表</a>
+</div>
+<div class="step">
+	<div class="stepItem alreadyItem">
+	  <a href="${webroot}/system/store/bank/checkone/${store.id}" onmouseout="tempOut(this,2)" onmouseover="tempOver(this)">
+	  	<em class="stepIcon">2</em>
+	  </a>
+	  <span class="stepText">法人信息认证</span>
+	  #if(store.bankStatus=="1")
+    	<em class="stateIcon ingIcon"></em>
+    #elseif(store.bankStatus=="2")
+    	<em class="stateIcon failIcon"></em>
+    #elseif(store.bankStatus=="3")
+    	<em class="stateIcon sucIcon"></em>
+    #end
+	</div>
+	<div class="stepItem">
+	  <a href="${webroot}/system/store/bank/checktwo/${store.id}" onmouseout="tempOut(this,1)" onmouseover="tempOver(this)">
+	  	<em class="stepIcon">2</em>
+	  </a>
+	  <span class="stepText">近期财务数据</span>
+	  #if(store.bankStatus=="1")
+    	<em class="stateIcon ingIcon"></em>
+    #elseif(store.bankStatus=="2")
+    	<em class="stateIcon failIcon"></em>
+    #elseif(store.bankStatus=="3")
+    	<em class="stateIcon sucIcon"></em>
+    #end
+	</div>
+	<div class="clear"></div>
+</div>
+<div class="forms">
+	<div class="formSection">
+	  <h3 class="borderBottom">法人信息</h3>
+	  <div class="formIn">
+	    <span class="formItem">
+	      <span class="formName">姓名</span>
+	      <span class="formText">${storelegal.legalName}</span>
+	    </span>
+	    <span class="formItem">
+	      <span class="formName">身份证号</span>
+	      <span class="formText">${storelegal.legalIdCard}</span>
+	    </span>
+	    <span class="formItem">
+	      <span class="formName">出生日期</span>
+	      <span class="formText">${storelegal.legalBirth}</span>
+	    </span>
+	    <span class="formItem">
+	      <span class="formName">性别</span>
+	      <span class="formText">#if(storelegal.legalSex) 男 #else 女 #end</span>
+	    </span>
+	    <span class="formItem">
+	      <span class="formName">民族</span>
+	      <span class="formText">${storelegal.legalNation}</span>
+	    </span>
+	    <span class="formItem">
+	      <span class="formName">学历</span>
+	      <span class="formText">${storelegal.legalEducation}</span>
+	    </span>
+	    <span class="formItem">
+	      <span class="formName" style="min-width:51px;">籍贯</span>
+	      <span class="formText">${storelegal.legalBplace}</span>
+	    </span>
+	    <span class="formItem">
+		    <span class="formName">政治面貌</span>
+		    <span class="formText">${storelegal.legalPan}</span>
+	    </span>
+	    <span class="formItem">
+	      <span class="formName">职称</span>
+	      <span class="formText">${storelegal.jobTitle}</span>
+	    </span>
+	    <span class="formItem">
+	      <span class="formName">任现职时间</span>
+	      <span class="formText">${storelegal.hisCurrentTime}</span>
+	    </span>
+	    <div class="clear"></div>
+	  </div>
+	  <h3 class="borderBottom">简历信息</h3>
+	  <div class="formIn">
+	    #if(slrlist!=null && slrlist.size()>0)
+	    	#for(com.ekfans.base.store.model.StoreLegalResume slr : slrlist)
+	    		#if(for.index==1)
+	    			<div class="resume listFirst">
+	    		#else
+	    			<div class="resume">
+	    		#end
+		    		<span class="formName">时间</span>
+			      <span class="formText">${slr.startTime}</span>
+			      <span class="formLine">-</span>
+			      <span class="formText">${slr.endTime}</span>
+			      <span class="formName">任职单位</span>
+			      <span class="formText">${slr.detailInfo}</span>
+			      <span class="formName">职务</span>
+			      <span class="formText">${slr.position}</span>
+			      <div class="clear"></div>
+			    </div>
+	    	#end
+	    #end
+	  </div>
+	</div>
+	<div class="clear"></div>
+	#if(store.bankStatus=="1")
+		<div id="dis${store.id}">
+			<a href="javascript:checkPass('${store.id}', 2, 3);" class="btnBottom">通过</a>
+			<a href="javascript:checkPass('${store.id}', 2, 2);" class="btnBottom">拒绝</a>
+			<div class="decline">
+			  <em class="textPoint"></em>
+			  <textarea name="checkNote" placeholder="请输入拒绝理由"></textarea>
+			</div>
+		</div>
+	#end
+</div>
+</body>
+</html>

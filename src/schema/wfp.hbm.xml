@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ekfans.base.wfOrder.model">
+
+	<!-- 合同表 -->
+	<class name="Contract" table="contract" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="name" type="string" column="CONTRACT_NAME" />
+		<property name="contractNo" type="string" column="CONTRACT_NO" />
+		<property name="type" type="string" column="TYPE" />
+		<property name="firstId" type="string" column="FIRST_ID" />
+		<property name="secondId" type="string" column="SECOND_ID" />
+		<property name="startTime" type="string" column="START_TIME" />
+		<property name="endTime" type="string" column="END_TIME" />
+		<property name="quantity" type="double" column="QUANTITY" />
+		<property name="wfType" type="string" column="WF_TYPE" />
+		<property name="creatorId" type="string" column="CREATOR" />
+		<property name="file" type="string" column="FILE" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="orgId" type="string" column="ORG_ID" />
+		<property name="isDel" type="string" column="IS_DEL" />
+		<property name="contractCheckStatus" type="string"
+			column="CONTRACT_CHECK_STATUS" />
+		<property name="partyAORpartyB" type="string" column="PARTYAORPARTYB" />
+		<property name="status" type="boolean" column="CONTRACT_STATUS" />
+		<property name="freightType" type="string" column="FREIGHT_TYPE" />
+		<property name="marginScale" type="double" column="MARGIN_SCALE" />
+		<property name="payType" type="string" column="PAYTYPE" />
+		<property name="ykjPrice" type="double" column="YKJPRICE" />
+		<property name="weightType" type="string" column="WEIGHT_TYPE" />
+		<property name="ykjType" type="boolean" column="YKJ_TYPE" />
+	</class>
+
+	<!-- 合同关系表 -->
+	<class name="ContractRel" table="CONTRACT_REL" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="contractId" type="string" column="CONTRACT_ID" />
+		<property name="ysContractId" type="string" column="YS_CONTRACT_ID" />
+		<property name="ysStoreId" type="string" column="YS_STORE_ID" />
+	</class>
+
+	<!-- 合同表含量表 -->
+	<class name="ContractContent" table="CONTRACT_CONTENT"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="contractId" type="string" column="CONTRACT_ID" />
+		<property name="name" type="string" column="NAME" />
+		<property name="type" type="boolean" column="TYPE" />
+		<property name="chargingType" type="string" column="CHARGING_TYPE" />
+		<property name="chargingUnit" type="string" column="CHARGING_UNIT" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+	</class>
+
+	<!-- 合同表含量价格区间表 -->
+	<class name="ContractDetails" table="contract_detials"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="contentName" type="string" column="CONTENT_NAME" />
+		<property name="startRegion" type="double" column="START_REGION" />
+		<property name="endRegion" type="double" column="END_REGION" />
+		<property name="price" type="big_decimal" column="PRICE" />
+		<property name="contractId" type="string" column="CONTRACT_ID" />
+		<property name="type" type="string" column="TYPE" />
+		<property name="contractContentId" type="string" column="CONTRACT_CONTENT_ID" />
+		<property name="contractContentName" type="string"
+			column="CONTRACT_CONTENT_NAME" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+	</class>
+	<!-- 合同表车辆价格表 -->
+	<class name="ContractCars" table="CONTRACT_CARS" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="carInfoId" type="string" column="CAR_INFO_ID" />
+		<property name="price" type="big_decimal" column="PRICE" />
+		<property name="contractId" type="string" column="CONTRACT_ID" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+	</class>
+
+	<!-- 合同报批表 -->
+	<class name="ScrapWfp" table="SCRAP_WFP" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="type" type="string" column="TYPE" />
+		<property name="creator" type="string" column="CREATOR" />
+		<property name="parentId" type="string" column="PARENT_ID" />
+		<property name="contractId" type="string" column="CONTRACT_ID" />
+		<property name="contractName" type="string" column="CONTRACT_NAME" />
+		<property name="contractNo" type="string" column="CONTRACT_NO" />
+		<property name="salId" type="string" column="SAL_ID" />
+		<property name="salAddress" type="string" column="SAL_ADDRESS" />
+		<property name="salMan" type="string" column="SAL_MAN" />
+		<property name="salPhone" type="string" column="SAL_PHONE" />
+		<property name="salZipCode" type="string" column="SAL_ZIP_CODE" />
+		<property name="buyId" type="string" column="BUY_ID" />
+		<property name="buyAddress" type="string" column="BUY_ADDRESS" />
+		<property name="buyMan" type="string" column="BUY_MAN" />
+		<property name="buyPhone" type="string" column="BUY_PHONE" />
+		<property name="buyZipCode" type="string" column="BUY_ZIP_CODE" />
+		<property name="wfName" type="string" column="WF_NAME" />
+		<property name="code" type="string" column="CODE" />
+		<property name="wfmlId" type="string" column="WFML_ID" />
+		<property name="ingeredients" type="string" column="INGREDIENTS" />
+		<property name="characters" type="string" column="CHARACTERS" />
+		<property name="shape" type="string" column="SHAPE" />
+		<property name="quantity" type="double" column="QUANTITY" />
+		<property name="batch" type="int" column="BATCH" />
+		<property name="startTime" type="string" column="START_TIME" />
+		<property name="endTime" type="string" column="END_TIME" />
+		<property name="production" type="string" column="PRODUCTION" />
+		<property name="handle" type="string" column="HANDLE" />
+		<property name="handleNote" type="string" column="HANDLE_NOTE" />
+		<property name="packs" type="string" column="PACKS" />
+		<property name="transType" type="string" column="TRANS_TYPE" />
+		<property name="transTool" type="string" column="TRANS_TOOL" />
+		<property name="transLine" type="string" column="TRANS_LINE" />
+		<property name="reports" type="string" column="REPORTS" />
+		<property name="applications" type="string" column="APPLICATION" />
+		<property name="checkStatus" type="string" column="CHECK_STATUS" />
+		<property name="checkNote" type="string" column="CHECK_NOTE" />
+		<property name="checkTime" type="string" column="CHECK_TIME" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+		<property name="lineId" type="string" column="LINE_ID" />
+		<property name="course" type="string" column="COURSE" />
+	</class>
+	<!-- 合同报批运输企业表 -->
+	<class name="ScrapWfpTrans" table="SCRAP_WFP_TRANS"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="contractId" type="string" column="CONTRACT_ID" />
+		<property name="transContractId" type="string" column="TRANS_CONTRACT_ID" />
+		<property name="scrapWfpId" type="string" column="SCRAP_WFP_ID" />
+		<property name="transId" type="string" column="TRANS_ID" />
+		<property name="transAddress" type="string" column="TRANS_ADDRESS" />
+		<property name="transMan" type="string" column="TRANS_MAN" />
+		<property name="transPhone" type="string" column="TRANS_PHONE" />
+		<property name="transZipCode" type="string" column="TRANS_ZIP_CODE" />
+		<property name="startTime" type="string" column="START_TIME" />
+		<property name="endTime" type="string" column="END_TIME" />
+		<property name="emergencyPlan" type="string" column="EMERGENCY_PLAN" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+	</class>
+
+
+	<!-- 危废订单表 -->
+	<class name="WfOrder" table="WF_ORDER" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="assigned" />
+		</id>
+		<property name="scrapId" type="string" column="SCRAP_ID" />
+		<property name="contractId" type="string" column="CONTRACT_ID" />
+		<property name="contractName" type="string" column="CONTRACT_NAME" />
+		<property name="creator" type="string" column="CREATOR" />
+		<property name="saleId" type="string" column="SALE_ID" />
+		<property name="saleName" type="string" column="SALE_NAME" />
+		<property name="buyId" type="string" column="BUY_ID" />
+		<property name="buyName" type="string" column="BUY_NAME" />
+		<property name="wfpName" type="string" column="WFP_NAME" />
+		<property name="wfpTotal" type="double" column="WFP_TOTAL" />
+		<property name="mileage" type="double" column="MILEAGE" />
+		<property name="freightBuyer" type="boolean" column="FREIGHT_BUYER" />
+		<property name="freight" type="big_decimal" column="FREIGHT" />
+		<property name="countType" type="boolean" column="COUNT_TYPE" />
+		<property name="contractOriginal" type="big_decimal" column="CONTRACT_ORIGINAL" />
+		<property name="actualPrice" type="big_decimal" column="ACTUAL_PRICE" />
+		<property name="totalPrice" type="big_decimal" column="TOTAL_PRICE" />
+		<property name="realPrice" type="big_decimal" column="REAL_PRICE" />
+		<property name="realTotalPrice" type="big_decimal" column="REAL_TOTAL_PRICE" />
+		<property name="yfType" type="boolean" column="YF_TYPE" />
+		<property name="yfPrice" type="big_decimal" column="YF_PRICE" />
+		<property name="payPrice" type="big_decimal" column="PAY_PRICE" />
+		<property name="payStatus" type="string" column="PAY_STATUS" />
+		<property name="status" type="string" column="STATUS" />
+		<property name="payBankId" type="string" column="PAY_BANK_ID" />
+		<property name="buySureStatus" type="boolean" column="BUY_SURE_STATUS" />
+		<property name="saleSureStatus" type="boolean" column="SALE_SURE_STATUS" />
+		<property name="sendAddress" type="string" column="SEND_ADDRESS" />
+		<property name="sendLinkMan" type="string" column="SEND_LINK_MAN" />
+		<property name="sendLinkPhone" type="string" column="SEND_LINK_PHONE" />
+		<property name="takeAddress" type="string" column="TAKE_ADDRESS" />
+		<property name="takeLinkMan" type="string" column="TAKE_LINK_MAN" />
+		<property name="takeLinkPhone" type="string" column="TAKE_LINK_PHONE" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+		<property name="ykjType" type="boolean" column="YKJ_TYPE" />
+		<property name="listStatus" type="string" column="LIST_STATUS" />
+		<property name="returnPayId" type="string" column="RETURN_PAY_ID" />
+		<property name="dataStatus" type="boolean" column="DATA_STATUS" />
+		<property name="lineId" type="string" column="LINE_ID" />
+		<property name="bankOrderId" type="string" column="BANK_ORDER_ID" />
+	</class>
+
+    <!-- 危费订单九鼎支付id关联关系表 -->
+    <class name="com.ekfans.base.wfOrder.model.WfOrderJiudingPayRel" table="WF_ORDER_JIUDINGPAY_REL" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+            <generator class="assigned" />
+		</id>
+        <property name="wfOrderId" type="string" column="WF_ORDER_ID" />
+    </class>
+
+	<!-- 订单支付日志表 -->
+	<class name="OrderPayLog" table="ORDER_PAY_LOG" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="orderId" type="string" column="ORDER_ID" />
+		<property name="storeId" type="string" column="STORE_ID" />
+		<property name="userId" type="string" column="USER_ID" />
+		<property name="price" type="big_decimal" column="PRICE" />
+		<property name="orderType" type="string" column="ORDER_TYPE" />
+		<property name="payType" type="string" column="PAY_TYPE" />
+		<property name="status" type="string" column="STATUS" />
+		<property name="queryId" type="string" column="QUERY_ID" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="payPattern" type="string" column="PAY_PATTERN" />
+		<property name="bankId" type="string" column="BANK_ID" />
+		<property name="payCert" type="string" column="PAY_CERT" />
+	</class>
+
+	<!-- 危废订单车辆信息表 -->
+	<class name="WfOrderTrans" table="WF_ORDER_TRANS" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="wfOrderId" type="string" column="WF_ORDER_ID" />
+		<property name="payStoreId" type="string" column="PAY_STORE_ID" />
+		<property name="transStoreId" type="string" column="TRANS_STORE_ID" />
+		<property name="transStoreName" type="string" column="TRANS_STORE_NAME" />
+		<property name="carInfoId" type="string" column="CAR_INFO_ID" />
+		<property name="carNum" type="string" column="CARNUM" />
+		<property name="num" type="double" column="NUM" />
+		<property name="fiveSingle" type="string" column="FIVESINGLE" />
+		<property name="supercargo" type="string" column="SUPERCARGO" />
+		<property name="supercargoName" type="string" column="SUPERCARGO_NAME" />
+		<property name="supercargoPhone" type="string" column="SUPERCARGO_PHONE" />
+		<property name="supercargoCarNo" type="string" column="SUPERCARGO_CARNO" />
+		<property name="supercargoLicenseNum" type="string"
+			column="SUPERCARGO_LICENSE_NUM" />
+		<property name="freight" type="big_decimal" column="FREIGHT" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="creator" type="string" column="CREATOR" />
+		<property name="dataStatus" type="boolean" column="DATA_STATUS" />
+	</class>
+	<!-- 危废订车辆驾驶员表 -->
+	<class name="WfOrderTransDriver" table="WF_ORDER_TRANS_DRIVER"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="wfOrderId" type="string" column="WF_ORDER_ID" />
+		<property name="wfOrderTransId" type="string" column="TRANS_STORE_TRANS_ID" />
+		<property name="transStoreId" type="string" column="TRANS_STORE_ID" />
+		<property name="driver" type="string" column="DRIVER" />
+		<property name="driverName" type="string" column="DRIVER_NAME" />
+		<property name="driverPhone" type="string" column="DRIVER_PHONE" />
+		<property name="driverCarNo" type="string" column="DRIVER_CARNO" />
+		<property name="driverLicenseNum" type="string" column="DRIVER_LICENSE_NUM" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="dataStatus" type="boolean" column="DATA_STATUS" />
+	</class>
+	<!-- 危废订单品味信息表 -->
+	<class name="WfOrderPrice" table="WF_ORDER_PRICE" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="wfOrderId" type="string" column="WF_ORDER_ID" />
+		<property name="contractContentId" type="string" column="CONTRACT_CONTENT_ID" />
+		<property name="contentName" type="string" column="CONTENT_NAME" />
+		<property name="content" type="double" column="CONTENT" />
+		<property name="contentQuantity" type="double" column="CONTENT_QUANTITY" />
+		<property name="contentPrice" type="big_decimal" column="CONTENT_PRICE" />
+		<property name="contentTotalPrice" type="big_decimal" column="CONTENT_TOTAL_PRICE" />
+		<property name="chargingType" type="string" column="CHARGING_TYPE" />
+		<property name="chargingUnit" type="string" column="CHARGING_UNIT" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="orderDetailId" type="string" column="ORDER_DETAIL_ID" />
+		<property name="position" type="int" column="POSITION" />
+		<property name="coefficient" type="double" column="COEFFICIENT" />
+		<property name="finalPrice" type="big_decimal" column="FINAL_PRICE" />
+	</class>
+	<!-- 危废订单品味明细表 -->
+	<class name="WfOrderDetail" table="WF_ORDER_DETAIL"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="wfOrderId" type="string" column="WF_ORDER_ID" />
+		<property name="weight" type="big_decimal" column="WEIGHT" />
+		<property name="moistureContent" type="big_decimal" column="MOISTURE_CONTENT" />
+		<property name="dryWeight" type="big_decimal" column="DRY_WEIGHT" />
+		<property name="price" type="big_decimal" column="PRICE" />
+		<property name="totalPrice" type="big_decimal" column="TOTAL_PRICE" />
+		<property name="testReport" type="string" column="TEST_REPORT" />
+		<property name="position" type="int" column="POSITION" />
+	</class>
+
+	<!-- 危废订单日志表 -->
+	<class name="WfOrderLog" table="WF_ORDER_LOG" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="wfOrderId" type="string" column="WF_ORDER_ID" />
+		<property name="creator" type="string" column="CREATOR" />
+		<property name="creatorName" type="string" column="CREATOR_NAME" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+	</class>
+
+	<!-- 订单余额表 -->
+	<class name="ScrapPrices" table="SCRAP_PRICES" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="scrapId" type="string" column="SCRAP_ID" />
+		<property name="orderId" type="string" column="ORDER_ID" />
+		<property name="price" type="big_decimal" column="PRICE" />
+		<property name="listPrice" type="big_decimal" column="LIST_PRICE" />
+		<property name="status" type="string" column="STATUS" />
+		<property name="payStoreId" type="string" column="PAY_STORE_ID" />
+		<property name="salStoreId" type="string" column="SAL_STORE_ID" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+	</class>
+	<!-- 订单余额日志表 -->
+	<class name="ScrapPricesLog" table="SCRAP_PRICES_LOG"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="scrapPricesId" type="string" column="SCRAP_PRICES_ID" />
+		<property name="payOrderId" type="string" column="PAY_ORDER_ID" />
+		<property name="price" type="big_decimal" column="PRICE" />
+		<property name="payStoreId" type="string" column="PAY_STORE_ID" />
+		<property name="salStoreId" type="string" column="SAL_STORE_ID" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+	</class>
+
+</hibernate-mapping>

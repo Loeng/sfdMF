@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/add.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/cooperation/cooperationUpdate.js"></script>
+</head>
+
+<body>
+<input type="hidden" id="ctxpath" value="${webroot}" />
+
+<div class="ht_btn">
+	<a href="javascript:void(0);" class="btn" onclick="formSubmit();">保存</a>
+	<a href="javascript:void(0);" class="btn" onclick="goBack();">返回列表</a>
+</div>
+<form action="${webroot}/system/cooperation/update" method="post" id="coUpdateForm">
+#define(com.ekfans.base.store.model.Cooperation c)
+<input type="hidden" id="id" name="id" value="${c.id}" />
+<input type="hidden" id="createTime" name="createTime" value="${c.createTime}" />
+	<div class="add_pro">
+		<dl class="formBox">
+			<dt>机构名称<em class="mustIco"></em></dt>	
+			<dd>
+				<input type="text" class="i_bg" name="orgName" maxlength="64" value="${c.orgName}" onfocus="checkNameFocus()" onblur="checkNameBlur()" />
+				<span class="ts_xx"></span>
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt>机构类型</dt>
+			<dd>
+				<span class="zt"><label><input type="radio" value="0" name="type" #if(c.type=="0")checked="true"#end />环保合作机构</label></span>
+				<span class="zt"><label><input type="radio" value="1" name="type" #if(c.type=="1")checked="true"#end/>金融合作机构</label></span>
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt>联系人<em class="mustIco"></em></dt>	
+			<dd>
+				<input type="text" class="i_bg" name="contactMan" maxlength="64" value="${c.contactMan}" onfocus="checkManFocus()" onblur="checkManBlur()" />
+				<span class="ts_xx"></span>
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt>联系人电话<em class="mustIco"></em></dt>	
+			<dd>
+				<input type="text" class="i_bg" name="contactPhone" maxlength="11" value="${c.contactPhone}" onfocus="checkPhoneFocus()" onblur="checkPhoneBlur()" />
+				<span class="ts_xx"></span>
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt>联系人邮箱<em class="mustIco"></em></dt>	
+			<dd>
+				<input type="text" class="i_bg" name="email" value="${c.email}" maxlength="32" onfocus="checkMailFocus()" onblur="checkMailBlur()" />
+				<span class="ts_xx"></span>
+			</dd>
+		</dl>
+		<div class="clear"></div>
+	</div>
+</form>
+</body>
+</html>

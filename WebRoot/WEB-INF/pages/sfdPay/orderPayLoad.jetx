@@ -1,0 +1,483 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/commons/js/layer/layer.js"></script>
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/commons/js/jquery.form.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+<script src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+<script src="${webroot}/resources/commons/js/upload/upload.js"></script>
+
+<style>
+#payLayer,#paying{padding:12px 10px; width:580px;}
+.payZone a{color:#393;}
+.payZone a:hover{color:#136333;}
+.payZone .red{padding:0 6px; color:#f00;}
+.payZone .gray{color:#999; padding-right:10px;}
+.payZone .tabNav{height:28px; border-bottom:solid 1px #393; padding-left:70px;}
+.payZone .tabNav li{width:80px; height:28px; line-height:28px; text-align:center; font-size:14px; float:left; margin:0 20px; cursor:pointer;}
+.payZone .tabNav li.cur{background:#393; color:#fff;}
+.payZone .tabContent{min-height:230px;}
+.payZone .banks{text-align:center; padding:14px 10px 0 10px; border-bottom:solid 1px #e6e6e6;}
+.payZone .banks li{display:inline-block; width:158px; height:40px; border:solid 1px #ccc; margin:0 12px 14px 12px; position:relative; cursor:pointer;}
+.payZone .banks li.cur{border-color:#393;}
+.payZone .checkIcon{display:none; background:url(${webroot}/resources/userCenter/commons/images/check_ico.png) no-repeat; width:9px; height:11px; position:absolute; bottom:0; right:0;}
+.payZone .cur .checkIcon{display:block;}
+.payZoneContent{padding-left:100px;}
+.payZone .textItem{display:inline-block; font-size:14px; height:50px; line-height:50px;}
+.payZone .textItem dt{width:68px; padding-right:10px; display:inline-block; color:#999;}
+.payZone .textItem dd{display:inline-block;}
+.payZone .payformItem{margin:10px 0;}
+.payZone .payformItem dt{width:68px; padding-right:10px; float:left; line-height:28px;}
+.payZone .payformItem dd{width:260px; height:53px; float:left;}
+.payZone .payformItem dd .textBox{height:26px; border:solid 1px #e6e6e6; line-height:26px; width:258px; text-indent:0.5em;}
+.payZone .payformItem dd.clear{height:0; clear:both; float:none;}
+.payZone .errorText{display:block; height:25px; line-height:25px; background:#F9D1D3; color:#f00; padding-left:12px;}
+.payZone .chongzhi,.payZone .payFail{height:30px; line-height:30px; margin-top:10px; font-size:14px;}
+.payZone .textLine{text-align:center; display:block; height:70px; line-height:70px; font-size:14px;}
+.payZone .zhanghuItems li{display:inline-block; position:relative; width:158px; height:40px; line-height:40px; margin:0 20px; text-align:center; border:solid 1px #ccc; cursor:pointer;}
+.payZone .zhanghuItems li.cur{border-color:#393;}
+.payZone .imgUpload{float:left; margin:20px 0 0 60px;}
+.hint{height:40px; line-height:40px; font-size:14px; text-align:center;}
+.payZone .btnPaySuc{display:block; width:160px; height:42px; line-height:42px; font-size:14px; margin:20px auto; text-align:center; background:#393; color:#fff;}
+.payZone .btnPaySuc:hover{background:#136333; color:#fff;}
+.payZone .payFail{text-align:center;}
+.payZone .payFail .red,.payZone .payFail a{font-size:16px; padding-left:8px;}
+
+.payZone .payZonebtns{padding:15px 0; text-align:center; border-top:solid 1px #e6e6e6;}
+.payZone .payZonebtn{width:60px; height:26px; line-height:26px; text-align:center; font-size:14px; background:#393!important; border:none; color:#fff; margin:0 20px; display:inline-block;}
+.payZone .payZonebtn:hover{background:#136333!important; color:#fff;}
+
+/*onlinePay*/
+.bankPay .leftCheck{padding: 34px 0 0 40px;}
+.bankPay .leftCheck li{height: 38px;line-height: 38px;text-align: center;position: relative;font-size: 14px;cursor: pointer;}
+.onlinePay .rightCheck{width: 388px;margin: 0 auto;height:auto;padding-top: 20px;}
+
+.onlinePay .rightCheck li{width: 160px;height: 30px;padding-left: 24px;background:url(${webroot}/resources/userCenter/commons/images/check.png) no-repeat left center;margin-bottom: 10px;float: left;margin-left: 10px;}
+.onlinePay .rightCheck li a{display: block;width: 158px;height: 28px;border:solid 1px #ccc;line-height: 28px;text-align: center;font-size: 14px;position: relative;}
+.onlinePay .leftCheck li.cur,.onlinePay .rightCheck li.cur a{border-color:#393;}
+.onlinePay .rightCheck li.cur{background:url(${webroot}/resources/userCenter/commons/images/checked.png) no-repeat left center;}
+.step{margin: 0 auto;padding:20px 0;width: 336px;height:20px;}
+.step li{height: 2px;width: 140px;background:#ccc;position: relative;float: left;}
+.step li em{display: block;width: 18px;height: 18px;border: solid 1px #ccc;border-radius: 50%;background: #fff;line-height: 18px;text-align: center;color: #ccc;position: absolute;left: 0;top: -9px;}
+.step li span{display: block;position: absolute;left: -15px;top: 20px;white-space: nowrap;color: #999;}
+.step li.last{width: 20px;}
+.step li.ready{background: #393;}
+.step li.ready em{border-color: #393;background: #393;color: #fff;}
+.step li.ready span{color: #333;}
+
+.bankSel{width: 240px;margin:20px auto 0 auto;position: relative;}
+.bankSel dt{height:28px;line-height: 28px;border: solid 1px #ccc;text-align: center;display: block;background: url(${webroot}/resources/userCenter/commons/images/select_icon.png) no-repeat 211px -1px;}
+.bankSel dd{position: absolute;top: 29px;left: 0;width: 238px;border: solid 1px #ccc;background: #f1f1f1;display: none;height: 104px;overflow-y: auto;}
+.bankSel dd li{line-height: 26px;text-align: center;color: #999;}
+.bankSel dd li:hover{color: #333;cursor: pointer;}
+</style>
+</head>
+
+<body>
+<div class="payZone">
+	<form  action="${webroot}/sfdorder/paycommit" method="post" id="orderPayForm">
+		<input type="hidden" name="webroot" id="webroot" value="${webroot}"/>
+		<input type="hidden" name="bankId" id="bankId" value=""/>
+		<input type="hidden" name="payType" id="payType" value="${@(com.ekfans.base.wfOrder.model.OrderPayLog).PAYTYPE_YE}"/>
+		<input type="hidden" name="companyPay" id="companyPay" value="false"/>
+		<input type="hidden" name="commonPay" id="commonPay" value="false"/>
+		<input type="hidden" name="orderType" id="orderType" value="${orderType}"/>
+		<input type="hidden" name="orderId" id="orderId" value="${payOrder}"/>
+		<input type="hidden" name="orderPayType" id="orderPayType" value="${payType}"/>
+		<input type="hidden" name="perch" id="perch" value=""/>
+	    <div id="payLayer">
+	        <ul class="tabNav">
+	            <li class="cur" type="${@(com.ekfans.base.wfOrder.model.OrderPayLog).PAYTYPE_YE}">余额支付</li>
+				<li type="${@(com.ekfans.base.wfOrder.model.OrderPayLog).PAYTYPE_OL}">银行直付</li>
+				<li type="${@(com.ekfans.base.wfOrder.model.OrderPayLog).PAYTYPE_OT}">第三方支付</li>
+	            <li type="${@(com.ekfans.base.wfOrder.model.OrderPayLog).PAYTYPE_UL}">线下支付</li>
+	        </ul>
+	        <div class="tabContent yuePay">
+	            <ul class="banks">
+	            	#define(List<com.ekfans.base.user.model.Bank> bankList)
+	            	#for(com.ekfans.base.user.model.Bank bank:bankList)
+	                	<li #if(for.first) class="cur" #end>
+	                		<img src="${webroot}/${bank.logo}" alt="${bank.bankName}" onclick="chosePayBank('${bank.id}','${bank.perch}','${bank.companyPay}','${bank.commonPay}');" width="158px" height="40px"><em class="checkIcon"></em>
+	                	</li>
+	                	#if(for.first)
+		                	<script type="text/javascript">
+			                	$("#bankId").val("${bank.id}");
+			                	$("#perch").val("${bank.perch}");
+			                </script>
+		                	<input type="hidden" name="acFirstBankId" id="acFirstBankId" value="${bank.id}"/>
+	                		<input type="hidden" name="acFirstPerch" id="acFirstPerch" value="${bank.perch}"/>
+		                #end
+
+	                #end
+	                
+	            </ul>
+	            <div class="clear"></div>
+	            <div class="payZoneContent">
+	                <dl class="textItem" style="margin-right:80px;">
+	                    <dt>账户余额</dt>
+	                    <dd>¥<em class="red" id="accountPaySum">0.00</em>元</dd>
+	                </dl>
+	                <dl class="textItem">
+	                    <dt>支付金额</dt>
+	                    <dd>¥<em class="red">${@(java.lang.String).format("%.2f",payAmt)}</em>元</dd>
+	                </dl>
+	                <div class="clear"></div>
+	                
+	                #define(com.ekfans.base.store.model.Store Store)
+	                #define(com.ekfans.base.store.model.Store otherStore)
+					#if(!Store.accountStatus || Store.accountNo == "")
+						<div class="chongzhi">
+							您还未开通该银行账户，请即刻前往<a class="btnkt" href="javascript:void(0);" onclick="onpenAccountPay();">开通</a>
+						</div>
+					#elseif(!otherStore.accountStatus || otherStore.accountNo == "")
+						<div class="chongzhi">对方还未开通该银行账户，请联系对方开通后再支付！</div>
+					#else
+						<dl class="payformItem">
+		                    <dt>支付密码</dt>
+		                    <dd>
+		                        <input name="payPassword" id="password" type="password" class="textBox">
+		                        <span class="errorText" style="display:none;" id="pwdError">密码错误！</span>
+		                    </dd>
+		                    <dd class="clear"></dd>
+		                </dl>
+	                	<div class="chongzhi" style="display:none;">
+	                		你的账户余额不足，点击 <a href="javascript:void(0);" id="czButton" onclick="">立即充值</a>
+	                	</div>
+	                #end
+	            </div>
+	        </div>
+			<div class="tabContent bankPay" style="display:none;">
+				<ul class="leftCheck">
+					<li value="1">银行支付通道</li>
+					<li>支付金额 ¥<em class="red">${@(java.lang.String).format("%.2f",payAmt)}</em>元</li>
+
+				</ul>
+			</div>
+			<div class="tabContent onlinePay" style="display:none;">
+				<input type="hidden" name="ofPayType" id="ofPayType" value="00">
+				<input type="hidden" name="ofCarType" id="ofCarType" value="0">
+				<input type="hidden" name="ofBankAbbr" id="ofBankAbbr" value="00">
+				<ul class="step">
+					<li class="ready" style="cursor:pointer;"><em>1</em><span>支付方式</span></li>
+					<li style="cursor:pointer;"><em>2</em><span>选择银行</span></li>
+					<li class="last" style="cursor:pointer;"><em>3</em><span>确认提交</span></li>
+				</ul>
+				<ul class="rightCheck">
+					<li value="1"><a href="#"><em class="checkIcon"></em>企业对企业支付</a></li>
+					<li value="2"><a href="#"><em class="checkIcon"></em>企业对个人支付</a></li>
+					<li value="3" style="margin-bottom: 0;"><a href="#"><em class="checkIcon"></em>个人对企业支付</a></li>
+					<li value="4" style="margin-bottom: 0;"><a href="#"><em class="checkIcon"></em>个人对个人支付</a></li>
+				</ul>
+				<dl class="bankSel" style="display: none;">
+					<dt>----请选择----</dt>
+					<dd id="ofBankChoseB2B" style="display:none">
+						#for(Map.Entry entry : @(com.ekfans.plugin.jiuding.help.JiudingPayHelp).B2BBanks)
+							<li value="${entry.getValue()}" onclick="javascript:choseOTBank('${entry.getValue()}');">${entry.getKey()}</li>
+						#end
+					</dd>
+					<dd id="ofBankChoseB2C" style="display:none">
+						#for(Map.Entry entry : @(com.ekfans.plugin.jiuding.help.JiudingPayHelp).B2CBanks)
+						<li value="${entry.getValue()}" onclick="javascript:choseOTBank('${entry.getValue()}');">${entry.getKey()}</li>
+						#end
+					</dd>
+				</dl>
+
+			</div>
+
+	        <div class="tabContent otherPay" style="display:none;">
+	        	<div class="payZoneContent">
+	                <dl class="textItem" style="float:left; margin-top:80px;">
+	                    <dt>支付金额</dt>
+	                    <dd>¥<em class="red">${@(java.lang.String).format("%.2f",payAmt)}</em>元</dd>
+	                </dl>
+	                #tag picUpload("payCert","2","200","200","") #end
+	            </div>
+	        </div>
+	    </div>
+	    <div id="paying" style="display:none;">
+	        <div class="textLine">
+	            <em class="gray">支付金额</em>
+	            <span>¥<em class="red">${@(java.lang.String).format("%.2f",payAmt)}</em>元</span>
+	        </div>
+	        <div class="hint">请在弹出的网银页面完成支付，再进行以下操作</div>
+	        <a href="javascript:void(0);" class="btnPaySuc">支付成功</a>
+	        <div class="payFail"><em class="red">支付失败</em>请重新选择<a href="javascript:void(0);">支付方式</a></div>
+	    </div>
+    </form>
+    <div class="payZonebtns">
+        <a href="javascript:void(0);" onclick="paySubmit();" class="payZonebtn" id="btnYes">确定</a>
+        <a href="javascript:void(0);" class="payZonebtn" id="btnNo">取消</a>
+    </div>
+</div>
+<script>
+$(document).on("click",".onlinePay li",function(){
+	$(this).parents(".onlinePay").find("li").removeClass("cur");
+	$(this).addClass("cur");
+	$("#olPayType").val($(this).attr("value"));
+})
+
+$(document).on("click",".rightCheck li",function(){
+    var ofPayType = $(this).attr("value");
+    $("#ofPayType").val(ofPayType);
+    if(ofPayType == "1"){
+        $("#ofBankChoseB2B").show();
+        $("#ofBankChoseB2C").hide();
+	}else{
+        $("#ofBankChoseB2C").show();
+        $("#ofBankChoseB2B").hide();
+	}
+    $(".rightCheck").delay(200).fadeOut(function(){
+        $(".bankSel").show();
+        $(".onlinePay .step li").eq(1).addClass("ready");//到达第二步
+    })
+})
+$(document).on("click",".onlinePay .step li",function(){
+    var index=$(this).parent().children().index(this);
+    if(index==0){
+        $(".bankSel").hide();
+        $(".rightCheck").show();
+        $(".onlinePay .step li").eq(1).removeClass("ready"); //回到第一步
+    }
+    $("#ofPayType").val("00");
+    $("#ofBankAbbr").val("00");
+
+})
+$(document).on("click",".bankSel dt",function(){
+    $(this).next("dd").show();
+})
+$(document).on("click",".bankSel dd li",function(){
+    var value=$(this).attr("value");
+    var text=$(this).text();
+    $(this).parents(".bankSel").find("dt").text(text);
+    $(this).parents("dd").hide();
+})
+
+$(document).on("click",".payZone li",function(){
+	$(this).addClass("cur").siblings().removeClass("cur");
+})
+
+function choseOTBank(val){
+    $("#ofBankAbbr").val(val);
+}
+
+function chosePayBank(bankId,banPerch,companyPay,commonPay){
+	$("#bankId").val(bankId);
+	$("#perch").val(banPerch);
+
+	if("${@(com.ekfans.base.wfOrder.model.OrderPayLog).PAYTYPE_YE}" == $("#payType").val()){
+		loadBankSum(banPerch);
+	}else if("${@(com.ekfans.base.wfOrder.model.OrderPayLog).PAYTYPE_OL}" == $("#payType").val()){
+		addChildPays(companyPay,commonPay,perch);
+	}
+}
+function loadBankSum(banPerch){
+	$.post('${webroot}/sfdorder/loadbanksum/'+ banPerch,function(str){
+		$("#accountPaySum").html(str);
+		if(parseFloat(str) < parseFloat("${payAmt}")){
+			$(".chongzhi").show();
+			$("#czButton").attr("onclick","addAccountAmt('"+ banPerch +"')");
+		}
+	});
+}
+function addAccountAmt(banPerch){
+	if("bcs" == banPerch){
+		window.parent.href="${webroot}/store/manager/ACCOUNT_BANK_ACCOUNT";
+	}
+}
+
+function onpenAccountPay(){
+	var perch = $("#perch").val();
+	if("bcs" == perch){
+		window.parent.href="${webroot}/store/manager/ACCOUNT_BANK_VIEW";
+	}
+}
+
+function addChildPays(companyPay,commonPay,perch){
+	var liHtm = "";
+	if("true" == companyPay){
+		liHtm = liHtm + "<li onclick=\"choseChildPay('1');\" class=\"cur\">企业账户支付<em class=\"checkIcon\"></em></li>";
+		$("#companyPay").val(true);
+		$("#commonPay").val(false);
+	}
+	if("true" == commonPay){
+		if(liHtm != ""){
+			liHtm = liHtm + "<li onclick=\"choseChildPay('0');\">个人账户支付<em class=\"checkIcon\"></em></li>";
+		}else{
+			liHtm = liHtm + "<li onclick=\"choseChildPay('0');\" class=\"cur\">个人账户支付<em class=\"checkIcon\"></em></li>";
+			$("#commonPay").val(true);
+			$("#companyPay").val(false);
+		}
+	}
+	$(".zhanghuItems").html(liHtm);
+}
+
+$(document).on("click",".payZone .tabNav li",function(){
+	var dom=$(this).parent().siblings(".tabContent");
+	var index=$(this).parent().children().index(this);
+	dom.hide();
+	dom.eq(index).show();
+
+	var payType = $(this).attr("type");
+	$("#payType").val(payType);
+	$("#companyPay").val(false);
+	$("#commonPay").val(false);
+	if("${@(com.ekfans.base.wfOrder.model.OrderPayLog).PAYTYPE_OL}" == payType){
+		// 在线支付
+		var firstBankId = $("#olFirstBankId").val();
+		var firstPerch = $("#olFirstPerch").val();
+		$("#bankId").val(firstBankId);
+		$("#perch").val(firstPerch);
+		$(".onlinePay .banks li:first").addClass("cur").siblings().removeClass("cur");
+		if($("#olFirstCompanyPay").val() == "true"){
+			$("#companyPay").val(true);
+		}else if($("#olFirstCommonPay").val() == "true"){
+			$("#commonPay").val(true);
+		}
+	}else if("${@(com.ekfans.base.wfOrder.model.OrderPayLog).PAYTYPE_YE}" == payType){
+		//余额支付
+		var firstBankId = $("#acFirstBankId").val();
+		var firstPerch = $("#acFirstPerch").val();
+		$("#bankId").val(firstBankId);
+		$("#perch").val(firstPerch);
+		loadBankSum(firstPerch);
+		$(".yuePay .banks li:first").addClass("cur").siblings().removeClass("cur");
+
+	}else{
+		//线下支付
+	}
+})
+// $("#btnYes").click(function(){
+// 	if($(".onlinePay:visible").length>0){
+// 		$(".onlinePay").html($("#paying").html());
+// 	}
+// })
+
+$("#btnNo").click(function(){
+	var index = parent.layer.getFrameIndex(window.name);
+	parent.layer.close(index);
+})
+
+function paySubmit(){
+	$("#btnYes").attr("onclick","");
+	var payType = $("#payType").val();
+	if("${@(com.ekfans.base.wfOrder.model.OrderPayLog).PAYTYPE_YE}" == payType){
+		var password = $("#password").val();
+		if(password == "undefine" || password == "" || password == " " || password == null){
+			falert("请输入支付密码！");
+            $("#btnYes").attr("onclick","paySubmit();");
+			return;
+		}
+		$("#btnYes").attr("onclick","");
+		$("#orderPayForm").ajaxSubmit(function (result) {
+
+			if(result == "0"){
+				$("#btnYes").attr("onclick","paySubmit();");
+				falert("支付/提现密码不正确，请重新输入");
+			}else if(result == "1"){
+				$("#btnYes").attr("onclick","");
+				salertWithFunction("支付成功",reloadUrl,null);
+			}else{
+				$("#btnYes").attr("onclick","paySubmit();");
+				falert("支付失败");
+			}
+		});
+	}else if("${@(com.ekfans.base.wfOrder.model.OrderPayLog).PAYTYPE_UL}" == payType){
+		if(!hasChoseFile("payCert")){
+			falert("请上传付款凭证!");
+			return;
+		}
+		$("#btnYes").attr("onclick","");
+		$("#orderPayForm").ajaxSubmit(function (result) {
+			if(result == "0"){
+				$("#btnYes").attr("onclick","paySubmit();");
+				falert("支付/提现密码不正确，请重新输入");
+			}else if(result == "1"){
+				$("#btnYes").attr("onclick","");
+				salertWithFunction("支付成功",reloadUrl,null);
+			}else{
+				$("#btnYes").attr("onclick","paySubmit();");
+				falert("支付失败");
+			}
+		});
+	}else if("${@(com.ekfans.base.wfOrder.model.OrderPayLog).PAYTYPE_OL}" == payType){
+		window.open("${webroot}/web/order/ccbpay/${payOrder}")
+	}else if("${@(com.ekfans.base.wfOrder.model.OrderPayLog).PAYTYPE_OT}" == payType){
+		var ofPayType =$("#ofPayType").val();
+        var ofCarType =$("#ofCarType").val();
+        var ofBankAbbr =$("#ofBankAbbr").val();
+        if(ofPayType == "00"){
+            $("#btnYes").attr("onclick","paySubmit();");
+            falert("请选择支付类型！");
+            return;
+        }
+        if(ofBankAbbr == "00"){
+            $("#btnYes").attr("onclick","paySubmit();");
+            falert("请选择付款银行！");
+            return;
+        }
+
+		window.open("${webroot}/web/order/jiudingpay/${payOrder}/"+ofPayType+"/"+ofCarType+"/"+ofBankAbbr);
+
+		salertWithFunction("等待完成支付操作...", function () {
+			window.parent.location.reload(); //刷新父页面
+		});
+
+	}else{
+		$("#btnYes").attr("onclick","");
+		var bankId = $("#bankId").val();
+		var companyPay = $("#companyPay").val();
+		var commonPay = $("#commonPay").val();
+		var orderType = $("#orderType").val();
+		var orderId = $("#orderId").val();
+		var perch = $("#perch").val();
+		if("bjBank" == perch){
+			if(companyPay == "true"){
+				window.open("${webroot}/sfdpay/bjbank/companypay/" + orderId + "/" + orderType + "/" + bankId + "/" + payType);
+			}else if(commonPay == "true"){
+				window.open("${webroot}/sfdpay/bjbank/commonpay/" + orderId + "/" + orderType + "/" + bankId + "/" + payType);
+			}
+
+			var payAmt = "${payAmt}";
+			payAmt = parseFloat(payAmt)*100;
+			var index = parent.layer.getFrameIndex(window.name);
+			parent.layer.open({
+				type: 2,
+				title: '订单支付',
+				skin: 'payZone-class',
+				area: ['600px','310px'], //宽高
+				content: ['${webroot}/sfdorder/paywait/${orderId}/${orderType}/${payType}/' + payAmt,'no'],
+				success: function(layero,index){
+
+				}
+			});
+			parent.layer.close(index);
+
+		}
+		
+	}
+}
+	function reloadUrl(){
+		window.parent.location.reload();
+	}
+
+function choseChildPay(act){
+	if("0" == act){
+		$("#commonPay").val(true);
+		$("#companyPay").val(false);
+	}else{
+		$("#commonPay").val(false);
+		$("#companyPay").val(true);
+	}
+}
+	loadBankSum($("#acFirstPerch").val());
+	addChildPays($("#olFirstCompanyPay").val(),$("#olFirstCommonPay").val(),$("#olFirstPerch").val());
+</script>
+</body>
+</html>

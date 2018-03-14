@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="gb2312">
+<title>验证邮箱</title>
+
+<link href="${webroot}/resources/store/css/count/mailBound2.css" rel="stylesheet" type="text/css" />
+	    
+		<script type="text/javascript" src="${webroot}/resources/store/js/storeCount/updateEmail.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/store/js/tools.js"></script>
+</head>
+<body>
+
+	<div class="sto_right">
+        <h2><em>验证邮箱</em></h2>
+        <div class="mailTo">我们已向您的<em>${email}</em><br>发送了一封验证邮件，请前往邮箱，完成验证！</div>
+        <div class="split"></div>
+        
+    </div>
+</body>
+</html>

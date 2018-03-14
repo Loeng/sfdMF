@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" >
+	<title>核心企业申请</title>
+		<link rel="icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+	<link rel="shortcut icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/web/webcommon/css/reg.css" />
+</head>
+
+<body>
+${include("../../commons/regAndLogin/regTop.jetx")}
+
+<div class="wrapper">
+  <div class="main">
+		<div class="rg2Content">
+    	<h2>你的申请已成功提交！</h2>
+      <div class="userInfo">你的手机号是：<em>${contactPhone}</em></div>
+      <!--
+      <div class="userInfo">你的联系邮箱：<em>liuguoyu2014@qq.com</em></div>
+      -->
+      <div class="userInfo">你希望的联系时间：<em>${contactTime}</em>&nbsp;&nbsp;我们将在这个时间与你联系</div>
+      <a href="javascript:void(0);" class="btnGo">返回供应链金融中心</a>
+    </div>
+  </div>
+</div>
+
+${include("../../commons/regAndLogin/bottom.jetx")}
+</body>
+</html>

@@ -1,0 +1,133 @@
+/* CSS Document */
+.secondNav{position:absolute; top:48px; left:0; right:0; z-index:98;display:none;}
+.main{margin:20px auto 20px auto;}
+.leftBox{width:850px; float:left;}
+.rightBox{width:331px; float:right;}
+
+/*fastBtns*/
+.fastBtns{ padding-bottom:40px;}
+.findcars{margin-left:50px; float:left; border-right:1px solid #EFEFEF; width:396px;}
+.findcars em{ font-size:18px; color:#136333; background:url(../images/huozhu.png) no-repeat 0 center; padding-left:56px; height:35px; line-height:35px; display:block; margin-bottom:30px;}
+.findhuos{margin-left:65px; float:left;width:337px;}
+.findhuos em{ font-size:18px; color:#136333;background:url(../images/carzhu.png) no-repeat 0 center; padding-left:56px; height:35px; line-height:35px; display:block; margin-bottom:30px;}
+.btnZC{ display:inline-block; width:100px; height:100px; background:url(../images/findcar.png) no-repeat 0 0; margin-right:40px;margin-left: 53px;}
+.btnFH{ display:inline-block; width:100px; height:100px; background:url(../images/hyfabu.png) no-repeat 0 0; margin-right:40px;}
+.btnZH{ display:inline-block; width:100px; height:100px; background:url(../images/findhuo.png) no-repeat 0 0; margin-right:40px;margin-left: 53px;}
+.btnFC{ display:inline-block; width:100px; height:100px; background:url(../images/carfabu.png) no-repeat 0 0; margin-right:40px;}
+
+/*newCars*/
+.newCars{ width:849px; height:38px; line-height:38px; margin-bottom:24px;}
+.newCars h2{float:left; width:90px; color:#fff; background-color:#339933; text-align:center; font-size:14px;}
+.txtScroll-left{float:left; border:1px solid #EFEFEF; border-left:0; height:36px; line-height:36px; font-size:14px; width:738px; padding:0 10px; overflow:hidden;}
+.infoList li{ color:#999999; float:left; margin:0 5px; cursor:pointer;}
+.infoList li span{ color:#333333;}
+.infoList .icon{display:inline-block; height:15px; line-height:15px; font-size:12px; padding:0 4px; margin-right:2px; background:#393; color:#fff;}
+
+/*checkItems*/
+.checkItems{height:42px; position:relative; margin-top:-42px;}
+.checkItems li{width:158px; height:40px; line-height:40px; border:solid 1px #393; color:#393; text-align:center; font-size:16px; position:relative; margin-right:-1px; float:left; cursor:pointer;}
+.checkItems li.cur{background:#393; color:#fff;}
+.fabuLink{display:block; float:left; line-height:42px; font-size:14px; position:absolute; top:-62px; left:354px;}
+
+/*list*/
+.gqList{margin-bottom:20px; position:relative;}
+.tabTit{background-color:#339933; height:38px; line-height:38px; color:#fff; font-size:14px; padding-left:1px;}
+.tabTit li{float:left; text-align:center; border-right:solid 1px #e6e6e6; padding:0 5px;}
+
+.gqTab gqtabList{width:100%; font-size:12px; color:#333333;}
+.gqtabList li{border:solid 1px #e6e6e6; border-top:none; padding:10px 0 10px 0; text-align:left; overflow:hidden;}
+.listFloat{float:left; padding:0 5px; line-height:20px; height:60px; color:#333333; border-right:solid 1px #e6e6e6; overflow:hidden; text-align:center; position:relative;}
+.tdIn{max-height:30px; overflow:hidden; line-height:15px; width:92%; padding:0 4%;}
+.gqtabList li:nth-child(2n){background:#f8f8f8;}
+.gqtabList li:hover{background:#EBF5EC;}
+.tdNum1{width:292px;}
+.tdNum2{width:447px;}
+.tdNum3{width:119px;}
+.tdNum4{width:104px;}
+.tdNum5{width:121px; border-right:none!important;}
+.tdNum6{width:50px;}
+
+.listFloat a{color:#136333; margin:0 3px;}
+.listFloat .inline{text-align:left;}
+.listFloat .rightAlign{text-align:right; padding-right:25%; width:71%; padding-left:0;}
+.listFloat .inline span{display:block; max-height:15px; overflow:hidden;}
+.gyrz{font-size:10px; color:#FFFFFF;  background-color:#339933; border:1px solid #393; }
+.gyls{font-size:10px; color:#333333; border:1px solid #333333;}
+.gyrz,.gyls{border-radius:5px; display:block;text-align: center; width:18px; height:18px; line-height:18px; margin:0 auto;}
+
+.tablecName{color:#999999; display:inline-block;}
+.tablecContent{color:#333333; display:inline-block;}
+.money{ color:#333333;width:65px;overflow: hidden; font-size:16px;}
+a.btnYj,a.btnBj{ display:inline-block; width:60px; height:24px; line-height:24px; text-align:center; background:#339933; color:#fff; border-radius:8px; margin:0 auto;}
+
+.xlxx{line-height:20px; height:20px; position:relative; margin-left:30px; text-align:left;}
+.xlLine{padding-right:30px; overflow:hidden;}
+.xlxx .tablecContent{width:168px; overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.xlxx .tablecName{width:64px; overflow:hidden;}
+.clxx{line-height:20px; height:20px; text-align:left; margin-left:10px;}
+.clxx .tablecContent{width:108px; overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.clxx .tablecName{width:71px; overflow:hidden;}
+.mari20{margin-right:20px;}
+.clxx  .mowi{width:154px;}
+.date{font-size:14px;}
+.font12{font-size:12px;}
+.clxxLine .tablecContent{width:330px;}
+
+
+
+/*filtrate*/
+.filtrate{margin:24px 0;}
+.filtrateIn{border:solid 1px #EEEFEF; padding:0 16px; height:109px; overflow:hidden;}
+.filtrateInAll{height:auto;}
+.filtrateItem{padding:12px 0; border-bottom:dashed 1px #dcdcdc;}
+.filtrateItem dt,.search dt{width:65px; float:left; height:30px; line-height:30px; overflow:hidden; font-size:14px; padding-left:20px;}
+.filtrateLink{width:1040px; float:left; line-height:22px; height:22px; overflow:hidden; padding-top:4px;}
+.filtrateLink a{display:inline-block; padding:0 12px; font-size:14px; color:#666; margin:0 6px 8px 6px;}
+.filtrateLink a.cur,.filtrateLink a:hover{background:#339933; color:#fff;}
+.filtrateMore{float:left; height:17px; margin-top:4px;}
+.filtrateMore a{display:block; width:20px; height:20px; border:solid 1px #efefef; background:url(../../../resources/web/images/icon_downmore.png) no-repeat center center;}
+.filtrateAll .filtrateLink{height:auto;}
+.filtrateAll .filtrateMore a{background:url(../../../resources/web/images/icon_downmore2.png) no-repeat center center;}
+.filtrate .layerToggle{display:block; width:120px; height:25px; line-height:25px; text-align:center; background:#393; color:#fff; margin:0 auto;}
+
+
+/*pageSize*/
+.pageSize{ margin:30px auto 10px auto;height:25px; min-width:100px; text-align:center;}
+.pageSize a.btn{ display:inline-block;margin:0px 2px; height:24px; min-width:20px; border:solid 1px #ddd; border-radius:2px;text-align:center; font-size:12px; line-height:24px; color:#666;}
+.pageSize a.btn:hover,.pageSize a.btn.cur{ border:solid 1px #393;background:#393; color:#fff;}
+.pageSize a.btn em{ padding:0 12px; font-size:12px;font-family:sim sun;}
+.pageSize a.pageControl{/*font-family:SimSun;*/ min-width:42px; text-align:center;}
+.pageSize .pageGolink{border:solid 1px #ddd; display:inline-block; width:30px; padding:0 4px; line-height:24px; height:24px;border-radius:4px;}
+.pageSize a.btnslh,.pageSize a.btnslh:hover{border:0; background-color:#fff; color:#666;}
+.pageSize a.pageGo{ width:46px;}
+.pageSize a.disable,.pageSize a.disable:hover{background-color: #f6f6f6;cursor: default;border: none;color: #ddd;}
+
+/*layer*/
+.layerIn{padding:20px 20px 0 20px;}
+.dataInfo{padding-bottom:5px; border-bottom:solid 1px #e6e6e6;}
+.dataInfo li{font-size:14px; margin:0 1%; width:48%; line-height:22px; float:left; padding-bottom:18px;}
+.dataInfo li span{display:block; float:left; width:183px; height:22px; overflow:hidden;}
+.dataInfo li.line{width:98%;}
+.dataInfo li.line span{width:450px; height:auto;}
+.dataInfo li em{color:#999; display:block; width:84px; text-align:right; float:left;}
+.dataInfo li.clear{float:none; height:0; padding:0;}
+.layerIn .apForm{margin-top:20px;}
+.layerIn .formItem{width:440px; margin:0 0 14px 70px;float:left;}
+.layerIn .formItem dt{width:70px; padding:0 10px; float:left; line-height:30px; height:30px; overflow:hidden; text-align:right;}
+.layerIn .formItem dd{min-height:46px; float:left;}
+.layerIn .formItem dd.clear{height:0; min-height:0;  float:none; clear:both;}
+.layerIn .formItem .formImport{width:350px; float:left;}
+.layerIn .formBox{border:solid 1px #DFE2EA; width:258px; height:28px; text-indent:0.8em; margin-right:12px;}
+.select4 select{width:260px;height:28px;line-height:28px;}
+.select4 .startPlaceArea,.select4 .endPlaceArea{width:86px;}
+
+.startPlaceArea,.endPlaceArea{border:1px solid #e4e4e4;}
+
+
+/*layer check*/
+.update{padding:0 40px;}
+.update .leftLayer,.update .rightLayer{width:180px; padding:27px 39px 24px 39px; margin:14px 0; float:left;}
+.update .leftLayer{border-right:solid 1px #f1f1f1;}
+.update .btnGreen{display:block; width:180px; height:46px; line-height:46px; text-align:center; font-size:20px;}
+.update .text{line-height:21px; color:#999; text-indent:-1em; padding-top:14px; padding-left:12px;}
+.update .text .red{padding-right:4px;}

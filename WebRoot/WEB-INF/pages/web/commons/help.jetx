@@ -1,0 +1,113 @@
+#define(com.ekfans.base.user.model.User User)
+#define(com.ekfans.base.store.model.Store Store)
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>帮助中心|${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}</title>
+	<link rel="icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+	<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/web/css/help.css" />
+	<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+</head>
+
+<body>
+<input type="hidden" name="ctxpath" id="ctxpath" value="${webroot}" />
+
+<div id="channelTop"></div>
+<script>
+	function setCookie(c_name, value, expiredays){
+		var exdate=new Date(); 
+		exdate.setDate(exdate.getDate() + expiredays); 
+		document.cookie=c_name+ "=" + escape(value) + ((expiredays==null) ? "" : ";expires="+exdate.toGMTString());
+	}
+
+	setCookie("gylReturnUrl",window.location.href,30);
+</script>
+<!-- 头部 -->
+#define(com.ekfans.base.content.model.Content content)
+#define(List<com.ekfans.base.content.model.ContentModel> contentModels)
+#define(com.ekfans.base.content.model.ContentCategory category)
+<div class="main" style="margin-bottom:30px;">
+  <div class="wrapper">
+    <div class="bread">帮助中心<span>&gt;</span>关于我们<span>&gt;</span>产品服务</div>
+    <!-- 左侧菜单 -->
+    <div class="leftNav">
+        <h2>帮助中心</h2>
+    	#for(com.ekfans.base.content.model.ContentCategory cc:category.childList)
+    		<dl class="leftList">
+	     		<dt>${cc.name}<em class="itemIco"></em></dt>
+	      	<dd>
+	      		#for(com.ekfans.base.content.model.Content c:cc.contents)
+				   		<a href="${webroot}/web/help/${c.id}?cid=${cc.parentId}" #if(c.id==content.id) class="cur" #end>${c.contentName}<em></em></a>
+				  	#end
+	      	</dd>
+	    	</dl>
+	    #end
+	  </div>
+    <!-- 左侧菜单 -->
+      
+    <!-- 右侧主体 -->
+    <div class="rightContent">
+			<h2 class="pageTitle">${content.contentName}</h2>
+      <div class="contentDiv">
+      	#for(com.ekfans.base.content.model.ContentModel model:contentModels)
+      		${model.content}
+      	#end
+      	<div class="clear"></div>
+      </div>
+    </div>
+    <!-- 右侧主体 -->
+    <div class="clear"></div>
+  </div>
+</div>
+<!--底部-->
+<div id="channelFoot"></div>
+<script type="text/javascript">
+$(document).ready(function(){
+//	$("#channelTop").load($("#ctxpath").val() + "/web/channel/commons/channel-top.jetx",{"channelId":"index","channelType":null,"returnUrl":window.location.href});
+    $("#channelTop").load($("#ctxpath").val() + "/web/channel/commons/channel-top.jetx",{"channelId":"index","channelType":$("#channelType").val(),"returnUrl":window.location.href});
+	$("#channelFoot").load("${webroot}/web/channel/commons/channel-footer.jetx",{"channelId":"","channelType":"","returnUrl":window.location.href});	
+});	
+</script>
+<script src="${webroot}/resources/web/js/base.js"></script>
+<script src="${webroot}/resources/web/gylweb/js/backtop.js"></script>
+<script>
+		$(document).ready(function() {
+		
+			/*左侧菜单展开收起*/
+			$(".leftList dt").click(function(){
+				$(this).nextAll("dd").slideToggle();
+				$(this).toggleClass("show");
+			})
+			 $(".leftList dd a").click(function(){
+				 	$(".leftList dd a").removeClass("cur");
+					$(this).addClass("cur");
+					$(this).parents("dl").children("dt").addClass("show");
+					$(this).parents("dl").children("dd").show();
+			})
+			
+			$(".leftList dd a.cur").parents("dl").children("dt").addClass("show");
+			$(".leftList dd a.cur").parents("dl").children("dd").show();
+
+			/*左右等高*/
+            var lh=$(".leftNav").innerHeight();
+            var rh=$(".rightContent").innerHeight();
+            if(lh<rh){
+                $(".leftNav").css("height",rh+"px");
+            }
+            else{
+                $(".rightContent").css("height",lh+"px");
+            }
+		
+		});
+
+	</script>
+	<div style="display:none;">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255237573'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1255237573' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>

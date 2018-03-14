@@ -1,0 +1,15 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url("bankInfo.css");
+
+.pointIcon{top:-12px; left:346px;}
+.ingState{color:#878787; margin-top:15px;}
+.sucState{color:#1F9727;}
+
+/*企业信息*/
+.imgUpload,.fileUpload{float:left;}
+.formSection{padding-left:20px;}
+.formSection .formName{min-width:99px;color:#4D4D4D; font-size:14px;}
+.box87{width:87px;}
+.textarea{ width:642px; height:108px; max-width:642px; max-height:108px;resize:none;}

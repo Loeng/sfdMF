@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
+        "http://www.tuckey.org/res/dtds/urlrewrite4.0.dtd">
+
+<urlrewrite>
+	<rule>
+		<note>product.</note>
+		<from>/([a-zA-Z0-9 ]+).htm$</from>
+		<to type="forward">/web/proDetail/$1</to>
+	</rule>
+	
+	
+	<rule>
+		<note>product.</note>
+		<from>/01-(.*).htm$</from>
+		<to type="forward">/web/proDetail/$1</to>
+	</rule>
+	<rule>
+		<note>product.</note>
+		<from>/01-(.*).html$</from>
+		<to type="forward">/web/proDetail/$1</to>
+	</rule>
+	
+	<rule>
+		<note>productCategory.</note>
+		<from>/02-(.*).html</from>
+		<to type="forward">/productcategory/$1</to>
+	</rule>
+	
+	<rule>
+		<note>content.</note>
+		<from>/03-(.*)-(.*).html</from>
+		<to type="forward">/web/information/details/$1/$2</to>
+	</rule>
+	
+	<rule>
+		<note>contentCategory.</note>
+		<from>/04-(.*).html</from>
+		<to type="forward">/web/contentcategory/$1</to>
+	</rule>
+	
+</urlrewrite>
+

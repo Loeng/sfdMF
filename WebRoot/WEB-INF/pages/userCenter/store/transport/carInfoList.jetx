@@ -1,0 +1,232 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>车辆列表</title>
+	<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/userCenter/commons/css/proList.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/tipso.js"></script>
+	<link href="${webroot}/resources/userCenter/commons/css/tipso.css" rel="stylesheet" type="text/css">
+<script>
+$(function() {
+	//$('.eyeIco').tipso();
+});
+</script>
+<style>
+.itemLayer .classItem{text-align:left;margin-left:8px;}
+.pageSize{text-align:center; padding:20px 30px; text-align:right; float:right;}
+.pageSize a{display:inline-block; height:21px; line-height:21px; margin-right:8px; padding:0 8px; color:#666;}
+.pageLast,.pageNext{font-family:SimSun;}
+.pageSize a:hover,.pageSize .nowPage{color:#0C4121; font-weight:700;}
+</style>
+</head>
+
+<body>
+	<input type="hidden" id="orgId" value="${orgId}">
+	<input type="hidden" id="sign" value="${sign}">
+	<input type="hidden" id="monitorUrl" value="${monitorUrl}"/>
+	<input type="hidden" id="ctxpath" value="${webroot}">
+	<input type="hidden" id="currCarInfoId">
+	#define(List<com.ekfans.base.store.model.CarInfo> carInfoList)
+<form action="${webroot}/store/transport/car/list" method="post" id="searchCar">
+	<div class="formSearch borderColor">
+	<dl class="formItem">
+	<dt>车牌号</dt>
+	<dd><input type="text" name="carNo" value="${carNo}" id="carNo" class="textBox box212"></dd>
+	</dl>
+	<dl class="formItem">
+	<dt>审核状态</dt>
+	<dd>
+	<select name="checkStatus" id="checkStatus" class="textBox">
+		<option value="-1">全部</option>	
+		<option value="1" #if(checkStatus==1 || checkStatus=="1")selected #end>已审核</option>	
+		<option value="0" #if(checkStatus==0 || checkStatus=="0")selected #end>未审核</option>	
+	</select>
+	</dd>
+	</dl>
+	<div class="clear"></div>
+	<input type="hidden" name="pageNum" value="" />
+	</div>
+	<div class="btnArea">
+		<input type="submit" value="搜索" class="btnBase btnSearch">
+		<input type="button" value="重置" onclick="reset()" class="btnBase btnReset">
+	</div>
+</form>
+ 
+<div class="formTable borderColor">
+		<ul class="secNav">
+			<li><a href="javascript:void(0);" onclick="dels()" title="删除所选"  class="li2">删除所选</a></li>
+			<li><a href="${webroot}/store/transport/car/add" title="新增"  class="li3">新增</a></li>
+		</ul>
+		<div class="clear"></div>
+		
+		#if(carInfoList != null && carInfoList.size()>0)
+		<div style="position:relative;" class="tableBox">   
+			<table border="0" cellspacing="0" cellpadding="0" class="tabList">
+			<thead>
+				<tr class="bgColor">
+					<th class="tdCheck"><label class="checkAll"><span class="check"><em><input name="checkbox1" type="checkbox" value=true></em></span></label></th>
+					<th class="tdBrand">车牌号</th>
+					<th class="tdBrand accept">车辆类型</th>
+					<th class="tdState accept">道路运输证号</th>
+					<th class="tdCount accept">核定载人数</th>
+					<th class="tdBrand accept">审核状态</th>
+					<th class="tdBrand accept">创建时间</th>
+					<th class="tdEdit accept">操作</th>
+				</tr>
+				</thead>
+				<tbody>
+				
+				<form action="${webroot}/store/transport/car/delCars" id="sub" method="post">
+					#for(com.ekfans.base.store.model.CarInfo carInfo : carInfoList)
+					<tr>
+						<td class="tdCheck"><label class="checkItem"><span class="check"><em><input name="carInfoIds" type="checkbox" value="${carInfo.id}"></em></span></label></td>
+						<td class="tdBrand">${carInfo.carNo}</td>
+						<td class="tdBrand">${carInfo.carType}</td>
+						<td class="tdState">${carInfo.ysNo}</td>
+						<td class="tdCount">${carInfo.fullNum}</td>
+						<td class="tdBrand">#if(carInfo.checkStatus=="0")未审核 #elseif(carInfo.checkStatus=="1")已审核 #else 审核失败 #end</td>
+						<td class="tdBrand">${carInfo.createTime}</td>
+						<td class="tdEdit">
+							<!-- 已审核的才能执行绑定 -->
+							#if(carInfo.checkStatus=="1" && (carInfo.deviceId == null || carInfo.deviceId == ""))
+								<a href="javascript:void(0)" class="eyeIco" onclick="bindDevice('${carInfo.id}')" title="绑定">绑定设备</a>
+							#elseif(carInfo.checkStatus=="1" && (carInfo.deviceId != null && carInfo.deviceId != ""))
+								<a href="javascript:void(0)" class="eyeIco" onclick="viewDevice('${carInfo.deviceId}')" title="查看">查看设备</a>
+							#end
+							
+							<a href="${webroot}/store/transport/car/getCarInfoById?carInfoId=${carInfo.id}&type=1" class="eyeIco" title="查看">查看</a> 
+							<a href="${webroot}/store/transport/car/getCarInfoById?carInfoId=${carInfo.id}&type=2" class="editIco">修改</a> 
+							<a href="javascript:void(0);" class="deleteItem" id="${carInfo.id}">删除</a>
+						</td>
+					</tr>
+					#end
+					</form>
+				<input type="hidden" name="pageNum" value="${pager }" />
+				
+				
+				<script>
+					function goPage(pageNum){
+						$("input[name='pageNum']").val(pageNum);
+						$("#searchCar").submit();
+					}	
+				</script>
+				<div class="clear"></div>
+				
+				</tbody>
+			</table>
+			</div>
+			
+			#else
+			<table border="0" cellspacing="0" cellpadding="0" class="tabList">
+			<thead>
+				<tr class="bgColor">
+					<th class="tdCheck"><label class="checkAll"><span class="check"><em><input name="checkbox1" type="checkbox" value=true></em></span></label></th>
+					<th class="tdBrand">车牌号</th>
+					<th class="tdBrand accept">车辆类型</th>
+					<th class="tdState accept">道路运输证号</th>
+					<th class="tdCount accept">核定载人数</th>
+					<th class="tdBrand accept">审核状态</th>
+					<th class="tdBrand accept">创建时间</th>
+					<th class="tdEdit accept">操作</th>
+				</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+				<div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+				#end
+			${include( "../common/page.jetx")}
+				
+			
+			<div class="clear"></div>
+	</div>
+
+	<!--弹出层  -->
+	<div class="apLayerBg"></div>
+	<div class="apLayer apConfirm borderColor" style="max-height: 600px;" id="bindDevice">
+	<div class="apTit">
+		<span class="apClose"></span> 选择设备
+	</div>
+	</div>
+
+
+<script type="text/javascript" src="${monitorUrl}/resources/js/layer/layer.js"></script>
+
+<script type="text/javascript">
+	function dels(){
+		econfirm('是否确认删除？',deleteThis,[$("#ctxpath").val()],null,null);
+		function deleteThis(){
+  		$.post('${webroot}/store/transport/car/delCars',$("#sub").serialize(),function (data){
+					if(data==1 || data=="1"){
+						salertWithFunction("删除成功!", myupreset, null);
+          }else{
+          	salertWithFunction("失败成功!", myupreset, null);
+          }
+    	});
+    }
+	}
+ $(document).ready(function() {
+ 	/*删除*/
+	$(".deleteItem").live("click",function (){
+			var item_id=$(this).attr("id")
+			var webroot = $("#ctxpath").val();
+	    econfirm('是否确认删除？',deleteThis,[$("#ctxpath").val()],null,null);
+	    function deleteThis(){
+	    	$.post('${webroot}/store/transport/car/delCar',{'carInfoId':item_id},function (data){
+							if(data==1 || data=="1"){
+								salertWithFunction("删除成功!", myupreset, null);
+              }else{
+              	salertWithFunction("删除失败!", myupreset, null);
+              }
+        });
+			    }
+			});
+ 	});
+ 	function myupreset(){
+ 		location.href="${webroot}/store/transport/car/list";
+ 		}
+ 	//分页跳转
+	function goPage(pageNum){
+		$("input[name='pageNum']").val(pageNum);
+		$("#searchCar").submit();
+	}	
+	function reset(){
+		$("#carNo").val("");
+		$("#checkStatus").val("");
+	}
+	
+	// 	弹出层：绑定
+	function bindDevice(carInfoId) {
+		// 更新当前操作carInfoId
+		$("#currCarInfoId").val(carInfoId);
+		
+		var orgId = $("#orgId").val();
+		var sign = $("#sign").val();
+		var monitorUrl = $("#monitorUrl").val();
+		$(".apLayerBg").show();
+		$(".apLayer").show();
+		$("#bindDevice").load(
+				monitorUrl + "/sources/device/list/"+orgId+"/"+sign,
+				{
+				});
+	}
+	
+	// 弹出层：查看
+	function viewDevice(deviceId) {
+		var orgId = $("#orgId").val();
+		var sign = $("#sign").val();
+		$(".apLayerBg").show();
+		$(".apLayer").show();
+		$("#bindDevice").load(
+				$("#monitorUrl").val() + "/sources/device/getById/"+orgId+"/"+sign + "/" +deviceId,
+				{
+				});
+	}
+	
+</script>
+ 
+</body>
+</html>

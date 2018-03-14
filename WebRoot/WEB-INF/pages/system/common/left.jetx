@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>管理系统左侧菜单</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/left.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/menu.js"></script>
+</head>
+
+<body class="menu_body">
+#define(com.ekfans.base.system.model.Manager Manager)
+
+#if(Manager == null)
+	<script>
+		window.parent.href="${ctxpath}/system/login";
+	</script>
+#end
+
+#define(List<com.ekfans.base.system.model.ShopPurview> leftPurviewList)
+
+<div class="ht_menu">
+	<ul>
+		#if(leftPurviewList!=null && leftPurviewList.size()>0)
+			#for(com.ekfans.base.system.model.ShopPurview purview : leftPurviewList)
+				<li #if(for.first) class="li_show" #end>
+				<span>
+					<a href="#">
+						<!-- <img src="${webroot}${purview.icon}"><br /> -->
+						${purview.className}
+					</a>
+				</span>
+				#if(purview.childList!=null && purview.childList.size()>0)
+					<div>
+						#for(com.ekfans.base.system.model.ShopPurview childPurview : purview.childList)
+							<dl #if(for.first) class="dl_show dl_first" #end>
+								<dt>${childPurview.className}</dt>
+								#if(childPurview.childList!=null && childPurview.childList.size()>0)
+									<dd>
+										#for(com.ekfans.base.system.model.ShopPurview lastPurview : childPurview.childList)
+											<a href="javascript:void(0);" onclick="javascript:self.parent.main.menuClick('${lastPurview.className}', '${lastPurview.id}', '${webroot}${lastPurview.fullPath}', '${webroot}');">${lastPurview.className}</a>
+										#end
+									</dd>
+								#end	
+							</dl>
+						#end	
+					</div>		
+				#end	
+			#end
+		#end
+	</ul>
+</div>
+		
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>管理系统商品添加页面</title>
+		<link href="${webroot}/resources/system/css/product/issue.css" rel="stylesheet" type="text/css" />
+		<link href="${webroot}/resources/system/css/list.css" rel="stylesheet" type="text/css" />
+
+		<!-- 上传文件的CSS -->
+		<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+		<link href="${webroot}/resources/system/css/zizhi2.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/plugin/ckeditor/ckeditor.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/base.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/supplyBuy/supplyBuyCheck.js"></script>
+		<!-- 上传文件控件  -->
+		<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+	</head>
+	
+<body>
+#define(com.ekfans.base.order.model.SupplyBuy sb)
+#define(com.ekfans.base.store.model.Store s)
+#define(List<com.ekfans.base.store.model.Intel> ilist)
+<input type="hidden" id="ctxpath" value="${webroot}" />
+<input type="hidden" id="ok" value="${addOk}" />		
+<form action="${webroot}/system/supplyBuy/update" name="addOk" method="post"  id="addSupplyBuyForm">
+	<input type="hidden" name="storeId" id="storeId" value="${s.id}">
+	<input type="hidden" name="id" value="${sb.id}"/>
+	<input type="hidden" name="status" value="${sb.status}"/>
+	<input type="hidden" name="createTime" value="${sb.createTime}"/>
+	<input type="hidden" name="note" value="${sb.note}"/>
+	<input type="hidden" name="orgId" value="${sb.orgId}"/>
+	<input type="hidden" id="productType" name="productType" value="${sb.productType}"/>
+	<div class="ht_btn">
+		<a href="javascript:void(0);"  class="btn" onclick="goBack('${webroot}');">返回列表</a>
+	</div>
+		
+	<div class="add_pro">
+		
+   
+		<dl>
+			<dt>供需标题<em class="mustIco"></em></dt>
+			<dd id="titleDd">
+				<input type="text" class="i_bg"  name="title" readonly value="${sb.title}"/>
+				<span id="titleSpan" class="ts_xx">供应标题不能为空</span>
+			</dd>
+		</dl>
+    
+    <dl>
+			<dt>联系人<em class="mustIco"></em></dt>
+			<dd id="contactNameDd">
+				<input type="text" class="i_bg"  name="contactName" readonly value="${sb.contactName}"/>
+				<span id="contactNameSpan" class="ts_xx">联系人不能为空</span>
+			</dd>
+		</dl>
+		<div class="clear"></div>
+		
+		 <dl>
+			<dt>联系电话<em class="mustIco"></em></dt>
+			<dd id="contactPhoneDd">
+				<input type="text" class="i_bg"  name="contactPhone" readonly value="${sb.contactPhone}"/>
+				<span id="contactPhoneSpan" class="ts_xx">输入正确的联系电话</span>
+			</dd>
+		</dl>
+		
+		<dl>
+			<dt>供需类型<em class="mustIco"></em></dt>
+			<dd>
+				<span class="zt"><label><input type="radio" name="type" value="0" #if(sb.type == "0")checked#end>供应</label></span>
+				<span class="zt"><label><input type="radio" name="type" #if(sb.type == "1")checked#end value="1">采购</label></span>
+			</dd>
+		</dl>
+    <div class="clear"></div>
+ 
+		
+		<dl>
+			<dt>有效日期</dt>
+			<dd>
+				<input type="text" class="i_bg"  name="endTime" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" value="${sb.endTime}" readonly/>
+			</dd>
+		</dl>
+		
+		<div class="clear"></div>
+		
+
+
+		<dl class="linkAlert">
+			<dt>发布企业<em class="mustIco"></em></dt>
+			<dd id="storeIdDd">
+				<input id="storeName" class="i_bg" type="text" value="${s.storeName}" readOnly />
+			
+			</dd>
+		</dl>
+		<dl class="formItem" style="width:980px;">
+		    	<dt>资质名称</dt>
+		      <dd style="height:auto;">
+		      	#if(ilist==null || ilist.size()<=0)
+		      		<ul class="zizhiList">
+		      			<li title="选择你要认证的资质名称">选择你要认证的资质名称</li>
+		      			<div class="clear"></div>
+		      		</ul>
+		      	#else
+		      		<ul class="zizhiList">
+		      			#for(com.ekfans.base.store.model.Intel in : ilist)
+		      				<li title="${in.name}">${in.name}
+		      					<a href="javascript:void(0);" class="closeLi"></a>
+		      					<input type="hidden" name="intelId" value="${in.id}" />
+		      				</li>
+		      			#end
+		      		</ul>			
+		      	#end
+
+		        <div class="clear"></div>
+		      </dd>
+		      <div class="clear"></div>
+		  	</dl>
+		<dl class="formBoxLine countBox">
+			<dt>描述</dt>
+			<dd><textarea name="content" class="bigBox" readonly>${sb.content}</textarea></dd>
+			<dd class="clear"></dd>
+		</dl>
+		
+		<dl class="formBoxLine countBox">
+			<dt>备注</dt>
+			<dd><textarea name="content" class="bigBox" readonly>${sb.note}</textarea></dd>
+			<dd class="clear"></dd>
+		</dl>
+	</div>
+
+	<!-- 关联店铺模块 -->
+	<div class="del_tcBg" id="storeBg"></div>
+	<div class="del_tc shopListAlert"  id="storetc" style="overflow-y:auto;"></div>
+	
+
+
+</form>
+	
+	
+	<div class="loadingLayer" id="loadingLayer" style="display:none"></div>
+	<script>
+		$(function () {
+	    CKEDITOR.replace('description', { height: '540px'});
+		});
+		</script>
+</body>
+</html>

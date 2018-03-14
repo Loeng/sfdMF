@@ -1,0 +1,27 @@
+#define(int number)
+#for(int i : iterator(1,number))
+	<dl>
+		<dt>文字内容</dt>
+		<dd>
+			<textarea name="adContent" cols="" rows="" class="bigBox"></textarea>
+			<span class="sizeCount">0/100</span>
+		</dd>
+	</dl>
+	<dl>
+		<dt>颜色</dt>
+		<dd>
+			<a href="javascript:void(0)" class="color">
+				<em></em>
+			</a>
+			<input type="hidden" name="textColor">
+		</dd>
+	</dl>
+	<dl class="formBoxLine">
+		<dt>链接地址</dt>
+		<dd>
+			<input type="text" class="i_bg" name="linkUrl">
+			<span class="hint">连接地址以http://或https://开头</span>
+		</dd>
+		<dd class="clear"></dd>
+	</dl>
+#end

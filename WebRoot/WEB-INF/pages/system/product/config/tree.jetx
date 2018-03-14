@@ -1,0 +1,8 @@
+#define(List<com.ekfans.base.product.model.ProductCategory> categories)
+#if(categories!= null && categories.size()>0)
+		#for(com.ekfans.base.product.model.ProductCategory category: categories)
+			<p class="fl_two" id="p${category.id}" onclick="showChilds('${category.id}')">${category.name}<label></label></p>
+			<div id="${category.id}"></div>
+		#end
+#end
+			

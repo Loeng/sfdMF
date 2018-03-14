@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>角色管理</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/demand.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/list.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/list.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/store/role/roleList.js"></script>
+</head>
+
+<body>
+	
+<input type="hidden" id="ctxpath" value="${webroot}" />
+    	
+<form action="${webroot}/system/store/role/list" method="post"  id="searchRoleForm">
+	<input type="hidden" name="pageNum" value="" />
+	
+	<dl class="pro_ss">
+		<dt><b>查询</b><span class="span_down"></span><span class="span_up"></span></dt>
+		<dd class="pro_ss_item">
+			<span>角色名</span>
+			<input type="text" class="i_bg" name="name" value="${name}"/>
+		</dd>
+	</dl>
+</form>
+<div class="pro_ss_btn">
+	<a href="javascript:searchSubmit();" class="btn">搜索</a>
+	<a href="javascript:resetForm();" class="btn">重置</a>
+</div>
+<div class="pro_ss_btn">
+	<a href="javascript:roleAdd('${webroot}');" class="btn">新增</a>
+</div>
+		
+#define(List<com.ekfans.base.store.model.StoreRole> storeRoles)
+
+
+#if(storeRoles==null || storeRoles.size()<=0)
+	<!-- 没有数据的时候 -->
+	<div class="ht_list_k">暂时没有符合条件的数据</div>	
+#else
+	<!-- 有数据的时候 -->
+	<div class="ht_list">
+		<table id="roleTab" cellpadding="0" cellspacing="0" border="0" >
+			<tr>
+				<th width="10%">全选</th>
+				<!--
+				<th width="10%">序号</th>
+				-->
+				<th width="25%">角色名</th>
+				<th width="25%">创建时间</th>
+				<th width="22%">修改时间</th>
+				<th width="13%">操作</th>
+			</tr>
+			#for(com.ekfans.base.store.model.StoreRole storeRole : storeRoles)
+				<tr>
+					<td class="qx">
+						#if("1".equals(storeRole.id))
+			    	#elseif("2".equals(storeRole.id))
+			    	#elseif("3".equals(storeRole.id))
+			    	#else
+							<input type="checkbox" value="${storeRole.id}"/>
+						#end
+					</td>
+					<!--
+			    <td>${for.index}</td>
+			    -->
+			   	<td>${storeRole.name}</td>
+	        <td>${storeRole.createTime}</td>
+	       	<td>${storeRole.updateTime}</td>
+					<td class="cz">
+						<a href="javascript:void(0);" class="eyeIco" onclick="queryId('${storeRole.id}','${webroot}');" title="详细"></a>
+						<a href="javascript:void(0);" class="editIco" onclick="roleModify('${storeRole.id}','${webroot}');" title="修改"></a>
+			    	#if("1".equals(storeRole.id))
+			    	#elseif("2".equals(storeRole.id))
+			    	#elseif("3".equals(storeRole.id))
+			    	#else
+			    		<a href="javascript:void(0);" class="del_list" id="del${storeRole.id}" onclick="econfirm('确定要删除此角色吗？',roleDelete,['${storeRole.id}','${webroot}'],null,null);" title="删除"></a>
+			    	#end
+					</td>
+				</tr>
+			#end
+		</table>
+		<div class="ht_pageBox">
+			<div class="ht_page_l">
+				<a href="javascript:void(0);" onclick="selectAll();" class="btn">全选</a>
+				<a href="javascript:void(0);" onclick="checkSelect();" class="btn">删除</a>
+			</div>
+			${include( "../../common/page.jetx")}
+		</div>
+	</div>
+#end
+<div class="apPreviewBg"></div>
+<div id="div1" class="apPreview apRole"></div>
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+/* CSS Document */
+
+.newInfo{height:36px; line-height:36px; border:solid 1px #EEEFEF; font-size:14px; margin:20px 0;}
+.newInfo h2{width:90px; background:#339933; float:left; text-align:center; color:#fff; font-size:14px;}
+.newList{overflow:hidden; float:left; padding-left:24px; width:1064px;}
+.newList .tempWrap{width:1084px!important;}
+.newList ul{position:relative; zoom:1;height: 35px;}
+.newList li{float:left; padding-right:28px;}
+.newList li em{padding-left:10px;}
+.newList li.up em{color:#f00;}
+.newList li.down em{color:#339933;}
+
+h2.title2{height:35px; line-height:35px; font-size:14px; position:relative;}
+.title2 em{font-size:16px; color:#136333; padding-right:20px;}
+.title2 .more{color:#136333; position:absolute; right:0; top:0;}
+.gongxuList table{width:100%; font-size:14px;}
+.gongxuIn{height:462px; overflow:hidden;}
+.gongxuHeader{height:38px;}
+.gongxuHeader td{height:38px; line-height:38px; background:#339933; color:#fff; text-align:left; padding:0 1%;}
+.gongxuIn tr{border-bottom:solid 1px #f1f1f1;}
+.gongxuIn td{line-height:30px; padding:8px 1%; text-align:left; min-width:80px;}
+.gongxuIn td span.gray{color:#999; display:block;}
+.gongxuIn td a{color:#136333; margin-right:10px;}
+.adv148{margin:20px 0;}
+.gyrz{font-size:10px; color:#FFFFFF; width:18px; height:16px; line-height:16px;border-radius:5px; background-color:#339933; margin-left:10px; display:inline-block;}
+.gyls{font-size:10px; color:#333333; width:18px; height:16px; line-height:16px;border-radius:5px; border:1px solid #333333;margin-left:10px; display:inline-block;}
+
+/*分页*/
+.pageSize{text-align:right; padding:18px 0;}
+.pageSize a{display:inline-block; height:21px; line-height:21px; padding:4px 10px; background:#fff; color:#333333; font-size:14px; margin:0 2px;}
+.pageSize a:hover,.pageSize .cur{background:#5FB01F; color:#fff;}
+.pageSize span{display:inline-block;font-size:14px; color:#333333; margin:0 10px;}
+.pageSize .surepage{display:inline-block;background-color:#136333; color:#fff;}
+.pageSize input{width:39px; height:22px; border:1px solid #999999; margin:0 5px; padding-left:5px;}
+
+/*供求列表*/
+.filtrate{border:solid 1px #EEEFEF; padding:0 16px; margin:20px 0;}
+.filtrateItem{padding:12px 0; border-bottom:dashed 1px #dcdcdc;}
+.filtrateItem dt,.search dt{width:65px; float:left; height:30px; line-height:30px; overflow:hidden; font-size:14px; padding-left:20px;}
+.filtrateLink{width:1040px; float:left; line-height:30px; height:30px; overflow:hidden;}
+.filtrateLink a{display:inline-block; padding:0 12px; font-size:14px; color:#666; margin:0 6px;}
+.filtrateLink a.cur,.filtrateLink a:hover{background:#339933; color:#fff;}
+.filtrateMore{float:left; height:17px; margin-top:6px;}
+.filtrateMore a{display:block; width:20px; height:20px; border:solid 1px #efefef; background:url(../../../resources/web/images/icon_downmore.png) no-repeat center center;}
+.filtrateAll .filtrateLink{height:auto;}
+.filtrateAll .filtrateMore a{background:url(../../../resources/web/images/icon_downmore2.png) no-repeat center center;}
+.search{padding:20px 0;}
+.search dd{height:28px; line-height:28px; padding-left:6px; float:left;}
+.search dd.clear{height:0; float:none;}
+.search .textBox{height:26px; line-height:26px; border:solid 1px #CFCFCF; text-indent:1em;} 
+.search .nameBox{width:158px; margin-right:50px;}
+.search .minBox,.search .maxBox{width:78px;}
+.inputSplit{color:#999; padding:0 4px;}
+.search .maxBox{margin-right:20px;}
+.search .btnGreen{width:60px; height:28px; line-height:28px; font-size:14px;}
+
+/*报价弹层*/
+.baojiaLayer{padding:20px 20px 0 20px;}
+.dataInfo{padding-bottom:5px; border-bottom:solid 1px #e6e6e6;}
+.dataInfo li{font-size:14px; margin:0 1%; width:48%; line-height:22px; float:left; padding-bottom:18px;}
+.dataInfo li span{display:block; float:left; max-width:228px; height:22px; overflow:hidden;}
+.dataInfo li .red{font-size:18px; padding-right:5px;}
+.dataInfo li.line{width:98%;}
+.dataInfo li.line span{width:450px; max-width:none; height:auto;}
+.dataInfo li em{color:#999; display:block; width:80px; text-align:right; float:left;}
+.dataInfo li.clear{float:none; height:0; padding:0;}
+.baojiaLayer .apForm{margin-top:20px;}
+.baojiaLayer .formItem{width:490px; margin:0 0 20px 70px;}
+.baojiaLayer .formItem dt{width:60px; padding:0 10px; float:left; line-height:30px; text-align:right;}
+.baojiaLayer .formItem .formImport{width:360px; float:left;}
+.baojiaLayer .formBox{border:solid 1px #DFE2EA; width:258px; height:28px; text-indent:0.8em; margin-right:12px;}
+
+/*发布信息选择弹层*/
+.update{padding:0 40px;}
+.update .leftLayer,.update .rightLayer{width:180px; padding:27px 39px 24px 39px; margin:14px 0; float:left;}
+.update .leftLayer{border-right:solid 1px #f1f1f1;}
+.update .btnGreen{display:block; width:180px; height:46px; line-height:46px; text-align:center; font-size:20px;}
+.update .text{line-height:21px; color:#999; text-indent:-1em; padding-top:14px; padding-left:12px;}
+.update .text .red{padding-right:4px;}

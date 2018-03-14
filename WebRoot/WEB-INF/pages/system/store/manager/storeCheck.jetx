@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+    	<title>店铺审核</title>
+    	<link href="${webroot}/resources/system/css/demand.css" rel="stylesheet" type="text/css" />
+    	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/store/auditShop.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/store/storeCheck.js"></script>
+    </head>
+    <body>
+    	<input type="hidden" id="modifyOk" value="${modifyOk}" />
+			<input type="hidden" id="ctxpath" value="${webroot}" />
+    	<form action="${webroot}/system/store/checkModify" name="modify" method="post"  id="modifyStoreForm">
+				<div class="ht_btn sh_btn">
+				    <a href="#" onclick="formSubmit();" class="btn">通过</a>
+					<a href="#" onclick="formSubmitFalse()" class="btn">拒绝</a>
+				</div>
+				#define(com.ekfans.base.store.model.Store store)
+				<table border="0" cellspacing="10" cellpadding="0" class="imgList">
+		      <tr>
+		        <td><a href="javascript:void(0);"><img #if(store.taxRegistrationCertificate != "") src="${webroot}${store.taxRegistrationCertificate}" 
+		             #else src="${webroot}/resources/system/images/imgdefault.jpg" #end width="198" height="142" alt="税务登记证"
+		            </a>
+		        </td>
+		        <td><a href="javascript:void(0);"><img #if(store.businessLicense != "") src="${webroot}${store.businessLicense}" 
+		             #else src="${webroot}/resources/system/images/imgdefault.jpg" #end width="198" height="146" alt="营业执照">
+		            </a>
+		        </td>
+		        <td><a href="javascript:void(0);"><img #if(store.cardPositive != "") src="${webroot}${store.cardPositive}" 
+		             #else src="${webroot}/resources/system/images/imgdefault.jpg" #end width="198" height="142" alt="身份证正面">
+		            </a>
+		        </td>
+		        <td><a href="javascript:void(0);"><img #if(store.cardOpposite != "") src="${webroot}${store.cardOpposite}" 
+		             #else src="${webroot}/resources/system/images/imgdefault.jpg" #end height="142" alt="身份证反面">
+		            </a>
+		        </td>
+		      </tr>
+		    </table>
+				<input type="hidden" name="cardPositive" value="${store.cardPositive}">
+				<input type="hidden" name="cardOpposite" value="${store.cardOpposite}">
+				<input type="hidden" name="businessLicense" value="${store.businessLicense}">
+				<input type="hidden" name="taxRegistrationCertificate" value="${store.taxRegistrationCertificate}">
+				<input type="hidden" name="id" value="${store.id }" />
+				<dl class="pro_sh">
+					<dt>店铺名称：</dt>
+					<dd>${store.storeName }</dd>
+				</dl>
+				<input type="hidden" name="storeName" value="${store.storeName }" />
+				<input type="hidden" name="storeLogo" value="${store.storeLogo }" />
+				<input type="hidden"  name="levelId" value="${store.levelId}" />
+				
+				<dl class="pro_sh">
+           <dt>店铺所在地区：</dt>
+           <dd>${store.province } ${store.city } ${store.area } ${store.address }</dd>
+        </dl>
+				<input type="hidden" name="province" value="${store.province }" />
+				<input type="hidden" name="city" value="${store.city }" />
+				<input type="hidden" name="area" value="${store.area }" />
+				<input type="hidden" name="address" value="${store.address }" />
+				
+				
+				<input type="hidden" value="${store.status}" name="status"/>
+				<input type="hidden" value="${store.checkMan}" name="checkMan"/>
+				<input type="hidden" value="${store.checkTime}" name="checkTime"/>
+				
+				<dl class="pro_sh">
+					<dt>域名：</dt>
+					<dd>${store.domain }</dd>
+				</dl>
+				<input type="hidden" name="domain" value="${store.domain }" />
+
+				<dl class="pro_sh">
+				<dt>组织机构：</dt>
+				<dd>${store.orgId }</dd>
+				</dl>
+				<input type="hidden" name="orgId" value="${store.orgId }" />
+				
+				<input type="hidden" value="${store.createTime }" name="createTime"/>
+				<input type="hidden" value="${store.updateTime }" name="updateTime"/>
+					
+				<dl class="pro_sh">
+          <dt>店铺简介：</dt>
+          <dd>${store.notes }</dd>
+        </dl>
+				<input type="hidden" name="notes" value="${store.notes }" />
+				
+				<div class="sh_sm">
+           <span>审核不通过请先手动输入或在列表中选择拒绝原因</span>
+           拒绝原因说明
+           <textarea name="checkNote">${store.checkNote }</textarea>
+        </div>
+					
+				<input type="hidden" name="roleId" value="${store.roleId }" />
+				<input type="hidden" name="coordinateX" value="${store.coordinateX }" />
+				<input type="hidden" name="coordinateY" value="${store.coordinateY }" />
+				<input type="hidden" name="checkStatus" id="checkStatus" />
+		</form>
+		<!-- 弹出层 -->
+		  <div class="del_tcBg" style="display:none;"></div>
+			<div class="del_tc" style="display:none; width:560px;">
+				<div class="tit">
+					<span class="apClose"><img src="${webroot}/resources/system/images/del3.jpg"></span>
+				</div>
+			  	<div class="imgContent"><img src="" width="500" height="300"></div>
+			</div>
+    </body>
+</html>

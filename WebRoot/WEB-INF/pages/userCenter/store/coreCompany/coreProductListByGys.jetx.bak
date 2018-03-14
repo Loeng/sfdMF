@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>供应商发布商品管理列表</title>
+<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/commons/css/tools.css" rel="stylesheet" type="text/css">
+
+<link href="${webroot}/resources/userCenter/commons/css/bargainDetail.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/userCenter/commons/js/bargainList.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+
+
+<!--导入自定义js-->
+<script type="text/javascript" src="${webroot}/resources/userCenter/core/js/order/purChase/productList.js"></script>
+</head>
+<body>
+	<form action="${webroot}/store/storeweb/productByGysList" method="post" id="searchStoreProductList">
+    <!--右侧主体-->
+    <div class="rightContent">
+			<div class="formSearch borderColor">
+      	<dl class="formItem">
+        	<dt>商品名称</dt>
+          <dd>
+            <input name="storeName" id="storeName" type="text" class="textBox box212" value="" onclick="">
+          </dd>
+          <dd class="clear"></dd>
+        </dl>
+       <input type="hidden" id="ctxpath" value="${webroot}" />
+        <div class="clear"></div>
+      </div>
+      <div class="btnArea">
+        	<a href="javascript:void(0);" class="btnBase " onclick="formSubmit();">搜索</a>
+          <a href="javascript:void(0);" class="btnBase btnReset" onclick="formReset();">重置</a>
+          <div class="clear"></div>
+      </div>
+      <div class="formTable borderColor">
+      	<ul>
+        <li class="li1">商品信息</li>
+        
+        </ul>
+        <div class="clear"></div>
+        <table border="0" cellspacing="0" cellpadding="0" class="tabList">
+        	<tr class="bgColor">
+            <th>
+              <label class="checkAll"><span class="check"><em><input name="checkbox1" type="checkbox" value=true></em></span></label>
+            </th>
+	            <th>商品名称</th>
+	            <th>商品数量</th>
+	            <th>商品批发价</th>
+	            <th>商品产地</th>
+	            <th>联系人</th>
+	            <th>联系电话</th>
+            <th></th>
+          </tr>
+          #define(List<com.ekfans.base.product.model.SupplyProduct> supplyProduct)
+          #for(com.ekfans.base.product.model.SupplyProduct supply:supplyProduct)
+          <tr>
+            <td>
+              <label class="checkItem"><span class="check"><em><input name="checkbox" type="checkbox" value=true checked></em></span></label>
+            </td>
+            <td id="sortNameId">${supply.supplyProductName}</td>
+            <td>${supply.quantity}&nbsp;${supply.unit}</td>
+            <td>${supply.pfPrice}/${supply.unit}</td>
+            <td>${supply.habitat}</td>
+            <td>${supply.linkPerson}</td>
+            <td>${supply.linkTel}</td>
+            <td>
+        
+              <a href="javascript:void(0);" class="btnBase btnOrange" onclick="loadQuery('${supply.id}',0);">发起议价</a>
+            
+            </td>
+          </tr>
+					#end
+        </table>
+        
+        <div class="pageSize">
+          <!-- 分页 -->
+          <input type="hidden" name="pageNum" value="${currentpageStr}" />
+                ${include("../common/page.jetx")}
+          <div class="clear"></div>
+      </div>
+      <div class="clear"></div>
+      </div>
+    </div>
+    <!--右侧主体 end-->
+    <div class="clear"></div>
+   <!--议价弹层-->
+<div class="apLayerBg" id="apLayerBg"></div>
+<div class="apLayer apBargain borderColor" id="apLayer">
+	<div class="apTit">议价详情<a href="javascript:void(0);" class="apClose"></a></div>
+    <div class="apContent" id="apContent">
+        
+    </div>
+</div>
+<!--议价弹层 end-->
+
+</body>
+</html>

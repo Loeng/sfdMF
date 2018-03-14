@@ -1,0 +1,53 @@
+#define(Map<String, com.ekfans.base.channel.model.ChannelConfig> configMap)
+#define(String configType)
+#define(String position)
+#define(String channelId)
+
+#set(com.ekfans.base.channel.model.ChannelConfig config = configMap.get(configType + position))
+
+#if(configStatus == "true")
+	#include("../../../channel/commons/config/configTitle.jetx",{"channelId":channelId,"configType":configType,"position":position})
+#end
+
+#if(config != null)
+
+          	#if(config != null && config.configIcon != "" && config.configName != null)
+          	<img src="${webroot + "/" + config.configIcon}" >
+          	#elseif(config != null && config.configName != "" && config.configName != null)
+          	${config.configName}
+          		#else
+         	 <h3>融资指引</h3>
+          #end
+          
+           <div class="content">
+      	<div class="conLeft" id="cL">
+      		#for(com.ekfans.base.content.model.Content content : config.details) 
+      					<a href="${webroot}/03-${content.id}-1.html">${for.index}、${content.contentName}</a>
+       		#end
+       	 </div>
+        <div class="conRight" id="cR">
+        <a href="${webroot}/store/manager/FINANCE_MANGER_CREDITSHEN" title="立即申请" class="btnApply">立即申请</a>
+        </div>
+        <div class="clear"></div>
+      </div>
+      
+      
+	
+#end
+<!--
+  <div class="content">
+      	<div class="conLeft" id="cL">
+      		 
+      	<a href="javascript:void(0);">1、什么是供应链金融？</a>
+        <a href="javascript:void(0);">2、供应链金融的优势是什么？</a>
+        <a href="javascript:void(0);">3、在线支付和生成付款单有何区别？</a>
+        <a href="javascript:void(0);">4、订单是否可以多次付款？</a>
+        <a href="javascript:void(0);">5、运输单中哪些内容需要手工录入?</a>
+        <a href="javascript:void(0);">6、仓库是否可以自行选择?</a>
+        </div>
+        <div class="conRight" id="cR">
+        <a href="javascript:void(0);" title="立即申请" class="btnApply">立即申请</a>
+        </div>
+        <div class="clear"></div>
+      </div>
+-->

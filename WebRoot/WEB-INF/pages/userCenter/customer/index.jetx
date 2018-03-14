@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>个会员中心-首页</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/personal/css/userIndex.css" />
+	<link href="${webroot}/resources/userCenter/commons/css/tools.css" rel="stylesheet" type="text/css" />
+	<script src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/userCenter/personal/js/base.js"></script>
+	<script src="${webroot}/resources/userCenter/personal/js/index.js"></script>
+</head>
+
+<body>
+#define(com.ekfans.base.user.model.User User)
+<div class="rightContent">
+	<div class="userInfo">
+		<img src="#if(User.headPortrait == null || User.headPortrait == "" ||User.headPortrait == " ")${webroot}/resources/userCenter/personal/images/photo160.jpg#else ${webroot}${User.headPortrait} #end" width="100" height="100" alt="${User.nickName}" title="${User.nickName}" class="userPhoto" />
+		<div class="info">
+		  <span class="userName">欢迎你，<em>#if(User.nickName!=null && User.nickName!="")${User.nickName}#else${User.name}#end</em></span>
+		  <span class="infoBottom infoMail">你的常用邮箱是：<em>${User.email}</em></span>
+		  <span class="infoBottom">你的手机号码是：<em>${User.mobile}</em></span>
+		  <div class="clear"></div>
+		</div> 
+	</div>
+  <div class="noPay">
+  	<h3>未支付订单</h3>
+  	#define(List<com.ekfans.base.order.model.Order> notPayOrderList)
+		#if(notPayOrderList==null || notPayOrderList.size()<=0)
+			<div class="orderNone">暂时没有符合条件的数据</div>
+		#else
+			#for(com.ekfans.base.order.model.Order order:notPayOrderList)
+			#if(for.index < 3)
+    <div class="orderItem">
+    	<div class="imgNum">	  
+        <span class="orderNum">订单编号：<em>${order.id}</em></span>
+        <div class="clear"></div>
+      </div>
+      <div class="orderPrice">￥${order.paid}</div>
+      <div class="orderDetail"><a href="${webroot}/user/returnProduct/view/${order.id}">订单详情</a></div>
+    	<div class="orderBtn"><a href="${webroot}/buyNowUser/order/userByNow?orderId=${order.id}" class="btnOrange">立即支付</a></div>
+      <div class="clear"></div>
+    </div> 
+    	#end
+    #end
+   #end 
+  </div>
+  <div class="orderAffirm">
+  	<h3>未收货订单</h3>
+  		#define(List<com.ekfans.base.order.model.Order> notShouHuoOrderList)
+		#if(notShouHuoOrderList==null || notShouHuoOrderList.size()<=0)
+			<div class="orderNone">暂时没有符合条件的数据</div>
+		#else
+			#for(com.ekfans.base.order.model.Order order:notShouHuoOrderList)
+			#if(for.index < 3)
+    <div class="orderItem">
+    	<div class="imgNum">
+        <span class="orderNum">订单编号：<em>${order.id}</em></span>
+        <div class="clear"></div>
+      </div>
+	    <div class="orderPrice">￥${order.paid}</div>
+	    <div class="orderDetail"><a href="${webroot}/user/returnProduct/view/${order.id}">订单详情</a></div>
+	  	<div class="orderBtn"><a href="javascript:void(0)" class="btnBlue" onclick="postok('${order.id}','${webroot}',1);">确认收货</a></div>
+	    <div class="clear"></div>
+    </div>
+    #end
+    #end
+   #end 
+  </div>
+  <div class="gouwuche">
+  	<h3>购物车</h3>
+  	<div class="orderListBox">
+  		#define(List<com.ekfans.base.system.model.ShopCart> shopCartList)
+  			#if(shopCartList==null || shopCartList.size()<=0)
+				 <div class="carEmpty"><a href="${webroot}/yx_index.html">购物车为空！</a></div>
+				#else
+						#for(com.ekfans.base.system.model.ShopCart sc:shopCartList)
+							#if(for.index < 4)
+	    <a href="javascript:void(0)" class="orderImg">
+	    	<img src="${webroot}${sc.picture}" width="78" height="78" alt="${sc.productName}" title="${sc.productName}">
+	    </a>
+	    #end
+	    	#end
+	   
+	    <a href="${webroot}/user/cart/userShopCart" class="more">更多...</a>
+	     #end	   
+	    <div class="clear"></div>
+    </div>
+  </div>
+  <div class="favorite">
+  	<h3>收藏夹</h3>
+  	
+    <div class="orderListBox">
+    	#define(List<com.ekfans.base.product.model.ProductCollect> pcs)
+  			#if(pcs==null || pcs.size()<=0)
+				<div class="orderNone">暂时没有符合条件的数据</div>
+				#else
+						#for(com.ekfans.base.product.model.ProductCollect pc:pcs)
+							#if(for.index < 4)
+      <a href="javascript:void(0)" class="orderImg">
+      	<img src="${webroot}${pc.picture}" width="78" height="78" alt="${pc.productName}" title="${pc.productName}">
+      </a>
+       #end
+	    	#end
+	   
+      <a href="${webroot}/user/collect/productCollect" class="more">更多...</a>
+       #end	 
+      <div class="clear"></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

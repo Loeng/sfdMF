@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ekfans.base.ccwcc.model">
+
+	<!-- 合同表 -->
+	<class name="com.ekfans.base.ccwcc.model.CcwccPush" table="CCWCC_PUSH" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="title" type="string" column="TITLE" />
+		<property name="content" type="string" column="CONTENT" />
+		<property name="type" type="string" column="TYPE" />
+		<property name="sourceId" type="string" column="SOURCE_ID" />
+		<property name="sourceName" type="string" column="SOURCE_NAME" />
+		<property name="linkUrl" type="string" column="LINK_URL" />
+		<property name="sharUrl" type="string" column="SHAR_URL" />
+		<property name="status" type="string" column="STATUS" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="pushTime" type="string" column="PUSH_TIME" />
+	</class>
+
+</hibernate-mapping>

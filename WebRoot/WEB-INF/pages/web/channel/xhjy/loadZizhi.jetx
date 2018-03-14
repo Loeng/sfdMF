@@ -1,0 +1,55 @@
+#define(List<com.ekfans.base.store.model.Intel> ilist)
+<h6>选择资质名称</h6>
+<a href="javascript:void(0);" class="layerClose"></a>
+<div class="alterContent">
+	#for(com.ekfans.base.store.model.Intel in : ilist)
+		<label class="checkItem">
+	  	<span class="check">
+	  		<em>
+	  			<input type="checkbox" name="input" value="${in.id}" />
+	  		</em>
+	  	</span>
+	    <span class="zizhiLi">${in.name}</span>
+	    </label>
+  #end
+  <div class="clear"></div>
+</div>
+<div class="btnArea2" style=" margin-top: -25px;">
+  <label  class="altBtnBlue" style="position: relative;overflow:hidden;top: 18px;" id="selectAll">全选</label>
+  <a href="javascript:void(0);" class="altBtnBlue altSure">确定</a>
+  <a href="javascript:void(0);" class="altBtnBlue altCancel">取消</a>
+</div>
+<script>
+//全选与取消
+$("#selectAll").live("click",function(){
+		var items = document.getElementsByTagName("input");
+		// 定义是否已经全选
+		var selected = true;
+		// 遍历选择框，看是否已经全选
+	    for(var i=0;i<items.length;i++){  
+	        if(items[i].type=="checkbox"){
+	        	if(!items[i].checked){
+	        		selected = false;
+	        		break;
+	        	}
+	        }
+	    }
+		// 如果已经全选，则全取消，否则全选
+		if(selected){
+			for(var i=0;i<items.length;i++){  
+				if(items[i].type=="checkbox"){
+					items[i].checked = false;
+				}
+			}
+			$("#selectAll").text("全选");
+		}else{
+			for(var i=0;i<items.length;i++){  
+				if(items[i].type=="checkbox"){
+					items[i].checked = true;
+				}
+			}
+			$("#selectAll").text("取消");
+	    }
+	
+	});
+</script>

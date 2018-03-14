@@ -1,0 +1,30 @@
+#define(List<List<com.ekfans.base.order.model.SupplyBuy>> supplyInfos)
+
+#for(List<com.ekfans.base.order.model.SupplyBuy> childList:supplyInfos)
+<li class="listLine">
+	#for(com.ekfans.base.order.model.SupplyBuy supply:childList)
+    <div class="listItem">
+        <div class="name">
+        	#if(!@(com.ekfans.pub.util.StringUtil).isEmpty(supply.storeName) && !@(com.ekfans.pub.util.StringUtil).isEmpty(supply.storeId))
+        		<em class="gyrz">证</em>
+			#else 
+				<em class="gyls">临</em> 
+			#end
+            <span class="nameLine" title="${supply.title}">${supply.title}</span><span class="gray">#if(0==supply.deliveryType)自提#elseif(1==supply.deliveryType)送货上门#else &nbsp;#end</span>
+        </div>
+        <div class="area">
+        <table class="location">
+        	<tr>
+        	<td class="unit">#if(supply.address.split("\\.").length >= 1)${supply.address.split("\\.")[0]}#else#end</td>
+            <td class="unit"> #if(supply.address.split("\\.").length >= 2)${supply.address.split("\\.")[1]}#else#end</td>     
+            </tr>
+            <tr>
+            <td class="unit"></td>
+            <td class="unit">#if(supply.address.split("\\.").length >= 3)${supply.address.split("\\.")[2]}#else#end</td>
+        	</tr>
+        </table>
+        </div>
+    </div>
+    #end
+</li>
+#end

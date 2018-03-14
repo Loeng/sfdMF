@@ -1,0 +1,82 @@
+/* CSS Document */
+.main{margin:30px auto;}
+.proUp{padding:40px 134px 40px 104px; height:200px; border:solid 1px #e4e4e4;}
+.proUp .pic{width:200px; height:200px; float:left; margin-right:30px;}
+.proInfo{float:left; width:460px; font-size:14px;}
+.proInfo dt{height:30px; line-height:30px; font-size:16px;}
+.infoLine1{height:40px; line-height:40px; margin-bottom:10px;}
+.proInfo .price{height:32px; line-height:32px;}
+.proInfo .price .red{font-size:24px;}
+.infoLine2{height:20px; line-height:20px; padding-top:10px;}
+.proInfo dd em{display:inline-block; width:64px; color:#8d8d8d; margin-right:6px;}
+.proRight{float:right; width:202px; padding-top:30px;}
+.count{height:28px; line-height:28px; margin-bottom:29px;}
+.count dt{width:66px; float:left;}
+.countBox{height:28px; width:134px; float:left;}
+.minus,.plus{width:28px; height:28px; text-align:center; background:#e3e3e3; font-size:20px;}
+.countBox *{display:block; float:left;}
+.countBox input{width:76px; height:26px; border:solid 1px #e3e3e3; text-align:center; font-size:14px;}
+.btnBuy,.btnRed{width:200px; height:38px; line-height:38px; font-size:16px; display:block;}
+.btnBuy{margin-bottom:22px;}
+.btnRed{background:#EF4D4D; color:#fff; text-align:center; border:none; cursor:pointer;}
+.btnRed:hover{background:#8A0D0D; color:#fff;}
+.proDetail{padding:20px 104px; border:solid 1px #e4e4e4; border-top:none;}
+.proDetail h2{font-size:14px; width:100px; height:40px; line-height:40px; background:#393; color:#fff; text-align:center; margin-bottom:14px;}
+.detailContent{width:990px;}
+.detailContent *{max-width:990px;}
+
+/*list*/
+.title2{font-size:14px; width:140px; height:40px; line-height:40px; background:#393; color:#fff; text-align:center; margin:20px 0;}
+.hyList{ margin-bottom:20px;}
+.tabTit{ background-color:#339933; height:38px; line-height:38px; color:#fff; font-size:14px; padding-left:1px;}
+.tabTit li{float:left; text-align:center; border-right:solid 1px #e6e6e6; padding:0 5px;}
+
+.hyTab hytabList{width:100%; font-size:12px; color:#333333;}
+.hytabList li{height:30px;border:solid 1px #e6e6e6; border-top:none; padding:7px 0 7px 0; vertical-align:middle; text-align:left; overflow:hidden;}
+.listFloat{float:left; height:30px; padding:0 5px; line-height:18px; color:#333333; border-right:solid 1px #e6e6e6; text-align:center; overflow:hidden; position:relative;}
+.tdIn{max-height:36px; overflow:hidden; line-height:18px; width:92%; padding:0 4%;}
+.hytabList li:nth-child(2n){background:#f8f8f8;}
+.hytabList li:hover{background:#EBF5EC;}
+.tdNum1{width:198px;}
+.tdNum2{width:150px;}
+.tdNum3{width:174px;}
+.tdNum4{width:110px;}
+.tdNum5{width:85px;}
+.tdNum6{width:115px;}
+.tdNum7{width:114px;}
+.tdNum8{width:84px; border-right:none!important;}
+.tdNum9{width:50px;}
+
+
+.listFloat a{color:#136333; margin:0 3px;}
+.listFloat .inline{text-align:left;}
+.listFloat .rightAlign{text-align:right; padding-right:15%; width:81%; padding-left:0;}
+.listFloat .inline span{display:block; max-height:18px; overflow:hidden;}
+.gyrz{font-size:10px; color:#FFFFFF;  background-color:#339933; border:1px solid #393; }
+.gyls{font-size:10px; color:#333333; border:1px solid #333333;}
+.gyrz,.gyls{border-radius:5px; display:block;text-align: center; width:18px; height:18px; line-height:18px; margin:0 auto;}
+.listFloat .xhsheng,.listFloat .xhcity{text-align:center;}
+
+.hytabList li .green{font-size:16px; height:26px; overflow:hidden;}
+.hyCom{color:#999999; font-size:14px; height:24px; overflow:hidden;}
+.hyzl{color:#999999;height:24px; overflow:hidden;}
+
+/*layer*/
+.baojiaLayer{padding:20px 20px 0 20px;}
+.dataInfo{padding-bottom:15px; border-bottom:solid 1px #e6e6e6;}
+.dataInfo span{display:inline-block; font-size:14px; margin:0 30px; line-height:32px;}
+.dataInfo span em{color:#999;}
+.dataInfo span .red{padding-right:5px; font-size:18px;}
+.dataInfo{padding-bottom:5px; border-bottom:solid 1px #e6e6e6;}
+.dataInfo li{font-size:14px; margin:0 1%; width:48%; line-height:22px; float:left; padding-bottom:18px;}
+.dataInfo li span{display:block; float:left; max-width:228px; height:22px; overflow:hidden; margin:0; line-height:22px;}
+.dataInfo li .red{font-size:18px; padding-right:5px;}
+.dataInfo li.line{width:98%;}
+.dataInfo li.line span{width:450px; max-width:none; height:auto;}
+.dataInfo li em{color:#999; display:block; width:80px; text-align:right; float:left;}
+.dataInfo li.clear{float:none; height:0; padding:0;}
+.baojiaLayer .apForm{margin-top:20px;}
+.baojiaLayer .formItem{width:490px; margin:0 0 10px 70px;}
+.baojiaLayer .formItem dt{width:60px; padding:0 10px; float:left; line-height:30px; text-align:right;}
+.baojiaLayer .formItem .formImport{width:360px; float:left; height:46px;}
+.baojiaLayer .formBox{border:solid 1px #DFE2EA; width:258px; height:28px; text-indent:0.8em; margin-right:12px;}

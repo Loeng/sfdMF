@@ -1,0 +1,795 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>危险品产生</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<link rel="shortcut icon" href="../../../resources/commons/images/favicon.ico" type="image/x-icon">
+<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+<link href="../../../resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/web/css/base.css" rel="stylesheet" type="text/css">
+<style>
+.bread{height:38px; line-height:38px; background:#FCF4E5; font-size:14px; color:#A78749; margin-bottom:20px;}
+.advUp{height:350px;}
+
+.proItem{padding:20px 20px 20px 43px; background:#fff; margin-bottom:1px;}
+.proImg{width:180px; height:180px; float:left; margin-right:15px; position:relative;}
+.proImg img{display:block; width:170px; height:170px; border:solid 5px #E4E4E4;}
+.proImg em{display:block; width:55px; padding:10px 5px; text-align:center; line-height:22px; font-size:18px; background:#37A1FF; color:#fff; position:absolute; left:-43px; top:15px;}
+.proText{float:left; width:550px; padding-right:64px; border-right:solid 1px #DCDCDD;}
+.proText dt{height:34px; line-height:34px; overflow:hidden; font-size:22px; margin-bottom:10px;}
+.proText .price{display:inline-block; height:34px; background:#EF4D4D; padding:0 12px; margin-left:30px; color:#fff;}
+.proInfo1{line-height:30px; min-height:60px; font-size:16px;}
+.proInfo2 span{display:block; height:25px; line-height:25px; overflow:hidden; width:48%; padding-right:2%; float:left; font-size:14px;}
+.detection{padding:0 42px; float:left; border-right:solid 1px #DCDCDD; width:87px; height:179px; text-align:center;}
+.detection dt{font-size:18px; height:34px; line-height:34px; overflow:hidden;}
+.detectionImg img{display:block; width:85px; height:85px; border:solid 1px #E5E6E6; border-radius:6px;}
+.detectionName{font-size:14px; line-height:20px; text-align:left;}
+.proRight{float:left; padding:48px 0 0 37px;}
+.proRight a{display:block; width:100px; height:36px; line-height:36px; color:#fff; font-size:18px; text-align:center; border-radius:6px;}
+.btnRed{background:#EF4D4D; margin-bottom:12px;}
+.btnRed:hover{background:#EC2828; color:#fff;}
+.btnBlue{background:#4595F9;}
+.btnBlue:hover{background:#0A75F8; color:#fff;}
+
+.tabNav{height:45px; background:#416D28; border-bottom:solid 5px #6CB243; padding-left:17px;}
+.tabNav li{display:block; padding:0 18px; margin-right:10px; height:45px; line-height:45px; font-size:18px; color:#fff; float:left; cursor:pointer;}
+.tabNav li.cur{height:40px; line-height:35px; background:#fff; color:#416D28; border-top:solid 5px #87DD51; border-bottom:solid 5px #fff; position:relative; margin-bottom:-5px;}
+.tabContent{display:none;}
+
+/*页码*/
+.pageSize{text-align:center; padding:10px 0; background:#D3D3D3; margin-top:20px;}
+.pageSize a{display:inline-block; height:21px; line-height:21px; margin-right:8px; padding:0 8px; color:#12369b;}
+.pageLast,.pageNext{font-family:SimSun;}
+.pageSize a:hover,.pageSize .nowPage{background:#4594f9; color:#fff;}
+
+.bootom{margin-top:15px;}
+.zhuanqu{height:78px; width:900px; float:left;}
+.zhuanqu dt{width:160px; height:78px; background:#116BE7; font-size:24px; color:#fff; line-height:78px; text-align:center; float:left;}
+.zhuanqu dd{width:720px; height:78px; padding:0 10px; background:#3F8FFF; float:left;}
+.zhuanqu dd a{display:block; font-size:18px; line-height:78px; color:#fff; float:left; padding:0 20px;}
+.zhuanqu dd a:hover{background:#116BE7;}
+.btnHuishou{display:block; width:280px; height:78px; line-height:78px; background-color:#73B541; color:#fff; font-size:30px; text-indent:45px; float:right; background-image:url(../../../resources/web/images/more_icon.png); background-repeat:no-repeat; background-position:195px center;}
+.btnHuishou:hover{background-color:#5B9234; color:#fff;}
+</style>
+</head>
+
+<body>
+<div class="wrapper topArea">
+	<h1 class="logo">
+    	<a href="index.html" title="鑫裕环保供应链平台"><img src="../../../resources/commons/images/logo.png" alt="鑫裕环保供应链平台"></a>
+    </h1>
+    <div class="topRight">
+    	<a href="index.html" class="linkIndex">首页</a>
+        <dl class="downList">
+        	<dt><a href="javascript:void(0)" class="linkLogin">登录</a></dt>
+            <dd>
+            	<div class="apBack">
+                  <em class="topPoint"></em>
+                  <div class="apLoadCont">
+                    <a href="cgsdl.html" class="btnLoad dlcg btnCart">采购商入口</a>
+                    <a href="gysdl.html" class="btnLoad dlgy btnRk">供应商入口</a>
+                    <a href="hxqydl.html" class="btnLoad dlhx btnhx">核心企业入口</a>
+                  </div>
+                </div>
+            </dd>
+        </dl>
+        <dl class="downList">
+        	<dt><a href="javascript:void(0)" class="linkReg">注册</a></dt>
+            <dd>
+                <div class="apBack2">
+                    <em class="topPoint2"></em>
+                    <div class="apRegCont">
+                      <a href="cgszc1.html" class="btnEnter zccg btnCart">采购商入口</a>
+                      <a href="gyszc1.html" class="btnEnter zcgy btnRk">供应商入口</a>
+                    </div>
+                </div>
+            </dd>
+        </dl>
+        <em class="split"></em>
+        <span class="telPhone">4000-888-1000</span>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="nav">
+	<div class="wrapper">
+    	<dl class="navItem">
+        	<dt>现货交易</dt>
+            <dd>
+            	<a href="gqxx.html">供求信息</a>
+                <a href="gjs.html">贵金属</a>
+                <a href="ylcg.html">原料采购</a>
+                <a href="wjbc.html">微晶板材</a>
+            </dd>
+        </dl>
+        <dl class="navItem">
+        	<dt>危废处置</dt>
+            <dd>
+            	<a href="wxpcs.html" class="cur">危险品产生</a>
+                <a href="wxpys.html">危险品运输</a>
+                <a href="wxpcz.html">危险品处置</a>
+                <a href="zcfg.html">政策法规</a>
+            </dd>
+        </dl>
+        <dl class="navItem" style="margin-right:0;">
+        	<dt>网络金融</dt>
+            <dd>
+            	<a href="qyrz.html">企业认证</a>
+                <a href="wlrz.html">网络融资</a>
+                <a href="javascript:void(0)">融资指引</a>
+                <a href="javascript:void(0)">建行专区</a>
+            </dd>
+        </dl>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="bread">
+	<div class="wrapper"><a href="javascript:void(0);">首页</a>&nbsp;&gt;&nbsp;危险品产生</div>
+</div>
+<div class="wrapper">
+	<div class="autoAdv advUp">
+    	<div class="autoAdvImg">
+        	<a href="javascript:void(0);"><img src="../../../resources/web/pic/banner350.jpg" width="1200" height="350" alt="广告说明"></a>
+        </div>
+	</div>
+    <div class="tabs">
+    	<ul class="tabNav">
+        	<li class="cur">放射性物品</li>
+            <li>腐蚀品</li>
+            <li>有毒物质</li>
+            <li>易燃固体</li>
+            <li>爆炸品</li>
+        </ul>
+        <div class="tabContent">
+            <div class="proItem">
+                <div class="proImg"><img src="../../../resources/web/pic/pic170-wx.jpg"></div>
+                <dl class="proText">
+                    <dt>含铀32的放射性物品</dt>
+                    <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+                    <dd class="proInfo2">
+                        <span>供货量：5,000 吨</span>
+                        <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+                        <div class="clear"></div>
+                    </dd>
+                </dl>
+                <dl class="detection">
+                    <dt>检测机构</dt>
+                    <dd class="detectionImg"><img src="../../../resources/web/pic/detection85.jpg" alt="华测检测技术股份有限公司"></dd>
+                    <dd class="detectionName">华测检测技术股份有限公司</dd>
+                </dl>
+                <div class="proRight">
+                    <a href="javascript:void(0);" class="btnRed">咨询</a>
+                    <a href="javascript:void(0);" class="btnBlue">详情</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="proItem">
+                <div class="proImg"><img src="../../../resources/web/pic/pic170-wx.jpg"></div>
+                <dl class="proText">
+                    <dt>含铀32的放射性物品</dt>
+                    <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+                    <dd class="proInfo2">
+                        <span>供货量：5,000 吨</span>
+                        <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+                        <div class="clear"></div>
+                    </dd>
+                </dl>
+                <dl class="detection">
+                    <dt>检测机构</dt>
+                    <dd class="detectionImg"><img src="../../../resources/web/pic/detection85.jpg" alt="华测检测技术股份有限公司"></dd>
+                    <dd class="detectionName">华测检测技术股份有限公司</dd>
+                </dl>
+                <div class="proRight">
+                    <a href="javascript:void(0);" class="btnRed">咨询</a>
+                    <a href="javascript:void(0);" class="btnBlue">详情</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="proItem">
+                <div class="proImg"><img src="../../../resources/web/pic/pic170-wx.jpg"></div>
+                <dl class="proText">
+                    <dt>含铀32的放射性物品</dt>
+                    <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+                    <dd class="proInfo2">
+                        <span>供货量：5,000 吨</span>
+                        <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+                        <div class="clear"></div>
+                    </dd>
+                </dl>
+                <dl class="detection">
+                    <dt>检测机构</dt>
+                    <dd class="detectionImg"><img src="../../../resources/web/pic/detection85.jpg" alt="华测检测技术股份有限公司"></dd>
+                    <dd class="detectionName">华测检测技术股份有限公司</dd>
+                </dl>
+                <div class="proRight">
+                    <a href="javascript:void(0);" class="btnRed">咨询</a>
+                    <a href="javascript:void(0);" class="btnBlue">详情</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="proItem">
+                <div class="proImg"><img src="../../../resources/web/pic/pic170-wx.jpg"></div>
+                <dl class="proText">
+                    <dt>含铀32的放射性物品</dt>
+                    <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+                    <dd class="proInfo2">
+                        <span>供货量：5,000 吨</span>
+                        <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+                        <div class="clear"></div>
+                    </dd>
+                </dl>
+                <dl class="detection">
+                    <dt>检测机构</dt>
+                    <dd class="detectionImg"><img src="../../../resources/web/pic/detection85.jpg" alt="华测检测技术股份有限公司"></dd>
+                    <dd class="detectionName">华测检测技术股份有限公司</dd>
+                </dl>
+                <div class="proRight">
+                    <a href="javascript:void(0);" class="btnRed">咨询</a>
+                    <a href="javascript:void(0);" class="btnBlue">详情</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="proItem">
+                <div class="proImg"><img src="../../../resources/web/pic/pic170-wx.jpg"></div>
+                <dl class="proText">
+                    <dt>含铀32的放射性物品</dt>
+                    <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+                    <dd class="proInfo2">
+                        <span>供货量：5,000 吨</span>
+                        <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+                        <div class="clear"></div>
+                    </dd>
+                </dl>
+                <dl class="detection">
+                    <dt>检测机构</dt>
+                    <dd class="detectionImg"><img src="../../../resources/web/pic/detection85.jpg" alt="华测检测技术股份有限公司"></dd>
+                    <dd class="detectionName">华测检测技术股份有限公司</dd>
+                </dl>
+                <div class="proRight">
+                    <a href="javascript:void(0);" class="btnRed">咨询</a>
+                    <a href="javascript:void(0);" class="btnBlue">详情</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="pageSize">
+                <a href="javascript:void(0)" class="pageLast">&lt;&lt;</a>
+                <a href="javascript:void(0)" class="page">1</a>
+                <a href="javascript:void(0)" class="page">2</a>
+                <a href="javascript:void(0)" class="page nowPage">3</a>
+                <a href="javascript:void(0)" class="page">...</a>
+                <a href="javascript:void(0)" class="page">10</a>
+                <a href="javascript:void(0)" class="page">11</a>
+                <a href="javascript:void(0)" class="page">12</a>
+                <a href="javascript:void(0)" class="pageNext">&gt;&gt;</a>
+            </div>
+        </div>
+        <div class="tabContent">
+            <div class="proItem">
+                <div class="proImg"><img src="../../../resources/web/pic/pic170-wx.jpg"></div>
+                <dl class="proText">
+                    <dt>20%浓度稀硝酸</dt>
+                    <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+                    <dd class="proInfo2">
+                        <span>供货量：5,000 吨</span>
+                        <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+                        <div class="clear"></div>
+                    </dd>
+                </dl>
+                <dl class="detection">
+                    <dt>检测机构</dt>
+                    <dd class="detectionImg"><img src="../../../resources/web/pic/detection85.jpg" alt="华测检测技术股份有限公司"></dd>
+                    <dd class="detectionName">华测检测技术股份有限公司</dd>
+                </dl>
+                <div class="proRight">
+                    <a href="javascript:void(0);" class="btnRed">咨询</a>
+                    <a href="javascript:void(0);" class="btnBlue">详情</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="proItem">
+                <div class="proImg"><img src="../../../resources/web/pic/pic170-wx.jpg"></div>
+                <dl class="proText">
+                    <dt>20%浓度稀硝酸</dt>
+                    <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+                    <dd class="proInfo2">
+                        <span>供货量：5,000 吨</span>
+                        <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+                        <div class="clear"></div>
+                    </dd>
+                </dl>
+                <dl class="detection">
+                    <dt>检测机构</dt>
+                    <dd class="detectionImg"><img src="../../../resources/web/pic/detection85.jpg" alt="华测检测技术股份有限公司"></dd>
+                    <dd class="detectionName">华测检测技术股份有限公司</dd>
+                </dl>
+                <div class="proRight">
+                    <a href="javascript:void(0);" class="btnRed">咨询</a>
+                    <a href="javascript:void(0);" class="btnBlue">详情</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="proItem">
+                <div class="proImg"><img src="../../../resources/web/pic/pic170-wx.jpg"></div>
+                <dl class="proText">
+                    <dt>20%浓度稀硝酸</dt>
+                    <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+                    <dd class="proInfo2">
+                        <span>供货量：5,000 吨</span>
+                        <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+                        <div class="clear"></div>
+                    </dd>
+                </dl>
+                <dl class="detection">
+                    <dt>检测机构</dt>
+                    <dd class="detectionImg"><img src="../../../resources/web/pic/detection85.jpg" alt="华测检测技术股份有限公司"></dd>
+                    <dd class="detectionName">华测检测技术股份有限公司</dd>
+                </dl>
+                <div class="proRight">
+                    <a href="javascript:void(0);" class="btnRed">咨询</a>
+                    <a href="javascript:void(0);" class="btnBlue">详情</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="proItem">
+                <div class="proImg"><img src="../../../resources/web/pic/pic170-wx.jpg"></div>
+                <dl class="proText">
+                    <dt>20%浓度稀硝酸</dt>
+                    <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+                    <dd class="proInfo2">
+                        <span>供货量：5,000 吨</span>
+                        <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+                        <div class="clear"></div>
+                    </dd>
+                </dl>
+                <dl class="detection">
+                    <dt>检测机构</dt>
+                    <dd class="detectionImg"><img src="../../../resources/web/pic/detection85.jpg" alt="华测检测技术股份有限公司"></dd>
+                    <dd class="detectionName">华测检测技术股份有限公司</dd>
+                </dl>
+                <div class="proRight">
+                    <a href="javascript:void(0);" class="btnRed">咨询</a>
+                    <a href="javascript:void(0);" class="btnBlue">详情</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="proItem">
+                <div class="proImg"><img src="../../../resources/web/pic/pic170-wx.jpg"></div>
+                <dl class="proText">
+                    <dt>20%浓度稀硝酸</dt>
+                    <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+                    <dd class="proInfo2">
+                        <span>供货量：5,000 吨</span>
+                        <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+                        <div class="clear"></div>
+                    </dd>
+                </dl>
+                <dl class="detection">
+                    <dt>检测机构</dt>
+                    <dd class="detectionImg"><img src="../../../resources/web/pic/detection85.jpg" alt="华测检测技术股份有限公司"></dd>
+                    <dd class="detectionName">华测检测技术股份有限公司</dd>
+                </dl>
+                <div class="proRight">
+                    <a href="javascript:void(0);" class="btnRed">咨询</a>
+                    <a href="javascript:void(0);" class="btnBlue">详情</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="pageSize">
+                <a href="javascript:void(0)" class="pageLast">&lt;&lt;</a>
+                <a href="javascript:void(0)" class="page">1</a>
+                <a href="javascript:void(0)" class="page">2</a>
+                <a href="javascript:void(0)" class="page nowPage">3</a>
+                <a href="javascript:void(0)" class="page">...</a>
+                <a href="javascript:void(0)" class="page">10</a>
+                <a href="javascript:void(0)" class="page">11</a>
+                <a href="javascript:void(0)" class="page">12</a>
+                <a href="javascript:void(0)" class="pageNext">&gt;&gt;</a>
+            </div>
+        </div>
+        <div class="tabContent">
+            <div class="proItem">
+                <div class="proImg"><img src="../../../resources/web/pic/pic170-wx.jpg"></div>
+                <dl class="proText">
+                    <dt>废弃的液化氡气</dt>
+                    <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+                    <dd class="proInfo2">
+                        <span>供货量：5,000 吨</span>
+                        <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+                        <div class="clear"></div>
+                    </dd>
+                </dl>
+                <dl class="detection">
+                    <dt>检测机构</dt>
+                    <dd class="detectionImg"><img src="../../../resources/web/pic/detection85.jpg" alt="华测检测技术股份有限公司"></dd>
+                    <dd class="detectionName">华测检测技术股份有限公司</dd>
+                </dl>
+                <div class="proRight">
+                    <a href="javascript:void(0);" class="btnRed">咨询</a>
+                    <a href="javascript:void(0);" class="btnBlue">详情</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="proItem">
+                <div class="proImg"><img src="../../../resources/web/pic/pic170-wx.jpg"></div>
+                <dl class="proText">
+                    <dt>废弃的液化氡气</dt>
+                    <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+                    <dd class="proInfo2">
+                        <span>供货量：5,000 吨</span>
+                        <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+                        <div class="clear"></div>
+                    </dd>
+                </dl>
+                <dl class="detection">
+                    <dt>检测机构</dt>
+                    <dd class="detectionImg"><img src="../../../resources/web/pic/detection85.jpg" alt="华测检测技术股份有限公司"></dd>
+                    <dd class="detectionName">华测检测技术股份有限公司</dd>
+                </dl>
+                <div class="proRight">
+                    <a href="javascript:void(0);" class="btnRed">咨询</a>
+                    <a href="javascript:void(0);" class="btnBlue">详情</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="proItem">
+                <div class="proImg"><img src="../../../resources/web/pic/pic170-wx.jpg"></div>
+                <dl class="proText">
+                    <dt>废弃的液化氡气</dt>
+                    <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+                    <dd class="proInfo2">
+                        <span>供货量：5,000 吨</span>
+                        <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+                        <div class="clear"></div>
+                    </dd>
+                </dl>
+                <dl class="detection">
+                    <dt>检测机构</dt>
+                    <dd class="detectionImg"><img src="../../../resources/web/pic/detection85.jpg" alt="华测检测技术股份有限公司"></dd>
+                    <dd class="detectionName">华测检测技术股份有限公司</dd>
+                </dl>
+                <div class="proRight">
+                    <a href="javascript:void(0);" class="btnRed">咨询</a>
+                    <a href="javascript:void(0);" class="btnBlue">详情</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="proItem">
+                <div class="proImg"><img src="../../../resources/web/pic/pic170-wx.jpg"></div>
+                <dl class="proText">
+                    <dt>废弃的液化氡气</dt>
+                    <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+                    <dd class="proInfo2">
+                        <span>供货量：5,000 吨</span>
+                        <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+                        <div class="clear"></div>
+                    </dd>
+                </dl>
+                <dl class="detection">
+                    <dt>检测机构</dt>
+                    <dd class="detectionImg"><img src="../../../resources/web/pic/detection85.jpg" alt="华测检测技术股份有限公司"></dd>
+                    <dd class="detectionName">华测检测技术股份有限公司</dd>
+                </dl>
+                <div class="proRight">
+                    <a href="javascript:void(0);" class="btnRed">咨询</a>
+                    <a href="javascript:void(0);" class="btnBlue">详情</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="proItem">
+                <div class="proImg"><img src="../../../resources/web/pic/pic170-wx.jpg"></div>
+                <dl class="proText">
+                    <dt>废弃的液化氡气</dt>
+                    <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+                    <dd class="proInfo2">
+                        <span>供货量：5,000 吨</span>
+                        <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+                        <div class="clear"></div>
+                    </dd>
+                </dl>
+                <dl class="detection">
+                    <dt>废弃的液化氡气</dt>
+                    <dd class="detectionImg"><img src="../../../resources/web/pic/detection85.jpg" alt="华测检测技术股份有限公司"></dd>
+                    <dd class="detectionName">华测检测技术股份有限公司</dd>
+                </dl>
+                <div class="proRight">
+                    <a href="javascript:void(0);" class="btnRed">咨询</a>
+                    <a href="javascript:void(0);" class="btnBlue">详情</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="pageSize">
+                <a href="javascript:void(0)" class="pageLast">&lt;&lt;</a>
+                <a href="javascript:void(0)" class="page">1</a>
+                <a href="javascript:void(0)" class="page">2</a>
+                <a href="javascript:void(0)" class="page nowPage">3</a>
+                <a href="javascript:void(0)" class="page">...</a>
+                <a href="javascript:void(0)" class="page">10</a>
+                <a href="javascript:void(0)" class="page">11</a>
+                <a href="javascript:void(0)" class="page">12</a>
+                <a href="javascript:void(0)" class="pageNext">&gt;&gt;</a>
+            </div>
+        </div>
+        <div class="tabContent">
+            <div class="proItem">
+                <div class="proImg"><img src="../../../resources/web/pic/pic170-wx.jpg"></div>
+                <dl class="proText">
+                    <dt>含大量磷的混合物</dt>
+                    <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+                    <dd class="proInfo2">
+                        <span>供货量：5,000 吨</span>
+                        <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+                        <div class="clear"></div>
+                    </dd>
+                </dl>
+                <dl class="detection">
+                    <dt>检测机构</dt>
+                    <dd class="detectionImg"><img src="../../../resources/web/pic/detection85.jpg" alt="华测检测技术股份有限公司"></dd>
+                    <dd class="detectionName">华测检测技术股份有限公司</dd>
+                </dl>
+                <div class="proRight">
+                    <a href="javascript:void(0);" class="btnRed">咨询</a>
+                    <a href="javascript:void(0);" class="btnBlue">详情</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="proItem">
+                <div class="proImg"><img src="../../../resources/web/pic/pic170-wx.jpg"></div>
+                <dl class="proText">
+                    <dt>含大量磷的混合物</dt>
+                    <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+                    <dd class="proInfo2">
+                        <span>供货量：5,000 吨</span>
+                        <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+                        <div class="clear"></div>
+                    </dd>
+                </dl>
+                <dl class="detection">
+                    <dt>检测机构</dt>
+                    <dd class="detectionImg"><img src="../../../resources/web/pic/detection85.jpg" alt="华测检测技术股份有限公司"></dd>
+                    <dd class="detectionName">华测检测技术股份有限公司</dd>
+                </dl>
+                <div class="proRight">
+                    <a href="javascript:void(0);" class="btnRed">咨询</a>
+                    <a href="javascript:void(0);" class="btnBlue">详情</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="proItem">
+                <div class="proImg"><img src="../../../resources/web/pic/pic170-wx.jpg"></div>
+                <dl class="proText">
+                    <dt>含大量磷的混合物</dt>
+                    <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+                    <dd class="proInfo2">
+                        <span>供货量：5,000 吨</span>
+                        <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+                        <div class="clear"></div>
+                    </dd>
+                </dl>
+                <dl class="detection">
+                    <dt>检测机构</dt>
+                    <dd class="detectionImg"><img src="../../../resources/web/pic/detection85.jpg" alt="华测检测技术股份有限公司"></dd>
+                    <dd class="detectionName">华测检测技术股份有限公司</dd>
+                </dl>
+                <div class="proRight">
+                    <a href="javascript:void(0);" class="btnRed">咨询</a>
+                    <a href="javascript:void(0);" class="btnBlue">详情</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="proItem">
+                <div class="proImg"><img src="../../../resources/web/pic/pic170-wx.jpg"></div>
+                <dl class="proText">
+                    <dt>含大量磷的混合物</dt>
+                    <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+                    <dd class="proInfo2">
+                        <span>供货量：5,000 吨</span>
+                        <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+                        <div class="clear"></div>
+                    </dd>
+                </dl>
+                <dl class="detection">
+                    <dt>检测机构</dt>
+                    <dd class="detectionImg"><img src="../../../resources/web/pic/detection85.jpg" alt="华测检测技术股份有限公司"></dd>
+                    <dd class="detectionName">华测检测技术股份有限公司</dd>
+                </dl>
+                <div class="proRight">
+                    <a href="javascript:void(0);" class="btnRed">咨询</a>
+                    <a href="javascript:void(0);" class="btnBlue">详情</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="proItem">
+                <div class="proImg"><img src="../../../resources/web/pic/pic170-wx.jpg"></div>
+                <dl class="proText">
+                    <dt>含大量磷的混合物</dt>
+                    <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+                    <dd class="proInfo2">
+                        <span>供货量：5,000 吨</span>
+                        <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+                        <div class="clear"></div>
+                    </dd>
+                </dl>
+                <dl class="detection">
+                    <dt>检测机构</dt>
+                    <dd class="detectionImg"><img src="../../../resources/web/pic/detection85.jpg" alt="华测检测技术股份有限公司"></dd>
+                    <dd class="detectionName">华测检测技术股份有限公司</dd>
+                </dl>
+                <div class="proRight">
+                    <a href="javascript:void(0);" class="btnRed">咨询</a>
+                    <a href="javascript:void(0);" class="btnBlue">详情</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="pageSize">
+                <a href="javascript:void(0)" class="pageLast">&lt;&lt;</a>
+                <a href="javascript:void(0)" class="page">1</a>
+                <a href="javascript:void(0)" class="page">2</a>
+                <a href="javascript:void(0)" class="page nowPage">3</a>
+                <a href="javascript:void(0)" class="page">...</a>
+                <a href="javascript:void(0)" class="page">10</a>
+                <a href="javascript:void(0)" class="page">11</a>
+                <a href="javascript:void(0)" class="page">12</a>
+                <a href="javascript:void(0)" class="pageNext">&gt;&gt;</a>
+            </div>
+        </div>
+        <div class="tabContent">
+        	<div class="proItem">
+                <div class="proImg"><img src="../../../resources/web/pic/pic170-wx.jpg"></div>
+                <dl class="proText">
+                    <dt>液化氢气</dt>
+                    <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+                    <dd class="proInfo2">
+                        <span>供货量：5,000 吨</span>
+                        <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+                        <div class="clear"></div>
+                    </dd>
+                </dl>
+                <dl class="detection">
+                    <dt>检测机构</dt>
+                    <dd class="detectionImg"><img src="../../../resources/web/pic/detection85.jpg" alt="华测检测技术股份有限公司"></dd>
+                    <dd class="detectionName">华测检测技术股份有限公司</dd>
+                </dl>
+                <div class="proRight">
+                    <a href="javascript:void(0);" class="btnRed">咨询</a>
+                    <a href="javascript:void(0);" class="btnBlue">详情</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="proItem">
+                <div class="proImg"><img src="../../../resources/web/pic/pic170-wx.jpg"></div>
+                <dl class="proText">
+                    <dt>液化氢气</dt>
+                    <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+                    <dd class="proInfo2">
+                        <span>供货量：5,000 吨</span>
+                        <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+                        <div class="clear"></div>
+                    </dd>
+                </dl>
+                <dl class="detection">
+                    <dt>检测机构</dt>
+                    <dd class="detectionImg"><img src="../../../resources/web/pic/detection85.jpg" alt="华测检测技术股份有限公司"></dd>
+                    <dd class="detectionName">华测检测技术股份有限公司</dd>
+                </dl>
+                <div class="proRight">
+                    <a href="javascript:void(0);" class="btnRed">咨询</a>
+                    <a href="javascript:void(0);" class="btnBlue">详情</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="pageSize">
+                <a href="javascript:void(0)" class="pageLast">&lt;&lt;</a>
+                <a href="javascript:void(0)" class="page">1</a>
+                <a href="javascript:void(0)" class="page">2</a>
+                <a href="javascript:void(0)" class="page nowPage">3</a>
+                <a href="javascript:void(0)" class="page">...</a>
+                <a href="javascript:void(0)" class="page">10</a>
+                <a href="javascript:void(0)" class="page">11</a>
+                <a href="javascript:void(0)" class="page">12</a>
+                <a href="javascript:void(0)" class="pageNext">&gt;&gt;</a>
+            </div>
+        </div>
+    </div>
+    <div class="bootom">
+        <dl class="zhuanqu">
+            <dt>回收专区</dt>
+            <dd>
+                <a href="javascript:void(0);">中石化专区</a>
+                <a href="javascript:void(0);">大冶专区</a>
+                <a href="javascript:void(0);">中石油专区</a>
+                <a href="javascript:void(0);">昆明专区</a>
+                <a href="javascript:void(0);">新疆专区</a>
+                <a href="javascript:void(0);">陕西专区</a>
+            </dd>
+        </dl>
+        <a href="javascript:void(0);" class="btnHuishou">我要回收</a>
+        <div class="clear"></div>
+	</div>
+</div>
+<!--底部-->
+<div class="bottomMenu">
+    <div class="wrapper">
+    	<dl class="footItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c4.png" width="49" height="48" />
+              <span>采购流程</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="下单流程">下单流程</a></li>
+                <li><a href="javascript:void(0);" title="订单跟踪">订单跟踪</a></li>
+                <li><a href="javascript:void(0);" title="安全支付">安全支付</a></li>
+                <li><a href="javascript:void(0);" title="企业认证">企业认证</a></li>
+                <li><a href="javascript:void(0);" title="常见问题">常见问题</a></li>
+            </dd>
+        </dl>
+        <dl class="footItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c5.png" width="49" height="48" />
+              <span>服务与支持</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="物流配送">物流配送</a></li>
+                <li><a href="javascript:void(0);" title="经销商权益">经销商权益</a></li>
+                <li><a href="javascript:void(0);" title="不良品退货">不良品退货</a></li>
+                <li><a href="javascript:void(0);" title="在线咨询">在线咨询</a></li>
+                <li><a href="javascript:void(0);" title="融资操作手册">融资操作手册</a></li>
+            </dd>
+        </dl>
+        <dl class="footItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c6.png" width="49" height="48" />
+              <span>我的账户</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="子账户管理">子账户管理</a></li>
+                <li><a href="javascript:void(0);" title="密码重置">密码重置</a></li>
+                <li><a href="javascript:void(0);" title="在线打款">在线打款</a></li>
+            </dd>
+        </dl>
+        <dl class="lastItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c7.png" width="49" height="48" />
+              <span>关于我们</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="公司简介">公司简介</a></li>
+                <li><a href="javascript:void(0);" title="联系我们">联系我们</a></li>
+                <li><a href="javascript:void(0);" title="网站声明">网站声明</a></li>
+            </dd>
+        </dl>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--底部 end-->
+
+<!--尾部-->
+<div class="footer">
+	<div class="wrapper">
+        <p class="footerLeft">© 2014 成都易科远见科技有限公司 版权所有 蜀ICP备 14005736号</p>
+        <p class="footerRight">成都市高新区吉泰路666号花样年·福年广场2号楼1309室<br>服务热线：028-83190368</p>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--尾部 end-->
+<script src="../../../resources/web/js/base.js"></script>
+<script>
+$(document).ready(function() {
+	/*选项卡切换*/
+	$(".tabContent").eq(0).show();
+	$(".tabNav li").click(function(){
+		$(this).siblings().removeClass("cur");
+		$(this).addClass("cur");
+		var dom=$(this).parent().siblings(".tabContent");
+		var index=$(this).parent().children().index(this);
+		dom.hide();
+		dom.eq(index).show();
+	})
+});
+</script>
+</body>
+</html>

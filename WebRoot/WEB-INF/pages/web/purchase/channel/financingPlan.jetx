@@ -1,0 +1,199 @@
+#define(com.ekfans.base.channel.model.Channel channel)
+
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Expires" content="0" />
+	<meta http-equiv="kiben" content="no-cache" />
+	<title>${channel.name}|${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}</title>
+	<link rel="icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+	<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/web/gylweb/css/base.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/web/gylweb/css/financingPlan.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/advList.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tuwen1.js"></script>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/advList.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/tools.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/gylweb/js/headBase.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/gylweb/js/financingPlan.js"></script>
+	#if(configStatus == "true")
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/control.js"></script>	
+		<link href="${webroot}/resources/commons/css/control.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script
+		<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+	#end
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/ad.css" />
+	<script type="text/javascript" src="${webroot}/resources/web/gylweb/js/gylCommons.js"></script>
+	<meta name="Keywords" content="${channel.keyWords}">
+	<meta name="description" content="${channel.description}">
+	
+	
+</head>
+
+<body>
+<input type="hidden" id="ctxpath" value="${webroot}" />
+<input type="hidden" name="ctxpath" id="ctxpath" value="${ctxpath}" />
+<input type="hidden" name="channelId" id="channelId" value="${channelId}" />
+<input type="hidden" name="channelType" id="channelType" value="${channel.type}" />
+<input type="hidden" name="configStatus" id="configStatus" value="${configStatus}" />
+#if(configStatus == "true")
+	<!-- 频道配置导航条 -->
+	#include("../../channel/commons/config/config-top.jetx")
+	<!-- 频道配置导航条 end -->
+#end
+
+<div class="header" id="channelTop"></div>
+<div class="center">
+	<div class="banner">
+		<div class="banIn">
+	    <div class="autoAdv"><!--看到这个class的标签就表示该层可配置-->
+	      <!--配置内容结构(结构不包含外面那个autoAdv)-->
+	      <div class="autoAdvImg">
+	        #include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"1"})
+	      </div>
+	      <!--配置内容结构 end-->
+	    </div>
+	    <!--浮动圆圈（相对banIn定位）-->
+	    <div class="bannerLogin">
+				网络<br/>融资新方法<br/>
+	      <a href="${webroot}/web/help" class="howSev" title="如何开通">如何开通</a>
+	    </div>
+	    <!--浮动圆圈 end-->
+	  </div>
+	</div>
+	<!--广告 end-->
+	<!--解决方案开始-->
+	<div class="solution">
+		<div class="wrapper">
+	  	<h3> 全链条网络融资解决方案</h3>
+	      <div class="autoAdv"><!--看到这个class的标签就表示该层可配置-->
+	        <!--配置内容结构(结构不包含外面那个autoAdv)-->
+	        <div class="autoAdvImg">
+	         #include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"2"})
+	        </div>
+	        <!--配置内容结构 end-->
+	      </div>
+	  </div>
+	</div>
+	<!--解决方案 end-->
+	<!--服务品质开始-->
+	<div class="serviceQuality">
+		<div class="wrapper">
+	  	<h3>优异的融资服务品质</h3>
+	    <div class="content">
+	    	<div class="autoAdv"><!--看到这个class的标签就表示该层可配置-->
+	    		
+	        <!--配置内容结构(结构不包含外面那个autoAdv)-->
+	        #include("financingPlan/content1.jetx",{"channelId":channelId,"configType":"c","position":"1"})
+	       
+	        <!--配置内容结构 end-->
+	      </div>
+	      <div class="autoAdv"><!--看到这个class的标签就表示该层可配置-->
+	        <!--配置内容结构(结构不包含外面那个autoAdv)-->
+	         #include("financingPlan/content2.jetx",{"channelId":channelId,"configType":"c","position":"2"})
+	        <!--配置内容结构 end-->
+	      </div>
+	      <div class="autoAdv"><!--看到这个class的标签就表示该层可配置-->
+	        <!--配置内容结构(结构不包含外面那个autoAdv)-->
+	         #include("financingPlan/content3.jetx",{"channelId":channelId,"configType":"c","position":"3"})
+	        <!--配置内容结构 end-->
+	      </div>
+	      <div class="autoAdv"><!--看到这个class的标签就表示该层可配置-->
+	        <!--配置内容结构(结构不包含外面那个autoAdv)-->
+	        #include("financingPlan/content4.jetx",{"channelId":channelId,"configType":"c","position":"4"})
+	        <!--配置内容结构 end-->
+	      </div>
+	      <div class="autoAdv"><!--看到这个class的标签就表示该层可配置-->
+	        <!--配置内容结构(结构不包含外面那个autoAdv)-->
+	         #include("financingPlan/content5.jetx",{"channelId":channelId,"configType":"c","position":"5"})
+	        <!--配置内容结构 end-->
+	      </div>
+	      <div class="autoAdv"><!--看到这个class的标签就表示该层可配置-->
+	        <!--配置内容结构(结构不包含外面那个autoAdv)-->
+	         #include("financingPlan/content6.jetx",{"channelId":channelId,"configType":"c","position":"6"})
+	        <!--配置内容结构 end-->
+	      </div>
+	      <div class="clear"></div>
+	    </div>
+	  </div>
+	</div>
+	<!--服务品质 end-->
+	<!--2列-->
+	<div class="main">
+	  <div class="wrapper">
+	  	<div class="point">
+	  		#include("financingPlan/rzzyContent.jetx",{"channelId":channelId,"configType":"c","position":"7"})
+	    	
+	    </div>
+	    <div class="cooperation">
+	    	<h3>合作金融机构</h3>
+	      <div class="content">
+	      	<div class="autoAdv"><!--看到这个class的标签就表示该层可配置-->
+	          <!--配置内容结构(结构不包含外面那个autoAdv)-->
+	          <div class="autoAdvImg">
+	            #include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"3"})
+	          </div>
+	          <div class="clear"></div>
+	          <!--配置内容结构 end-->
+	       </div>
+	      <div class="autoAdv"><!--看到这个class的标签就表示该层可配置-->
+	          <!--配置内容结构(结构不包含外面那个autoAdv)-->
+	          <div class="autoAdvImg">
+	            #include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"4"})
+	          </div>
+	          <div class="clear"></div>
+	          <!--配置内容结构 end-->
+	       </div>
+	       <div class="autoAdv"><!--看到这个class的标签就表示该层可配置-->
+	          <!--配置内容结构(结构不包含外面那个autoAdv)-->
+	          <div class="autoAdvImg">
+	            #include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"5"})
+	          </div>
+	          <div class="clear"></div>
+	          <!--配置内容结构 end-->
+	       </div>
+	       <div class="autoAdv"><!--看到这个class的标签就表示该层可配置-->
+	          <!--配置内容结构(结构不包含外面那个autoAdv)-->
+	          <div class="autoAdvImg">
+	            #include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"6"})
+	          </div>
+	          <div class="clear"></div>
+	          <!--配置内容结构 end-->
+	       </div>
+	       <div class="autoAdv"><!--看到这个class的标签就表示该层可配置-->
+	          <!--配置内容结构(结构不包含外面那个autoAdv)-->
+	          <div class="autoAdvImg">
+	            #include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"7"})
+	          </div>
+	          <div class="clear"></div>
+	          <!--配置内容结构 end-->
+	       </div>
+	        <div class="clear"></div>
+	      </div>
+	    </div>
+	    <div class="clear"></div>
+	  </div>
+	</div>
+</div>
+<div id="buttomDiv"></div>
+
+<script type="text/javascript" src="${webroot}/resources/web/gylweb/js/backtop.js"></script>
+<script type="text/javascript">
+
+document.getElementById("cR").style.height=document.getElementById("cL").scrollHeight+"px";
+
+</script>
+<div style="display:none">
+	<script src="http://s95.cnzz.com/z_stat.php?id=1253965659&web_id=1253965659" language="JavaScript"></script>
+</div>
+</body>
+
+</html>

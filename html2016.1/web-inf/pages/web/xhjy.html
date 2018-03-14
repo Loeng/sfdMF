@@ -1,0 +1,746 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>三分地环保-现货交易</title>
+<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="../../../resources/commons/js/jquery.superslide.2.1.1.js"></script>
+<script src="../../../resources/web/js/base.js"></script>
+<script src="../../../resources/commons/js/echarts.js"></script>
+<link href="../../../resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/web/css/base.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/web/css/xhjy.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div class="header">
+	<div class="wrapper">
+        <h1 id="logo"><a href="index.html"><img src="../../../resources/commons/images/logo.png" alt="三分地环保产业链"></a></h1>
+        <div class="headerRight">
+            <a href="login.html">登录</a>
+            <a href="reg.html">注册</a>
+            <span class="split">|</span>
+            <span class="serviceTel">服务热线：0735-5526035</span>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<!--一极菜单-->
+<div class="nav">
+  <div class="firstNav">
+    <ul class="wrapper">
+      <li>
+          <a href="xhjy.html" class="navBtn cur">现货交易<em></em></a>
+          <div class="navList">
+              <em></em>
+              <a href="xiaoshouguapai.html">销售挂牌</a>
+              <a href="qiugouguapai.html">求购挂牌</a>
+          </div>
+      </li>
+      <li>
+      	<a href="gongqiu.html" class="navBtn">供求中心<em></em></a>
+        <div class="navList">
+        	<em></em>
+            <a href="gongyingMore.html">供应信息</a>
+            <a href="qiugouMore.html">求购信息</a>
+        </div>
+      </li>
+      <li>
+      	<a href="wfys.html" class="navBtn">危废运输<em></em></a>
+      	<div class="navList">
+            <em></em>
+            <a href="weifeicheyuan.html">危废车源</a>
+            <a href="weifeihuoyuan.html">危废货源</a>
+        </div>
+      </li>
+      <li>
+      	<a href="qyrz.html" class="navBtn">金融在线<em></em></a>
+        <div class="navList">
+            <em></em>
+            <a href="qyrz.html">企业认证</a>
+            <a href="zaixianrongzi.html">在线融资</a>
+        </div>
+      </li>
+      <li>
+      	<a href="hbzk.html" class="navBtn">环保智库<em></em></a>
+        <div class="navList">
+            <em></em>
+            <a href="hyzx.html">危废知识</a>
+            <a href="hyzx.html">行业资讯</a>
+            <a href="hyzx.html">政策法规</a>
+            <a href="hyzx.html">专家人物</a>
+        </div>
+      </li>
+      <li><a href="proMall.html" class="navBtn">绿色商城<em></em></a>
+      	<div class="navList">
+        	<em></em>
+            <a href="proList.html">微金板材</a>
+            <a href="proList.html">危废设备</a>
+            <a href="proList.html">更多商品...</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="secondNav">
+  </div>
+</div>
+<!--一极菜单 end-->
+
+<div class="wrapper main">
+	<!--最新报价-->
+  <div class="newbjs">
+    <h2>最新报价</h2>
+    <div class="txtScroll-left">
+      <div class="hd"></div>
+      <div class="bd">
+        <ul class="infoList">
+          <li><span>金</span><span><em class="red">2680.68</em>/吨</span></li>
+          <li><span>金</span><span><em class="green">2680.68</em>/吨</span></li>
+          <li><span>金克拉</span><span><em class="red">2680.68</em>/吨</span></li>
+          <li><span>金刚金</span><span><em class="green">2680.68</em>/吨</span></li>
+          <li><span>金算盘</span><span><em class="red">2680.68</em>/吨</span></li>
+          <li><span>金</span><span><em class="green">2680.68</em>/吨</span></li>
+          <li><span>金</span><span><em class="red">2680.68</em>/吨</span></li>
+          <li><span>金刚葫芦娃</span><span><em class="green">2680.68</em>/吨</span></li>
+          <li><span>金</span><span><em class="red">2680.68</em>/吨</span></li>
+          <li><span>金</span><span><em class="green">2680.68</em>/吨</span></li>
+          <li><span>金</span><span><em class="red">2680.68</em>/吨</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <!--最新报价 end-->
+  
+	<div class="leftBox">
+    <!--热门行情-->
+    <div class="hotHq">
+    	<h2>热门行情</h2>
+      <ul class="tabNav classNav">
+        <li class="cur">金</li>
+        <li>银</li>
+        <li>铜</li>
+        <li>钯</li>
+        <li>铂</li>
+        <div class="clear"></div>
+      </ul>
+      <div class="tabContent classContent" style="display:block;">
+        <div class="chartPic">
+        <!--此容器放置行情曲线图插件内容，demo用的是iframe框架引用-->
+        <!--<img src="../../../resources/web/images/chart635_322.png" width="635" height="322">-->
+        <!--<iframe src="http://www.swust.pub/chart.html" width="635" height="322" frameborder="0"></iframe>-->
+        <div id="chartBox" style="width:635px;height:322px;"></div>
+        </div>
+        <div class="dataright">
+        	<h3>2016年03月04日</h3>
+          <div class="selList"> <span class="textBox">
+            <input name="" type="text" class="box184" placeholder="品类名称" readonly>
+            <em class="iconDown readOnly"></em> </span>
+            <ul>
+              <li>品类名称</li>
+            </ul>
+          </div>
+          <div class="selList"> <span class="textBox">
+            <input name="" type="text" class="box184" placeholder="品类名称" readonly>
+            <em class="iconDown readOnly"></em> </span>
+            <ul>
+              <li>品类名称</li>
+            </ul>
+          </div>
+          <a href="javascript:void(0);" class="btndata">最近一周</a>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="tabContent classContent">
+        <div class="chartPic"><img src="../../../resources/web/images/chart635_322.png" width="635" height="322"></div>
+        <div class="dataright">
+        	<h3>2016年03月04日</h3>
+          <div class="selList"> <span class="textBox">
+            <input name="" type="text" class="box184" placeholder="品类名称" readonly>
+            <em class="iconDown readOnly"></em> </span>
+            <ul>
+              <li>品类名称</li>
+            </ul>
+          </div>
+          <div class="selList"> <span class="textBox">
+            <input name="" type="text" class="box184" placeholder="品类名称" readonly>
+            <em class="iconDown readOnly"></em> </span>
+            <ul>
+              <li>品类名称</li>
+            </ul>
+          </div>
+          <a href="javascript:void(0);" class="btndata">最近一周</a>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="tabContent classContent">
+        <div class="chartPic"><img src="../../../resources/web/images/chart635_322.png" width="635" height="322"></div>
+        <div class="dataright">
+        	<h3>2016年03月04日</h3>
+          <div class="selList"> <span class="textBox">
+            <input name="" type="text" class="box184" placeholder="品类名称" readonly>
+            <em class="iconDown readOnly"></em> </span>
+            <ul>
+              <li>品类名称</li>
+            </ul>
+          </div>
+          <a href="javascript:void(0);" class="btndata">最近一周</a>
+          <a href="javascript:void(0);" class="btndata">最近一月</a>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="tabContent classContent">
+        <div class="chartPic"><img src="../../../resources/web/images/chart635_322.png" width="635" height="322"></div>
+        <div class="dataright">
+        	<h3>2016年03月04日</h3>
+          <div class="selList"> <span class="textBox">
+            <input name="" type="text" class="box184" placeholder="品类名称" readonly>
+            <em class="iconDown readOnly"></em> </span>
+            <ul>
+              <li>品类名称</li>
+            </ul>
+          </div>
+          <a href="javascript:void(0);" class="btndata">最近一周</a>
+          <a href="javascript:void(0);" class="btndata">最近一月</a>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="tabContent classContent">
+        <div class="chartPic"><img src="../../../resources/web/images/chart635_322.png" width="635" height="322"></div>
+        <div class="dataright">
+        	<h3>2016年03月04日</h3>
+          <div class="selList"> <span class="textBox">
+            <input name="" type="text" class="box184" placeholder="品类名称" readonly>
+            <em class="iconDown readOnly"></em> </span>
+            <ul>
+              <li>品类名称</li>
+            </ul>
+          </div>
+          <a href="javascript:void(0);" class="btndata">最近一周</a>
+          <a href="javascript:void(0);" class="btndata">最近一月</a>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+     <!--热门行情 end-->
+    
+    
+    <!--销售挂牌-->
+    <div class="huoyuan"><span>销售挂牌</span><a href="javascript:void(0);" class="btnFb">发布销售</a><a href="javascript:void(0);" class="btnMore">更多...</a></div>
+    <div class="hyList">  
+    	<ul class="tabTit">
+        <li style="width:75px;">品名</li>
+        <li style="width:155px;">厂家</li>
+        <li style="width:100px;">质量等级</li>
+        <li style="width:130px;">交货地</li>
+        <li style="width:110px;">数量(吨)</li>
+        <li style="width:110px;">价格(元/吨)	</li>
+        <li style="width:40px;">操作</li>
+      </ul>
+      <div class="hyTab txtScroll-top">
+      	<div class="hd"></div>
+        <div class="bd">
+        	<ul class="hytabList">
+            <li>
+            	<div style="width:85px;" class="listFloat"><div class="xhname">金</div><div class="xhyuansu">Au</div></div>
+              <div style="width:169px;" class="listFloat"><div class="xhcomname">永兴鑫裕环保镍业有限公司</div></div>
+              <div style="width:112px;" class="listFloat"><div>99.99%</div></div>
+              <div style="width:146px;" class="listFloat"><div class="xhsheng">新疆维吾尔自治区</div><div class="xhcity">乌鲁木齐</div></div>
+              <div style="width:126px;" class="listFloat"><div>3680.89</div></div>
+              <div style="width:125px;" class="listFloat"><div>980.18</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">购买</a></div>
+            </li>
+            <li>
+            	<div style="width:85px;" class="listFloat"><div class="xhname">金</div><div class="xhyuansu">Au</div></div>
+              <div style="width:169px;" class="listFloat"><div class="xhcomname">永兴鑫裕环保镍业有限公司</div></div>
+              <div style="width:112px;" class="listFloat"><div>99.99%</div></div>
+              <div style="width:146px;" class="listFloat"><div class="xhsheng">新疆维吾尔自治区</div><div class="xhcity">乌鲁木齐</div></div>
+              <div style="width:126px;" class="listFloat"><div>3680.89</div></div>
+              <div style="width:125px;" class="listFloat"><div>980.18</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">购买</a></div>
+            </li>
+            <li>
+            	<div style="width:85px;" class="listFloat"><div class="xhname">金</div><div class="xhyuansu">Au</div></div>
+              <div style="width:169px;" class="listFloat"><div class="xhcomname">永兴鑫裕环保镍业有限公司</div></div>
+              <div style="width:112px;" class="listFloat"><div>99.99%</div></div>
+              <div style="width:146px;" class="listFloat"><div class="xhsheng">新疆维吾尔自治区</div><div class="xhcity">乌鲁木齐</div></div>
+              <div style="width:126px;" class="listFloat"><div>3680.89</div></div>
+              <div style="width:125px;" class="listFloat"><div>980.18</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">购买</a></div>
+            </li>
+            <li>
+            	<div style="width:85px;" class="listFloat"><div class="xhname">金</div><div class="xhyuansu">Au</div></div>
+              <div style="width:169px;" class="listFloat"><div class="xhcomname">永兴鑫裕环保镍业有限公司</div></div>
+              <div style="width:112px;" class="listFloat"><div>99.99%</div></div>
+              <div style="width:146px;" class="listFloat"><div class="xhsheng">新疆维吾尔自治区</div><div class="xhcity">乌鲁木齐</div></div>
+              <div style="width:126px;" class="listFloat"><div>3680.89</div></div>
+              <div style="width:125px;" class="listFloat"><div>980.18</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">购买</a></div>
+            </li>
+            <li>
+            	<div style="width:85px;" class="listFloat"><div class="xhname">金</div><div class="xhyuansu">Au</div></div>
+              <div style="width:169px;" class="listFloat"><div class="xhcomname">永兴鑫裕环保镍业有限公司</div></div>
+              <div style="width:112px;" class="listFloat"><div>99.99%</div></div>
+              <div style="width:146px;" class="listFloat"><div class="xhsheng">新疆维吾尔自治区</div><div class="xhcity">乌鲁木齐</div></div>
+              <div style="width:126px;" class="listFloat"><div>3680.89</div></div>
+              <div style="width:125px;" class="listFloat"><div>980.18</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">购买</a></div>
+            </li>
+            <li>
+            	<div style="width:85px;" class="listFloat"><div class="xhname">金</div><div class="xhyuansu">Au</div></div>
+              <div style="width:169px;" class="listFloat"><div class="xhcomname">永兴鑫裕环保镍业有限公司</div></div>
+              <div style="width:112px;" class="listFloat"><div>99.99%</div></div>
+              <div style="width:146px;" class="listFloat"><div class="xhsheng">新疆维吾尔自治区</div><div class="xhcity">乌鲁木齐</div></div>
+              <div style="width:126px;" class="listFloat"><div>3680.89</div></div>
+              <div style="width:125px;" class="listFloat"><div>980.18</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">购买</a></div>
+            </li>
+            <li>
+            	<div style="width:85px;" class="listFloat"><div class="xhname">金</div><div class="xhyuansu">Au</div></div>
+              <div style="width:169px;" class="listFloat"><div class="xhcomname">永兴鑫裕环保镍业有限公司</div></div>
+              <div style="width:112px;" class="listFloat"><div>99.99%</div></div>
+              <div style="width:146px;" class="listFloat"><div class="xhsheng">新疆维吾尔自治区</div><div class="xhcity">乌鲁木齐</div></div>
+              <div style="width:126px;" class="listFloat"><div>3680.89</div></div>
+              <div style="width:125px;" class="listFloat"><div>980.18</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">购买</a></div>
+            </li>
+          </ul>
+          </div>
+      </div>
+    </div>
+    <!--销售挂牌 end-->
+    
+    <!--单图广告-->
+    <div class="oneAdpic">
+        <a href="javascript:void(0);"><img src="../../../resources/web/pic/ad850_148.jpg" width="850" height="148"></a>
+    </div>
+    <!--单图广告 end-->
+    
+    <!--采购挂牌-->
+    <div class="huoyuan">
+      <span>采购挂牌</span>
+      <a href="javascript:void(0);" class="btnFb">发布采购</a>
+      <a href="javascript:void(0);" class="btnMore">更多...</a>
+    </div>
+    <div class="hyList">  
+    	<ul class="tabTit">
+        <li style="width:75px;">品名</li>
+        <li style="width:155px;">厂家</li>
+        <li style="width:100px;">质量等级</li>
+        <li style="width:130px;">交货地</li>
+        <li style="width:110px;">数量(吨)</li>
+        <li style="width:110px;">交货方式</li>
+        <li style="width:40px;">操作</li>
+      </ul>
+      <div class="hyTab txtScroll-top">
+      	<div class="hd"></div>
+        <div class="bd">
+        	<ul class="hytabList">
+            <li>
+            	<div style="width:85px;" class="listFloat"><div class="xhname">金</div><div class="xhyuansu">Au</div></div>
+              <div style="width:169px;" class="listFloat"><div class="xhcomname">永兴鑫裕环保镍业有限公司</div></div>
+              <div style="width:112px;" class="listFloat"><div>99.99%</div></div>
+              <div style="width:146px;" class="listFloat"><div class="xhsheng">新疆维吾尔自治区</div><div class="xhcity">乌鲁木齐</div></div>
+              <div style="width:126px;" class="listFloat"><div>3680.89</div></div>
+              <div style="width:125px;" class="listFloat"><div>自提</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">联系</a></div>
+            </li>
+           <li>
+            	<div style="width:85px;" class="listFloat"><div class="xhname">金</div><div class="xhyuansu">Au</div></div>
+              <div style="width:169px;" class="listFloat"><div class="xhcomname">永兴鑫裕环保镍业有限公司</div></div>
+              <div style="width:112px;" class="listFloat"><div>99.99%</div></div>
+              <div style="width:146px;" class="listFloat"><div class="xhsheng">新疆维吾尔自治区</div><div class="xhcity">乌鲁木齐</div></div>
+              <div style="width:126px;" class="listFloat"><div>3680.89</div></div>
+              <div style="width:125px;" class="listFloat"><div>自提</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">联系</a></div>
+            </li>
+            <li>
+            	<div style="width:85px;" class="listFloat"><div class="xhname">金</div><div class="xhyuansu">Au</div></div>
+              <div style="width:169px;" class="listFloat"><div class="xhcomname">永兴鑫裕环保镍业有限公司</div></div>
+              <div style="width:112px;" class="listFloat"><div>99.99%</div></div>
+              <div style="width:146px;" class="listFloat"><div class="xhsheng">新疆维吾尔自治区</div><div class="xhcity">乌鲁木齐</div></div>
+              <div style="width:126px;" class="listFloat"><div>3680.89</div></div>
+              <div style="width:125px;" class="listFloat"><div>自提</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">联系</a></div>
+            </li>
+            <li>
+            	<div style="width:85px;" class="listFloat"><div class="xhname">金</div><div class="xhyuansu">Au</div></div>
+              <div style="width:169px;" class="listFloat"><div class="xhcomname">永兴鑫裕环保镍业有限公司</div></div>
+              <div style="width:112px;" class="listFloat"><div>99.99%</div></div>
+              <div style="width:146px;" class="listFloat"><div class="xhsheng">新疆维吾尔自治区</div><div class="xhcity">乌鲁木齐</div></div>
+              <div style="width:126px;" class="listFloat"><div>3680.89</div></div>
+              <div style="width:125px;" class="listFloat"><div>自提</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">联系</a></div>
+            </li>
+            <li>
+            	<div style="width:85px;" class="listFloat"><div class="xhname">金</div><div class="xhyuansu">Au</div></div>
+              <div style="width:169px;" class="listFloat"><div class="xhcomname">永兴鑫裕环保镍业有限公司</div></div>
+              <div style="width:112px;" class="listFloat"><div>99.99%</div></div>
+              <div style="width:146px;" class="listFloat"><div class="xhsheng">新疆维吾尔自治区</div><div class="xhcity">乌鲁木齐</div></div>
+              <div style="width:126px;" class="listFloat"><div>3680.89</div></div>
+              <div style="width:125px;" class="listFloat"><div>自提</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">联系</a></div>
+            </li>
+            <li>
+            	<div style="width:85px;" class="listFloat"><div class="xhname">金</div><div class="xhyuansu">Au</div></div>
+              <div style="width:169px;" class="listFloat"><div class="xhcomname">永兴鑫裕环保镍业有限公司</div></div>
+              <div style="width:112px;" class="listFloat"><div>99.99%</div></div>
+              <div style="width:146px;" class="listFloat"><div class="xhsheng">新疆维吾尔自治区</div><div class="xhcity">乌鲁木齐</div></div>
+              <div style="width:126px;" class="listFloat"><div>3680.89</div></div>
+              <div style="width:125px;" class="listFloat"><div>自提</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">联系</a></div>
+            </li>
+            <li>
+            	<div style="width:85px;" class="listFloat"><div class="xhname">金</div><div class="xhyuansu">Au</div></div>
+              <div style="width:169px;" class="listFloat"><div class="xhcomname">永兴鑫裕环保镍业有限公司</div></div>
+              <div style="width:112px;" class="listFloat"><div>99.99%</div></div>
+              <div style="width:146px;" class="listFloat"><div class="xhsheng">新疆维吾尔自治区</div><div class="xhcity">乌鲁木齐</div></div>
+              <div style="width:126px;" class="listFloat"><div>3680.89</div></div>
+              <div style="width:125px;" class="listFloat"><div>自提</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">联系</a></div>
+            </li>
+          </ul>
+          </div>
+      </div>
+    </div>
+    <!--采购挂牌 end-->
+    
+	</div>
+  
+  
+  <div class="rightBox">
+  	<!--单图广告-->
+    <div class="oneAdpic">
+        <a href="javascript:void(0);"><img src="../../../resources/web/pic/ad331_309_02.jpg" width="331" height="309">
+    </div>
+    <!--单图广告 end-->
+    
+    <div class="btnArea">
+      <a href="javascript:void(0);" class="fbBtns" style="margin-right:2px;">我要销售</a><a href="javascript:void(0);"  class="fbBtns">我要采购</a>
+      <div class="clear"></div>
+    </div>
+    
+     <!--当日涨幅-->
+      <div class="jmBox">
+        <div class="boxTit"><h2>当日涨幅排名</h2></div>
+        <div class="zfBox">
+        <table border="0" cellspacing="0" cellpadding="0" class="zftab">
+          <tr>
+            <th width="20%;">排名</th>
+            <th width="25%;">品类</th>
+            <th width="30%;">价格</th>
+            <th width="25%;">涨幅</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>金</td>
+            <td class="zdown">368.00 &#8595; </td>
+            <td>89.00%</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>银</td>
+            <td class="zup">308.00  &#8593; </td>
+            <td>8.00%</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>金</td>
+            <td class="zdown">368.00 &#8595; </td>
+            <td>89.00%</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>银</td>
+            <td class="zup">308.00  &#8593; </td>
+            <td>8.00%</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>金</td>
+            <td class="zdown">368.00 &#8595; </td>
+            <td>89.00%</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>银</td>
+            <td class="zup">308.00  &#8593; </td>
+            <td>8.00%</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>金</td>
+            <td class="zdown">368.00 &#8595; </td>
+            <td>89.00%</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>银</td>
+            <td class="zup">308.00  &#8593; </td>
+            <td>8.00%</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>金</td>
+           <td class="zdown">368.00 &#8595; </td>
+            <td>89.00%</td>
+          </tr>
+        </table>
+        </div>
+      </div>
+		 <!--当日涨幅end-->
+     
+     <!--行业资讯-->
+      <div class="jmBox" style="border:0;">
+        <div class="boxTit borderbottom"><h2>行业资讯</h2></div>
+        <div class="zxList">
+        	<div class="zxleft">
+          	<a href="javascript:void(0);">中国有色金属工业协会再生金属分会召开2016年工作会议</a>
+            <p class="author">王二牛</p>
+            <p>88132人关注</p>
+          </div>
+          <img src="../../../resources/web/pic/ad100_100_01.jpg" width="100" height="100" alt="img" class="zxright">
+          <div class="clear"></div>
+        </div>
+        <div class="zxList">
+        	<div class="zxleft">
+          	<a href="javascript:void(0);">中国有色金属工业协会再生金属分会召开2016年工作会议</a>
+            <p class="author">王二牛</p>
+            <p>88132人关注</p>
+          </div>
+          <img src="../../../resources/web/pic/ad100_100_02.jpg" width="100" height="100" alt="img" class="zxright">
+          <div class="clear"></div>
+        </div>
+        <div class="zxList" style="border-bottom:0;">
+        	<div class="zxleft">
+          	<a href="javascript:void(0);">中国有色金属工业协会再生金属分会召开2016年工作会议</a>
+            <p class="author">王二牛</p>
+            <p>88132人关注</p>
+          </div>
+          <img src="../../../resources/web/pic/ad100_100_03.jpg" width="100" height="100" alt="img" class="zxright">
+          <div class="clear"></div>
+        </div>
+      </div>
+		 <!--行业资讯end-->
+     
+     <!--行业数据-->
+      <div class="jmBox">
+        <div class="boxTit"><h2>行业资讯</h2></div>
+       	<ul class="hydata">
+        	<li><a href="javascript:void(0);">2016年3月5日沪铜现货行情快报</a></li>
+          <li><a href="javascript:void(0);">2016年3月5日沪镍现货快讯</a></li>
+          <li><a href="javascript:void(0);">2016年3月5日沪铜现货行情快报</a></li>
+          <li><a href="javascript:void(0);">2016年3月5日沪镍现货快讯</a></li>
+          <li><a href="javascript:void(0);">2016年3月5日沪铜现货行情快报</a></li>
+          <li><a href="javascript:void(0);">2016年3月5日沪镍现货快讯</a></li>
+          <li><a href="javascript:void(0);">2016年3月5日沪铜现货行情快报</a></li>
+          <li><a href="javascript:void(0);">2016年3月5日沪镍现货快讯</a></li>
+        </ul>
+      </div>
+		 <!--行业数据end-->
+     
+  </div>
+  
+  <div class="clear"></div>
+    
+</div>
+
+<!--底部-->
+<div class="footer">
+  <div class="wrapper">
+        <dl class="footerItem">
+          <dt>新手指导</dt>
+          <dd>
+              <li><a href="javascript:void(0);">注册登录</a></li>
+              <li><a href="javascript:void(0);">忘记密码</a></li>
+              <li><a href="javascript:void(0);">企业认证</a></li>
+              <li><a href="javascript:void(0);">常见问题</a></li>
+          </dd>
+        </dl>
+        <dl class="footerItem">
+            <dt>服务与支持</dt>
+            <dd>
+                <li><a href="javascript:void(0);">主营业务</a></li>
+                <li><a href="javascript:void(0);">商品管理流程</a></li>
+                <li><a href="javascript:void(0);">危废再循环流程</a></li>
+                <li><a href="javascript:void(0);">技术和设备</a></li>
+            </dd>
+        </dl>
+        <dl class="footerItem">
+            <dt>安全保障</dt>
+            <dd>
+                <li><a href="javascript:void(0);">平台安全</a></li>
+                <li><a href="javascript:void(0);">交易服务协议</a></li>
+                <li><a href="javascript:void(0);">平台交易规则</a></li>
+                <li><a href="javascript:void(0);">信息发布规则</a></li>
+            </dd>
+        </dl>
+        <dl class="footerItem">
+            <dt>关于我们</dt>
+            <dd>
+                <li><a href="javascript:void(0);">产品和服务</a></li>
+                <li><a href="javascript:void(0);">特点与优势</a></li>
+                <li><a href="javascript:void(0);">公司介绍</a></li>
+                <li><a href="javascript:void(0);">联系我们</a></li>
+            </dd>
+        </dl>
+        <dl class="footerItem">
+            <dt>危废通 扫码安装</dt>
+            <dd><img src="../../../resources/web/pic/erweima.jpg" width="100" height="100" alt="二维码"></dd>
+        </dl>
+        <div class="clear"></div>
+	</div>
+    <div class="footerBottom">
+   	  <div class="wrapper">
+            <div class="footerBottomLeft">© 2015 湖南三分地环保信息科技有限公司 蜀ICP备14005736号-5</div>
+            <div class="footerBottomRight">总部基地：湖南省永兴县便江镇荣裕国际新城8栋401室<br>技术中心：成都市高新区吉泰路666号花样年·福年广场2-1309室</div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+<!--底部 end-->
+<script>
+$(document).ready(function() {
+
+	var box=0;
+	$(".txtScroll-left li").each(function() {
+		box+=$(this).outerWidth();
+	});
+	$(".txtScroll-left ul").css("width",box+"px");
+	function first(){
+		var str=$(".txtScroll-left").find("li").eq(0);
+		var gao=str.outerWidth();
+		$(".txtScroll-left ul").animate({"marginLeft" : -gao+"px" }, 600,function(){
+			$(this).css("marginLeft","0px").find("li:eq(0)").appendTo(".txtScroll-left ul");
+		})
+	}
+	var rongqi=0;
+	for(i=0;i<$(".txtScroll-left").find("li").length;i++){
+		rongqi+=$(".txtScroll-left").find("li").eq(i).outerWidth();
+	}
+	if(rongqi>1089){
+		setInterval(first,1200);
+	}
+	
+	jQuery(".txtScroll-top").slide({titCell:".hd ul",mainCell:".bd ul",autoPage:true,effect:"top",autoPlay:true,vis:6});
+	/*列表信息滚动*/
+		
+	
+	/*一级菜单展开*/
+	$(".navBtn").live("click",function(){
+		$(this).parent("li").siblings("li").find("a").removeClass("cur");
+		$(this).parent("li").siblings("li").find(".navList").hide();
+		$(this).addClass("cur");
+		$(this).siblings(".navList").show();
+		});	
+		
+	$(".navList a").live("click",function(){
+		$(this).siblings("a").removeClass("cur");
+		$(this).addClass("cur");
+		});
+		
+	//选项卡切换
+	$(".tabNav li").click(function(){
+		$(this).siblings().removeClass("cur");
+		$(this).addClass("cur");
+		var dom=$(this).parent().siblings(".tabContent");
+		var index=$(this).parent().children().index(this);
+		dom.hide();
+		dom.eq(index).show();
+	})
+	
+		/*模拟下拉菜单*/
+	$(".selList input").live("focus",function() {
+		$(".selList ul").hide();
+		$(".selList").css("z-index", "1");
+		$(this).parents(".selList").children("ul").show();
+		$(this).parents(".selList").css("z-index", "2");
+	});
+	$(".selList .iconDown").live("click",function() {
+			$(".selList ul").hide();
+			$(".selList").css("z-index", "1");
+			$(this).parents(".selList").children("ul").show();
+			$(this).parents(".selList").css("z-index", "2");
+	});
+	$(".selList ul li").live("click",function() {
+		var str = $(this).text();
+		$(this).parents(".selList").find("input").val(str);
+		$(this).parent().hide();
+	})
+
+	/*点击外部收起下拉菜单*/
+	$(".selList").live("click",function(e) {
+		e ? e.stopPropagation() : event.cancelBubble = true;
+	});
+	$(document).live("click",function(e) {
+		$(".selList ul").hide();
+	})
+		
+});
+
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = echarts.init(document.getElementById('chartBox'));
+
+      // 指定图表的配置项和数据
+      myChart.showLoading();
+      var radomId = "dt" + new Date().getTime();
+      $.get('json.json?id=' + radomId,
+      function(data) {
+        myChart.hideLoading();
+        myChart.setOption(
+
+        option = {
+          color: ['#f3578a'],
+          tooltip: {
+            trigger: 'axis'
+          },
+          xAxis: [{
+            type: 'category',
+            boundaryGap: false,
+            splitNumber: 1,
+            data: data.map(function(item) {
+              return item.date;
+            }),
+            axisLabel: {
+              interval: 0
+            },
+            splitLine: {　　　　lineStyle: {
+                color: '#e5e5e5'
+              }　　
+            }
+          }
+
+          ],
+          grid: {
+            x: 40,
+            x2: 40,
+            y: 20,
+            y2: 30,
+          },
+          yAxis: [{
+            type: 'value',
+            axisLabel: {
+              textStyle: {
+                color: 'red',
+                fontSize: '14'
+              }
+            },
+            splitLine: {　　　　lineStyle: {
+                color: '#e5e5e5'
+              }　　
+            }
+          }],
+          series: [{
+            name: '当前行情',
+            type: 'line',
+            data: data.map(function(item) {
+              return item.value;
+            })
+          }]
+        })
+      });
+
+    </script>
+</body>
+</html>

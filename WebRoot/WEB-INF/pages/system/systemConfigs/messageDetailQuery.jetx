@@ -1,0 +1,49 @@
+#define(com.ekfans.base.system.model.MessageConfigDetail configDetail)
+    	<div class="tit" id="title">
+        	<em class="apNum">消息模版详情</em>
+             <span class="apClose" onclick="eyeClose();" ><img src="${webroot}/resources/system/images/del3.jpg" ></span>
+        </div>
+   	    <div class="previewContent">
+       	    <dl class="infoLine">
+            	<dt>模版名：</dt>
+                <dd class="infoRight">${configDetail.name }</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>排序位置：</dt>
+                <dd class="infoRight">${configDetail.index }</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>状态：</dt>
+                <dd class="infoRight">#if(configDetail.status) 启用 #else 停用 #end</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>发送方式：</dt>
+                <dd class="infoRight">#if("0".equals(configDetail.sendType))  及时发送   #elseif("1".equals(configDetail.sendType)) 异步发送  #elseif("2".equals(configDetail.sendType)) 定时发送  #end </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>信息类型：</dt>
+                <dd class="infoRight">#if("0".equals(configDetail.messageType)) 全部   #elseif("1".equals(configDetail.messageType)) 短信  #elseif("2".equals(configDetail.messageType)) 邮件  #end  </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>短信类容：</dt>
+                <dd class="infoRight">${configDetail.mobileContent}</dd>
+                <dd class="clear"></dd>
+            </dl>
+             <dl class="infoLine">
+            	<dt>邮件标题：</dt>
+                <dd class="infoRight">${configDetail.mailTitle}</dd>
+                <dd class="clear"></dd>
+            </dl>
+ 			<dl class="infoLine">
+            	<dt>邮件正文：</dt>
+                <dd class="infoRight">${configDetail.mailContent}</dd>
+                <dd class="clear"></dd>
+            </dl>
+
+
+				

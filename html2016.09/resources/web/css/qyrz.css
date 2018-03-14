@@ -1,0 +1,73 @@
+/* CSS Document */
+
+.main{margin:0 auto 20px auto;}
+.leftBox{width:850px; float:left;}
+.rightBox{width:331px; float:right;}
+
+.slideBox{height:280px; overflow:hidden; position:relative; margin-bottom:8px; width:100%; min-width:1200px;}
+.slideBox a img{position:absolute; top:0; left:50%; margin-left:-960px;}
+
+.qydata{text-align:center; height:60px; line-height:60px; width:850px; float:left; margin-bottom:12px;}
+.qydata .qinum{font-size:24px; color:#91B121; display:inline-block;height:60px;}
+.qydata .qiyes{font-size:20px; color:#A1A1A1; display:inline-block; margin:0 10px;height:60px;}
+.qydata .qistates{font-size:20px; color:#353535; display:inline-block;height:60px;}
+.qydata em{display:inline-block; border-left:1px solid #99CB67; width:1px; height:60px; margin:0 64px;}
+.btnRenzheng{display:block; height:42px; line-height:42px; width:331px; font-size:18px; float:right; margin-top:9px;}
+.splitLine{height:1px; background:#f1f1f1;}
+
+.threeAd{ margin:30px 0;}
+.threeAd em{ width:100px; height:229px; display:block; float:left; background:url(../images/slh_icon.png) center center no-repeat;}
+
+.threeAd .autoAdv{width:331px; height:229px; overflow:hidden; border:solid 1px #EEEFEF; float:left; position:relative;}
+.threeAd .autoAdvImg{display:block;}
+.threeAd .autoAdvImg img{width:100%; height:100%;}
+.threeAd .autoAdvContent{max-height:100px; display:block; padding:10px 8px; line-height:20px; background:rgba(0,0,0,0.5); position:absolute; bottom:0; left:0; right:0; color:#fff; display:none;}
+.threeAd .autoAdvText em{display:block; width:120px; height:35px; line-height:35px; background:#339833; color:#fff; font-size:14px; text-align:center; position:absolute; top:0; left:0;}
+
+/*资讯列表*/
+.newsList{padding:20px 15px 20px 20px; border:1px solid #EFEFEF; margin-bottom:21px;}
+.newsList dt{float:left; width:138px; margin-right:20px;}
+.newsList dt a{position:relative; display:block; width:136px; height:136px; border:solid 1px #efefef;}
+.newsList dt a img{max-height:100%; max-width:100%;}
+.newsList dt a em{position:absolute;top:0;left:0; display:block; width:80px; height:28px; line-height:28px; text-align:center; color:#fff; background-color:#98CB67; z-index:2;}
+.listRight{ float:left; width:633px; height:138px; position:relative;}
+.listRight h3{margin-bottom:15px;}
+.listRight h3 a{ font-size:16px; color:#333333; }
+.listRight p{max-height:84px; display:block; overflow:hidden; line-height:21px;}
+.listRight .vertical{left:0; transform: translate(0, -50%);}
+.listRight .vertical a{display:block; max-height:84px; overflow:hidden; font-size:12px!important; color:#656565!important; font-family:Microsoft YaHei!important;}
+.listRight .vertical a *{font-size:12px!important; color:#656565!important; font-family:Microsoft YaHei!important;}
+.listRight .vertical a:hover,.listRight .vertical a:hover *{color:#136333!important;}
+
+/*右部*/
+.btnArea{margin:15px 0;}
+.fbBtns{display:block; width:164px; height:65px; line-height:65px; text-align:center; color:#fff; font-size:18px; background-color:#99CB67; float:left;}
+
+.jmBox{border:1px solid #EFEFEF;margin-bottom:28px;}
+.boxTit{position:relative;}
+.boxTit h2{ width:106px; height:35px; line-height:35px; background-color:#339933; color:#fff;text-align:center;}
+.boxTit .btnjr{position:absolute; top:18px; right:10px; font-size:14px; color:#333333;}
+
+.tjList{font-size:14px; color:#333333; padding:15px 0px; margin:0 14px;border-bottom:1px solid #999999;}
+.tjList li{ height:30px; line-height:30px;}
+.tjList li a{max-width:275px; overflow:hidden; display:inline-block;height:30px;}
+.tjList li em{ width:12px; height:15px; line-height:15px; text-align:center;background-color:#339933; color:#fff; margin-left:6px; padding:2px 4px; font-size:12px;vertical-align: middle;margin-top:-24px; display:inline-block;}
+.jmList{font-size:14px; color:#999999; padding:15px 0px; margin:0 14px;}
+.jmList li{height:30px; line-height:30px;}
+.jmList li a{max-width:275px; overflow:hidden; display:inline-block; height:22px;}
+
+
+.wlkx{border:1px solid #EFEFEF;margin-bottom:25px;}
+.wlList{border-left:1px solid #99CB67; margin-left:30px;}
+.wlList li{border-bottom:1px solid #F1F1F1; position:relative; line-height:29px; color:#333333; font-size:14px; padding:10px 10px 4px 0; margin-left:18px;}
+.wlList li a{display:block; max-height:58px; overflow:hidden; margin-bottom:2px;}
+.wlList li span{color:#999999;}
+.wlList li em{position:absolute;left:-23px; top:27px; background:url(../images/list_point.png) 0 0 no-repeat; width:11px; height:11px; display:block;}
+
+/*分页*/
+.pageSize{text-align:center; padding:18px 0;}
+.pageSize a{display:inline-block; height:21px; line-height:21px; padding:4px 10px; background:#fff; color:#333333; font-size:14px; margin:0 2px;}
+.pageSize a:hover,.pageSize .cur{background:#5FB01F; color:#fff;}
+.pageSize span{display:inline-block;font-size:14px; color:#333333; margin:0 10px;}
+.pageSize .surepage{display:inline-block;background-color:#136333; color:#fff;}
+.pageSize input{width:39px; height:22px; border:1px solid #999999; margin:0 5px; padding-left:5px;}

@@ -1,0 +1,505 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>首页</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<link rel="shortcut icon" href="../../../resources/commons/images/favicon.ico" type="image/x-icon">
+<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+<link href="../../../resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/web/css/base.css" rel="stylesheet" type="text/css">
+<style>
+.banner{height:300px; overflow:hidden; margin-bottom:30px; background:#FDF5E5; position:relative;}
+.bannerIn{position:relative; height:300px;}
+h2{height:30px; line-height:30px; font-size:18px;}
+/*圆点切换*/
+.bannerIn .num {overflow:hidden; height: 25px;position: absolute; bottom:12px; left:0; zoom:1; z-index:3 }
+.bannerIn .num li {height:30px; display:block; overflow:hidden; margin-right:1px; line-height:30px; cursor:pointer; background-color:#000; background:rgba(0,0,0,0.5);filter:alpha(opacity=50); float:left;}
+.bannerIn .num li.cur {background:rgba(0,0,0,0.9);filter:alpha(opacity=90);} /*当前项*/
+.point_nav{width:100%; position:absolute; text-align:center; bottom:10px;}
+.bannerIn .point_nav li{background:#7d7d7d; display:inline-block; margin:0 5px; width:10px; height:10px; border-radius:5px; cursor:pointer; float:none;}
+.bannerIn .point_nav li.cur{background:#fff;}
+.bannerIn .point_nav li{width:8px; height:8px; background:none; border:solid 1px #fff;}
+
+.todyPrice{background:#fff; margin-bottom:20px; padding:10px 0 10px 28px;}
+.date{width:154px; height:182px; border-radius:10px; background:#ECF6FF; padding:12px 13px 0 13px; line-height:60px; font-size:37px; text-align:center; float:left; margin-top:12px;}
+.date em{display:block; width:154px; height:90px; font-size:50px; border-radius:8px; background:#0086FD; line-height:90px; color:#fff;}
+.split{background:#f1f1f1; width:1px; height:220px; float:left; margin:0 26px;}
+.todyPrice table{width:500px; float:left; font-size:16px;}
+.todyPrice table th{height:38px; line-height:38px; background:#FCD58A;}
+.todyPrice table td{height:36px;  text-align:center; padding:6px 6px; border-bottom:solid 1px #FFE5B5;}
+.todyPrice table a{display:inline-block; margin:0 6px;}
+.todyPrice tr:hover td{background:#F2F2F2;}
+.zoushi{width:364px; float:left;margin-bottom: 20px; padding: 15px 0 10px 0px;background:#fff;}
+.zoushi .selList{margin-bottom:20px;}
+
+.xhgp{float:left;}
+.hqck{float:left;}
+
+.infoHeader{height:38px; line-height:38px; background:#FCD58A; color:#000;}
+.infoHeader .headerItem{font-size:14px;text-align:left; text-indent:20px;float:left;}
+.tableBox{height:165px; overflow:hidden;}
+.infoTable{width:100%; background:#fff;}
+
+.hone{float:left;}
+.gengduo{float: right;height: 32px;display: block;line-height: 32px;}
+
+/*模拟下拉菜单*/
+.selList{position:relative; z-index:1;float:left; width:100px;}
+.selList .textBox{position:relative; z-index:2; display:block; height:30px;border:none;}
+.selList .textBox input{ width:100%; height:28px; border:solid 1px #E0E3EA; text-indent:0.6em; font-family:Arial,Microsoft YaHei; line-height:26px;cursor:pointer; background:#f1f1f1;}
+.iconDown{ position:absolute; top:12px; right:-8px;display:block; width:28px; height:28px; background:url(../../../resources/commons/images/down_ico.png) no-repeat; cursor:pointer;}
+.selList ul{ position:absolute; top:29px; left:0;*left:7px; z-index:3;display:none; width:100%; border:solid 1px #e2e2e2; background:#fff;}
+.selList li{height:36px; text-align:left;padding-left:15px;font-size:14px; line-height:36px; cursor:pointer;color:#303132;}
+.selList li:hover{background:#f0f0f0;}
+
+
+.news,.policy{width:590px; float:left; margin-bottom:30px;}
+.policy{float:right;}
+.infoContent{height:361px; padding:29px 24px 0 30px; background:#fff;}
+.first img{width:164px; height:164px; float:left; margin-right:11px;}
+.first dt{line-height:19px; height:38px; overflow:hidden; font-size:18px; color:#A78749; padding:0 4px 10px 4px; border-bottom:solid 1px #F2F1F1;}
+.first dt a{display:block;line-height:21px; height:43px; width:345px; overflow:hidden;}
+.first dd{color:#9f9fa0;}
+.first dd a{display:block; line-height:23px; margin:14px 0 16px; font-size:14px;height:69px; width:360px; overflow:hidden;}
+.first dd span{line-height:20px; font-size:14px;}
+.newsList{padding-top:25px;}
+.newsList li{line-height:40px; height:40px; overflow:hidden; font-size:16px; color:#7D7C7D;}
+.newsList li em{width:6px; height:6px; background:#7d7d7d; border-radius:3px; display:block; margin:17px 8px 0 0; float:left;}
+.newsList li a{display:block; float:left;text-overflow: ellipsis;overflow: hidden;height: 40px; max-width:430px; white-space:nowrap;}
+.newsList li span{float:right; white-space:nowrap; color:#b5b5b5; font-size:14px;}
+
+.tabs{position:relative; margin-top:-28px;}
+.tabNav{height:26px; padding-left:130px;}
+.tabNav li{margin-right:6px; float:left; *display:inline; height:26px; line-height:26px; background:#e3e3e3; padding:0 20px; cursor:pointer;}
+.tabNav li.cur{background:#fff;}
+.tabContent{padding:26px 30px; background:#fff;width:972px; float:left;}
+.rightAd{float:right;width:138px; height:338px; padding:26px 30px 26px 0px;background-color:#fff;}
+.companyImg{display:block; float:left; margin-right:34px;}
+.companyInfo{width:602px; height:335px; line-height:28px; color:#9F9FA0; font-size:14px; overflow:hidden; float:left;}
+.companyInfo dt{height:44px; line-height:44px; margin-bottom:14px; color:#A78749; font-size:24px;}
+.companyInfo dd{text-indent:2em;}
+.otherInfo{float:right; width:130px; margin-bottom:20px;}
+</style>
+</head>
+
+<body>
+<div class="webHint" style="position:fixed; z-index:9999; top:0; left:0; right:0; height:30px; line-height:30px; font-size:14px; background:rgb(252,234,170); text-align:center;">
+为加强网站域名管理，三分地环保产业链决定对现有域名Sfdhb.com进行迁移。请浏览新域名: www. Sfdhb.com.cn，给您造成了不便，敬请谅解！
+<span class="webHintClose" style="background:url(../../../resources/commons/images/del3.png) no-repeat center center; width:18px; height:18px; cursor:pointer; position:absolute; right:60px; top:6px;"></span>
+</div>
+<script>
+$(".webHintClose").live("click",function(){
+	$(this).parents(".webHint").remove();
+})
+</script>
+<div class="wrapper topArea">
+	<h1 class="logo">
+    	<a href="index.html" title="鑫裕环保供应链平台"><img src="../../../resources/commons/images/logo.png" alt="鑫裕环保供应链平台"></a>
+    </h1>
+    <div class="topRight">
+    	<a href="index.html" class="linkIndex">首页</a>
+      	<!--登录前-->
+        <!--<dl class="downList">
+        	<dt><a href="javascript:void(0)" class="linkLogin">登录</a></dt>
+            <dd>
+            	<div class="apBack">
+                  <em class="topPoint"></em>
+                  <div class="apLoadCont">
+                      <a href="cgsdl.html" class="btnLoad dlcg btnCart">采购商入口</a>
+                      <a href="gysdl.html" class="btnLoad dlgy btnRk">供应商入口</a>
+                      <a href="hxqydl.html" class="btnLoad dlhx btnhx">核心企业入口</a>
+                      <a href="javascript:void(0)" class="btnLoad dlys btnys">运输企业入口</a>
+                  </div>
+                </div>
+            </dd>
+        </dl>
+         <dl class="downList">
+        	<dt><a href="javascript:void(0)" class="linkReg">注册</a></dt>
+            <dd>
+                <div class="apBack2">
+                    <em class="topPoint2"></em>
+                    <div class="apRegCont">
+                      <a href="cgszc1.html" class="btnEnter zccg btnCart">采购商入口</a>
+                      <a href="gyszc1.html" class="btnEnter zcgy btnRk">供应商入口</a>
+                      <a href="javascript:void(0)" class="btnEnter zcys btnys">运输企业入口</a>
+                    </div>
+                </div>
+            </dd>
+        </dl>-->
+        <!--登录前-->
+        
+        <!--登录后-->
+        <div class="afterLogin">
+        	<span class="topItem">您好，云飞扬</span>
+    			<span class="topItem itemLast"><a href="javascript:void(0)">安全退出</a></span>
+        </div>
+        <!--登录后-->
+       
+        <em class="split"></em>
+        <span class="telPhone">4000-888-1000</span>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="nav">
+	<div class="wrapper">
+    	<dl class="navItem">
+        	<dt>现货交易</dt>
+            <dd>
+            	<a href="gqxx.html">供求信息</a>
+                <a href="gjs.html">贵金属</a>
+                <a href="ylcg.html">原料采购</a>
+                <a href="wjbc.html">微晶板材</a>
+            </dd>
+        </dl>
+        <div class="navItem navCenter">
+        	<span class="navLeftBg"></span>
+        	<dl>
+                <dt>危废处置</dt>
+                <dd>
+                    <a href="wxpcs.html">危险品产生</a>
+                    <a href="wxpys.html">危险品运输</a>
+                    <a href="wxpcz.html">危险品处置</a>
+                    <a href="zcfg.html">政策法规</a>
+                </dd>
+            </dl>
+            <span class="navRightBg"></span>
+        </div>
+        <dl class="navItem">
+        	<dt>网络金融</dt>
+            <dd>
+            	<a href="qyrz.html">企业认证</a>
+                <a href="wlrz.html">网络融资</a>
+                <a href="xwzx.html">融资指引</a>
+                <a href="xwzx.html">建行专区</a>
+            </dd>
+        </dl>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="banner">
+    <div class="wrapper bannerIn">
+        <ul class="bannerPic">
+            <li><a href="javascript:void(0);"><img src="../../../resources/web/pic/banner1.jpg" width="1200" height="300" alt="广告图"></a></li>
+            <li><a href="javascript:void(0);"><img src="../../../resources/web/pic/banner1.jpg" width="1200" height="300" alt="广告图"></a></li>
+        </ul>
+        <ul class="num point_nav">
+        	<li></li>
+            <li></li>
+        </ul>
+    </div>
+</div>
+<div class="wrapper">
+		<div class="xhgp">
+      <h2>现货挂牌</h2>
+      <div class="todyPrice">
+          <div class="date">2014.11<em>17日</em></div>
+          <span class="split"></span>
+          <div style="float:left;">
+            <a href="javascript:void(0);" style="text-align:right;width:500px;display:block;">更多...</a>
+            <div class="infoHeader">
+              <div class="headerItem" style="width:21%;">发布企业</div>
+              <div class="headerItem" style="width:17%;">产品</div>
+              <div class="headerItem" style="width:14%;">规格</div>
+              <div class="headerItem" style="width:19%;">价格</div>
+              <div class="headerItem" style="width:14%;">涨跌</div>
+              <div class="headerItem" style="width:15%;">操作</div>
+            </div>
+            <div class="tableBox">
+            <table border="0" cellspacing="0" class="infoTable">
+              <tr>
+                <td class="yellow">我是企业</td>
+                <td class="yellow">黄金</td>
+                <td class="yellow">99.99%</td> 
+                <td class="yellow">元/克</td>
+                <td class="red">↑ 120</td>
+                <td><a href="javascript:void(0);">订购</a><br/><a href="javascript:void(0);">购买</a></td>
+              </tr>
+            </table>
+            </div>
+          </div>
+          <span class="split"></span>
+          
+          <div class="clear"></div>
+      </div>
+    </div>
+    
+    <div class="hqck">
+      <h2>行情参考</h2>
+      <div class="zoushi">
+            <iframe width="370" height="212" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" src="zst.html" charset=&quot;gbk&quot ></iframe>
+            <!--<div class="selList">
+                <span class="textBox">
+                    <input name="" type="text" class="box184" value="黄金" readonly>
+                    <em class="iconDown"></em>
+                </span>
+                <ul>
+                  <li>黄金</li>
+                  <li>铂金</li>
+                </ul>
+              </div>
+              <img src="../../../resources/web/pic/zoushi.jpg" alt="走势图">-->
+          </div>
+    </div>
+    <div class="clear"></div>
+    
+    <div class="news">
+      	<h2 class="hone">新闻资讯</h2>
+        <a href="javascript:void(0);" class="gengduo" title="更多">更多</a>
+        <div class="clear"></div>
+        <div class="infoContent">
+            <div class="first">
+                <img src="../../../resources/web/pic/pic164-1.jpg" width="164" height="164" alt="图片说明">
+                <dl>
+                    <dt><a href="zxxq.html" title="北京时间11月12日凌晨消息，纽约黄金期货价格周二收盘上涨0.3%，报每盎司1163美元，扭转盘中下跌走势，主要由于实物黄金的需求有所增长。">中国实物黄金需求增长金价上涨0.3%报1163美元</a></dt>
+                    <dd>
+                        <a href="javascript:void(0);" title="北京时间11月12日凌晨消息，纽约黄金期货价格周二收盘上涨0.3%，报每盎司1163美元，扭转盘中下跌走势，主要由于实物黄金的需求有所增长。">北京时间11月12日凌晨消息，纽约黄金期货价格周二收盘上涨0.3%，报每盎司1163美元，扭转盘中下跌走势，主要由于实物黄金的需求有所增长。</a>
+                        <span>2014年11月12日</span> 
+                    </dd>
+                </dl>
+            </div>
+            <ul class="newsList">
+                <li>
+                	<em></em>
+                    <a href="javascript:void(0);" title="黄金跳空低开逼近4年低 超级周你最须知道的四件事">黄金跳空低开逼近4年低 超级周你最须知道的四件事</a>
+                    <span>2014-11-18</span>
+                </li>
+                <li>
+                	<em></em>
+                    <a href="javascript:void(0);" title="宏观调控精灌滴灌 国务院37天连出9拳扩内需">宏观调控精灌滴灌 国务院37天连出9拳扩内需</a>
+                    <span>2014-11-18</span>
+                </li>
+                <li>
+                	<em></em>
+                    <a href="javascript:void(0);" title="中钢与力拓签协议 抄底拿澳洲铁矿石大单">中钢与力拓签协议 抄底拿澳洲铁矿石大单</a>
+                    <span>2014-11-18</span>
+                </li>
+                <li>
+                	<em></em>
+                    <a href="javascript:void(0);" title="俄铝CEO称未考虑在中国寻求资产收购，因风险依然太大">俄铝CEO称未考虑在中国寻求资产收购，因风险依然太大</a>
+                    <span>2014-11-18</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="policy">
+      	<h2 class="hone">政策解读</h2>
+        <a href="javascript:void(0);" class="gengduo" title="更多">更多</a>
+        <div class="clear"></div>
+        <div class="infoContent">
+            <div class="first">
+                <img src="../../../resources/web/pic/pic164-1.jpg" width="164" height="164" alt="图片说明">
+                <dl>
+                    <dt><a href="javascript:void(0);" title="北京时间11月12日凌晨消息，纽约黄金期货价格周二收盘上涨0.3%，报每盎司1163美元，扭转盘中下跌走势，主要由于实物黄金的需求有所增长。">中国实物黄金需求增长金价上涨0.3%报1163美元</a></dt>
+                    <dd>
+                        <a href="javascript:void(0);" title="北京时间11月12日凌晨消息，纽约黄金期货价格周二收盘上涨0.3%，报每盎司1163美元，扭转盘中下跌走势，主要由于实物黄金的需求有所增长。">北京时间11月12日凌晨消息，纽约黄金期货价格周二收盘上涨0.3%，报每盎司1163美元，扭转盘中下跌走势，主要由于实物黄金的需求有所增长。</a>
+                        <span>2014年11月12日</span> 
+                    </dd>
+                </dl>
+            </div>
+            <ul class="newsList">
+                <li>
+                	<em></em>
+                    <a href="javascript:void(0);" title="黄金跳空低开逼近4年低 超级周你最须知道的四件事">黄金跳空低开逼近4年低 超级周你最须知道的四件事</a>
+                    <span>2014-11-18</span>
+                </li>
+                <li>
+                	<em></em>
+                    <a href="javascript:void(0);" title="宏观调控精灌滴灌 国务院37天连出9拳扩内需">宏观调控精灌滴灌 国务院37天连出9拳扩内需</a>
+                    <span>2014-11-18</span>
+                </li>
+                <li>
+                	<em></em>
+                    <a href="javascript:void(0);" title="中钢与力拓签协议 抄底拿澳洲铁矿石大单">中钢与力拓签协议 抄底拿澳洲铁矿石大单</a>
+                    <span>2014-11-18</span>
+                </li>
+                <li>
+                	<em></em>
+                    <a href="javascript:void(0);" title="俄铝CEO称未考虑在中国寻求资产收购，因风险依然太大">俄铝CEO称未考虑在中国寻求资产收购，因风险依然太大</a>
+                    <span>2014-11-18</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <h2>核心企业风采</h2>
+    <div class="tabs">
+        <ul class="tabNav">
+        <li>永兴鑫裕环保镍业有限公司</li>
+        <li>永兴鑫裕环保镍业有限公司</li>
+        </ul>
+        <div class="tabContent">
+            <a href="javascript:void(0);" class="companyImg"><img src="../../../resources/web/pic/pic335.jpg" width="335" height="335" alt="图片说明"></a>
+            <dl class="companyInfo">
+                <dt>永兴鑫裕环保镍业有限公司</dt>
+                <dd>成立于2006年5月，注册资本3400万元。公司位于享有“中国银都”、“全国循环经济试点单位”、“国家稀贵金属再生利用产业化基地”、“国家‘城市矿产’示范基地”、“国家涉重金属类危险废物集中利用处置基地”称号的永兴县柏林工业园，占地50亩。在广东、长沙、天津、福建、湖北等地设有分支机构，现有员工300余人。是一家对含重金属、贵金属、稀散金属、稀土等危险固体废物进行环保处置和综合利用的高新技术企业。
+            公司持有湖南省环保厅颁发的五年期危险废物经营许可证，可在全国范围内回收处理表面处理废物——含镍污泥（HW17）、表面处理废物——退锡水（HW17）、无机氰化物废物（HW33）、感光材料废物（HW16）、有机溶剂废物（HW06，废催化剂）、含硒废物（HW25）、含碲废物（HW28）、含铜废物（HW22）、有色金属冶炼废物（HW48）、含镍废物（HW46）等危险废物。</dd>
+            </dl>
+            <div class="clear"></div>
+        </div>
+        <div class="tabContent" style="display:none;">
+            <a href="javascript:void(0);" class="companyImg"><img src="../../../resources/web/pic/pic335.jpg" width="335" height="335" alt="图片说明"></a>
+            <dl class="companyInfo">
+                <dt>永兴鑫裕环保镍业有限公司</dt>
+                <dd>成立于2006年5月，注册资本3400万元。公司位于享有“中国银都”、“全国循环经济试点单位”、“国家稀贵金属再生利用产业化基地”、“国家‘城市矿产’示范基地”、“国家涉重金属类危险废物集中利用处置基地”称号的永兴县柏林工业园，占地50亩。在广东、长沙、天津、福建、湖北等地设有分支机构，现有员工300余人。是一家对含重金属、贵金属、稀散金属、稀土等危险固体废物进行环保处置和综合利用的高新技术企业。
+            公司持有湖南省环保厅颁发的五年期危险废物经营许可证，可在全国范围内回收处理表面处理废物——含镍污泥（HW17）、表面处理废物——退锡水（HW17）、无机氰化物废物（HW33）、感光材料废物（HW16）、有机溶剂废物（HW06，废催化剂）、含硒废物（HW25）、含碲废物（HW28）、含铜废物（HW22）、有色金属冶炼废物（HW48）、含镍废物（HW46）等危险废物。</dd>
+            </dl>
+            <div class="clear"></div>
+        </div>
+        <div class="rightAd">
+        	  <a href="javascript:void(0);" class="otherInfo">
+                <img src="../../../resources/web/pic/pic130-1.jpg" width="130" height="130" alt="微晶板材生产线－熔窑">
+                <span>微晶板材生产线－熔窑</span>
+            </a>
+            <a href="javascript:void(0);" class="otherInfo">
+                <img src="../../../resources/web/pic/pic130-1.jpg" width="130" height="130" alt="微晶板材生产线－熔窑">
+                <span>微晶板材生产线－熔窑</span>
+            </a>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--底部-->
+<div class="bottomMenu">
+    <div class="wrapper">
+    	<dl class="footItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c4.png" width="49" height="48" />
+              <span>采购流程</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="下单流程">下单流程</a></li>
+                <li><a href="javascript:void(0);" title="订单跟踪">订单跟踪</a></li>
+                <li><a href="javascript:void(0);" title="安全支付">安全支付</a></li>
+                <li><a href="javascript:void(0);" title="企业认证">企业认证</a></li>
+                <li><a href="javascript:void(0);" title="常见问题">常见问题</a></li>
+            </dd>
+        </dl>
+        <dl class="footItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c5.png" width="49" height="48" />
+              <span>服务与支持</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="物流配送">物流配送</a></li>
+                <li><a href="javascript:void(0);" title="经销商权益">经销商权益</a></li>
+                <li><a href="javascript:void(0);" title="不良品退货">不良品退货</a></li>
+                <li><a href="javascript:void(0);" title="在线咨询">在线咨询</a></li>
+                <li><a href="javascript:void(0);" title="融资操作手册">融资操作手册</a></li>
+            </dd>
+        </dl>
+        <dl class="footItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c6.png" width="49" height="48" />
+              <span>我的账户</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="子账户管理">子账户管理</a></li>
+                <li><a href="javascript:void(0);" title="密码重置">密码重置</a></li>
+                <li><a href="javascript:void(0);" title="在线打款">在线打款</a></li>
+            </dd>
+        </dl>
+        <dl class="lastItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c7.png" width="49" height="48" />
+              <span>关于我们</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="公司简介">公司简介</a></li>
+                <li><a href="javascript:void(0);" title="联系我们">联系我们</a></li>
+                <li><a href="javascript:void(0);" title="网站声明">网站声明</a></li>
+            </dd>
+        </dl>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--底部 end-->
+
+<!--尾部-->
+<div class="footer">
+	<div class="wrapper">
+        <p class="footerLeft">© 2014 成都易科远见科技有限公司 版权所有 蜀ICP备 14005736号</p>
+        <p class="footerRight">成都市高新区吉泰路666号花样年·福年广场2号楼1309室<br>服务热线：028-83190368</p>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--尾部 end-->
+<script src="../../../resources/commons/js/tuwen1.js"></script>
+<script src="../../../resources/web/js/base.js"></script>
+<script>
+$(document).ready(function() {
+	
+	/*循环滚动*/
+	//$(".infoTable").css("height",count*264+"px");
+	var count=$(".infoTable tr").length;
+	
+	var scrollTimer;
+	var $this=$(".tableBox").eq(0);
+	$this.hover(function(){
+		clearInterval(scrollTimer);
+	},function(){
+		scrollTimer = setInterval(function(){
+		scrollNews($this);
+	 }, 3000 );
+	}).trigger("mouseleave");
+	  
+	function scrollNews(obj){
+	   var $self = obj.find(".infoTable"); 
+	   var lineHeight = $self.find("tr:first").height(); //获取宽度，向上滚动则需要获取高度.height()
+	   $self.animate({ "marginTop" : -lineHeight +"px" }, 600 , function(){ //向左滚动，向上滚动则需要改为marginTop,其他方向类似，下同
+			 $self.css({marginTop:0}).find("tr:first").appendTo($self.find("tbody")); //appendTo能直接移动元素
+	   })
+	}
+	/*循环滚动 end*/ 
+
+	
+    /*选项卡切换*/
+	$(".tabNav li").click(function(){
+		$(this).siblings().removeClass("cur");
+		$(this).addClass("cur");
+		var dom=$(this).parent().siblings(".tabContent");
+		var index=$(this).parent().children().index(this);
+		dom.hide();
+		dom.eq(index).show();
+	})
+	
+	/*焦点图切换*/
+	$(".bannerIn").slide({ titCell:".num" , mainCell:".bannerPic" , effect:"fold", autoPlay:true, delayTime:700 , autoPage:true});
+	
+	/*模拟下拉菜单*/
+	$(".selList input").focus(function() {
+		$(".selList ul").hide();
+		$(".selList").css("z-index", "1");
+		$(this).parents(".selList").children("ul").show();
+		$(this).parents(".selList").css("z-index", "2");
+	});
+	$(".selList .iconDown").click(function() {
+			$(".selList ul").hide();
+			$(".selList").css("z-index", "1");
+			$(this).parents(".selList").children("ul").show();
+			$(this).parents(".selList").css("z-index", "2");
+	});
+	$(".selList ul li").click(function() {
+		var str = $(this).text();
+		$(this).parents(".selList").find("input").val(str);
+		$(this).parent().hide();
+	})
+
+	/*点击外部收起下拉菜单*/
+	$(".selList").click(function(e) {
+		e ? e.stopPropagation() : event.cancelBubble = true;
+	});
+	$(document).click(function(e) {
+		$(".selList ul").hide();
+	})
+	
+	/*$(".zoushi").load("http://www.smm.cn/html/future.inc.html");*/
+});
+</script>
+</body>
+</html>

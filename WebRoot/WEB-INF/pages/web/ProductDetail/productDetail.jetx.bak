@@ -1,0 +1,386 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>${webName}-商品详情页</title>
+	<link href="${webroot }/resources/web/css/detail.css" rel="stylesheet" type="text/css">
+	<script src="${webroot }/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script src="${webroot }/resources/commons/js/jquery.form.js"></script>
+	<script src="${webroot }/resources/web/js/tools.js"></script>
+	<script src="${webroot}/resources/store/js/shopbase.js"></script>
+	<script src="${webroot }/resources/web/js/ProductDetail/base.js"></script>
+	<script src="${webroot }/resources/web/js/ProductDetail/alixixi_com.js"></script>
+	<script src="${webroot }/resources/web/js/ProductDetail/proDetail.js"></script>
+	<script src="${webroot }/resources/web/js/ProductDetail/HJCproDetail.js"></script>
+</head>
+
+<body>
+	#define(List<com.ekfans.base.store.model.Consult> cs)
+<!--顶栏-->
+
+<!--顶栏 end-->
+
+
+
+<!-- 具体的商品信息块 -->
+
+#define(com.ekfans.base.product.model.Product product)
+#define(List<com.ekfans.base.product.model.ProductPicture> pps)
+<div class="wrapper upInfo">
+	<!--商品图片-->
+	<dl class="leftPic">
+    	<div class="dtPic">
+    		#for(com.ekfans.base.product.model.ProductPicture pp:pps)
+    		  #if(pp.position == "0")
+    		  <img src="${webroot }${pp.midPicture}" jqimg="${webroot }${pp.midPicture}"  alt="${product.sortName}" title="${product.sortName}">
+    		  #else
+    		  #end
+    		#end
+    		</div>
+        <div class="picBottom">
+        	<a href="javascript:void(0)" class="pointLeft"></a>
+            <div class="picList" id="picList">
+                <ul>
+                	#if(pps != null)
+	                	#for(com.ekfans.base.product.model.ProductPicture pp:pps)
+	                	  #if(pp.position == "0")
+	                    <li class="cur"><em class="pointTop"></em><img src="${webroot }${pp.smallPicture}"  name="${webroot }${pp.midPicture}" data-original="${webroot }${pp.bigPicture}" alt="${product.sortName}"></li>
+	                    #else
+	                    <li><em class="pointTop"></em><img src="${webroot }${pp.smallPicture}" name="${webroot }${pp.midPicture}" data-original="${webroot }${pp.bigPicture}"  alt="${product.sortName}"></li>
+	                    #end
+	                  #end
+                  #else
+                  #end
+                </ul>
+            </div>
+            <a href="javascript:void(0)" class="pointRight"></a>
+        </div>
+    </dl>
+    <!--商品图片 end-->
+    
+    <!--价格信息和选择-->
+    <div class="rightInfo">
+    	<h1>${product.name }</h1>
+        <div class="dataInfo">
+        	<div class="price">
+            	  <span class="nowPrice"><b>商城价</b><em class="red">¥ ${product.unitPrice}</em></span>
+            	  <input type="hidden" id="unitPrice" value="${product.unitPrice}"/>
+                <span class="originalPrice"><b>市场价</b><em>¥ ${product.listPrice}</em></span>
+          </div>
+            <div class="sales">
+            	<span>${salesOfMonth }</span>
+                <span>月销量</span>
+            </div>
+            <div class="cmtCount">
+            	<span>${appraiseSum }</span>
+                <span>累计评价</span>
+            </div>
+        </div>
+        <div class="express">快递费用: ￥${product.fare}</div>
+        <div style="margin-bottom:25px;"></div>
+        <!-- 商品的模板条件区域 -->
+        <div class="proCheck" id="proCheck">
+        	<a href="javascript:void(0)" class="closeBtn" style="display:none" id="closeBtn"></a>
+        	#for(com.ekfans.base.product.model.ProductInfo proInfo:product.infoList)
+        	  #if(proInfo.infoType=="1")
+		          <dl class="size">
+		              <dt>${proInfo.infoName}</dt>
+		             
+		              <dd class="checkRight imgCheck">
+		              	#for(int i : iterator(1,proInfo.infoValueList.size()))
+		              		#if(proInfo.picList==null || proInfo.picList.get(i-1)=="")
+		                  	<a class="textCheck" href="javascript:setCondition('${proInfo.infoName}','${proInfo.infoValueList.get(i-1)}','${proInfo.position }');" title="${proInfo.infoValueList.get(i-1)}">${proInfo.infoValueList.get(i-1)}</a>
+		               		#else	
+		               			<a href="javascript:setCondition('${proInfo.infoName}','${proInfo.infoValueList.get(i-1)}','${proInfo.position }');"  title="${proInfo.infoValueList.get(i-1)}"><img src="${webroot}${proInfo.picList.get(i-1)}" width="48" height="48" alt="${proInfo.infoValueList.get(i-1)}"></a>
+		                	#end
+		                #end
+		              </dd>
+		              
+		              <input type="hidden" class="hjcInput" value="${for.index }">
+		              <dd class="clear"></dd>
+		          </dl>
+		       	#end   
+          #end
+          <!-- 查询最新库存所需隐藏域 -->
+          <input type="hidden" id="info1NameAndValue" >
+          <input type="hidden" id="info2NameAndValue">
+          <input type="hidden" id="info3NameAndValue" >
+          <input type="hidden" id="info4NameAndValue">
+          <input type="hidden" id="detailList" value="
+          	#if(product.infoDetailList!=null)
+          		${product.infoDetailList.size()}
+          	#else
+          		0
+          	#end
+          ">
+          <dl class="count">
+            <dt>数量</dt>
+            <dd>
+                <div class="buyCount">
+                    <a href="javascript:void(0)" class="minus" onclick="subtractCount();">-</a>
+                    <input name="" id="pq" type="text" value="1" onblur="subtractCountOnblur();" onkeypress="return IsNum(event)" onfocus="subtractCountOnfocus();">
+                    <a href="javascript:void(0)" class="plus" onclick="addCount();">+</a>
+                </div>
+                <span class="inventory" id="newProSum">库存 ${proSum } 件</span>                
+                <span class="errorText errorRed" id="errorRed" style="display:none">
+                    <em class="errorBoxL"></em>
+                    <em class="errorMain" id="errorMain"></em>
+                    <em class="errorBoxR"></em>
+                </span>
+                <!-- ProInfoDetail隐藏域,方便下单等操作 -->
+                <input type="hidden" id="proSumH" value="${proSum }">
+                <input type="hidden" id="proInfoDetailId" name="proInfoDetailId">
+            </dd>
+            <dd class="clear"></dd>
+          </dl>
+        </div>
+        #if(!product.status)
+        <div class="buyBtns btnForbids"><!--如果不能购买，请添加class为btnForbids，此处为缺货和下架状态-->
+      	<span class="noBuy">此商品已下架</span>
+        <!--<span class="noBuy">此商品缺货</span>-->
+        <a href="javascript:void(0)" class="btnSave" onclick="addProductCollect();"><em></em>收藏商品</a>
+      </div>
+      #else
+      <div class="buyBtns" id="buyBtns"><!--如果不能购买，请添加class为btnForbids-->
+      	<a href="javascript:void(0)" class="btnOrange" onclick="buyNow();">立即购买</a>
+        <a href="javascript:void(0)" class="btnBlue" onclick="addshopCart();">加入购物车</a>
+        <a href="javascript:void(0)" class="btnSave" onclick="addProductCollect();"><em></em>收藏商品</a>
+      </div>
+        #end
+       
+      <input type="hidden" id="ctxpath" value="${webroot }">
+        <input type="hidden" id="proId" value="${proId }">
+        <input type="hidden" id="user" value="${user }">
+      #define(List<com.ekfans.base.product.service.web.ProductDetail.vo.StoreServiceVo> ssv)
+      <div class="serviceList">
+      	
+      	#for(com.ekfans.base.product.service.web.ProductDetail.vo.StoreServiceVo s:ssv)
+      		<span #if(s.titleName == "急速发货")class="sendIco"
+      					#elseif(s.titleName == "新到商品")class="newIco"
+      					#elseif(s.titleName == "急速退款")class="quicklyIco"
+      					#elseif(s.titleName == "退货保障卡")class="protectIco"
+      					#elseif(s.titleName == "七天无理由退换")class="sevenIco"
+      					#elseif(s.titleName == "增运费险")
+      					#elseif(s.titleName == "公益宝贝")
+      			#end title="${s.titleName}"></span>
+        #end
+       
+        
+      </div>
+      </div>
+  </div>
+    <!--价格信息和选择 end-->
+  <div class="clear"></div>
+</div>
+<div class="wrapper">
+	<!--本店其他商品-->
+	
+	<div class="others">
+    	<h3>本店其他商品</h3>
+    	#define(List<com.ekfans.base.product.model.Product> productOther)
+    		#for(com.ekfans.base.product.model.Product pOther:productOther)
+    	<div class="othersItem">
+    		
+            <a href="${webroot}/01-${pOther.id}.html"  target="_Blank" title="${pOther.name}" class="othersPic">           
+        	#if(pOther.recommendPicture3 == "" || pOther.recommendPicture3 == " "|| pOther.recommendPicture3 == null)
+        		<img src="${webroot}/resources/customer/images/imgdefault.jpg" width="170" height="170" alt="${pOther.name}">
+        	#else
+            	<img src="${webroot }${pOther.recommendPicture3}" width="170" height="170" alt="${pOther.name}">
+           #end 	
+            	</a>            
+            <a href="${webroot}/01-${pOther.id}.html" target="_Blank" class="othersText">${pOther.name}</a>
+            <span class="othersPrice">￥${pOther.unitPrice}</span>
+        </div>
+       #end
+    </div>
+    
+    <!--本店其他商品 end-->
+    <div class="main">
+    	<!--优惠组合-->
+    	
+        <!--优惠组合 end-->
+        <div class="tabZone">
+            <ul class="detailTabs tabCheck">
+                <li class="cur"><a href="javascript:void(0)" >商品详情</a><em class="detailPoint"></em></li>
+                <li><a href="javascript:void(0)" onclick="loadAppraise();">累计评价<em>${appraiseSum }</em></a><em class="detailPoint"></em></li>
+                <li><a href="javascript:void(0)" onclick="loadDealRecord();">月成交记录<em>${salesOfMonth }</em>件</a><em class="detailPoint"></em></li>
+            </ul>
+            
+            <!--商品详情-->
+            <div class="checkLayer proDetail">
+                <dl class="parameter">
+                  <dt>品牌名称：${product.brandName}</dt>
+                  <dd>
+                  	#for(com.ekfans.base.product.model.ProductInfo proInfo:product.infoList)
+                  	  #if(proInfo.infoType=="0")
+	                    <li>${proInfo.infoName}：${proInfo.infoValue}</li>
+	                    #else
+	                    #end
+                    #end
+                    <div class="clear"></div>
+                  </dd>
+                </dl>
+                <!-- 图文混合在这里 -->
+                <div class="shopEdit">
+                	${product.description }
+                </div><!--内容编辑就在此层-->
+                
+            <div class="tabZone productDetail">
+	            <ul class="detailTabs tabCheck" id="tabCheck">
+	                <li class="cur"><input type="hidden" value='0'><a href="javascript:void(0)">商品咨询</a><em class="detailPoint"></em></li>
+	                <li><input type="hidden" value='1'><a href="javascript:void(0)">库存及配送</a><em class="detailPoint"></em></li>
+	                <li><input type="hidden" value='2'><a href="javascript:void(0)">支付问题件</a><em class="detailPoint"></em></li>
+	                <li><input type="hidden" value='3'><a href="javascript:void(0)">发票及保修件</a><em class="detailPoint"></em></li>
+	                <li><input type="hidden" value='4'><a href="javascript:void(0)">促销及赠品件</a><em class="detailPoint"></em></li>
+	            </ul>
+	            
+	                <!-- 商品咨询 -->
+			            <div class="checkLayer proDetail" id="loadConsult">
+			                <div class="productItem">
+			                    <!-- 商品搜索 -->
+			                    <div class="consultSearch">
+			                        <input type="search" class="consultSearchBox" />
+			                        <a href="javascript:void(0)" id="consultSearch" class="btnOrange btnConsultSearch">搜索</a>
+			                    </div>
+			                    <div class="prompt">
+			                        <p>温馨提示:因厂家更改产品包装、产地或者更换随机附件等没有任何提前通知，且每位咨询者购买情况、提问时间</p>
+			                        <p>等不同，为此以下回复仅对提问者3天内有效，其他网友仅供参考！若由此给您带来不便请多多谅解，谢谢！</p>
+			                    </div>
+			                    <!-- end 商品搜索 -->
+			                </div>
+			                
+						          #for(com.ekfans.base.store.model.Consult c:cs)
+			                <div class="productItem">
+			                    <ul>
+			                        <li>
+			                            <span>网友：</span> 
+			                            
+			                            <span>${c.createTime}</span>
+			                        </li>
+			                        <li>
+			                            <span>咨询内容： </span>
+			                            <span class="problem">
+			                                ${c.questionAnswer}
+			                            </span>
+			                        </li>
+			                        #for(com.ekfans.base.store.model.Consult cc:c.childList)
+			                        <li class="orange">客服回复： ${cc.questionAnswer}</li>
+                              #end
+			                    </ul>
+			                </div>
+			                #end
+			
+			                <div class="clear"></div>
+			                <div class="tabZone">
+			                    <div class="published">
+			                        <a href="javascript:void(0)" id="consultPublish" class="btnBlue btnPublished">发表咨询</a>
+			                    </div>
+			                    <a href="javascript:void(0)" id="consultWatch" class="btnBlue btnReadAll">查看全部咨询</a>
+			                    <!-- end listpage -->
+			                </div>
+			            </div>
+			            
+                 </div>
+            </div>
+            <!--商品详情 end-->
+            
+            <!--累计评价-->
+            <div class="checkLayer proEvaluate" id="proAppraise">
+                
+            </div>
+            <!--累计评价 end-->
+            
+            <!--月成交记录-->
+            <div class="checkLayer saleRecord" id="proDealRecord">
+                
+            </div>
+            <!--月成交记录 end-->
+            
+            <!-- load所需的隐藏域 -->
+            <input type="hidden" id="proId" value="${proId }">
+            <!-- 评价类型 好评、中评、差评、全部 -->
+            <input type="hidden" id="eva" value="">
+            <!-- 评价分页-->
+            <input type="hidden" id="APN" value="">
+            <!-- 成交记录分页 -->
+            <input type="hidden" id="DPN" value="">
+        </div>
+  </div>
+    <div class="clear"></div>
+</div>
+
+<!--页脚-->
+${include("../footer.jetx")}
+<!--页脚 end-->
+
+<div class="apBg"></div>
+<div class="apLayer" id="apLayer">
+	<div class="apTit"><h3>用户登录</h3><a href="javascript:void(0)" class="apClose"></a></div>
+    <div class="apContent">
+    	<div class="apLogin">
+    		<form name="login" id="login" action="${webroot}/web/productDetail/loginCheck" method="post">
+            <dl class="formLine">
+                <dt>用户名<em class="mustIco"></em></dt>
+                <dd>
+                    <input name="name" id="name" value="${cookieName}" onblur="checkName(this.value,'${webroot}');" type="text" class="textBox textBoxFocus">
+                    <span class="errorText2" id="nameError" style="display:none">
+                <em class="errorBoxL2"></em>
+                <em class="errorMain2" id="nameErrorStr">用户名不存在</em>
+                <em class="errorBoxR2"></em>
+                <em class="errorBoxB2"></em>
+            </span>
+                </dd>
+            </dl>
+            <dl class="formLine">
+                <dt>密码<em class="mustIco"></em></dt>
+               
+                    <dd>
+        							<input type="password" class="textBox" id="password" name="password"  />
+        							<span class="errorText2" id="pwdError" style="display:none">
+											<em class="errorBoxL2"></em>
+											<em class="errorMain2" id="pwdError">密码与用户名不匹配</em>
+											<em class="errorBoxR2"></em>
+											<em class="errorBoxB2"></em>
+									</span>
+								#if(true == pwdError)
+									<script>
+											document.getElementById("pwdError").style.display="block";
+											document.getElementById("password").className="textBox textBoxFocus";
+            			</script>
+								#end
+        </dd>
+                
+            </dl>
+            <dl class="formLine code">
+                <dt>验证码<em class="mustIco"></em></dt>
+                <dd>
+                    <input name="verifyCode" type="text" class="textBox codeBox">
+                    <a href="javascript:void(0)" title="点击图片刷新验证码" class="codeImg"><img src="${webroot}/web/security/image" width="160" height="36" alt="验证码" onclick="javascript:changeVeri(this,'${webroot}');"></a>
+                    <span class="errorText2" id="verifyCodeError" style="display:none">
+											<em class="errorBoxL2"></em>
+											<em class="errorMain2" id="verifyCodeErrorStr">验证码错误</em>
+											<em class="errorBoxR2"></em>
+											<em class="errorBoxB2"></em>
+										</span>
+									#if(true == verufyError)
+									<script>
+											document.getElementById("verifyCodeError").style.display="block";
+            			</script>
+									#end   
+                    <div class="clear"></div>
+                </dd>
+            </dl>
+            <div class="formBottom">
+                <span class="saveUserName"><input name="" type="checkbox" value="">保存用户名</span>
+                <span class="refreshCode">点击图片刷新验证码</span>
+            </div>
+            <a href="javascript:formSubmit();" class="btnBlue btnLogin" onkeydown="keyLogin(event);">登录</a>
+            <a href="javascript:void(0)" class="btnOrange btnReg">注册</a>
+            <div class="clear"></div>
+            <div class="bottomText"><a href="javascript:void(0)" class="orange">忘记密码？</a></div>
+        </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

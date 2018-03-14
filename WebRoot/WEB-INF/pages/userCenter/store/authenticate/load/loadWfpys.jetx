@@ -1,0 +1,59 @@
+#define(List<com.ekfans.base.store.model.Wfpys> wfpys)
+	
+<div class="apTit">
+	<span class="apClose"></span>危废品运输标准
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	界定标准：<input type="text" id="wfpysName" value="${name}" class="textBox box212" style="display:inline-block;"> <input type="button" onclick="loadWfpysDirectory()" value="查询" class="btnBase">
+	
+</div>
+		
+    <div class="apContent">
+        <div class="itemLayer" style="border:0;margin-left:10px;">
+					<ul class="selectList">
+            <li style=" margin-right:15px;float:left;" id="searchone">
+            	#if(wfpys!=null)
+                #for(com.ekfans.base.store.model.Wfpys w:wfpys)
+                <a href="javascript:searchWfpysChild('${w.id}')">${w.name}</a>
+                #end
+              #end
+            </li>
+            <li id="searchtwo" style="width:46%;float:left;" ></li>
+            <div class="clear"></div>
+          </ul>
+          <div id="three"></div>
+          <div class="clear"></div>
+          
+        </div>
+    </div>
+    <input type="hidden" name="wfysChose" id="wfysChose" value=""/>
+    
+<script>
+
+// load危废品运输界定标准列表
+function searchWfpysChild(partenId){
+		$("#three").load($("#ctxpath").val()+"/store/auth/accredit/wfpysChild",{"id":partenId});
+}
+
+function choseWfys(obj){
+	var chosedVal = $("#wfysChose").val();
+	if(obj.checked){
+		chosedVal = chosedVal + obj.value + ";";
+	}else{
+		chosedVal = chosedVal.replaceAll(obj.value+";","");
+	}
+	$("#wfysChose").val(chosedVal);
+}
+
+function choseWfysList(){
+	var choses = $("#wfysChose").val();
+	var url = "${webroot}/store/auth/accredit/wfpysShow";
+	$("#mlDiv").load(url,{"mlIds":choses});
+	$("#mlDiv").show();
+	$("#wfysDetails").val(choses);
+	
+	$(".apLayerBg").hide();
+	 $(".alertBrand").hide();
+}
+
+</script>	  
+	  

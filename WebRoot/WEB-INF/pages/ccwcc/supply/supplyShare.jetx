@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <script src="${webroot}/resources/ccwcc/js/jquery-1.8.3.min.js"></script>
+    <script src="${webroot}/resources/ccwcc/js/mui.min.js"></script>
+    <link href="${webroot}/resources/ccwcc/css/mui.min.css" rel="stylesheet"/>
+    <style>
+        _::-webkit-full-page-media, _:future, :root .safari_only {
+        @font-face{font-family:PingFangSC; src:url(${webroot}/resources/ccwcc/css/PingFangSC.ttf);}
+        }
+        *{-webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;font-family: PingFangSC,Lantinghei SC,Helvetica Neue,Helvetica,Arial,Microsoft YaHei,\\5FAE\8F6F\96C5\9ED1,STHeitiSC-Light,simsun,\\5B8B\4F53,WenQuanYi Zen Hei,WenQuanYi Micro Hei,'sans-serif';}
+        * { margin: 0; padding: 0; outline: none; font-family: Microsoft YaHei; word-break: break-all; }
+        html { -webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-text-size-adjust: none;  }/* 禁用iPhone中Safari的字号自动调整 */
+        body { font-size: 12px; color: #000; background-color: #EFF0F1; margin: 0; padding: 0; font-family: Microsoft YaHei; width: 100%; height: 100%; }
+        table { border-collapse: collapse; border-spacing: 0; }
+        fieldset, img { border: none; border: 0; }
+        address, caption, cite, code, dfn, em, strong, th, var { font-style: normal; font-weight: normal; }
+        ol, ul, li { list-style: none; }
+        abbr, acronym, img { border: 0;-webkit-touch-callout: none; }
+        input, textarea { 　border: 0; -webkit-appearance: none; }
+        .xxx { overflow: auto; /* auto | scroll */ -webkit-overflow-scrolling: touch; }
+        .user-select-none { -webkit-user-select: none;  /* Chrome all / Safari all */ -moz-user-select: none;     /* Firefox all （移动端不需要） */ -ms-user-select: none;      /* IE 10+ */ }
+        .clear { clear: both; }
+        a { color: inherit; *color:#666;text-decoration: none; }
+        a:hover { color: #008cd6; }
+        .wrapper { min-width: 320px; max-width: 1080px; width: 100%; margin: 0 auto; position: relative; }
+        html {font-size: 62.5%;/*10 ÷ 16 × 100% = 62.5%*/}
+        body {font-size: 1.4rem;/*1.4 × 10px = 14px */}
+        .mui-content>.mui-card:first-child{margin-top:10px;}
+        .mui-card{margin:0 0 10px 0; padding:4px 8px 4px 8px;box-shadow:0 0 0;}
+        .mui-input-row label{ font-size:18px; color:#323232; padding:9px 0px 4px 0px;}
+        .mui-input-row p{font-family: 'Helvetica Neue',Helvetica,sans-serif;line-height: 1.1;float: right;width: 65%;padding: 11px 15px; text-align:right; font-size:12px; color:#656666; padding:9px 0px 4px 0px; margin-bottom: 9px;}
+        .newlist .mui-input-row label{ font-size:16px; color:#323232; width:5em; padding-right:0;text-align: right;}
+        .newlist .mui-input-row p{ font-size:16px; color:#656666; float:left; text-align:left; width:73%; padding-left:0;margin-bottom: 0;}
+        .downlink{display:block; width:100%;}
+        .fixed{position:fixed; width:100%; left:0; bottom:0; right:0; padding:0;}
+        .titleLine{border-bottom:1px solid #CBCCCC;margin-top:6px;}
+        .telicon img{display:block; width:100%; height:100%;}
+        .mui-input-row table{width:98%;margin:10px auto 6px auto;}
+        .mui-input-row table tr{background-color:#F5F8FA;}
+        .mui-input-row table tr:nth-child(2n){background:#fff;}
+        .mui-input-row table td{padding:6px 10px 6px 20px; line-height:27px; border:1px #CBCCCC solid;color:#656666;font-size:15px;}
+        .telicon{position:absolute; width:40px; height:40px; display:block; right:10px; top:20px;}
+        .sxIxon{position:absolute; left:3%; top:12%; width:186px; height:140px;}
+        .sxIxon img{display:block; width:100%; height:100%;}
+    </style>
+    <title>核价宝</title>
+</head>
+
+<body>
+#define(com.ekfans.base.order.model.SupplyBuy supplyBuy)
+<div class="mui-content"  style="padding-bottom:60px;">
+    <div class="mui-card">
+        <div class="mui-input-row titleLine">
+            <label style="width:65%;">${supplyBuy.title}</label>
+            <p style=" width:35%; padding-top:14px;">${supplyBuy.createTime}</p>
+        </div>
+        <div class="mui-input-row" style="position: relative;">
+            <table>
+                <tr>
+                    <td style="width:48%;">货物品类</td>
+                    <td style="width:52%;">${categoryName}</td>
+                </tr>
+                <tr>
+                    <td>货物信息</td>
+                    <td>${(supplyBuy.content != null && supplyBuy.content != "")?supplyBuy.content:supplyBuy.title}</td>
+                </tr>
+                <tr>
+                    <td>货物数量</td>
+                    <td>${supplyBuy.number} ${supplyBuy.unit}</td>
+                </tr>
+                <tr>
+                    <td>货物等级</td>
+                    <td>${supplyBuy.qualityLevel}</td>
+                </tr>
+                <tr>
+                    <td>货物价格</td>
+                    <td>${(supplyBuy.futurePrices == null || supplyBuy.futurePrices.doubleValue() <= 0) ? "面议": supplyBuy.futurePrices + " 元/" + supplyBuy.unit}</td>
+                </tr>
+            </table>
+            #if(@(com.ekfans.pub.util.DateUtil).compareTimeString(@(com.ekfans.pub.util.DateUtil).getSysDateTimeString(),supplyBuy.endTime))
+            <div class="sxIxon"><img src="${webroot}/resources/ccwcc/images/sx.png"/></div>
+            #end
+        </div>
+    </div>
+
+    <div class="mui-card newlist">
+        <div class="mui-input-row">
+            <label>交货地点：</label>
+            <p>${supplyBuy.address}</p>
+        </div>
+        <div class="mui-input-row">
+            <label>交货方式：</label>
+            <p>${supplyBuy.deliveryType == 0?"自提":"送货上门"}</p>
+        </div>
+        <div class="mui-input-row">
+            <label>有效期限：</label>
+            <p>${endTime}</p>
+        </div>
+    </div>
+    <div class="mui-card newlist" style="position:relative;">
+        <div class="mui-input-row">
+            <label>&nbsp;&nbsp;&nbsp;联系人：</label>
+            <p>${supplyBuy.contactName}</p>
+        </div>
+        <div class="mui-input-row">
+            <label>联系电话：</label>
+            <p>${supplyBuy.contactPhone}</p>
+        </div>
+        #if(@(com.ekfans.pub.util.DateUtil).compareTimeString(supplyBuy.endTime,@(com.ekfans.pub.util.DateUtil).getSysDateTimeString()))
+        <a href="tel:${supplyBuy.contactPhone}" class="telicon"><img src="${webroot}/resources/ccwcc/images/tel.png"/></a>
+        #end
+    </div>
+    <div class="mui-card newlist">
+        <div class="mui-input-row">
+            <label style="width: 50px;">备注：</label>
+            <p>${(supplyBuy.note != null && supplyBuy.note != "")?supplyBuy.note:""}</p>
+        </div>
+    </div>
+    <div class="mui-card fixed" style="margin-bottom:0; margin-top:40px;">
+        <a href="javascript:void(0)" class="downlink">
+            <img src="${webroot}/resources/ccwcc/images/download.png" width="100%"/>
+        </a>
+    </div>
+</div>
+    <script>
+    if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        $(".downlink").attr("href","https://itunes.apple.com/cn/app/hejiabao/id1234821122?mt=8")//判断iPhone|iPad|iPod|iOS
+//        alert("ios");
+    } else if (/(Android)/i.test(navigator.userAgent)) {
+        $(".downlink").attr("href","http://a.app.qq.com/o/simple.jsp?pkgname=com.sfdhb.hejiabao")//判断Android
+//        alert("android");
+    } else {
+//其他
+    };
+
+    function browserRedirect() {
+        var sUserAgent = navigator.userAgent.toLowerCase();
+        var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+        var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+        var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+        var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+        var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+        var bIsAndroid = sUserAgent.match(/android/i) == "android";
+        var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+        var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+        if(bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+        } else {
+            $(".fixed").hide();//如果是pc隐藏下载链接
+            $(".mui-content").css("width","750px");
+            $(".mui-content").css("margin","0 auto");
+            $(".mui-content").css("position","relative");
+        }
+    }
+    browserRedirect();
+</script>
+</body>
+</html>

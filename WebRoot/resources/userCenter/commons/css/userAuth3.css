@@ -1,0 +1,20 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url("userAuth.css");
+
+.pointIcon{top:-12px; right:115px; left:auto;}
+.ingState{color:#878787;}
+.failState{text-align:left; padding:10px 26px 20px 26px; width:686px; height:auto;}
+.failState dt{line-height:30px; font-size:14px; padding-bottom:8px;}
+.failState dd{line-height:20px; color:#9f9f9f; font-size:12px;}
+
+/*财务信息*/
+.formIn{}
+.financeHeader{padding-left:116px; height:14px; line-height:14px; margin-bottom:20px; overflow:hidden; width:748px;}
+.financeHeader li{width:320px; float:left; height:14px; margin-right:54px;}
+.financeHeader li span{color:#888;}
+.financeHeader li span em{color:#484848;}
+.financeItem{width: 360px; height:28px; float:left; margin:0 14px 24px 0;}
+.financeItem .formName{width:116px;}
+.financeItem .i_bg{margin-right:30px;}

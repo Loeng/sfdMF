@@ -1,0 +1,63 @@
+/* CSS Document */
+.nav{position:relative;}
+.secondNav{position:absolute; top:48px; left:0; right:0; z-index:9998;display:none;}
+body{background:#f2f2f2;}
+.main{width:1190px; margin:30px auto; background:#fff;}
+.regHeader{height:80px; border-bottom:solid 1px #cbcbcb; padding-right:30px; margin:0 10px 40px 10px;}
+.regHeader em{display:block; height:78px; line-height:78px; font-size:20px; font-weight:700; border-bottom:solid 2px #393; float:left; padding:0 10px; margin-left:30px;}
+.loginLink{display:block; float:right; white-space:nowrap; font-size:16px; height:30px; line-height:30px; margin-top:40px;}
+.regBox{padding:0 10px 30px 180px;}
+.regItem,.regName{height:40px; margin-bottom:40px;}
+.regItem dt,.regName .dt{height:40px; line-height:40px; font-size:16px; width:140px; float:left; text-align:right; padding-right:20px;}
+.regItem dd,.regName .dd{height:40px; width:750px; float:left; position:relative;}
+.regItem dd.clear{float:none; height:0;}
+
+.regType li{width:138px; height:38px; line-height:38px; text-align:center; font-size:16px; color:#999; border:solid 1px #ccc; float:left; margin-right:20px; cursor:pointer;}
+.regType li.cur{border:solid 1px #339933; background:url(../images/icon_checked.png) no-repeat right bottom; color:#393;}
+.mustItem{color:#f00; font-size:18px; font-family:"????"; font-style:normal; margin-right:5px;}
+.regName .mustItem{float:left;}
+
+.regBox .textBox{display:block; height:38px; line-height:38px; width:278px; padding:0 10px; border:solid 1px #ccc; float:left; margin-right:20px;}
+.Validform_checktip{position:absolute;left:0; top:0px;}
+.regBox .hint{color:#999; display:block; float:left; width:430px; line-height:40px;}
+#btnSend{height:40px; line-height:40px; width:140px;}
+.btnForbid,.btnForbid:hover{background:#999; color:#fff; cursor:default; border:none;}
+.btnReg{font-size:18px; border-radius:4px; display:block; width:300px; height:40px; line-height:40px; margin-left:160px;}
+.xieyi{height:30px; line-height:30px; margin-bottom:30px; font-size:14px; margin-left:160px;}
+.xieyi input{display:block; width:16px; height:16px; float:left; margin:7px 10px 0 0;}
+
+
+.selList{float:left; margin-right:8px; position:relative;}
+.nameLast{float:left; display:block;}
+.selList dt{background:url(../../../commons/images/down_ico.png) no-repeat 95% center; border:solid 1px #ccc; width:55px; padding-left:10px; height:38px; text-align:left; cursor:pointer;}
+.selList dd{display:none; width:65px; text-align:center; border:solid 1px #ccc; position:absolute; top:39px; left:0; background:#fff;}
+.selList dd li{height:36px; line-height:36px;}
+.selList dd li:hover{cursor:pointer; background:#e0e0e0;}
+
+
+
+.Validform_checktip{
+	line-height:20px;
+	height:20px;
+	overflow:hidden;
+	color:#999;
+	font-size:12px;
+}
+.Validform_right{
+	color:#71b83d;
+	padding-left:20px;
+	background:url(../images/right.png) no-repeat left center;
+	display:none;
+	font-size:0px;
+}
+.Validform_wrong{padding-left:32px;white-space:nowrap;background:url(../images/wranicon.png) no-repeat 5px center;border:1px solid #FF0000;background-color:#FFE7E7;color:#191919;font-size:14px;height:38px;line-height:38px;width:266px;}
+.Validform_loading{padding-left:20px;background:url(../images/onLoad.gif) no-repeat left center;}
+.Validform_error{
+}
+#Validform_msg{color:#7d8289; font: 12px/1.5 tahoma, arial, \5b8b\4f53, sans-serif; width:280px; -webkit-box-shadow:2px 2px 3px #aaa; -moz-box-shadow:2px 2px 3px #aaa; background:#fff; position:absolute; top:0px; right:50px; z-index:99999; display:none;filter: progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color='#999999'); box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);}
+#Validform_msg .iframe{position:absolute; left:0px; top:-1px; z-index:-1;}
+#Validform_msg .Validform_title{line-height:25px; height:25px; text-align:left; font-weight:bold; padding:0 8px; color:#fff; position:relative; background-color:#999;
+background: -moz-linear-gradient(top, #999, #666 100%); background: -webkit-gradient(linear, 0 0, 0 100%, from(#999), to(#666)); filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#999999', endColorstr='#666666');}
+#Validform_msg a.Validform_close:link,#Validform_msg a.Validform_close:visited{line-height:22px; position:absolute; right:8px; top:0px; color:#fff; text-decoration:none;}
+#Validform_msg a.Validform_close:hover{color:#ccc;}
+#Validform_msg .Validform_info{padding:8px;border:1px solid #bbb; border-top:none; text-align:left;}

@@ -1,0 +1,695 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>信用测算</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<link rel="shortcut icon" href="../../../resources/commons/images/favicon.ico" type="image/x-icon">
+<link href="../../../resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/userCenter/produce/css/style.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/userCenter/commons/css/userEvaluate.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<!--头部-->
+<div class="wrapper topArea">
+  <h1 class="logo">
+    <a href="javascript:void(0)" title="鑫裕环保供应链平台">
+    	<img src="../../../resources/commons/images/logo.png" alt="鑫裕环保供应链平台">
+    </a>
+  </h1>
+  <div class="topRight">
+    <a href="javascript:void(0)" class="linkIndex">首页</a>
+    <span class="topItem">您好，云飞扬</span>
+    <span class="topItem"><a href="javascript:void(0)">消息(99)</a></span>
+    <span class="topItem"><a href="javascript:void(0)">帮助中心</a></span>
+    <span class="topItem itemLast"><a href="javascript:void(0)">安全退出</a></span>
+    <em class="split"></em>
+    <span class="telPhone">4000-888-1000</span>
+  </div>
+  <div class="clear"></div>
+</div>
+
+<div class="logoBar">
+  <div class="wrapper">
+  	<a href="javascript:void(0)" class="logoName">产生企业-企业中心</a>
+    <div class="nav">
+      <a href="javascript:void(0)" class="navItem">订单管理</a>
+      <a href="javascript:void(0)" class="navItem">金融管理</a>
+      <a href="javascript:void(0)" class="navItem">企业认证</a>
+      <a href="javascript:void(0)" class="navItem">账户管理</a>
+    </div>
+  </div>
+</div>
+<!--头部end-->
+
+
+<div class="main">
+  <div class="wrapper">
+    <!--左侧菜单-->
+    <div class="leftNav budong">
+    <h2><a href="javascript:void(0)">管理中心首页</a></h2>
+    <dl class="leftList">
+        <dt>采购管理<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)">商品管理</a>
+            <a href="javascript:void(0)">订单管理</a>
+            <a href="javascript:void(0)">议价管理</a>
+        </dd>
+    </dl>
+    <dl class="leftList">
+        <dt>供应管理<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)">商品管理</a>
+            <a href="javascript:void(0)">订单管理</a>
+            <a href="javascript:void(0)">议价管理</a>
+            <a href="javascript:void(0)">优选商城订单管理</a>
+        </dd>
+    </dl>
+    <dl class="leftList">
+        <dt>商品管理<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)">发布新商品</a>
+            <a href="javascript:void(0)">仓库中的商品</a>
+            <a href="javascript:void(0)">出售中的商品</a>
+        </dd>
+    </dl>
+    <dl class="leftList">
+        <dt>金融管理<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)">订单借贷申请</a>
+            <a href="javascript:void(0)">订单借贷管理</a>
+            <a href="javascript:void(0)">信用借贷申请</a>
+            <a href="javascript:void(0)">信用借贷管理</a>
+            <a href="javascript:void(0)">还款记录</a>
+        </dd>
+    </dl>
+    <dl class="leftList">
+        <dt>企业认证<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)">企业自助备案</a>
+            <a href="javascript:void(0)" class="cur">企业信用测算</a>
+        </dd>
+    </dl>
+    <dl class="leftList">
+        <dt>账户管理<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)">基本资料管理</a>
+            <a href="javascript:void(0)">账户资金管理</a>
+            <a href="javascript:void(0)">安全设置</a>
+        </dd>
+    </dl>
+    <dl class="leftList">
+        <dt>银行卡管理<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)">绑定银行卡</a>
+            <a href="javascript:void(0)">银行卡管理</a>
+        </dd>
+    </dl>
+</div>
+
+    <!--左侧菜单 end-->
+      
+    <!--右侧主体-->
+    <div class="rightContent">
+    	<div class="contentTit budong borderColor">
+            <h3>信用测算</h3>
+            <a href="javascript:void(0);" class="btnBase btnCancel">重置</a>
+            <a href="javascript:void(0);" class="btnBase btnSave">开始计算</a>
+            <div class="clear"></div>
+    	</div>
+        <div class="evaluateBox">
+            <span class="evaluateBoxSuc">信用评级<em class="level">AAA</em></span>
+            <!--<span class="noEvaluate">未进行过测算</span>-->   <!--未进行过测算-->
+            <!--<span class="evaluateing">测算进行中...</span>-->  <!--测算进行中-->
+        </div>
+        
+        <div class="formsFirst">
+            <h3>企业信息</h3>
+            <dl class="formItem">
+                <dt>所属行业</dt>
+                <dd class="formRight">
+                    <div class="selList" style="width:198px;">
+                        <span class="textBox">
+                            <input name="" type="text" class="box184" placeholder="请选择行业类型" readonly>
+                            <em class="iconDown readOnly"></em>
+                        </span>
+                        <ul>
+                          <li>选项一</li>
+                          <li>选项二</li>
+                        </ul>
+                      </div>
+                    <div class="clear"></div>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>员工规模</dt>
+                <dd class="formRight">
+                    <div class="selList" style="width:198px;">
+                        <span class="textBox">
+                            <input name="" type="text" class="box184" placeholder="请选择员工规模" readonly>
+                            <em class="iconDown readOnly"></em>
+                        </span>
+                        <ul>
+                          <li>选项一</li>
+                          <li>选项二</li>
+                        </ul>
+                      </div>
+                    <div class="clear"></div>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+        </div>
+        
+        <div class="forms">
+            <h3>偿债能力计算参数</h3>
+            <dl class="formItem">
+                <dt>流动资产</dt>
+                <dd class="formRight">
+                    <input name="" type="text" class="textBox box210"/>万元
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>速动资产</dt>
+                <dd class="formRight">
+                    <input name="" type="text" class="textBox box210"/>万元
+                </dd>
+                <dd class="clear"></dd>
+                <span class="redTip">注：速动资产 = 货币资金+交易性金融资产+应收帐款 + 应收票据</span>
+            </dl>
+            <dl class="formItem">
+                <dt>资产负债总额</dt>
+                <dd class="formRight">
+                    <input name="" type="text" class="textBox box210"/>万元
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>所有者权益总额</dt>
+                <dd class="formRight">
+                    <input name="" type="text" class="textBox box210"/>万元
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>流动负债</dt>
+                <dd class="formRight">
+                    <input name="" type="text" class="textBox box210"/>万元
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>流动负债</dt>
+                <dd class="formRight">
+                    <input name="" type="text" class="textBox box210"/>万元
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>资产总额</dt>
+                <dd class="formRight">
+                    <input name="" type="text" class="textBox box210"/>万元
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+        </div>
+        
+        <div class="forms">
+            <h3>企运营能力计算参数业信息</h3>
+            <dl class="formItem">
+                <dt>周转额</dt>
+                <dd class="formRight">
+                    <input name="" type="text" class="textBox box210"/>万元
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>资产平均余额</dt>
+                <dd class="formRight">
+                    <input name="" type="text" class="textBox box210"/>万元
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+        </div>
+        
+        <div class="forms">
+            <h3>获利能力计算参数</h3>
+            <dl class="formItem">
+                <dt>税后年营业利润</dt>
+                <dd class="formRight">
+                    <input name="" type="text" class="textBox box210"/>万元
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>息税前利润总额</dt>
+                <dd class="formRight">
+                    <input name="" type="text" class="textBox box210"/>万元
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>净资产</dt>
+                <dd class="formRight">
+                    <input name="" type="text" class="textBox box210"/>万元
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>年收入</dt>
+                <dd class="formRight">
+                    <input name="" type="text" class="textBox box210"/>万元
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>净利润</dt>
+                <dd class="formRight">
+                    <input name="" type="text" class="textBox box210"/>万元
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>成本费用总额</dt>
+                <dd class="formRight">
+                    <input name="" type="text" class="textBox box210"/>万元
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+        </div>
+        
+        <div class="forms">
+            <h3>发展能力计算参数</h3>
+            <dl class="formItem">
+                <dt>本年营业收入增长额</dt>
+                <dd class="formRight">
+                    <input name="" type="text" class="textBox box210"/>万元
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt style="line-height:15px;">扣除客观因素后的年末所有者权益总额</dt>
+                <dd class="formRight">
+                    <input name="" type="text" class="textBox box210"/>万元
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>本年总资产增长额</dt>
+                <dd class="formRight">
+                    <input name="" type="text" class="textBox box210"/>万元
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>年初资产总额</dt>
+                <dd class="formRight">
+                    <input name="" type="text" class="textBox box210"/>万元
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>上年营业收入</dt>
+                <dd class="formRight">
+                    <input name="" type="text" class="textBox box210"/>万元
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>年初所有者权益总额</dt>
+                <dd class="formRight">
+                    <input name="" type="text" class="textBox box210"/>万元
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>上年营业利润总额</dt>
+                <dd class="formRight">
+                    <input name="" type="text" class="textBox box210"/>万元
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>本年营业利润增长额</dt>
+                <dd class="formRight">
+                    <input name="" type="text" class="textBox box210"/>万元
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <!--右侧主体 end-->
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<!--底部-->
+<div class="bottomMenu">
+  <div class="wrapper">
+    <dl class="footItem">
+      <dt> <img src="../../../resources/commons/images/gyl_icon_r1_c4.png" width="49" height="48" /> <span>采购流程</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="下单流程">下单流程</a></li>
+        <li><a href="javascript:void(0);" title="订单跟踪">订单跟踪</a></li>
+        <li><a href="javascript:void(0);" title="安全支付">安全支付</a></li>
+        <li><a href="javascript:void(0);" title="企业认证">企业认证</a></li>
+        <li><a href="javascript:void(0);" title="常见问题">常见问题</a></li>
+      </dd>
+    </dl>
+    <dl class="footItem">
+      <dt> <img src="../../../resources/commons/images/gyl_icon_r1_c5.png" width="49" height="48" /> <span>服务与支持</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="物流配送">物流配送</a></li>
+        <li><a href="javascript:void(0);" title="经销商权益">经销商权益</a></li>
+        <li><a href="javascript:void(0);" title="不良品退货">不良品退货</a></li>
+        <li><a href="javascript:void(0);" title="在线咨询">在线咨询</a></li>
+        <li><a href="javascript:void(0);" title="融资操作手册">融资操作手册</a></li>
+      </dd>
+    </dl>
+    <dl class="footItem">
+      <dt> <img src="../../../resources/commons/images/gyl_icon_r1_c6.png" width="49" height="48" /> <span>我的账户</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="子账户管理">子账户管理</a></li>
+        <li><a href="javascript:void(0);" title="密码重置">密码重置</a></li>
+        <li><a href="javascript:void(0);" title="在线打款">在线打款</a></li>
+      </dd>
+    </dl>
+    <dl class="lastItem">
+      <dt> <img src="../../../resources/commons/images/gyl_icon_r1_c7.png" width="49" height="48" /> <span>关于我们</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="公司简介">公司简介</a></li>
+        <li><a href="javascript:void(0);" title="联系我们">联系我们</a></li>
+        <li><a href="javascript:void(0);" title="网站声明">网站声明</a></li>
+      </dd>
+    </dl>
+    <div class="clear"></div>
+  </div>
+</div>
+<!--底部 end--> 
+
+<!--尾部-->
+<div class="footer">
+  <div class="wrapper">
+    <p class="footerLeft">© 2014 成都易科远见科技有限公司 版权所有 蜀ICP备 14005736号</p>
+    <p class="footerRight">成都市高新区吉泰路666号花样年·福年广场2号楼1309室<br>
+      服务热线：028-83190368</p>
+    <div class="clear"></div>
+  </div>
+</div>
+<!--尾部 end--> 
+
+<div class="apLayerBg"></div>
+<div class="apLayer borderColor alertBrand">
+	<div class="apTit">
+    	<span class="apClose"></span>
+        品牌选择
+    </div>
+    <div class="apContent">
+        <div class="shopSearch">
+            <dl class="formItem">
+                <dt>商品名</dt>
+                <dd>
+                <input name="" type="text" class="textBox box212" value="">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+        </div>
+        <div class="btn">
+            <a href="javascript:void(0);" class="btnBase">搜索</a>
+            <a href="javascript:void(0);" class="btnBase">重置</a>
+        </div>
+        <div class="itemLayer">
+            <div class="classItem">
+            	<label>
+                    <span class="check checked"><em><input name="checkbox" type="checkbox" value=true checked></em></span>
+                    iphone5S
+                </label>
+            </div>
+            <div class="classItem">
+            	<label>
+                    <span class="check checked"><em><input name="checkbox" type="checkbox" value=true checked></em></span>
+                    iphone5S
+                </label>
+            </div>
+            <div class="classItem">
+            	<label>
+                    <span class="check checked"><em><input name="checkbox" type="checkbox" value=true checked></em></span>
+                    iphone5S
+                </label>
+            </div>
+            <div class="classItem">
+            	<label>
+                    <span class="check checked"><em><input name="checkbox" type="checkbox" value=true checked></em></span>
+                    iphone5S
+                </label>
+            </div>
+            <div class="classItem">
+            	<label>
+                    <span class="check checked"><em><input name="checkbox" type="checkbox" value=true checked></em></span>
+                    iphone5S
+                </label>
+            </div>
+            <div class="classItem">
+            	<label>
+                    <span class="check checked"><em><input name="checkbox" type="checkbox" value=true checked></em></span>
+                    iphone5S
+                </label>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="pageSize">
+            <a href="javascript:void(0);" class="btn pageControl">&lt;&lt;</a>
+            <a href="javascript:void(0);" class="btn pageControl">&lt;</a>
+            <a href="javascript:void(0);" class="btn">1</a>
+            <a href="javascript:void(0);" class="btn">2</a>
+            <a href="javascript:void(0);" class="btn cur">3</a>
+            <a href="javascript:void(0);" class="btn">4</a>
+            <a href="javascript:void(0);" class="btn">5</a>
+            <a href="javascript:void(0);" class="btn">6</a>
+            <a href="javascript:void(0);" class="btn">...</a>
+            <a href="javascript:void(0);" class="btn pageControl">&gt;</a>
+            <a href="javascript:void(0);" class="btn pageControl">&gt;&gt;</a>
+        </div>
+    </div>
+</div>
+<div class="apLayer alertTemp borderColor">
+	<div class="apTit">
+    	<span class="apClose"></span>
+        模板选择
+    </div>
+    <div class="apContent">
+        <div class="shopSearch">
+            <dl class="formItem">
+                <dt>店铺名</dt>
+                <dd>
+                <input name="" type="text" class="textBox box212" value="">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+        </div>
+        <div class="btn">
+            <a href="javascript:void(0);" class="btnBase">搜索</a>
+            <a href="javascript:void(0);" class="btnBase">重置</a>
+        </div>
+        <div class="itemLayer">
+            <div class="classItem">
+            	<label>
+                    <span class="check checked"><em><input name="checkbox" type="checkbox" value=true checked></em></span>
+                    iphone5S
+                </label>
+            </div>
+            <div class="classItem">
+            	<label>
+                    <span class="check checked"><em><input name="checkbox" type="checkbox" value=true checked></em></span>
+                    iphone5S
+                </label>
+            </div>
+            <div class="classItem">
+            	<label>
+                    <span class="check checked"><em><input name="checkbox" type="checkbox" value=true checked></em></span>
+                    iphone5S
+                </label>
+            </div>
+            <div class="classItem">
+            	<label>
+                    <span class="check checked"><em><input name="checkbox" type="checkbox" value=true checked></em></span>
+                    iphone5S
+                </label>
+            </div>
+            <div class="classItem">
+            	<label>
+                    <span class="check checked"><em><input name="checkbox" type="checkbox" value=true checked></em></span>
+                    iphone5S
+                </label>
+            </div>
+            <div class="classItem">
+            	<label>
+                    <span class="check checked"><em><input name="checkbox" type="checkbox" value=true checked></em></span>
+                    iphone5S
+                </label>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="pageSize" style="padding-right:8px;">
+            <a href="javascript:void(0);" class="btn pageControl">&lt;&lt;</a>
+            <a href="javascript:void(0);" class="btn pageControl">&lt;</a>
+            <a href="javascript:void(0);" class="btn">1</a>
+            <a href="javascript:void(0);" class="btn">2</a>
+            <a href="javascript:void(0);" class="btn cur">3</a>
+            <a href="javascript:void(0);" class="btn">4</a>
+            <a href="javascript:void(0);" class="btn">5</a>
+            <a href="javascript:void(0);" class="btn">6</a>
+            <a href="javascript:void(0);" class="btn">...</a>
+            <a href="javascript:void(0);" class="btn pageControl">&gt;</a>
+            <a href="javascript:void(0);" class="btn pageControl">&gt;&gt;</a>
+        </div>
+    </div>
+</div>
+<div class="apLayer shopListAlert borderColor">
+		<div class="apTit">
+			<a href="javascript:void(0)" class="apClose"></a>
+            <span class="titName">店铺选择</span>
+		</div>
+        <div class="apContent shopListContent">
+            <div class="shopSearch">
+                <dl class="formItem">
+                    <dt>店铺名</dt>
+                    <dd>
+                    <input name="" type="text" class="textBox box212" value="">
+                    </dd>
+                	<dd class="clear"></dd>
+                </dl>
+                <dl class="formItem">
+                    <dt>用户名</dt>
+                    <dd>
+                    <input name="" type="text" class="textBox box212" value="">
+                    </dd>
+                	<dd class="clear"></dd>
+                </dl>
+                <div class="clear"></div>
+            </div>
+            <div class="btn">
+                <a href="javascript:void(0);" class="btnBase">搜索</a>
+                <a href="javascript:void(0);" class="btnBase">重置</a>
+            </div>
+            <table border="0" cellspacing="0" cellpadding="0" class="shopTable">
+                <tr>
+                    <th>序号</th>
+                    <th>logo</th>
+                    <th>店铺名</th>
+                    <th>用户名</th>
+                    <th>&nbsp;</th>
+                </tr>
+                <tr>
+                    <td>01</td>
+                    <td><img src="../../../resources/userCenter/commons/pic/pro150.jpg" width="35" height="35" alt="金粉世家" title="金粉世家"></td>
+                    <td>Samsung-N9006</td>
+                    <td>Iphone5s</td>
+                    <td><a href="javascript:void(0);" class="btn">选择</a></td>
+                </tr>
+                <tr>
+                    <td>02</td>
+                    <td><img src="../../../resources/userCenter/commons/pic/pro150.jpg" width="35" height="35" alt="金粉世家" title="金粉世家"></td>
+                    <td>Samsung-N9006</td>
+                    <td>Iphone5s</td>
+                    <td><a href="javascript:void(0);" class="btn">选择</a></td>
+                </tr>
+                <tr>
+                    <td>03</td>
+                    <td><img src="../../../resources/userCenter/commons/pic/pro150.jpg" width="35" height="35" alt="金粉世家" title="金粉世家"></td>
+                    <td>Samsung-N9006</td>
+                    <td>Iphone5s</td>
+                    <td><a href="javascript:void(0);" class="btn">选择</a></td>
+                </tr>
+                <tr>
+                    <td>04</td>
+                    <td><img src="../../../resources/userCenter/commons/pic/pro150.jpg" width="35" height="35" alt="金粉世家" title="金粉世家"></td>
+                    <td>Samsung-N9006</td>
+                    <td>Iphone5s</td>
+                    <td><a href="javascript:void(0);" class="btn">选择</a></td>
+                </tr>
+                <tr>
+                    <td>05</td>
+                    <td><img src="../../../resources/userCenter/commons/pic/pro150.jpg" width="35" height="35" alt="金粉世家" title="金粉世家"></td>
+                    <td>Samsung-N9006</td>
+                    <td>Iphone5s</td>
+                    <td><a href="javascript:void(0);" class="btn">选择</a></td>
+                </tr>
+                <tr>
+                    <td>06</td>
+                    <td><img src="../../../resources/userCenter/commons/pic/pro150.jpg" width="35" height="35" alt="金粉世家" title="金粉世家"></td>
+                    <td>Samsung-N9006</td>
+                    <td>Iphone5s</td>
+                    <td><a href="javascript:void(0);" class="btn">选择</a></td>
+                </tr>
+                <tr>
+                    <td>07</td>
+                    <td><img src="../../../resources/userCenter/commons/pic/pro150.jpg" width="35" height="35" alt="金粉世家" title="金粉世家"></td>
+                    <td>Samsung-N9006</td>
+                    <td>Iphone5s</td>
+                    <td><a href="javascript:void(0);" class="btn">选择</a></td>
+                </tr>
+                <tr>
+                    <td>08</td>
+                    <td><img src="../../../resources/userCenter/commons/pic/pro150.jpg" width="35" height="35" alt="金粉世家" title="金粉世家"></td>
+                    <td>Samsung-N9006</td>
+                    <td>Iphone5s</td>
+                    <td><a href="javascript:void(0);" class="btn">选择</a></td>
+                </tr>
+                <tr>
+                    <td>09</td>
+                    <td><img src="../../../resources/userCenter/commons/pic/pro150.jpg" width="35" height="35" alt="金粉世家" title="金粉世家"></td>
+                    <td>Samsung-N9006</td>
+                    <td>Iphone5s</td>
+                    <td><a href="javascript:void(0);" class="btn">选择</a></td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td><img src="../../../resources/userCenter/commons/pic/pro150.jpg" width="35" height="35" alt="金粉世家" title="金粉世家"></td>
+                    <td>Samsung-N9006</td>
+                    <td>Iphone5s</td>
+                    <td><a href="javascript:void(0);" class="btn">选择</a></td>
+                </tr>
+            </table>
+            <div class="pageSize">
+                <a href="javascript:void(0);" class="btn pageControl">&lt;&lt;</a>
+                <a href="javascript:void(0);" class="btn pageControl">&lt;</a>
+                <a href="javascript:void(0);" class="btn">1</a>
+                <a href="javascript:void(0);" class="btn">2</a>
+                <a href="javascript:void(0);" class="btn cur">3</a>
+                <a href="javascript:void(0);" class="btn">4</a>
+                <a href="javascript:void(0);" class="btn">5</a>
+                <a href="javascript:void(0);" class="btn">6</a>
+                <a href="javascript:void(0);" class="btn">...</a>
+                <a href="javascript:void(0);" class="btn pageControl">&gt;</a>
+                <a href="javascript:void(0);" class="btn pageControl">&gt;&gt;</a>
+            </div>
+        </div>
+</div>
+<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="../../../resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+<script src="../../../resources/userCenter/commons/js/ckeditor/ckeditor.js"></script>
+<script src="../../../resources/userCenter/commons/js/base.js"></script>
+<script src="../../../resources/userCenter/commons/js/proAdd.js"></script>
+
+</body>
+</html>

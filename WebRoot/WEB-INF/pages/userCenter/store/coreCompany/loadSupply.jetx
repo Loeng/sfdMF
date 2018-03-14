@@ -1,0 +1,51 @@
+
+ #define(com.ekfans.base.product.model.SupplyProduct product)
+ <input type="hidden" value="${product.id}" name="productId"/>
+  <input type="hidden" value="${webroot}" name="ctxpath"/>
+     <div class="proInfo proNoImg">
+            <div class="info">
+            	<strong class="apProTitle">${product.supplyProductName}</strong>
+            		<span class="apHint">#if(product.linkPerson =="" || product.linkPerson==null)该企业还未设置企业名称 #else 本信息来自于<font color="red">  ${product.linkPerson} </font>#end</span>
+                <div class="priceZone">
+                    <span class="singular">¥ ${product.pfPrice}/${product.unit}</span>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="apForm">
+            <dl class="formItem">
+                <dt><em class="mustIco"/>采购数量</dt>
+                <dd class="formImport"><input name="number" id="number" type="text" class="formBox" onBlur="numberBlur();" onfocus="numberFocus();"></dd>
+                <dd class="formText">单位：${product.unit}</dd>
+                <span class="errorText" id="numberError" style="display:none">请输入数字</span>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt><em class="mustIco"/>商议价格</dt>
+                <dd class="formImport"><input name="price" id="price" type="text" class="formBox" onkeyup="priceBlur();" onfocus="priceFocus();"></dd>
+                <dd class="formText">单位：元/${product.unit}</dd>
+                <span class="errorText" id="priceError" style="display:none">价格不正确</span>
+                <dd class="clear"></dd>
+            </dl>
+           
+            <dl class="formItem">
+                <dt><em class="mustIco"/>联系电话</dt>
+                <dd class="formImport"><input name="linkTel" id="linkTel" type="text" class="formBox" onBlur="linkTelBlur();" onfocus="linkelFoucs();"></dd>
+                <dd class="clear"></dd>
+            </dl>
+             <dl class="formItem">
+                <dt><em class="mustIco"/>联系人&nbsp;&nbsp;&nbsp;</dt>
+                <dd class="formImport"><input name="linkPerson" type="text" class="formBox"></dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>其他留言</dt>
+                <dd class="formImport"><textarea name="note" cols="" rows=""></textarea></dd>
+                <dd class="clear"></dd>
+            </dl>
+        </div>
+        <div class="bargainBtn" style="float:none; text-align:center; padding:10px 0; clear:both;">
+            <a href="javascript:void(0)" class="btnBase btnOrange" onClick="commitSupply();">发起议价</a>
+            <a href="javascript:void(0)" class="btnBase" onClick="reset();">重置</a>
+        </div>
+    </div>

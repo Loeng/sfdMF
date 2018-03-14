@@ -1,0 +1,58 @@
+
+
+	
+	#define(com.ekfans.base.store.model.StoreRole storeRole)
+	<div class="tit" id="div2">
+        	<em class="apNum">角色详情</em>
+            <span class="apClose"><img src="${webroot}/resources/system/images/del3.jpg" onclick="apClose();"></span>
+        </div>
+   	  <div class="previewContent">
+       	<dl class="infoLine">
+            	<dt>角色名</dt>
+                <dd class="infoRight">${storeRole.name}</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>创建时间</dt>
+                <dd class="infoRight">${storeRole.createTime }</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>修改时间</dt>
+                <dd class="infoRight">${storeRole.updateTime }</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>角色描述</dt>
+                <dd class="infoRight">${storeRole.note}</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="roleLimit">
+        	<div class="limitLeft">角色权限</div>
+            <div class="limitRight">            	                                            
+							
+							#for(com.ekfans.base.store.model.StorePurview sp : sps)
+                <div class="limitBox">
+                    <h3 class="limitItem">${sp.className}</h3>
+                    <div class="limitList">
+                    	#if(sp.childList != null && sp.childList.size()>0)
+											#for(com.ekfans.base.store.model.StorePurview childPurview: sp.childList)
+                        <h3 class="limitItem">${childPurview.className}</h3>
+                        <div class="limitList">
+                        	#if(sp.childList != null && sp.childList.size()>0)
+													#for(com.ekfans.base.store.model.StorePurview lastPurview: childPurview.childList)
+                            <h3 class="limitNode">${lastPurview.className}</h3>
+                          #end
+        									#end  
+                        </div>
+                      #end
+        							#end  
+                    </div>
+                </div>
+               #end 
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+           
+					

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	 <link href="${webroot}/resources/wlb/css/base.css" rel="stylesheet" type="text/css">
+    <script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+    <title>物流宝下载页面</title>
+    #define(com.ekfans.plugin.wuliubao.yunshu.base.model.Version version)
+    <script>
+    	function isWeiXin() {
+           var ua = window.navigator.userAgent.toLowerCase();
+              if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+              return true;
+           } else {
+               return false;
+           }
+         }
+         $(function(){
+              var u = navigator.userAgent;
+              var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+              if(isiOS){
+         		  #if(type=="1")
+         		    location.href='https:\/\/itunes.apple.com/cn/app/yunshubao/id1282225438?mt=8';
+         		  #else
+         		    location.href='https:\/\/itunes.apple.com/cn/app/wuliubao/id1282231367?mt=8';
+         		  #end
+         		  return;
+         	  }
+          if(isWeiXin()){
+         	$(".toDown").show();
+          }else{
+         	$(".download").show();
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+         	if(isAndroid){
+               #if(version!=null)
+         		location.href='${version.url}';
+         	   #end
+         	}
+          }
+         })
+         
+    	
+    </script>
+</head>
+<body> 
+<div class="download" style="display:none">
+	<div class="downText">物流宝 Android/IOS 版App将开始下载。若下载未自动开始，您可手动点击下方按钮：</div>
+	#if(type=="1")
+	<a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.sfdhb.transport" class="btnDown"><img src="${webroot}/resources/wlb/images/apk.png"/></a>
+	<a href="https://itunes.apple.com/cn/app/yunshubao/id1282225438?mt=8" class="btnDown"><img src="${webroot}/resources/wlb/images/ios.png"/></a>
+    #else
+    <a href="javascript:void(0)" class="btnDown"><img src="${webroot}/resources/wlb/images/apk.png"/></a>
+	<a href="https://itunes.apple.com/cn/app/wuliubao/id1282231367?mt=8" class="btnDown"><img src="${webroot}/resources/wlb/images/ios.png"/></a>
+    #end
+</div>
+<div class="toDown" style="display:none">
+	<div class="arrow"><img src="${webroot}/resources/wlb/images/jiantou.png"/></div>
+	<div class="downText">
+		请点击右上角按钮，然后在弹出的菜单中<br>选择［在浏览器中打开］以下载<br>物流宝app
+	</div>
+</div>
+</body>
+
+</html>

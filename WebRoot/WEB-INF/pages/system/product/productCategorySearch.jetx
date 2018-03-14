@@ -1,0 +1,8 @@
+#define(Map<String,String> categories)
+#for(Map.Entry<String,String> entry:categories)
+	#set(String categoryId = entry.key)
+	#set(String fullName = entry.value)
+	<li ><a href="javaScript:void(0);" onclick="searchName('${fullName}','${categoryId}');"><em>${fullName}</em></a></li>
+#else
+	<li><a href="javascript:void(0);" ><em style="color:red;"> 暂时没有符合条件的商品分类</em></a></li>
+#end

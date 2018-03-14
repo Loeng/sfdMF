@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>供应商发布商品管理列表</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/comList.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/tools.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/bargainDetail.css" />
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/bargainList.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+	<!--导入自定义js-->
+	<script type="text/javascript" src="${webroot}/resources/userCenter/core/js/order/purChase/productList.js"></script>
+</head>
+
+<body>
+<input type="hidden" id="ctxpath" value="${webroot}" />
+	
+<form action="${webroot}/store/storeweb/productByGysList" method="post" id="searchStoreProductList">
+	<input type="hidden" name="pageNum" value="${currentpageStr}" />
+	
+	<div class="formSearch borderColor">
+		<dl class="formItem">
+	  	<dt>商品名称</dt>
+	    <dd>
+	      <input type="text" id="storeName" class="textBox box212" name="productName" value="${productName}" />
+	    </dd>
+	    <dd class="clear"></dd>
+	  </dl>
+	  <dl class="formItem">
+	  	<dt>供应商名称</dt>
+	    <dd>
+	      <input type="text" id="gName" class="textBox box212" name="storeName" value="${storeName}" />
+	    </dd>
+	    <dd class="clear"></dd>
+	  </dl>
+	  <div class="clear"></div>
+	</div>
+</form>
+<div class="btnArea">
+	<a href="javascript:void(0);" class="btnBase " onclick="formSubmit();">搜索</a>
+	<a href="javascript:void(0);" class="btnBase btnReset" onclick="formReset();">重置</a>
+	<div class="clear"></div>
+</div>
+<div class="formTable borderColor">
+	<ul class="secNav">
+		<li class="li1">商品信息</li>
+	</ul>
+	<div class="clear"></div>
+  #define(List<com.ekfans.base.product.model.SupplyProduct> supplyProduct)
+  #define(String userId)
+	#if(supplyProduct!=null && supplyProduct.size()>0) 
+	<div style="position:relative;" class="tableBox">
+	  <table border="0" cellspacing="0" cellpadding="0" class="tabList">
+	  <thead>
+	  	<tr class="bgColor">
+	      <th>商品名称</th>
+	      <th>商品数量</th>
+	      <th>商品批发价</th>
+	      <th>商品产地</th>
+	      <th>供应商名称</th>
+	      <th>联系电话</th>
+	    	<th></th>
+	    </tr>
+	    </thead>
+	    <tbody>
+			#for(com.ekfans.base.product.model.SupplyProduct supply:supplyProduct)
+	      <tr>
+	        <td id="sortNameId">${supply.supplyProductName}</td>
+	        <td>${supply.quantity}&nbsp;${supply.unit}</td>
+	        <td>${supply.pfPrice}/${supply.unit}</td>
+	        <td>${supply.habitat}</td>
+	        <td>${supply.linkPerson}</td>
+	        <td>${supply.linkTel}</td>
+	        <td>
+	        	<a href="javascript:void(0);" class="btnBase btnOrange" onclick="loadQuery('${supply.id}','0');">发起议价</a>
+	        </td>
+	      </tr>
+			#end
+			</tbody>
+		</table>
+		</div>
+		<div class="pageSize">
+    	${include("../common/page.jetx")}<!-- 分页 -->
+			<div class="clear"></div>
+		</div>
+	#else
+	  <table border="0" cellspacing="0" cellpadding="0" class="tabList">
+	  	<tr class="bgColor">
+	      <th>商品名称</th>
+	      <th>商品数量</th>
+	      <th>商品批发价</th>
+	      <th>商品产地</th>
+	      <th>供应商名称</th>
+	      <th>联系电话</th>
+	    	<th></th>
+	    </tr>
+	 	</table>  
+		<div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+	#end 
+  <div class="clear"></div>
+</div>
+    
+<!-- 议价弹层 start -->
+<div class="apLayerBg" id="apLayerBg"></div>
+<div class="apLayer apBargain borderColor" id="apLayer">
+	<div class="apTit">议价详情<a href="javascript:void(0);" class="apClose"></a></div>
+	<div class="apContent" id="apContent"></div>
+</div>
+<!-- 议价弹层 end -->
+
+
+ <!--支持拖动+宽度调节JS-->
+<script src="${webroot}/resources/userCenter/commons/js/jquery-ui-1.9.2.custom.js"></script> 
+<script src="${webroot}/resources/userCenter/commons/js/jquery.dragtable.js"></script> 
+<script src="${webroot}/resources/userCenter/commons/js/jquery-migrate-1.1.1.js"></script> 
+<script src="${webroot}/resources/userCenter/commons/js/jquery.chili-2.2.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/jquery.resizableColumns.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+  $(".tabList").dragtable();
+	$(".tabList").resizableColumns({});
+});
+</script>
+<style type="text/css">
+.tableBox{width:100%;}
+.tabList{width:99%;}
+.tabList th{border-right:solid 1px #e3e3e3;}
+.tabList th:first-child{border-left:0;}
+.tabList th:last-child{border-right:0;}
+.rc-handle-container{position:relative;}
+.rc-handle{position:absolute;width:7px;cursor:ew-resize;*cursor:pointer;margin-left:-3px;}
+/* defaultTable sar-table listext tablesorter*/
+.tabList th.accept {cursor:move;}
+.dragtable-sortable {list-style-type: none; margin: 0; padding: 0; -moz-user-select: none; border:0;}
+.dragtable-sortable li {margin: 0; padding: 0; float: left; font-size: 1em; background:#fff; border:0px solid #F00;;text-align:center;}
+.dragtable-sortable th, .dragtable-sortable td{border-left: 0px #FF0000 solid;}
+.dragtable-sortable li:first-child th, .dragtable-sortable li:first-child td {border-left: 0px solid #CCC; }
+.ui-sortable-helper {opacity: 0.7;filter: alpha(opacity=70);border:0;}
+.ui-sortable-placeholder { -moz-box-shadow: 4px 5px 4px #C6C6C6 inset;-webkit-box-shadow: 4px 5px 4px #C6C6C6 inset;box-shadow: 4px 5px 4px #C6C6C6 inset;border-bottom: 1px solid #CCCCCC;border-top: 1px solid #CCCCCC; visibility: visible !important;background: #EFEFEF !important; visibility: visible !important;}
+.ui-sortable-placeholder * { opacity: 0.0; visibility: hidden; }
+</style>
+<!--支持拖动+宽度调节JS  end--> 
+</body>
+</html>

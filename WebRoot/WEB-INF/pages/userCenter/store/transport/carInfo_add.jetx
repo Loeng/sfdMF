@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>运输车辆报备</title>
+	<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css">
+	<script src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+	<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+	<style>
+	.formItem dt{width:83px;}
+	</style>
+</head>
+
+<body>
+   <form method="post" id="f1">
+   			<input type="reset" style="display:none;" /> 
+		<div class="rightContent">
+			<div class="contentTit  borderColor budong">
+				<h3>运输车辆报备</h3>
+				<a href="${webroot}/store/transport/car/list" class="btnBase btnCancel">取消</a>
+				<a href="javascript:void(0);" class="btnBase btnSave" onClick="ajax1();">保存</a>
+				<div class="clear"></div>
+			</div>
+			<div class="form borderColor">
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>车牌号</dt>
+					<dd><input name="carNo" type="text" onblur="checkFocus(this,'车牌号不能为空');checkCarNo();" maxlength="16" id="carNo" onblur="checkCarNo()" class="textBox box212" placeholder="1-30个字符"><span class="errorText" style="display:none;"></span></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>车辆类型</dt>
+					<dd><input name="carType" onblur="checkFocus(this,'车辆类型不能为空');" id="carType" type="text" class="textBox box212" placeholder="如：重型箱式货车"><span class="errorText" style="display:none;"></span></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>核定载质量</dt>
+					<dd><input name="fullWeight" onblur="checkFocus(this,'核定载质量不能为空');" id="fullWeight" type="number" class="textBox box212" onkeyup="checkQuality()" placeholder="以”吨“为单位"><span class="errorText" style="display:none;"></span></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>行驶证期限</dt>
+					<dd><input name="startTime" onblur="checkFocus(this,'开始时间不能为空');" id="startTime" type="text" class="timeBox box98 textBox" value="" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'endTime\',{d:-3});}'})"><span class="errorText" style="display:none;"></span></dd>
+					<dd class="lineColor">&nbsp;—&nbsp;</dd>
+					<dd><input name="endTime" onblur="checkFocus(this,'结束时间不能为空');" id="endTime" type="text" class="timeBox box98 textBox" value="" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'startTime\',{d:+3});}'})"><span class="errorText" style="display:none;"></span></dd>
+					<dd class="clear"></dd>
+				</dl>
+				
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>运输证号</dt>
+					<dd><input name="ysNo" onblur="checkFocus(this,'运输证号不能为空');" type="text" id="ysNo" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" class="textBox box212"><span class="errorText" style="display:none;"></span></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>核定载人数</dt>
+					<dd><input name="fullNum" onblur="checkFocus(this,'核定载人数不能为空');" id="fullNum" type="number" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="textBox box212"><span class="errorText" style="display:none;"></span></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>行驶证附件</dt>
+					<dd> #tag picUpload("xszFile","0.5","20","20","") #end </dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>道路运输证</dt>
+					<dd> #tag picUpload("yszFile","0.5","20","20","") #end </dd>
+					<dd class="clear"></dd>
+				</dl>
+			</div>
+		</div>  
+	</form>	
+	
+	
+<script>
+
+	function checkFocus(obj,tit) {
+		if($(obj).val()!=null&&$(obj).val()!=""&&$(obj).val()!=" "){
+			$(obj).next().html("");
+			$(obj).next().hide();
+		}else{
+			$(obj).next().html(tit);
+			$(obj).next().show();
+		}
+	}
+	//验证核定载质量
+	function checkQuality(){
+		var cNum=$("#fullWeight").val();
+		var match=/^([0-9.]+)$/;
+		if(!match.test(cNum)){
+			$("#fullWeight").val("");
+			return false;
+		}
+	}
+	//验证车牌号
+	function checkCarNo(){
+		if($("#carNo").val()!=""&&$("#carNo").val()!=" "&&$("#carNo").val()!=null){
+			$.post('${webroot}/store/transport/car/checkCarNo',{"carNo":$("#carNo").val()},function (data){
+				if(data==0 || data=="0"){
+					$("#carNo").val("");
+					$("#carNo").next().html("车牌号已存在");
+					$("#carNo").next().show();
+				}else{
+					$("#carNo").next().html("");
+					$("#carNo").next().hide();
+				}
+		    });
+	    }
+	}
+	
+	function ajax1(){
+		/*if($("#carNo").val()==""||$("#carNo").val()==" "||$("#carNo").val()==null){
+			falert("车牌号不能为空");
+			return false;
+		}else if($("#carType").val()==""||$("#carType").val()==" "||$("#carType").val()==null){
+			falert("车辆类型不能为空");
+			return false;
+		}else if($("#fullWeight").val()==""||$("#fullWeight").val()==" "||$("#fullWeight").val()==null){
+			falert("核定载质量不能为空");
+			return false;
+		}else if($("#startTime").val()==""||$("#startTime").val()==" "||$("#startTime").val()==null){
+			falert("开始时间不能为空");
+			return false;
+		}else if($("#endTime").val()==""||$("#endTime").val()==" "||$("#endTime").val()==null){
+			falert("结束时间不能为空");
+			return false;
+		}else if($("#ysNo").val()==""||$("ysNo").val()==" "||$("#ysNo").val()==null){
+			falert("运输证号不能为空");
+			return false;
+		}else if($("#fullNum").val()==""||$("fullNum").val()==" "||$("#fullNum").val()==null){
+			falert("核定载人数不能为空");
+			return false;
+		}else if($("#fullNum").val()<=0){
+			falert("核定载人数不能小于1");
+			return false;
+		}else*/
+		
+		var flag=true;
+		$("input[type='text']").each(function(){
+			$(this).blur();
+			if($(this).next().is(':visible')){
+				flag=false;
+			}
+		})
+		
+		$("input[type='number']").each(function(){
+			$(this).blur();
+			if($(this).next().is(':visible')){
+				flag=false;
+			}
+		})
+		 if($("#xszFileFileUrl").val()==""||$("#xszFileFileUrl").val()==" "||$("#xszFileFileUrl").val()==null){
+			falert("行驶证附件不能为空");
+			return false;
+		}else if($("#yszFileFileUrl").val()==""||$("#yszFileFileUrl").val()==" "||$("#yszFileFileUrl").val()==null){
+			falert("道路运输证附件不能为空");
+			return false;
+		}
+		
+		if(flag){
+			$.post('${webroot}/store/transport/car/save',$("#f1").serialize(),function (data){
+				if(data==1 || data=="1"){
+					econfirm('添加成功，是否继续添加？',clearForm,null,goBack,[$("#ctxpath").val()]);
+				}else{
+					falert("添加失败");
+				}
+	    	});
+    	}
+	}	
+	function clearForm() {
+	//$("input[type=reset]").trigger("click");
+    window.location.href="${webroot}/store/transport/car/add";
+  } 
+
+	function goBack(contextPath){
+		// 判定contextPath是否为空
+		if(contextPath==null||contextPath==""){
+			window.location.href="${webroot}/store/transport/car/list";
+		}
+	}
+</script>
+</body>
+</html>

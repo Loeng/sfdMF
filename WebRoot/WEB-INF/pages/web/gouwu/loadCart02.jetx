@@ -1,0 +1,236 @@
+	#define(com.ekfans.base.product.model.Product p)	
+	#define(List<com.ekfans.base.user.model.UserAddress> uas)
+	#define(com.ekfans.base.user.model.UserAddress userAddress)
+	#define(List<com.ekfans.base.system.model.SystemArea> systemAreaList)
+	<style>
+	.main{margin:30px auto;}
+.proUp{padding:40px 30px 40px 104px; height:200px; border:solid 1px #e4e4e4;}
+.proUp .pic{width:200px; height:200px; float:left; margin-right:30px;}
+.proInfo{float:left; width:400px; font-size:14px;}
+.proInfo dt{height:30px; line-height:30px; font-size:16px;}
+.infoLine1{height:40px; line-height:40px; margin-bottom:10px;}
+.proInfo .price{height:32px; line-height:32px;}
+.proInfo .price .red{font-size:24px;}
+.infoLine2{height:20px; line-height:20px; padding-top:10px;}
+.proInfo dd em{display:inline-block; width:64px; color:#8d8d8d; margin-right:6px;}
+.proRight{float:right; width:304px; padding-top:30px;}
+.count{height:28px; line-height:28px; margin-bottom:22px;}
+.count dt,.totalPrice dt{width:100px; font-size:14px; float:left;}
+.countBox{height:28px; width:134px; float:left;}
+.minus,.plus{width:28px; height:28px; text-align:center; background:#e3e3e3; font-size:20px;}
+.countBox *{display:block; float:left;}
+.countBox input{width:76px; height:26px; border:solid 1px #e3e3e3; text-align:center; font-size:14px;}
+.totalPrice{height:32px; line-height:32px; margin-bottom:32px;}
+.totalPrice dd{float:left; width:200px; font-size:24px;}
+.btnSubmit,.btnCansel{width:116px; height:38px; line-height:38px; font-size:16px; display:block; float:left; margin-right:5px;}
+.btnSubmit:hover,.btnCansel:hover{width:112px; height:34px; line-height:34px; border:solid 2px #393; background:none; color:#393;}
+
+.order{border:solid 1px #e4e4e4; border-top:none;}
+/*siteList*/
+.siteList{padding-top:10px;}
+.siteList li{height:28px; line-height:28px; margin-bottom:10px; position:relative; padding-left:35px;}
+.locationIco{display:block; width:15px; height:24px; position:absolute; left:10px; top:2px; background:url(${webroot}/resources/web/images/order_r2_c2.png) no-repeat 0 0;}
+.siteList span{padding-right: 20px;_padding-right:30px; width:80%; display:block; white-space:nowrap; overflow:hidden; text-overflow: ellipsis; float:left;}
+.siteList span em{color:#999; padding-right:10px;}
+.siteList a{display:block; height:28px; line-height:28px; width:86px; text-align:center; float:right;}
+.siteList a:hover{background:#393; color:#fff;}
+.siteList label{cursor:pointer;}
+.siteNow{background:#fffcd9;}
+.siteNow .locationIco{background:url(${webroot}/resources/web/images/order_r2_c2.png) no-repeat -15px 0;}
+.siteNow span em{color:#333;}
+.siteNow a{color:#999;}
+.siteBottom{margin:26px 0 20px 20px;}
+.btnNew{display:inline-block; width:96px; height:28px; line-height:28px; color:#6e6e6e; font-size:16px; padding-left:34px; background:url(${webroot}/resources/web/images/order_r2_c3.png) no-repeat; margin-right:20px;}
+
+/*address*/
+.address{border-top:solid 1px #e4e4e4; padding:16px 12px; position:relative; display:none; margin-bottom:-2px;}
+.pointTop{background:url(../images/pointtop.png) no-repeat; width:18px; height:10px; position:absolute; left:70px; top:-11px;}
+.address h2 em{height:32px; line-height:32px; display:inline-block; border-bottom:solid 5px #ff8900; padding:0 30px 0 15px;}
+.address h2{border-bottom:solid 1px #CBCFCF; font-size:14px;}
+.siteAppend{margin-bottom:28px;}
+.formLine{padding-bottom:23px;}
+.formLine dt{height:28px; line-height:28px; width:84px; float:left; position:relative; padding-left:8px;}
+.formLine dt .red{font-size:14px; position:absolute; left:0; top:2px;}
+.formRight{float:left; line-height:28px; position:relative;}
+.formRight select{margin-right:10px;}
+.siteBox{height:26px; line-height:26px; border:solid 1px #d3d3d3; margin-right:10px;}
+.formRight textarea{width:448px; height:80px; line-height:20px; border:solid 1px #d3d3d3; display:block;}
+
+.textBoxFocus{border-color:#ff8400; background:#FEEFDF; outline:none;}
+.boxDouble{color:#999;}
+.boxDouble .siteBox{width:135px;}
+.rightDt{color:#333; padding:0 20px 0 10px;}
+.siteDetail .siteBox{width:440px;}
+.siteCheckText{padding-right:5px;}
+.addressBtn{padding:5px 0 0 92px;}
+.addressBtn .btnGreen{width:62px; height:28px; line-height:28px; font-size:14px; display:inline-block; margin:0 16px 0 0;}
+.formError{color:#ff6c00;}
+.closeAddress{width:62px; height:28px; line-height:28px; background:#F04D4D; text-align:center; color:#fff; display:block; position:absolute; right:10px; top:10px;}
+.closeAddress:hover{background:#8A0D0D; color:#fff;}
+.userAdress{ display:inline-block; height:30px;overflow:hidden;vertical-align:middle;}
+	</style>
+	
+	<div class="wrapper main">
+	<div class="proUp">
+    	<div class="pic">
+    	#if(p.recommendPicture4 == "")
+    	<img src="${webroot}/resources/web/images/pro_200.jpg" width="200" height="200">
+    	#else
+    	<img src="${webroot}${p.recommendPicture4}">
+	    #end
+    	</div>
+    	<dl class="proInfo">
+        	<dt>${p.name}</dt>
+            <dd class="infoLine1"><em>质量等级</em><span>${p.productModel}</span></dd>
+            
+            <dd class="price"><em>价格</em><span><strong >#if(p.unitPrice!=null && p.unitPrice!=""&&p.unitPrice!=0.00)${p.unitPrice}<span >元/${p.unit}</span>#else<span class="red">待议</span>  #end</dd>
+            <dd class="infoLine2"><em>数量</em><span>库存 ${p.quantity} ${p.unit}</span></dd>
+            <dd class="infoLine2"><em>交货地</em><span>${p.deliceAddress}</span></dd>
+            <dd class="infoLine2"><em>发布日</em><span>#if(p.createTime!=null && p.createTime!="")${p.createTime.substring(0,11)}#else &nbsp; #end</span></dd>
+        </dl>
+        <div class="proRight">
+        	<dl class="count">
+                <dt>采购数量</dt>
+                <div class="buyCount">
+	                        <a href="javascript:void(0)" class="minus" onclick="jianPrice('${webroot}','${p.id}','${p.quantity}')" title="减少数量">-</a>
+	                        <input name="buyCount" id="buyCount" type="text" value="${count}" onblur="numberCheck('${webroot}','${p.id}','${p.quantity}')" onkeypress="return IsNum(event)"  maxlength="7">
+	                        <a href="javascript:void(0)" class="plus" onclick="addproductQuantity('${webroot}','${p.id}','${p.quantity}')" class="plus" title="增加数量">+</a>
+	            </div>
+            </dl>
+            <div class="clear"></div>
+            <dl class="totalPrice">
+                <dt>采购金额</dt>
+                <dd class="red">#if(p.unitPrice!=null && p.unitPrice!=""&&p.unitPrice!=0.00)￥${totalPrice}<span >元</span>#else<span class="red">待议</span>  #end</dd>
+            </dl>
+            <div class="clear"></div>
+            #if(p.quantity > 0)
+            <a href="javascript:void(0)" class="btnGreen btnSubmit" onclick="submitNewOrders()">提交订单</a>
+            #end
+            <a href="javascript:void(0)" class="btnGreen btnCansel" onclick="history.back()"> 返回列表</a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="order">
+    	<ul class="siteList" id="adressUl">
+
+ 			#for(com.ekfans.base.user.model.UserAddress ua : uas)
+					#if(ua.status) <li class="siteNow"> #else <li> #end
+						<label>
+			      	#if(ua.status) <em class="locationIco"></em>  #end
+			      	<em class="locationIco" onclick="optOrderAdress('${ua.provincial}','${ua.city}','${ua.area}','${ua.address}','${ua.zipcode}','${ua.mobile}','${ua.name}');"></em>
+			      	<span onclick="optOrderAdress('${ua.provincial}','${ua.city}','${ua.area}','${ua.address}','${ua.zipcode}','${ua.mobile}','${ua.name}');">
+			        	<em><font id="uaProvincialSpan">${ua.provincial}</font><font id="uaCitySpan"> ${ua.city}</font><font id="uaAreaSpan"> ${ua.area}</font></em>
+			        	<em class="userAdress"><font id="uaAddressSpan">${ua.address}</font></em>
+			        	<em>邮编：<font id="uaZipcouaProvincialSpandeSpan">${ua.zipcode}</font></em>
+			        	<em>电话：<font id="uaMobileSpan">${ua.phone}</font> </em>
+			            <em>手机：<font id="uaMobileSpan">${ua.mobile}</font> </em>
+			        	<em>(<font id="uaNameSpan">${ua.name}</font> 收)</em>
+			        </span>
+			      </label>
+			      #if(ua.status)  
+			      	<a href="javascript:void(0)">默认</a>
+			    	#else
+			      	<a href="javascript:void(0)" onclick="econfirm('确定要设为默认地址吗?',setDefaultAddress,['${ua.id}','${webroot}','${ua.provincial}','${ua.city}','${ua.area}','${ua.address}','${ua.zipcode}','${ua.mobile}','${ua.name}'],null,null);">设为默认</a>
+			    	#end
+			    	<a href="javascript:void(0)" onclick="updateAdress('${ua.id}');">编辑本地址</a>
+			    </li>
+				#end
+            </li>
+        </ul>
+        <div class="siteBottom">
+	    	<a href="javascript:void(0)" class="btnNew" >使用新地址</a>
+	    	<a href="${webroot}/store/manager/ACCOUNT_CENTER_ADDRESS" class="blue">管理收货地址</a>
+	    </div>
+	    <!--收货地址表单-->
+        <div class="address" id="addressAddDiv">
+            <span class="pointTop"></span>
+            <a href="javascript:void(0)" class="closeAddress" onclick="canelNewAddress();">关闭</a>
+            <form action="${ctxpath }/purchase/adress/load" name="modifyOk" method="post" id="addUserAddressForm">
+                <dl class="formLine">
+                    <dt><em class="red">*</em>收货人姓名</dt>
+                    <dd class="formRight">
+                        <input type="text" name="name" id="name" class="siteBox" onfocus="checkNameFocus();" onblur="checkNameBlur();">
+                        <span class="formError" id="nameMsgSpan">请您填写收货人姓名</span>
+                    </dd>
+              		<!--验证表单不通过则给一个errorBox的class-->
+              		<dd class="clear"></dd>
+                </dl>
+                <dl class="formLine">
+                    <dt><em class="red">*</em>所在地区</dt>
+                    <dd class="formRight">
+                      <input type="hidden" name="pca" id="pca" readonly="true">
+                      <select onchange="findUtils(this)" class="selectFindHome">
+                          <option value="">请选择</option>
+                          #for(com.ekfans.base.system.model.SystemArea sa:systemAreaList)
+	                       <option value="${sa.areaName},${sa.id}">${sa.areaName}</option>
+	                      #end
+                      </select>
+                      <select onchange="findUtils(this)" class="selectFindHome">
+                          <option value="">请选择</option>
+                      </select>
+                      <select onchange="findUtils(this)" class="selectFindHome">
+                          <option value="">请选择</option>
+                      </select>
+                    </dd>
+                    <dd class="clear"></dd>
+                </dl>
+                <dl class="formLine">
+                    <dt><em class="red">*</em>街道地址</dt>
+                    <dd class="formRight siteDetail">
+                        <span class="siteCheckText" id="tempInfoAddress"></span>
+                        <input name="address3" id="address" class="siteBox" onfocus="checkAddressFocus();" onblur="checkAddressBlur();">
+                        <span class="formError" id="addressMsgSpan">请您填写收货人详细地址</span>
+                    </dd>
+                  	<dd class="clear"></dd>
+                </dl>
+                <dl class="formLine">
+                	<dt><em class="red">*</em>手机号码</dt>
+              		<dd class="formRight boxDouble">
+                        <input name="mobile" type="text" id="mobile" class="siteBox" onfocus="checkMobileFocusTempNew();" onblur="checkMobileBlurTempNew();">
+                          或 <span class="rightDt">固定电话</span>
+                        <input name="phone" type="text" id="phone" class="siteBox" onfocus="checkMobileFocusTempNew();" onblur="checkMobileBlurTempNew();">
+                        <span class="formError" id="UtilsError">请您填写收货人手机号码或固定电话号码</span>
+                	</dd>
+                	<dd class="clear"></dd>
+            	</dl>
+                <dl class="formLine">
+                    <dt>邮政编码</dt>
+                    <dd class="formRight">
+                      <input name="zipcode" type="text" id="zipcode" class="siteBox" onfocus="checkZipcodeFocus();">
+                      <span class="formError" id="zipcodeMsg">请输入正确的邮政编码  如：100000</span>
+                    </dd>
+                    <dd class="clear"></dd>
+                </dl>
+                <div class="addressBtn">
+                    <a href="javascript:void(0)" class="btnGreen" onclick="formSubmit();">保存</a>
+                    <a href="javascript:void(0)" class="btnGreen cancel" onclick="canelNewAddress();">取消</a>	
+                </div>
+        	</form>
+        </div>
+        <div class="address" id="addressUpdateDiv" style="display:none"></div>
+	#define(com.ekfans.base.user.model.UserAddress ua)
+	<form action="${ctxpath }/purchase/shopCart/pay" name="modifyOk" method="post" id="addshopCartPayForm">
+		<input type="hidden"  name="productId" value="${p.id}" />
+		<input type="hidden"  name="count" value="${count}" />
+	#if(null!=ua)
+		<input type="hidden" id="uaProvincial" name="uaProvincial" value="${ua.provincial}" />
+		<input type="hidden" id="uaCity" name="uaCity" value="${ua.city}" />
+		<input type="hidden" id="uaArea" name="uaArea" value="${ua.area}" />
+		<input type="hidden" id="uaAddress" name="uaAddress" value="${ua.address}" />
+		<input type="hidden" id="uaZipcode" name="uaZipcode" value="${ua.zipcode}" />
+		<input type="hidden" id="uaMobile" name="uaMobile" value="${ua.mobile}" />
+		<input type="hidden" id="uaName" name="uaName" value="${ua.name}"/>
+	#else
+		<input type="hidden" id="uaProvincial" name="uaProvincial" />
+		<input type="hidden" id="uaCity" name="uaCity" />
+		<input type="hidden" id="uaArea" name="uaArea" />
+		<input type="hidden" id="uaAddress" name="uaAddress" />
+		<input type="hidden" id="uaZipcode" name="uaZipcode" />
+		<input type="hidden" id="uaMobile" name="uaMobile" />
+		<input type="hidden" id="uaName" name="uaName" />
+	#end</form>
+		
+</form>	
+ <!--收货地址表单 end-->
+    </div>
+</div>

@@ -1,0 +1,87 @@
+
+<form action="${webroot}/system/product/productCategory/save" name="add" method="post"  id="addCategoryForm">
+	#define(com.ekfans.base.product.model.ProductCategory category)
+	
+	
+	<dl>
+		<dt>分类名<em class="mustIco"></em></dt>
+		<dd id="nameDd" class="">
+			<input type="text" class="i_bg"  name="name" value="" onblur="javascript:checkNameBlur();" onkeyup="javascript:checkName();" onfocus="javascript:checkName();" />
+			<span id="nameSpan" class="ts_xx">分类名为2-20位字符组成</span>
+		</dd>
+		<dd class="clear"></dd>
+	</dl>
+	
+	<dl>
+				<dt>关联品牌</dt>
+				<dd>
+					<div class="pro_glpp2">
+						<div class="pro_ppList">
+                        <div class="pro_ppList_title"><span class="check"><em><input name="" type="checkbox" value=""></em></span>全选</div>
+                            <ul>
+                            	#for(com.ekfans.base.product.model.ProductBrand brand: brands)
+                            	 <li><label><span class="check"><em><input name="brand" type="checkbox" value="${brand.id}"></em></span>${brand.name}</label></li>
+                            	#end
+                               
+                            </ul>
+                    	</div>
+                    	
+						<div class="pp_yd">
+							<span class="x_right"></span>
+							<span class="x_left"></span>
+						</div>
+						<div class="pro_ppList">
+                            
+                        </div>
+                        <div class="clear"></div>
+						<div class="pro_glpp_btn">
+							<a href="javascript:void(0);" class="btn">优先级上升</a>
+							<a href="javascript:void(0);" class="btn">优先级下降</a>
+							<a href="javascript:void(0);" class="btn">优先级置顶</a>
+						</div>
+					</div>
+					
+				</dd>
+				<dd class="clear"></dd>
+			</dl>		
+	<dl>
+		<dt>分类描述</dt>
+		<dd>
+			<textarea name="note"></textarea>
+		</dd>
+		<dd class="clear"></dd>
+	</dl>
+	<dl>
+			<dt>排序位置<em class="mustIco"></em></dt>
+			<dd id="positionDd" class="">
+					<input type="text" class="i_bg"  name="position" onblur="javascript:checkPositionBlur();" onkeypress="return IsNum(event)" onkeyup="javascript:checkPosition();" />
+					<span id="positionSpan" class="ts_xx">请输入排序位置</span>
+			</dd>
+			<dd class="clear"></dd>
+	</dl>
+	   <dl class="line">
+				<dt>商品图片</dt>
+				<dd>
+                    <div class="imgUpload">
+                        <div class="imgWindow">
+                            <img src="images/imgdefault.jpg" width="298" height="298">
+                        </div>
+                        <a href="javascript:void(0);" class="btnUpload"><input name="" type="file">上传图片</a>
+                    </div>				
+                </dd>
+                <dd class="clear"></dd>
+			</dl>
+		<dl>
+			<dt>状态</dt>
+			<dd>
+				<span class="zt">
+					<input type="radio" value="true" name="status" checked=true/>显示
+				</span>
+				<span class="zt">
+					<input type="radio" value="false" name="status"/>不显示
+				</span>
+			</dd>
+			<dd class="clear"></dd>
+		</dl>
+	
+</form>

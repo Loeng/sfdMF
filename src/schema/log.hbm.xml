@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.ekfans.base.log.model.LoginLog" table="login_log"
+		dynamic-update="false">
+		<id name="id" type="string" column="ID" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="userId" type="string" column="USER_ID"></property>
+		<property name="loginIp" type="string" column="LOGIN_IP"></property>
+		<property name="loginType" type="int" column="lOGIN_TYPE"></property>
+		<property name="type" type="int" column="TYPE"></property>
+		<property name="createTime" type="string" column="CREATE_TIME"></property>
+		<property name="note" type="string" column="NOTE"></property>
+	</class>
+
+	<!-- app登录日志 -->
+	<class name="com.ekfans.plugin.wftong.base.log.model.WftLoginLog" table="wft_login_log"
+		dynamic-update="false">
+		<id name="id" type="string" column="ID" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="userId" type="string" column="USER_ID"></property>
+		<property name="createTime" type="string" column="CREATE_TIME"></property>
+		<property name="address" type="string" column="ADDRESS"></property>
+		<property name="type" type="string" column="TYPE"></property>
+		<property name="deviceModel" type="string" column="DEVICE_MODEL"></property>
+	</class>
+
+	<!-- app接口日志 -->
+	<class name="com.ekfans.plugin.wftong.base.log.model.WftLog" table="wft_log"
+		dynamic-update="false">
+		<id name="id" type="string" column="ID" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="content" type="string" column="CONTENT"></property>
+		<property name="createTime" type="string" column="CREATE_TIME"></property>
+		<property name="userId" type="string" column="USER_ID"></property>
+		<property name="userName" type="string" column="USER_NAME"></property>
+		<property name="source" type="string" column="SOURCE"></property>
+		<property name="deviceModel" type="string" column="DEVICE_MODEL"></property>
+	</class>
+
+</hibernate-mapping>

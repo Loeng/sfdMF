@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/store/storeCheck.css">
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/base.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/wlb/js/lyfkfeedback.js"></script>
+</head>
+
+<body>
+#define(com.ekfans.plugin.wuliubao.yunshu.base.model.MessageBack mess)
+<input type="hidden" id="ctxpath" value="${webroot}" />	
+
+<div class="ht_btn sh_btn">
+	<a href="${webroot}/system/wlblyfk/list" class="btn">返回列表</a>
+	<a href="javascript:feedback('${mess.id}');" class="btn">反馈</a>
+</div>
+<div class="forms">
+	<div class="formSection">
+	  <h3 class="borderBottom">留言信息</h3>
+	  <div class="formIn">
+	    <div class="formItem">
+	      <span class="formName">用户账号:</span>
+	      <span class="formText" style="max-width:300px;">
+	      ${mess.userName}
+	      </span>
+	      <div class="clear"></div>
+	    </div>
+	    <div class="clear"></div>
+	    <div class="formItem">
+	      <span class="formName">用户昵称:</span>
+	      <span>${mess.nickName}</span>
+	      <div class="clear"></div>
+	  	</div>
+	    <div class="clear"></div>
+	    <span class="formItem">
+	      <span class="formName">创建时间:</span>
+	      <span class="formText">${mess.createTime}</span>
+	    </span>
+	    <div class="clear"></div>
+	    <span class="formItem">
+        <span class="formName">是否反馈:</span>
+        <span class="formText">#if(mess.type.equals("1"))已反馈#else未反馈#end</span>
+	    </span>
+	    <div class="clear"></div>
+	    <div class="formItem">
+	      <span class="formName">反馈人:</span>
+	      <span>${mess.feedbackMan}</span>
+	      <div class="clear"></div>
+	  	</div> 
+	  	<div class="clear"></div>
+	  	 <span class="formItem">
+        <span class="formName">反馈时间:</span>
+        <span class="formText">${mess.feedbackTime}</span>
+	    </span>
+	    <div class="clear"></div>
+	    <div class="decline">
+	    <span class="formName">用户留言内容:</span>
+			  <em class="textPoint"></em>
+			  <textarea name="" placeholder="用户留言内容">${mess.content}</textarea>
+		</div>
+		<div class="clear"></div>
+		<div id="dis${mess.id}">
+			<div class="decline">
+			<span class="formName">反馈内容:</span>
+			  <em class="textPoint"></em>
+			  <textarea id="textArea" name="feedbackContent" placeholder="反馈内容">${mess.feedbackContent}</textarea><span id="textNum">0</span>/300</span>
+			</div>
+		</div>
+</div>
+</body>
+</html>

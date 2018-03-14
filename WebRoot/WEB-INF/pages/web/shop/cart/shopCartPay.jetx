@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>${webName}-订单提交</title>
+<link rel="icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/storeweb/css/base.css" rel="stylesheet" type="text/css">
+<link href="${ctxpath}/resources/web/webcommon/css/cart03.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/commons/js/tools.js"></script>
+<script src="${webroot}/resources/web/storeweb/js/base.js"></script>
+<script src="${webroot}/resources/web/storeweb/js/cart01.js"></script>
+<script type="text/javascript" src="${webroot}/resources/web/storeweb/js/cart/shopCartPay.js"></script>
+
+
+</head>
+
+<body>
+<script>  
+
+//屏蔽鼠标右键、Ctrl+N、Shift+F10、F11、F5刷新、退格键     
+
+function   document.oncontextmenu(){event.returnValue=false;}//屏蔽鼠标右键   
+
+function   window.onhelp(){return false}       //屏蔽F1帮助   
+
+function   document.onkeydown(){   
+
+    if((window.event.altKey)&&   
+
+      ((window.event.keyCode==37)||            //屏蔽Alt+方向键←   
+
+      (window.event.keyCode==39))){            //屏蔽Alt+方向键→
+
+           alert("不准你使用ALT+方向键前进或后退网页！");   
+
+           event.returnValue=false;    
+
+      }         if((event.keyCode==8)||                    //屏蔽退格删除键    
+
+      (event.keyCode==116)||                   //屏蔽F5刷新键   
+
+      (event.ctrlKey && event.keyCode==82)){   //Ctrl+R   
+
+           event.keyCode=0;   
+
+           event.returnValue=false;   
+
+      }   
+
+      if(event.keyCode==122){event.keyCode=0;event.returnValue=false;}    //屏蔽F11   
+
+      if(event.ctrlKey && event.keyCode==78)event.returnValue=false;      //屏蔽Ctrl+n   
+
+      if(event.shiftKey && event.keyCode==121)event.returnValue=false;    //屏蔽shift+F10   
+
+      if(window.event.srcElement.tagName=="A" && window.event.shiftKey)     
+
+         window.event.returnValue=false;       //屏蔽shift加鼠标左键新开一网页   
+
+      if((window.event.altKey)&&(window.event.keyCode==115)){             //屏蔽Alt+F4    
+
+         window.showModelessDialog("about:blank","","dialogWidth:1px;dialogheight:1px");   
+
+         return false;   
+
+      }   
+
+  }   
+
+</script>  	
+	<input type="hidden" id="ctxpath" value="${webroot}" />
+	<input type="hidden" name="ctxpath" id="ctxpath" value="${ctxpath}" />
+	<input type="hidden" name="channelType" id="channelType" value="0" />
+	<div class="wrapper">
+		<div class="header" id="channelTop"></div>
+		
+		<div class="main">
+			<div class="step"></div>
+			<dl class="suc">
+				<dt>订单提交成功！</dt>
+				<dd class="green">请选择支付方式尽快付款！</dd>
+				<dd>
+					<span>你的订单号：${totalOrderId}</span>
+					<span>应付金额：<em class="red">￥${sum}</em></span>
+					<span><a href="${webroot}/user/alreadyBuy">查看详情</a></span>
+					<span class="orange">请在24小时内支付，超过24小时未支付订单将自动失效！</span>
+				</dd>
+			</dl>
+			<dl class="payStyle">
+				<dt><span class="btnOrange">选择支付方式</span></dt>
+				<dd>
+					<em class="point"></em>
+					<li><img src="${webroot}/resources/web/webcommon/images/caifutong.jpg" width="136" height="56" alt="财付通支付" title="财付通支付" class="payIcon">
+							<!--<span><input name="payStyle" type="radio" value="1"><em>选择</em></span>-->
+					</li>
+					<li><img src="${webroot}/resources/web/webcommon/images/zhifubao.jpg" width="136" height="56" alt="支付宝支付" title="支付宝支付" class="payIcon"></li>
+					<li><img src="${webroot}/resources/web/webcommon/images/yinlian.jpg" width="136" height="56" alt="银联支付" title="银联支付" class="payIcon"></li>
+					<div class="clear"></div>
+				</dd>
+			</dl>
+			<a href="javascript:submit('${webroot}','${sum}','${totalOrderId}');" class="btnBlue">立即支付</a>
+		</div>
+		
+		<div class="bottomProList">
+			<h3>推荐商品</h3>
+			#for(com.ekfans.base.product.model.Product p : products)
+				<dl class="bottomPro">
+					<dt>
+						<a href="${webroot}/web/proDetail/${p.id}"  target="_black">
+							<img src="${webroot}${p.recommendPicture4}"   alt="${p.name}" title="${p.name}">
+						</a>
+					</dt>
+					<dd class="bottomProTitle">
+						<a href="${webroot}/web/proDetail/${p.id}" title="${webroot}${p.sortName}"  target="_black">${p.name}</a>
+					</dd>
+					<dd class="bottomProPrice">
+						<span class="originalPrice"> ${p.listPrice}元</span>
+						<span class="nowPrice"><em>${p.unitPrice}</em> 元</span>
+					</dd>
+				</dl>
+			#end
+			<div class="clear"></div>
+		</div>
+	</div>
+		<div class="bottomSplit"></div>
+		#include("../channel/commons/buttom.jetx")
+	
+	
+</body>
+</html>

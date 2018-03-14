@@ -1,0 +1,81 @@
+/* CSS Document */
+
+.safeLev{height:30px; line-height:30px; font-size:14px; padding:0 20px;}
+.contentTit span{display:block; line-height:28px; float:left; margin-right:60px;font-size: 16px;}
+.contentTit .intensionLev1,.contentTit .intensionLev2,.contentTit .intensionLev3{display:inline-block; height:16px; width:300px; margin-top:7px;}
+.intensionLev1{background:#f00;}
+.intensionLev2{background:#ff8300;}
+.intensionLev3{background:#79d700;}
+.promoteSafe{padding:32px 0 24px 20px; border-bottom:solid 1px #e4e4e4;}
+.promoteSafe dt{height:20px; line-height:20px; margin-bottom:16px; color:#858585;font-size: 14px;}
+.promoteSafe dd{height:20px; line-height:20px;font-size: 14px;}
+.promoteSafe dd a{display:inline-block; margin-right:15px;}
+.loginInfo{padding:22px 0 5px 20px; border-bottom:solid 1px #e4e4e4;}
+.loginInfo dt,.safeInfo-Title{width: 112px; line-height:20px; display:block; float:left; margin-right:16px; font-size: 16px;}
+.loginInfo .loginInfo-right{float:left;}
+.loginInfo .loginInfo-right span{white-space:nowrap; display:block; height:21px; line-height:21px; color:#333; margin-bottom:20px;font-size: 14px;}
+.loginInfo .loginInfo-right span em{color:#999; padding-left:10px;}
+.safeInfo{padding:22px 0 0 20px;}
+.safeInfo-right{width: 720px; float:left;}
+.safeInfo dl{padding-bottom:38px; border-bottom:solid 1px #e4e4e4; margin-bottom:22px;}
+.safeInfo dl dt{height:20px; line-height:20px;font-size: 14px;}
+.safeInfo dl dd{line-height:20px; padding-top:12px; color:#939393; position:relative;font-size: 14px;}
+.safeInfo .intensionLev1,.safeInfo .intensionLev2,.safeInfo .intensionLev3{display:block; height:10px; width:100px; margin-bottom:10px;}
+.safeInfo dl .intensionText{color:#333;}
+.safeInfo .btnBlue{width:62px; height:28px; line-height:28px; position:absolute; right:0; bottom:6px; font-size:14px;}
+.btnFloat{float:right;}
+
+
+
+/*寮圭獥鑳屾櫙鍏叡鏍峰紡*/
+.alertLayerBg{filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8; opacity:0.8; background:#000; position:fixed; left:0; top:0; width:100%; height:100%; z-index:100; display:none;}
+.layerClose{display:block; width:20px; height:17px; position:absolute; top:10px; right:10px; background:url(../images/close.png) no-repeat;}
+.layerClose:hover{background:url(../images/close.png) no-repeat -26px 0;}
+
+/*鐧婚檰瀵嗙爜淇敼*/
+.alterBox{position:fixed;top:50%;left:50%;margin:-150px 0 0 -300px;width:600px;z-index:101;background:#fff;overflow:hidden;display:none;border-top:10px #393 solid;border-radius:8px;}
+.alterContent{color:#595757; width:550px; padding:40px 10px 20px 40px;}
+.formLine{height:64px; margin:0 auto; width:400px;}
+.formLine dt{float:left;width:99px;color:#595757; font-size:14px;margin-right:10px;line-height:32px;min-height:32px;}
+.formLine .formRight{float:left;}
+.floatL{float:left;margin-right:5px;}
+.longText{width:200px;}
+
+/*鎸夐挳鏍峰紡*/
+.altBtnBlue{display:block;height:32px;width:210px;line-height:32px;font-size:14px; margin-top:5px; margin-left:110px; background-color:#393;color:#fff; text-align:center;}
+.formRight .altBtnBlue{margin-left:0;}
+.altBtnBlue:hover{color:#fff;}
+.altBtnBlueQues{margin-left:193px;margin-top:20px;}
+.btnOrange{display:block; width:100px; height:32px; line-height:32px; text-align:center; background:#f50; color:#fff; float:left; margin-right:8px;}
+.btnOrange:hover{background:#d95c00;color:#fff;}
+.btnGray,.btnGray:hover{background:#e5e5e5; color:#666; cursor:default;}
+
+/*閿欒鎻愮ず鏍峰紡*/
+.alterContent .error{height:32px;line-height:26px;font-size:14px;display:table-cell; vertical-align:middle;color:#E95364; background:url(../images/icon_error.png) no-repeat left center; padding-left:22px;}
+.formQuestion .error,.formQuestionLast .error{float:left; width:100px;padding-left:20px;display:table-cell; vertical-align:middle; height:24px; line-height:18px; font-size:14px; padding-top:6px;}
+
+
+/*璀﹀憡鏍峰紡*/
+.alterContent .warning{display:block;line-height:19px;margin-left:122px; margin-top:10px;font-size:12px;}
+.alterContentQuestion .warning{display:block;line-height:19px;margin:34px 5px 30px 77px;font-size:12px;}
+
+/*閭淇敼*/
+.alterBoxTrade{position:fixed;top:50%;left:50%;margin:-150px 0 0 -300px;width:600px;height:300px;z-index:101;background:#fff;overflow:hidden;display:none;border-top:10px #393 solid;border-radius:8px;}
+
+/*鎵嬫満淇敼*/
+.alterBoxQuestion{position:fixed;top:50%;left:50%;margin:-150px 0 0 -300px;width:600px;height:300px;z-index:101;background:#fff;overflow:hidden;display:none;border-top:10px #393 solid;border-radius:8px;}
+.alterContentQuestion{color:#595757; height:598px; width:598px; padding:1px}
+.formQuestion{padding:25px 0 0 49px;height:119px;line-height:119px;border-top:1px solid #EEEFEF;margin:0 5px;}
+.formQuestionLast{padding:25px 0 0 49px;height:119px;line-height:119px;border-top:1px solid #EEEFEF;border-bottom:1px solid #EEEFEF;margin:0 5px;}
+.num{float:left;display:block; font-family:Arial;font-size:100px;color:#EEEFEF; line-height:109px;margin-right:40px;}
+.numRight{float:left;}
+.formItem{margin-bottom:12px; height:45px;}
+.formItem dt{line-height:32px; width:37px; color:#595757; padding-right:10px; font-size:14px; float:left;}
+.formItem .formRight{float:left;}
+.formBox{height:32px; line-height:32px\9; border:solid 1px #e4e4e4; text-indent:6px;display:block;}
+.questionList{float:left; display:block;width:200px; height:32px; line-height:32px;font-size:14px;border:solid 1px #e4e4e4; overflow:hidden; margin-right:5px; padding-left:5px;}
+.box210{width:210px;}
+.box80{width:80px;}
+
+
+.alterBoxBank{position:fixed;top:50%;left:50%;margin:-210px 0 0 -300px;width:600px;height:420px;z-index:101;background:#fff;overflow:hidden;display:none;}

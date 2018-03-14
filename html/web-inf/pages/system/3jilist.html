@@ -1,0 +1,269 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>后台</title>
+<script type="text/javascript" src="js/jquery-1.5.1.min.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript" src="js/list.js"></script>
+<link href="css/demand.css" rel="stylesheet" type="text/css">
+<link href="css/list.css" rel="stylesheet" type="text/css">
+<style>
+.ts{height:23px;margin:20px; font-size:14px;}
+.ts b{display:inline-block;width:20px;height:13px; padding-right:10px;}
+.ts a{margin:0 8px;display:inline-block; padding:0 10px;}
+.ts .cura{background-color:#c7c7c7;}
+
+.onelist{min-width:240px;max-height:600px; overflow-y:auto;height:100%; float:left; background-color:#fff;}
+.twolist{min-width:240px;max-height:600px; overflow-y:auto;height:100%; float:left; background-color:#fff; display:none;}
+.threelist{min-width:775px;width:100%;max-height:600px;overflow-y:auto;height:100%; float:left; background-color:#fff; display:none;}
+.noEdit{border:0;background:none; display:block; cursor:pointer;}
+.baocunIco{display:inline-block; background:url(images/duigou.png) no-repeat; width:16px; height:16px;}
+input{width:85%; height:28px; line-height:28px; border:solid 1px #F3F1F1; padding:0 10px;}
+textarea{width:85%;line-height:28px; border:solid 1px #F3F1F1; padding:0 10px;}
+.curTr{background-color:#ebf6ff; display:block;}
+.curTr input{background:none;}
+.curTr input:focus,.curBtn input:focus{background:#fff; cursor:text;}
+input[type="text"]:focus,textarea:focus{}
+.curBtn{background:#c7c7c7; cursor:pointer;}
+.onej table tr:hover td{background:none;}
+.twoj table tr:hover td{background:none;}
+</style>
+</head>
+<body>
+<div class="ts"><a href="javascript:void(0)" class="yiji cura">一级</a><b>&gt;&gt;</b><a href="javascript:void(0)" class="erji">二级</a><b>&gt;&gt;</b><a href="javascript:void(0)" class="sanji">三级</a></div>
+
+
+<div class="onelist">
+	<div class="pro_ss_btn">
+		<a href="javascript:void(0);" class="btn btnadd1">新增一级菜单</a>
+	</div>
+  <div class="ht_list onej">
+  <table cellpadding="0" cellspacing="0" border="0"  id="yijiTable">
+			
+  </table>
+  </div>
+</div>
+<div class="twolist">
+	<!--<a href="javascript:void(0);" class="btn fanhui2" style="margin:10px;">返回</a>-->
+	<div class="pro_ss_btn">
+		<a href="javascript:void(0);" class="btn btnadd2">新增二级菜单</a>
+	</div>
+  <div class="ht_list twoj">
+  <table cellpadding="0" cellspacing="0" border="0"  id="erjiTable">
+			
+  </table>
+  </div>
+</div>
+<div class="threelist">
+	<!--<a href="javascript:void(0);" class="btn fanhui3" style="margin:10px;">返回</a>-->
+	<div class="pro_ss_btn">
+		<a href="javascript:void(0);" class="btn btnadd3">新增三级菜单</a>
+	</div>
+	<div class="ht_list">
+		<table cellpadding="0" cellspacing="0" border="0"  id="orginTable">
+			<tr>
+				<th width="14%">字段1</th>
+				<th width="14%">字段2</th>
+				<th width="14%">字段3</th>
+				<th width="14%">字段4</th>
+        <th width="14%">字段5</th>
+				<th width="14%">字段6</th>
+        <th width="14%"></th>
+			</tr>
+		</table>
+		<div class="ht_pageBox">
+			<div class="ht_page">
+				<a href="javascript:void(0);" class="btn">&lt;&lt;</a>
+				<a href="javascript:void(0);" class="btn"><</a>
+				<a href="javascript:void(0);" class="btn">1</a>
+				<a href="javascript:void(0);" class="btn">2</a>
+				<a href="javascript:void(0);" class="btn cur">3</a>
+				<a href="javascript:void(0);" class="btn">4</a>
+				<a href="javascript:void(0);" class="btn">5</a>
+				<a href="javascript:void(0);" class="btn">&gt;</a>
+				<a href="javascript:void(0);" class="btn">&gt;&gt;</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="clear"></div>
+
+<!--1级克隆-->
+<table cellpadding="0" cellspacing="0" border="0"  id="oyijiTable" style="display:none;">
+  <tr class="newTr">
+    <td width="40%"><input type="text" name="" class="noEdit curBtn" readonly  value="值1"></td>
+    <td width="40%" class="cz">
+      <a href="javascript:void(0);" class="baocunIco" style="display:none;"></a>
+      <a href="javascript:void(0);" class="editIco"></a>
+      <a href="javascript:void(0);" class="del_list"></a>
+    </td>
+  </tr>
+</table>
+<!--2级克隆-->
+<table cellpadding="0" cellspacing="0" border="0"  id="oerjiTable" style="display:none;">
+<tr class="newTr">
+  <td width="40%"><input type="text" name="" class="noEdit curBtn" readonly value="值1"></td>
+  <td  width="40%" class="cz">
+    <a href="javascript:void(0);" class="baocunIco" style="display:none;"></a>
+    <a href="javascript:void(0);" class="editIco"></a>
+    <a href="javascript:void(0);" class="del_list"></a>
+  </td>
+</tr>
+</table>
+<!--3级克隆-->   
+<table cellpadding="0" cellspacing="0" border="0" style="display:none;" id="newTable">
+<tr class="newTr">
+  <td><input type="text" name="" ></td>
+  <td><textarea name="" cols="" rows="" ></textarea></td>
+  <td><input type="text" name=""></td>
+  <td><input type="text" name=""></td>
+  <td><input type="text" name=""></td>
+  <td><input type="text" name=""></td>
+  <td class="cz">
+    <a href="javascript:void(0);" class="baocunIco"></a>
+    <a href="javascript:void(0);" class="editIco"></a>
+    <a href="javascript:void(0);" class="del_list"></a>
+  </td>
+</tr>
+</table>
+   
+<script>
+$(document).ready(function() {
+	/*点1显2*/
+	$(".show2").live("click",function(){
+		$(this).parents(".onelist").next(".twolist").show();
+		$(this).parents(".onelist").hide();
+		});
+	$(".yiji").live("click",function(){
+		$(".onelist").show();
+		$(".twolist").hide();
+		$(this).siblings("a").removeClass("cura");
+		$(this).addClass("cura");
+		$(".threelist").hide();
+		});
+		
+	/*点2显3*/
+	$(".show3").live("click",function(){
+		$(this).parents(".twolist").next(".threelist").show();
+		$(this).parents(".twolist").hide();
+		});
+	$(".erji").live("click",function(){
+		$(".onelist").hide();
+		$(".twolist").show();
+		$(this).siblings("a").removeClass("cura");
+		$(this).addClass("cura");
+		$(".threelist").hide();
+		})
+		
+	/*显3*/
+	$(".sanji").live("click",function(){
+		$(".onelist").hide();
+		$(".twolist").hide();
+		$(this).siblings("a").removeClass("cura");
+		$(this).addClass("cura");
+		$(".threelist").show();
+		})
+		
+	/*1级当前选择*/
+	$(".onej .noEdit").live("click",function(){
+			$(this).parents(".onej").find(".noEdit").removeClass("curBtn");
+			$(this).parents(".onej").find(".noEdit").css("background","none")
+		 $(this).addClass("curBtn");
+		 $(this).parents(".onelist").next(".twolist").show();
+		$(this).parents(".onelist").hide();
+		 $(this).css("background","#c7c7c7");
+		 $(".yiji").removeClass("cura");
+		 $(".erji").addClass("cura");
+		});
+	
+	/*2级当前选择*/
+	$(".twoj .noEdit").live("click",function(){
+			$(this).parents(".twoj").find(".noEdit").removeClass("curBtn");
+			$(this).parents(".twoj").find(".noEdit").css("background","none")
+		 $(this).addClass("curBtn");
+		 $(this).parents(".twolist").next(".threelist").show();
+		$(this).parents(".twolist").hide();
+		 $(this).css("background","#c7c7c7");
+		 $(".erji").removeClass("cura");
+		 $(".sanji").addClass("cura");
+		});
+	
+	/*1级新增*/
+	$(".btnadd1").live("click",function(){
+      var obj=$("#oyijiTable").children().find(".newTr").clone();
+			obj.find("tr").removeClass("curTr");
+			obj.find("input").val("");
+			obj.find(".baocunIco").show();
+			obj.find("input").removeClass("noEdit");
+			obj.find("input").css("background-color","#fff")
+		  obj.find("input").removeAttr("readonly","readonly");
+			obj.find(".editIco").hide();
+			$("#yijiTable").append(obj);
+    });
+		
+		/*2级新增*/
+		$(".btnadd2").live("click",function(){
+      var obj=$("#oerjiTable").children().find(".newTr").clone();
+			obj.find("tr").removeClass("curTr");
+			obj.find("input").val("");
+			obj.find(".baocunIco").show();
+			obj.find("input").removeClass("noEdit");
+			obj.find("input").css("background-color","#fff")
+		  obj.find("input").removeAttr("readonly","readonly");
+			obj.find(".editIco").hide();
+			$("#erjiTable").append(obj);
+    });
+	
+	/*3级新增*/
+    $(".btnadd3").live("click",function(){
+      var obj=$("#newTable").children().find(".newTr").clone();
+			obj.find(".editIco").hide();
+			$("#orginTable").append(obj);
+    });
+	
+	/*删除*/
+	$(".del_list").live("click",function(){
+		$(this).parents("tr").remove();
+	})
+	
+	/*编辑*/
+	$(".editIco").live("click",function(){
+			$(this).prev(".baocunIco").show();
+			$(this).hide();
+		 $(this).parents("tr").find("input").removeClass("noEdit");
+		 $(this).parents("tr").find("input").css("background-color","#fff")
+		 $(this).parents("tr").find("input").removeAttr("readonly","readonly");
+		  $(this).parents("tr").find("textarea").removeClass("noEdit");
+		 $(this).parents("tr").find("textarea").css("background-color","#fff")
+		 $(this).parents("tr").find("textarea").removeAttr("readonly","readonly");
+		 
+		 
+	});
+	
+	/*保存*/
+	$(".baocunIco").live("click",function(){
+		$(this).next(".editIco").show();
+			$(this).hide();
+			$(this).parents("tr").find("input").css("background","none")
+		 $(this).parents("tr").find("input").addClass("noEdit");
+		 $(this).parents("tr").find("input").attr("readonly","readonly");
+		 $(this).parents("tr").find("textarea").css("background","none")
+		 $(this).parents("tr").find("textarea").addClass("noEdit");
+		 $(this).parents("tr").find("textarea").attr("readonly","readonly");
+	});
+	
+		/*显示1级*/
+		$(".fanhui2").live("click",function(){
+		$(this).parents(".twolist").prev(".onelist").show();
+		$(this).parents(".twolist").hide();
+		});
+		/*显示2级*/
+	$(".fanhui3").live("click",function(){
+		$(this).parents(".threelist").prev(".twolist").show();
+		$(this).parents(".threelist").hide();
+		});
+});
+</script>
+</body>
+</html>

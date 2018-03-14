@@ -1,0 +1,40 @@
+#define(com.ekfans.base.store.model.Store Store)
+
+#define(com.ekfans.base.order.model.Order order)
+
+<dl class="infoLine">
+	<dt>订单号</dt>
+    <dd class="infoRight">${order.Id }</dd>
+    <dd class="clear"></dd>
+</dl>
+<dl class="infoLine">
+	<dt>金额</dt>
+    <dd class="infoRight">${order.totalPrice}</dd>
+    <dd class="clear"></dd>
+</dl>
+<dl class="infoLine">
+	<dt>订单状态</dt>
+    <dd class="infoRight">${@(com.ekfans.base.order.util.OrderConst).orderStatusNameMap.get(order.status)}</dd>
+    <dd class="clear"></dd>
+</dl>
+<dl class="infoLine">
+	<dt>支付方式</dt>
+    <dd class="infoRight">${@(com.ekfans.base.order.util.OrderConst).orderPayTypeNamsMap.get(order.payType)}</dd>
+    <dd class="clear"></dd>
+</dl>
+<dl class="infoLine">
+	<dt>付款企业</dt>
+    <dd class="infoRight">${order.buyName}</dd>
+    <dd class="clear"></dd>
+</dl>
+<dl class="infoLine">
+	<dt>收款企业</dt>
+    <dd class="infoRight">${order.salName}</dd>
+    <dd class="clear"></dd>
+</dl>
+<dl class="infoLine">
+	<dt>订单说明</dt>
+    <dd class="infoRight">${order.note}</dd>
+    <dd class="clear"></dd>
+</dl>
+            

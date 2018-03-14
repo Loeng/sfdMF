@@ -1,0 +1,132 @@
+<!doctype html>
+
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>会员等级</title>
+    <link href="${webroot}/resources/system/css/demand.css" rel="stylesheet" type="text/css" />
+    	<link href="${webroot}/resources/system/css/list.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/list.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/user/level/userLevelList.js"></script>
+    </head>
+    <body>
+    	<form action="${webroot}/system/user/level/list" method="post"  id="searchUserLevelForm">
+			<input type="hidden" name="pageNum" value="" />
+		</form>
+		<div class="pro_ss_btn">
+			<a href="#" onclick="userLevelAdd('${webroot}');" class="btn">新增</a>
+		</div>
+		
+		#define(List<com.ekfans.base.user.model.UserLevel> userLevels)
+		<!--没有数据的时候-->
+		#if(userLevels==null||userLevels.size()<=0)
+				<div class="ht_list_k">暂时没有符合条件的数据</div>	
+			#else
+		
+		<!--有数据的时候-->
+			<div class="ht_list">
+				<table id="userLevelTab" cellpadding="0" cellspacing="0" border="0" >
+					<tr>
+						<th width="8%">全选</th>
+						<th width="10%">序号</th>
+						<th width="14%">会员等级名</th>
+						<th width="14%">图标</th>
+						<th width="14%">最低升级条件</th>
+						<th width="14%">最高降级条件</th>
+						<th width="14%">类型</th>
+						<th width="14%">操作</th>
+					</tr>
+					#for(com.ekfans.base.user.model.UserLevel userLevel : userLevels)
+						<tr>
+						
+							<td class="qx"><input type="checkbox" value="${userLevel.id }"/></td>
+						    <td></td>
+						    <td>${userLevel.name }</td>
+		            <td><img src="${userLevel.icon }" width="50px"/></td>
+		            <td>${userLevel.loConditions }</td>
+		            <td>${userLevel.demote }</td>
+		            <td> #if(userLevel.type) 显示 #else 不显示 #end</td>
+						    <td class="cz">
+						    	<a href="javascript:void(0);" class="eyeIco" onclick="queryId('${userLevel.id}','${webroot}');" title="详细"></a>
+						    	<a href="javascript:void(0);" class="editIco" onclick="userLevelModify('${userLevel.id}','${webroot}');" title="修改"></a>
+						    	<a href="javascript:void(0);" class="del_list" id="del${userLevel.id}" title="删除"
+						    	 onclick="econfirm('确定要删除此会员等级吗？',userLevelDelete,['${userLevel.id}','${webroot}'],null,null);" ></a>
+						    </td>
+					   </tr>
+					#end
+				</table>
+				<div class="ht_pageBox">
+					<div class="ht_page_l">
+						<a href="javascript:void(0);" onclick="selectAll();" class="btn">全选</a>
+						
+						<!-- 为删除前验证服务的隐藏域 -->
+						<input type="hidden" id="ctxpath" value="${webroot}" />
+						<a href="javascript:void(0);" onclick="checkSelect();" class="btn">删除</a>
+					</div>
+					<!-- 分页 -->
+					#define(com.ekfans.pub.util.Pager pager)
+					<div class="ht_page">
+							<a href="javascript:void(0);" onclick="goPage('1');"   value="1" class="btn"><<</a>
+							#if(pager.currentPage == 1)
+								<a href="javascript:void(0);" class="btn"><</a> 
+							#else
+								<a href="javascript:void(0);" onclick="goPage('${pager.currentPage-1 }');"   value="${pager.currentPage-1 }" class="btn"><</a>
+							#end
+							
+							#if(pager.totalPage>5)
+								#if(pager.currentPage-2>1 && pager.currentPage+2<pager.totalPage)
+									<a class="btn">..</a>
+									#for(int i : iterator(pager.currentPage-2,pager.currentPage+2))
+										#if(pager.currentPage==i)
+												<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="btn cur">${i }</a>
+										#else
+											<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="btn">${i }</a>
+										#end
+									#end
+									<a>..</a>
+								#elseif(pager.currentPage-2<=1)
+									#for(int i : iterator(1,5))
+										#if(pager.currentPage==i)
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+										#else
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn">${i }</a>
+										#end
+									#end
+									<a>..</a>
+								#else
+									<a>..</a>
+									#for(int i : iterator(pager.totalPage-4,pager.totalPage))
+										#if(pager.currentPage==i)
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+										#else
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn">${i }</a>
+										#end
+									#end
+								#end
+							#else
+								#for(int i : iterator(1,pager.totalPage))
+									#if(pager.currentPage==i)
+										<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+									#else
+										<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn">${i }</a>
+									#end
+								#end
+							#end
+							
+							#if(pager.currentPage==pager.totalPage)
+								<a href="javascript:void(0);" class="btn">></a>
+							#else
+								<a href="javascript:void(0);" onclick="goPage('${pager.currentPage+1 }');"   value="${pager.currentPage+1 }" class="btn">></a>
+							#end
+							<a  href="javascript:void(0);" onclick="goPage('${pager.totalPage }');"   value="${pager.totalPage }" class="btn">>></a>
+							
+						</div>
+					</div>
+				</div>
+		#end
+		<div class="apPreviewBg"></div>
+						<div id="div1"  class="apPreview">
+	</body>
+</html>

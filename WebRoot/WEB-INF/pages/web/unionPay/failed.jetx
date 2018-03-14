@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>${webName}-订单提交</title>
+<link rel="icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/storeweb/css/base.css" rel="stylesheet" type="text/css">
+<link href="${ctxpath}/resources/web/webcommon/css/cart03.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/commons/js/tools.js"></script>
+<script src="${webroot}/resources/web/storeweb/js/base.js"></script>
+<script src="${webroot}/resources/web/storeweb/js/cart01.js"></script>
+<script type="text/javascript" src="${webroot}/resources/web/storeweb/js/cart/shopCartPay.js"></script>
+
+<style>
+.nav{position:relative;}
+.secondNav{position:absolute; top:48px; left:0; right:0; z-index:98;display:none;}
+.bread{height:38px; line-height:38px; background:#FCF4E5; font-size:14px; color:#A78749; margin-bottom:20px;}
+.main{background:#fff;}
+.content{width:530px; padding:120px 0 100px 0; margin:0 auto;}
+.suc{background:url(${webroot}/resources/web/images/icon_waring.jpg) no-repeat left top; padding-left:128px; float:left;}
+.suc dt{height:0px; line-height:0px; font-size:24px; margin-bottom:8px; color:#8FC31F; font-weight:700;}
+.suc dd span{display:block; height:32px; line-height:32px;}
+.suc dd span *{font-weight:700;}
+.red{padding:0 10px;}
+.span1{font-size:24px; color:#FF0000; margin-bottom:20px;}
+.span2{ font-size:16px; color:#595757;}
+.orange{ font-size:16px;}
+.btns{padding:32px 0 0 130px;}
+.btnBlue{width:170px; height:36px; line-height:36px; font-size:14px; text-align:center; color:#fff; background:#0085FC; display:inline-block; }
+.btnBlue:hover{ color:#fff; background:#0085FC; }
+</style>
+</head>
+
+<body>
+	<input type="hidden" id="ctxpath" value="${webroot}" />
+	<input type="hidden" name="ctxpath" id="ctxpath" value="${ctxpath}" />
+	<input type="hidden" name="channelType" id="channelType" value="0" />
+	<div class="wrapper">
+		<div class="header" id="channelTop"></div>
+		
+		<div class="wrapper main">
+			<div class="content">
+				<dl class="suc">
+					<dt></dt>
+					<dd>
+						<span class="span1">订单支付失败！</span>
+						<span class="span2">商家：三分地供应链平台 &nbsp;&nbsp;订单：${orderId}</span>
+						<span class="orange"><em>10</em> 秒后跳转到订单支付页面</span>
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				<div class="btns">
+					<a href="javascript:void(0)" class="btnBlue">立即跳转</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="bottomSplit"></div>
+	#include("../channel/commons/buttom.jetx")
+	
+	
+<script>
+	function delayURL(url) {
+	  var delay = $(".orange em").text();
+	  if (delay > 0) {
+	      delay--;
+	      $(".orange em").text(delay)
+	  } else {
+	      window.top.location.href = url
+	  }
+	  setTimeout("delayURL('" + url + "')", 1000)
+	}
+	delayURL("${webroot}/store/order/wfOrderView/${orderId}/0/3");
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+#define(com.ekfans.base.user.model.User User)
+<!doctype html>
+<html>
+<head>
+<!--
+	#set(String cssUrl = webroot + "/resources/userCenter/")
+	#if(@(com.ekfans.base.user.util.UserConst).USER_TYPE_STORE == User.type)
+		#set( cssUrl =  cssUrl + "commons/css/addGoods.css")
+		#set( cssUrl =  cssUrl + "commons/css/index.css")
+	#elseif(@(com.ekfans.base.user.util.UserConst).USER_TYPE_BUYER == User.type)
+		#set( cssUrl =  cssUrl + "commons/css/addGoods.css")
+		#set( cssUrl =  cssUrl + "commons/css/index.css")
+	#elseif(@(com.ekfans.base.user.util.UserConst).USER_TYPE_CODE == User.type)
+		#set( cssUrl =  cssUrl + "commons/css/addGoods.css")
+		#set( cssUrl =  cssUrl + "commons/css/index.css")
+	#elseif(@(com.ekfans.base.user.util.UserConst).USER_TYPE_YUNSHU == User.type)
+		#set( cssUrl =  cssUrl + "commons/css/addGoods.css")
+		#set( cssUrl =  cssUrl + "commons/css/index.css")
+	#elseif(@(com.ekfans.base.user.util.UserConst).USER_TYPE_GONGYING == User.type)
+		#set( cssUrl =  cssUrl + "commons/css/addGoods.css")
+		#set( cssUrl =  cssUrl + "commons/css/index.css")
+	#end
+	-->
+	<meta charset="UTF-8">
+	<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称") + "-" + @(com.ekfans.base.user.util.UserConst).userTypeNamesMap.get(User.type)}中心-<sitemesh:write property="title"></sitemesh:write></title>
+	<link rel="icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+	<link rel="shortcut icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/addGoods.css" />
+	<sitemesh:write property="head"></sitemesh:write>
+	<!-- <link rel="stylesheet" type="text/css" href="${cssUrl}" /> -->	
+</head>
+
+<body>
+<!-- 头部 -->
+${include( "../common/top.jetx")}		
+<div class="main">
+	<div class="wrapper">
+		<!-- 功能菜单 -->
+		<div class="leftNav budong">
+			${include( "../common/leftPurview.jetx")}
+		</div>
+		
+		<!-- 右侧主体 -->
+		<div class="rightContent">
+			<sitemesh:write property='body'></sitemesh:write>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>		
+<!-- 尾部 -->
+${include( "../common/buttom.jetx")}
+</body>
+</html>

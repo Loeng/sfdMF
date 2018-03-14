@@ -1,0 +1,26 @@
+@charset "utf-8";
+/* CSS Document */
+
+* {SCROLLBAR-FACE-COLOR:#e2eeff; SCROLLBAR-HIGHLIGHT-COLOR:#6aaafb; SCROLLBAR-SHADOW-COLOR:#6593cf; SCROLLBAR-3DLIGHT-COLOR:#fff;
+   SCROLLBAR-ARROW-COLOR:#240024; SCROLLBAR-TRACK-COLOR:#e2eeff; SCROLLBAR-DARKSHADOW-COLOR:#fff; SCROLLBAR-BASE-COLOR:#bedafe; outline:none;}
+html,body {margin:0px; color:#2c2c2c; font-size:12px; font-family:"微软雅黑"; text-align:left;}
+a {color:#2c2c2c; text-decoration:none;}
+a:hover {color:#0365b5; text-decoration:none;}
+ul,ol,dl{list-style:none;}
+h1,h2,h3,h4,h5,h6,p,form,ul,li,ol,dl,dt,dd,input,textarea {margin:0px; padding:0px; font-family:"微软雅黑";}
+img {border:none;}
+em {font-style:normal;}
+.clear {clear:both;}
+label {cursor:pointer;}
+
+.header {width:100%; height:65px; background:#1568ab;}
+.logo2 {width:215px; height:65px; float:left; background:#fff;}
+.logo2 img {display:block; margin:12px auto 0 auto;}
+.user_xx {float:right; height:65px; line-height:67px; margin-right:10px; color:#fff;}
+.user_xx span {padding-left:20px;}
+.other_xx {float:right; line-height:65px;}
+.other_xx a {color:#8bcafd; margin-right:10px;}
+.other_xx a.sz {display:inline-block; *display:inline; *zoom:1; width:27px; height:27px; background:url(../images/sz.jpg); vertical-align:middle;}
+.headerNav {width:600px; float:left;}
+.headerNav a {color:#fff; display:block; padding:0 18px; margin:0 2px; height:65px; line-height:65px; font-size:14px; float:left; text-align:center;}
+.headerNav a:hover,.headerNav a.cur {background:rgb(4,38,65);}

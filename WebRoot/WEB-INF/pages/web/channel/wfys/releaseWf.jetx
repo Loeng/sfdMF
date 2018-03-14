@@ -1,0 +1,179 @@
+<form action="${webroot}/web/wftransport/ykSave" name="addOk" method="post"  id="addWftransportForm">
+	<input type="hidden" name="endFullPath" id="endFullPath" value=""/>
+	<input type="hidden" name="startFullPath" id="startFullPath" value=""/>
+	<div class="layerIn baojiaLayer">
+		<dl class="formItem">
+			<dt>运输类型</dt>
+			<dd>
+				<span class="radio" style="height:28px;line-height:28px;"><label><input type="radio" name="type" value="0">危废车源</label></span>
+				<span class="radio" style="height:28px;line-height:28px;"><label><input type="radio" name="type" value="1">危废货源</label></span>
+			</dd>
+			<dd class="clear"></dd>
+		</dl>
+		<input type="hidden" name="status" value="1">
+		<dl class="formItem">
+            <dt><em class="red">*</em>运输标题</dt>
+            <dd class="formImport">
+                <input name="name" id="name" type="text" onblur="checkFocus(this);" class="formBox" maxlength="32" >
+           
+            <span id="nameSpan" class="errorText" style="display:none;"></span>
+             </dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="formItem " >
+			<dt><em class="red">*</em>出发地</dt>
+			<dd class="select4">#tag systemAreaSel("startPlace","") #end</dd>
+			<span id="startPlaceSpan" class="errorText" style="display:none;"></span>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem " >
+			<dt><em class="red">*</em>目的地</dt>
+			<dd class="select4">#tag systemAreaSel("endPlace","") #end</dd>
+			<span id="endPlaceSpan" class="errorText" style="display:none;"></span>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem">
+			<dt>详细地址</dt>
+			<dd><input type="text" name="habitatAddress" class="formBox textBox box212" maxlength="32"></dd>
+			<dd class="clear"></dd>
+		</dl>
+        	#define(List<com.ekfans.base.store.model.Wfpys> wfpys)
+			<input type="hidden" name="wfpysName" id="wfpysName" >
+			<dl class="formItem ">
+				<dt>
+					<!--<em class="red">*</em> -->危废品标准</dt>
+				<dd class="select4">
+					<select name="wfpysParentId" class="wfpysParentId" id="wfpysParentId" onchange="showCode(),selectwfpysName();" style="width:130px;">
+						<option value="">请选择</option>
+						#for(com.ekfans.base.store.model.Wfpys w : wfpys)
+							<option value="${w.id}">${w.name}</option>
+						#end
+					</select>
+					<select name="wfpysId" id="wfpysId" class="wfpysId" style="display:none;width:130px;">
+						<option >请选择</option>
+					</select>
+				</dd>
+				<span id="wfpysSpan" class="errorText" style="display:none;"></span>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem code"  style="display:none">
+				<dt><em class="red">*</em>核准危废类别</dt>
+				<dd>
+					<a href="javascript:loadDirectory();" class="btnXuanze">请选择</a>
+					<input type="hidden" name="wfmlId" id="wfDetails" value=""/>
+					<div class="clear"></div>
+				</dd>
+				<div class="clear"></div>
+			</dl>
+			#define(List<com.ekfans.base.store.model.CategoryGoods> categoryGoods)
+			<dl class="formItem " >
+				<dt><em class="red">*</em>货物类别</dt>
+				<dd class="select4">
+					<select name="categoryName" class="categoryName" id="categoryName" onchange="selectcategoryName();">
+						<option value="">请选择</option>
+						#for(com.ekfans.base.store.model.CategoryGoods cg : categoryGoods)
+							<option value="${cg.name}">${cg.name}</option>
+						#end
+					</select>
+				</dd>
+				<span id="categoryNameSpan" class="errorText" style="display:none;">12321</span>
+				<dd class="clear"></dd>
+			</dl>
+			#define(List<com.ekfans.base.store.model.VehicleType> vts)
+				<dl class="formItem " >
+					<dt><em class="red">*</em>车辆类型</dt>
+					<dd>
+						<dd class="select4">
+							<select name="carName" class="carName" id="carName" onchange="selectcarName();">
+								<option value="">请选择</option>
+								#for(com.ekfans.base.store.model.VehicleType v : vts)
+									<option value="${v.name}">${v.name}</option>
+								#end
+							</select>
+					</dd>
+					<span id="carNameSpan" class="errorText" style="display:none;"></span>
+					<dd class="clear"></dd>
+				</dl>
+				#define(List<com.ekfans.base.store.model.TankMaterial> tms)
+				<dl class="formItem  cy" >
+					<dt><em class="red">*</em>罐体材质</dt>
+					<dd class="select4">
+						<select name = "tankMaterialName" class="tankMaterialName" id="tankMaterialName" onchange="selecttankMaterialName();">
+							<option value="">请选择</option>
+							#for(com.ekfans.base.store.model.TankMaterial tm : tms)
+								<option value="${tm.name}">${tm.name}</option>
+							#end
+						</select>
+					</dd>
+					<span id="tankMaterialNameSpan" class="errorText" style="display:none;"></span>
+					<dd class="clear"></dd>
+				</dl>
+        	<dl class="formItem hy" style="display:none;">
+                <dt><em class="red">*</em>货源名称</dt>
+                <dd class="formImport">
+	                <input name="supplyName" id="supplyName" type="text" class="formBox" maxlength="16" >
+                </dd>
+                <span id="supplyNameSpan" class="errorText" style="display:none;"></span>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>单位</dt>
+                <dd class="formImport"><input name="unit" type="text" placeholder="请输入单位默认为吨" onblur="checkUnit()"  class="formBox maxlength="13"></dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt><em class="red">*</em>总载量</dt>
+                <dd class="formImport">
+	                <input name="wfpTotal" type="text" class="formBox" onblur="checkFocus(this);" maxlength="13" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" >单位：<em class='red unit'>吨</em>
+	                <span class="errorText wfpTotalSpan" style="display:none;"></span>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>运价</dt>
+                <dd class="formImport"><input name="price" type="text" placeholder="请输入运价不填为待议"  class="formBox maxlength="13" onafterpaste="this.value=this.value.replace(/\D/g,'')">单位：元/<em class='red unit'>吨</em></dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt><em class="red">*</em>联系人</dt>
+                <dd class="formImport">
+                	<input name="linkMan" type="text" class="formBox" onblur="checkFocus(this);" maxlength="32">
+	                <span id="contactNameSpan" class="errorText" style="display:none;"></span>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt><em class="red">*</em>联系电话</dt>
+                <dd class="formImport">
+                	<input name="phone" type="text" class="formBox" onblur="checkFocus(this);" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="11">
+                	<span id="contactPhoneSpan" class="errorText" style="display:none;"></span>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem "  >
+				<dt>说明</dt>
+				<dd >
+					<textarea name="content" style="width:260px;border:1px solid #e4e4e4;" maxlength="200"></textarea>
+				</dd> 
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt><em class="red">*</em>截止时间</dt>
+				<dd>
+					<input name="endTime" type="text" placeholder="请输入截止时间" class="formBox"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-#{%d}'})" onblur="javascript:checkEndTimeBlur();" maxlength="19">
+					<div class="clear"></div>
+					<span id = "endTimeSpan" class="errorText" style="display:none;"></span>	  				 
+				</dd>						
+				<dd class="clear"></dd>
+			</dl>			
+
+			
+            <div class="clear"></div>
+        </div>
+    </div>
+</form>
+
+<div id="mlDiv" style="display:none;min-height:100px;margin: 20px auto;width:1000px;" ></div>
+<script>
+$('input:radio[value='+type+']').prop('checked','true');
+</script>

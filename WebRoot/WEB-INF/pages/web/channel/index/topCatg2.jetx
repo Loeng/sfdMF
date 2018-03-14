@@ -1,0 +1,21 @@
+#define(Map<String, com.ekfans.base.channel.model.ChannelConfig> configMap)
+#define(String configType)
+#define(String position)
+#define(String channelId)
+
+#set(com.ekfans.base.channel.model.ChannelConfig config = configMap.get(configType + position))
+
+#if(configStatus == "true")
+	<div style="top:-22px;">#include("../commons/config/configTitle.jetx",{"channelId":channelId,"configType":configType,"position":position})</div>
+#end
+#if(config != null)
+ 	<dd class="filtrateLink">
+      	<a href="javascript:void(0);" class="cur catg" id="">全部</a>
+		#for(com.ekfans.base.product.model.ProductCategory pc : config.details)	
+        	<a href="javascript:void(0);" id="${pc.id}" class="catg">${pc.name}</a>
+        	#if(for.index==1)
+        		<input type="hidden" value="${pc.parentId}" id="mainCatgId">
+        	#end
+       	#end
+	</dd>
+#end

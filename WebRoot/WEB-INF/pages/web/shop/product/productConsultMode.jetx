@@ -1,0 +1,114 @@
+           #define(List<com.ekfans.base.store.model.Consult> cs)
+            <div class="checkLayer proDetail">
+                <div class="productItem">
+                    <p>咨询前请选搜索，方便又快捷：</p>
+                    <!-- 商品搜索 -->
+                    <div class="consultSearch">
+                        <input type="search" name="consultContent" value="${consultContent}" class="consultSearchBox" placeholder="请输入咨询关键字" />
+                        <a href="javascript:void(0)" onclick="searchConsult();" class="btnOrange btnConsultSearch">搜索</a>
+                    </div>
+                    <div class="prompt">
+                        <p>温馨提示:因厂家更改产品包装、产地或者更换随机附件等没有任何提前通知，且每位咨询者购买情况、提问时间</p>
+                        <p>等不同，为此以下回复仅对提问者3天内有效，其他网友仅供参考！若由此给您带来不便请多多谅解，谢谢！</p>
+                    </div>
+                    <!-- end 商品搜索 -->
+                </div>
+                <!-- 网友问答 -->
+                #if(cs!=null && cs.size()>0)
+                #for(com.ekfans.base.store.model.Consult c:cs)
+                <div class="productItem">
+                    <ul>
+                        <li>
+                            <span>会员：</span> 
+                            <a href="javascript:void(0)">${c.creatorName}</a>
+                            <span>${c.createTime}</span>
+                        </li>
+                        <li>
+                            <span>咨询内容： </span>
+                            <span class="problem">
+                                ${c.questionAnswer}
+                            </span>
+                        </li>
+                        #if(c.childList != null)
+	                        #for(com.ekfans.base.store.model.Consult cc:c.childList)
+	                        <li class="orange">客服回复： ${cc.questionAnswer}</li>
+	                        #end
+                        #end
+                    </ul>
+                </div>
+                #end
+                <!-- end 网友问答 -->
+                
+                <div class="clear"></div>
+
+                 <!-- 分页 -->
+                 <input type="hidden" name="pageNum" value="">
+              #define(com.ekfans.pub.util.Pager pager)
+				      <input type="hidden" name="pageNum" value="${currentPage }">
+				      <div class="tabZone">
+					      <div class="published"></div>        
+								<div class="listPage">
+											 <a href="javascript:void(0);" onclick="goPage('1');" class="pageIndex" value="1">《</a>
+												#if(pager.currentPage == 1)
+													<a href="javascript:void(0);" class="pageIndex">&lt;</a> 
+												#else
+													<a href="javascript:void(0);" class="pageIndex" onclick="goPage('${pager.currentPage-1 }');"   value="${pager.currentPage-1 }" >&lt;</a>
+												#end
+												
+												#if(pager.totalPage>6)
+													#if(pager.currentPage-2>1 && pager.currentPage+3<pager.totalPage)
+														<a>..</a>
+														#for(int i : iterator(pager.currentPage-1,pager.currentPage+1))
+															#if(pager.currentPage==i)
+																  <a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="pageIndex nowPage" >${i }</a>
+															#else
+																  <a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="pageIndex" >${i }</a>
+															#end
+														#end
+														<a>..</a>
+														#for(int i : iterator(pager.totalPage-2,pager.totalPage))
+															<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="pageIndex" >${i }</a>
+														#end
+												   #elseif(pager.currentPage-2<=1)
+														#for(int i : iterator(1,3))
+															#if(pager.currentPage==i)
+																<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="pageIndex nowPage" >${i }</a>
+															#else
+																<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="pageIndex" >${i }</a>
+															#end
+														#end
+														<a>..</a>
+														#for(int i : iterator(pager.totalPage-2,pager.totalPage))
+															<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="pageIndex" >${i }</a>
+														#end
+												   #else
+														<a>..</a>
+														#for(int i : iterator(pager.totalPage-5,pager.totalPage))
+															#if(pager.currentPage==i)
+																<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="pageIndex nowPage" >${i }</a>
+															#else
+																<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="pageIndex" >${i }</a>
+															#end
+														#end
+													#end
+												#else
+													#for(int i : iterator(1,pager.totalPage))
+														#if(pager.currentPage==i)
+															<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="pageIndex nowPage" >${i }</a>
+														#else
+															<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="pageIndex" >${i }</a>
+														#end
+													#end
+												#end
+												
+												#if(pager.currentPage==pager.totalPage)
+													<a href="javascript:void(0);" class="btn">&gt;</a>
+												#else
+													<a href="javascript:void(0);" onclick="goPage('${pager.totalPage+1 }');" class="pageIndex">&gt;</a>
+												#end
+												
+												<a  href="javascript:void(0);" onclick="goPage('${pager.totalPage }');" class="pageIndex" >》</a>
+								</div>
+						  </div>
+						#end
+            </div>

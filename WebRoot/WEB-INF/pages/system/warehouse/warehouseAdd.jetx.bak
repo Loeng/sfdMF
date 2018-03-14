@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+    	<title>新增小区</title>
+    		<link href="${ctxpath}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+				<link href="${ctxpath}/resources/system/css/list.css" rel="stylesheet" type="text/css" />
+				<!-- 上传文件的CSS -->
+				<link href="${ctxpath}/resources/commons/css/upload/upload.css" rel="stylesheet" type="text/css" />
+				<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery-1.8.3.min.js"></script>
+				<script type="text/javascript" src="${ctxpath}/resources/system/js/tools.js"></script>
+				<script type="text/javascript" src="${webroot}/resources/system/js/warehouse/warehouseAdd.js"></script>
+				<!-- 上传文件控件  -->
+				<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.soChange.js"></script>
+				<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.json-2.2.min.js"></script>
+				<script type="text/javascript" src="${ctxpath}/resources/commons/js/ajaxupload.js"></script>
+				<script type="text/javascript" src="${ctxpath}/resources/commons/js/upload/upload.js"></script>
+
+
+    </head>
+    <body>
+   		<div class="ht_btn">
+          <a href="#" onclick="formSubmit();" class="btn">保存</a>
+          <a href="#" onclick="reset();" class="btn">重置</a>
+					<a href="#" onclick="goBack('${webroot}');" class="btn">返回列表</a>
+        </div>
+        <div class="add_pro">
+			<input type="hidden" id="ok" value="${addOk}" />
+			<input type="hidden" id="ctxpath" value="${webroot}" />
+    	<form action="${webroot}/system/warehouse/warehouseSave" name="add" method="post"  id="addWarehouseForm">
+    		#define(com.ekfans.base.store.model.Warehouse wh)
+    		
+    		<dl class="formLine">
+						<dt>仓库名<em class="mustIco"></em></dt>
+						<dd id="NameDd" class="">
+							<input type="text" id="class_name" name="name" class="i_bg"  onblur="checkNameBlur();"/>
+							<span id="classNameSpan" class="ts_xx">1-32位字符组成</span>
+						</dd>
+		  	</dl>
+		  <dl class="formBox">
+				<dt>所在省市区</dt>
+				<dd class="formSite" id ="addressDd">
+				#tag systemAreaSel("areaId","") #end
+				</dd>
+			</dl>
+				<div class="clear"></div> 
+		  <dl class="formLine">
+						<dt>仓库地址<em class="mustIco"></em></dt>
+						<dd id="addrDd" class="">
+							<input type="text" id="fulladdress" maxlength="128" class="i_bg"  name="address" onblur="checkAddressBlur();"/>
+							<span id="addressSpan" class="ts_xx">请输入仓库地址</span>
+						</dd>
+		  </dl> 
+			 <dl class="formBox">
+					<dt>状态</dt>
+					<dd>
+						<span class="zt">
+							<label><input type="radio" value="true" name="status" checked=true/>启用</label></span>
+						<span class="zt">	<label><input type="radio" value="false" name="status"/>禁用</label></span>
+						</dd>
+				</dl>
+				<div class="clear"></div>
+		
+		 <dl class="formBox">
+	 		<dt>备注</dt>
+			<dd>
+				<textarea maxlength="256" name="note"></textarea>
+			</dd>
+		</dl>
+	
+    	</form>
+    	<div>
+    			<!-- 关联物业模块 -->
+	
+    </body>
+</html>

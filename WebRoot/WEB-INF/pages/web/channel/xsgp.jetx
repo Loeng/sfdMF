@@ -1,0 +1,348 @@
+
+#define(com.ekfans.base.channel.model.Channel channel)
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}-${channel.name}</title>
+<meta name="keywords" content="${channel.keyWords}" />
+<meta name="description" content="${channel.description}" />
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.superslide.2.1.1.js"></script>
+<script src="${webroot}/resources/web/js/base.js"></script>
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/base.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/xhjy.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/commons/js/layer/layer.js"></script>
+<script src="${webroot}/resources/web/js/userIDJudge.js"></script>
+
+#if(configStatus == "true")
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/control.js"></script>	
+	<link href="${webroot}/resources/commons/css/control.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script
+	<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+#end
+<style>
+.errorText{display:block;color:red;}
+</style>
+</head>
+
+<body>
+<input type="hidden" name="ctxpath" id="ctxpath" value="${webroot}" />
+<input type="hidden" name="channelId" id="channelId" value="${channelId}" />
+<input type="hidden" name="channelType" id="channelType" value="${channel.type}" />
+#if(configStatus == "true")
+	<!-- 频道配置导航条 -->
+	#include("commons/config/config-top.jetx")
+	<!-- 频道配置导航条 end -->
+#end
+<!--头部及导航条展示-->
+<div id="channelTop"></div>
+
+<div class="wrapper main"> 
+		<!---顶部分类-->
+  	<div class="listClass">
+        <div class="wrapper">
+    		<dl class="listItem"  style="border-top:0;">
+                <dt>品类</dt>
+				#include("index/topCatg.jetx",{"channelId":channelId,"configType":"pc","position":"1"})
+                <dd class="listMore" style="visibility:hidden;"><a href="#" title="更多"></a></dd>
+              <dd class="clear"></dd>
+            </dl>
+            <dl class="listItem">
+                <dt>交货地</dt>
+                <dd class="listLink">
+                    <a href="#" class="cur address" id="">全部</a>
+                    #for(com.ekfans.base.system.model.SystemArea s:@(com.ekfans.plugin.cache.base.Cache).getProvinces())
+                    	<a href="javascript:void(0);" class="address" id="${s.areaName}">${s.areaName}</a>
+                    #end
+                </dd>
+                <dd class="listMore" style="visibility:hidden;"><a href="#" title="更多"></a></dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="listItem">
+                <dt>搜索</dt>
+                <dd class="listLink">
+                  <input type="text" name="search" placeholder="品类名称"/>
+                  <a href="javascript:void(0);" class="btnSearch">搜索</a>
+                </dd>
+              <dd class="clear"></dd>
+            </dl>
+        </div>
+    </div>
+    <!---顶部分类 end -->
+    <!--销售挂牌-->
+    <div class="huoyuan"><span>销售挂牌</span><a href="javaScript:void(0);" class="btnFb updateLink" datatype="0">发布销售</a></div>
+    <div class="hyList" id="xsgp">  
+    	<ul class="tabTit">
+            <li class="tdNum1">品名</li>
+            <li class="tdNum2">厂家</li>
+            <li class="tdNum3">质量等级</li>
+            <li class="tdNum4">交货地</li>
+            <li class="tdNum5">数量</li>
+            <li class="tdNum6">价格</li>
+            <li class="tdNum7">发布日期</li>
+            <li class="tdNum8">&nbsp;</li>
+      	</ul>
+	</div>
+</div>
+<!--底部-->
+<div id="channelFoot"></div>
+<!--底部 end-->
+
+<!--议价弹层-->
+<div id="yijiaHtml" style="display:none;">
+</div>
+<!--议价弹层 end-->
+
+
+<script>
+
+//发布信息弹层
+	$(".updateLink").live("click",function(){
+	
+		var userId = $("#userId").val();
+		var type = $(this).attr("datatype"); //type=0发布销售 1发布采购
+		
+		// 判断用户否登陆
+		if(userId != null && userId != "" && userId != " "){
+			if(type=="0"){ 
+				choseMenu($("#ctxpath").val(),'PRODUCT_ADD');
+			}else{
+				choseMenu($("#ctxpath").val(),'PRODUCT_PURCHASE_ADD');
+			}
+		}else{
+			if(type=="0"){
+				location.href = $("#ctxpath").val()+"/web/login";
+			}else{
+				layer.open({
+					type: 1,
+					title: '发布采购信息',
+					skin: 'layer-class',
+					area: '600px', //宽高
+					content: $("#updateHtml")
+				});
+			}
+		}
+});
+
+function checkFocus(obj) {
+	if($(obj).val()!=""){
+		$(obj).next().html("");
+	}
+}
+
+function checkQuantity(){
+	var flag=true;
+	var preQuantity = $("#preQuantity").val();
+	var quantity = $("input[name='quantity']").val();
+	if(quantity == "" || quantity == null || quantity == " "){
+		$('#quantitySpan').show();
+		$('#quantitySpan').text("请输入数量");
+		flag = false;
+	}else if(parseFloat(quantity) > parseFloat(preQuantity)){
+		$('#quantitySpan').show();
+		$('#quantitySpan').text("输入数量不能大于库存");
+		flag = false;
+	}
+	return flag;
+}
+function checkPrice(){
+	var flag=true;
+	var price = $("input[name='price']").val();
+	if(price == "" || price == null || price == " "){
+		$('#priceSpan').show();
+		$('#priceSpan').text("请输入价格");
+		flag = false;
+	}
+	return flag;
+}
+
+function checkContactMan(){
+	var flag=true;
+	var contactMan = $("input[name='contactMan']").val();
+	if(contactMan == "" || contactMan == null || contactMan == " "){
+		$('#contactManSpan').show();
+		$('#contactManSpan').text("请输入联系人");
+		flag = false;
+	}
+	return flag;
+}
+
+function checkContactPhone(){
+	var flag=true;
+	var regexp = /^(1[0-9][0-9])\d{8}$/;
+	var contactPhone = $("input[name='contactPhone']").val();
+	if(contactPhone == "" || contactPhone == null || contactPhone == " "){
+		$('#contactPhoneSpan').show();
+		$('#contactPhoneSpan').text("请输入联系电话");
+		flag = false;
+	}
+	return flag;
+}
+
+function yijia(id,storeId){
+	var userId=$("#userId").val();
+	if(userId == storeId){
+		layer.alert("不能对自己的发布的信息进行操作");
+		return;
+	}
+	if(null!=userId&&""!=userId&&" "!=userId){
+		$("#yijiaHtml").load($("#ctxpath").val() + "/store/bargain/bargainDetail",{id:id},function(){
+			//议价弹层
+			layer.open({
+				type: 1,
+				title: '销售议价',
+				skin: 'layer-class',
+				area: '600px', //宽高
+				content: $("#yijiaHtml"),
+				btn:['确认','取消'],
+				yes:function(index){
+					//点击确定执行的语句
+					if(checkQuantity() && checkPrice() && checkContactMan() && checkContactPhone()){
+						$("#bargainForm").ajaxSubmit(function(data){
+				    		if(data == true || data=="true"){
+				    			layer.close(index);
+				    			layer.alert("议价成功")
+				    		}else if(data== false || data=="false"){
+				    			layer.close(index);
+				    			layer.alert("议价失败!");
+				    		}else if(data=="error"){
+				    			layer.close(index);
+				    			layer.alert("不能对自己的商品议价");
+				    		}
+				    	});
+					}else{
+				    	checkQuantity();
+				    	checkPrice(); 
+			    		checkContactMan();
+			    		checkContactPhone();
+		    		}
+				},
+				cancel:function(){
+					//点击取消执行的语句
+				}
+			});
+		});
+	}else{ //未登录跳转登录页面
+		location.href=$("#ctxpath").val()+"/web/login";
+	}
+}
+
+$(document).ready(function() {
+
+	/*一级菜单展开*/
+	$(".navBtn").live("click",function(){
+		$(this).parent("li").siblings("li").find("a").removeClass("cur");
+		$(this).parent("li").siblings("li").find(".navList").hide();
+		$(this).addClass("cur");
+		$(this).siblings(".navList").show();
+		});	
+		
+	$(".navList a").live("click",function(){
+		$(this).siblings("a").removeClass("cur");
+		$(this).addClass("cur");
+		var categoryName = $(".catg.cur").html();
+		var address = $(".address.cur").prop("id");
+		var name = $("input[name='search']").val();
+		$(".hyList").load($("#ctxpath").val() + "/web/channel/xsgp/1",{categoryName:categoryName,address:address,name:name,mainCatgId:$("#mainCatgId").val()});
+		});
+		
+	$(".listLink a").live("click",function(){
+		$(this).siblings("a").removeClass("cur");
+		$(this).addClass("cur");
+		var categoryName = $(".catg.cur").html();
+		var address = $(".address.cur").prop("id");
+		var name = $("input[name='search']").val();
+		$(".hyList").load($("#ctxpath").val() + "/web/channel/xsgp/1",{categoryName:categoryName,address:address,name:name,mainCatgId:$("#mainCatgId").val()});
+		});
+	
+	//跳转页码
+	$(".surepage").live("click",function(){
+		var pageNum = $("input[name='gopage']").val();
+		var name = $("input[name='name']").val();
+		var categoryName = $(".catg.cur").html();
+		var address = $(".address.cur").prop("id");
+		$(".hyList").load($("#ctxpath").val() + "/web/channel/xsgp/"+pageNum,{categoryName:categoryName,address:address,name:name,mainCatgId:$("#mainCatgId").val()});
+	});
+	
+	$(".listLink").each(function(){
+		var sumWidth =0;
+		$(this).find("a").each(function(){
+			var a=$(this).width();
+			sumWidth += a;
+		});
+		if (sumWidth>1007){$(this).next(".listMore").css("visibility"," visible")}
+		else{$(this).next(".listMore").css("visibility","hidden")}
+		
+	    $(".listMore a").toggle(function(){
+			$(this).parent().siblings(".listLink").css("height","auto");
+			$(this).addClass("down");
+		},function(){
+			$(this).parent().siblings(".listLink").css("height","30px");
+			$(this).removeClass("down");
+		})
+	})
+	<!-- 加载头部-->
+	$("#channelTop").load($("#ctxpath").val() + "/web/channel/commons/channel-top.jetx",{"channelId":$("#channelId").val(),"channelType":$("#channelType").val(),"returnUrl":window.location.href});
+	
+	<!-- 加载底部-->
+	$("#channelFoot").load($("#ctxpath").val() + "/web/channel/commons/channel-footer.jetx");
+	
+	<!-- 加载列表-->
+	$(".hyList").load($("#ctxpath").val() + "/web/channel/xsgp/1",{mainCatgId:$("#mainCatgId").val()});
+	
+	<!--加载搜索品类-->
+	$(".categories").load($("#ctxpath").val() + "/web/channel/xsgp/categoryNameList",function(){
+		$(".listLink").each(function(){
+		var sumWidth =0;
+		$(this).find("a").each(function(){
+			var a=$(this).width();
+			sumWidth += a;
+		});
+		if (sumWidth>1021){$(this).next(".listMore").css("visibility"," visible")}
+		else{$(this).next(".listMore").css("visibility","hidden")}
+		
+	    $(".listMore a").toggle(function(){
+			$(this).parent().siblings(".listLink").css("height","auto");
+			$(this).addClass("down");
+		},function(){
+			$(this).parent().siblings(".listLink").css("height","30px");
+			$(this).removeClass("down");
+		})
+	})
+	
+});
+	
+	
+	<!-- 搜索 -->
+	$(".btnSearch").live("click",function(){
+		var categoryName = $(".catg.cur").html();
+		var address = $(".address.cur").prop("id");
+		var name = $("input[name='search']").val();
+		var mainCatgId=$("#mainCatgId").val();
+		$(".hyList").load($("#ctxpath").val() + "/web/channel/xsgp/1",{categoryName:categoryName,address:address,name:name,mainCatgId:mainCatgId});
+		
+      });
+});
+	function goPage(num){
+		var name = $("input[name='name']").val();
+		var categoryName = $(".catg.cur").html();
+		var address = $(".address.cur").prop("id");
+		var mainCatgId=$("#mainCatgId").val();
+		$(".hyList").load($("#ctxpath").val() + "/web/channel/xsgp/"+num,{categoryName:categoryName,address:address,name:name,mainCatgId:mainCatgId});
+	}
+</script>
+<div style="display:none;">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255237573'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1255237573' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>

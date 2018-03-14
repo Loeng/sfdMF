@@ -1,0 +1,128 @@
+#define(com.ekfans.base.channel.model.Channel channel)
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}-${channel.name}</title>
+<meta name="keywords" content="${channel.keyWords}" />
+<meta name="description" content="${channel.description}" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/base.css" rel="stylesheet" type="text/css">
+#if(configStatus == "true")
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/control.js"></script>	
+	<link href="${webroot}/resources/commons/css/control.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script
+	<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+#end
+
+<style>
+.bread{height:38px; line-height:38px; background:#FCF4E5; font-size:14px; color:#A78749;}
+.curPages{color:#000;}
+.advUp{width:1200px; height:533px; overflow:hidden; margin-bottom:30px;}
+.advLeftBo{width:386px; height:390px; overflow:hidden;}
+.news{padding-top:24px;float:left;}
+.policy{float:right;width:792px;}
+.infoContent{height:361px; padding:29px 24px 0 30px; background:#fff;}
+.first img{width:164px; height:164px; float:left; margin-right:11px;}
+.first dt{line-height:19px; height:38px; overflow:hidden; font-size:18px; padding:0 4px 10px 4px; border-bottom:solid 1px #F2F1F1;}
+.first dt a{ display:block; width:555px;height:43px;line-height:21px;overflow:hidden;}
+.first dd{color:#9f9fa0;}
+.first dd a{display:block; line-height:23px; margin:14px 0 16px; font-size:14px; width:550px; height:69px; overflow:hidden;}
+.first dd span{line-height:20px; font-size:14px;}
+.newsList{padding-top:25px;}
+.newsList li{line-height:40px; height:40px; overflow:hidden; font-size:16px; color:#7D7C7D;}
+.newsList li em{width:6px; height:6px; background:#7d7d7d; border-radius:3px; display:block; margin:17px 8px 0 0; float:left;}
+.newsList li a{display:block; float:left;text-overflow: ellipsis;overflow: hidden;height: 40px;width:550px; white-space:nowrap;}
+.newsList li span{float:right; white-space:nowrap; color:#b5b5b5; font-size:14px;}
+.bootom{margin-top:20px;}
+.zhuanqu{height:78px; width:1200px; float:left;}
+.zhuanqu dt{width:160px; height:78px; background:#116BE7; font-size:24px; color:#fff; line-height:78px; text-align:center; float:left;}
+.zhuanqu dd{width:1020px; height:78px; padding:0 10px; background:#3F8FFF; float:left;}
+.zhuanqu dd a{display:block; font-size:18px; line-height:78px; color:#fff; float:left; padding:0 20px;}
+.zhuanqu dd a:hover{background:#116BE7;}
+.btnHuishou{display:block; width:280px; height:78px; line-height:78px; background-color:#73B541; color:#fff; font-size:30px; text-indent:45px; float:right; background-image:url(${webroot}/resources/web/images/more_icon.png); background-repeat:no-repeat; background-position:195px center;}
+.btnHuishou:hover{background-color:#5B9234; color:#fff;}
+</style>
+</head>
+<body>
+
+
+<input type="hidden" name="ctxpath" id="ctxpath" value="${ctxpath}" />
+<input type="hidden" name="channelId" id="channelId" value="${channelId}" />
+<input type="hidden" name="channelType" id="channelType" value="${channel.type}" />
+#if(configStatus == "true")
+	<!-- 频道配置导航条 -->
+	#include("commons/config/config-top.jetx")
+	<!-- 频道配置导航条 end -->
+#end
+<div id="channelTop"></div>
+<div class="bread">
+	<div class="wrapper"><a href="${webroot}">首页</a>&nbsp;&gt;&nbsp;<em class="curPages">${channel.name}</em></div>
+</div>
+<div class="wrapper">
+	<div class="advUp">
+        	#include("../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"1"})
+	</div>
+    <div class="news">
+      	#include("../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"2"})
+    </div>
+    <div class="policy">
+       #include("wxpcz/content_wfpOne.jetx",{"channelId":channelId,"configType":"c","position":"1"})
+    </div>
+    <div class="clear"></div>
+  <div class="bootom">
+   	<div id ="zq"></div>
+ </div>
+</div>
+<!--底部-->
+<div id="channelFoot"></div>
+
+
+<script src="${webroot}/resources/web/js/base.js"></script>
+<script>
+
+$("#channelTop").load($("#ctxpath").val() + "/web/channel/commons/channel-top.jetx",{"channelId":$("#channelId").val(),"channelType":$("#channelType").val(),"returnUrl":window.location.href});
+$("#channelFoot").load($("#ctxpath").val() + "/web/channel/commons/channel-footer.jetx");
+$("#zq").load($("#ctxpath").val() + "/web/store/getStoreByGroup",function(){
+	var a=$("#demo1").width();
+	console.log(a);
+	if (a>1000){
+var speed=10;
+var tab=document.getElementById("gundong");
+var tab1=document.getElementById("demo1");
+var tab2=document.getElementById("demo2");
+tab2.innerHTML=tab1.innerHTML;
+function Marquee(){
+if(tab2.offsetWidth-tab.scrollLeft<=0)
+tab.scrollLeft-=tab1.offsetWidth
+else{
+tab.scrollLeft++;
+}
+}
+var MyMar=setInterval(Marquee,speed);
+tab.onmouseover=function() {clearInterval(MyMar)};
+tab.onmouseout=function() {MyMar=setInterval(Marquee,speed)};
+
+	}else{}
+}
+
+);
+
+function storeSkip(id){
+ window.location.href=$("#ctxpath").val()+"/web/storedetail/"+id;
+}
+</script>
+<div style="display:none;">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255237573'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1255237573' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>

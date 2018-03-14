@@ -1,0 +1,443 @@
+#define(com.ekfans.base.channel.model.Channel channel)
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>三分地环保-更多供应信息</title>
+<meta name="keywords" content="${channel.keyWords}" />
+<meta name="description" content="${channel.description}" />
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/web/js/base.js"></script>
+<script src="${webroot}/resources/commons/js/layer/layer.js"></script>
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/base.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/gongqiu.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/commons/css/zizhi1.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+<script src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+#if(configStatus == "true")
+<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/control.css" />
+<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/upload.css" />
+<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+<script src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/control.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+#end
+<style>
+.errorText{display:block;color:red;}
+.alterContent{display:none;padding:10px 15px;}
+.qalterContent{display:none;padding:10px 15px;}
+.h6Detail { color: #313030;ine-height: 20px;overflow: hidden;  padding: 10px;}
+.proDetailLi { float: left; border-right: 1px solid #D3D2D2; padding: 10px;margin-top:10px;}
+.proDetailLi li { color: #777777; font-size: 14px; height: 28px; line-height: 28px; }
+.contact { float: left; padding: 10px 10px 10px 50px;margin-top:10px;}
+.contact li { color: #777777; font-size: 14px; height: 28px; line-height: 28px; }
+
+/*优化发布页面样式*/
+
+.baojiaLayer .dbformfloat{float:left;width:350px;margin: 0 10px 20px 10px;}
+.baojiaLayer .formLine{float:none;clear:both;width:680px;margin: 0 10px 20px 10px;}
+.dbformfloat dd{float:left;}
+.formLine dd{float:left;}
+.baojiaLayer .formItem dt{width:100px;}
+.layui-layer-btn .layui-layer-btn0{background: #393;}
+.btnXuanze{background:#393;margin-left:10px;color:#fff;width:80px;height:28px;line-height:28px;text-align:center;}
+.baojiaLayer .textBox{border:solid 1px #DFE2EA;height:28px;line-height:28px;text-indent:0.8em; margin-right:12px;}
+.box212{width:212px;}
+.zizhiList li{width:182px;height:26px;line-height:26px;}
+.areaIdArea{width:80px;border:solid 1px #DFE2EA;height:26px;line-height:26px;}
+.inputselect{width:212px;border:solid 1px #DFE2EA;height:26px;line-height:26px;}
+#content{border:solid 1px #DFE2EA;}
+.checkItem{position: relative;}
+.alertLayerBg{opacity: 0.3;}
+.closeLi{height:26px;line-height:26px;}
+</style>
+</head>
+<body>
+	<input type="hidden" name="ctxpath" id="ctxpath" value="${webroot}" />
+	<input type="hidden" name="channelId" id="channelId" value="${channelId}" />
+	<!-- 配置页导航条 -->
+	#if(configStatus == "true") #include("commons/config/config-top.jetx") #end
+		
+	<div id="channelTop"></div>
+	<div class="wrapper main">
+		<div class="filtrate">
+			<dl class="filtrateItem">
+            <dt>品类</dt>
+               #include("index/topCatg2.jetx",{"channelId":channelId,"configType":"pc","position":"1"})
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="filtrateItem">
+            <dt>交货地</dt>
+            <dd class="filtrateLink">
+                <a href="#" class="cur">全部</a>
+                #for(com.ekfans.base.system.model.SystemArea s:@(com.ekfans.plugin.cache.base.Cache).getProvinces())
+            	<a href="javascript:void(0);" class="address" id="${s.areaName}">${s.areaName}</a>
+                #end
+            </dd>
+            <dd class="filtrateMore"><a href="javascript:void(0);"></a></dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="search">
+        	<dt>搜索</dt>
+            <dd>
+            	<input name="title1" type="text" placeholder="标题" value="${title}" class="textBox nameBox">
+                <input name="lowPrice" type="text" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" placeholder="最低价" value="${lowPrice}" class="textBox minBox">
+                <span class="inputSplit">&mdash;</span>
+                <input name="topPrice" type="text" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" placeholder="最高价" value="${topPrice}" class="textBox maxBox">
+                <a href="javascript:void(0);" class="btnGreen" onclick="goQuery();">搜索</a>
+                <div class="clear"></div>
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+		</div>
+		<h2 class="title2">
+			<em>求购信息</em><a href="javaScript:void(0);" class="btnFb updateLink" datatype="0">发布求购信息</a>
+		</h2>
+		
+		<!-- 供应信息展示 -->
+		<div id="load_gyxxTable"></div>
+
+	</div>
+	
+	<!--底部-->
+	<div id="channelFoot"></div>
+	<!--报价弹层-->
+	<div id="baojiaHtml" style="display:none;"></div>
+	</div>
+	
+	<!--发布信息弹层-->
+	<div id="updateHtml" style="display:none;">
+	    <div class="update">
+	        <div class="leftLayer">
+	            <a href="${webroot}/web/login" class="btnGreen">登录后发布</a>
+	            <div class="text">
+	                <em class="red">*</em>保留完整的发布信息数据<br>
+	                可编辑修改后再发布<br>
+	                历史记录永久查阅
+	            </div>
+	        </div>
+	        <div class="rightLayer">
+	            <a href="javascript:void(0);" class="btnGreen" onclick="release();">发布临时信息</a>
+	            <div class="text">
+	                <em class="red">*</em>未注册用户可直接发布临时信息<br>
+	                不可修改及查阅历史记录<br>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<!--发布信息弹层 end-->
+	<!--发布弹层-->
+	<div id="fbHtml" style="display:none;">
+	</div>
+	<!--发布弹层 end-->
+<script>
+
+
+/*选择弹窗*/
+	$(".btnXuanze").live("click",function(){
+		var ids = "";
+		$("input[name='intelId']").each(function(){
+			ids += "," + $(this).val();
+		});	
+		
+		$(".alterBox").load($("#ctxpath").val() + "/web/supplyBuy/loadZz",function(){
+			$(".alterContent").show();
+			$(".alterBox input[type='checkbox']").each(function(){
+				if(ids.indexOf($(this).val()) >= 0){
+					$(this).attr("checked", true);
+					$(this).parent().parent().addClass("checked");
+				}
+			});
+			$(".alertLayerBg").show();
+			$(".alertLayerBg").next(".alterBox").show();
+		});
+	});
+	/*关闭弹窗*/
+	$(".layerClose").live("click",function(){
+		$(this).parent(".alterBox").hide();
+		$(this).parent(".alterBox").prev(".alertLayerBg").hide();
+	});
+	
+	/*确定弹窗*/
+	$(".altSure").live("click",function(){
+		var idname = "";
+		$("input[type='checkbox']").each(function(){
+			if($(this).is(":checked")){
+				var names = $(this).parent().parent().next().html();
+				idname += '<li title="' + names + '">'+ names + '<a href="javascript:void(0);" class="closeLi"></a>';
+				idname += '<input type="hidden" name="intelId" value="' + $(this).val() + '" /></li>';
+			}
+		});
+		$(".zizhiList").empty();
+		$(".zizhiList").html(idname);
+		
+		$(this).parents(".alterBox").hide();
+		$(this).parents(".alterBox").prev(".alertLayerBg").hide();
+	});
+	
+	/*取消弹窗*/
+	$(".altCancel").live("click",function(){
+		$(this).parents(".alterBox").hide();
+		$(this).parents(".alterBox").prev(".alertLayerBg").hide();
+	});
+	
+	/*删除当前资质*/
+	$(".closeLi").live("click",function(){
+		if($(".zizhiList li").length<2){
+			$(this).parent("li").attr("title", "选择你要认证的资质名称");
+			$(this).parent("li").html('选择你要认证的资质名称');
+		}else{
+			$(this).parent("li").remove();
+		}
+	});
+	//发布信息弹层
+	$(".updateLink").live("click",function(){
+		var userId = $("#userId").val();
+		if(userId!=null && userId!=" "){
+			choseMenu($("#ctxpath").val(),'BUY_PURCHASE_ADD');
+		}else{
+			layer.open({
+				type: 1,
+				title: '发布求购信息',
+				skin: 'layer-class',
+				area: '600px', //宽高
+				content: $("#updateHtml")
+			});
+		}
+});
+
+// 发布弹出层
+function release(){
+	$("#fbHtml").load($("#ctxpath").val() + "/web/supplyBuy/loadQg/1/1",function(){
+		// 发布弹出层
+		layer.open({
+			type: 1,
+			title: '发布信息',
+			skin: 'layer-class',
+			area: ['800px', '600px'], //宽高
+			content: $("#fbHtml"),
+			btn:['确认','取消'],
+			yes:function(index){
+				var areaInfo="";
+				$(".areaIdArea").each(function(){
+					areaInfo+=$(this).find("option:selected").text()+",";
+				});
+				$("#destination").val(areaInfo);
+				//点击确定执行的语句
+				if(checkTitleBlur()&&checkContentNameBlur()&&checkContentPhoneBlur()&&categoryBlur()&&checkNumberBlur()&&futurePricesBlur()&&unitBlur()&&qualityLevelBlur()&&checkAreaBlur()){
+					$("#addForm").ajaxSubmit(function(data){
+			    		if(data){
+			    			layer.close(index);
+			    			layer.alert("发布成功")
+			    			$("#updateHtml").hide();
+							$("#layui-layer1,#layui-layer-shade1").hide();
+			    		}else{
+			    			layer.alert("发布失败!");
+			    			$("#updateHtml").hide();
+							$("#layui-layer1,#layui-layer-shade1").hide();
+			    		}
+			    	});
+				}else{
+					checkTitleBlur();
+					checkContentNameBlur();
+					checkContentPhoneBlur();
+					categoryBlur();
+					checkNumberBlur();
+					futurePricesBlur();
+					unitBlur();
+					qualityLevelBlur();
+					checkAreaBlur();
+				}
+			},
+			cancel:function(){
+				//点击取消执行的语句
+				$("#updateHtml").hide();
+				$("#layui-layer1,#layui-layer-shade1").hide();
+				window.location.reload();
+			}
+		});
+	});
+}
+
+
+
+
+//加载报价信息
+function loadBaojia(id,storeId){
+	var ctxpath = $("#ctxpath").val();
+	var userId=$("#userId").val();
+		if(userId == storeId && storeId != ""){
+			layer.alert("不能对自己发布的信息操作");
+			return;
+		}
+	//弹层
+	$("#baojiaHtml").load(ctxpath+"/web/supply/loadBaojia",{id:id},function(){
+		layer.open({
+			type: 1,
+			title: '求购信息',//商品标题
+			skin: 'layer-class',
+			area: '730px', //宽高
+			content: $("#baojiaHtml"),
+			btn:['确认','取消'],
+			yes:function(index){
+			if(checkPrice()&&checkStoreName()&&checkContactMan()&&checkContactPhone()){
+					$("#baojiaForm").ajaxSubmit(function(data){
+			    		if(data == "1"){
+			    			layer.close(index);
+			    			layer.alert("报价成功")
+			    		}else{
+			    			layer.alert("报价失败!");
+			    		}
+			    	});
+				}
+			},
+			cancel:function(){
+				//点击取消执行的语句
+			}
+		});
+	});
+
+} 
+
+
+$(document).ready(function() {
+	//展开筛选项
+	$(".filtrateMore").click(function(){
+		$(this).parents(".filtrateItem").toggleClass("filtrateAll");
+	});
+	
+	//弹层
+	$(".gongxuIn a").click(function(){
+		layer.open({
+			type: 1,
+			title: '金精粉',//商品标题
+			skin: 'yijia-class',
+			area: '730px', //宽高
+			content: $("#yijiaHtml"),
+			btn:['确认','取消'],
+			yes:function(index){
+				//点击确定执行的语句
+				layer.close(index);
+			},
+			cancel:function(){
+				//点击取消执行的语句
+			}
+		});
+	});
+	
+	
+	//选项卡切换
+	$(".tabNav a").click(function(){
+		$(this).siblings().removeClass("cur");
+		$(this).addClass("cur");
+		var dom=$(this).parent().siblings(".tabContent");
+		var index=$(this).parent().children().index(this);
+		dom.hide();
+		dom.eq(index).show();
+		goQuery();
+	});
+	
+	$(".filtrateLink a").click(function(){
+		$(this).siblings().removeClass("cur");
+		$(this).addClass("cur");
+		var dom=$(this).parent().siblings(".tabContent");
+		var index=$(this).parent().children().index(this);
+		dom.hide();
+		dom.eq(index).show();
+		goQuery();
+	});
+	
+	// 加载头部
+	$("#channelTop").load($("#ctxpath").val() + "/web/channel/commons/channel-top.jetx",{"channelId":$("#channelId").val(),"channelType":$("#channelType").val(),"returnUrl":window.location.href});
+	// 加载底部
+	$("#channelFoot").load($("#ctxpath").val() + "/web/channel/commons/channel-footer.jetx");
+
+	// 默认加载列表
+	goQuery();
+	
+});
+	
+	$(".opendetail").live("click",function(){
+	layer.open({
+		type: 1,
+		title: $(this).attr("dataname"),
+		skin: 'yijia-class',
+		area: ['600px', '300px'],
+		content: $(this).parents("ul").next(".alterContent").html()
+	});
+})
+		
+	
+	
+	
+function checkPrice(){
+	var flag=true;
+	var quantity = $("input[name='FinalPrice']").val();
+	if(quantity == "" || quantity == null || quantity == " "){
+		$('#FinalPriceSpan').show();
+		$('#FinalPriceSpan').text("请输入报价");
+		flag = false;
+	}
+	return flag;
+}
+	
+function checkQuantity(){
+	var flag=true;
+	var quantity = $("input[name='number']").val();
+	if(quantity == "" || quantity == null || quantity == " "){
+		$('#quantitySpan').show();
+		$('#quantitySpan').text("请输入数量");
+		flag = false;
+	}
+	return flag;
+}
+function checkStoreName(){
+	var flag=true;
+	var storeName = $("input[name='storeName']").val();
+	if(storeName == "" || storeName == null || storeName == " "){
+		$('#storeNameSpan').show();
+		$('#storeNameSpan').text("请输入组织机构名");
+		flag = false;
+	}
+	return flag;
+}
+
+function checkContactMan(){
+	var flag=true;
+	var contactMan = $("input[name='linkPerson']").val();
+	if(contactMan == "" || contactMan == null || contactMan == " "){
+		$('#contactManSpan').show();
+		$('#contactManSpan').text("请输入联系人");
+		flag = false;
+	}
+	return flag;
+}
+
+function checkContactPhone(){
+	var flag=true;
+	var contactPhone = $("input[name='linkTel']").val();
+	if(contactPhone == "" || contactPhone == null || contactPhone == " "){
+		$('#contactPhoneSpan').show();
+		$('#contactPhoneSpan').text("请输入联系电话");
+		flag = false;
+	}
+	return flag;
+}
+function checkFocus(obj) {
+	if($(obj).val()!=""){
+		$(obj).parent().next().html("");
+	}
+}
+	
+</script>
+<div style="display:none;">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255237573'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1255237573' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>

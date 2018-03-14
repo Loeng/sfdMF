@@ -1,0 +1,105 @@
+#define(com.ekfans.base.channel.model.Channel channel)
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}-${channel.name}</title>
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<meta name="Keywords" content="${channel.keyWords}">
+<meta name="description" content="${channel.description}">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/web/js/base.js"></script>
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/base.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/prodocut.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<input type="hidden" id="categoryId" value="${categoryId}" />
+<input type="hidden" id="categoryRootId" value="" />
+<input type="hidden" name="ctxpath" id="ctxpath" value="${ctxpath}" />
+<input type="hidden" name="channelId" id="channelId" value="${channelId}" />
+<input type="hidden" name="channelType" id="channelType" value="${channel.type}" />
+<div id="channelTop"></div>
+<div class="wrapper main">
+	<div id="loadProductHeader">
+	</div>
+	<div id="loadProduct">
+	</div>
+
+  
+	<div class="proTj">
+	</div>
+	<div class="clear"></div>
+</div>
+
+
+<!--底部-->
+<div id="channelFoot"></div>
+<!--底部 end-->
+
+<script>
+	window.onload=function(){
+		$("#categoryRootId").val(getQueryString("curProCatgId"));
+		
+		
+		$("#channelTop").load($("#ctxpath").val() + "/web/channel/commons/channel-top.jetx",{"channelId":$("#channelId").val(),"channelType":$("#channelType").val(),"returnUrl":window.location.href});
+		$("#channelFoot").load($("#ctxpath").val() + "/web/channel/commons/channel-footer.jetx");
+		// 搜索头部
+		var categoryRootId = getQueryString("curProCatgId");
+		var childId = getQueryString("childId");
+		$("#loadProductHeader").load($("#ctxpath").val() + "/web/wjbcProduct/listHeader",{categoryRootId:categoryRootId,childId:childId},
+		function() {
+			loadPList(childId);
+		});
+		// 右侧
+		$(".proTj").load($("#ctxpath").val() + "/web/wjbcProduct/shows",{categoryRootId:categoryRootId});
+	};
+
+	function loadPList(pcId){
+		$("#categoryId").val(pcId);
+		goQuery();
+	}
+	
+	function goPage(pageNum){
+		$("#pageNum").val(pageNum);
+		goQuery();
+	}
+	
+
+	// 执行查询
+	function goQuery(){
+		var pageNum = $("#pageNum").val();
+		var pcId = $("#categoryId").val();
+		var pname = $("#pname").val();
+		var minPrice = $("#minPrice").val();
+		var maxPrice = $("#maxPrice").val();
+		var categoryRootId = getQueryString("curProCatgId");
+		$("#loadProduct").load($("#ctxpath").val() + "/web/wjbcProduct/list",
+		{pageNum:pageNum,categoryId:pcId,pname:pname,minPrice:minPrice,maxPrice:maxPrice,categoryRootId:categoryRootId});
+	}
+
+
+	//分页跳转
+	$(".surepage").live("click",function(){
+		var pageNum = $("input[name='gopage']").val();
+		$("#pageNum").val(pageNum);
+		goQuery();
+	});
+
+	//获取url参数
+	function getQueryString(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null)
+			return unescape(r[2]);
+		return null;
+	}
+	
+	
+</script>
+<div style="display:none;">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255237573'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1255237573' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>

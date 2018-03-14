@@ -1,0 +1,104 @@
+#define(List<com.ekfans.base.system.model.ShopCart> scs)
+<input type="hidden" id="indexChannelId" value="${indexChannelId}" />
+
+#if(scs==null || scs.size()<=0)
+	<h2 class="cartTitle">我的购物车</h2>
+	<div class="empity">
+		<span class="red">购物车空空的！</span>
+		<span class="go">您可以去<a href="${webroot}/${indexChannelId}.html" id="indexHtml">商城</a>挑选喜欢的商品</span>
+	</div>
+#else
+       <div class="step"></div>
+	#for(com.ekfans.base.system.model.ShopCart s : scs)
+		<div class="shopTb">
+			<ul class="proHeader">
+				<!-- 
+				<li class="blue proNameImg"><em></em><a href="javascript:void(0)" class="blue">店铺：百货市场</a></li>
+				-->
+        <li class="blue proNameImg"><!--<em></em><a href="javascript:void(0)" class="blue">店铺：${s.name}</a>--></li>
+        <li class="proPrice">单价（元）</li>
+        <li class="proCount">数量</li>
+        <li class="priceTotal">小计（元）</li>
+      </ul>
+      #for(com.ekfans.base.system.model.ShopCart sc : s.childList)
+	   		<ul class="proItem" id="total${sc.id}">
+        	<li class="proNameImg">
+        		<input type="hidden" id="sId${sc.id}" value="${sc.id}" />
+            <input type="checkbox" class="temCartJudgmentId" value="${sc.id}" onclick="judgmentCheck()" />
+            <input type="hidden" id="p${sc.id}" value="${sc.quantity}" />
+            <a href="${webroot}/web/proDetail/${sc.productId}" class="proImg" title="${sc.productName}">
+            	#if(sc.picture == "" || sc.picture == " "|| sc.picture == null)
+            		<img src="${webroot}/resources/customer/images/imgdefault.jpg" width="98" height="98" />
+            	#else
+            		<img src="${webroot}${sc.picture}" width="98" height="98" alt="${sc.productName}">
+            	#end
+            </a>
+            <div class="proInfo">
+            	<a href="#tag shortLink("01",sc.productId) #end" class="proName" title="${sc.productName}">${sc.productName}</a>
+              <span class="sizeColor">
+            		#if(sc.childDetail != null && sc.childDetail.size()>0)
+     							#for(com.ekfans.base.product.model.ProductInfoDetail pIDetail : sc.childDetail)
+                		<em>${pIDetail.infoName1}：${pIDetail.infoValue1}</em>
+                	#end
+	            	#end
+            	</span>
+            </div>
+        	</li>
+        	<li class="proPrice">
+            <span class="originalPrice">￥${sc.listPrice}</span>
+            <span class="nowPrice" id="dan${sc.id}">￥${sc.unitPrice}</span>
+            <span class="spare" id="sheng${sc.id}">省￥${sc.price}</span>
+        	</li>
+        	<li class="proCount">
+        		<span class="proCountDom">
+            	<a href="javascript:void(0)" class="minus" onclick="jianPrice('${webroot}','${sc.id}','${sc.productId}','${sc.unitPrice}')" title="减">-</a>
+             	<input type="text" id="pq${sc.id}" value="${sc.productQuantity}" onblur="numberCheck('${webroot}','${sc.id}','${sc.productId}','${sc.unitPrice}')" onkeypress="return IsNum(event)" onkeyup="javascript:clearNoNum(this);" />
+              <a href="javascript:void(0)" class="plus" onclick="addproductQuantity('${webroot}','${sc.id}','${sc.productId}','${sc.unitPrice}')" title="加">+</a>
+              <span class="errorText" id="error${sc.id}" style="display:none;"><em></em>数量超出限制</span>
+            </span>
+        	</li>
+        	<li class="priceTotal" id="totalPrice${sc.id}">￥${sc.totalPrice}<br><span class="spare">省￥${sc.tempTotalPrefePrice}</span></li>
+        	<li class="proSet"><a href="javascript:void(0)" onclick="addProductCollect('${sc.productId}','${webroot}')" title="移入收藏夹">移入收藏夹</a><br><a href="javascript:void(0)" onclick="econfirm('确定要删除此记录吗?',deleteShopCartProduct,['${webroot}','${sc.id}'],null,null)" title="删除">删除</a></li>
+        	<li class="clear"></li>
+      	</ul>
+	   	#end
+		</div>
+	#end
+	<div class="shopBottom">
+		<div class="proDelete">
+			<label>
+				<input type="checkbox" id="allCheckInput" onclick="checkAllInputZ()" />
+				<span>全选</span>
+      </label>
+      <a href="javascript:void(0)" onclick="deleteShopCartAll('${webroot}')">删除</a>
+    </div>
+    <div class="goBuy">商品金额总计：<em id="tempTotalProduct">￥0.00</em><a href="javascript:void(0);" class="btnBlue" onclick="newTiJiao('${webroot}')">结算</a></div>
+    <div class="clear"></div>
+	</div>
+    </div>
+    #end
+    <div class="bottomProList">
+        <h3>推荐商品</h3>
+        #for(com.ekfans.base.product.model.Product p : products)
+        <dl class="bottomPro">
+            <dt>
+                <a href="#tag shortLink("01",p.id) #end"  target="_black">
+                    <img src="${webroot}${p.recommendPicture4}"  alt="${p.name}" title="${p.name}">
+                </a>
+            </dt>
+            <dd class="bottomProTitle">
+                <a href="#tag shortLink("01",p.id) #end" title="${webroot}${p.sortName}"  target="_black">
+                   ${p.name}
+                </a>
+            </dd>
+            <dd class="bottomProPrice">
+                <span class="originalPrice">${p.listPrice}元</span>
+                <span class="nowPrice"><em>${p.unitPrice}</em> 元</span>
+            </dd>
+        </dl>
+       #end
+        <div class="clear"></div>
+    </div>
+
+		</div>
+		

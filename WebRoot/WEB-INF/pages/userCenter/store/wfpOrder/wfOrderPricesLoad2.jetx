@@ -1,0 +1,227 @@
+#define(com.ekfans.base.wfOrder.model.WfOrder showWfOrder)
+#define(List<com.ekfans.base.wfOrder.model.WfOrderDetail> details)
+
+<form id="pricesLoadForm" action="${webroot}/store/order/wfOrderPricesSub" method="post">
+	<input type="hidden" name="wfOrderId" value="${showWfOrder.id}"/>
+	<input type="hidden" name="showType" id="showType"  value="${showType}"/>
+	#set(String ids = "")
+	#set(Double totalPrice = 0.00)
+	<div class="orderStyle2">
+		#set(String contentIds = "")
+		#for(com.ekfans.base.wfOrder.model.WfOrderDetail detail:details)
+			#set(String uId = "prise"+for.index)
+			#set(ids = ids + uId + ";")
+			#set(totalPrice = totalPrice + detail.totalPrice.doubleValue())
+	    <div class="orderItem">
+	    	<div class="orderItemHeader">
+					<dl class="formItem formItem5">
+						<dt>重量</dt>
+						<dd>
+							<input name="${uId}Weight" id="${uId}Weight" type="text" value="${detail.weight}" onblur="reloadThis(this)" class="textBox box80 weights">
+							<span class="hint">t</span>
+						</dd>
+						<dd class="clear"></dd>
+					</dl>
+					<dl class="formItem formItem5">
+						<dt>水分</dt>
+						<dd>
+						<input name="${uId}MoistureContent" id="${uId}MoistureContent" onblur="reloadThis(this)" type="text" value="${detail.moistureContent}" class="textBox box80">
+						<span class="hint">%</span>
+						</dd>
+						<dd class="clear"></dd>
+					</dl>
+					<dl class="formItem formItem5">
+						<dt>干重</dt>
+						<dd>
+							<input name="${uId}DryWeight" id="${uId}DryWeight" type="text" value="${detail.dryWeight}" readonly class="textBox box80" style="background:#eaeaea;">
+							<span class="hint">t</span>
+						</dd>
+						<dd class="clear"></dd>
+					</dl>
+					<dl class="formItem formItem5">
+						<dt>单价</dt>
+						<dd>
+							<input name="${uId}Price" id="${uId}DryWeight" type="text" value="${detail.price}" readonly class="textBox box80" style="background:#eaeaea;">
+							<span class="hint">元</span>
+						</dd>
+						<dd class="clear"></dd>
+					</dl>
+					<dl class="formItem formItem5">
+						<dt>总价</dt>
+						<dd>
+							<input name="${uId}TotalPrice" id="${uId}TotalPrice" type="text" value="${detail.totalPrice}" readonly class="textBox box80" style="background:#eaeaea;">
+							<span class="hint">元</span>
+						</dd>
+						<dd class="clear"></dd>
+					</dl>
+					<div class="clear"></div>
+					<div class="formItem formItem5">
+						<div class="fileUpload">
+							#tag fileUpload( uId+"TestReport","pdf",detail.testReport) #end
+						</div>
+					</div>
+					<div class="orderItemBtn">
+						#if(for.last)
+             	<a href="javascript:void(0)" class="btnBase btnAdd">添加一列</a>
+            #end
+            #if(!for.first)
+            	<a href="javascript:void(0)" id="${uId}" class="btnBase btnOrange">删除</a>
+            #end
+					</div>
+					<div class="clear"></div>
+				</div>
+	  	</div>
+		#end
+	</div>
+	<input type="hidden" name="contentIds" id="contentIds" value="${contentIds}" />
+	<input type="hidden" name="priceIds" id="priceIds" value="${ids}"/>
+	<input type="hidden" name="lastId" id="lastId" value="${details.size()}" />
+</form>
+
+
+
+<div id="cloneDiv" style="display:none">
+#for(com.ekfans.base.wfOrder.model.WfOrderDetail detail:details)
+	#set(String uId = "cloneDiv")
+  <div class="orderItem">
+  	<div class="orderItemHeader">
+			<dl class="formItem formItem5">
+				<dt>重量</dt>
+				<dd>
+					<input name="${uId}Weight" id="${uId}Weight" type="text" value="0.00" onblur="reloadThis(this)" class="textBox box80 weights">
+					<span class="hint">t</span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem formItem5">
+				<dt>水分</dt>
+				<dd>
+				<input name="${uId}MoistureContent" id="${uId}MoistureContent" onblur="reloadThis(this)" type="text" value="0.00" class="textBox box80">
+				<span class="hint">%</span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem formItem5">
+				<dt>干重</dt>
+				<dd>
+					<input name="${uId}DryWeight" id="${uId}DryWeight" type="text" value="0.00" readonly class="textBox box80" style="background:#eaeaea;">
+					<span class="hint">t</span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem formItem5">
+				<dt>单价</dt>
+				<dd>
+					<input name="${uId}Price" id="${uId}DryWeight" type="text" value="${detail.price}" readonly class="textBox box80" style="background:#eaeaea;">
+					<span class="hint">元</span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem formItem5">
+				<dt>总价</dt>
+				<dd>
+					<input name="${uId}TotalPrice" id="${uId}TotalPrice" type="text" value="0.00" readonly class="textBox box80" style="background:#eaeaea;">
+					<span class="hint">元</span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<div class="clear"></div>
+		</div>
+    <div class="clear"></div>
+		<div class="formItem formItem5">
+			<div class="fileUpload">
+				#tag fileUpload( uId+"TestReport","pdf","") #end
+			</div>
+		</div>
+		<div class="orderItemBtn">
+			<a href="javascript:void(0)" class="btnBase btnAdd">添加一列</a>
+			<a href="javascript:void(0)" id="${uId}" class="btnBase btnOrange">删除</a>
+		</div>
+		<div class="clear"></div>
+	</div>
+	#break(for.first)
+#end	
+</div>
+
+
+
+<div class="orderTotal">订单总额：<em class="orange">${@(java.lang.String).format("%.2f",totalPrice)}</em><span style="color:#333;">元</span></div>
+
+
+<script>
+	function reloadThis(obj){
+		var objVal = $(obj).val();
+		if(!checkNumStr(objVal)){
+			falert("请输入正确的数字!");
+			$(obj).val(0.00);
+			return;
+		}
+		
+		var totalWeight = 0.00;
+		$(".weights").each(function(){
+			totalWeight += parseFloat($(this).val());	
+			
+		});
+		
+		if(parseFloat(totalWeight) > parseFloat("${showWfOrder.wfpTotal}")){
+			falert("您输入的重量总和超过实际拉货总重量!");
+			return;
+		}
+		
+		
+		$("#pricesLoadForm").attr("action","${webroot}/store/order/wfOrderPricesReLoad");
+		
+		$('#pricesLoadForm').ajaxSubmit({
+			success:function(data){
+			$("#loadContents").html(data);
+		}});
+		//$("#loadContents").load("${webroot}/store/order/wfOrderPricesReLoad",$("#pricesLoadForm").serialize());
+	}
+	
+            
+//添加详细信息
+$(".orderItemBtn .btnAdd").live("click",function(){
+	var obj=$("#cloneDiv").html();
+	var lastId = parseFloat($("#lastId").val())+1;
+	var objId = "price" + lastId;
+	obj = obj.replaceAll("cloneDiv",objId);
+	
+	$(this).parents(".orderItem").after(obj);
+	$(this).remove();
+	
+	var priceIds = $("#priceIds").val();
+	$("#priceIds").val(priceIds + objId + ";");
+	$("#lastId").val(lastId);
+})
+//删除详细信息
+$(".orderItemBtn .btnOrange").live("click",function(){
+	var obj=$(this).parents(".orderItem").siblings();
+	//alert($(this).parents(".orderItem").siblings().length);
+	var uId = $(this).attr("id");
+	
+	if($(this).parents(".orderItem").siblings().length==1){
+		obj.find(".orderItemBtn").html('<a href="javascript:void(0)" class="btnBase btnAdd">添加一列</a>');
+	}else{
+		if(obj.last().find(".orderItemBtn").children().length==1){
+			var btStr = "<a href=\"javascript:void(0)\" class=\"btnBase btnAdd\">添加一列</a>" + obj.last().find(".orderItemBtn").html();		
+			obj.last().find(".orderItemBtn").html(btStr);
+		}
+	}
+	$(this).parents(".orderItem").remove();
+	
+	var priceIds = $("#priceIds").val();
+	priceIds = priceIds.replaceAll(uId+";","");
+	$("#priceIds").val(priceIds);
+	
+})
+
+
+//收起展开详情
+$(".shouzhan").live("click",function(){
+	var obj=$(this).parents(".orderItemHeader").next(".tabList");
+	obj.toggle();
+	$(this).toggleClass("shouzhanDown");
+	$(".shouzhan").text("收起详情");
+	$(".shouzhanDown").text("展开详情");
+})
+</script>

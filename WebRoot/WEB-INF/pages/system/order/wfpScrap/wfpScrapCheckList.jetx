@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>危废品报备列表</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/add.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/list.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/demand.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/list.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/order/wfpScrap/wfpScrapCheckList.js"></script>
+</head>
+
+<body>
+<input type="hidden" id="ctxpath" value="${webroot}" />
+<input type="hidden" id="type" value="${type}" />		
+<form action="${webroot}/system/wfpSb/list" method="post" id="searchProductForm">
+	<input type="hidden" name="pageNum" value="" />
+	
+	<dl class="pro_ss">
+		<dt><b>查询</b><span class="span_down"></span><span class="span_up"></span></dt>
+		<dd class="pro_ss_item">
+			<span>报废名称</span><input type="text" class="i_bg" name="scarpName" value="${scrapName}" />
+		</dd>
+		<dd class="pro_ss_item">
+			<span>报废企业</span><input type="text" class="i_bg" name="storeName" value="${storeName}" />
+		</dd>
+		<dd class="clear"></dd>
+		<dd class="pro_ss_item">
+			<span>起止时间</span>
+      <input id="startTime" name="startTime" type="text" class="i_bg" value="${startTime}" style="width:130px;" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>
+			— 
+      <input id="endTime" name="endTime" type="text" class="i_bg" value="${endTime}" style="width:130px;" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>
+		</dd>
+	</dl>
+</form>
+<div class="pro_ss_btn">
+	<a href="javaScript:searchSubmit();" class="btn">搜索</a>
+	<a href="javaScript:resetForm();" class="btn">重置</a>
+</div>
+
+#define(List<com.ekfans.base.order.model.WfpScrap> wfpScrap)
+			
+#if(wfpScrap==null||wfpScrap.size()<=0)
+	<!-- 没有数据的时候 -->
+	<div class="ht_list_k">暂时没有符合条件的数据</div>	
+#else
+	<div class="ht_list">
+		<table id="productTab" cellpadding="0" cellspacing="0" border="0" >
+			<tr>
+				<th width="4%">全选</th>
+				<th width="4%">序号</th>
+				<th width="10%">报废名称</th>
+				<th width="12%">报废企业</th>
+				<th width="12%">报废数量</th>
+				<th width="8%">报废状态</th>
+
+				<th width="10%">报废时间</th>
+				<th width="6%">操作</th>
+			</tr>
+				#for(com.ekfans.base.order.model.WfpScrap scrp : wfpScrap)
+				<tr>
+					<td class="qx"><input type="checkbox" value="${scrp.id }"/></td>
+					<td>${for.index}</td>
+					<td>${scrp.scarpName }</td>
+					<td>${scrp.storeName }</td>
+					<td>${scrp.scarpNumber}</td>
+					<td>#if(scrp.status=="0") 上传审批资料  #elseif(scrp.status=="1") 未审核 #elseif(scrp.status=="2") 已通过#else未通过 #end </td>
+					<td>${scrp.createTime }</td>								
+					<td class="cz">		
+						<a href="javascript:void(0);" class="auditIco" onclick="productCheck('${scrp.id}','${webroot}');" title="审核"></a>
+					</td>
+				</tr>
+			#end
+		</table>
+		<div class="ht_pageBox">
+			${include( "../../common/page.jetx")}
+		</div>
+	</div>
+#end
+
+</body>
+</html>

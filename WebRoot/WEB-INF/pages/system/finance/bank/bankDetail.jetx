@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+		<link href="${ctxpath}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+				<link href="${ctxpath}/resources/system/css/list.css" rel="stylesheet" type="text/css" />
+		<!-- 上传文件的CSS -->
+		<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<!-- 上传文件css,js -->
+		<script type="text/javascript" src="${webroot}/resources/plugin/fileupload/js/vendor/jquery.ui.widget.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/plugin/fileupload/js/jquery.fileupload.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/plugin/ckeditor/ckeditor.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/base.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/finance/bank/bankDetail.js"></script>
+		<!-- 上传文件控件  -->
+		<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+		<style type="text/css">
+		.add_pro .formBox{float: left; width: 470px; clear: none;}
+		.add_pro .formBox dt{width:80px;}
+		.formBox dd{width: 380px;}
+		.formBox .i_bg{width:200px;}
+		h3{line-height: 30px; margin-top: 20px;}
+
+		</style>
+</head>
+	
+<body>
+
+#define(com.ekfans.base.user.model.Bank bank)
+#define(com.ekfans.base.finance.model.BankAccount bankAccount)
+#define(List<com.ekfans.base.finance.model.BankPurview> purviewList)
+<input type="hidden" id="ctxpath" value="${webroot}" />
+
+<form action="${webroot}/system/bank/modify" name="modify" method="post"  id="modifyBankForm">
+	<input type="hidden" name="id" value="${bank.id}" />
+	<input type="hidden" name="perch" value="${bank.perch}" />
+	<input type="hidden" name="bankAccountId" id="bankAccountId" value="${bankAccount!=null?bankAccount.id:""}" />
+	<input type="hidden" name="bankAccountCreateTime" value="${bankAccount!=null?bankAccount.createTime:""}" />
+	<input type="hidden" name="oldPassword" value="${bankAccount!=null?bankAccount.password:""}" />
+	<div class="ht_btn">
+		#if("1".equals(type))
+		<a href="javaScript:void(0)" class="btn" onclick="formSubmit()">保存</a>
+		<a href="javaScript:void(0)" class="btn"  onclick="reset()">重置</a>
+		#end
+		<a href="javaScript:void(0)" class="btn"  onclick="goBack('${webroot}')">返回列表</a>
+	</div>
+	<div class="add_pro">
+		<h3>银行基础设置</h3>
+		<dl class="formBox">
+			<dt><em class="mustIco"></em>银行名称</dt>
+			<dd id="NameDd" class="">
+				<input type="text" id="class_name" name="bankName" class="i_bg"  onblur="checkNameBlur();" value="${bank.bankName}"/>
+				<span id="classNameSpan" class="ts_xx">1-32位字符组成</span>
+			</dd>
+		</dl>
+		<div class="clear"></div> 
+		<dl class="formBox">
+			<dt><em class="mustIco"></em>银行logo</dt>
+			<dd>
+				#tag picUpload("logo","1","100","100",bank.logo) #end
+			</dd>
+		</dl>
+		<div class="clear"></div> 
+		<dl class="formBox">
+			<dt>所在省市区</dt>
+			<dd class="formSite" id ="addressDd">
+				#tag systemAreaSel("areaId",bank.areaId) #end
+			</dd>
+		</dl>
+
+		<dl class="formBox">
+			<dt><em class="mustIco"></em>支行地址</dt>
+			<dd id="addrDd" class="">
+				<input type="text" id="fulladdress" maxlength="128" class="i_bg"  name="address" onblur="checkAddressBlur();" value="${bank.address}"/>
+				<span id="addressSpan" class="ts_xx">请输入支行地址</span>
+			</dd>
+		</dl> 
+		<div class="clear"></div> 
+		<dl class="formBox">
+			<dt><em class="mustIco"></em>支行全称</dt>
+			<dd id="fullNameDd" class="">
+				<input type="text" id="fullName" maxlength="128" class="i_bg"  name="fullName" onblur="checkFullName();" value="${bank.fullName}"/>
+				<span id="fullNameSpan" class="ts_xx">请输入支行全称</span>
+			</dd>
+		</dl>
+		<div class="clear"></div>
+		<dl class="formBox">
+			<dt><em class="mustIco"></em>银行状态</dt>
+			<dd>
+				<span class="zt"><label><input type="radio" name="status" value="1" #if(bank.status == "1") checked #end>正常</label></span>
+				<span class="zt"><label><input type="radio" name="status" value="0" #if(bank.status == "0") checked #end>暂停</label></span>
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt><em class="mustIco"></em>前台显示</dt>
+			<dd>
+				<span class="zt"><label><input type="radio" name="forenStatus" value="true" #if(bank.forenStatus) checked #end>显示</label></span>
+				<span class="zt"><label><input type="radio" name="forenStatus" value="false" #if(!bank.forenStatus) checked #end>不显示</label></span>
+			</dd>
+		</dl>
+		<div class="clear"></div>
+		<dl class="formBox">
+			<dt><em class="mustIco"></em>线上支付</dt>
+			<dd>
+				<span class="zt"><label><input type="radio" onclick="changeOnline('1');" name="onlinePay" #if(bank.onlinePay) checked #end value="1">支持</label></span>
+				<span class="zt"><label><input type="radio" onclick="changeOnline('0');" name="onlinePay" #if(!bank.onlinePay) checked #end value="0">不支持</label></span>
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt><em class="mustIco"></em>虚拟账户</dt>
+			<dd>
+				<span class="zt"><label><input type="radio" name="accountPay" value="true" #if(bank.accountPay) checked #end>支持</label></span>
+				<span class="zt"><label><input type="radio" name="accountPay" value="false" #if(!bank.accountPay) checked #end>不支持</label></span>
+			</dd>
+		</dl>
+		<div class="clear"></div>
+		<div id="onlinePayDiv">
+			<dl class="formBox">
+				<dt><em class="mustIco"></em>B2B</dt>
+				<dd>
+					<span class="zt"><label><input type="radio" name="companyPay" value="1" #if(bank.companyPay) checked #end>支持</label></span>
+					<span class="zt"><label><input type="radio" name="companyPay" value="0" #if(!bank.companyPay) checked #end>不支持</label></span>
+				</dd>
+			</dl>
+			<dl class="formBox">
+				<dt><em class="mustIco"></em>C2B/C2C</dt>
+				<dd>
+					<span class="zt"><label><input type="radio" name="commonPay" value="true" #if(bank.commonPay) checked #end>支持</label></span>
+					<span class="zt"><label><input type="radio" name="commonPay" value="false" #if(!bank.commonPay) checked #end>不支持</label></span>
+				</dd>
+			</dl>
+		</div>
+		<div class="clear"></div>
+			<h3>监管系统管理员设置</h3>
+		<dl class="formBox">
+			<dt><em class="mustIco"></em>账号</dt>
+			<dd id="accountNameDd" class="">
+				<input type="text" id="accountName" maxlength="128" class="i_bg"  name="accountName" onblur="checkAccountName();" value="${bankAccount!=null?bankAccount.name:""}"/>
+				<span id="accountNameSpan" class="ts_xx">请输入账号</span>
+			</dd>
+		</dl> 
+		<dl class="formBox">
+			<dt><em class="mustIco"></em>密码</dt>
+			<dd id="passwordDd" class="">
+				<input type="password" id="password" maxlength="128" class="i_bg"  name="password" onblur="checkAccountPassword();" value="${bankAccount!=null?bankAccount.password:""}"/>
+				<span id="passwordSpan" class="ts_xx">请输入密码</span>
+			</dd>
+		</dl> 
+		<div class="clear"></div>
+		<dl class="formBox" style="width:550px;">
+			<dt style="width:150px;"><em class="mustIco"></em>初次登陆是否重置密码</dt>
+			<dd>
+				<span class="zt"><label><input type="radio" name="resetPwd" value="true" #if((bankAccount!=null && bankAccount.resetPwd)|| bankAccount == null) checked #end>是</label></span>
+				<span class="zt"><label><input type="radio" name="resetPwd" value="false" #if(bankAccount!=null && !bankAccount.resetPwd) checked #end>否</label></span>
+			</dd>
+		</dl>
+		<div class="clear"></div>
+		<dl class="formBox">
+			<dt><em class="mustIco"></em>真实姓名</dt>
+			<dd id="realNameDd" class="">
+				<input type="text" id="realName" maxlength="128" class="i_bg"  name="realName" onblur="checkRealName();" value="${bankAccount!=null?bankAccount.realName:""}"/>
+				<span id="realNameSpan" class="ts_xx">请输入真实姓名</span>
+			</dd>
+		</dl> 
+		<dl class="formBox">
+			<dt>手机号</dt>
+			<dd class="">
+				<input type="text" id="phone" maxlength="128" class="i_bg"  name="phone" value="${bankAccount!=null?bankAccount.phone:""}"/>
+			</dd>
+		</dl> 
+
+
+		<div class="clear"></div>
+		<h3>权限设置</h3>
+		<h3 class="limitAll"><label><span class="check"><em><input type="checkbox" /></em></span>全选</label></h3>
+		#for(com.ekfans.base.finance.model.BankPurview purview : purviewList)
+			<div class="limitList limits">
+				<h3 class="limitItem">
+					<label>
+						<span class="check #if(purview.checked) checked #end"><em><input type="checkbox" name="purviewId" value="${purview.id}" #if(purview.checked) checked #end/></em></span>${purview.className}
+					</label>
+				</h3>
+				<div class="limitList">
+					#for(com.ekfans.base.finance.model.BankPurview purview1 : purview.childList)
+						<h3 class="limitItem">
+							<label>
+								<span class="check #if(purview1.checked) checked #end"><em><input type="checkbox" name="purviewId" value="${purview1.id}"  #if(purview1.checked) checked #end/></em></span>
+								${purview1.className}
+							</label>
+						</h3>
+						<div class="limitList">
+							#for(com.ekfans.base.finance.model.BankPurview purview2 : purview1.childList)
+								<h3 class="limitItem">
+									<label>
+										<span class="check #if(purview2.checked) checked #end"><em><input type="checkbox" name="purviewId" value="${purview2.id}" #if(purview2.checked) checked #end/></em></span>
+										${purview2.className}
+									</label>
+								</h3>
+							#end	
+						</div>	
+					#end
+				</div>
+			</div>
+		#end
+	<div>
+</form>
+	<script>
+		function changeOnline(act){
+			if(act == "1"){
+				$("#onlinePayDiv").show();
+			}else{
+				$("#onlinePayDiv").hide();
+			}
+		}
+		#if(!bank.onlinePay)
+			changeOnline("0");
+		#end
+
+	</script>
+</body>
+</html>

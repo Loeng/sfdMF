@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+    	<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}-修改模板分类</title>
+    	<link href="${webroot}/resources/system/css/product/templateCategory.css" rel="stylesheet" type="text/css" />
+    	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/product/templateCategory/templateCategoryModify.js"></script>
+    </head>
+    <body>
+    	<input type="hidden" id="modifyOk" value="${modifyOk}" />
+			<input type="hidden" id="ctxpath" value="${webroot}" />
+			<div class="ht_btn">
+				<a href="#"  class="btn" onclick="formSubmit();">保存</a>
+				<a href="#"  class="btn" onclick="reset();">重置</a>
+				<a href="#"  class="btn" onclick="goBack('${webroot}');">返回列表</a>
+			</div>
+			<form action="${webroot}/system/templateCategory/modify" name="modify" method="post"  id="modifyCategoryForm">
+			#define(com.ekfans.base.product.model.TemplateFieldsCategory category)
+	 		<div class="add_pro">
+	 			<input type="hidden" name="id" value="${category.id}">
+	 			<input type="hidden" name="status" value="${category.status}">
+				<dl class="formBox">
+        	<dt>分类名<em class="mustIco"></em></dt>
+	        <dd id="nameDd">
+	            <input type="text" class="i_bg" name="categoryName" value="${category.categoryName}" onblur="javascript:checkNameBlur();" onkeyup="javascript:checkName();" onfocus="javascript:checkName();">
+	            <a href="javascript:void(0);" class="btn AddItem">增加二级分类</a>
+	            <span id="nameSpan" class="ts_xx">分类名为2-20位字符组成</span>
+	        </dd>
+   		 	</dl>
+				<dl class="formBox">
+	        <dt>备注</dt>
+	        <dd><textarea name="categoryNote">${category.categoryNote}</textarea></dd>
+	   		</dl>
+				<div class="clear" ></div>
+				<div class="splitLine"></div>
+		    <div class="boxContent">
+		    	#if(category.childList!=null||category.childList.size()>0)
+		    	#for(com.ekfans.base.product.model.TemplateFieldsCategory childCategory : category.childList)
+		    		<dl class='formBox'>
+							<dt>子分类名</dt>
+							<dd>
+								<input type='hidden' class='i_bg' name='childId' value="${childCategory.id}">
+								<input type='text' class='i_bg' name='childName' value="${childCategory.categoryName}">
+								<a href='javascript:void(0);' class='btnRemove'>
+									<img src='${webroot}/resources/system/images/del2.jpg' width='16' height='16'>
+								</a>
+							</dd>
+						</dl>
+		    	#end
+		    	#end
+		    </div>
+			</div>
+		</form>
+	</body>
+</html>

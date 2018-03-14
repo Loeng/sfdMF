@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+    	<title>新增小区</title>
+    		<link href="${ctxpath}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+				<link href="${ctxpath}/resources/system/css/list.css" rel="stylesheet" type="text/css" />
+				<!-- 上传文件的CSS -->
+				<link href="${ctxpath}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+				<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery-1.8.3.min.js"></script>
+				<script type="text/javascript" src="${ctxpath}/resources/system/js/tools.js"></script>
+				<script type="text/javascript" src="${webroot}/resources/system/js/warehouse/chuWarehouseAdd.js"></script>
+				<!-- 上传文件控件  -->
+				<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.soChange.js"></script>
+				<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.json-2.2.min.js"></script>
+				<script type="text/javascript" src="${ctxpath}/resources/commons/js/ajaxupload.js"></script>
+				<script type="text/javascript" src="${ctxpath}/resources/commons/js/upload/upload.js"></script>
+
+
+    </head>
+    <body>
+   		<div class="ht_btn">
+          <a href="#" onclick="formSubmit();" class="btn">保存</a>
+        </div>
+        <div class="add_pro">
+			<input type="hidden" id="ok" value="${addOk}" />
+			<input type="hidden" id="ctxpath" value="${webroot}" />
+    	<form action="${webroot}/system/warehouse/chuWarehouseSave" name="add" method="post"  id="addGoWarehouseForm">
+    		<dl class="formBox">
+					<dt>填写出库单号</dt>
+					<dd id="wareOrderDd">
+						<input type="text" class="i_bg"  id="wareOrderId"  maxlength="11" onblur="loadWareOrder();"/>
+						<span id="wareOrderSpan" class="ts_xx">请输入提货单号</span>
+					</dd>
+				</dl>
+				<font id = "wareHouseOrderLoad">
+				
+				</font>
+						<dl class="formBox">
+					<dt>入库凭证</dt>
+					<dd>
+						#tag picUpload("orderId","1","300","300","") #end
+		  		</dd>
+				</dl>
+				
+		 		<dl class="formBox">
+	 				<dt>备注</dt>
+					<dd>
+					<textarea maxlength="256" name="note"></textarea>
+				</dd>
+				</dl>
+				
+    	</form>
+    	<div class="del_tcBg" id="productBg" style="display:none;"></div>
+				<div class="del_tc shopListAlert"  id="productTc" style="display:none;">
+			
+				</div>
+		<div class="del_tcBg" id="warehouseBg" style="display:none;"></div>
+				<div class="del_tc shopListAlert"  id="warehouseTc" style="display:none;">
+			
+				</div>
+    </body>
+</html>

@@ -1,0 +1,86 @@
+@charset "utf-8";
+/* CSS Document */
+
+* {SCROLLBAR-FACE-COLOR:#e2eeff; SCROLLBAR-HIGHLIGHT-COLOR:#6aaafb; SCROLLBAR-SHADOW-COLOR:#6593cf; SCROLLBAR-3DLIGHT-COLOR:#fff;
+   SCROLLBAR-ARROW-COLOR:#240024; SCROLLBAR-TRACK-COLOR:#e2eeff; SCROLLBAR-DARKSHADOW-COLOR:#fff; SCROLLBAR-BASE-COLOR:#bedafe; outline:none;}
+html,body {margin:0px; color:#2c2c2c; font-size:12px; font-family:"微软雅黑"; text-align:left;}
+a {color:#2c2c2c; text-decoration:none;}
+a:hover {color:#0365b5; text-decoration:none;}
+ul,ol,dl{list-style:none;}
+h1,h2,h3,h4,h5,h6,p,form,ul,li,ol,dl,dt,dd,input,textarea {margin:0px; padding:0px; font-family:"微软雅黑";}
+img {border:none;}
+em {font-style:normal;}
+.clear {clear:both;}
+label {cursor:pointer;}
+
+/*main*/
+.ht_right {position:absolute; top:65px; left:215px; right:0; bottom:0;}
+.rightContent {position:relative; margin-top:61px;}
+.ht_bt {height:51px; background:#bec6d7;}
+.ht_bt .tabList {position:relative; float:left; height:51px; overflow:hidden;}
+.prevTabs,.nextTabs {display:block; width:24px; height:51px; line-height:51px; text-align:center; background:#dbe1ec; float:left; font-family:SimSun; font-weight:700;}
+.prevTabs {border-right:solid 1px #ccc;}
+.nextTabs {border-left:solid 1px #ccc;}
+.ht_bt ul {height:51px; position:absolute; left:0; top:0; width:74px;}
+.ht_bt li {float:left; height:35px; padding:15px 15px 0 30px; font-size:14px; color:#a7aebd; margin-right:1px; background:url(../images/bt_bg_h.jpg) #dbe1ec no-repeat 15px center; overflow:hidden; cursor:pointer;}
+.ht_bt li.cur {height:36px; background:url(../images/bt_bg.jpg) #fff no-repeat 15px center; color:#454547;}
+.ht_bt li span {margin-left:10px; filter:alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity:0.5; opacity:0.5; cursor:pointer;}
+.ht_bt li.cur span {filter:alpha(opacity=100); -moz-opacity:1; -khtml-opacity:1; opacity:1;}
+.ht_home {width:auto; margin:20px; font-size:32px; color:#454547; font-weight:lighter; border-bottom:1px solid #dbd8d8; padding-bottom:8px;}
+.ht_tjt {padding:20px 0 0 0; overflow:hidden;}
+.ht_tjt img {width:100%;}
+
+
+.psdDefault {width:290px; height:9px; background-color:#eeeeee; margin-top:2px; margin-left:75px;}
+.psdWeak {width:97px; height:9px; background-color:#ff0000; margin-top:2px; margin-left:75px;}
+.psdMedium {width:193px; height:9px; background-color:#ff8400; margin-top:2px; margin-left:75px;}
+.psdForced {width:290px; height:9px; background-color:#7ad800; margin-top:2px; margin-left:75px;}
+
+.btnAudit {display:inline-block; *display:inline; *zoom:1; height:22px; line-height:22px; border:solid 2px #808080; border-radius:3px; padding:0 4px; margin-right:4px; color:#808080;}
+.btnAudit:hover {border-color:#000; color:#000;}
+
+/*复选框*/
+.check {display:block; width:10px; height:10px; border:solid 1px #d8d8d8; background:#fff; position:relative; cursor:pointer;}
+.checked em {background:#424242; width:6px; height:6px; display:block; margin:2px; overflow:hidden;}
+.check input {width:12px; height:12px; position:absolute; z-index:1; opacity:0;}
+
+/*按钮*/
+a.btn {display:inline-block; *display:inline; *zoom:1; padding:0 16px; height:28px; line-height:28px; border-radius:3px; background:#cfd7e8;}
+a.btn:hover {background:#008dff; color:#fff;}
+.inputbtn {display:inline-block; *display:inline; *zoom:1; padding:0 16px; height:28px; line-height:28px; border-radius:3px; background:#cfd7e8;border:0;}
+.inputbtn:hover {background:#008dff; color:#fff;}
+
+/*弹出窗口*/
+.del_tcBg {filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8; opacity:0.8; background:#000; position:fixed; left:0; top:0; width:100%; height:100%; z-index:5;}
+.del_tc {border:8px solid #323a42;border-radius:8px;position:fixed; top:10%; bottom:10%; left:24%; right:24%; z-index:99;background:#fff;overflow:hidden;}
+.autoTc {width:auto; left:20%; right:20%; top:10%; bottom:10%; margin:0; overflow-y:auto;}
+*html .del_tc {position: absolute; bottom: auto;}
+.del_tc .tit {border-top:12px solid #008DFF; border-bottom:solid 1px #d4d4d4; height:40px; line-height:40px; padding:0 16px; font-size:20px; cursor:move;}
+.del_tc .tit .apClose {float:right; cursor:pointer;}
+.del_tc p {width:98%; margin:0 auto; border-top:1px solid #565656; text-align:center; font-size:24px; padding:40px 0;}
+.del_tc div.btn {width:95%; margin:0 auto; border-top:1px solid #dbd8d8; padding:20px 0 0 3%; height:50px; overflow; hidden;}
+.del_tc div.btn a {float:right; margin-right:2px;}
+.del_tc .titName {float:left; white-space:nowrap; padding-right:40px; font-size:14px;}
+.hintApLayer {height:254px;}
+
+/*列表页码*/
+.ht_pageBox {width:100%; overflow:hidden; padding:15px 0;}
+.ht_page_l {float:left;}
+.ht_page_l a {float:left; margin-right:2px;}
+.ht_page_l a:hover {background:#008dff;color:#fff;}
+.ht_page {float:right; font-family:"宋体"}
+.ht_page a.cur {background:#008dff;color:#fff;}
+.errorText {display:inline-block; height:25px; line-height:25px; background:#F9D1D3; color:#f00; padding-left:12px;}
+
+/*加载浮层*/
+.loadingLayer{width: 100%; height: 100%; position:fixed; z-index:10; top: 0; left: 0; filter:alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity:0.5; opacity:0.5; background-color:#000; background-image:url(../images/loading_layer.gif); background-repeat:no-repeat; background-position:center center;}
+
+
+/*模拟复选框*/
+.check{display:inline-block;width:10px; height:10px; border:solid 1px #d8d8d8; background:#fff; position:relative; cursor:pointer;left:5px;}
+.checked em{background:#424242; width:6px; height:6px; display:block; margin:2px; overflow:hidden;}
+.check input{width:12px; height:12px; position:absolute;left:0px;top:0px;z-index:1; opacity:0;filter:alpha(opacity=0); -moz-opacity:0; -khtml-opacity:0; cursor:pointer;}
+.checkItem{position:relative; cursor:pointer;}
+.checkItem .check,.limitAll .check{display:inline-block;}
+.checkAll{position:relative; cursor:pointer;}
+.checkAll label{cursor:pointer;}

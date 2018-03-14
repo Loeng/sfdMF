@@ -1,0 +1,369 @@
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  font-weight: normal;
+  font-style: normal;
+  list-style: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  word-break: break-all;
+  font-family: PingFangSC,Lantinghei SC,Helvetica Neue,Helvetica,Arial,Microsoft YaHei,\\5FAE\8F6F\96C5\9ED1,STHeitiSC-Light,simsun,\\5B8B\4F53,WenQuanYi Zen Hei,WenQuanYi Micro Hei,'sans-serif';
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  color: #333;
+  background: #F5F8FA;
+  padding-bottom: 68.88889px;
+}
+
+.clear {
+  clear: both;
+}
+
+header {
+  height: 48.88889px;
+  line-height: 48.88889px;
+  background: #00AF86;
+  text-align: center;
+  margin-bottom: 11.11111px;
+  color: #fff;
+}
+
+.headerLeft {
+  display: block;
+  padding: 8.88889px 16.66667px 0 16.66667px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.headerRight {
+  display: block;
+  padding: 0 16.66667px 0 16.66667px;
+  font-size: 15.55556px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: #fff;
+}
+
+header h1 {
+  font-size: 20px;
+}
+
+.pageZone {
+  background: #fff;
+  margin-bottom: 11.11111px;
+  position: relative;
+}
+
+.btnBase {
+  width: 250px;
+  height: 44.44444px;
+  line-height: 44.44444px;
+  border-radius: 22.22222px;
+  background: #00AF86;
+  color: #fff;
+  display: block;
+  text-align: center;
+  font-size: 17.77778px;
+}
+
+.address, .firstItems {
+  margin: 4.44444px 0;
+  padding: 0 11.11111px 0 37.77778px;
+  background: url(../images/point_icon.png) no-repeat 16.66667px center;
+  background-size: 2.5%;
+  margin-right: 43.33333px;
+}
+
+.firstItems {
+  margin-right: 0;
+}
+
+.address li, .firstItems li {
+  line-height: 34.44444px;
+  font-size: 17.77778px;
+  clear: both;
+}
+
+.address li strong {
+  padding-right: 2%;
+  font-weight: 700;
+  display: block;
+  width: 21%;
+  float: left;
+}
+
+.address li span {
+  display: block;
+  width: 77%;
+  float: left;
+  font-size: 15.55556px;
+}
+
+.date {
+  position: absolute;
+  right: 16.66667px;
+  top: 20px;
+  color: #999;
+  font-size: 13.33333px;
+}
+
+.firstItems {
+  padding: 11.11111px 16.66667px;
+  background: none;
+}
+
+.firstItems span {
+  color: #666;
+}
+
+.tableBox {
+  margin: 0 16.66667px;
+  padding: 16.66667px 0;
+}
+
+.cheInfo {
+  border: solid 1px #ccc;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cheInfo td {
+  border: solid 1px #ccc;
+  padding: 0 11.11111px;
+  font-size: 17.77778px;
+  padding: 11.11111px;
+  line-height: 22.22222px;
+}
+
+.cheInfo td:nth-child(2n+1) {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.cheInfo td:nth-child(2n) {
+  color: #666;
+}
+
+.cheInfo tr:nth-child(2n+1) {
+  background: #F5F8FA;
+}
+
+.cheInfo .tdItem {
+  clear: both;
+}
+
+.cheInfo .tdItem dt {
+  display: block;
+  height: 22.22222px;
+  width: 12%;
+  text-align: center;
+  padding: 0 6.66667px;
+  margin-right: 2%;
+  background: #00AF86;
+  color: #fff;
+  font-size: 12.22222px;
+  line-height: 22.22222px;
+  float: left;
+  margin-bottom: 5.55556px;
+}
+
+.cheInfo .tdItem dd {
+  width: 79%;
+  float: left;
+  font-size: 15.55556px;
+  margin-bottom: 5.55556px;
+}
+
+.bottomInfo {
+  padding: 11.11111px 16.66667px 5.55556px 16.66667px;
+  margin-bottom: 22.22222px;
+}
+
+.bottomInfo dt {
+  height: 27.77778px;
+  line-height: 27.77778px;
+  margin-bottom: 2.77778px;
+  font-weight: bold;
+  font-size: 17.77778px;
+}
+
+.bottomInfo dd li {
+  line-height: 22.22222px;
+  height: 22.22222px;
+  padding: 5.55556px 0;
+  font-size: 17.77778px;
+}
+
+.bottomInfo dd li span {
+  color: #666;
+}
+
+.bottomInfo .mark {
+  display: inline-block;
+  width: 22.22222px;
+  height: 22.22222px;
+  color: #fff;
+  margin-right: 16.66667px;
+  border-radius: 4.44444px;
+  font-size: 15.55556px;
+  text-align: center;
+}
+
+.bottomInfo .blueMark {
+  background: #58C3D7;
+}
+
+.bottomInfo .greenMark {
+  background: #6DB869;
+}
+
+.bottomInfo .redMark {
+  background: #E37676;
+}
+
+.btnBase {
+  margin: 0 auto;
+  margin-bottom: 22.22222px;
+}
+
+.zhuangxie {
+  line-height: 27.77778px;
+  font-size: 17.77778px;
+  padding: 11.11111px 16.66667px 11.11111px 0;
+}
+
+.zhuangxie dl {
+  padding-left: 55.55556px;
+}
+
+.zhuangxie dd {
+  color: #666;
+}
+
+.zhuangxie .zhuang, .zhuangxie .xie {
+  height: 55.55556px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 8.88889px;
+}
+
+.zhuangxie .zhuang {
+  background: url(../images/site_green.png) no-repeat 16.66667px center;
+  background-size: 7%;
+}
+
+.zhuangxie .xie {
+  background: url(../images/site_red.png) no-repeat 16.66667px center;
+  background-size: 7%;
+}
+
+.zhuangxie .distance {
+  height: 16.66667px;
+  line-height: 16.66667px;
+  color: #999;
+  padding-left: 55.55556px;
+  font-size: 13.33333px;
+}
+
+.downLink {
+  display: block;
+  width: 100%;
+  height: 88.88889px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  border-top: solid 1px #F5F8FA;
+  max-width: 1080px;
+}
+
+.downLink.chezhu {
+  background: url(../images/down_chezhu.png) #fff no-repeat center center;
+  background-size: 100% auto;
+}
+
+.downLink.huozhu {
+  background: url(../images/down_huozhu.png) #fff no-repeat center center;
+  background-size: 100% auto;
+}
+
+@media screen and (min-width: 720px) {
+  body {
+    position: absolute;
+  }
+  body, .downLink {
+    width: 607.5px;
+    left: 50%;
+    margin-left: -304px;
+  }
+  .zhuangxie .zhuang {
+    background: url(../images/site_green.png) no-repeat 16.66667px center;
+    background-size: 5.5%;
+  }
+  .zhuangxie .xie {
+    background: url(../images/site_red.png) no-repeat 16.66667px center;
+    background-size: 5.5%;
+  }
+}
+
+/*download*/
+.toDown {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  width: auto;
+  background: #fff;
+}
+
+.toDown .arrow {
+  position: absolute;
+  top: 18px;
+  right: 15px;
+  max-width: 50%;
+}
+
+.toDown .arrow img {
+  display: block;
+  max-width: 100%;
+}
+
+.toDown .downText {
+  position: absolute;
+  height: 90px;
+  line-height: 30px;
+  font-size: 16px;
+  text-align: center;
+  top: 48%;
+  margin-top: -45px;
+  left: 0;
+  right: 0;
+  background: #fff;
+  padding: 0 0 40px 0;
+}
+
+.download .downText {
+  font-size: 17px;
+  line-height: 24px;
+  padding: 30px 16% 0 16%;
+}
+
+.download .btnDown {
+  display: block;
+  margin: 30px auto 0 auto;
+  max-width: 50%;
+}
+
+.download .btnDown img {
+  display: block;
+  max-width: 100%;
+}

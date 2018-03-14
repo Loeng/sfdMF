@@ -1,0 +1,59 @@
+#define(com.ekfans.base.order.model.SupplyBuy sb)
+
+<div class="layerIn baojiaLayer">
+    	<ul class="dataInfo">
+        	<li class="line"><em>品名：</em><span>${sb.title}</span></li>
+            <li style="width:58%;"><em>商家：</em><span>#if(sb.storeName!=null)${sb.storeName}#else &nbsp;#end</span></li>
+            <li style="width:38%;"><em>重量：</em><span>${sb.number}${sb.unit}</span></span>
+            <li style="width:58%;"><em>交货地：</em><span>${sb.destination}</span></li>
+            <li style="width:38%;"><em>交货方式：</em><span>#if(0==sb.deliveryType)自提#elseif(1==sb.deliveryType)送货上门#else &nbsp;#end</span></li>
+            <li class="line"><em>采购说明：</em><span>${sb.content}</span></li>
+           	<li class="clear"></li>
+        </ul>
+        <form id="baojiaForm" action = "${webroot}/web/supply/saveInquiry" type="post">
+        		#if(sb.StoreId!=null && sb.StoreId!="" && sb.StoreId!=" " )
+	        	<input name="sellersId"  value="${sb.StoreId}" type="hidden">
+	        	#end
+	        	<input name="productId"  value="${sb.id}" type="hidden">
+	        	<input name="type"  value="1" type="hidden">
+	        	<input name="sourceType"  value="1" type="hidden">
+	        	<input name="unit"  value="${sb.unit}" type="hidden"> 
+		        <div class="apForm">
+		            <dl class="formItem">
+		                <dt>我的报价</dt>
+		                <dd class="formImport">
+		                	<input name="FinalPrice" type="text"  onblur="checkFocus(this);"  maxlength="9" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" class="formBox">单位:元/${sb.unit}
+		                </dd>
+		                	<span class="errorText" id="FinalPriceSpan"></span>
+		                <dd class="clear" ></dd>
+		            </dl>
+		            <dl class="formItem">
+		                <dt>机构名称</dt>
+		                <dd class="formImport">
+		                	<input name="storeName" type="text" onblur="checkFocus(this);"  maxlength="128" class="formBox">
+		                	<span class="errorText" id="storeNameSpan"></span>
+		                </dd>
+		                <dd class="clear"></dd>
+		            </dl>
+		            <dl class="formItem">
+		                <dt>联系人</dt>
+		                <dd class="formImport">
+		                	<input name="linkPerson" type="text"  maxlength="64" onblur="checkFocus(this);" class="formBox">
+		                	<span class="errorText" id="contactManSpan"></span>
+		                </dd>
+		                <dd class="clear"></dd>
+		            </dl>
+		            <dl class="formItem">
+		                <dt>联系电话</dt>
+		                <dd class="formImport">
+		                	<input name="linkTel" type="text" onblur="checkFocus(this);"  maxlength="11" class="formBox" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+		                	<span class="errorText" id="contactPhoneSpan"></span>
+		                </dd>
+		                <dd class="clear"></dd>
+		            </dl>
+		            <div class="clear"></div>
+		        </div>
+        </form>
+</div>
+    
+  

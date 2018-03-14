@@ -1,0 +1,11 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url("personalBase.css");
+
+.rightContent h2 em{height:32px; line-height:32px; display:inline-block; border-bottom:solid 5px #ff8900; padding:0 30px 0 15px;}
+.rightContent h2{border-bottom:solid 1px #CBCFCF; font-size:14px; margin-bottom:30px;}
+
+.mailTo{background:url(../images/mailicomin.png) no-repeat 13px 30px; line-height:32px; font-size:18px; padding:20px 0 50px 93px; border-bottom:solid 1px #e4e4e4;}
+.mailTo em{color:#f50; padding:0 10px;}
+.rightContent .btnOrange{display:block; width:136px; height:28px; line-height:28px; font-size:14px; text-align:center; background:#f50; color:#fff; margin:20px 0 0 93px;}

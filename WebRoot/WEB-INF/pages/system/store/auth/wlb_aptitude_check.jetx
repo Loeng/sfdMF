@@ -1,0 +1,176 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/store/storeCheck.css">
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/base.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/store/auth/wlb_basis.js"></script>
+</head>
+
+<body>
+#define(com.ekfans.plugin.wuliubao.yunshu.base.model.Aptitude ap)
+<input type="hidden" id="ctxpath" value="${webroot}" />	
+
+<div class="ht_btn sh_btn">
+	<a href="${webroot}/system/wlbzzrz/list" class="btn">返回列表</a>
+	<a href="javascript:checkPass('${ap.id}',1);" class="btn">通过</a>
+	<a href="javascript:checkPass('${ap.id}',2);" class="btn">拒绝</a>
+</div>
+<div class="forms">
+	<div class="formSection">
+	  <h3 class="borderBottom">用户信息</h3>
+	  <div class="formIn">
+	    <div class="formItem">
+	      <span class="formName">用户类型:</span>
+	      <span class="formText" style="max-width:300px;">
+	      #if(ap.type=="1")
+	                       司机
+	      #elseif(ap.type=="2")
+	                      运输企业
+	      #elseif(ap.type=="3")
+	                      产生企业
+	      #end
+	      </span>
+	      <div class="clear"></div>
+	    </div>
+	    <div class="clear"></div>
+	    <div class="formItem">
+	      <span class="formName">认证人账号:</span>
+	      <span>${ap.name}</span>
+	      <div class="clear"></div>
+	  	</div>
+	    <div class="clear"></div>
+	    <span class="formItem">
+	      <span class="formName">认证人昵称:</span>
+	      <span class="formText">${ap.nickName}</span>
+	    </span>
+	    <div class="clear"></div>
+	     #if(ap.type=="1")
+	     <span class="formItem">
+        <span class="formName">经营范围:</span>
+        <span class="formText">${ap.management}</span>
+	    </span>
+	    <div class="clear"></div>
+	    <span class="formItem">
+        <span class="formName">行驶证号:</span>
+        <span class="formText">${ap.managementNumber}</span>
+	    </span>
+	    <div class="clear"></div>
+	    <div class="formItem">
+	      <span class="formName">行驶证:</span>
+	      <span><img src="${webroot}${ap.managementPath}" width="200" height="200" alt="行驶证"></span>
+	      <div class="clear"></div>
+	  	</div> 
+	  	<div class="clear"></div>
+	  	 <span class="formItem">
+        <span class="formName">驾驶证号码:</span>
+        <span class="formText">${ap.transportNumber}</span>
+	    </span>
+	    <div class="clear"></div>
+	    <div class="formItem">
+	      <span class="formName">驾驶证:</span>
+	      <span><img src="${webroot}${ap.transportPath}" width="200" height="200" alt="驾驶证"></span>
+	      <div class="clear"></div>
+	  	</div>       
+	  	<div class="clear"></div>
+	      <span class="formItem">
+        <span class="formName">危险品运输资格证号:</span>
+        <span class="formText">${ap.dangerTransportNumber}</span>
+	    </span>
+	    <div class="clear"></div>
+	    <div class="formItem">
+	      <span class="formName">危险品运输资格证:</span>
+	      <span><img src="${webroot}${ap.dangerTransportPath}" width="200" height="200" alt="危险品运输资格证"></span>
+	      <div class="clear"></div>
+	  	</div>       
+	  	<div class="clear"></div>           
+	      #elseif(ap.type=="2")
+	    <span class="formItem">
+        <span class="formName">营业执照号:</span>
+        <span class="formText">${ap.managementNumber}</span>
+	    </span>
+	    <div class="clear"></div>
+	     <span class="formItem">
+        <span class="formName">经营范围:</span>
+        <span class="formText">${ap.management}</span>
+	    </span>
+	    <div class="clear"></div>
+	    <div class="formItem">
+	      <span class="formName">营业执照:</span>
+	      <span><img src="${webroot}${ap.managementPath}" width="200" height="200" alt="营业执照"></span>
+	      <div class="clear"></div>
+	  	</div> 
+	  	<div class="clear"></div>
+	  	 <span class="formItem">
+        <span class="formName">道路运输资质号:</span>
+        <span class="formText">${ap.transportNumber}</span>
+	    </span>
+	    <div class="clear"></div>
+	    <div class="formItem">
+	      <span class="formName">道路运输资质:</span>
+	      <span><img src="${webroot}${ap.transportPath}" width="200" height="200" alt="道路运输资质"></span>
+	      <div class="clear"></div>
+	  	</div>       
+	  	<div class="clear"></div>
+	      <span class="formItem">
+        <span class="formName">危险品道路运输经营许可证号:</span>
+        <span class="formText">${ap.dangerTransportNumber}</span>
+	    </span>
+	    <div class="clear"></div>
+	    <div class="formItem">
+	      <span class="formName">危险品道路运输经营许可证:</span>
+	      <span><img src="${webroot}${ap.dangerTransportPath}" width="200" height="200" alt="危险品道路运输经营许可证"></span>
+	      <div class="clear"></div>
+	  	</div>             
+	  	<div class="clear"></div>            
+	      #elseif(ap.type=="3")
+	       <span class="formItem">
+        <span class="formName">营业执照号:</span>
+        <span class="formText">${ap.managementNumber}</span>
+	    </span>
+	    <div class="clear"></div>
+	     <span class="formItem">
+        <span class="formName">经营范围:</span>
+        <span class="formText">${ap.management}</span>
+	    </span>
+	    <div class="clear"></div>
+	    <div class="formItem">
+	      <span class="formName">营业执照:</span>
+	      <span><img src="${webroot}${ap.managementPath}" width="200" height="200" alt="营业执照"></span>
+	      <div class="clear"></div>
+	  	</div> 
+	  	<div class="clear"></div>
+	  	 <span class="formItem">
+        <span class="formName">排污许可证号:</span>
+        <span class="formText">${ap.sewagePermitNumber}</span>
+	    </span>
+	    <div class="clear"></div>
+	    <div class="formItem">
+	      <span class="formName">排污许可证:</span>
+	      <span><img src="${webroot}${ap.sewagePermitPath}" width="200" height="200" alt="排污许可证"></span>
+	      <div class="clear"></div>
+	  	</div> 
+	  	<div class="clear"></div>
+	    <div class="formItem">
+	      <span class="formName">排污许可证附件:</span>
+	      <span><img src="${webroot}${ap.sewagePermitEnclosurePath}" width="200" height="200" alt="排污许可证附件"></span>
+	      <div class="clear"></div>
+	  	</div>                                        
+	      #end
+	   <div class="clear"></div>
+	  </div>
+	</div>
+	<div class="clear"></div>
+	#if(ap.state == "1")
+		<div id="dis${ap.id}">
+			<div class="decline">
+			  <em class="textPoint"></em>
+			  <textarea name="checkNote" placeholder="请输入拒绝理由"></textarea>
+			</div>
+		</div>
+	#end
+</div>
+</body>
+</html>

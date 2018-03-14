@@ -1,0 +1,77 @@
+#define(com.ekfans.base.order.model.Bargain ba)
+ <div class="baojiaLayer hejiaLayer">
+ 	<form action = "${webroot}/store/bargain/saveAudit" method="post" id="auditForm">
+ 	<input type="hidden" id="id" name="id" value="${ba.id}" />
+	<input type="hidden" id="createTime" name="createTime" value="${ba.createTime}" />
+	<input type="hidden"  name="buyerId" value="${ba.buyerId}" />
+	<input type="hidden"  name="sellerId" value="${ba.sellerId}" />
+	<input type="hidden"  name="sourceId" value="${ba.sourceId}" />
+	<input type="hidden"  name="status" value="${ba.status}" />
+	<input type="hidden"  name="orderStatus" value="${ba.orderStatus}" />
+	<input type="hidden"  name="type" value="0" />
+        <div class="dataInfo">
+        	#if(type == '0')
+	        	<span><em>商品：${ba.productName}</em></span>
+	            <span><em>规格：</em>${ba.productModel}</span>
+	            <span><em>商家报价：</em><font class="red">#if(ba.unitPrice != 0.00 &&ba.unitPrice != null && ba.unitPrice != 0)${ba.unitPrice}</font>元/吨#else待议#end</span>
+	            <span><em>商家：</em>${ba.sellerName}</span>
+        	#else
+	        	<span><em>车源标题：${ba.productName}</em></span>
+	            <span><em>商家报价：</em><font class="red">#if(ba.unitPrice != 0.00 &&ba.unitPrice != null && ba.unitPrice != 0)${ba.unitPrice}</font>元/吨#else待议#end</span>
+	            <span><em>车源总量：</em><font class="red">${ba.wfpTotal}吨</font></span>
+	            <span><em>起始地：${ba.start.replace(",","")}</em></span>
+	            <span><em>目的地：${ba.end.replace(",","")}</em></span><br>
+        		<span><em>买家：</em>${ba.buyerName}</span>
+        	#end
+        </div>
+        <div class="apForm">
+        	<div class="formLeft">
+                <dl class="formItem">
+                    <dt>采购数量</dt>
+                    <dd class="formImport"><input name="quantity" type="text" class="formBox box150" value="${ba.quantity}" readonly></dd>
+                    <dd class="clear"></dd>
+                </dl>
+                <dl class="formItem">
+                    <dt>商议价格</dt>
+                    <dd class="formImport"><input name="price" type="text" class="formBox box150" value="${ba.price}" readonly></dd>
+                    <dd class="clear"></dd>
+                </dl>
+            </div>
+            <dl class="formItem">
+                <dt>买家名称</dt>
+                <dd class="formImport"><input name="buyerName" type="text" class="formBox" value="${ba.buyerName}" readonly></dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>联系人</dt>
+                <dd class="formImport"><input name="contactMan" type="text" class="formBox" value="${ba.contactMan}" readonly></dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>联系电话</dt>
+                <dd class="formImport"><input name="contactPhone" type="text" class="formBox" value="${ba.contactPhone}" readonly></dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+            <div class="hejia">
+            	<em class="pointIcon"></em>
+            	<dl class="formItem">
+                    <dt>核定数量</dt>
+                    <dd class="formImport">
+                    	<input name="finalQuantity" type="text"  onblur="checkFocus(this);"  maxlength="13" class="formBox box150" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">#if(type=='0')${ba.unit}#else吨#end
+                    	<span id="finalQuantitySpan" class="errorText" style="height:1px;line-height:14px;"></span>
+                    </dd>
+                    <dd class="clear"></dd>
+                </dl>
+                <dl class="formItem">
+                    <dt>核定价格</dt>
+                    <dd class="formImport">
+                    	<input name="finalPrice" type="text"  onblur="checkFocus(this);" maxlength="13" class="formBox box150" onkeyup="this.value=this.value.replace(/[^0-9.]/g,'')"  onafterpaste="this.value=this.value.replace(/[^0-9.]/g,'')">单位：元/${ba.unit}
+                    	<span id="finalPriceSpan" class="errorText" style="height:1px;line-height:14px;"></span>
+                    </dd>
+                    <dd class="clear"></dd>
+                </dl>
+            </div>
+        </div>
+        </form>
+    </div>

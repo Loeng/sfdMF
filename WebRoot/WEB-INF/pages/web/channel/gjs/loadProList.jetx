@@ -1,0 +1,106 @@
+#define(List<com.ekfans.base.product.model.Product> gjsProducts)	
+#define(List<com.ekfans.base.product.model.Product> ysjsProducts)	
+#define(List<com.ekfans.base.product.model.Product> xgjsProducts)	
+#define(List<com.ekfans.base.product.model.Product> xtjsProducts)	
+   <!------------------------------------------------------------------------------->
+   <div class="gongxu">
+        <a href="${webroot}/web/gjsGdProduct/list/${gjsPc}/null" id="proMore" class="gongxuMore green">查看更多...</a>
+        <ul class="tabNav classNav">
+            <li class="xz cur" id="${gjsPc}">贵金属</li>
+            <li class="xz" id="${xgjsPc}">稀散金属</li>
+            <li class="xz" id="${ysjsPc}">有色金属</li>
+            <li class="xz" id="${xtjsPc}">稀土金属</li>
+        </ul>
+        <div class="tabContent classContent" style="display:block;">
+            <div class="tabContent gongying" style="display:block;">
+	             #if(gjsProducts!=null&&gjsProducts.size()>0)
+	   			 	#for(com.ekfans.base.product.model.Product p:gjsProducts)
+	                <div class="metalItem">
+	                    <div class="dt">
+	                    	${p.name}
+	                    </div>
+	                    <ul class="itemInfo">
+	                        <li><span class="size16">${p.sortName}</span><span class="size14">${p.productModel}</span></li>
+	                        <li class="size18"><em class="red"> ¥${p.unitPrice}</em> /吨</li>
+	                        <li>${p.quantity}吨 ${p.habitatAddress}</li>
+	                        <li>${p.storeId}</li>
+	                    </ul>
+	                    <div class="itemBtns">
+	                        <a href="${webroot}/web/gouWu/order/${p.id}" class="btnGreen">购买</a>
+	                        <a href="${webroot}/01-${p.id}.html" class="btnGreen">详情</a>
+	                    </div>
+	                </div>
+	            	#end
+	        	#end
+            </div>
+        </div>
+        <div class="tabContent classContent">
+            <div class="tabContent gongying" style="display:block;">
+            #if(xgjsProducts!=null&&xgjsProducts.size()>0)
+	   			 	#for(com.ekfans.base.product.model.Product p:xgjsProducts)
+	                <div class="metalItem">
+	                    <div class="dt">
+	                    	${p.name}
+	                    </div>
+	                    <ul class="itemInfo">
+	                        <li><span class="size16">${p.sortName}</span><span class="size14">${p.productModel}</span></li>
+	                        <li class="size18"><em class="red"> ¥${p.unitPrice}</em> /吨</li>
+	                        <li>${p.quantity}吨 ${p.habitatAddress}</li>
+	                        <li>${p.storeId}</li>
+	                    </ul>
+	                    <div class="itemBtns">
+	                        <a href="${webroot}/web/gouWu/order/${p.id}" class="btnGreen">购买</a>
+	                        <a href="${webroot}/01-${p.id}.html" class="btnGreen">详情</a>
+	                    </div>
+	                </div>
+	            	#end
+	        	#end
+            </div>
+        </div>
+        <div class="tabContent classContent">
+            <div class="tabContent gongying" style="display:block;">
+            #if(ysjsProducts!=null&&ysjsProducts.size()>0)
+	   			 	#for(com.ekfans.base.product.model.Product p:ysjsProducts)
+	                <div class="metalItem">
+	                    <div class="dt">
+	                    	${p.name}
+	                    </div>
+	                    <ul class="itemInfo">
+	                        <li><span class="size16">${p.sortName}</span><span class="size14">${p.productModel}</span></li>
+	                        <li class="size18"><em class="red"> ¥${p.unitPrice}</em> /吨</li>
+	                        <li>${p.quantity}吨 ${p.habitatAddress}</li>
+	                        <li>${p.storeId}</li>
+	                    </ul>
+	                    <div class="itemBtns">
+	                        <a href="${webroot}/web/gouWu/order/${p.id}" class="btnGreen">购买</a>
+	                        <a href="${webroot}/01-${p.id}.html" class="btnGreen">详情</a>
+	                    </div>
+	                </div>
+	            	#end
+	        	#end
+            </div>
+        </div>
+        <div class="tabContent classContent">
+            <div class="tabContent gongying" style="display:block;">
+            #if(xtjsProducts!=null&&xtjsProducts.size()>0)
+	   			 	#for(com.ekfans.base.product.model.Product p:xtjsProducts)
+	                <div class="metalItem">
+	                    <div class="dt">
+	                    	${p.name}
+	                    </div>
+	                    <ul class="itemInfo">
+	                        <li><span class="size16">${p.sortName}</span><span class="size14">${p.productModel}</span></li>
+	                        <li class="size18"><em class="red"> ¥${p.unitPrice}</em> /吨</li>
+	                        <li>${p.quantity}吨 ${p.habitatAddress}</li>
+	                        <li>${p.storeId}</li>
+	                    </ul>
+	                    <div class="itemBtns">
+	                        <a href="${webroot}/web/gouWu/order/${p.id}" class="btnGreen">购买</a>
+	                        <a href="${webroot}/01-${p.id}.html" class="btnGreen">详情</a>
+	                    </div>
+	                </div>
+	            	#end
+	        	#end
+            </div>
+        </div>
+    </div>

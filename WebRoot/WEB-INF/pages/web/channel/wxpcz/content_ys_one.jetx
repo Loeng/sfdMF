@@ -1,0 +1,18 @@
+ #define(Map<String, com.ekfans.base.channel.model.ChannelConfig> configMap)
+#define(String configType)
+#define(String position)
+#define(String channelId)
+#set(com.ekfans.base.channel.model.ChannelConfig config = configMap.get(configType + position))
+#if(configStatus == "true")
+	#include("../commons/config/configTitle.jetx",{"channelId":channelId,"configType":configType,"position":position})
+#end
+
+#if(config != null)
+ <h2>${config.configName != null && config.configName != "" ? config.configName:"相关政策"}</h2>
+	<ul>
+		#for(com.ekfans.base.content.model.Content content : config.details)
+    <li><a href="javascript:void(0);" title="${content.contentName}">${content.contentName}</a><span class="time"></span></li>
+    #end
+	</ul>
+		
+#end

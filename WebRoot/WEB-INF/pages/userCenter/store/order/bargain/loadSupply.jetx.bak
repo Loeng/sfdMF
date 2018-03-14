@@ -1,0 +1,82 @@
+#define(com.ekfans.base.order.model.Inquiry i)
+#define(List<com.ekfans.base.product.model.ProductPrice> pps)
+<input type="hidden" id="id" value="${i.id}"/>	
+<div class="proInfo">
+
+         <img src="../../../resources/usercommons/pic/pro150.jpg" width="150" height="150" alt="冰糖橙" class="bargainImg">
+
+							#if(i.pic == null || i.pic == "" || i.pic == " ")
+               <img src="${webroot}/resources/system/images/no_pic.jpg" width="150" height="150" class="bargainImg" alt="${i.productName}">
+              #else
+								<img src="${webroot}${i.pic}" width="150" height="150" class="bargainImg" alt="${i.productName}">
+              #end 
+
+            <div class="info">
+            	<strong class="apProTitle">${i.productName}</strong>
+                <div class="priceZone">
+                	<ul class="stair">
+                			#for(com.ekfans.base.product.model.ProductPrice pp:pps)
+                        <li><span>${pp.startNum}-${pp.endNum}${i.unit}</span><em>¥ ${pp.price}/${i.unit}</em></li>                       
+                        #end
+                        <div class="clear"></div>
+                    </ul>
+                    <span class="readAll"></span>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="apForm ratifyForm">
+        	<div class="readForm">
+                <dl class="formItem">
+                    <dt>采购数量</dt>
+                    <dd class="formImport"><input name="" type="text" disabled class="formBox" value="${i.number}"></dd>
+                    <dd class="clear"></dd>
+                </dl>
+                <dl class="formItem">
+                    <dt>商议价格</dt>
+                    <dd class="formImport"><input name="" type="text" disabled class="formBox" value="${i.price}"></dd>
+                    <dd class="clear"></dd>
+                </dl>
+            </div>
+            <div class="writeForm">
+                <dl class="formItem">
+                    <dt>核定数量</dt>
+                    <dd class="formImport"><input name="" id="sellersNumber" type="text" class="formBox" value="${i.sellersNumber}"></dd>
+                    <dd class="formText">单位：${i.unit}</dd>
+                    <dd class="clear"></dd>
+                </dl>
+                <dl class="formItem">
+                    <dt>核定价格</dt>
+                    <dd class="formImport"><input name="" id="FinalPrice" type="text" class="formBox" value="${i.FinalPrice}"></dd>
+                    <dd class="formText">单位：元/${i.unit}</dd>
+                    <dd class="clear"></dd>
+                </dl>
+            </div>
+            <div class="clear"></div>
+            <div class="apFormLeft">
+                <dl class="formItem">
+                    <dt>联系人</dt>
+                    <dd class="formImport"><input name="" type="text" disabled class="formBox" value="${i.linkPerson}"></dd>
+                    <dd class="clear"></dd>
+                </dl>
+                <dl class="formItem">
+                    <dt>联系电话</dt>
+                    <dd class="formImport"><input name="" type="text" disabled class="formBox" value="${i.linkTel}"></dd>
+                    <dd class="clear"></dd>
+                </dl>
+                <dl class="formItem">
+                    <dt>其他留言</dt>
+                    <dd class="formImport"><textarea cols="" rows="" disabled>${i.note}</textarea></dd>
+                    <dd class="clear"></dd>
+                </dl>
+                <div class="clear"></div>
+            </div>
+            <div class="bargainBtn">
+            	#if(!i.status)
+                <a href="javascript:void(0)" class="btnBase" onclick="submit();">确认</a>
+               
+                <a href="javascript:void(0)" class="btnBase btnOrange btnCancel" onclick="closeLoad();">取消</a>
+                #end 
+            </div>
+            <div class="clear"></div>
+        </div>

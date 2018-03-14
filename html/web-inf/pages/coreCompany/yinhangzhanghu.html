@@ -1,0 +1,439 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>银行账户设置</title>
+<meta name="keywords" content="三分地" />
+<meta name="description" content="三分地" />
+<link rel="shortcut icon" href="../../../resources/commons/images/favicon.ico" type="image/x-icon">
+<link href="../../../resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/userCenter/coreCompany/css/style.css" rel="stylesheet" type="text/css">
+<style>
+.sfdHeader{background:#FFE4E4; padding:0 16px; position:relative; margin-top:-10px; width:993px; margin-left:-20px; margin-bottom:20px;}
+.sfdHeader dt{padding-top:9px; height:48px; line-height:48px; border-bottom:solid 1px #FFD0D0; padding-left:64px; background:url(../../../resources/web/images/icon_waring2.png) no-repeat 20px 17px; font-size:18px;}
+.sfdHeader dd{color:#717171; font-size:16px; line-height:26px; padding:10px 240px 10px 50px; position:relative;}
+.btnOrange{width:156px; height:36px; line-height:36px; display:block; background:#FC7100; color:#fff; font-size:18px; text-align:center; position:absolute; right:40px; top:10px;}
+.btnOrange:hover{background:#FFB577; color:#333;}
+.state{width:200px; height:48px; line-height:48px; font-size:18px; color:#fff; text-align:center; margin:0 20px 30px 0; float:left;}
+.hintRed{color:#f00; line-height:48px; float:left; width:750px;}
+.grayState{background:#B5B5B5;}
+.yellowState{background:#FFCB00;}
+.greenState{background:#44B034;}
+.rightContent h2{font-size:18px; color:#9F9FA0; height:1px; background:#D2D3D3; position:relative; margin:30px 0;}
+.rightContent h2 em{display:inline-block; padding-right:30px; height:33px; line-height:33px; position:absolute; top:-16px; background:#fff;}
+input.btnBase{border:none; cursor:pointer;}
+.btnForbid,.btnForbid:hover{background:#b5b5b5; color:#fff; cursor:default;}
+
+/*银行账户*/
+.bankCheck .apContent{padding:20px 0 20px 40px;}
+.bankList{margin-bottom:30px;}
+.bankList li{width:280px; background:#f5f5f5; border:solid 1px #d7d7d7; float:left; margin:0 40px 12px 0; cursor:pointer; padding:5px;}
+.bankList li.cur{border:solid 1px #FF6B49; background-image:url(../../../resources/userCenter/commons/images/icon_check.png); background-repeat:no-repeat; background-position:top right; background-color:#fff;}
+.bankList li span{padding-left:5px; display:block; line-height:22px;}
+.bankList li em{color:#999; width:50px; display:inline-block; text-align:right; padding-right:20px;}
+.bankList .fullBank{border-bottom:#e5e5e5 solid 1px; padding-bottom:5px; margin-bottom:5px;}
+.bankList .num{letter-spacing:2px;}
+.bankList .cardAdd{border:dashed 1px #72A8D7; background:url(../../../resources/userCenter/commons/images/icon_add2.png) no-repeat center 20px; padding-top:50px; height:54px; line-height:30px; text-align:center; color:#0087CB; font-size:14px;}
+
+.bankSearch{padding-bottom:10px;}
+.bankSearch dl{width:320px; float:left;}
+.bankSearch dt{height:20px; line-height:20px;}
+.apLayer .btn{padding: 0 0 20px 95px;}
+.apLayer .pageSize{float:none; text-align:center;}
+</style>
+</head>
+<body>
+
+<!--头部-->
+<div class="wrapper topArea">
+  <h1 class="logo">
+    <a href="javascript:void(0)" title="鑫裕环保供应链平台">
+    	<img src="../../../resources/commons/images/logo.png" alt="鑫裕环保供应链平台">
+    </a>
+  </h1>
+  <div class="topRight">
+    <a href="javascript:void(0)" class="linkIndex">首页</a>
+    <span class="topItem">您好，云飞扬</span>
+    <span class="topItem"><a href="javascript:void(0)">消息(99)</a></span>
+    <span class="topItem"><a href="javascript:void(0)">帮助中心</a></span>
+    <span class="topItem itemLast"><a href="javascript:void(0)">安全退出</a></span>
+    <em class="split"></em>
+    <span class="telPhone">4000-888-1000</span>
+  </div>
+  <div class="clear"></div>
+</div>
+
+<div class="logoBar">
+  <div class="wrapper">
+  	<a href="javascript:void(0)" class="logoName">核心企业-企业中心</a>
+    <div class="nav">
+      <a href="javascript:void(0)" class="navItem">订单管理</a>
+      <a href="javascript:void(0)" class="navItem">金融管理</a>
+      <a href="javascript:void(0)" class="navItem">企业认证</a>
+      <a href="javascript:void(0)" class="navItem">账户管理</a>
+    </div>
+  </div>
+</div>
+<!--头部end-->
+
+
+<div class="main">
+  <div class="wrapper">
+    <!--左侧菜单-->
+    <div class="leftNav budong">
+    <h2><a href="javascript:void(0)">管理中心首页</a></h2>
+    <dl class="leftList">
+        <dt>采购管理<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)">商品管理</a>
+            <a href="javascript:void(0)">订单管理</a>
+            <a href="javascript:void(0)">议价管理</a>
+        </dd>
+    </dl>
+    <dl class="leftList">
+        <dt>供应管理<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)">商品管理</a>
+            <a href="javascript:void(0)">订单管理</a>
+            <a href="javascript:void(0)">议价管理</a>
+            <a href="javascript:void(0)">优选商城订单管理</a>
+        </dd>
+    </dl>
+    <dl class="leftList">
+        <dt>商品管理<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)">发布新商品</a>
+            <a href="javascript:void(0)">仓库中的商品</a>
+            <a href="javascript:void(0)">出售中的商品</a>
+        </dd>
+    </dl>
+    <dl class="leftList">
+        <dt>金融管理<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)">订单借贷申请</a>
+            <a href="javascript:void(0)">订单借贷管理</a>
+            <a href="javascript:void(0)">信用借贷申请</a>
+            <a href="javascript:void(0)">信用借贷管理</a>
+            <a href="javascript:void(0)">还款记录</a>
+        </dd>
+    </dl>
+    <dl class="leftList">
+        <dt>企业认证<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)">企业自助备案</a>
+            <a href="javascript:void(0)">企业信用测算</a>
+        </dd>
+    </dl>
+    <dl class="leftList">
+        <dt>账户管理<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)" class="cur">基本资料管理</a>
+            <a href="javascript:void(0)">账户资金管理</a>
+            <a href="javascript:void(0)">安全设置</a>
+        </dd>
+    </dl>
+    <dl class="leftList">
+        <dt>银行卡管理<em class="itemIco"></em></dt>
+        <dd>
+            <a href="javascript:void(0)">绑定银行卡</a>
+            <a href="javascript:void(0)">银行卡管理</a>
+        </dd>
+    </dl>
+</div>
+
+    <!--左侧菜单 end-->
+      
+    <!--右侧主体-->
+    <div class="rightContent">
+    	<div class="contentTit budong borderColor">
+            <h3>银行账户设置</h3>
+            <a href="javascript:void(0);" class="btnBase btnSave">提交</a>
+            <a href="javascript:void(0);" class="btnBase btnCancel">返回</a>
+            <div class="clear"></div>
+    	</div>
+        <div class="form borderColor">
+        	<dl class="sfdHeader">
+        		<dt>三分地提醒你，为了保障你的权益，建议你下载并签署<em class="red">《长沙银行资金托管安全协议》</em></dt>
+                <dd>
+                	<em class="red">《长沙银行资金托管安全协议》</em>是由长沙银行为三分地平台的用户提供的包括资金托管、互联网支付在内的安全综合服务协议。
+                    <a href="javascript:void(0);" class="btnOrange">协议下载</a>
+                </dd>
+            </dl>
+            <!--<div class="state grayState">账户未审核</div>-->
+            <!--<div class="state yellowState">账户审核中</div>-->
+            <div class="state greenState">账户已审核</div>
+            <div class="hintRed">根据相关法律法规，经营项目依法须经批准的，经相关部门批准后方可开展经营活动</div>
+            <div class="clear"></div>
+            <h2><em>银行资料</em></h2>
+            <dl class="formItem">
+                <dt>机构代码</dt>
+                <dd><input name="" type="text" class="textBox box212"></dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>企业全称</dt>
+                <dd><input name="" type="text" class="textBox box212"></dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>企业法人</dt>
+                <dd><input name="" type="text" class="textBox box212"></dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>联系人</dt>
+                <dd><input name="" type="text" class="textBox box212"></dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>开户行全称</dt>
+                <dd><input name="" type="text" class="textBox box212" style="display:inline-block; margin-right:5px;"><a href="javascript:void(0);">长沙银行操作手册</a></dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>开户行账号</dt>
+                <dd>
+                    <input name="" type="text" class="textBox box212" style="display:inline-block; margin-right:5px;">
+                    <a href="javascript:void(0);" class="bankLink" style="color:#f00;">选择银行</a>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+            <dl class="formItem formLine">
+                <dt>联系手机号</dt>
+                <dd>
+                    <input name="" type="text" class="textBox box212" style="display:inline-block;">
+                    <input type="button" class="btnBase" id="btnSend" value="发送验证码">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formLine">
+                <dt>验证码</dt>
+                <dd>
+                    <input name="" type="text" class="textBox box212">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formLine">
+                <dt>联系地址</dt>
+                <dd>
+                    <input name="" type="text" class="textBox box212">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formLine">
+                <dt>备注</dt>
+                <dd>
+                   <textarea name="" cols="" rows="" class="textBox" style="height:80px;"></textarea>
+                </dd> 
+                <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+            <h2><em>支付／提现密码</em></h2>
+            <!--如已设置密码，此处变成修改密码，下面三个表单，分别是：原密码，新密码，确认密码-->
+            <dl class="formItem">
+                <dt>输入密码</dt>
+                <dd><input name="" type="text" class="textBox box212"></dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>确认密码</dt>
+                <dd><input name="" type="text" class="textBox box212"></dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <!--右侧主体 end-->
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<!--底部-->
+<div class="bottomMenu">
+  <div class="wrapper">
+    <dl class="footItem">
+      <dt> <img src="../../../resources/commons/images/gyl_icon_r1_c4.png" width="49" height="48" /> <span>采购流程</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="下单流程">下单流程</a></li>
+        <li><a href="javascript:void(0);" title="订单跟踪">订单跟踪</a></li>
+        <li><a href="javascript:void(0);" title="安全支付">安全支付</a></li>
+        <li><a href="javascript:void(0);" title="企业认证">企业认证</a></li>
+        <li><a href="javascript:void(0);" title="常见问题">常见问题</a></li>
+      </dd>
+    </dl>
+    <dl class="footItem">
+      <dt> <img src="../../../resources/commons/images/gyl_icon_r1_c5.png" width="49" height="48" /> <span>服务与支持</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="物流配送">物流配送</a></li>
+        <li><a href="javascript:void(0);" title="经销商权益">经销商权益</a></li>
+        <li><a href="javascript:void(0);" title="不良品退货">不良品退货</a></li>
+        <li><a href="javascript:void(0);" title="在线咨询">在线咨询</a></li>
+        <li><a href="javascript:void(0);" title="融资操作手册">融资操作手册</a></li>
+      </dd>
+    </dl>
+    <dl class="footItem">
+      <dt> <img src="../../../resources/commons/images/gyl_icon_r1_c6.png" width="49" height="48" /> <span>我的账户</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="子账户管理">子账户管理</a></li>
+        <li><a href="javascript:void(0);" title="密码重置">密码重置</a></li>
+        <li><a href="javascript:void(0);" title="在线打款">在线打款</a></li>
+      </dd>
+    </dl>
+    <dl class="lastItem">
+      <dt> <img src="../../../resources/commons/images/gyl_icon_r1_c7.png" width="49" height="48" /> <span>关于我们</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="公司简介">公司简介</a></li>
+        <li><a href="javascript:void(0);" title="联系我们">联系我们</a></li>
+        <li><a href="javascript:void(0);" title="网站声明">网站声明</a></li>
+      </dd>
+    </dl>
+    <div class="clear"></div>
+  </div>
+</div>
+<!--底部 end--> 
+
+<!--尾部-->
+<div class="footer">
+  <div class="wrapper">
+    <p class="footerLeft">© 2014 成都易科远见科技有限公司 版权所有 蜀ICP备 14005736号</p>
+    <p class="footerRight">成都市高新区吉泰路666号花样年·福年广场2号楼1309室<br>
+      服务热线：028-83190368</p>
+    <div class="clear"></div>
+  </div>
+</div>
+<!--尾部 end--> 
+
+<!--选择银行弹层 选中后自动关闭层-->
+<div class="apLayerBg"></div>
+<div class="apLayer borderColor bankCheck">
+	<div class="apTit">
+    	<span class="apClose"></span>
+        银行选择
+    </div>
+    <div class="apContent">
+    	<div class="bankSearch">
+            <dl class="formItem">
+                <dt>开户行</dt>
+                <dd>
+                <input name="" type="text" class="textBox box212" value="">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>帐号</dt>
+                <dd>
+                <input name="" type="text" class="textBox box212" value="">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+        </div>
+        <div class="btn">
+            <a href="javascript:void(0);" class="btnBase">搜索</a>
+            <a href="javascript:void(0);" class="btnBase">重置</a>
+        </div>
+        <ul class="bankList">
+            <li class="bankItem cur">
+                <span class="bank"><em>开户行</em>中国工商银行</span>
+                <span class="fullBank"><em>全称</em>姐儿堰支行</span>
+                <span class="num"><em>帐号</em>6228480461000596</span>
+                <span class="name"><em>户名</em>成都易科远见科技有限公司</span>
+            </li>
+            <li class="bankItem">
+                <span class="bank"><em>开户行</em>中国工商银行</span>
+                <span class="fullBank"><em>全称</em>姐儿堰支行</span>
+                <span class="num"><em>帐号</em>6228480461000596</span>
+                <span class="name"><em>户名</em>成都易科远见科技有限公司</span>
+            </li>
+            <li class="bankItem">
+                <span class="bank"><em>开户行</em>中国工商银行</span>
+                <span class="fullBank"><em>全称</em>姐儿堰支行</span>
+                <span class="num"><em>帐号</em>6228480461000596</span>
+                <span class="name"><em>户名</em>成都易科远见科技有限公司</span>
+            </li>
+            <li class="bankItem">
+                <span class="bank"><em>开户行</em>中国工商银行</span>
+                <span class="fullBank"><em>全称</em>姐儿堰支行</span>
+                <span class="num"><em>帐号</em>6228480461000596</span>
+                <span class="name"><em>户名</em>成都易科远见科技有限公司</span>
+            </li>
+            <li class="bankItem">
+                <span class="bank"><em>开户行</em>中国工商银行</span>
+                <span class="fullBank"><em>全称</em>姐儿堰支行</span>
+                <span class="num"><em>帐号</em>6228480461000596</span>
+                <span class="name"><em>户名</em>成都易科远见科技有限公司</span>
+            </li>
+            <li class="bankItem">
+                <span class="bank"><em>开户行</em>中国工商银行</span>
+                <span class="fullBank"><em>全称</em>姐儿堰支行</span>
+                <span class="num"><em>帐号</em>6228480461000596</span>
+                <span class="name"><em>户名</em>成都易科远见科技有限公司</span>
+            </li>
+            <li class="cardAdd">绑定银行卡</li>
+            <div class="clear"></div>
+        </ul>
+        <div class="pageSize">
+            <a href="javascript:void(0);" class="btn pageControl">&lt;&lt;</a>
+            <a href="javascript:void(0);" class="btn pageControl">&lt;</a>
+            <a href="javascript:void(0);" class="btn">1</a>
+            <a href="javascript:void(0);" class="btn">2</a>
+            <a href="javascript:void(0);" class="btn cur">3</a>
+            <a href="javascript:void(0);" class="btn">4</a>
+            <a href="javascript:void(0);" class="btn">5</a>
+            <a href="javascript:void(0);" class="btn">6</a>
+            <a href="javascript:void(0);" class="btn">...</a>
+            <a href="javascript:void(0);" class="btn pageControl">&gt;</a>
+            <a href="javascript:void(0);" class="btn pageControl">&gt;&gt;</a>
+        </div>
+    </div>
+</div>
+<!--选择银行弹层 end-->
+<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="../../../resources/userCenter/commons/js/base.js"></script>
+<script>
+/*验证码获取倒计时*/
+var wait=120;
+function time(o) {
+		if (wait == 0) {
+			o.removeAttribute("disabled");
+			o.setAttribute("class","btnBase");         
+			o.value="获取验证码";
+			wait = 120;
+		} else {
+			o.setAttribute("disabled", true);
+			o.setAttribute("class","btnBase btnForbid");
+			o.value=wait + "后重新发送";
+			wait--;
+			setTimeout(function() {
+				time(o)
+			},
+			1000)
+		}
+	}
+document.getElementById("btnSend").onclick=function(){
+	time(this);
+}
+
+//选择银行账户
+$(".bankLink").live("click",function(){
+	$(".apLayerBg,.bankCheck").show();
+})
+$(".bankItem").live("click",function(){
+	$(this).siblings().removeClass("cur");
+	$(this).addClass("cur");
+	$(this).parents(".apLayer").hide();
+	$(".apLayerBg").hide();
+})
+</script>
+</body>
+</html>

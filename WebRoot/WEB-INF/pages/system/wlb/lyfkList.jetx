@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/demand.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/list.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/list.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/wlb/js/lyfkList.js"></script>
+</head>
+
+<body>
+
+#define(List<com.ekfans.plugin.wuliubao.yunshu.base.model.MessageBack> list)
+
+<input type="hidden" id="ctxpath" value="${webroot}" />
+<input type="hidden" id="productType" value="${type}" />
+
+<form action="${webroot}/system/wlblyfk/list" method="post" id="searchSupplyBuyForm">
+	<input type="hidden" name="pageNum" value="" />	
+	<dl class="pro_ss">
+		<dt><b>查询</b><span class="span_down"></span><span class="span_up"></span></dt>
+		<dd class="pro_ss_item">
+			<span class="zt">
+				<label>
+					<input type="radio" name="type" value="" #if(type==null||type==""||isStore==null) checked=true #end/>所有
+				</label>
+			</span>
+			<span class="zt">
+				<label>
+					<input type="radio" name="type" value="1" #if(type=="1") checked=true #end/>已反馈
+				</label>
+			</span>
+			<span class="zt">
+				<label>
+					<input type="radio" name="type" value="2" #if(type=="2") checked=true #end/>未反馈
+				</label>
+			</span>
+		</dd>
+		<dd class="pro_ss_item">
+			<span>用户账号</span>
+			<input type="text" class="i_bg" name="name" value="${name}" />
+		</dd>
+		<dd class="clear"></dd>
+	</dl>
+</form>
+<div class="pro_ss_btn">
+	<a href="javascript:searchSubmit();" class="btn">搜索</a>
+	<a href="javascript:resetForm();" class="btn">重置</a>
+</div>
+<!--没有数据的时候-->
+#if(list==null||list.size()<=0)
+	<div class="ht_list_k">暂时没有符合条件的数据</div>	
+#else
+	<!--有数据的时候-->
+	<div class="ht_list">
+		<table id="storeTab" cellpadding="0" cellspacing="0" border="0" >
+			<tr>
+				<th width="4%">序号</th>
+		        <th width="16%">用户账号</th>
+		        <th width="16%">用户昵称</th>              
+		        <th width="14%">创建时间</th>
+		        <th width="14%">状态</th>
+		        <th width="7%">反馈人</th>
+		        <th width="9%">反馈时间</th>
+		        <th colspan="10%">操作</th>
+			</tr>
+			#for(com.ekfans.plugin.wuliubao.yunshu.base.model.MessageBack m : list)
+				  <tr id="${m.id}">
+				  <td>${for.index}</td>
+				  <td>${m.userName}</td>
+				  <td>${m.nickName}</td>
+				  <td>${m.createTime}</td>
+		          <td>#if(m.type.equals("1"))已反馈#else未反馈#end</td>
+		          <td>${m.feedbackMan}</td>
+		          <td>${m.feedbackTime}</td>
+				  <td class="cz">
+				  	<a href="javascript:void(0);" class="auditIco" onclick="feedback('${m.id}');" title="反馈" ></a>
+				  </td>
+			  </tr>
+			#end
+		</table>
+		<div class="ht_pageBox">
+			${include( "../common/page.jetx")}
+		</div>
+	</div>
+#end
+
+
+</body>
+</html>

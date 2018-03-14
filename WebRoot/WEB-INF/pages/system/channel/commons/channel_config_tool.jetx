@@ -1,0 +1,172 @@
+
+<!--选项卡式面板-->
+<div class="tabsLayer" type="config">
+	<div class="tabsLayerList">
+		<div class="wrapper resizeDiv tabsLayerIn1">
+			<div class="tabItem apDiv">
+				<a href="javascript:void(0)" class="diyItem2">选项卡1</a>
+				<a href="javascript:void(0)" class="diyItem2">选项卡2</a>
+				<a href="javascript:void(0)" class="diyItem2">选项卡3</a>
+			</div>
+			<div class="tabContent">
+				<div class="tabContentItem apDiv"></div>
+				<div class="tabContentItem apDiv"></div>
+				<div class="tabContentItem apDiv"></div>
+			</div>
+		</div>
+	</div>
+	<div class="tabsLayerList">
+		<div class="wrapper resizeDiv tabsLayerIn2">
+			<div class="tabItem apDiv">
+				<a href="javascript:void(0)" class="diyItem2">选项卡1</a>
+				<a href="javascript:void(0)" class="diyItem2">选项卡2</a>
+				<a href="javascript:void(0)" class="diyItem2">选项卡3</a>
+			</div>
+			<div class="tabContent">
+				<div class="tabContentItem apDiv"></div>
+				<div class="tabContentItem apDiv"></div>
+				<div class="tabContentItem apDiv"></div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>
+<!--选项卡式面板 end-->
+
+<!--title模板-->
+<div class="titleLayer" type="config">
+	<div class="titleLayerList diyTitle1">
+		<div class="titleItem1 apDiv">
+		
+		</div>
+	</div>
+	<div class="titleLayerList diyTitle2">
+		<div class="titleItem2 apDiv"></div>
+		<div class="titleItem2 apDiv"></div>
+	</div>
+	<div class="titleLayerList diyTitle3">
+		<div class="titleItem3 apDiv"></div>
+		<div class="titleItem3 apDiv"></div>
+		<div class="titleItem3 apDiv"></div>
+	</div>
+	<div class="titleLayerList diyTitle4">
+		<div class="titleItem4-1 apDiv"></div>
+		<div class="titleItem4-2 apDiv"></div>
+	</div>
+	<div class="titleLayerList diyTitle5">
+		<div class="titleItem5-1 apDiv"></div>
+		<div class="titleItem5-2 apDiv"></div>
+	</div>
+</div>
+<!--title模板 end-->
+
+<!--banner模板-->
+<div class="bannerLayer" type="config">
+	<div class="bannerLayerList diyBanner1">
+		<div class="bannerItem1 apDiv resizeDiv"></div>
+		<div class="clear"></div>
+	</div>
+	<div class="bannerLayerList diyBanner2">
+		<div class="bannerItem2 apDiv resizeDiv"></div>
+		<div class="bannerItem2 apDiv resizeDiv"></div>
+		<div class="bannerItem2 apDiv resizeDiv"></div>
+		<div class="clear"></div>
+	</div>
+	<div class="bannerLayerList diyBanner3">
+		<div class="bannerItem3 apDiv resizeDiv"></div>
+		<div class="bannerItem3 apDiv resizeDiv"></div>
+		<div class="bannerItem3 apDiv resizeDiv"></div>
+		<div class="bannerItem3 apDiv resizeDiv"></div>
+		<div class="bannerItem3 apDiv resizeDiv"></div>
+		<div class="bannerItem3 apDiv resizeDiv"></div>
+		<div class="clear"></div>
+	</div>
+	<div class="bannerLayerList diyBanner4">
+		<div class="bannerItem4-1 apDiv resizeDiv"></div>
+		<div class="bannerItem4-2 apDiv resizeDiv"></div>
+		<div class="bannerItem4-2 apDiv resizeDiv"></div>
+		<div class="bannerItem4-2 apDiv resizeDiv"></div>
+		<div class="clear"></div>
+	</div>
+</div>
+<!--banner模板-->
+
+<!--自定义层-->
+<div class="diyLayer" type="config">
+	<div class="diyLayerList diyLayer1" type="config">
+		<div class="diyLayerItem apDiv resizeDiv"></div>
+		<div class="clear"></div>
+	</div>
+	<div class="diyLayerList diyLayer2" type="config">
+		<div class="diyLayerItem apDiv resizeDiv"></div>
+		<div class="diyLayerItem apDiv resizeDiv"></div>
+		<div class="clear"></div>
+	</div>
+	<div class="diyLayerList diyLayer3" type="config">
+		<div class="diyLayerItem apDiv resizeDiv"></div>
+		<div class="diyLayerItem apDiv resizeDiv"></div>
+		<div class="diyLayerItem apDiv resizeDiv"></div>
+		<div class="clear"></div>
+	</div>
+	<div class="diyLayerList diyLayer4" type="config">
+		<div class="diyLayerItem apDiv resizeDiv"></div>
+		<div class="diyLayerItem apDiv resizeDiv"></div>
+		<div class="diyLayerItem apDiv resizeDiv"></div>
+		<div class="diyLayerItem apDiv resizeDiv"></div>
+		<div class="clear"></div>
+	</div>
+	<div class="diyLayerList diyLayer5" type="config">
+		<div class="diyLayerItem apDiv resizeDiv"></div>
+		<div class="diyLayerItem apDiv resizeDiv"></div>
+		<div class="diyLayerItem apDiv resizeDiv"></div>
+		<div class="diyLayerItem apDiv resizeDiv"></div>
+		<div class="diyLayerItem apDiv resizeDiv"></div>
+		<div class="diyLayerItem apDiv resizeDiv"></div>
+		<div class="clear"></div>
+	</div>
+</div>
+<!--自定义层 end-->
+
+<!--广告选择-->
+<div class="imgCheckLayer" type="config">
+	<div class="alertLayerBg"></div>
+	<div class="alertLayer">
+		<div class="tit">广告图片选择<a href="javascript:void(0)" class="layerClose"></a></div>
+		<div class="alertContent">
+			<ul class="imgList">
+				<li><a href="javascript:void(0)" ><img src="images/shoppro.jpg" width="135" height="238" alt="女士短袖T恤"><em></em></a></li>
+				<li class="cur"><a href="javascript:void(0)" ><img src="images/shoppro.jpg" width="135" height="238" alt="女士短袖T恤"><em></em></a></li>
+				<li><a href="javascript:void(0)" ><img src="images/shoppro.jpg" width="135" height="238" alt="女士短袖T恤"><em></em></a></li>
+				<li><a href="javascript:void(0)" ><img src="images/shoppro.jpg" width="135" height="238" alt="女士短袖T恤"><em></em></a></li>
+				<li><a href="javascript:void(0)" ><img src="images/shoppro.jpg" width="135" height="238" alt="女士短袖T恤"><em></em></a></li>
+				<li><a href="javascript:void(0)" ><img src="images/shoppro.jpg" width="135" height="238" alt="女士短袖T恤"><em></em></a></li>
+				<li><a href="javascript:void(0)" ><img src="images/shoppro.jpg" width="135" height="238" alt="女士短袖T恤"><em></em></a></li>
+				<li><a href="javascript:void(0)" ><img src="images/shoppro.jpg" width="135" height="238" alt="女士短袖T恤"><em></em></a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!--广告选择 end-->
+
+<!--频道选择-->
+<div class="linkCheckLayer" id="channelChose" type="config">
+	<div class="alertLayerBg"></div>
+	<div class="alertLayer">
+		<div class="tit">频道链接选择<a href="javascript:void(0)" class="layerClose"></a></div>
+		<div class="alertContent">
+			<ul class="linkCheckList">
+				#for(com.ekfans.base.channel.model.Channel channel:channelList)
+					<li><label><input name="linkCheck" class="channelChoseRadio" type="radio" value="${channel.name};#tag shortLink("06",channel.id) #end">${channel.name}</label></li>
+				#end
+			</ul>
+		</div>
+	</div>
+</div>
+<!--频道选择 end-->
+
+<div type="config">
+	<form action="${webroot}/system/channel/configSave" id="configSaveForm" method="post">
+		<input type="hidden" name="channelId" value="${channelId}"/>
+		<input type="hidden" name="htmlStr" id="htmlStr" value=""/>
+	</form
+</div>

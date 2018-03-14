@@ -1,0 +1,97 @@
+
+	#define(List<com.ekfans.base.product.model.ProductBrand> productBrand)
+
+
+	<div class="apTit">
+		<span class="apClose"></span>
+		品牌选择
+	</div>
+	<div class="apContent">
+		<div class="shopSearch">
+			<dl class="formItem">
+				<dt>品牌名</dt>
+				<dd><input type="text" class="textBox box212" name="brandName"  id="nameBrand"  value="${brandName }"/></dd>
+			</dl>
+			<div class="clear"></div>
+		</div>
+		<div class="btn">
+			<a href="javascript:void(0);" onclick="searchBrandList();" class="btnBase">搜索</a>
+			<a href="javascript:void(0);" onclick="resetBrand();" class="btnBase">重置</a>
+		</div>
+		<div class="itemLayer">
+		
+		
+			#if(productBrand==null||productBrand.size()<=0)
+				<div class="classItem">暂时没有符合条件的数据</div>
+			#else
+				#for(com.ekfans.base.product.model.ProductBrand  pb : productBrand)
+					<div class="classItem">
+						<label>
+							<span class="check"><em><input name="checkbox" type="checkbox" value=true onclick="sreachBrand('${pb.name }','${pb.id}');"></em></span>
+							${pb.name }
+						</label>
+					</div>
+				#end
+			#end
+			<div class="clear"></div>
+		</div>
+		
+		#define(com.ekfans.pub.util.Pager pager)
+		<div class="pageSize">
+			<a href="javascript:void(0);" class="btn pageControl" onclick="goPageBrand('1');" >&lt;&lt;</a>
+			
+			#if(pager.currentPage == 1)
+				<a href="javascript:void(0);" class="btn pageControl">&lt;</a>
+			#else
+				<a href="javascript:void(0);" onclick="goPageBrand('${pager.currentPage-1 }');" value="${pager.currentPage-1 }" class="btn pageControl">&lt;</a>
+			#end
+			
+			
+			#if(pager.totalPage>5)
+				#if(pager.currentPage-2>1 && pager.currentPage+2<pager.totalPage)
+					<a class="btn">..</a>
+					#for(int i : iterator(pager.currentPage-2,pager.currentPage+2))
+						#if(pager.currentPage==i)
+								<a href="javascript:void(0);" onclick="goPageBrand('${i }');" value="${i }" class="btn cur">${i }</a>
+						#else
+							<a href="javascript:void(0);" onclick="goPageBrand('${i }');" value="${i }" class="btn">${i }</a>
+						#end
+					#end
+					<a>..</a>
+				#elseif(pager.currentPage-2<=1)
+					#for(int i : iterator(1,5))
+						#if(pager.currentPage==i)
+							<a href="javascript:void(0);" onclick="goPageBrand('${i }');"   value="${i }" class="btn cur" >${i }</a>
+						#else
+							<a href="javascript:void(0);" onclick="goPageBrand('${i }');"   value="${i }" class="btn">${i }</a>
+						#end
+					#end
+					<a>..</a>
+				#else
+					<a>..</a>
+					#for(int i : iterator(pager.totalPage-4,pager.totalPage))
+						#if(pager.currentPage==i)
+							<a href="javascript:void(0);" onclick="goPageBrand('${i }');"   value="${i }" class="btn cur" >${i }</a>
+						#else
+							<a href="javascript:void(0);" onclick="goPageBrand('${i }');"   value="${i }" class="btn">${i }</a>
+						#end
+					#end
+				#end
+			#else
+				#for(int i : iterator(1,pager.totalPage))
+					#if(pager.currentPage==i)
+						<a href="javascript:void(0);" onclick="goPageBrand('${i }');"   value="${i }" class="btn cur" >${i }</a>
+					#else
+						<a href="javascript:void(0);" onclick="goPageBrand('${i }');"   value="${i }" class="btn">${i }</a>
+					#end
+				#end
+			#end
+			
+			#if(pager.currentPage==pager.totalPage)
+				<a href="javascript:void(0);" class="btn pageControl">&gt;</a>
+			#else
+				<a href="javascript:void(0);" onclick="goPageBrand('${pager.currentPage+1 }');"   value="${pager.currentPage+1 }" class="btn pageControl">&gt;</a>
+			#end
+			<a  href="javascript:void(0);" onclick="goPageBrand('${pager.totalPage }');"   value="${pager.totalPage }" class="btn pageControl">&gt;&gt;</a>
+		</div>
+	</div>

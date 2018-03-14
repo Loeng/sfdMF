@@ -1,0 +1,111 @@
+﻿<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>道路紧急预案</title>
+	<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css">
+	<script src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+	<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+<style>
+		.box80,.inputSplit{display:inline-block;}
+		.box80{width:95px;}
+	</style>
+</head>
+<body>
+   <form method="post" id="f1">
+   
+		<div class="rightContent">
+			<div class="contentTit  borderColor budong">
+				<h3>道路紧急预案</h3>
+				<a href="${webroot}/store/qualification/getQuaList" class="btnBase btnCancel">取消</a>
+				<a href="javascript:void(0);" class="btnBase btnSave" onClick="ajax1();">保存</a>
+				<div class="clear"></div>
+			</div>
+			<div class="form borderColor">
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>附件</dt>
+					<dd> #tag fileUpload("file","word","") #end </dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>状态</dt>
+					<dd>
+						<label style="margin-right:10px;"><input name="type" type="radio" checked style="margin-right: 8px;vertical-align:middle;margin-top:-2px;" value="1">有效</label>
+						<label><input name="type" type="radio" style="margin-right: 8px;vertical-align:middle;margin-top:-2px;" value="0">无效</label>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>有效期</dt>
+					<dd><input name="startTime" id="startTime" onblur="checkFocus(this,'开始时间不能为空');"  type="text" class="textBox box80" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"><span class="errorText" style="display:none;"></span></dd>
+					<dd class="lineColor">&nbsp;—&nbsp;</dd>
+					<dd><input name="endTime" id="endTime" type="text" onblur="checkFocus(this,'结束时间不能为空');" class="textBox box80" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"><span class="errorText" style="display:none;"></span></dd>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				
+			</div>
+		</div>  
+	</form>	
+	
+	
+<script>
+
+	function checkFocus(obj,tit) {
+		if($(obj).val()!=null&&$(obj).val()!=""&&$(obj).val()!=" "){
+			$(obj).next().html("");
+			$(obj).next().hide();
+		}else{
+			$(obj).next().html(tit);
+			$(obj).next().show();
+		}
+	}
+	
+	function ajax1(){
+		if($("#fileFileUrl").val()==""||$("#fileFileUrl").val()==" "||$("#fileFileUrl").val()==null){
+			falert("附件不能为空");
+			return false;
+		}
+		/*
+		if($("#startTime").val()==""||$("#startTime").val()==" "||$("#startTime").val()==null){
+			falert("开始时间不能为空");
+			return false;
+		}
+		if($("#endTime").val()==""||$("#endTime").val()==" "||$("#endTime").val()==null){
+			falert("结束时间不能为空");
+			return false;
+		}
+		*/
+		var flag=true;
+		$("input[type='text']").each(function(){
+			$(this).blur();
+			if($(this).next().is(':visible')){
+				flag=false;
+			}
+		})
+		if(flag){
+			$.post('${webroot}/store/qualification/save',$("#f1").serialize(),function (data){
+				if(data==1 || data=="1"){
+					econfirm('添加成功，是否继续添加？',null,null,goBack,[$("#ctxpath").val()]);
+				}else{
+					falert("添加失败");
+				}
+	   	 	});
+   	 	}
+	}	
+	function goBack(contextPath){
+		// 判定contextPath是否为空
+		if(contextPath==null||contextPath==""){
+			window.location.href="${webroot}/store/qualification/getQuaList";
+		}
+	}
+</script>
+</body>
+</html>

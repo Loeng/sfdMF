@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>商户中心</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/store/commons/css/mapSet.css" />
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=E3ed39df683a72ffe13a56804700ca74"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/store/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/modernizr.custom.js"></script>
+	<!-- 
+	<script type="text/javascript" src="${webroot}/resources/store/js/product/storeProductModify.js"></script> 
+	-->
+	<script type="text/javascript" src="${webroot}/resources/store/js/map/coordinateAdd.js"></script>
+</head>
+
+<body>
+		
+#define(com.ekfans.base.store.model.Store storeMap)
+
+<div class="sto_right">
+	<div class="hint">提示：地图设置出现在店铺首页，更方便客户了解您的具体位置情况</div>
+	<div class="map" id="container" ></div>
+	<form action="${webroot}/store/map/updateMap" name="modifyOK" method="post" id="modifyProductForm">
+  	<div class="mapInfo">
+    	<dl class="formLine">
+	    	<dt>地址：</dt>
+	      <dd class="formRight"><input type="text" name="city" value="${storeMap.city}" class="siteBox"></dd>
+	      <dd class="clear"></dd>
+    	</dl>
+    	<div class="mapHint">提示：根据详细地址只能获取到大概的地址，如地址的不正确，请按照下面的网址查询X坐标和Y坐标</div>
+      <dl class="formLine">
+      	<dt>X坐标：</dt>
+        <dd class="formRight"><input type="text" id="coordinateX" name="coordinateX" value="${storeMap.coordinateX}" class="coordBox"></dd>
+        <dd class="clear"></dd>
+      </dl>
+      <dl class="formLine">
+      	<dt>Y坐标：</dt>
+        <dd class="formRight"><input type="text" id="coordinateY" name="coordinateY" value="${storeMap.coordinateY}" class="coordBox"></dd>
+        <dd class="clear"></dd>
+      </dl>
+      <div class="coordText">坐标获取请到：<a href="http://api.map.baidu.com/lbsapi/getpoint/index.html" target="_blank" class="fc-link">http://api.map.baidu.com/lbsapi/getpoint/index.html</a></div>
+      <a href="javascript:formSubmit();" class="btnBlue">保存</a>
+    </div>
+ 	</form>
+	</div>
+	
+<script type="text/javascript">	
+	var map = new BMap.Map("container"); // 创建Map实例
+	map.centerAndZoom(new BMap.Point($('#coordinateX').val(), $('#coordinateY').val()), 18); // 初始化地图,设置中心点坐标和地图级别
+	var opts = {type: BMAP_NAVIGATION_CONTROL_SMALL}
+	//map.addControl(new BMap.NavigationControl(opts));	
+	var marker = new BMap.Marker(new BMap.Point($('#coordinateX').val(), $('#coordinateY').val())); // 创建标注
+	map.addOverlay(marker); // 将标注添加到地图中
+	var opt2 = {
+		width : 280, // 信息窗口宽度
+		height: 320, // 信息窗口高度
+		title : "全网总店铺" // 信息窗口标题
+	}
+	var infoWindow = new BMap.InfoWindow($('#city').val(), opt2); // 创建信息窗口对象
+	marker.addEventListener("click", function(){          
+		this.openInfoWindow(infoWindow);  
+	});
+</script>
+	
+</body>
+</html>

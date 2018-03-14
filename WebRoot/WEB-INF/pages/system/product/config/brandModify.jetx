@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+    	<title>修改品牌信息</title>
+    	<link href="${webroot}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+    <link href="${webroot}/resources/system/css/demand.css" rel="stylesheet" type="text/css" />
+    	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/product/productBrandModify.js"></script>
+			<!-- 上传文件的CSS -->
+		<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+		<!-- 上传文件控件  -->
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+    </head>
+    
+    <body>
+    	<input type="hidden" id="modifyOk" value="${requestScope.modifyOk}" />
+			<input type="hidden" id="ctxpath" value="${webroot}" />
+			<form action="${webroot}/system/product/brand/modify" name="modify" method="post"  id="modifyProductBrandForm">
+			<div class="ht_btn">
+					<a href="#"  class="btn" onclick="formSubmit();">保存</a>
+					<a href="#" class="btn" onclick="reset();">重置</a>
+					<a href="#" class="btn" onclick="goBack('${webroot}');">返回列表</a>
+				</div>
+				#define(com.ekfans.base.product.model.ProductBrand productBrand)
+				#define(List<com.ekfans.base.product.model.ProductCategory> ProductCategorys)
+				<div class="add_pro">
+	 			<input type="hidden" name="id" value="${productBrand.id }" />
+				<dl class="formBox">
+					<dt>品牌名<em class="mustIco"></em></dt>
+					<dd id="nameDd" >
+						<input type="text" class="i_bg"  name="name" value="${productBrand.name }" onblur="javascript:checkNameBlur();" onkeyup="javascript:checkName();" onfocus="javascript:checkName();" />
+					</dd>
+				</dl>
+					<dl class="formBox">
+					<dt>品牌图标</dt>
+					<dd>
+ 					  #tag picUpload("icon","1","300","300",productBrand.icon) #end
+					</dd>
+				</dl>
+				<input type="hidden" name="icon" value="${productBrand.icon }" />
+				<dl class="formBox">
+					<dt>链接地址</dt>
+					<dd >
+						<input type="text" class="i_bg"  name="linkUrl" value="${productBrand.linkUrl }" />
+					</dd>
+				</dl>
+				
+				<div class="clear"></div>
+				
+				<input type="hidden" name="createTime" value="${productBrand.createTime }" />
+				<dl class="formBox">
+					<dt>排序</dt>
+					<dd >
+						<input type="text" class="i_bg"  name="position" value="${productBrand.position }" />
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				<dl>
+					<dt>状态</dt>
+					<dd>
+							<span class="zt"><label><input type="radio" value="true" name="status" #if(productBrand.status) checked=true #end />显示</label></span>
+							<span class="zt"><label><input type="radio" value="false" name="status" #if(!productBrand.status) checked=true #end />不显示</label></span>
+						</span>
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				
+				
+				<dl class="formBox">
+					<dt>品牌描述</dt>
+					<dd >
+						<textarea name="note">${productBrand.note }</textarea>
+					</dd>
+				</dl>
+								<!-- 方便获取应用地址的隐藏域 -->
+				<input type="hidden" id="ctxpath" value="${ctxpath }" />
+	
+				
+			</div>
+		</form>
+	</body>
+</html>

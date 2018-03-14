@@ -1,0 +1,283 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>合同查看</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/coreCompany/css/style.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<style>
+	
+span.pp{cursor:pointer; display:block; float:left; width:27px; height:28px; border:1px solid #e0e3ea; margin-left:-1px; position:relative; background:url(../../../resources/userCenter/commons/images/rightpoint2.png) no-repeat center center;}
+span.pp:hover{background:url(${webroot}/resources/userCenter/commons/images/rightpoint.png) #999 no-repeat center center; width:29px; height:30px; border:none;}
+/*弹层*/
+.alertBrand .pageSize{padding-right:8px;}
+.alertTemp,.alertBrand{max-height:500px;}
+.itemLayer{margin:0 12px; margin-bottom:20px;  border-top:solid 1px #333;} 
+.classItem{width:30%; margin:0 1.5%; float:left;  min-height:33px;padding:15px 0; border-bottom:solid 1px #e4e4e4;}
+.classItem label{display:block;}
+.classItem .check{display:block; float:left; margin:19px 20px 0 0;}
+.apLayer .btn{padding: 0 0 20px 72px;}
+.shopSearch{padding:16px 10px 0 16px;}
+.shopSearch dl{width:320px; float:left;}
+.shopSearch dt{height:20px; line-height:20px;}
+.shopListAlert div.btn a{float:none;}
+
+
+.wfpBox{ margin:10px 0;}
+.wfpList{float:left; margin-right:10px;margin-left:25px; margin-bottom:20px;border:1px solid #e5e5e5; width:264px; min-height:173px; padding:8px;}
+.wTitle{border-bottom:1px solid #A5A5A5; line-height:30px; height:30px; margin-bottom:10px;}
+.wname{color:#000000; font-size:14px; width:191px; display:inline-block;}
+.wtyep{color:#000000; font-size:12px;}
+.wtype em{color:#7D7D7D; padding-left:15px;}
+.wfTab{width:100%;margin-bottom:20px; font-size:12px;}
+.wfTab th{padding:0px 10px; height:28px;line-height:28px;color:#040303;border-bottom:1px #e5e5e5 solid;}
+.wfTab td{padding:0px 10px; height:28px;line-height:28px; border-bottom:1px #e5e5e5 solid;color:#878787;overflow:hidden;}
+.tLeft{text-align:left;}
+.tRight{text-align:right;}
+.wfTab thead{}
+.wfTab tbody{}
+.btnEdit{height:21px; line-height:21px; margin-left:50px;}
+.btnDelete{height:21px; line-height:21px;}
+
+.alertLayerBg{filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8; opacity:0.8;
+	 background:#000; position:fixed; left:0; top:0; width:100%; height:100%; z-index:99; display:none;}
+.altBox{position:fixed;top:50%;left:50%;margin:-175px 0 0 -350px;width:700px;min-height:230px;z-index:100;
+	background:#fff;overflow:hidden; border:1px solid #e5e5e5;border-top:5px solid #31A7FF; 
+	padding:8px 15px 20px 15px;display:none;}
+.altBox h2{ height:30px; line-height:30px;color:#33A7FF; font-size:16px; border-bottom:1px solid #e5e5e5; 
+	margin-bottom:10px;}
+.serchBox{border-bottom:1px solid #e5e5e5; margin-bottom:10px;}
+.deleteLine{padding:0 12px;}
+.box58{width:58px;}
+.altBox .selList{width:60px;}
+.tips{color:#7D7D7D; padding-left:10px;}
+.btnSure{margin-left:369px;}
+.addBox2{text-align:center;display:none;}
+.btnAdd{cursor:pointer;width:258px;height:156px;line-height:156x; margin:0 auto;
+	background-image:url(${webroot}/resources/userCenter/commons/images/addBtn.png); 
+	background-repeat: no-repeat; background-position: center center; display:block;}
+.tipSpan{color:#e5e5e5;display:block;}
+
+
+/*表格*/
+.tabList{width:100%;margin-bottom:10px;}
+.tabList th{padding:0px 10px; height:35px;line-height:35px;color:#292729; font-size:14px;}
+.tabList td{padding:8px 10px; line-height:22px; border-bottom:1px #DCDCDD solid;color:#7D7C7D; max-width:105px; overflow:hidden; text-align:center;}
+.tabList .tabRight{text-align:right;}
+.tabList .tabLeft{text-align:left;}
+.tabList tr:hover{background:#F3F3F3;}
+.tabList .btnBase{height:22px; line-height:22px; width:70px; padding:0; margin:0 auto 6px auto; display:block;}
+.tabList .textBox{display:inline-block;}
+.tdItem{padding-bottom:10px;}
+</style>
+</head>
+<body>
+	#define(com.ekfans.base.wfOrder.model.Contract contract)
+	#define(List<com.ekfans.base.wfOrder.model.ContractDetails> cdList)
+	#define(List<com.ekfans.base.wfOrder.model.ContractContent> ccList)
+ 	<div>
+      <div class="contentTit" style="width:94%;">
+          <h3>合同查看</h3>
+          <a onclick="backList('${webroot}')" style="cursor:pointer;" class="btnBase btnCancel">返回列表</a>
+          <div class="clear"></div>
+      </div>
+      <input id="ctxpath" type="hidden" value="${webroot}"/>
+      <input id="storeIdSecondId" name ="storeIdSecondId" type="hidden" value=""/>
+      <input id="storeIdfirstId" name ="storeIdfirstId" type="hidden" value=""/>
+      <div class="form">
+      #set(boolean bjStatus = false)
+      	<dl class="formItem">
+						<dt><em class="mustIco"></em>合同类型</dt>
+						<dd>
+							<input id="type" name="type" type="hidden" class="box184" value="${contract.type}">
+							<input id="htType" name="htType" value="${contract.type == "0"?"危废处置合同":"危废运输合同"}" type="text" class="textBox box212" placeholder="请选择合同类型"  readonly>
+						</dd>
+						<dd class="clear"></dd>
+					</dl>
+        	
+					<dl class="formItem">
+						<dt><em class="mustIco"></em>合同名称</dt>
+						<dd><input id="name" name="name" type="text" onblur="checkName()" class="textBox box212" value="${contract.name}" placeholder="1-30个字符" #if(!bjStatus) readonly #end></dd>
+						<dd class="clear"></dd>
+					</dl>
+             
+					<dl class="formItem">
+						<dt style="width:80px;"><em class="mustIco"></em><span id="firstTit">${contract.type == "0"?"委托方(甲方)":"托运方(甲方)"}</span></dt>
+						<dd class="clickAbout">
+							<input id="firstName" name="firstName" type="text" readonly class="textBox box212" value="${contract.firstName}" style="width:231px;">
+						</dd>
+						<dd class="clear"></dd>
+					</dl>
+					
+					<dl class="formItem">
+						<dt style="width:80px;"><em class="mustIco"></em><span id="secTit">${contract.type == "0"?"处置方(乙方)":"承运方(乙方)"}</span></dt>
+						<dd class="clickAbout">
+							<input id="secondName" name="secondName" readonly type="text" class="textBox box212" value="${contract.secondName}" style="width:231px;">
+						</dd>
+						<dd class="clear"></dd>
+					</dl>
+           
+					<dl class="formItem">
+						<dt><em class="mustIco"></em>开始时间</dt>
+						<dd><input id="startTime" name="startTime" type="text" readonly class="textBox box212" value="${contract.startTime}"  #if(bjStatus) onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" #end placeholder="1-30个字符"></dd>
+						<dd class="clear"></dd>
+					</dl>
+					<dl class="formItem">
+						<dt><em class="mustIco"></em>结束时间</dt>
+						<dd><input id="endTime" name="endTime" type="text" readonly class="textBox box212" value="${contract.endTime}"  #if(bjStatus) onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'startTime\')}'})" #end placeholder="1-30个字符"></dd>
+						<dd class="clear"></dd>
+					</dl>
+					
+					<dl class="formItem">
+						<dt><em class="mustIco"></em>合同编号</dt>
+						<dd><input id="contractNo" name="contractNo" type="text" class="textBox box212" value="${contract.contractNo}" onchange="checkContractNo();" #if(!bjStatus) readonly #end placeholder="1-16个字符"></dd>
+						<dd class="clear"></dd>
+					</dl>
+					#if(contract.type == "0")
+						<dl class="formItem">
+							<dt><em class="mustIco"></em>预估总量</dt>
+							<dd><input id="quantity" name="quantity" type="text" class="textBox box212" value="${contract.quantity}" placeholder="任意数字，可有两位小数" #if(!bjStatus) readonly #end></dd>
+							<dd class="clear"></dd>
+						</dl>
+						<dl class="formItem">
+							<dt><em class="mustIco"></em>形态</dt>
+							<dd>
+								#if(bjStatus)
+									<input name="wfType" id="wfType" type="radio" value="0" #if(contract.wfType == "0") checked #end>固态 &nbsp; &nbsp;
+									<input name="wfType" id="wfType" type="radio" value="1" #if(contract.wfType == "1") checked #end>液态 &nbsp; &nbsp;
+									<input name="wfType" id="wfType" type="radio" value="2" #if(contract.wfType == "2") checked #end>半固态 &nbsp; &nbsp;
+									<input name="wfType" id="wfType" type="radio" value="3" #if(contract.wfType == "3") checked #end>其他
+								#else
+									${contract.wfType == "0"?"固态":(contract.wfType == "1"?"液态":(contract.wfType == "2"?"半固态":"其他"))}
+								#end
+							</dd>
+							<dd class="clear"></dd>
+						</dl>
+						<dl class="formItem">
+							<dt><em class="mustIco"></em>预付金比例</dt>
+							<dd><input id="marginScale" name="marginScale" type="text" class="textBox box212" value="${contract.marginScale}" #if(!bjStatus) readonly #end placeholder="0-999之间任意数字，可有两位小数"></dd>
+							<dd class="clear"></dd>
+						</dl>
+						<dl class="formItem">
+							<dt><em class="mustIco"></em>运输企业</dt>
+							<dd>
+								#if(bjStatus)
+									<input name="partyAORpartyB" id="partyAORpartyB" type="radio" value="0" #if(contract.partyAORpartyB == "0") checked #end >甲方选择 &nbsp; &nbsp;
+		              <input name="partyAORpartyB" id="partyAORpartyB" type="radio" value="1" #if(contract.partyAORpartyB == "1") checked #end >乙方选择
+	              #else
+	              	${contract.partyAORpartyB == "0"?"甲方选择":"乙方选择"}
+	              #end
+	             </dd>
+							<dd class="clear"></dd>
+						</dl>
+	            
+						<dl class="formItem">
+							<dt><em class="mustIco"></em>运费支付</dt>
+							<dd>
+								#if(bjStatus)
+									<input name="freightType" id="freightType" type="radio" value="0" #if(contract.freightType == "0") checked #end >甲方支付 &nbsp; &nbsp;
+		              <input name="freightType" id="freightType" type="radio" value="1" #if(contract.freightType == "1") checked #end >乙方支付
+	              #else
+	              	${contract.freightType == "0"?"甲方支付":"乙方支付"}
+	              #end
+							</dd>
+							<dd class="clear"></dd>
+						</dl>
+	        #end
+          <dl class="formItem formLine formUpload">
+              <dt><em class="mustIco"></em>合同附件</dt>
+              <dd>
+              	#if(bjStatus)
+	                <div class="fileUpload">                       
+	                    #tag fileUpload("contractPDF","pdf",contract.file) #end
+	                </div>
+                #else
+                	<a href="${webroot}${contract.file}" target="_blank">合同扫描件.PDF</a>
+                #end
+              </dd>
+              <dd class="clear"></dd>
+          </dl>
+          
+          #if(contract.type == "0")
+	          <dl class="formItem">
+	              <dt><em class="mustIco"></em>计价类型</dt>
+	              <dd>
+		              #if(bjStatus)
+										<input name="buyPayType" id="ykj" type="radio" onclick="ykjFunction()" value="1" #if(contract.payType == "1") checked #end class="addhide">一口价 &nbsp; &nbsp;
+			              <input name="buyPayType" id="hl" type="radio" onclick="hlFunction()" value="2" #if(contract.payType == "2") checked #end class="addshow">含量
+		              #else
+		              	${contract.payType == "1"?"一口价计费":"按品位计费"}
+		              #end
+	              </dd>
+	              <dd class="clear"></dd>
+	          </dl>
+	          <dl class="formItem" id="ykjP" #if(contract.payType == "2") style="display:none" #end>
+	              <dt><em class="mustIco"></em>一口价</dt>
+	              <dd><input id="buyYkjPrice" name="buyYkjPrice" type="text" class="textBox box212" value="${contract.ykjPrice}" placeholder="元/吨" #if(!bjStatus) readonly #end></dd>
+	              <dd class="clear"></dd>
+	          </dl>
+	        #end
+	        
+          <div class="clear"></div>
+            
+          <!---计价品味 或 运输单价--->
+					<div class="wfpHl"></div>
+						
+          <dl class="formItem formLine">
+              <dt>备注</dt>
+              <dd>
+                <textarea name="note" cols="" rows="" value="${contract.note}"  #if(!bjStatus) readonly #end>${contract.note}</textarea>
+              </dd>
+              <dd class="clear"></dd>
+          </dl>
+      </div>
+  </div>
+<script>
+	$(function(){
+			if("${contract.payType}"=="1"){
+					$("#ykj").attr("checked","checked");
+					$("#ykjP").show();
+			}else{
+				$("#hl").attr("checked","checked");
+				$("#ykjP").hide();
+				$("#wfpBox").hide();
+				$("#addBox").show();
+			}
+	})
+	
+	
+function backList(ctx){
+		window.location.href= ctx+"/system/contractList";
+}	
+	
+	//跳转到新增页面
+function goAdd(ctxPath,id){
+	window.location.href=ctxPath+"/store/contract/contractById/"+$("#typeId").val()+"/"+id;
+}	
+//跳转到列表页
+function goBack(ctxPath){
+	window.location.href=ctxPath+"/store/contractList";
+}
+$(document).ready(function() {
+	#if(contract.type == "0")
+		$(".wfpHl").load("${webroot}/system/contract/add/loadPw",{contractId:"${contract.id}",bjStatus:"${bjStatus}"},function(){
+			#if(bjStatus && contract.payType == "2")
+				$(".addBox2").show();
+			#end
+		});
+	#else
+		$(".wfpHl").load("${webroot}/system/contract/add/loadCars",{storeId:"${contract.secondId}",contractId:"${contract.id}",bjStatus:"${bjStatus}"});
+	#end
+});
+
+</script>
+
+ </body>
+</html>   

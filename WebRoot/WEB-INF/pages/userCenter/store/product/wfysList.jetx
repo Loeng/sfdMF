@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>危废#if(type == "0")车源#else货源#end列表</title>
+	<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/userCenter/commons/css/proList.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/product/wftransportList.js"></script>
+	<style>
+	.startPlaceArea,.endPlaceArea{width:80px;border:1px solid #e5e5e5;}
+	.tdInfo{width:25%;}
+	.formItem dd{float:left;line-height:28px; min-height:30px;  color:#787878;}
+	</style>
+</head>
+
+<body>
+	<input type="hidden" name="ctxpath" id="ctxpath" value="${webroot}" />
+	<input type="hidden" id="type" value="${type}" />
+	<input type="hidden" id="status" value="${status}" />
+	<form action="${webroot}/store/wftransport/getList/${type}/${status}" method="post" id="searchProductForm">
+		<input type="hidden" name="startFullPath" id="startFullPath" value="${startPlace}" />
+		<input type="hidden" name="endFullPath" id="endFullPath" value="${endPlace}" />
+		<div class="formSearch borderColor">
+			<dl class="formItem">
+				<dt>标题</dt>
+				<dd ><input name="name" type="text"  class="textBox box212" value="${name}"></dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+			</dl>
+	        <a href="javascript:void(0);" class="btnBase btnSearch" onclick="searchSubmit();">搜索</a>
+			<a href="javascript:void(0);" class="btnBase btnReset" onclick="resetForm();">重置</a>
+		</div>
+		
+	
+			<input type="hidden" name="pageNum" value="${currentPage}" />
+	</form>
+		<div class="btnArea" >
+		<div style="float: left;">
+		  <a href="javascript:void(0);" class="btnBase " onclick="find(0);">全部</a>
+		  <a href="javascript:void(0);" class="btnBase " onclick="find(1);">已上架</a>
+		  <a href="javascript:void(0);" class="btnBase " onclick="find(2);">已下架</a>
+		  <a href="javascript:void(0);" class="btnBase " onclick="find(3);">审核中</a>
+		  <a href="javascript:void(0);" class="btnBase " onclick="find(4);">未通过</a>
+		  <a href="javascript:void(0);" class="btnBase " onclick="find(5);">已完成</a>
+		  </div>
+		  <div class="clear"></div>
+		</div>
+		<input type="hidden" id="type" value="${type}" />
+	#define(List<com.ekfans.base.product.model.Commend> li)
+	<div class="formTable borderColor">
+		<ul class="secNav">
+			<li class="li1">#if(type == "0")车源#else货源#end信息</li>
+			<li><a href="javascript:void(0);" onclick="javascript:checkSelect();" title="删除"  class="li2">删除所选</a></li>
+			<li><a href="javascript:void(0);" onclick="javascript:addWftransport('${webroot}');" title="新增"  class="li3">新增</a></li>
+		</ul>
+		<div class="clear"></div>
+		#if(li != null && li.size()>0)
+		<div style="position:relative;" class="tableBox">   
+			<table border="0" cellspacing="0" cellpadding="0" class="tabList">
+			<thead>
+				<tr class="bgColor">
+					<th class="tdCheck"><label class="checkAll"><span class="check"><em><input name="checkbox1" type="checkbox" value=true></em></span></label></th>
+					<th class="accept" style="width:20%;">标题</th>
+					<th class="tdBrand accept">车辆类型</th>
+					<th class="tdBrand accept">#if(type == "0")载重#else货源量#end</th>
+					<th class="tdState accept">运价</th>
+					<th class="tdState accept">联系人</th>
+					<th class="tdState accept">联系电话</th>
+					<th class="tdCount accept">商品状态</th>
+					<th class="tdEdit accept">操作</th>
+				</tr>
+				</thead>
+				<tbody>
+				#for(com.ekfans.base.product.model.Commend commend: li)
+				<tr class="${commend.id}">
+					<td class="tdCheck"><label class="checkItem"><span class="check"><em><input name="delProducts" type="checkbox" value="${commend.id}"></em></span></label></td>
+					<td class="tdBrand">${commend.name}</td>
+					<td class="tdBrand">${commend.carName}</td>
+					<td class="tdCount">${commend.wfpTotal}${commend.unit}</td>
+					<td class="tdCount">#if(commend.price != null)${commend.price}元/${commend.unit}#else待议#end</td>
+					<td class="tdCount">${commend.linkMan}</td>
+					<td class="tdCount">${commend.phone }</td>
+					<td class="tdBrand">
+					#if(commend.carSourceStatus=='0')
+					                     下架
+					#elseif(commend.carSourceStatus=='1')
+								上架
+					#elseif(commend.carSourceStatus=='2')
+								审核中
+				    #elseif(commend.carSourceStatus=='3')
+								审核失败
+				    #elseif(commend.carSourceStatus=='4')
+								已完成
+					#end
+					</td>
+					<td class="tdEdit">
+					
+					#if(commend.carSourceStatus=="0")
+					    <a href="javascript:void(0);" onclick="javascript:productModify('${commend.id}','${webroot}','show');" target="_black" class="eyeIco" title="查看">查看</a>
+						<a href="javascript:void(0);" class="editIco" id="del${commend.id}" onclick="javascript:shelvesModify('${commend.id}','${webroot}','1');" title="编辑">上架</a>
+						<a href="javascript:void(0);" class="editIco" id="del${commend.id}" onclick="javascript:productModify('${commend.id}','${webroot}','edit');" title="编辑">编辑</a>
+					#elseif(commend.carSourceStatus=="1")
+						<a href="javascript:void(0);" onclick="javascript:productModify('${commend.id}','${webroot}','show');" target="_black" class="eyeIco" title="查看">查看</a>
+						<a href="javascript:void(0);" class="editIco" id="del${commend.id}" onclick="javascript:shelvesModify('${commend.id}','${webroot}','0');" title="编辑">下架</a>
+						<a href="javascript:void(0);" class="editIco" id="del${commend.id}" onclick="javascript:productModify('${commend.id}','${webroot}','edit');" title="编辑">编辑</a>
+					#elseif(commend.carSourceStatus=="2")	
+						<a href="javascript:void(0);" onclick="javascript:productModify('${commend.id}','${webroot}','show');" target="_black" class="eyeIco" title="查看">查看</a>
+						<a href="javascript:void(0);" class="editIco" id="del${commend.id}" onclick="javascript:productModify('${commend.id}','${webroot}','edit');" title="编辑">编辑</a>
+						<a href="javascript:void(0);" onclick="javascript:deleteP('${commend.id}','${webroot}');" target="_black" class="eyeIco">删除</a>
+					#elseif(commend.carSourceStatus=="3")
+						<a href="javascript:void(0);" onclick="javascript:productModify('${commend.id}','${webroot}','show');" target="_black" class="eyeIco" title="查看">查看</a>
+						<a href="javascript:void(0);" class="editIco" id="del${commend.id}" onclick="javascript:productModify('${commend.id}','${webroot}','edit');" title="编辑">编辑</a>
+						<a href="javascript:void(0);" onclick="javascript:deleteP('${commend.id}','${webroot}');" target="_black" class="eyeIco">删除</a>
+					#elseif(commend.carSourceStatus=="4")
+						<a href="javascript:void(0);" onclick="javascript:productModify('${commend.id}','${webroot}','show');" target="_black" class="eyeIco" title="查看">查看</a>
+						<a href="javascript:void(0);" onclick="javascript:deleteP('${commend.id}','${webroot}');" target="_black" class="eyeIco">删除</a>
+						<a href="javascript:void(0);" class="editIco" id="del${commend.id}" onclick="javascript:productModify('${commend.id}','${webroot}','edit');" title="编辑">再次发布</a>
+					#end
+					</td>
+				</tr>
+				#end
+				</tbody>
+			</table>
+			</div>
+			<input type="hidden" name="pageNum" value="${pager }" />
+			${include("../common/page.jetx")}
+			<div class="clear"></div>
+		#else
+			<table border="0" cellspacing="0" cellpadding="0" class="tabList">
+				<tr class="bgColor">
+					<th class="tdCheck"><label class="checkAll"><span class="check"><em><input name="checkbox1" type="checkbox" value=true></em></span></label></th>
+					<th class="tdInfo accept">商品名称</th>
+					<th class="tdBrand accept">#if(type == "0")车源#else货源#end名称</th>
+					<th class="tdBrand accept">#if(type == "0")车载量#else货源量#end</th>
+					<th class="tdState accept">运价</th>
+					<th class="tdState accept">联系人</th>
+					<th class="tdState accept">联系电话</th>
+					<th class="tdCount accept">商品状态</th>
+					<th class="tdBrand accept">审核状态</th>
+					<th class="tdEdit accept">操作</th>
+				</tr>
+			</table>	
+			<div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+		#end
+	</div>
+</body>
+</html>

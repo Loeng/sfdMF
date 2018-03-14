@@ -1,0 +1,318 @@
+<!doctype html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+    	<title>修改广告</title>
+    	<link href="${webroot}/resources/system/css/user/ad/advAdd.css" rel="stylesheet" type="text/css" />
+			<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+    	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/base.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/plugin/ckeditor/ckeditor.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/user/ad/jquery.colorpicker.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/user/ad/adModify.js"></script>
+    </head>
+    <body>
+    	<input type="hidden" id="modifyOk" value="${modifyOk}" />
+			<input type="hidden" id="ctxpath" value="${webroot}" />
+			<form action="${webroot}/system/advert/modify" name="modify" method="post"  id="modifyAdForm">
+				<div class="ht_btn">
+					<a href="#" class="btn" onclick="formSubmit();">保存</a>
+					<a href="#" class="btn" onclick="reset();">重置</a>
+					<a href="#" class="btn" onclick="goBack('${ctxpath}');">返回列表</a>
+				</div>
+				#define(com.ekfans.base.content.model.ShopAd shopAd)
+				<div class="add_pro">
+					<input type="hidden" name="id" value="${shopAd.id }">
+					<input type="hidden" name="createTime" value="${shopAd.createTime }">
+					<dl>
+			        <dt><em class="mustIco"></em>广告类型</dt>
+			        <dd>
+			            <select name="type" id="typeSelect" class="i_bg advStyleCheck" onchange="typeLoad(this.value,'${ctxpath}');" >
+			            		<option class="normalStyle" value="" >请选择</option>
+			                <option class="normalStyle" value="0" #if("0".equals(shopAd.type)) selected="true" #end>普通</option>
+			                <option class="changeStyle" value="1" #if("1".equals(shopAd.type)) selected="true" #end>切换</option>
+			                <option class="diyStyle" value="2" #if("2".equals(shopAd.type)) selected="true" #end>自定义</option>
+			                <option class="fontStyle" value="3" #if("3".equals(shopAd.type)) selected="true" #end>文字</option>
+			            </select>
+			        </dd>    
+			    </dl>
+			    
+			    <!--选择类型load用的div-->
+			    <div id="typeLoad">
+			    	#if("0".equals(shopAd.type))
+			    		 <!--普通-->
+								<div class="advStyleList normalStyle">
+								  <dl>
+								      <dt><em class="mustIco"></em>广告风格</dt>
+								      <dd>
+								          <select name="showType" id="showSelect" class="i_bg" onchange="checkShow(this.value);">
+								            <option>请选择</option>
+								            <option value="hengpai" #if("hengpai".equals(shopAd.showType)) selected="true" #end>横排广告</option>
+								            <option value="shupai" #if("shupai".equals(shopAd.showType)) selected="true" #end>竖排广告</option>
+								          	<option value="dantu" #if("dantu".equals(shopAd.showType)) selected="true" #end>单图广告</option>
+								          	<option value="chun" #if("chun".equals(shopAd.showType)) selected="true" #end>纯结构广告</option>
+								          </select>
+								          <a href="javascript:void(0);" class="btnBlue">查看广告形式</a>
+								      </dd>    
+								  </dl>
+								  <div class="tabStyle">
+								      <em class="pointTop"></em>
+								      <a href="javascript:void(0);" class="closeIco">关闭</a>
+								      <ul class="tabs">
+								          <li class="cur">横排广告</li>
+								          <li>竖排广告</li>
+								          <li>单图广告</li>
+								      </ul>
+								      <div class="advStyleContent">
+								      	<div class="styleContent cur"><img src="${ctxpath}/resources/system/images/ggheng.jpg" width="664" height="152"></div>
+								          <div class="styleContent"><img src="${ctxpath}/resources/system/images/ggshu.jpg" width="153" height="486"></div>
+								          <div class="styleContent"><img src="${ctxpath}/resources/system/images/ggone.jpg" width="314" height="268"></div>
+								      </div>
+								  </div>
+								  <dl>
+								      <dt><em class="mustIco"></em>广告名称</dt>
+								     	<dd id="nameDd"><input type="text" class="i_bg" name="name" 
+								        	onkeyup="checkName();" onblur="checkNameBlur();" value="${shopAd.name}">
+								      		<span id="nameSpan" class="ts_xx">广告名为2-32位字符</span>
+								      </dd>   
+								  </dl>
+								  <dl>
+								      <dt id="numDd"><em class="mustIco"></em>广告数量</dt>
+								      <dd><input type="text" class="i_bg countBox" id="number" onblur="numLoad(this.value,'${ctxpath}');"
+								       onkeyup="javascript:clearNoNum(this);" value="${shopAd.detailist.size()}">
+								       <span id="numSpan" class="ts_xx">请输入广告数量</span></dd>    
+								  </dl>
+								  <dl>
+								      <dt>广告说明</dt>
+								      <dd id="nameDd"><textarea name="note" cols="" rows="" class="bigBox" maxlength="128">${shopAd.note}</textarea>
+								      </dd>    
+								  </dl>
+								  <div class="advItem">
+								      <dl class="formSort">
+								          <dt>广告宽度</dt>
+								          <dd><input type="text" class="i_bg" name="wid" onkeyup="javascript:clearNoNum(this);" value="${shopAd.width}"></dd>    
+								      </dl>
+								      <dl class="formSort">
+								          <dt>广告高度</dt>
+								          <dd><input type="text" class="i_bg" name="height" onkeyup="javascript:clearNoNum(this);" value="${shopAd.high}"></dd>    
+								      </dl>
+								      <div class="clear"></div>
+								      <div class="hint">如果广告高度，宽度不填写或填写0时，将使用图片原始宽高！</div>
+								      
+								      <!-- 选择数量的load用div -->
+								    	<div id="numLoad">
+								    			#for(com.ekfans.base.content.model.AdDetail detail : shopAd.detailist) 
+								    				<input type="hidden" name="detailId" value="${detail.id}">
+								    				<input type="hidden" name="picture" value="${detail.adPicture}">
+								    				<dl class="formBoxLine">
+														    <dt>广告图片</dt>
+														    <dd>
+														        #tag picUpload("adPic"+for.index,"1","200","200",detail.adPicture) #end
+														    </dd>
+														    <dd class="clear"></dd>
+														</dl>
+														<dl class="formBoxLine countBox">
+														    <dt>广告文字</dt>
+														    <dd><textarea name="adContent" cols="" rows="" class="bigBox">${detail.adContent}</textarea><span class="sizeCount">0/100</span></dd>
+														    <dd class="clear"></dd>
+														</dl>
+														<dl class="formBoxLine">
+														    <dt>链接地址</dt>
+														    <dd>
+														        <input type="text" class="i_bg" name="linkUrl" value="${detail.linkAddress}">
+														        <span class="hint">连接地址以http://或https://开头</span>
+														    </dd>
+														    <dd class="clear"></dd>
+														</dl>
+								    			#end
+								    	</div>
+								      
+								  </div>
+								</div>
+			    	#elseif("1".equals(shopAd.type))
+			    		<!--切换-->
+							<div class="advStyleList changeStyle">
+							    <dl>
+							        <dt><em class="mustIco"></em>广告风格</dt>
+							        <dd>
+							            <select name="showType" id="showSelect" class="i_bg">
+							                <option>请选择</option>
+							                <option value="tuwen1" #if("tuwen1".equals(shopAd.showType)) selected="true" #end >图文切换1</option>
+							                <option value="tuwen2" #if("tuwen2".equals(shopAd.showType)) selected="true" #end >图文切换2</option>
+							                <option value="shuzi" #if("shuzi".equals(shopAd.showType)) selected="true" #end >数字切换</option>
+							                <option value="circlePoint" #if("circlePoint".equals(shopAd.showType)) selected="true" #end>圆点切换</option>
+               								<option value="pointRight" #if("pointRight".equals(shopAd.showType)) selected="true" #end>圆点在右侧</option>
+							                <option value="daxiao" #if("daxiao".equals(shopAd.showType)) selected="true" #end >大小图切换</option>
+							            </select>
+							            <a href="javascript:void(0);" class="btnBlue">查看广告形式</a>
+							        </dd>    
+							    </dl>
+							    <div class="tabStyle">
+							        <em class="pointTop"></em>
+							        <a href="javascript:void(0);" class="closeIco">关闭</a>
+							        <ul class="tabs">
+							            <li class="cur">图文切换1</li>
+							            <li>图文切换2</li>
+							            <li>数字切换</li>
+							            <li>圆点切换</li>
+            							<li>圆点在右侧</li>
+							            <li>大小图切换</li>
+							        </ul>
+							        <div class="advStyleContent">
+							            <div class="styleContent cur"><img src="${ctxpath}/resources/system/images/imgchange1.jpg" width="713" height="268"></div>
+							            <div class="styleContent"><img src="${ctxpath}/resources/system/images/imgchange2.jpg" width="713" height="268"></div>
+							            <div class="styleContent"><img src="${ctxpath}/resources/system/images/imgcount.jpg" width="713" height="268"></div>
+							            <div class="styleContent"><img src="${ctxpath}/resources/system/images/imgpoint.jpg" width="714" height="268" alt="圆点切换"></div>
+            							<div class="styleContent"><img src="${ctxpath}/resources/system/images/imgpointright.jpg" width="330" height="420" alt="圆点在右侧"></div>
+							            <div class="styleContent"><img src="${ctxpath}/resources/system/images/imgdaxiao.jpg" width="713" height="268"></div>
+							        </div>
+							    </div>
+							   <dl>
+								      <dt><em class="mustIco"></em>广告名称</dt>
+								     	<dd id="nameDd"><input type="text" class="i_bg" name="name" 
+								        	onkeyup="checkName();" onblur="checkNameBlur();" value="${shopAd.name}">
+								      		<span id="nameSpan" class="ts_xx">广告名为2-32位字符</span>
+								      </dd>   
+								  </dl>
+								  <dl>
+								      <dt id="numDd"><em class="mustIco"></em>广告数量</dt>
+								      <dd><input type="text" class="i_bg countBox" id="number" onblur="numLoad(this.value,'${ctxpath}');"
+								       onkeyup="javascript:clearNoNum(this);" value="${shopAd.detailist.size()}">
+								       <span id="numSpan" class="ts_xx">请输入广告数量</span></dd>    
+								  </dl>
+								  <dl>
+								      <dt>广告说明</dt>
+								      <dd id="nameDd"><textarea name="note" cols="" rows="" class="bigBox">${shopAd.note}</textarea>
+								      </dd>    
+								  </dl>
+								  <div class="advItem">
+								      <dl class="formSort">
+								          <dt>广告宽度</dt>
+								          <dd><input type="text" class="i_bg" name="wid" onkeyup="javascript:clearNoNum(this);" value="${shopAd.width}"></dd>    
+								      </dl>
+								      <dl class="formSort">
+								          <dt>广告高度</dt>
+								          <dd><input type="text" class="i_bg" name="height" onkeyup="javascript:clearNoNum(this);" value="${shopAd.high}"></dd>    
+								      </dl>
+							      <div class="clear"></div>
+							      <div class="hint">如果广告高度，宽度不填写或填写0时，将使用图片原始宽高！</div>
+							      
+							      <!-- 选择数量的load用div -->
+								    	<div id="numLoad">
+								    			#for(com.ekfans.base.content.model.AdDetail detail : shopAd.detailist) 
+								    				<input type="hidden" name="detailId" value="${detail.id}">
+								    				<input type="hidden" name="picture" value="${detail.adPicture}">
+								    				<dl class="formBoxLine">
+														    <dt>广告图片</dt>
+														    <dd>
+														        #tag picUpload("adPic"+for.index,"1","200","200",detail.adPicture) #end
+														    </dd>
+														    <dd class="clear"></dd>
+														</dl>
+														<dl class="formBoxLine countBox">
+														    <dt>广告文字</dt>
+														    <dd><textarea name="adContent" cols="" rows="" class="bigBox">${detail.adContent}</textarea><span class="sizeCount">0/100</span></dd>
+														    <dd class="clear"></dd>
+														</dl>
+														<dl class="formBoxLine">
+														    <dt>链接地址</dt>
+														    <dd>
+														        <input type="text" class="i_bg" name="linkUrl" value="${detail.linkAddress}">
+														        <span class="hint">连接地址以http://或https://开头</span>
+														    </dd>
+														    <dd class="clear"></dd>
+														</dl>
+								    			#end
+								    	</div>
+							    </div>
+							</div>
+			    	#elseif("2".equals(shopAd.type))
+			    		<!--自定义-->
+							<div class="advStyleList diyStyle">
+							    <dl>
+							        <dt><em class="mustIco"></em>广告名称</dt>
+							        <dd id="nameDd"><input type="text" class="i_bg" name="name" 
+							        	onkeyup="checkName();" onblur="checkNameBlur();" value="${shopAd.name}">
+							      		<span id="nameSpan" class="ts_xx">广告名为2-32位字符</span>
+							      </dd>     
+							    </dl>
+							    
+									<dl>
+							      <dt>广告说明</dt>
+							      <dd id="nameDd"><textarea name="note" cols="" rows="" class="bigBox" value="${shopAd.note}">${shopAd.note}</textarea>
+							      </dd>    
+									</dl>
+									#for(com.ekfans.base.content.model.AdDetail detail : shopAd.detailist) 
+									  <input type="hidden" name="detailId" value="${detail.id}">
+									  <dl class="formBoxLine">
+									    <dt>链接地址</dt>
+									    <dd>
+									        <input type="text" class="i_bg" name="linkUrl" value="${detail.linkAddress}">
+									        <span class="hint">连接地址以http://或https://开头</span>
+									    </dd>
+									    <dd class="clear"></dd>
+										</dl>
+								    <dl class="formBoxLine">
+								        <dt>广告内容</dt>
+								        <dd><textarea name="adContent" class="ckeditor" id="ckeditor" >${detail.adContent}</textarea></dd>
+								        <dd class="clear"></dd>
+								    </dl>
+								    
+							    #end
+    
+							</div>
+			    	#else
+			    		<!--文字-->
+							<div class="advStyleList fontStyle">
+							    <dl>
+								      <dt><em class="mustIco"></em>广告名称</dt>
+								     	<dd id="nameDd"><input type="text" class="i_bg" name="name" 
+								        	onkeyup="checkName();" onblur="checkNameBlur();" value="${shopAd.name}">
+								      		<span id="nameSpan" class="ts_xx">广告名为2-32位字符</span>
+								      </dd>   
+								  </dl>
+								  <dl>
+								      <dt id="numDd"><em class="mustIco"></em>广告数量</dt>
+								      <dd><input type="text" class="i_bg countBox" id="number" onblur="numLoad(this.value,'${ctxpath}');"
+								       onkeyup="javascript:clearNoNum(this);" value="${shopAd.detailist.size()}">
+								       <span id="numSpan" class="ts_xx">请输入广告数量</span></dd>    
+								  </dl>
+								  <dl>
+								      <dt>广告说明</dt>
+								      <dd id="nameDd"><textarea name="note" cols="" rows="" class="bigBox">${shopAd.note}</textarea>
+								      </dd>    
+								  </dl>
+							    <div class="advItem" id="numLoad">
+							        #for(com.ekfans.base.content.model.AdDetail detail : shopAd.detailist) 
+								    				<input type="hidden" name="detailId" value="${detail.id}">
+														<dl class="formBoxLine countBox">
+														    <dt>广告文字</dt>
+														     <dd>
+														        <textarea name="adContent" cols="" rows="" class="bigBox">${detail.adContent}</textarea><span class="sizeCount">0/100</span></dd>
+												        		<a href="javascript:void(0)" class="color"><span>颜色</span><em></em><input type="hidden" name="textColor" value="${detail.contentColor}"></a>
+												        		<div class="clear"></div>
+														    </dd>
+														    
+														</dl>
+														<dl class="formBoxLine">
+														    <dt>链接地址</dt>
+														    <dd>
+														        <input type="text" class="i_bg" name="linkUrl" value="${detail.linkAddress}">
+														        <span class="hint">连接地址以http://或https://开头</span>
+														    </dd>
+														    <dd class="clear"></dd>
+														</dl>
+								    			#end
+							    </div>
+							</div>
+			    	#end
+			    </div>
+				</div>
+		</form>
+		</body>
+</html>

@@ -1,0 +1,111 @@
+﻿<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>微量元素管理</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/demand.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/list.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/list.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/store/creditList.js"></script>
+	<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+</head>
+
+<body>
+<script>
+	function searchs(){
+		$("#searchForm").submit();
+	}
+	
+	//分页跳转
+	function goPage(pageNum){
+		$("input[name='pageNum']").val(pageNum);
+		$("#searchForm").submit();
+	}	
+	
+	function resets(){
+		$("#specName").val("");
+	}
+	
+</script>
+
+
+#define(List<com.ekfans.base.order.model.ValuationCategory> vcList)
+	
+<input type="hidden" id="ctxpath" value="${webroot}" />
+
+<form action="${webroot}/system/vc/getVCList" method="post" id="searchForm">
+	<input type="hidden" name="pageNum" value="" />	
+	<dl class="pro_ss">
+		<dt><b>查询</b><span class="span_down"></span><span class="span_up"></span></dt>
+		<dd class="pro_ss_item">
+			<span>元素名称</span>
+			<input type="text" class="i_bg" name="specName" id="specName" value="${specName}"/>
+		</dd>
+	</dl>
+</form>
+<div class="pro_ss_btn">
+	<a href="javascript:void(0);" onclick="searchs()" class="btn">搜索</a>
+	<a href="javascript:void(0);" onclick="resets()"  class="btn">重置</a>
+</div>
+		
+<!--没有数据的时候-->
+#if(vcList==null || vcList.size()<=0)
+	<div class="ht_list_k">暂时没有符合条件的数据</div>	
+#else
+	<!--有数据的时候-->
+	<div class="ht_list">
+		<table id="storeTab" cellpadding="0" cellspacing="0" border="0" >
+			<tr>
+				<th width="15%">序号</th>
+        <th width="18%">元素名称</th>
+        <th width="18%">状态</th>              
+        <th width="15%">创建时间</th>
+        <th colspan="10%">操作</th>
+			</tr>
+			#for(com.ekfans.base.order.model.ValuationCategory vc : vcList)
+				<tr>
+			    <td>${for.index}</td>
+			    <td>${vc.specName}</td>
+			    <td>#if(vc.status=="1")启用 #else禁用  #end</td>
+          <td>${vc.createTime}</td>
+				  <td class="cz">
+				  	<a href="${webroot}/system/vc/addAndShowAndUpdate/1?id=${vc.id}" class="editIco" onclick="" title="修改" ></a>	
+				  	<a href="${webroot}/system/vc/addAndShowAndUpdate/2?id=${vc.id}" class="eyeIco" onclick="" title="查看" ></a>					   
+				  	<a href="javascript:void(0)"  class="del_list" id="${vc.id}" title="删除" ></a>	
+				  </td>
+			  </tr>
+			#end
+		</table>
+		<div class="ht_pageBox">
+			${include( "../../common/page.jetx")}	
+		</div>
+	</div>
+#end
+
+
+</body>
+<script>
+	$(".del_list").live("click",function (){
+			var item_id=$(this).attr("id");
+			var webroot = $("#ctxpath").val();
+	    econfirm('是否确认删除？',deleteThis,[$("#ctxpath").val()],null,null);
+	    function deleteThis(){
+	    	$.post('${webroot}/system/vc/del',{'vcId':item_id},function (data){
+							if(data==1 || data=="1"){
+								salertWithFunction("删除成功!", myupreset, null);
+	            }else{
+	            	salertWithFunction("删除失败!", myupreset, null);
+	            }
+	      });
+			}
+ 	});
+	
+	function myupreset(){
+ 		location.href="${webroot}/system/vc/getVCList";
+ 		}
+	
+</script>
+</html>

@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge">
+<title>退换货详情</title>
+<link href="${ctxpath }/resources/store/css/order/orderDetail.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${ctxpath }/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="${ctxpath }/resources/store/js/common/base.js"></script>
+<script type="text/javascript" src="${ctxpath }/resources/store/js/order/orderManagement/orderReturnHandle/orderDetail.js"></script>
+
+<!-- 引入私有的js -->
+<script type="text/javascript" src="${ctxpath }/resources/store/js/order/orderManagement/orderReturnHandle/refundHandle.js"></script>
+</head>
+<body>
+	#define(com.ekfans.base.order.model.OrderAddress address)
+	#define(com.ekfans.base.order.model.Order order)
+	#define(com.ekfans.base.product.model.Product product)
+	#define(com.ekfans.base.order.model.OrderTreatDetail treatDetail)
+	
+	#define(com.ekfans.base.order.model.Refund refund)
+	
+	<div class="sto_right">
+    	<h2 class="rightTitle"><em>退换（货）处理</em><a href="javascript:void(0)" class="btnBlue" onclick="goBack();">返回退换列表</a></h2>
+    	<table border="0" cellspacing="0" cellpadding="0" class="orderTable">
+          <tr>
+            <th class="tdProInfo">商品信息</th>
+            <th class="tdProNum">商品编号</th>
+            <th class="tdProClass">商品类型</th>
+          </tr>
+          <tr>
+            <td class="tdProInfo">
+                <a href="${webroot}/web/proDetail/${product.id}" target="_blank" title="查看商品" class="orderImg">
+                	<img #if(product.picture=="" || product.picture==" " || product.picture==null) src="${webroot}/resources/store/images/imgdefault.jpg" #else src="${webroot}${product.picture }" #end width="78" height="78" alt="${product.name}"></a>
+                <div class="proRight">
+                    <span class="orderText"><a href="javascript:void(0)">${product.name }</a></span>
+                    <span class="nowPrice">${product.unitPrice }</span>
+                </div>
+                <div class="clear"></div>
+            </td>
+            <td class="tdProNum">${product.productNumber }</td>
+            <td class="tdProClass">普通商品</td>
+          </tr>
+        </table>
+        
+        <h2 class="rightTitle"><em>订单信息</em></h2>
+        <div class="orderInfo">
+            <dl class="consignee paddingtop">
+                <dt>收货人信息</dt>
+                <dd>
+                    <li><span class="biaotiL">收货人：</span>${address.name}</li>
+                    <li><span class="biaotiL">收货地址：</span>${address.provincial+"/"+address.city+"/"+address.area+"/"+address.address }</li>
+                    <li><span class="biaotiL">固定电话：</span>${address.phoneNum }</li>
+                    <li><span class="biaotiL">手机号码：</span>${address.mobile }</li>
+                    <li><span class="biaotiL">电子邮件：</span>${address.email }</li>
+                </dd>
+            </dl>
+            <dl class="payStyle">
+                <dt>支付及配送方式</dt>
+                <dd>
+                    <li>支付方式：${order.payment }</li>
+                    <li><span class="biaotiL">运费：</span>${order.fare}</li>
+                    <li><span class="biaotiL">物流公司：</span>${order.logisticsName }</li>
+                    <li><span class="biaotiL">运单号码：</span>${order.logisticsNo }</li>
+                </dd>
+            </dl>
+            <dl class="invoiceInfo">
+                <dt>发票信息</dt>
+                <dd>
+                    <li>发票类型：#if(order.invoiceType=="false")普通发票#elseif(order.invoiceType=="true")增值税发票#else无发票#end</li>
+                    <li>发票抬头：${order.invoiceTitle }</li>
+                    <li>发票内容：${order.invoiceContent }</li>
+                </dd>
+            </dl>
+            <div class="clear"></div>
+        </div>
+        
+        <h2 class="rightTitle"><em>付款信息</em></h2>
+        <div class="payInfo">
+            <ul class="payInfoLeft">
+                <li>付款方式：在线支付</li> 
+                <li>商品金额：${order.totalPrice }</li> 
+                <li>优惠金额：${order.paid-order.totalPrice }</li> 
+                <li>支付金额：</li>
+                <li>付款时间：${treatDetail.createTime }</li>
+            </ul>
+            <ul>
+                <li>运费金额：${order.fare }</li>
+                <li>实际运费：</li>
+                <li>交易余额：</li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+        
+        <h2 class="rightTitle"><em>退款理由</em></h2>
+      	<div class="returnInfo">
+            <div class="returnText">#if(refund.refundType=='1')缺货#elseif(refund.refundType=='2')拍错了#elseif(refund.refundType=='3')不想要了#end</div>
+            
+            <dl>
+                <dt>商品照片</dt>
+                <dd>
+                    <li><img #if(refund.imageOne=="" || refund.imageOne==" " || refund.imageOne==null)src="${ctxpath }/resources/store/images/imgdefault.jpg" 
+                    	#else src="${ctxpath }/${refund.imageOne }" #end width="300" height="300" alt="商品图片"></li>
+                    <li><img #if(refund.imageTwo=="" || refund.imageTwo==" " || refund.imageTwo==null)src="${ctxpath }/resources/store/images/imgdefault.jpg" 
+                    	#else src="${ctxpath }/${refund.imageTwo }" #end width="300" height="300" alt="商品图片"></li>
+                    <li><img #if(refund.imageThree=="" || refund.imageThree==" " || refund.imageThree==null)src="${ctxpath }/resources/store/images/imgdefault.jpg" 
+                    	#else src="${ctxpath }/${refund.imageThree }" #end width="300" height="300" alt="商品图片"></li>
+                    <li><img #if(refund.imageFour=="" || refund.imageFour==" " || refund.imageFour==null)src="${ctxpath }/resources/store/images/imgdefault.jpg" 
+                    	#else src="${ctxpath }/${refund.imageFour }" #end width="300" height="300" alt="商品图片"></li>
+                    <div class="clear"></div>
+                </dd>
+            </dl>
+            
+        </div>
+        
+        #if(refund.status=="0")
+        <!-- 操作时为了安全起见把状态条件传过去 -->
+        <input type="hidden" id="refundStatus" value="${refund.status }">
+        <div class="bottomBtn">
+        	<a href="javascript:void(0)" class="btnBlue" onclick="agreeRefundHandle('${ctxpath }','${refundId }');">同意</a>
+          <a href="javascript:void(0)" class="btnBlue" onclick="disagreeRefundHandle();">拒绝</a>
+        </div>
+        <!-- 如果是拒绝，就弹出框输入拒绝的理由 -->
+        <div class="decline" style="display:none;">
+        	<em class="textPoint"></em>
+        	<textarea name="reason" id="refundReason" cols="" rows="" placeholder="请输入拒绝理由"></textarea>
+            <a href="javascript:;" class="btnOrange" onclick="submit('${ctxpath }','${refundId }');">提交</a>
+            <a href="javascript:;" class="btnOrange" onclick="reset();">取消</a>
+        </div>
+        #else
+        #end
+	</div>
+	
+</body>
+</html>

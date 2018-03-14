@@ -1,0 +1,81 @@
+#define(com.ekfans.base.finance.model.BankDepartment department)
+
+<form action="${webroot}/system/finacne/demarts/save" name="modify" method="post"  id="modifyDepartmentForm">
+	
+	<input type="hidden" name="id" value="${department.id}">
+	<input type="hidden" name="parentId" value="${department.parentId}">
+	<input type="hidden" name="level" value="${department.level}">
+	<input type="hidden" name="createTime" value="${department.createTime}">
+	<input type="hidden" name="bankId" value="${department.bankId}">
+
+	<dl>
+		<dt>部门名称<em class="mustIco"></em></dt>
+		<dd id="nameDd" class="">
+			<input type="text" class="i_bg"  name="name" onblur="javascript:checkNameBlur();" onkeyup="javascript:checkName();" onfocus="javascript:checkName();" value="${department.name}"/>
+			<span id="nameSpan" class="ts_xx">部门名称为2-20位字符组成</span>
+		</dd>
+		<dd class="clear"></dd>
+	</dl>
+	<dl>
+		<dt>排序位置<em class="mustIco"></em></dt>
+		<dd id="nameDd" class="">
+			<input type="text" class="i_bg"  name="position" onkeyup="javascript:clearNoNum(this);"  value="${department.position}"/>
+		</dd>
+		<dd class="clear"></dd>
+	</dl>
+
+	<dl>
+		<dt>状态</dt>
+		<dd>
+			<span class="zt">
+				<input type="radio" value="true" name="status" #if(department.status) checked #end/>启用
+			</span>
+			<span class="zt">
+				<input type="radio" value="false" name="status" #if(!department.status) checked #end/>停用
+			</span>
+			<span class="ts_xx">停用部门不影响部门下成员</span>
+		</dd>
+		<dd class="clear"></dd>
+	</dl>
+	<dl>
+		<dt>部门描述</dt>
+		<dd>
+			<textarea name="note" value="${department.note}">${department.note}</textarea>
+		</dd>
+		<dd class="clear"></dd>
+	</dl>
+
+	<div style="padding-top:15px;padding-left:20px;">
+		<h3>权限设置</h3>
+		<h3 class="limitAll"><label><span class="check"><em><input type="checkbox" /></em></span>全选</label></h3>
+		#for(com.ekfans.base.finance.model.BankPurview purview : purviews)
+			<div class="limitList limits">
+				<h3 class="limitItem">
+					<label>
+						<span class="check #if(purview.checked) checked #end"><em><input type="checkbox" name="purviewId" value="${purview.id}" #if(purview.checked) checked #end/></em></span>${purview.className}
+					</label>
+				</h3>
+				<div class="limitList">
+					#for(com.ekfans.base.finance.model.BankPurview purview1 : purview.childList)
+						<h3 class="limitItem">
+							<label>
+								<span class="check #if(purview1.checked) checked #end"><em><input type="checkbox" name="purviewId" value="${purview1.id}"  #if(purview1.checked) checked #end/></em></span>
+								${purview1.className}
+							</label>
+						</h3>
+						<div class="limitList">
+							#for(com.ekfans.base.finance.model.BankPurview purview2 : purview1.childList)
+								<h3 class="limitItem">
+									<label>
+										<span class="check #if(purview2.checked) checked #end"><em><input type="checkbox" name="purviewId" value="${purview2.id}"  #if(purview2.checked) checked #end/></em></span>
+										${purview2.className}
+									</label>
+								</h3>
+							#end	
+						</div>	
+					#end
+				</div>
+			</div>
+		</div>
+	#end
+</form>

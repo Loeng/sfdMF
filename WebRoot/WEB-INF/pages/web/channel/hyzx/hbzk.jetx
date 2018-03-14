@@ -1,0 +1,221 @@
+#define(com.ekfans.base.channel.model.Channel channel)
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}-${channel.name}</title>
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<meta name="Keywords" content="${channel.keyWords}">
+<meta name="description" content="${channel.description}">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.form.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.superslide.2.1.1.js"></script>
+<script src="${webroot}/resources/commons/js/layer/layer.js"></script>
+<script src="${webroot}/resources/web/js/base.js"></script>
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/base.css" rel="stylesheet" type="text/css">
+<!-- <link href="${webroot}/resources/web/css/hyzx.css" rel="stylesheet" type="text/css"> -->
+<link href="${webroot}/resources/web/css/hbzk.css" rel="stylesheet" type="text/css">
+#if(configStatus == "true")
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/control.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/upload.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/control.js"></script>	
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+#end
+<style>
+.controlLeft > .layerControl > .controlList{float:left!important;}
+</style>
+</head>
+
+<body>
+<input type="hidden" name="ctxpath" id="ctxpath" value="${ctxpath}" />
+<input type="hidden" name="channelId" id="channelId" value="${channelId}" />
+<input type="hidden" name="channelType" id="channelType" value="${channel.type}" />
+
+#if(configStatus == "true")
+	<!-- 频道配置导航条 -->
+	#include("../commons/config/config-top.jetx")
+	<!-- 频道配置导航条 end -->
+#end
+
+
+<!--头部及导航条展示-->
+<div id="channelTop"></div>
+
+<!--一极菜单-->
+<!--一极菜单 end-->
+
+<!--一极菜单-->
+
+
+<div class="wrapper main">
+
+	<div style="position: relative;min-height:100px;" class="controlLeft">
+		#include("hbzk_one.jetx",{"channelId":channelId,"configType":"c","position":"1"})
+	</div>
+
+	<div style="position: relative;min-height:100px;" class="controlLeft">
+      	#include("hbzk_four.jetx",{"channelId":channelId,"configType":"c","position":"5"})
+	</div>
+
+	<div style="position: relative;min-height:100px;" class="controlLeft">
+  		#include("hbzk_six.jetx",{"channelId":channelId,"configType":"c","position":"7"})
+	</div>
+
+	<div style="position: relative;min-height:100px;" class="controlLeft">
+    	#include("hbzk_eight.jetx",{"channelId":channelId,"configType":"c","position":"9"})
+	</div>
+   
+</div>
+<!--底部-->
+<div id="channelFoot"></div>
+<!--底部 end-->
+<div id="hezuoInfo" style="display:none">
+<div class="hezuoIn">
+	<form action="${webroot}/web/cooperation/add" method="post" id="cooperationForm">
+	<input type="hidden" name="type" value="0">
+        <dl class="formItem">
+            <dt>机构名称</dt>
+            <dd class="formImport">
+            	<input name="orgName" maxlength="64" onblur="checkFocus(this);" type="text" class="formBox">
+            	<span id="orgNameSpan" class="errorText"></span>
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="formItem">
+            <dt>联系人</dt>
+            <dd class="formImport">
+            	<input name="contactMan" maxlength="64" onblur="checkFocus(this);" type="text" class="formBox">
+            	<span id="contactManSpan" class="errorText"></span>
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="formItem">
+            <dt>联系电话</dt>
+            <dd class="formImport">
+            	<input name="contactPhone" maxlength="16" onblur="checkFocus(this);" type="text" class="formBox">
+            	<span id="contactPhoneSpan" class="errorText"></span>
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="formItem">
+            <dt>邮箱</dt>
+            <dd class="formImport">
+            	<input name="email" maxlength="32" onblur="checkFocus(this);" type="text" class="formBox">
+            	<span id="emailSpan" class="errorText"></span>
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+    </form>
+</div>
+
+</div>
+
+<script>
+function checkFocus(obj) {
+	if($(obj).val()!=""){
+		$(obj).next().html("");
+	}
+}
+function checkOrgName(){
+	var flag=true;
+	var orgName = $("input[name='orgName']").val();
+	if(orgName == "" || orgName == null || orgName == " "){
+		$('#orgNameSpan').show();
+		$('#orgNameSpan').text("请输入机构名称");
+		flag = false;
+	}
+	return flag;
+}
+function checkContactMan(){
+	var flag=true;
+	var contactMan = $("input[name='contactMan']").val();
+	if(contactMan == "" || contactMan == null || contactMan == " "){
+		$('#contactManSpan').show();
+		$('#contactManSpan').text("请输入联系人");
+		flag = false;
+	}
+	return flag;
+}
+function checkContactPhone(){
+	var flag=true;
+	var regexp = /^(1[0-9][0-9])\d{8}$/;
+	var contactPhone = $("input[name='contactPhone']").val();
+	if(contactPhone == "" || contactPhone == null || contactPhone == " "){
+		$('#contactPhoneSpan').show();
+		$('#contactPhoneSpan').text("请输入联系电话");
+		flag = false;
+	}
+	return flag;
+}
+function checkEmail(){
+	var flag=true;
+	var reg =/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	var email = $("input[name='email']").val();
+	if(email == "" || email == null || email == " "){
+		$('#emailSpan').show();
+		$('#emailSpan').text("请输入邮箱");
+		flag = false;
+	}else if(!reg.test(email)){
+		$('#emailSpan').show();
+		$('#emailSpan').text("请输入正确的邮箱");
+		flag = false;
+	}
+	return flag;
+}
+
+function heZuo(){
+	//弹层
+		layer.open({
+			type: 1,
+			title: '写下你的真实信息，<br>收到后我们会立即给你回电联系，剩下的就交给我们吧！',//商品标题
+			skin: 'hezuo-class',
+			area: '600px', //宽高
+			content: $("#hezuoInfo"),
+			btn:['确认','取消'],
+			yes:function(index){
+				//点击确定执行的语句
+				if(checkOrgName()&&checkContactMan()&&checkContactPhone()&&checkEmail()){
+				$("#cooperationForm").ajaxSubmit(function(data){
+			    		if(data){
+			    			layer.close(index);
+			    			layer.alert("提交成功")
+			    		}else{
+			    			layer.alert("提交失败");
+			    		}
+			    	});
+				}else{
+					checkOrgName();
+					checkContactMan();
+					checkContactPhone();
+					checkEmail();
+				}
+			},
+			cancel:function(){
+				//点击取消执行的语句
+			}
+		});
+}
+
+$(document).ready(function() {
+	
+	//焦点图切换
+    jQuery(".slideBox").slide({mainCell:".bd ul",autoPlay:true});
+	$("#channelTop").load($("#ctxpath").val() + "/web/channel/commons/channel-top.jetx",{"channelId":$("#channelId").val(),"channelType":$("#channelType").val(),"returnUrl":window.location.href});
+	$("#channelFoot").load($("#ctxpath").val() + "/web/channel/commons/channel-footer.jetx");
+	$(".regSide").load($("#ctxpath").val() + "/web/wlrz/qyrz/islogin");
+	
+	$(".z3lnBox").live("hover",function(){
+	$(this).find(".zx3lnewword").stop(true,true).slideToggle();
+	});
+});
+
+
+</script>
+</body>
+</html>

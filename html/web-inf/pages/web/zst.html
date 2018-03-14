@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>期货走势图</title>
+<meta charset="gbk">
+<meta name="Generator" content="EditPlus">
+<meta name="Author" content="">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+</head>
+
+<body>
+<!-- 第1块 begin--> 
+
+<!-- part1 start here -->
+
+  <span id="spanJYS"></span><span id="spanPZ"></span><span id="spanYF"></span>
+  <style type="text/css">
+					#spanImg {display:block; width:340px; height:125px;margin-top:20px;}
+					#spanHq {display:block; height:20px; line-height:20px; margin-top:10px;}
+					#spanHq table {border-collapse:collapse; width:340px;}
+					#spanHq table th {background-color:#E6F1FF; border:1px solid #f8fbff; color:#868908; font-weight:normal; text-align:left; padding-left:20px;}
+					#spanHq table td {background-color:#E6F1FF; border:1px solid #f8fbff; color:#868908; text-align:right; padding-right:10px;}
+          select{height:28px; line-height:28px; border:solid 1px #E0E3EA; font-family:Microsoft YaHei;cursor:pointer;}
+					a{color:inherit; text-decoration:none;}
+a:hover{color:#008cd6;}
+        </style>
+  <span id="spanImg"><a href="#" id="aLink" target="_blank"><img id="imgImg" style="border:none; height:125px; width:340px;" /></a></span> <span id="spanHq"></span> 
+  <script type="text/javascript" src="http://finance.sina.com.cn/iframe/futures_info_cff.js"></script> 
+  <script type="text/javascript">
+
+var myDate = new Date();
+var month = myDate.getMonth()+1;	//JS取出月份为0-11，所以加1  by lixiaowei
+
+var today = myDate.getDate();
+if(today>=15){
+	month = month+1;
+}
+
+var y = myDate.getFullYear();
+
+if (month > 12) {	//判断换年 by buoren 2012-12-17
+	var month = 1;
+	var y = y + 1 ;
+}
+
+if(month<10){
+	month = "0"+month;
+}
+
+y = y+"";	//转成字符串	by lixiaowei
+var a = y.substr(2);
+YF[0][0][0] = new Array("合约","CU"+a+month);
+</script>
+  <div id="script_loader" style="display:none;"></div>
+  <script type="text/javascript">
+					function $(__stringId) {
+						return document.getElementById(__stringId);
+					}
+					function loadScript(__objectLoader, __stringUrl, __functionCallback) {
+						var __elementScript = document.createElement("script");
+						__elementScript.type = "text/javascript";
+						__elementScript._functionCallback = typeof __functionCallback != "undefined" ?  __functionCallback : new Function();
+						__elementScript[document.all ? "onreadystatechange" : "onload"] = function () {
+							if (document.all && this.readyState != "loaded" && this.readyState != "complete") {return;}
+							this._functionCallback(this);
+							this._functionCallback = null;
+							this[document.all ? "onreadystatechange" : "onload"] = null;
+							this.parentNode.removeChild(this);
+						};
+						__elementScript.src = __stringUrl;
+						(typeof __objectLoader == "string" ? document.getElementById(__objectLoader) : __objectLoader).appendChild(__elementScript);
+					}
+					function loadImage(__objectTarget, __stringSrc, __functionCallback) {
+						var __imageTarget = typeof __objectTarget == "string" ? document.getElementById(__objectTarget) : __objectTarget;
+						var __elementImage = __imageTarget.cloneNode(true);
+						__elementImage._imageTarget = __imageTarget;
+						__elementImage._functionCallback = typeof __functionCallback != "undefined" ?  __functionCallback : new Function();
+						__elementImage[document.all ? "onreadystatechange" : "onload"] = function () {
+							if (document.all && this.readyState != "loaded" && this.readyState != "complete") {
+								return;
+							}
+							try {
+								this._imageTarget.parentNode.replaceChild(this, this._imageTarget);
+							}
+							catch (e) {
+							}
+							__elementImage._functionCallback(this);
+							__elementImage._functionCallback = null;
+							this._imageTarget = null;
+							this[document.all ? "onreadystatechange" : "onload"] = null;
+						};
+						__elementImage.src = __stringSrc;
+					}
+					function getRandom() {
+						return (new Date()).getTime() + Math.random().toString().replace("0.", "");
+					}
+					var intIndexJYS = 0, intIndexPZ = 0, intIndexYF = 0, intImgKey = "";
+					function fillJYS() {
+						var __stringResult = '';
+						for (var i in JYS) {
+							__stringResult += '<option value="' + i + '">' + JYS[i] + '</option>';
+						}
+						$("spanJYS").innerHTML = '<select style="width:120px;" onchange="intIndexJYS=this.value*1;fillPZ();">' + __stringResult + '</select>';
+						intIndexJYS = 0;
+						fillPZ();
+					}
+					function fillPZ() {
+						var __stringResult = '';
+						for (var i in PZ[intIndexJYS]) {
+							__stringResult += '<option value="' + i + '">' + PZ[intIndexJYS][i] + '</option>';
+						}
+						$("spanPZ").innerHTML = '<select style="width:100px;" onchange="intIndexPZ=this.value*1;fillYF();">' + __stringResult + '</select>';
+						intIndexPZ = 0;
+						fillYF();
+					}
+					function fillYF() {
+						var __stringResult = '';
+						for (var i in YF[intIndexJYS][intIndexPZ]) {
+							__stringResult += '<option value="' + i + '">' + YF[intIndexJYS][intIndexPZ][i][0] + '</option>';
+						}
+						$("spanYF").innerHTML = '<select style="width:105px;" onchange="intIndexYF=this.value*1;fillImg();">' + __stringResult + '</select>';
+						intIndexYF = 0;
+						fillImg();
+					}
+					function fillImg() {
+						intImgKey = YF[intIndexJYS][intIndexPZ][intIndexYF][1];
+						intImgKey = intImgKey.replace(/CFF_IF/, "IF");
+						refreshHq();
+						refreshImg();
+					}
+					function refreshImg() {
+						if (intImgKey.substr(0, 2) == "IF") {
+							$("aLink").href = "../futures.php?code=" + intImgKey;
+							loadImage("imgImg", "http://image.sinajs.cn/newchart/cffex/real/mins/" + intImgKey + ".gif?" + getRandom());
+						}
+						else {
+							$("aLink").href = "../futures.php?" + intImgKey;
+							loadImage("imgImg", "http://image.sinajs.cn/newchart/v5/futures/mins/" + intImgKey + ".gif?" + getRandom());
+						}
+					}
+					setInterval(refreshImg, 10 * 1000);
+					function fillHq() {
+						var __stringCode = "hq_str_" + intImgKey.replace("IF", "CFF_IF");
+						if (__stringCode in window) {
+							var __arrayData = window[__stringCode].split(",");	
+							if (intImgKey.substr(0, 2) == "IF") {
+								var __numberChange = (__arrayData[3] * 1 - __arrayData[14] * 1) / __arrayData[14] * 1 * 100;
+								$("spanHq").innerHTML = '<table><tr><th><a href="../futures.php?code=' + intImgKey + '" target="_blank">' + intImgKey.replace("IF", "期指") + "</a></th><td>" + __arrayData[3] + '</td><td><span' + (__numberChange > 0 ? ' style="color:#f00"' : (__numberChange < 0 ? ' style="color:#008000"' : '')) + '>' + (__numberChange > 0 ? "+" : "") + __numberChange.toFixed(2) + '%</span></td></tr></table>';
+							}
+							else {
+								var __numberChange = (__arrayData[8] * 1 - __arrayData[10] * 1) / __arrayData[10] * 1 * 100;
+								$("spanHq").innerHTML = '<table><tr><th><a href="../futures.php?' + intImgKey + '" target="_blank">' + __arrayData[0] + "</th><td>" + __arrayData[8] + '</a></td><td><span' + (__numberChange > 0 ? ' style="color:#f00"' : (__numberChange < 0 ? ' style="color:#008000"' : '')) + '>' + (__numberChange > 0 ? "+" : "") + __numberChange.toFixed(2) + '%</span></td></tr></table>';
+							}
+						}
+					}
+					function refreshHq() {
+						loadScript("script_loader", "http://hq.sinajs.cn/rn=" + getRandom() + "&list=" + intImgKey.replace("IF", "CFF_IF"), fillHq);
+					}
+					setInterval(refreshImg, 60 * 1000);
+					function gotoYF() {
+						intImgKey = YF[intIndexJYS][intIndexPZ][intIndexYF][1];
+						intImgKey = intImgKey.replace(/CFF_IF/, "IF");
+						var _url = intImgKey.substr(0, 2) == "IF" ? ("http://finance.sina.com.cn/futures/quote/cff/bc.shtml?code=" + intImgKey):("http://finance.sina.com.cn/money/future/quote.html?" + intImgKey);
+						window.open(_url);
+					}
+					fillJYS();
+				</script>
+
+</body>
+</html>

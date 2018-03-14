@@ -1,0 +1,120 @@
+
+#define(List<com.ekfans.base.content.model.Content> contents)
+<div class="tit" id="divLoad">
+	<span class="apClose"><img src="${webroot}/resources/system/images/del3.jpg" onclick="apClose();"></span>
+	<span class="titName">资讯选择</span>
+	<div class="clear"></div>
+</div>
+<div class="shopSearch">
+	<dl style="width:370px;">
+		<dt style="float:left;margin-right:15px;">资讯名称</dt>
+	    <dd style="float:left;"><input type="text" class="i_bg" name="name" value="${name }" id="name"/></dd>
+	</dl>
+	<div class="clear"></div>
+</div>	
+<input type="hidden"  name="pageNum" value="${pageNum}" id="pageNum"/>
+<div class="btn">
+	<a href="javascript:void(0);" onclick="searchContentList('1');" class="btn">搜索</a>
+	<a href="javascript:void(0);" onclick="resetContent();" class="btn">重置</a>
+</div>
+<table id="productAndStoreTab" cellpadding="0" cellspacing="0" border="0" class="shopTable">
+	#if(contents==null||contents.size()<=0)
+		<div class="ht_list_k">暂时没有符合条件的数据</div>
+	#else
+	<tr>
+		<th>资讯名称</th>
+		<th>创建时间</th>
+		<th>&nbsp;</th>
+	</tr>
+		#for(com.ekfans.base.content.model.Content  content : contents)
+			<tr>
+				<td>${content.contentName }</td>
+				<td>${content.createTime}</td>
+				<td><a href="javascript:void(0);" class="btn" onclick="choseContent('${content.contentName }','${content.id }');">选择</a></td>
+			</tr>
+		 #end
+		#end
+</table>
+
+#define(com.ekfans.pub.util.Pager pager)
+<div class="ht_page">
+	<a href="#" onclick="goPageStore('1');"   value="1" class="btn"><<</a>
+	#if(pager.currentPage == 1)
+		<a href="#" class="btn"><</a> 
+	#else
+		<a href="#" onclick="goPageStore('${pager.currentPage-1 }');"   value="${pager.currentPage-1 }" class="btn"><</a>
+	#end
+	
+	#if(pager.totalPage>5)
+		#if(pager.currentPage-2>1 && pager.currentPage+2<pager.totalPage)
+			<a class="btn">..</a>
+			#for(int i : iterator(pager.currentPage-2,pager.currentPage+2))
+				#if(pager.currentPage==i)
+						<a href="#" onclick="goPageStore('${i }');" value="${i }" class="btn cur">${i }</a>
+				#else
+					<a href="#" onclick="goPageStore('${i }');" value="${i }" class="btn">${i }</a>
+				#end
+			#end
+			<a>..</a>
+		#elseif(pager.currentPage-2<=1)
+			#for(int i : iterator(1,5))
+				#if(pager.currentPage==i)
+					<a href="#" onclick="goPageStore('${i }');"   value="${i }" class="btn cur" >${i }</a>
+				#else
+					<a href="#" onclick="goPageStore('${i }');"   value="${i }" class="btn">${i }</a>
+				#end
+			#end
+			<a>..</a>
+		#else
+			<a>..</a>
+			#for(int i : iterator(pager.totalPage-4,pager.totalPage))
+				#if(pager.currentPage==i)
+					<a href="#" onclick="goPageStore('${i }');"   value="${i }" class="btn cur" >${i }</a>
+				#else
+					<a href="#" onclick="goPageStore('${i }');"   value="${i }" class="btn">${i }</a>
+				#end
+			#end
+		#end
+	#else
+		#for(int i : iterator(1,pager.totalPage))
+			#if(pager.currentPage==i)
+				<a href="#" onclick="goPageStore('${i }');"   value="${i }" class="btn cur" >${i }</a>
+			#else
+				<a href="#" onclick="goPageStore('${i }');"   value="${i }" class="btn">${i }</a>
+			#end
+		#end
+	#end
+	
+	#if(pager.currentPage==pager.totalPage)
+		<a href="#" class="btn">></a>
+	#else
+		<a href="#" onclick="goPageStore('${pager.currentPage+1 }');"   value="${pager.currentPage+1 }" class="btn">></a>
+	#end
+	<a  href="#" onclick="goPageStore('${pager.totalPage }');"   value="${pager.totalPage }" class="btn">>></a>
+</div>
+
+
+<script type="text/javascript">
+	function goPageStore(act){
+		searchContentList(act);
+	}
+
+	function searchContentList(pageNum){
+		var name = $("#name").val();
+		$("#showDiv").load($("#ctxpath").val()+"/system/ccwcc/loadcontent",{"name":name,"pageNum":pageNum});
+		$("#showBg").show();
+		$("#showDiv").show();
+	}
+	function resetContent(){
+		$("#name").val("");
+	}
+	function choseContent(name,id){
+		$("#showName").val(name);
+		$('#sourceId').val(id);
+		$("#linkUrl").val("/ccwcc/content/view/"+id);
+        $("#sharUrl").val("/ccwcc/content/share/"+id);
+		$("#showBg").hide();
+		$("#showDiv").hide();
+	}
+
+</script>

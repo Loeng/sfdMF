@@ -1,0 +1,104 @@
+#define(com.ekfans.base.channel.model.Channel channel)
+
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta charset="utf-8">
+	<meta http-equiv="Expires" content="0" />
+	<meta http-equiv="kiben" content="no-cache" />
+	<title>${channel.name}|${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}</title>
+	<link rel="icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+	<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/web/gylweb/css/base.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/web/gylweb/css/renzheng.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/advList.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tuwen1.js"></script>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/tools.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/advList.css" />
+<script type="text/javascript" src="${webroot}/resources/web/gylweb/js/headBase.js"></script>
+	#if(configStatus == "true")
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/control.js"></script>	
+		<link href="${webroot}/resources/commons/css/control.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script
+		<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+	#end
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/ad.css" />
+	<script type="text/javascript" src="${webroot}/resources/web/gylweb/js/gylCommons.js"></script>
+	<meta name="Keywords" content="${channel.keyWords}">
+	<meta name="description" content="${channel.description}">
+	
+</head>
+
+<body>
+<input type="hidden" id="ctxpath" value="${webroot}" />
+<input type="hidden" name="ctxpath" id="ctxpath" value="${ctxpath}" />
+<input type="hidden" name="channelId" id="channelId" value="${channelId}" />
+<input type="hidden" name="channelType" id="channelType" value="${channel.type}" />
+<input type="hidden" name="configStatus" id="configStatus" value="${configStatus}" />
+#if(configStatus == "true")
+	<!-- 频道配置导航条 -->
+	#include("../../channel/commons/config/config-top.jetx")
+	<!-- 频道配置导航条 end -->
+#end
+
+<div class="header" id="channelTop"></div>
+<div class="center">
+	<div class="banner">
+		<div class="wrapper">
+		  <div class="autoAdv">
+		    <div class="autoAdvImg">
+		    	#include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"1"})
+		    </div>
+		  </div>
+			<!-- 浮动圆圈 start -->
+	    <div class="bannerLogin">
+	      <em>成为</em>企业认证会员
+	      <a href="${webroot}/store/manager/STORE_RENZHENG_BEIAN" class="howSev" title="我要认证">我要认证</a>
+	    </div>
+	  	<!-- 浮动圆圈 end -->
+		</div>
+	</div>
+	<div class="autoAdv bannerBottom">
+		<div class="autoAdvImg">
+			#include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"2"})
+		</div>
+	</div>
+	<div class="wrapper">
+		<div class="require">
+			#include("renzheng/content_one.jetx",{"channelId":channelId,"configType":"c","position":"1"})
+		</div>
+		<div class="prepareData">
+			#include("renzheng/content_two.jetx",{"channelId":channelId,"configType":"c","position":"2"})
+		</div>
+		<div class="clear"></div>
+		<div class="companyList">
+			<h3>认证企业</h3>
+	    <div class="leftTitle">
+				<div class="dataIcon1"><em class="animateNum" id="autoStoreNumber"></em>企业完成认证</div>
+	    </div>
+			<div class="rightList">
+		    <div class="rightListIn" id="autoCompanyInfo">
+		      
+		    </div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>
+<div id="buttomDiv"></div>
+<script type="text/javascript" src="${webroot}/resources/web/gylweb/js/backtop.js"></script>
+
+<script type="text/javascript" src="${webroot}/resources/web/gylweb/js/renzheng.js"></script>
+<div style="display:none">
+	<script src="http://s95.cnzz.com/z_stat.php?id=1253965659&web_id=1253965659" language="JavaScript"></script>
+</div>
+</body>
+</html>

@@ -1,0 +1,353 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>融资申请</title>
+		<meta name="keywords" content="鑫裕环保" />
+		<meta name="description" content="鑫裕环保" />
+		<link rel="shortcut icon" href="../../../resources/commons/images/favicon.ico" type="image/x-icon">
+		<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+		<link href="../../../resources/userCenter/commons/css/orderLoanApply.css" rel="stylesheet" type="text/css">
+		<link href="../../../resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+		<link href="../../../resources/commons/css/upload.css" rel="stylesheet" type="text/css">
+		<link href="../../../resources/userCenter/commons/css/rzapply.css" rel="stylesheet" type="text/css">
+		<style>
+			.upName {font-size: 12px;color: #4C4C4C;width: 400px;height: 34px;overflow: hidden;}
+			.btnlook {width: 46px;}
+			.upBox .fileUpload .btnUpload {background-color: #339933;}
+			.upBox .fileUpload .btnUpload:hover {background-color: #2E752E;color: #fff;}
+		</style>
+	</head>
+
+	<body>
+
+		<!--头部-->
+		<div class="header">
+			<div class="wrapper">
+				<h1 id="logo"><a href="index.html"><img src="../../../resources/commons/images/logo.png" alt="三分地环保产业链"></a></h1>
+				<div class="headerRight">
+					<a href="javascript:void(0)" class="linkIndex">首页</a>
+					<span class="topItem">您好，云飞扬</span>
+					<span class="split">|</span>
+					<a href="javascript:void(0)">帮助中心</a>
+					<span class="split">|</span>
+					<a href="javascript:void(0)">安全退出</a>
+					<span class="split">|</span>
+					<span class="serviceTel">服务热线：0735-5526035</span>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+
+		<div class="logoBar">
+			<div class="wrapper">
+				<a href="javascript:void(0)" class="logoName"><img src="../../../resources/userCenter/commons/images/csqy-centername.png"></a>
+				<div class="nav">
+					<a href="javascript:void(0)" class="navItem">成品管理</a>
+					<a href="javascript:void(0)" class="navItem">供求管理</a>
+					<a href="javascript:void(0)" class="navItem">企业认证</a>
+					<a href="javascript:void(0)" class="navItem">交易管理</a>
+					<a href="javascript:void(0)" class="navItem cur">金融服务</a>
+					<a href="javascript:void(0)" class="navItem">危废交易管理</a>
+					<a href="javascript:void(0)" class="navItem">账户中心</a>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<!--头部end-->
+
+		<div class="main">
+			<div class="wrapper">
+				<div class="leftNav budong">
+					<!--左侧菜单-->
+					<h2><a href="javascript:vodi(0);">管理中心首页</a></h2>
+					<dl class="leftList">
+						<dt><b></b>订单借贷管理</dt>
+						<dd>
+							<a href="javascript:vodi(0);">订单借贷申请</a>
+							<a href="javascript:vodi(0);">订单借贷管理</a>
+						</dd>
+					</dl>
+					<dl class="leftList">
+						<dt><b></b>信用借贷管理</dt>
+						<dd>
+							<a href="javascript:vodi(0);">信用借贷申请</a>
+							<a href="javascript:vodi(0);">信用借贷管理</a>
+						</dd>
+					</dl>
+					<dl class="leftList">
+						<dt><b></b>合同借贷管理</dt>
+						<dd>
+							<a href="javascript:vodi(0);">合同借贷申请</a>
+							<a href="javascript:vodi(0);">合同借贷管理</a>
+						</dd>
+					</dl>
+					<dl class="leftList">
+						<dt><b></b>融资申请管理</dt>
+						<dd>
+							<a href="javascript:vodi(0);" class="cur">融资申请</a>
+							<a href="javascript:vodi(0);">融资管理</a>
+						</dd>
+					</dl>
+					<!--左侧菜单 end-->
+				</div>
+
+				<!--右侧主体-->
+				<div class="rightContent">
+					<div class="contentTit borderColor budong">
+						<h3>融资申请</h3>
+						<a href="javascript:void(0);" class="btnBase btnCancel">取消</a>
+						<a href="javascript:void(0);" class="btnBase btnSave">保存</a>
+						<div class="clear"></div>
+					</div>
+					<div class="form borderColor">
+						<dl class="formItem">
+							<dt><em class="mustIco"></em>借贷银行</dt>
+							<dd>
+								<select name="" style="width:238px;">
+                <option value="">=== 请选择 ===</option>
+              </select>
+							</dd>
+							<dd class="clear"></dd>
+						</dl>
+						<dl class="formItem">
+							<dt><em class="mustIco"></em>借贷种类</dt>
+							<dd>
+								<select name="" style="width:238px;" id="chooseType">
+                <option value="">订单融资</option>
+                <option value="">保理融资</option>
+              </select>
+							</dd>
+							<dd class="clear"></dd>
+						</dl>
+						<dl class="formItem">
+							<dt><em class="mustIco"></em>融资金额</dt>
+							<dd>
+								<input name="" type="text" class="textBox box212">
+								<span class="errorText">不能为空</span>
+								<div class="clear"></div>
+							</dd>
+							<dd>&nbsp;&nbsp;元</dd>
+							<dd class="clear"></dd>
+						</dl>
+						<div class="clear"></div>
+
+						<div class="doubleBox">
+									<ul class="tabNav">
+										<li class="cur">填写的材料</li>
+										<li>操作日志</li>
+									</ul>
+									<div class="tabContent" style="display:block;">
+										<div class="upBox" id="ddashow">
+											<div class="upName">a. 融资申请客户与下游交易对手签订的有效合同/订单（扫面件）</div>
+											<a href="javascript:void(0);" class="fileLook" target="_blank">我是一个文件的路径，我可以被点击.pdf</a>
+										</div>
+										<div class="upBox" id="bldshow" style="display:none;">
+											<div class="upName">a.融资申请客户与其下游签订的有效合同，开立的发票（扫描件）</div>
+											<a href="javascript:void(0);" class="fileLook" target="_blank">我是一个文件的路径，我可以被点击.word</a>
+										</div>
+										<div class="upBox">
+											<div class="upName">b. 融资申请客户与该下游客户的往来流水</div>
+											<a href="javascript:void(0);" class="fileLook" target="_blank">我是一个文件的路径，我可以被点击.xls</a>
+										</div>
+										<div class="upBox">
+											<div class="upName">c. 融资申请客户再三分地平台的历史业务数据</div>
+											<div class="xxvalue">我是一行文字描述不可点击</div>
+										</div>
+										<div class="upBox">
+											<div class="upName">d. 融资申请客户的近三年度的财务报表（最好是经审计）（扫描件）</div>
+											<img src="../../../resources/userCenter/commons/images/noPic.jpg"/>
+										</div>
+										<div class="upBox">
+											<div class="upName">e. 融资申请客户的近三个月的财务报表（EXCEL）</div>
+											<a href="javascript:void(0);" class="fileLook" target="_blank">我是一个文件的路径，我可以被点击.pdf</a>
+										</div>
+										<div class="upBox">
+											<div class="upName">f. 融资申请客户的简介（WORD）</div>
+											<a href="javascript:void(0);" class="fileLook" target="_blank">我是一个文件的路径，我可以被点击.pdf</a>
+
+										</div>
+										<div class="upBox">
+											<div class="upName">g. 融资申请客户的营业执照、机构信用代码证、章程（扫描件）</div>
+											<a href="javascript:void(0);" class="fileLook" target="_blank">我是一个文件的路径，我可以被点击.pdf</a>
+										</div>
+										<div class="upBox">
+											<div class="upName">标题</div>
+											<select name="" style="width:200px;"><option>下拉</option></select>
+										</div>
+
+										<div class="upBox">
+											<div class="upName">标题</div>
+											<label class="checkbox"><input type="checkbox" name="checkbox" value="" checked>已确认</label>
+											<label class="checkbox"><input type="checkbox" name="checkbox" value="">未确认</label>
+										</div>
+
+										<div class="upBox">
+											<div class="upName">标题</div>
+											<label class="radio"><input type="radio" name="radio" value="" checked>已确认</label>
+											<label class="radio"><input type="radio" name="radio" value="">未确认</label>
+										</div>
+
+										<div class="upBox">
+											<div class="upName">标题</div>
+											<textarea name="" cols="" rows="" class="textarea" style="width:400px;"></textarea>
+										</div>
+										<div class="upBox">
+											<div class="upName">标题</div>
+											<div class="clickAbout">
+												<input name="" type="text" class="textBox box184" value="">
+												<span class="pp clickBrand clickBrand1" title="选择"></span>
+											</div>
+
+										</div>
+
+										<div class="upBox">
+											<div class="upName">标题</div>
+											<div class="clickAbout">
+												<input name="" type="text" class="textBox box184" value="">
+												<span class="pp clickBrand clickBrand2" title="选择"></span>
+											</div>
+
+										</div>
+										<div class="upBox">
+											<div class="upName">标题</div>
+											<input name="" type="text" class="textBox box184" value="">
+										</div>
+										<div class="clear"></div>
+										<div class="upBox upBoxLine">
+											<textarea name="" cols="" rows="" class="ckeditor" id="editor1"></textarea>
+										</div>
+										<div class="clear"></div>
+									</div>
+									<div class="tabContent">
+										<table border="0" cellspacing="0" cellpadding="0" class="tabList" style="width:100%;">
+											<tbody>
+												<tr class="tabTit bgColor">
+													<th>标题</th>
+													<th>标题</th>
+													<th>标题</th>
+													<th>标题</th>
+													<th>标题</th>
+												</tr>
+												<tr>
+													<td>内容</td>
+													<td>内容</td>
+													<td>内容</td>
+													<td>内容</td>
+													<td>内容</td>
+												</tr>
+											</tbody>
+										</table>
+                    <div class="pageSize">
+          <a href="javascript:void(0);" class="btn pageControl">&lt;&lt;</a>
+          <a href="javascript:void(0);" class="btn pageControl">&lt;</a>
+          <a href="javascript:void(0);" class="btn">1</a>
+          <a href="javascript:void(0);" class="btn">2</a>
+          <a href="javascript:void(0);" class="btn cur">3</a>
+          <a href="javascript:void(0);" class="btn">4</a>
+          <a href="javascript:void(0);" class="btn">5</a>
+          <a href="javascript:void(0);" class="btn">6</a>
+          <a href="javascript:void(0);" class="btn">...</a>
+          <a href="javascript:void(0);" class="btn pageControl">&gt;</a>
+          <a href="javascript:void(0);" class="btn pageControl">&gt;&gt;</a>
+      </div>
+									</div>
+
+								</div>
+
+						<dl class="formItem formLine">
+							<dt><em class="mustIco"></em>筛选条件</dt>
+							<dd>
+								信用等级为BBB级以上，注册资金及总资产不低于贷款额度
+							</dd>
+							<dd class="clear"></dd>
+						</dl>
+						<div class="clear"></div>
+					</div>
+				</div>
+				<!--右侧主体 end-->
+				<div class="clear"></div>
+			</div>
+		</div>
+
+		<!--底部-->
+		<div class="footer">
+			<div class="wrapper">
+				<dl class="footerItem">
+					<dt>新手指导</dt>
+					<dd>
+						<li><a href="javascript:void(0);">注册登录</a></li>
+						<li><a href="javascript:void(0);">忘记密码</a></li>
+						<li><a href="javascript:void(0);">企业认证</a></li>
+						<li><a href="javascript:void(0);">常见问题</a></li>
+					</dd>
+				</dl>
+				<dl class="footerItem">
+					<dt>服务与支持</dt>
+					<dd>
+						<li><a href="javascript:void(0);">主营业务</a></li>
+						<li><a href="javascript:void(0);">商品管理流程</a></li>
+						<li><a href="javascript:void(0);">危废再循环流程</a></li>
+						<li><a href="javascript:void(0);">技术和设备</a></li>
+					</dd>
+				</dl>
+				<dl class="footerItem">
+					<dt>安全保障</dt>
+					<dd>
+						<li><a href="javascript:void(0);">平台安全</a></li>
+						<li><a href="javascript:void(0);">交易服务协议</a></li>
+						<li><a href="javascript:void(0);">平台交易规则</a></li>
+						<li><a href="javascript:void(0);">信息发布规则</a></li>
+					</dd>
+				</dl>
+				<dl class="footerItem">
+					<dt>关于我们</dt>
+					<dd>
+						<li><a href="javascript:void(0);">产品和服务</a></li>
+						<li><a href="javascript:void(0);">特点与优势</a></li>
+						<li><a href="javascript:void(0);">公司介绍</a></li>
+						<li><a href="javascript:void(0);">联系我们</a></li>
+					</dd>
+				</dl>
+				<dl class="footerItem">
+					<dt>危废通 扫码安装</dt>
+					<dd><img src="../../../resources/web/pic/erweima.jpg" width="100" height="100" alt="二维码"></dd>
+				</dl>
+				<div class="clear"></div>
+			</div>
+			<div class="footerBottom">
+				<div class="wrapper">
+					<div class="footerBottomLeft">© 2015 湖南三分地环保信息科技有限公司 蜀ICP备14005736号-5</div>
+					<div class="footerBottomRight">总部基地：湖南省永兴县便江镇荣裕国际新城8栋401室<br>技术中心：成都市高新区吉泰路666号花样年·福年广场2-1309室</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+		<!--底部 end-->
+		<script src="../../../resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+		<script src="../../../resources/userCenter/commons/js/base.js"></script>
+		<script src="../../../resources/userCenter/commons/js/ckeditor/ckeditor.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("#chooseType").live("change", function() {
+					var ctype = $("#chooseType  option:selected").text();
+					if (ctype == "订单融资") {
+						$("#ddashow").show();
+						$("#bldshow").hide();
+					} else if (ctype == "保理融资") {
+						$("#ddashow").hide();
+						$("#bldshow").show();
+					}
+				})
+				$(".tabNav li").click(function() {
+					$(this).addClass("cur").siblings().removeClass("cur");
+					var index = $(this).parent().children().index(this);
+					var content = $(this).parent().siblings(".tabContent");
+					content.eq(index).show().siblings(".tabContent").hide();
+				})
+			});
+		</script>
+	</body>
+
+</html>

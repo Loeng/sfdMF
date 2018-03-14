@@ -1,0 +1,166 @@
+<!doctype html>
+
+<html>
+	<head>
+			<meta charset="UTF-8">
+    	<title>店铺管理</title>
+    	<link href="${webroot}/resources/system/css/demand.css" rel="stylesheet" type="text/css" />
+    	<link href="${webroot}/resources/system/css/list.css" rel="stylesheet" type="text/css" />
+			<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/list.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/store/storeCheckList.js"></script>
+    	</script>
+    </head>
+    <body>
+    	<form action="${webroot}/system/store/checkList" method="post"  id="searchStoreForm">
+    	<dl class="pro_ss">
+				<dt><b>查询</b><span class="span_down"></span><span class="span_up"></span></dt>
+				<dd class="pro_ss_item">
+					<span>状态</span>
+					<span class="zt"><label><input type="radio" value="" name="status" #if(status == null  || status == "" || status == " ") checked=true #end/>所有</label></span>
+					<span class="zt"><label><input type="radio" value="true" name="status" #if("true".equals(status)) checked=true #end/>启用</label></span>
+					<span class="zt"><label><input type="radio" value="false" name="status" #if("false".equals(status)) checked=true #end/>禁用</label></span>
+				</dd>
+				<dd>&nbsp;</dd>
+				<div class="clear"></div>
+				<dd class="pro_ss_item"> 
+					<span>店铺名</span>
+					<input type="text" class="i_bg" name="name" value="${name}"/>
+				</dd>
+				<dd class="pro_ss_item">
+					<span>电话</span>
+					<input type="text" class="i_bg" name="mobile" value="${mobile }"/>
+				</dd>
+				<dd class="pro_ss_item">
+					<span>邮箱</span>
+					<input type="text" class="i_bg" name="email" value="${email }"/>
+				</dd>
+				<dd class="pro_ss_item">
+					<span>用户名</span>
+					<input type="text" class="i_bg" name="userName" value="${userName }"/>
+				</dd>
+				<input type="hidden" name="pageNum" value="" />
+			</dl>
+		</form>
+			<div class="pro_ss_btn">
+				<a href="javascript:void(0);" onclick="searchSubmit();" class="btn">搜索</a>
+				<a href="javascript:void(0);" onclick="resetForm();" class="btn">重置</a>
+			</div>
+    	
+    	<!--没有数据的时候-->
+			#define(List<com.ekfans.base.store.model.Store> stores)
+			<!--没有数据的时候-->
+			#if(stores==null||stores.size()<=0)
+				<div class="ht_list_k">暂时没有符合条件的数据</div>	
+			#else
+			
+			<!--有数据的时候-->
+				<div class="ht_list">
+					<table id="storeTab" cellpadding="0" cellspacing="0" border="0" >
+						<tr>
+							
+							<th width="4%">序号</th>
+             <th width="10%">店铺名</th>
+             <th width="10%">用户名</th>
+              <th width="10%">等级</th>
+              <th width="10%">电话</th>
+              <th width="14%">邮箱</th>
+              <th width="10%">状态</th>
+              <th width="10%">审核状态</th>
+              <th width="14%">创建时间</th>
+              <th colspan="10%">操作</th>
+						</tr>
+						#for(com.ekfans.base.store.model.Store store : stores)
+							<tr>
+						
+						    <td></td>
+						    <td>${store.storeName }</td>
+						    <td>${store.coordinateX }</td>
+                <td>
+              		#if("1".equals(store.levelId)) 普通店铺 
+              		#elseif("2".equals(store.levelId)) 金牌店铺
+              		#elseif("3".equals(store.levelId)) 旗舰店铺
+              		#end
+                </td>
+                 <td>${store.city }</td>
+                <td>${store.area }</td>
+                <td>#if(store.status) 启用 #else 禁用 #end </td>
+								<td>#if("1".equals(store.checkStatus)) 通过 #elseif("-1".equals(store.checkStatus)) 未通过 #else 未审核 #end</td>
+                <td>${store.createTime }</td>
+							    <td class="cz">
+							    <a href="javascript:void(0);" class="eyeIco" onclick="queryId('${store.id}','${webroot}');" title="详细"></a>
+							    	<a href="javascript:void(0);" class="auditIco" onclick="storeCheck('${store.id}','${webroot}');" title="审核"></a>
+							    </td>
+						   </tr>
+						 #end
+					</table>
+					<input type="hidden" id="ctxpath" value="${webroot}" />
+					<div class="ht_pageBox">
+					
+					<!-- 分页 -->
+					#define(com.ekfans.pub.util.Pager pager)
+					<div class="ht_page">
+							<a href="javascript:void(0);" onclick="goPage('1');"   value="1" class="btn"><<</a>
+							#if(pager.currentPage == 1)
+								<a href="javascript:void(0);" class="btn"><</a> 
+							#else
+								<a href="javascript:void(0);" onclick="goPage('${pager.currentPage-1 }');"   value="${pager.currentPage-1 }" class="btn"><</a>
+							#end
+							
+							#if(pager.totalPage>5)
+								#if(pager.currentPage-2>1 && pager.currentPage+2<pager.totalPage)
+									<a class="btn">..</a>
+									#for(int i : iterator(pager.currentPage-2,pager.currentPage+2))
+										#if(pager.currentPage==i)
+												<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="btn cur">${i }</a>
+										#else
+											<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="btn">${i }</a>
+										#end
+									#end
+									<a>..</a>
+								#elseif(pager.currentPage-2<=1)
+									#for(int i : iterator(1,5))
+										#if(pager.currentPage==i)
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+										#else
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn">${i }</a>
+										#end
+									#end
+									<a>..</a>
+								#else
+									<a>..</a>
+									#for(int i : iterator(pager.totalPage-4,pager.totalPage))
+										#if(pager.currentPage==i)
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+										#else
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn">${i }</a>
+										#end
+									#end
+								#end
+							#else
+								#for(int i : iterator(1,pager.totalPage))
+									#if(pager.currentPage==i)
+										<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+									#else
+										<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn">${i }</a>
+									#end
+								#end
+							#end
+							
+							#if(pager.currentPage==pager.totalPage)
+								<a href="javascript:void(0);" class="btn">></a>
+							#else
+								<a href="javascript:void(0);" onclick="goPage('${pager.currentPage+1 }');"   value="${pager.currentPage+1 }" class="btn">></a>
+							#end
+							<a  href="javascript:void(0);" onclick="goPage('${pager.totalPage }');"   value="${pager.totalPage }" class="btn">>></a>
+							
+						</div>
+					</div>
+				</div>
+		#end
+			<div class="apPreviewBg"></div>
+						<div id="div1"  class="apPreview">
+						</div>
+	</body>
+</html>

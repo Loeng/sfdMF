@@ -1,0 +1,30 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*资质认证*/
+.formIn{padding:0px 0px 0px 30px; min-height:350px;}
+.formIn .formItem{width:979px;min-height:40px; margin-bottom:15px; height:auto; padding-right:0;}
+.formItem dt{font-size:14px;color:#4D4D4D;height:40px;line-height:40px;}
+.formItem dd{float:left;}
+.zizhiList{float:left;max-width:769px;*width:760px;}
+.zizhiList li{ display:inline-block;min-width:146px;height:38px;line-height:38px; padding:0 23px 0 7px; background-color:#F3F1F1; border:1px solid #e4e4e4; margin-right:10px; margin-bottom:15px;font-size:14px;color:#4B4848; position:relative;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.btnXuanze{float:left; display:block; background-color:#33A7FF; width:100px; height:40px; line-height:40px; text-align:center;color:#fff; font-size:14px; cursor:pointer;}
+.btnXuanze:hover{color:#000; background-color:#D4EBFD;}
+.closeLi{background:url(../images/close1.png) no-repeat center center;width:20px; height:38px; line-height:38px; display:block; position:absolute; right:0px; top:0px;}
+
+/*弹窗背景公共样式*/
+.alertLayerBg{filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8; opacity:0.8; background:#000; position:fixed; left:0; top:0; width:100%; height:100%; z-index:100; display:none;}
+.layerClose{display:block; width:20px; height:17px; position:absolute; top:22px; right:10px; background:url(../images/close2.png) no-repeat;}
+.layerClose:hover{background:url(../images/close2.png) no-repeat 0px 0;}
+
+/*弹窗*/
+.alterBox{position:fixed;top:50%;left:50%;margin:-200px 0 0 -300px;width:600px;height:400px;z-index:101;background:#fff;overflow:hidden; border-top:10px #0085FD solid;display:none;}
+.alterBox h6{height:60px; line-height:60px; background-color:#FDF5E5; color:#313030; font-size:22px; padding-left:20px; margin-bottom:10px;}
+.alterContent{padding:0px 10px 0px 20px;min-height:274px;max-height:274px; overflow:auto;}
+.checkItem{display:block; float:left; margin-bottom:20px; min-width:174px; margin-left:10px;margin-right:5px;text-align:center;}
+.zizhiLi{ display:inline-block;width:138px;height:18px;line-height:18px; padding:10px 5px 10px 5px; background-color:#F3F1F1; border:1px solid #e4e4e4;font-size:14px;color:#4B4848; position:relative;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.btnArea2{width:300px; margin:0 auto; text-align:center;}
+.altBtnBlue{display:inline-block;height:28px;width:78px;line-height:28px;font-size:14px; margin:5px 10px 10px 0px;background-color:#33A7FF;color:#fff; text-align:center;}
+.altCancel{}
+.altBtnBlue:hover{color:#000; background-color:#D4EBFD;}
+.check{position:absolute; left:-10px; top:10px;}

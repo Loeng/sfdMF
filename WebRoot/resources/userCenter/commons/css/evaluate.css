@@ -1,0 +1,59 @@
+/* CSS Document */
+
+.form{padding:5px 20px;}
+/*累计评价*/
+.evaluateTb{width:100%; margin-top:18px;}
+.evaluateTb th{height:30px; line-height:30px; border-bottom:solid 2px #828282; text-align:center; font-weight:normal;}
+.evaluateTb td{line-height:25px; padding:10px 0; width:18%; text-align:center; font-size:14px; border-bottom:solid 1px #dedede;}
+.evaluateTb .evaluateLev{width:10%; text-align:left;}
+.evaluateLev span{display:block; height:25px; position:relative; padding-left:34px;}
+.evaluateLev em{display:block; width:19px; height:19px; background-image:url(../images/star.png); position:absolute; left:10px; top:2px;}
+.good em{background-position:0 0;}
+.ordinary em{background-position:0 -19px;}
+.bad em{background-position:0 -38px;}
+.evaList{padding:5px 20px;}
+
+/*评价列表*/
+.sto_right h2 em{height:36px; line-height:36px; display:inline-block; border-bottom:solid 5px #ff8900; padding:0 30px 0 20px; font-style:normal;}
+.sto_right h2{font-weight:normal; font-size:14px; margin-top:16px; border-bottom:solid 1px #E4E4E4}
+.listHeader{height:35px; line-height:35px;position:relative; margin-bottom:-1px;}
+.listSelect,.consultText,.proName,.consultTime,.consultEdit{float:left;}
+.consultLine{line-height:20px; padding:16px 0; border-bottom:solid 1px #E4E4E4; border-top:solid 1px #E4E4E4; margin-bottom:-1px;}
+.listSelect{width:70px; text-align:center;}
+.consultText{width:258px; padding-right:40px; position:relative;padding-left:4px;}
+.listSelect input{display:block; float:left; margin:4px 10px 0 4px;}
+.listSelect select{background:none; border:none; outline:none;}
+.listSelect dl{width:50px; margin:0 auto; position:relative;}
+.listSelect dt{background:url(../images/select_down_icon2.png) no-repeat 40px center;}
+.listSelect dd{position:absolute; top:35px; left:0; text-align:center; width:50px; background:#fff; border:solid 1px #eee; display:none;}
+.listSelect dd li{line-height:20px; height:20px; cursor:pointer;}
+.listSelect dd li:hover{background:#eee;}
+.consultText span{color:#818181;}
+.proName{width:220px; padding-right:22px;}
+.consultTime{width:102px; padding-right:10px;}
+.consultEdit{}
+.listHeader .consultText{text-indent:20px;}
+.consultLine .consultText{width:258px;}
+.proName .proImg{display:block; width:43px; height:43px; border:solid 1px #f2f2f2; float:left; margin-right:10px;}
+.proNameText{width:165px; float:left;}
+.consultLine .consultTime{color:#818181;}
+.consultLine .evaluateLev span{padding:0; position:static; float:left;}
+.consultLine .evaluateLev span em{position:static; float:left;}
+
+/*评价回复*/
+.replyLayer{width:573px; height:171px; padding:12px 14px 9px 14px; background:#efefef; text-align:right; position:relative; margin:15px 0 30px 34px; display:none;}
+.replyLayer textarea{width:571px; height:126px; border:solid 1px #e5e5e5; line-height:20px; margin-bottom:7px; text-align:left;}
+.replyLayer .orangeBtn{display:inline-block; width:62px; height:28px; line-height:28px; background:#FF6B00; text-align:center; color:#fff; margin-left:12px;}
+.orangeBtn:hover{background:#d95c00;}
+.pointTop{background:url(../images/pointtop.png) no-repeat; width:14px; height:10px; display:block; position:absolute; top:-10px; left:51px;}
+.replyText{display:block; padding:10px; background:#f6f6f6; color:#5e5e5e; margin-top:20px; position:relative;}
+.replyText .pointTop{background:url(../images/pointtop2.png) no-repeat;}
+
+.listBottom{padding-top:20px;}
+.checkAll{height:28px; line-height:28px; position:relative; padding-left:22px; display:block; float:left; margin-right:22px;}
+.checkAll input{position:absolute; left:4px; top:8px;}
+.listBottom .btnBlue{width:68px; height:28px; line-height:28px; display:inline-block; float:left;}
+.listBottom .replyLayer{margin-top:20px;}
+.listSelect li{color:#000;}
+
+.sh_list_no{height:50px; line-height:50px; font-size:24px; background:#FFFCD9; color:#FD6500; text-align:center; margin:10px 0px;}

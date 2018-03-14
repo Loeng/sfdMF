@@ -1,0 +1,27 @@
+#define(com.ekfans.base.content.model.ContentCategory dzHelp)
+<div class="footer">
+  <div class="wrapper">
+	  	#for(com.ekfans.base.content.model.ContentCategory cc:dzHelp.childList)
+	        <dl class="footerItem">
+	          <dt>${cc.name}</dt>
+	          <dd>
+	          #for(com.ekfans.base.content.model.Content content:cc.contents)
+	               <li><a href="${webroot}/web/help/${content.id}?cid=${cc.parentId}" title="${content.contentName}">${content.contentName}</a></li>
+	          #end
+	          </dd>
+	        </dl>
+	    #end
+        <dl class="footerItem" style="text-align:center;">
+            <dt>微信公众账号 扫码关注</dt>
+            <dd><img src="${webroot}/resources/web/images/sfd_ma.jpg" width="100" height="100" alt="三分地微信公众账号"></dd>
+        </dl>
+        <div class="clear"></div>
+	</div>
+    <div class="footerBottom">
+   	  <div class="wrapper">
+            <div class="footerBottomLeft">${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("底部版权信息")}</div>
+            <div class="footerBottomRight">${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("底部联系信息")}</div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>

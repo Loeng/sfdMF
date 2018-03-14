@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" >
+	<title>核心企业申请</title>
+		<link rel="icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+	<link rel="shortcut icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/web/webcommon/css/reg.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/web/webcommon/css/coreReg.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/tools.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/webcommon/js/select.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/webcommon/js/brower.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/webcommon/js/coreReg_one.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/webcommon/js/jquery.JPlaceholder.js.js"></script>
+</head>
+
+<body>
+${include("../../commons/regAndLogin/regTop.jetx")}
+
+<div class="wrapper">
+  <div class="main coreCompany">
+		<h2>核心企业申请</h2>
+    <div class="coreContent">
+    	<div class="coreIn">
+        <div class="textBox box258 phoneBox">
+        	<input name="companyName" type="text" class="box228" placeholder="企业/机构名称" onblur="companyNameBlur()" />
+        </div>
+        <div class="boxHeight">
+          <div class="errorBox" id="companyName"></div>
+        </div>
+        
+        <div class="textBox box258 companyBox">
+          <div class="selList" style="width:227px;">
+            <span class="inputBox" style="width:227px;border:0;">
+	            <input type="text" id="tempunitType" class="box184" placeholder="企业/机构类型" onblur="unitTypeBlur()" />
+	            <input name="unitType" type="hidden" />
+	            <em class="iconDown readOnly"></em>
+            </span>
+            <ul>
+              <li>个人独资企业</li>
+              <li>合伙企业</li>
+            </ul>
+          </div>
+        </div>
+        <div class="boxHeight">
+        	<div class="errorBox" id="unitType"></div>	
+        </div>
+        
+        <div class="textBox box258 userBox user">
+        	<input name="contactName" type="text" class="box228" placeholder="联系人姓名" onblur="contactNameBlur()" />
+        </div>
+        <div class="selList" style="width:80px;">
+	        <span class="inputBox" style="width:80px;">
+	          <input type="text" id="tempcontactSex" class="box184" placeholder="先生" readonly>
+	          <input name="contactSex" type="hidden" value="1" />
+	          <em class="iconDown readOnly"></em>
+	        </span>
+	        <ul style="width:80px;margin-left:30px;left:0px;">
+	          <li>先生</li>
+	          <li>女士</li>
+	        </ul>
+        </div>
+        <div class="clear"></div>
+        <div class="boxHeight">
+          <div class="errorBox" id="contactName"></div>
+        </div>
+        
+        <div class="textBox box258 phone telBox">
+        	<input name="contactPhone" type="text" class="box228" placeholder="手机号码" onblur="contactPhoneBlur()" />
+        </div>
+        <span class="words5">非中国大陆用户输入手机号码时请增加区域前缀，如：台湾：+8869*******，香港：+8526*******</span>
+      	<div class="clear"></div>
+        <div class="boxHeight">
+        	<div class="errorBox" id="contactPhone">请输入手机号</div>
+        </div>
+        
+        <div class="textBox box258 timeBox">
+	      	<input name="contactTime" type="text"  placeholder="何时与您联系" class="box258" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-#{%d}'})" />
+        </div>
+        <div class="clear"></div>
+        <div class="boxHeight" style="margin-top:-20px; margin-bottom:20px;">
+        	<div class="errorBox" id="contactTime"></div>
+        </div>
+        
+        <a href="javascript:shengqing();" class="btnReg">提交</a>
+        <div class="reLogin">
+          <div class="words4">如果您已有账号，可</div>
+          <a href="${webroot}/web/login/${type}" class="btnLogin">在此登录</a>
+          <div class="clear"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+${include("../../commons/regAndLogin/bottom.jetx")}
+</body>
+</html>

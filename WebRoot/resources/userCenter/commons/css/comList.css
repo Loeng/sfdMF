@@ -1,0 +1,80 @@
+/* CSS Document */
+
+@import url("base.css");
+
+.formSearch{padding:10px 20px 5px 20px; background:#FFF;min-height:30px;}
+.formItem{width:308px;float:left;margin:0px 20px 7px 0px;}
+.formItem dt{float:left;font-size:12px;color:#303132;line-height:28px; margin-right:18px; min-width:50px; text-align:right;}
+.formItem dd{float:left;line-height:28px; color:#DCDCDD;}
+.lineColor{color:#E0E3EA;}
+.radio{font-size:12px;color:#303132;margin-right:20px;}
+.radio input{margin-right:8px;line-height:28px;}
+.formLine{width:100%; margin-right:0; float:none; clear:both;}
+
+.btnArea{border-top:1px solid #E5E5E5; padding:10px 0 15px 20px; background:#FFF;margin-bottom:7px;}
+.btnOrange{background:#FB752B;}
+.btnOrange:hover{background:#FFDBCD;}
+.btnForbid,.btnForbid:hover{background:#999; color:#fff; cursor:default;}
+.btnSave{float:right;}
+.btnCancel{float:right;}
+
+.contentTit{background:#FFF;height:28px;padding:10px 0px 10px 60px;width:965px;}
+.contentTit h3{font-size:18px;color:#333;float:left;}
+
+
+.formTable{padding:0px 20px 18px 20px; background:#FFF; border-top:1px solid  #E5E5E5; min-height:250px;}
+.secNav{height:42px;line-height:42px;}
+.secNav li{float:left; margin-right:25px;}
+.li1{color:#333;font-size:14px;}
+.li2{background:url(../images/icon_del.png) no-repeat;padding-left:22px;color:#AEAEAE;font-size:12px;}
+.li3{background:url(../images/icon_add.png) no-repeat 0px -1px;padding-left:22px;color:#AEAEAE;font-size:12px;}
+.li4{background:url(../images/icon_add.png) no-repeat 0px -1px;padding-left:22px;color:#AEAEAE;font-size:12px;}
+.shopUp{background:url(../images/icon_up.png) no-repeat 0px 0px;padding-left:22px;color:#AEAEAE;font-size:12px;}
+.shopDown{background:url(../images/icon_down.png) no-repeat 0px 1px;padding-left:22px;color:#AEAEAE;font-size:12px;}
+.tabList{width:100%;margin-bottom:10px;}
+.tableBox{}
+.tabList th{padding:0px 10px; height:35px;line-height:35px;color:#fff; font-size:14px;background-color:#339933;text-align:left;white-space:nowrap;}
+.tabList td{padding:8px 10px; line-height:22px; border-bottom:1px #e5e5e5 solid;color:#7D7C7D; max-width:105px; overflow:hidden; text-align:left;}
+.tabList .tabRight{text-align:right;}
+.tabList .tabLeft{text-align:left;}
+.tabList tr:hover{background:#F3F3F3;}
+.tabList .btnBase{height:22px; line-height:22px; width:70px; padding:0; margin:0 auto 6px auto; display:block;}
+.btnArgee{float:left;}
+.helpIcon{color:#fff;background-color:#33A7FF;width:70px; height:22px; line-height:22px;display:inline-block;}
+.helpIcon:hover{color:#000;background-color:#D4EBFD;cursor:help;}
+
+.helpBg{filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8; opacity:0.8; background:#000; position:fixed; left:0; top:0; width:100%; height:100%; z-index:100; display:none;}
+.helpBox{position:fixed;top:50%;left:50%;margin:-160px 0 0 -300px;width:600px;height:320px;z-index:101;background:#fff;overflow:hidden; border-top:10px #0085FD solid;display:none;}
+.helpBox .layHeader{background-color:#FDF5E5; padding:10px 0 10px 22px; position:relative;}
+.helpBox .layHeader h6{height:30px; line-height:30px;color:#313030; font-size:24px; margin-bottom:10px;}
+.helpBox .alterContent{padding:10px 0px 10px 22px;}
+.helpClose{display:block; width:20px; height:17px; position:absolute; top:22px; right:10px; background:url(../images/close2.png) no-repeat;}
+.helpList{font-size:18px;margin-left:20px;}
+.helpList li{line-height:24px;height:24px;margin:5px 0;list-style-type:disc;}
+
+/*上传合同*/
+.formIn{margin-left:165px; padding-top:30px;}
+.htItem{min-height:37px;margin:0px 25px 22px 0px;}
+.htItem dt{float:left;line-height:35px;}
+.htItem dd{float:left;line-height:35px; margin-right:10px; position:relative;}
+.htItem dd .textBox{display:block;height:35px;line-height:29px;border:solid 1px #E0E3EA;color:#4B4848;}
+.htItem dd .textBox input{width:100%; height:33px; line-height:33px;border:solid 1px #E0E3EA; text-indent:0.6em; font-family:Microsoft YaHei;cursor:pointer;}
+.closeBtn{background-image:url(../images/close_icon.png); background-repeat:no-repeat; position:absolute; width:16px; height:16px; top:10px; right:10px;}
+.closeBtn:hover{filter:alpha(opacity=60); opacity:0.6;}
+.btnHt{display:inline-block;width:98px; text-align:center;height:35px; line-height:35px; color:#fff; background-color:#01AEEC; font-size:14px;}
+.btnHt:hover{background:#D4EBFD;color:#151515;}
+.btnUploadNo{background-color:#C2C2C2;}
+.btnUploadNo:hover{background-color:#C2C2C2;color:#fff;}
+.btnDel{background-color:#FF6B49;}
+.btnAdd{background-color:#0284B2;}
+.tips{color:#FF3100; margin-left:165px;display:block;}
+
+.htItem .fileUpload{position:relative;width:99px;height:35px;float:left;}
+.htItem .fileUpload .btnUpload{height:35px; line-height:35px; background:#33A7FF; text-align:center; color:#fff;}
+.htItem .fileUpload .btnUpload:hover{background:#D4EBFD;color:#151515;}
+.htItem .fileUpload .btnUploadNo{color:#fff;background-color:#C2C2C2;height:35px; text-align:center; line-height:35px;cursor:default;}
+.htItem .fileUpload .btnUploadNo:hover{background-color:#C2C2C2;color:#fff;}
+.htItem .fileUpload input{position:absolute; display:block; top:0; right:0; left:0; z-index:2; filter:alpha(opacity=0); -moz-opacity:0; -khtml-opacity:0; opacity:0;width:98px; height:35px;}
+.htItem .fileLoading{width:40px;height:35px;background-image:url(../images/big_load.gif);background-repeat:no-repeat; background-color:#e4e4e4; filter:alpha(opacity=85); -moz-opacity:0.85; display:inline-block; margin-right:10px;float:left;}
+
+.pagesCunt{float:left;font-size:12px;}

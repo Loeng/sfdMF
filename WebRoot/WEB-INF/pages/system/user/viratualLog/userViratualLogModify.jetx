@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+    	<title>修改账户</title>
+    	<link href="${webroot}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+    	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+		<!-- 文本插件 -->
+		<script type="text/javascript" src="${webroot}/resources/system/js/user/viratualLog/userViratualLogModify.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+    </head>
+    
+    <body>
+     
+       <input type="hidden" id="retrunType" value="${requestScope.returnType}" /> 
+			<input type="hidden" id="ctxpath" value="${webroot}" />
+			<form action="${webroot}/system/user/viratualLog/saveViratualLog"  method="post"  id="addUserLeveIntegralForm">
+				 <input type="hidden" id="jugg" name="jugg" value="${jugg}" />
+	 			<div class="ht_btn">
+					<a href="#" onclick="formSubmit();" class="btn">保存</a>
+					<a href="#" onclick="reset();" class="btn">重置</a>
+					<a href="#" onclick="goBack();" class="btn">返回列表</a>
+				</div>
+	 		<div class="add_pro">
+		 		
+		 		<div class="clear"></div>
+				<dl class="formBox">
+					<dt><em class="mustIco"></em>用户名</dt>
+					<dd id="nameDd" class="">
+						<input type="text" class="i_bg" name="userId" id="userIntegralName" onblur="getIntegralByName(this,'${webroot}');"   />
+						<span id="nameSpan" class="ts_xx">请输入正确的用户名</span>
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				<dl class="formBox">
+					<dt>目前金额</dt>
+					<dd class="">
+						<input type="text" class="i_bg" name="oldAmount" id="integration" readOnly="true" />
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				<dl class="formBox"> 
+					<dt>操作类型</dt>
+					<dd>
+						<span class="zt">
+							<label><input type="radio" value="1" name="type" checked=true/>增加</label></span>
+							<span class="zt"><label><input type="radio" value="0" name="type"/>减少</label>
+						</span>
+					</dd>
+				</dl >
+				<div class="clear"></div>
+				<dl class="formBox">
+					<dt><em class="mustIco"></em>金额值</dt>
+					<dd>
+						<dd  class="">
+						    <input type="text" class="i_bg" id="integral" name="amount" onblur="checkIsNumber(this);" onkeyup="checkIsNumber(this);" maxlength="8"/>
+					      <span id="integralSpan" class="ts_xx">减少金额不能大于剩余金额</span>
+					    </dd>
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				
+				<input type="hidden" class="i_bg" name="createTime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:new Date()})" />
+				
+				<div class="clear"></div>
+				<dl class="formBox">
+					<dt>备注</dt>
+					<dd class="">
+						<textarea name="note" maxlength="256"></textarea>
+					</dd>
+				</dl>
+				
+			</div>
+		</form>
+	</body>
+</html>

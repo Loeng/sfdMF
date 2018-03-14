@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>#if(type=="one")供应商注册#elseif(type=="two")采购商注册#elseif(type=="three")核心企业申请#elseif(type=="four")运输企业注册#end</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<link rel="icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+	<link rel="shortcut icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/web/css/zc.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/tools.css" />
+#if(type=="one")
+<style>
+.nav a:hover, .nav a.cur{color:#A78649;}
+.nav{background-color:#A78649;}
+.regTab li a.cur{border-bottom:9px #A78749 solid;}
+</style>
+#elseif(type=="two")
+<style>
+.nav a:hover, .nav a.cur{color:#0085FD;}
+.nav{background-color:#0085FD;}
+.regTab li a.cur{border-bottom:9px #0085FD solid;}
+</style>
+#elseif(type=="three")
+
+#elseif(type=="four")
+<style>
+.nav a:hover, .nav a.cur{color:#177F00;}
+.nav{background-color:#177F00;}
+.regTab li a.cur{border-bottom:9px #177F00 solid;}
+</style>
+#end
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/js/reg.js"></script>
+	
+	<script type="text/javascript" src="${webroot}/resources/web/js/ypxs.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/js/storeReg_one.js"></script>
+</head>
+
+<body>
+${include("../../commons/regAndLogin/regTop.jetx")}
+<input type="hidden" id="type" value="${type}" />
+
+<div class="main" style="display:block;">
+    <!--用邮箱注册-->
+    <div class="regContent" style="display:block;">
+        <div class="textBox box258 phoneBox errorBorder"><!--这是错误效果,追加class=errorBorder可以用来显示红色边框-->
+        	<input name="companyName" type="text" class="box228" placeholder="企业机构名称" onblur="storeBlur()" autocomplete="off">
+        </div>
+        <div class="boxHeight">
+          <div class="errorBox" id="companyName"></div><!--这是提示框,追加class  =error可以用来显示错误-->
+        </div>
+        
+        <div class="textBox box258 phone mailBox errorBorder"><input name="name" type="text" class="box228" placeholder="邮箱" autocomplete="off" onblur="nameBlur()"></div>
+        <span class="words2">使用常用邮箱注册</span>
+        <div class="clear"></div>
+        <div class="boxHeight">
+          <div class="errorBox" id="name">请输入邮箱</div><!--这是提示框-->
+        </div>
+        
+        <div class="textBox box258 phone userBox errorBorder"><input name="phone" type="text" class="box228" placeholder="手机号" autocomplete="off" onblur="phoneBlur()"></div>
+        <input type="button"  class="btnSend" id="btnSend" value="立即发送" />
+        <span class="words">非中国大陆用户输入手机号码时请增加区域前缀，如：台湾：+8869*******，香港：+8526*******</span>
+        <div class="clear"></div>
+        <div class="boxHeight">
+          <div class="errorBox" id="phone">请输入手机号</div><!--这是提示框-->
+        </div>
+        
+        <div class="textBox box258 codeBox errorBorder"><input name="yanzheng" type="text" class="box228" placeholder="短信验证码" autocomplete="off" onblur="yanzhengBlur()"></div>
+        <div class="boxHeight">
+          <div class="errorBox " id="yanzheng">请输入短信验证码</div><!--这是提示框-->
+        </div>
+        
+        <div class="textBox box258 key keyBox errorBorder"><input name="password" type="password" class="box228" placeholder="登录密码" autocomplete="off" onblur="passwordBlur()"></div>
+        <span class="words2">密码长度8~16位</span>
+        <div class="clear"></div>
+        <div class="boxHeight">
+          <div class="errorBox" id="password">请输入密码</div><!--这是提示框-->
+        </div>
+        
+        <div class="textBox box258 key keyBox errorBorder"><input name="pwdt" type="password" class="box228" placeholder="确认密码" autocomplete="off" onblur="pwdtBlur()"></div>
+        <div class="clear"></div>
+        <div class="boxHeight">
+          <div class="errorBox" id="pwdt">密码输入不一致</div><!--这是提示框-->
+        </div>
+        
+        <a href="javascript:phoneReg();" class="btnReg">注册</a>
+        <div class="reLogin">
+          <div class="words4">如果您已有账号，可</div>
+          <a href="${webroot}/web/login/${type}" class="btnLogin">在此登录</a>
+          <div class="clear"></div>
+        </div>
+    </div>
+    <!--用邮箱注册 end-->
+</div>
+
+${include("../../commons/regAndLogin/bottom.jetx")}
+</body>
+</html>

@@ -1,0 +1,584 @@
+#define(com.ekfans.base.channel.model.Channel channel)
+#define(com.ekfans.base.user.model.User User)
+#define(com.ekfans.base.store.model.Store Store)
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}-${channel.name}</title>
+<link rel="shortcut icon"
+	href="${webroot}/resources/commons/images/favicon.ico"
+	type="image/x-icon">
+<meta name="Keywords" content="${channel.keyWords}">
+<meta name="description" content="${channel.description}">
+<script
+	src="${webroot}/resources/userCenter/personal/js/ckeditor/ckeditor.js"></script>
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.superslide.2.1.1.js"></script>
+<script src="${webroot}/resources/web/js/base.js"></script>
+<script src="${webroot}/resources/web/js/jquery.kxbdmarquee.js"></script>
+<script src="${webroot}/resources/web/js/kxbdSuperMarquee.js"></script>
+<script src="${webroot}/resources/commons/js/layer/layer.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/wfys.js"></script>
+<script src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+<script type="text/javascript"
+	src="${webroot}/resources/commons/js/jquery.form.js"></script>
+<script type="text/javascript"
+	src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+<link href="${webroot}/resources/commons/css/commons.css"
+	rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/base.css" rel="stylesheet"
+	type="text/css">
+<link href="${webroot}/resources/web/css/wfys.css" rel="stylesheet"
+	type="text/css">
+#if(configStatus == "true")
+<link rel="stylesheet" type="text/css"
+	href="${webroot}/resources/commons/css/control.css" />
+<link rel="stylesheet" type="text/css"
+	href="${webroot}/resources/commons/css/upload.css" />
+<script type="text/javascript"
+	src="${webroot}/resources/commons/js/jquery.form.js"></script>
+<script type="text/javascript"
+	src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+<script type="text/javascript"
+	src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+<script type="text/javascript"
+	src="${webroot}/resources/commons/js/tools.js"></script>
+<script type="text/javascript"
+	src="${webroot}/resources/commons/js/control.js"></script>
+<script type="text/javascript"
+	src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+<script type="text/javascript"
+	src="${webroot}/resources/commons/js/upload/upload.js"></script>
+#end
+</head>
+
+<body>
+	<input type="hidden" name="ctxpath" id="ctxpath" value="${ctxpath}" />
+	<input type="hidden" name="channelId" id="channelId"
+		value="${channelId}" />
+	<input type="hidden" name="channelType" id="channelType"
+		value="${channel.type}" /> #if(configStatus == "true")
+	<!-- 频道配置导航条 -->
+	#include("commons/config/config-top.jetx")
+	<!-- 频道配置导航条 -->
+	#end
+	<!--一极菜单-->
+	<!-- 导航-->
+	<div id="channelTop"></div>
+
+	<!--一极菜单 end-->
+
+	<div class="wrapper main">
+		<div class="leftBox">
+			<!--新加顶部快捷按钮-->
+			<div class="fastBtns">
+				<div class="findcars">
+					<em>我是货主</em> <a href="#dataContent" class="btnZC"></a> <a
+						href="javascript:void(0);" class="btnFb updateLink btnFH"
+						datatype="1"></a>
+				</div>
+				<div class="findhuos">
+					<em>我是车主</em> <a href="#dataContent" class="btnZH"></a> <a
+						href="javascript:void(0);" class="btnFb updateLink btnFC"
+						datatype="0"></a>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<!--新加顶部快捷按钮 end-->
+
+
+
+			<!--最新车货-->
+			<div class="newCars">
+				<h2>最新车货</h2>
+				<div class="txtScroll-left newcarhuo">
+					<div class="hd"></div>
+					<div class="bd" id="newChList">
+
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<!--最新车货 end-->
+			
+
+		</div>
+
+
+		<div class="rightBox">
+			<!--单图广告-->
+			<div class="oneAdpic">
+				#include("commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"2"})
+			</div>
+			<!--单图广告 end-->
+		</div>
+
+		<div class="clear"></div>
+
+		<!--切换选项-->
+		<ul class="checkItems tabNav">
+			<li class="cur navButton" value="0">车源信息</li>
+			<li class = "navButton" value="1">货源信息</li>
+		</ul>
+
+		<!---顶部分类-->
+		<div class="filtrate">
+			<div class="filtrateIn">
+				<dl class="filtrateItem">
+					<dt>出发地</dt>
+					<dd class="filtrateLink fromAdress">
+						<a href="javascript:void(0);" class="cur">全部</a>
+						#for(com.ekfans.base.system.model.SystemArea
+							s:@(com.ekfans.plugin.cache.base.Cache).getProvinces()) <a
+							href="javascript:void(0);"
+							class="cfd #if(starPlace=='s.areaName')cur#end"
+							id="${s.areaName}">${s.areaName}</a> #end
+					</dd>
+					<dd class="filtrateMore">
+						<a href="javascript:void(0);"></a>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="filtrateItem">
+					<dt>目的地</dt>
+					<dd class="filtrateLink goAdress">
+						<a href="javascript:void(0);" class="cur">全部</a>
+						#for(com.ekfans.base.system.model.SystemArea
+						s:@(com.ekfans.plugin.cache.base.Cache).getProvinces()) <a
+							href="javascript:void(0);"
+							class="mdd #if(endPlace=='s.areaName')cur#end" id="${s.areaName}"
+							datatype="${s.id}">${s.areaName}</a> #end
+					</dd>
+					<dd class="filtrateMore">
+						<a href="javascript:void(0);"></a>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="filtrateItem">
+					<dt>货物类型</dt>
+					<dd class="filtrateLink categoryName">
+						<a href="javascript:void(0);" class="cur">全部</a>
+						#for(com.ekfans.base.store.model.CategoryGoods
+						cg:@(com.ekfans.plugin.cache.base.Cache).getCategoryGoodsList()) <a
+							href="javascript:void(0);"
+							class="#if(categoryName=='cg.name')cur#end" id="${cg.name}"
+							datatype="${cg.id}">${cg.name}</a> #end
+					</dd>
+					<dd class="filtrateMore">
+						<a href="javascript:void(0);"></a>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="filtrateItem">
+					<dt>货物种类</dt>
+					<dd class="filtrateLink wfpysParentId">
+						<a href="javascript:void(0);" class="cur">全部</a>
+						#for(com.ekfans.base.store.model.Wfpys
+						wfpys:@(com.ekfans.plugin.cache.base.Cache).getWfpysList()) <a
+							href="javascript:void(0);"
+							class="#if(wfpysParentId=='wfpys.id')cur#end" id="${wfpys.id}"
+							datatype="${wfpys.id}">${wfpys.name}</a> #end
+					</dd>
+					<dd class="filtrateMore">
+						<a href="javascript:void(0);"></a>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="filtrateItem" style="border-bottom: none;">
+					<dt>罐体材质</dt>
+					<dd class="filtrateLink tankMaterialName">
+						<a href="javascript:void(0);" class="cur">全部</a>
+						#for(com.ekfans.base.store.model.TankMaterial
+						tm:@(com.ekfans.plugin.cache.base.Cache).getTankMaterialList()) <a
+							href="javascript:void(0);"
+							class="#if(tankMaterialName=='tm.name')cur#end" id="${tm.name}"
+							datatype="${tm.id}">${tm.name}</a> #end
+					</dd>
+					<dd class="filtrateMore">
+						<a href="javascript:void(0);"></a>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+			</div>
+			<a href="javascript:void(0);" class="layerToggle">更多搜索条件</a>
+		</div>
+		<!---顶部分类 end -->
+
+
+		<div class="clear"></div>
+
+		<!-- 锚点 -->
+		<a name="dataContent"></a>
+		<!--车源列表-->
+		<div id="wfcyList" class="tabContent"></div>
+		<!--货源列表-->
+		<div id="wfhyList" class="tabContent" style="display: none;"></div>
+
+		<div class="clear"></div>
+
+	</div>
+	<!--底部-->
+	<div id="channelFoot"></div>
+	<!--底部 end-->
+	<!--发布信息弹层-->
+	<div id="updateHtml" style="display: none;">
+		<div class="update">
+			<div class="leftLayer">
+				<a href="${webroot}/web/login" class="btnGreen">登录后发布</a>
+				<div class="text">
+					<em class="red">*</em>保留完整的发布信息数据<br> 可编辑修改后再发布<br>
+					历史记录永久查阅
+				</div>
+			</div>
+			<div class="rightLayer">
+				<a href="javascript:void(0);" class="btnGreen" onclick="release();">发布临时信息</a>
+				<div class="text">
+					<em class="red">*</em>未注册用户可直接发布临时信息<br> 不可修改及查阅历史记录<br>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--发布信息弹层 end-->
+
+	<!--发布弹层-->
+	<div id="fbHtml" style="display: none;"></div>
+	<!--发布弹层 end-->
+
+	<!--议价弹层-->
+	<div id="yijiaHtml" style="display: none;"></div>
+	<!--议价弹层 end-->
+	<div class="apLayerBg"></div>
+
+	<div class="alertBrand" style="wdith: 1000px; display: none;"
+		id="showLoads"></div>
+	<div id="Directory" class="apLayer borderColor alertBrand"
+		style="display: none;"></div>
+
+	<script>
+	var type;
+
+    //jQuery(".txtScroll-top").slide({titCell:".hd ul",mainCell:".bd ul",autoPage:true,effect:"top",autoPlay:true,vis:6});
+    /*列表信息滚动*/
+    //old
+    $("input[name = 'type']").live("click",function(){
+        var type = $(this).val();
+        if(type == "0"){
+            $(".cy").show();
+            $(".hy").hide();
+        }else{
+            $(".cy").hide();
+            $(".hy").show();
+        }
+    }); 
+    
+    /*一级菜单展开*/
+    $(".navBtn").live("click",function(){
+        $(this).parent("li").siblings("li").find("a").removeClass("cur");
+        $(this).parent("li").siblings("li").find(".navList").hide();
+        $(this).addClass("cur");
+        $(this).siblings(".navList").show();
+        }); 
+        
+    $(".navList a").live("click",function(){
+        $(this).siblings("a").removeClass("cur");
+        $(this).addClass("cur");
+        });
+
+    $("#channelTop").load($("#ctxpath").val() + "/web/channel/commons/channel-top.jetx",{"channelId":$("#channelId").val(),"channelType":$("#channelType").val(),"returnUrl":window.location.href});
+    $("#channelFoot").load($("#ctxpath").val() + "/web/channel/commons/channel-footer.jetx");
+	
+    //最新车货滚动
+	$("#newChList").load($("#ctxpath").val() + "/web/wftransport/newWfList/0",function(){
+		jQuery(".newcarhuo").slide({mainCell:".bd ul",autoPlay:true,effect:"leftMarquee",interTime:30,vis:4,trigger:"click"});
+	});
+    
+    
+
+    
+    //发布信息弹层
+    $(".updateLink").click(function(){
+        var userId = $("#userId").val();
+         type = $(this).attr("datatype");
+        // 判断用户否登陆
+        if(userId != null && userId != "" && userId != " "){
+            if(type=="0"){
+                choseMenu('${webroot}','WFYS_WFCY_ADD');
+            }else{
+                choseMenu('${webroot}','WFYS_WFHY_ADD');
+            }   
+        }else{
+            layer.open({
+                type: 1,
+                title: '发布信息',
+                skin: 'layer-class',
+                area: '600px', //宽高
+                content: $("#updateHtml")
+            });
+        }
+    });
+    
+    $("#hx").load($("#ctxpath").val()+"/web/storeType/getHxInfo/wfys/3");
+    $("#ysqy").load($("#ctxpath").val()+"/web/storeType/getHxInfo/wfys/4");
+    
+    
+    //----------------------------------161012-----------------------------------------------------
+	
+    var currInnerPage = 0;
+
+    
+    $(".tabNav").click(function() {
+        currInnerPage = $(this).children(".cur").val();
+    });
+    
+    
+	//展开筛选项
+	$(".filtrateLink").each(function(index, element) {
+		var sumWidth =0;
+		$(this).find("a").each(function(){
+			var a=$(this).width();
+			sumWidth += a;
+		});
+		if (sumWidth>750){$(this).next(".filtrateMore").css("visibility"," visible")}
+		else{$(this).next(".filtrateMore").css("visibility","hidden")}
+    });	
+	$(".filtrateMore").on("click",function(){
+		$(this).parents(".filtrateItem").toggleClass("filtrateAll");
+		$(".filtrate .layerToggle").siblings(".filtrateIn").addClass("filtrateInAll");
+		$(".filtrate .layerToggle").text("收起");
+	})
+	
+	$(".filtrate .layerToggle").toggle(function(){
+		$(this).text("收起");
+		$(this).siblings(".filtrateIn").addClass("filtrateInAll");
+	},function(){
+		$(this).text("更多搜索条件");
+		$(this).siblings(".filtrateIn").removeClass("filtrateInAll");
+	})
+
+        
+	//  获取首页点击搜索参数
+	var endFullPath = getQueryString("endFullPath");
+	var urlType = getQueryString("type");
+	if (urlType == 1){
+		$(".navButton").each(function(){
+			if($(this).attr('value') == 1){
+				$(this).siblings().removeClass("cur");
+				$(this).addClass("cur");
+			}else{
+			}
+		});
+	}
+	// 当首页参数 endFullPath 不为空,拼装参数搜索
+	if(endFullPath != null && endFullPath != "undefined"){
+		// 选中搜索条件地区
+		$(".mdd").each(function(){
+			if($(this).attr("datatype") == endFullPath){
+				$(this).siblings().removeClass("cur");
+				$(this).addClass("cur");
+				if(endFullPath > 360001 && endFullPath < 820001){
+					$(this).parents(".filtrateLink").siblings(".filtrateMore").click();
+				}
+			}
+		});
+	
+	}else{
+		;
+	}
+	
+
+    //选项卡切换
+    $(".main").qiehuan({onStyle:"click"});
+ 
+
+    $("filtrateLink a").click(function(){
+        $(this).siblings().removeClass("cur");
+        $(this).addClass("cur");
+        var dom=$(this).parent().siblings(".tabContent");
+        var index=$(this).parent().children().index(this);
+        dom.hide();
+        dom.eq(index).show();
+        goPage(1);
+    });
+    
+    $(".filtrateLink a").live("click",function(){
+      $(this).siblings("a").removeClass("cur");
+      $(this).addClass("cur");
+      goPage(1);
+    });
+    
+    $("input[name = 'type']").live("click",function(){
+        var type = $(this).val();
+        if(type == "0"){
+            $(".cy").show();
+            $(".hy").hide();
+            $("#supplyName").val("");
+        }else{
+            $(".cy").hide();
+            $(".hy").show();
+            $("#carName").val("");
+        }
+    }); 
+    
+    
+    //筛选条件   old
+    
+    $(".listLink a").live("click",function(){
+      $(this).siblings("a").removeClass("cur");
+      $(this).addClass("cur");
+      goPage(1);
+    });
+    
+    $("input[name = 'type']").live("click",function(){
+        var type = $(this).val();
+        if(type == "0"){
+            $(".cy").show();
+            $(".hy").hide();
+            $("#supplyName").val("");
+        }else{
+            $(".cy").hide();
+            $(".hy").show();
+            $("#carName").val("");
+        }
+    }); 
+    
+  	//默认加载
+    goQuery(); 
+    
+    
+ 	// 执行查询
+    function goQuery(){
+        //var pageNum = $("#pageNum").val();
+        var pageNumCy = $("#pageNumCyxx").val();
+        var pageNumHy = $("#pageNumHyxx").val();
+        var starPlace = $(".fromAdress a.cur").attr("id");
+        var endPlace = $(".goAdress a.cur").attr("id");
+        var carName = $(".carName a.cur").attr("id");
+        var tankMaterialName = $(".tankMaterialName a.cur").attr("id");
+        var categoryName = $(".categoryName a.cur").attr("id");
+        var wfpysParentId = $(".wfpysParentId a.cur").attr("id");
+        
+        if(!pageNumCy) {
+            pageNumCy = 1;
+        }
+        if(!pageNumHy) {
+            pageNumHy = 1;
+        }
+        
+		$("#wfcyList").load($("#ctxpath").val() + "/web/wftransport/getWftransportList/0/1",{pageNum:pageNumCy,starPlace:starPlace,endPlace:endPlace,carName:carName,tankMaterialName:tankMaterialName,categoryName:categoryName,wfpysParentId:wfpysParentId});
+		$("#wfhyList").load($("#ctxpath").val() + "/web/wftransport/getWftransportList/1/2",{pageNum:pageNumHy,starPlace:starPlace,endPlace:endPlace,carName:carName,tankMaterialName:tankMaterialName,categoryName:categoryName,wfpysParentId:wfpysParentId});
+
+    }
+
+
+    
+  //分页跳转
+    $(".surepage").live("click",function(){
+    	var numCyxx = $("input[data-value='gopage_0']").val();
+    	var numHyxx = $("input[data-value='gopage_1']").val();
+    	
+    	
+    	$("#pageNumCyxx").val(numCyxx);
+    	$("#pageNumHyxx").val(numHyxx);
+    	
+    	goQuery();
+    });
+
+
+
+	function goPage(num){
+		if(currInnerPage == 0) {
+			$("#pageNumCyxx").val(num);
+		} else if(currInnerPage == 1) {
+			$("#pageNumHyxx").val(num);
+		}
+		goQuery();
+	}
+	
+
+
+	function getQueryString(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");//匹配name
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null)
+			return unescape(r[2]);
+		return null;
+	}
+
+//---------------------------------20161012 end-------------------------------------        
+
+    function yijia(id,type,storeId){
+        var title = "";
+        var userId=$("#userId").val();
+        if("0" == type){
+            title = "议价";
+            if(userId == storeId){
+            layer.alert("不能对自己发布的车源操作");
+                return;
+            }
+            
+        }else{
+            title = "报价";
+            if(userId == storeId && storeId != ""){
+                layer.alert("不能对自己发布的车源操作");
+                return;
+            }
+        }
+        if(null!=userId&&""!=userId&&" "!=userId || type=="1"){
+            $("#yijiaHtml").load($("#ctxpath").val() + "/web/wftransport/getwf/"+id+"/"+type,function(){
+                //议价弹层
+                layer.open({
+                    type: 1,
+                    title: title + "信息",
+                    skin: 'layer-class',
+                    area: '600px', //宽高
+                    content: $("#yijiaHtml"),
+                    btn:['确认','取消'],
+                    yes:function(index){
+                        // 判断类型
+                        var flag =false;
+                        if(type == '0'){
+                            flag = checkQuantity();
+                        }else{
+                            flag = true;
+                        }
+                        if( flag && checkPrice() && validInfo($(".man"),'联系人不能为空') && validInfo($(".phone"),'联系电话不能为空')){
+                            //点击确定执行的语句
+                            $("#bargainForm").ajaxSubmit(function(data){
+                                if(data=="1" || data=="true" ){
+                                    layer.close(index);
+                                    layer.alert(title+"成功");
+                                }else if(data=="error"){
+                                    layer.close(index);
+                                    layer.alert("不能对自己发布的车源议价");
+                                }else{
+                                    layer.close(index);
+                                    layer.alert(title+"失败!");
+                                }
+                            });
+                        }else{
+                            if(type == '0'){
+                                checkQuantity();
+                            }
+                            checkPrice(); 
+                            validInfo($(".man"),'联系人不能为空') ;
+                            validInfo($(".phone"),'联系电话不能为空');
+                        }
+                    },
+                    cancel:function(){
+                        //点击取消执行的语句
+                    }
+                });
+            });
+        }else{ //未登录跳转登录页面
+            location.href=$("#ctxpath").val()+"/web/login";
+        }
+    }
+    
+</script>
+
+	<div style="display: none;">
+		<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255237573'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1255237573' type='text/javascript'%3E%3C/script%3E"));</script>
+	</div>
+</body>
+</html>

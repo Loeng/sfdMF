@@ -1,0 +1,46 @@
+	                <!-- 商品咨询 -->
+			            <div class="checkLayer proDetail">
+			                <div class="productItem">
+			                    <!-- 商品搜索 -->
+			                    <div class="consultSearch">
+			                        <input type="search" class="consultSearchBox" />
+			                        <a href="javascript:void(0)" id="consultSearch" value="${consultContent}" class="btnOrange btnConsultSearch">搜索</a>
+			                    </div>
+			                    <div class="prompt">
+			                        <p>温馨提示:因厂家更改产品包装、产地或者更换随机附件等没有任何提前通知，且每位咨询者购买情况、提问时间</p>
+			                        <p>等不同，为此以下回复仅对提问者3天内有效，其他网友仅供参考！若由此给您带来不便请多多谅解，谢谢！</p>
+			                    </div>
+			                    <!-- end 商品搜索 -->
+			                </div>
+			                
+						          #for(com.ekfans.base.store.model.Consult c:cs)
+			                <div class="productItem">
+			                    <ul>
+			                        <li>
+			                            <span>会员：</span> 
+			                            <a href="javascript:void(0)">${c.creatorName}</a>
+			                            <span>${c.createTime}</span>
+			                        </li>
+			                        <li>
+			                            <span>咨询内容： </span>
+			                            <span class="problem">
+			                                ${c.questionAnswer}
+			                            </span>
+			                        </li>
+			                        #if(c.childList != null)
+				                        #for(com.ekfans.base.store.model.Consult cc:c.childList)
+				                        <li class="orange">客服回复： ${cc.questionAnswer}</li>
+	                              #end
+	                            #end  
+			                    </ul>
+			                </div>
+			                #end
+			
+			                <div class="clear"></div>
+			                <div class="tabZone">
+			                    <div class="published">
+			                        <a href="javascript:void(0)" id="consultPublish" class="btnBlue btnPublished">发表咨询</a>
+			                    </div>
+			                    <a href="javascript:void(0)" id="consultWatch" class="btnBlue btnReadAll">查看全部咨询</a>
+			                </div>
+			            </div>

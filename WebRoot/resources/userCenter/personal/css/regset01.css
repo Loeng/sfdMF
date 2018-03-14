@@ -1,0 +1,60 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url("personalBase.css");
+
+body{background:url(../images/loginbody.jpg) no-repeat center center fixed; padding-top:17px;}
+.regLogo{display:block; float:right;}
+.regBox{width:890px; min-height:410px; background-color:#fff; margin:14px auto 0 auto; padding:36px 0 20px 90px; box-shadow:1px 1px 1px #c0c0c0;}
+.regBox h2{font-size:24px; height:36px; line-height:36px;}
+.regLeft{width:352px; float:left; margin-right:94px;}
+.formLine{padding-top:12px;}
+.formLine dt{height:37px; line-height:37px; font-size:14px;}
+.formLine dd{height:37px; position:relative;}
+.textBox{width:350px; height:35px; line-height:35px\9; border-radius:3px; border:1px solid #e0e0e0;border-top-width:2px;width:345px;padding-left:2px;}
+.textBoxFocus{border-color:#ff8400; background:#FEEFDF;}
+.errorText,.hintText{height:31px; display:block; position:relative; margin-top:-69px; margin-top:-32px\0; float:right;}
+.errorBoxL,.errorBoxR,.hintBoxL,.hintBoxR{display:block; width:4px; height:25px; float:left;}
+.errorBoxL,.errorBoxR,.errorBoxB,.hintBoxL,.hintBoxR,.hintBoxB{overflow:hidden;}
+.errorBoxL{background:url(../images/login.png) no-repeat 0 -6px;}
+.errorBoxR{background:url(../images/login.png) no-repeat -4px -6px;}
+.errorBoxB,.hintBoxB{display:block; width:12px; height:6px; position:absolute; bottom:0px; left:44%;}
+.errorBoxB{background:url(../images/login.png) no-repeat;}
+.errorMain,.hintMain{display:block; white-space:nowrap; height:25px; line-height:25px; padding:0 5px; float:left;}
+.errorMain{background:#ff8400; color:#fff;}
+.hintMain{background:#f0f0f0;}
+.hintBoxL{background:url(../images/regset.png) no-repeat 0 -54px;}
+.hintBoxR{background:url(../images/regset.png) no-repeat -4px -54px;}
+.hintBoxB{background:url(../images/regset.png) no-repeat -8px -54px;}
+.safeLev{display:block; width:344px; height:18px; line-height:18px; background-image:url(../images/regset.png); background-repeat:no-repeat; margin-top:12px; color:#fff; text-indent:0.9em;}
+.safeLev1{background-position:0 -36px;}
+.safeLev2{background-position:0 -18px;}
+.safeLev3{background-position:0 0;}
+.formCode .textBox{width:158px; display:block; float:left; margin-right:10px;}
+.formCode img{display:block; width:78px; height:34px; float:left; margin-right:10px;}
+.formCode dd a{display:inline-block; height:34px; line-height:34px;}
+.formCode dd a:hover{text-decoration:underline;}
+.formBottom{height:26px; line-height:26px; padding:15px 0;}
+.serviceList{position:relative; padding-left:16px; _padding-left:20px; color:#666;}
+.serviceList input{position:absolute; left:0; top:2px;}
+.btnReg{width:350px; height:36px; line-height:36px; margin:0 auto; font-size:14px; border-radius:3px;}
+.bottomText{height:30px; line-height:30px; padding-top:20px;510723197810106195}
+.bottomText span{padding-right:10px;}
+.bottomText .red{font-size:18px;}
+.bottomText .red:hover{text-decoration:underline;}
+
+.regSplit{height:632px; width:1px; background:#eaeaea; float:left;}
+
+.regRight{float:left; padding:60px 0 0 50px;}
+.loginText{display:block; height:30px; line-height:30px; font-size:14px;}
+.btnLogin{font-size:14px; height:30px; margin-top:20px; display:block;}
+.btnLeft,.btnRight{display:block; width:13px; height:30px; float:left;}
+.btnLeft{background:url(../images/regset.png) no-repeat -20px -54px;}
+.btnRight{background:url(../images/regset.png) no-repeat -33px -54px;}
+.btnLogin span{display:block; height:30px; line-height:30px; white-space:nowrap; float:left; background:#9FD367; padding:0 10px; color:#fff;}
+.btnLogin:hover span{background:#86C73F;}
+.btnLogin:hover .btnLeft{background:url(../images/regset.png) no-repeat -46px -54px;}
+.btnLogin:hover .btnRight{background:url(../images/regset.png) no-repeat -59px -54px;}
+
+/*底部*/
+.footer{padding:16px 0; line-height:22px; margin-bottom:10px;}

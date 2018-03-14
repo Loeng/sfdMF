@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.ekfans.base.store.model.MortgageApplication" table="MORTGAGE_APPLICATION" dynamic-update="false">
+		<id name="id" type="string" column="ID" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="storeId" type="string" column="STORE_ID"></property>
+		<property name="createTime" type="string" column="CREATE_TIME"></property>
+		<property name="amount" type="big_decimal" column="AMOUNT"></property>
+		<property name="type" type="int" column="TYPE"></property>
+		<property name="bankId" type="string" column="BANK_ID"></property>
+		<property name="orderId" type="string" column="ORDER_ID"></property>
+		<property name="status" type="int" column="STATUS"></property>
+		<property name="bankBackStatus" type="boolean" column="BANK_BACK_STATUS"></property>
+		<property name="bankFeedback" type="string" column="BANK_FEEDBACK"></property>
+		<property name="manumber" type="int" column="MANUMBER"></property>
+		<property name="contactName" type="string" column="CONTACT_NAME"></property>
+		<property name="contactPhone" type="string" column="CONTACT_PHONE"></property>
+		<property name="notes" type="string" column="NOTES"></property>
+		<property name="orderPdfFile" type="string" column="ORDER_PDF_FILE"></property>
+		<property name="loanUse" type="string" column="LOAN_USE"></property>
+		<property name="pawnDetail" type="string" column="PAWN_DETAIL"></property>
+		<property name="pawnFile" type="string" column="PAWN_FILE"></property>
+		<property name="loanMaxWaitTime" type="int" column="LOAN_MAX_WAIT_TIME"></property>
+		<property name="contractId" type="string" column="CONTRACT_ID"></property>
+	</class>
+</hibernate-mapping>

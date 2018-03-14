@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>运输车辆查看</title>
+	<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css">
+	<script src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+	<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+	<style>
+	.formItem dt{width:110px;}
+	
+	</style>
+
+</head>
+
+<body>
+	#define(com.ekfans.base.store.model.CarInfo info)
+		<div class="rightContent">
+			<div class="contentTit  borderColor budong">
+				<h3>车辆管理-查看</h3>
+				<a href="${webroot}/store/transport/car/list" class="btnBase btnSave">返回列表</a>
+				<div class="clear"></div>
+			</div>
+			<div class="form borderColor">
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>车牌号</dt>
+					<dd><input name="carNo" type="text" value="${info.carNo}" readonly class="textBox box212" placeholder="1-30个字符"></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>车辆类型</dt>
+					<dd><input name="carType" type="text" value="${info.carType}" readonly class="textBox box212"></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>核定载质量</dt>
+					<dd><input name="fullWeight" type="number" value="${info.fullWeight}" readonly class="textBox box212"></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>行驶证有效期</dt>
+					<dd><input name="startTime" type="text" value="${info.startTime}" readonly class="textBox box98"></dd>
+					<dd class="lineColor">&nbsp;—&nbsp;</dd>
+					<dd><input value="${info.endTime}" name="endTime" type="text" class="textBox box98"></dd>
+					<dd class="clear"></dd>
+				</dl>
+				
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>道路运输证号</dt>
+					<dd><input name="ysNo" type="text" value="${info.ysNo}" readonly class="textBox box212"></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>核定载人数</dt>
+					<dd><input name="fullNum" type="number" value="${info.fullNum}" readonly class="textBox box212"></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>审核状态</dt>
+					<dd><select name="checkStatus" readonly style="width:107px;">
+							<option value="1" #if(info.checkStatus=="1")selected #end>已审核</option>
+							<option value="0" #if(info.checkStatus=="0")selected #end>未审核</option>
+						</select></dd>
+					<dd class="clear"></dd>
+				</dl>
+				#if(info.checkStatus=="1")
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>审核人</dt>
+					<dd><input name="checkMan" type="text" value="${info.checkMan}" readonly class="textBox box212"></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>审核时间</dt>
+					<dd><input name="checkTime" type="text" value="${info.checkTime}" readonly class="textBox box212"></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>审核备注</dt>
+					<dd><input name="checkNote" type="text" value="${info.checkNote}" readonly class="textBox box212"></dd>
+					<dd class="clear"></dd>
+				</dl>
+				
+				#end
+				<div class="clear"></div>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>行驶证附件</dt>
+					<dd> #tag picUpload("xszFile","1","20","20",info.xszFile) #end </dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>道路运输证附件</dt>
+					<dd> #tag picUpload("yszFile","1","20","20",info.yszFile) #end </dd>
+					<dd class="clear"></dd>
+				</dl>
+				<div class="clear"></div>
+			</div>
+		</div>  
+	
+</body>
+</html>

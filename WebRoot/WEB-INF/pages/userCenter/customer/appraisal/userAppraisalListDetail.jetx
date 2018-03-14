@@ -1,0 +1,37 @@
+		
+		
+		#define(List<com.ekfans.base.store.dto.AppraiseDto> appraiseDLoadNew)
+		<input type="hidden" name="pageNum" value="${currentPage}" />
+		#if(appraiseDLoadNew.size()==0)
+			<div class="orderNone">暂时没有符合条件的数据</div>
+		#else
+			<div class="listHeader">
+				<div class="consultText">评价内容</div>
+				<div class="proName">商品名称</div>
+		   	<div class="consultTime">评价时间</div>
+		    <div class="consultEdit">状态</div>
+		    <div class="clear"></div>
+		  </div>
+	   	#for(com.ekfans.base.store.dto.AppraiseDto appraiseDto:appraiseDLoadNew)
+		  	<div class="consultLine">
+		    	<div class="consultText">
+		        <span>${appraiseDto.appraiseContent }</span>
+		        #if(appraiseDto.replyStatus == true)
+		        	<div class="replyText"><em class="pointTop"></em>${appraiseDto.replyContent}</div>
+		        #end
+		      </div>
+		     	<div class="proName">
+		      	<a href="javascript:void(0)" class="proImg">
+		        	<!-- <img src="${appraiseDto.productImgUrl}" width="43" height="43" alt="ipad"> -->
+		         	<img src="${ctxpath+appraiseDto.productImgUrl}" width="78" height="78" alt="${appraiseDto.productSortName}" onerror="this.src='${webroot}/resources/store/images/imgdefault.jpg'">
+		       	</a>
+		        <span class="proNameText"><a href="javascript:void(0)">${appraiseDto.productName}</a></span>
+		      </div>
+		      <div class="consultTime">${appraiseDto.createTime}</div>
+		      <div class="consultEdit">#if(appraiseDto.replyStatus == false)对方未评 #else 对方已评 #end</div>
+		      <div class="clear"></div>
+		    </div>
+			#end
+			${include("../common/page.jetx")} 
+			<div class="clear"></div>
+		#end

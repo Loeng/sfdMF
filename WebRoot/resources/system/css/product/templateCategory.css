@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url("../add.css");
+
+.boxTable{width:100%; border-collapse:collapse;}
+.boxTable td{padding:10px 20px; line-height:30px; border-bottom:solid 1px #e4e4e4;}
+.prev,.next{display:block; width:28px; height:28px; float:left; margin-top:5px; font-family:SimSun; font-size:16px; font-weight:700; color:#868686;}
+
+.tabItem{float:left;}
+.tabUp{margin:30px 0; height:34px;}
+.tabItem{width:600px; height:34px; overflow:hidden; position:relative;}
+.tabItem ul{width:600px; position:absolute; left:0; top:0;}
+.Tab li{margin-right:20px; float:left; height:34px; width:100px;}
+.Tab li a{height:28px; line-height:28px; display:block; width:100px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:14px; text-align:center;}
+.Tab li.cur{background:url(../../images/bottompoint.png) no-repeat bottom center;}
+.Tab li.cur a{background:#0199DD; color:#fff;}
+
+.contentItem{display:none;}
+.itemLayer{padding-left:24px; margin-bottom:20px;  border-top:solid 1px #333;} 
+.classItem{width:300px; margin-right:24px; float:left; height:50px; line-height:50px; border-bottom:solid 1px #e4e4e4;}
+.classItem label{display:block;}
+.classItem input{display:block; float:left; margin:19px 20px 0 0;}
+
+/*增加分类*/
+.AddItem{margin-left:10px;}
+.btnRemove{display:inline-block; margin-left:10px;}

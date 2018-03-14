@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>后台地区选择</title>
+		<link href="${webroot}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	</head>
+	<body>
+		#define(Map<String, List<String>> rootMap)
+		#for(Entry<String,List<String>> entry:  rootMap)
+		   ${entry.key}  -   ${entry.value}
+		   #if(entry.value != null && entry.value.size()>0)
+		   	
+		   
+		   #end
+		#end
+	</body>
+</html>

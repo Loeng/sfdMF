@@ -1,0 +1,156 @@
+#define(List<com.ekfans.base.wfOrder.model.WfOrderTrans> transList)
+#set(String carInfoIds = "")
+#for(com.ekfans.base.wfOrder.model.WfOrderTrans trans:transList)
+#set(com.ekfans.base.store.model.CarInfo carInfo = trans.carInfo)
+#set(carInfoIds = carInfoIds + carInfo.id)
+#if(!for.last)
+	#set(carInfoIds = carInfoIds + ";")
+#end
+<div class="childItem pointTop grayBg">
+	<dl class="formItem formItem4" style="width:200px;">
+		<dt>车牌号</dt>
+		<dd>${carInfo.carNo}</dd>
+		<dd class="clear"></dd>
+	</dl>
+	<dl class="formItem formItem4" style="width:200px;">
+		<dt>承载量</dt>
+		<dd>${carInfo.fullWeight}吨</dd>
+		<dd class="clear"></dd>
+	</dl>
+	<dl class="formItem formItem4" style="width:200px;">
+		<dt>载人数</dt>
+		<dd>${carInfo.fullNum}人</dd>
+		<dd class="clear"></dd>
+	</dl>
+	<!--
+	<dl class="formItem formItem4">
+		<dt>实际载重</dt>
+		<dd>
+			<input name="${carInfo.id}Num" type="text" class="textBox box120 sjnum" value="${trans.num}">
+			<span>吨</span>
+		</dd>
+		<dd class="clear"></dd>
+	</dl>
+	-->
+	<div class="itemControl">
+		<a href="javascript:void(0);" class="btnBase btnshoufang">收起</a>
+	</div>
+	<div class="clear"></div>
+	<div class="itemContent" style="display:block;">
+		<div class="clear lineSplit"></div>
+		<div class="infoTitle"><em>人员信息</em></div>
+		<div class="childItem">
+			<dl class="formItem">
+				<dt>押运员</dt>
+				<dd class="supercargo">
+					<input name="${carInfo.id}supercargoName" id="${carInfo.id}supercargoName" type="text" readonly class="textBox box212" value="${trans.supercargoName}">
+					<input name="${carInfo.id}supercargoId"  id="${carInfo.id}supercargoId" type="hidden" readonly class="textBox box212 yyyid" value="${trans.supercargo}">
+					<span class="pp" id="${carInfo.id}" title="关联押运员"></span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			#set(List<com.ekfans.base.wfOrder.model.WfOrderTransDriver> drivers = trans.drivers)
+			#set(String driverNames = "")
+			#set(String driverIds = "")
+			#for(com.ekfans.base.wfOrder.model.WfOrderTransDriver driver:drivers)
+				#set(driverNames = driverNames + driver.driverName + "   ")
+				#set(driverIds = driverIds + driver.driver + ";")
+			#end
+			
+			<dl class="formItem">
+				<dt>驾驶员</dt>
+				<dd class="driver">
+					<input name="${carInfo.id}driverName" id="${carInfo.id}driverName" type="text" readonly class="textBox box212" value="${driverNames}">
+					<input name="${carInfo.id}driverId"  id="${carInfo.id}driverId" type="hidden" readonly class="textBox box212 jsyid" value="${driverIds}">
+					<span class="pp" id="${carInfo.id}" title="关联驾驶员"></span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>
+#end
+
+
+
+#define(List<com.ekfans.base.store.model.CarInfo> carInfoList)
+#for(com.ekfans.base.store.model.CarInfo carInfo:carInfoList)
+#set(carInfoIds = carInfoIds + carInfo.id)
+#if(!for.last)
+	#set(carInfoIds = carInfoIds + ";")
+#end
+<div class="childItem pointTop grayBg">
+	<dl class="formItem formItem4" style="width:200px;">
+		<dt>车牌号</dt>
+		<dd>${carInfo.carNo}</dd>
+		<dd class="clear"></dd>
+	</dl>
+	<dl class="formItem formItem4" style="width:200px;">
+		<dt>承载量</dt>
+		<dd>${carInfo.fullWeight}吨</dd>
+		<dd class="clear"></dd>
+	</dl>
+	<dl class="formItem formItem4" style="width:200px;">
+		<dt>载人数</dt>
+		<dd>${carInfo.fullNum}人</dd>
+		<dd class="clear"></dd>
+	</dl>
+	<!--
+	<dl class="formItem formItem4">
+		<dt>实际载重</dt>
+		<dd>
+			<input name="${carInfo.id}Num" type="text" class="textBox box120 sjnum" value="0.00">
+			<span>吨</span>
+		</dd>
+		<dd class="clear"></dd>
+	</dl>
+	-->
+	<div class="itemControl">
+		<a href="javascript:void(0);" class="btnBase btnshoufang">收起</a>
+	</div>
+	<div class="clear"></div>
+	<div class="itemContent" style="display:block;">
+		<div class="clear lineSplit"></div>
+		<div class="infoTitle"><em>人员信息</em></div>
+		<div class="childItem">
+			<dl class="formItem">
+				<dt>押运员</dt>
+				<dd class="supercargo">
+					<input name="${carInfo.id}supercargoName" id="${carInfo.id}supercargoName" type="text" readonly class="textBox box212" value="">
+					<input name="${carInfo.id}supercargoId"  id="${carInfo.id}supercargoId" type="hidden" readonly class="textBox box212 yyyid" value="">
+					<span class="pp" id="${carInfo.id}" title="关联押运员"></span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			
+			<dl class="formItem">
+				<dt>驾驶员</dt>
+				<dd class="driver">
+					<input name="${carInfo.id}driverName" id="${carInfo.id}driverName" type="text" readonly class="textBox box212" value="">
+					<input name="${carInfo.id}driverId"  id="${carInfo.id}driverId" type="hidden" readonly class="textBox box212 jsyid" value="">
+					<span class="pp" id="${carInfo.id}" title="关联驾驶员"></span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>
+#end
+
+
+<input type="hidden" name="carInfoIds" id="carInfoIds" value="${carInfoIds}"/>
+<script>
+
+$(".driver .pp").click(function(){
+	var carInfoId = $(this).attr("id");
+	$("#supercargo").load("${webroot}/store/order/wfOrderCarUserLoad/0/" + carInfoId);
+	$("#supercargo,.apLayerBg").show();
+});
+$(".supercargo .pp").click(function(){
+	var carInfoId = $(this).attr("id");
+	$("#supercargo").load("${webroot}/store/order/wfOrderCarUserLoad/1/" + carInfoId);
+	$("#supercargo,.apLayerBg").show();
+});
+</script>

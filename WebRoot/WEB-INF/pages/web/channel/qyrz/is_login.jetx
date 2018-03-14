@@ -1,0 +1,9 @@
+#define(com.ekfans.base.user.model.User User)
+#define(com.ekfans.base.store.model.Store Store)
+
+<span class="qinum">${reg}</span><span class="qiyes">家企业</span><span class="qistates">成功入会</span>
+<em>&nbsp;</em>
+<span class="qinum">${income}</span><span class="qiyes">家企业</span><span class="qistates">成功资本对接</span>
+
+<!-- 我要成为认证企业 -->
+<a href="${webroot}/web/system/authentication" class="btnGreen btnRenzheng">我要成为认证企业</a>

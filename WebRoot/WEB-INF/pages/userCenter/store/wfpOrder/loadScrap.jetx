@@ -1,0 +1,40 @@
+#define(List<com.ekfans.base.order.model.WfpScrap> scrapList)
+#define(String contractName)
+<div class="apTit">
+    	<span class="apClose"></span>
+        选择报废申请单
+    </div>
+    <div class="apContent">
+        <div class="shopSearch">
+            <dl class="formItem" style="width:370px;">
+                <dt>报废名称</dt>
+                <dd>
+                <input id="searcherStoreName" name="scrapName" type="text" class="textBox box212" value="${contractName}">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+        </div>
+        <div class="btn">
+            <a onclick="submitScarp('${webroot}');" class="btnBase">搜索</a>
+            <a onclick="reset();" class="btnBase">重置</a>
+        </div>
+        <div class="itemLayer">
+            #for(com.ekfans.base.order.model.WfpScrap scrap : scrapList)
+            	<div class="classItem" style="min-height:30px; height:auto; padding:15px 0;line-height:20px;">
+            	<label>
+            		    <label>
+                    <span><em><input id="listStoreId" type="radio" onclick="checkdScrap(this.value);"  value=${scrap.id}_${scrap.scarpName}></em></span> ${scrap.scarpName}
+                   </label>
+             </div>
+             #else
+             	 <div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+            #end
+            <div class="clear"></div>
+        </div>
+        <div style="padding-left:20px;">
+           <input type="hidden" name="pageNum" value="${currentpageStr}" />
+                ${include("../common/page.jetx")}
+             <div class="clear"></div>
+        </div>
+    </div>

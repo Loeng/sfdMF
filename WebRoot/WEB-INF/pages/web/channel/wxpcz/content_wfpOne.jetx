@@ -1,0 +1,44 @@
+#define(Map<String, com.ekfans.base.channel.model.ChannelConfig> configMap)
+#define(String configType)
+#define(String position)
+#define(String channelId)
+#set(com.ekfans.base.channel.model.ChannelConfig config = configMap.get(configType + position))
+#if(configStatus == "true")
+	#include("../commons/config/configTitle.jetx",{"channelId":channelId,"configType":configType,"position":position})
+#end
+		
+#if(config != null)
+
+	  	<h2>${config.configName != null && config.configName != "" ? config.configName:"新闻资讯"}</h2>
+	    <div class="infoContent">
+	    	
+	    		#for(com.ekfans.base.content.model.Content content : config.details)
+						#if(for.first)
+							<div class="first">
+			              <img src="${webroot}/#if(content.navigationImage=="")resources/web/images/noPro.png#else${content.navigationImage}#end" width="164" height="164" alt="${content.navigationText}">
+			            <dl>
+			                <dt><a href="${webroot}/03-${content.id}-1.html" title="${content.contentName}">${content.contentName}</a></dt>
+			                <dd>
+			                    <a href="javascript:void(0);" title="${content.navigationText}">${content.navigationText}</a>
+			                    <span></span> 
+			                </dd>
+			            </dl>
+			        </div>
+						#else
+							#break;
+						#end
+					#end
+	        <ul class="newsList">
+		    		#for(com.ekfans.base.content.model.Content content : config.details)
+							#if(for.index >1)
+								<li>
+									<em></em>
+									<a href="${webroot}/03-${content.id}-1.html" title="${content.contentName}">${content.contentName}</a>
+									<span></span>
+								</li>
+							#end
+						#end
+	        </ul>
+	    </div>
+		
+#end

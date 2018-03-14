@@ -1,0 +1,52 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+.saveHeader{height:41px; line-height:36px; border-bottom-width:1px; border-bottom-style:solid;}
+.saveHeader a{display:block; height:36px; width:123px; text-align:center; font-size:14px; float:left;}
+.nowItem{border-bottom-width:5px; border-bottom-style:solid;}
+.rightContent{overflow:hidden;}
+
+/*收藏商品列表*/
+.userSave{width:100%;}
+.userSave li{float:left;}
+.listDelete{height:35px; line-height:35px;}
+.listCheck input{display:block; margin:11px 8px 0 0;}
+.listDelete li{height:35px; float:left;}
+.listDelete li a{display:inline-block; margin-right:8px;width:38px;}
+.proOfShop{height:48px; line-height:48px; background:url(../images/shopico.png) no-repeat 0 center; padding-left:24px; color:#018FD5; font-size:14px;}
+.proOfShop a{color:#018FD5;}
+.proOfShop a:hover{color:#f50;}
+
+.proItem{width:230px; height:358px; float:left; margin:8px 12px 15px 17px; _margin-left:9px}
+.scImg{width:230px; height:230px; line-height:230px;text-align:center;overflow:hidden;display:block;margin-bottom:10px;}
+.scImg img{max-width:230px;max-height:230px;line-height:230px;vertical-align:middle;text-align:center;}
+
+.proPrice{height:38px; line-height:38px;}
+.nowPrice{font-size:24px; color:#f00; padding-right:16px; float:left; display:block;}
+.proCheck{float:right;}
+.proName{height:50px; line-height:25px; overflow:hidden; color:#999;}
+.proBttomInfo{padding-top:12px;}
+.proBttomInfo .btnBlue{display:block; height:24px; line-height:24px; width:64px; float:left;}
+.deleteLink{float:right; display:block; height:24px; line-height:24px;}
+.deleteLink:hover{color:#f60;}
+
+
+/*收藏店铺列表*/
+.shopSave{border-bottom:solid 1px #f3f3f3; width:775px;}
+.shopList{width:200px; padding:16px 55px 8px 0; border-bottom:solid 1px #f7f5f5; float:left; position:relative; margin-bottom:-1px;}
+.shopInfo{display:block; width:198px; height:198px; border:solid 1px #E4E9F1; position:relative;}
+.shopBg{display:none; width:198px; height:50px; border:solid 1px #b7b6b6; background:#000; position:absolute; left:-1px; bottom:-1px; z-index:1; filter:alpha(opacity=30); -moz-opacity:0.3; -khtml-opacity:0.3; opacity:0.3;}
+.shopName{display:none; width:198px; height:50px; line-height:36px; position:absolute; left:0; bottom:0; z-index:2; text-indent:1.5em; font-size:14px;}
+.shopName a{color:#fff;}
+.shopName a:hover{text-decoration:underline;}
+.shopBottom{height:45px; line-height:45px; position:relative; padding-left:20px;}
+.shopBottom input{left:0; top:16px; position:absolute;}
+.shopBottom a{display:inline-block; margin-right:10px; color:#7d7d7d;}
+.shopBottom a:hover{color:#333;}
+
+.listBottom{padding-top:20px;}
+.checkAll{height:28px; line-height:28px; position:relative; padding-left:34px; display:block; float:left; margin-right:20px;}
+.checkAll input{position:absolute; left:14px; top:8px;}
+.listBottom .btnBlue{width:75px; height:28px; line-height:28px; display:inline-block; float:left;}
+.listBottom .pageSize{padding-top:0;}

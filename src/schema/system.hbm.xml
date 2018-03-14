@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ekfans.base.system.model">
+
+	<!-- 系统用户 -->
+	<class name="Manager" table="MANAGER" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="name" type="string" column="NAME" />
+		<property name="password" type="string" column="PASSWORD" />
+		<property name="roleId" type="string" column="ROLE_ID" />
+		<property name="realName" type="string" column="REAL_NAME" />
+		<property name="status" type="boolean" column="STATUS" />
+		<property name="mobile" type="string" column="MOBILE" />
+		<property name="email" type="string" column="EMAIL" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+	</class>
+
+	<!-- 后台角色 -->
+	<class name="ShopRole" table="SYSTEM_ROLE" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="name" type="string" column="NAME" />
+		<property name="parentId" type="string" column="PARENT_ID" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+		<property name="note" type="string" column="NOTE" />
+	</class>
+
+	<!-- 后台功能菜单表 -->
+	<class name="ShopPurview" table="SHOP_PURVIEW" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="assigned" />
+		</id>
+		<property name="className" type="string" column="CLASS_NAME" />
+		<property name="fullPath" type="string" column="FULL_PATH" />
+		<property name="position" type="int" column="POSITION" />
+		<property name="parentId" type="string" column="PARENT_ID" />
+		<property name="status" type="boolean" column="STATUS" />
+		<property name="level" type="int" column="LEVEL" />
+		<property name="icon" type="string" column="ICON" />
+		<property name="topId" type="string" column="TOP_ID" />
+	</class>
+
+	<!-- 管理员角色和权限关系表 -->
+	<class name="RolePurviewRel" table="ROLE_PURVIEW_REL" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="roleId" type="string" column="ROLE_ID" />
+		<property name="purviewId" type="string" column="PURVIEW_ID" />
+	</class>
+
+
+	<!-- 购物车表 -->
+	<class name="ShopCart" table="SHOP_CART" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="userId" type="string" column="USER_ID" />
+		<property name="productId" type="string" column="PRODUCT_ID" />
+		<property name="productQuantity" type="int" column="PRODUCT_QUANTITY" />
+		<property name="checked" type="boolean" column="CHECKED" />
+		<property name="productInfoDetailId" type="string" column="PRODUCT_INFO_DETAIL_ID" />
+		<property name="infoName1" type="string" column="INFO_NAME1" />
+		<property name="infoValue1" type="string" column="INFO_VALUE1" />
+		<property name="infoName2" type="string" column="INFO_NAME2" />
+		<property name="infoValue2" type="string" column="INFO_VALUE2" />
+		<property name="infoName3" type="string" column="INFO_NAME3" />
+		<property name="infoValue3" type="string" column="INFO_VALUE3" />
+		<property name="infoName4" type="string" column="INFO_NAME4" />
+		<property name="infoValue4" type="string" column="INFO_VALUE4" />
+	</class>
+	
+	<!-- 地区表 -->
+	<class name="SystemArea" table="SYSTEM_AREA" dynamic-update="false">
+		<id name="id" column="REGION_CODE" type="string" unsaved-value="null">
+			<generator class="assigned" />
+		</id>
+		<property name="areaName" type="string" column="AREA_NAME" />
+		<property name="areaEnName" type="string" column="AREA_EN_NAME" />
+		<property name="areaAbbreviation" type="string" column="AREA_ABBREVIATION" />
+		<property name="zipCode" type="string" column="ZIP_CODE" />
+		<property name="areaCode" type="string" column="AREA_CODE" />
+		<property name="parentCode" type="string" column="PARENT_CODE" />
+		<property name="pingYin" type="string" column="PINGYIN" />
+	</class>
+
+	<!-- 商城配置表 -->
+	<class name="Config" table="CONFIG" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="name" type="string" column="NAME" />
+		<property name="content" type="string" column="CONTENT" />
+		<property name="type" type="boolean" column="TYPE" />
+	</class>
+	
+	<!-- 商城消息发送配置表 -->
+	<class name="Message" table="MESSAGE" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="mobileNo" type="string" column="MOBILE_NO" />
+		<property name="mailAddress" type="string" column="MAIL_ADDRESS" />
+		<property name="sendType" type="string" column="SEND_TYPE" />
+		<property name="messageTitle" type="string" column="MESSAGE_TITLE" />
+		<property name="messageContent" type="string" column="MESSAGE_CONTENT" />
+	</class>
+
+	<!-- 商城消息发送配置表 -->
+	<class name="MessageConfig" table="MESSAGE_CONFIG" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="assigned" />
+		</id>
+		<property name="host" type="string" column="HOST" />
+		<property name="userName" type="string" column="USER_NAME" />
+		<property name="password" type="string" column="PASSWORD" />
+		<property name="mailName" type="string" column="MAIL_NAME" />
+		<property name="mailAddress" type="string" column="MAIL_ADDRESS" />
+		<property name="mobileName" type="string" column="MOBILE_NAME" />
+		<property name="mobilePsw" type="string" column="MOBILE_PSW" />
+		<property name="mobileUrl" type="string" column="MOBILE_URL" />
+		<property name="content" type="string" column="CONTENT" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+	</class>
+	
+	<!-- 商城消息发送配置模板表 -->
+	<class name="MessageConfigDetail" table="MESSAGE_CONFIG_DETAIL" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="assigned" />
+		</id>
+		<property name="name" type="string" column="NAME" />
+		<property name="index" type="int" column="`INDEX`" />
+		<property name="status" type="boolean" column="STATUS" />
+		<property name="sendType" type="string" column="SEND_TYPE" />
+		<property name="messageType" type="string" column="MESSAGE_TYPE" />
+		<property name="mobileContent" type="string" column="MOBILE_CONTENT" />
+		<property name="mailTitle" type="string" column="MAIL_TITLE" />
+		<property name="mailContent" type="string" column="MAIL_CONTENT" />
+	</class>
+	
+	<!-- 系统参数配置表 -->
+	<class name="SystemParamConfig" table="SYSTEM_PARAM_CONFIG" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="assigned" />
+		</id>
+		<property name="key" type="string" column="`KEY`" />
+		<property name="value" type="string" column="VALUE" />
+		<property name="valueType" type="string" column="VALUE_TYPE" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="type" type="string" column="TYPE" />
+	</class>
+	
+	<!-- 系统信息配置表 -->
+	<class name="SystemContentConfig" table="SYSTEM_CONTENT_CONFIG" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="assigned" />
+		</id>
+		<property name="key" type="string" column="`KEY`" />
+		<property name="value" type="string" column="VALUE" />
+		<property name="valueType" type="string" column="VALUE_TYPE" />
+		<property name="markArea" type="string" column="MARK_AREA" />
+	</class>
+	
+	<!-- 区域表 -->
+	<class name="Area" table="AREA" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="name" type="string" column="NAME" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+	</class>
+</hibernate-mapping>

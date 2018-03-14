@@ -1,0 +1,19 @@
+/*全站全局样式*/
+html,body{width:100%;height:100%;margin:0px;padding:0px;font-size:12px;font-family:Arial, "宋体", Helvetica, sans-serif; background-color:#FFF;}
+a{text-decoration:none; color:#333333;}
+a:hover{ text-decoration:none;}
+ul,ol{list-style:none;}
+li {list-style-type:none;}
+h1,h2,h3,h4,p,form,ul,li,ol{ margin:0px; padding:0px;}
+img{ border:none;}
+.left {float:left;}
+.right {float:right;}
+.none {display:none;}
+
+
+.input1{height:21px;background:url(../images/1.gif) repeat-x 0px 0px;font-size:12px;cursor:pointer;margin:0px;padding:3px 8px 1px 8px!important;*padding:3px 8px 0px 8px;border:1px solid #2c6ec4;overflow:visible;font-family:宋体;}
+.topButton{font-size: 14px;text-align:left;zoom:1;height:22px;padding:4px 8px 4px 8px;border:1px solid #6593cf!important;border-top:0px!important;_border-left:0px;_border-right:0px;border-bottom:1px solid #6593cf;background:#e2eeff;overflow:hidden;}
+
+.mailTop{width:98%;padding:35px 0px 5px;zoom:1;padding-left:13px;text-align:left;overflow:hidden;color:#404040;font-family:"宋体";}
+.mailTop ul{list-style-type:none;margin:0px;padding:0px;width:100%;overflow:hidden;}
+.mailTop li{float:left;width:50%;height:30px;color:#404040;}

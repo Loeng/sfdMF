@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>会员中心</title>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>				
+		<link href="${webroot}/resources/customer/css/count/toUpdateUserEmail2.css" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+		 <div class="rightContent">
+        <h2><em>验证邮箱</em></h2>
+        <div class="mailTo">我们已向您的<em>${email}</em><br>发送了一封验证邮件，请前往邮箱，完成验证！</div>
+        <div class="split"></div>
+     </div>
+    <div class="clear"></div>	
+	</body>
+</html>

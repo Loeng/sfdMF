@@ -1,0 +1,63 @@
+
+				#define(com.ekfans.base.product.model.ProductBrand productBrand)
+			<div class="tit" id="divLoad">
+				<em class="apNum">品牌详情</em>
+				<span class="apClose"><img src="${webroot}/resources/system/images/del3.jpg" onclick="apClose();"></span>
+			</div>
+			<div class="previewContent">
+				<dl class="infoLine">
+					<dt>品牌地址</dt>
+					<dd id="storeDd" class="infoRight">
+						${productBrand.name }
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				
+				<dl class="infoLine">
+					<dt>品牌图标</dt>
+					<dd id="storeDd" class="infoRight">
+						<img width="30px" height="30px" src="${webroot}${productBrand.icon}"/>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+			
+				<dl class="infoLine">
+					<dt>链接地址</dt>
+					<dd id="storeDd" class="infoRight">
+						${productBrand.linkUrl }
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				
+				<dl class="infoLine">
+					<dt>状态</dt>
+					<dd id="nameDd" class="infoRight">
+						#if(productBrand.status == "1")有效 #else无效 #end
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				
+				<dl class="infoLine">
+					<dt>品牌描述</dt>
+					<dd id="nameDd" class="infoRight">
+						${productBrand.note }
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				
+				<dl class="infoLine">
+					<dt>创建时间</dt>
+					<dd id="nameDd" class="infoRight">
+						${productBrand.createTime }
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				
+				<dl class="infoLine">
+					<dt>排序</dt>
+					<dd id="storeDd" class="infoRight">
+						${productBrand.position }
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+			</div>

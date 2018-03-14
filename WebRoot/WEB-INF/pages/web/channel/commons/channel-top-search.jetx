@@ -1,0 +1,24 @@
+<!--logo及搜索-->
+<div class="wrapper logoSearch">
+	<a href="${webroot}/web/index" class="logo"><img src="${webroot}${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站Logo")}" width="220" height="64" alt="${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}" ></img></a>
+	<div class="theSearch">
+		<span class="searchBg-left"></span>
+		<div class="searchIn">
+			<span class="searchBox-bg-left"></span>
+			<div class="select_box">
+				<span class="select_txt" id="searchType">商品</span>
+				<span class="selet_open"></span>
+				<div class="option">
+					<a href="#">商品</a>
+					<a href="#">店铺</a>
+				</div>
+			</div>
+			<input name="" id="productFuzzyName" type="text" class="souBox">
+			<span class="searchBox-bg-right"></span>
+			<a href="javascript:searchProduct('${webroot }');" class="searchEnter">搜索</a>
+		</div>
+		<span class="searchBg-right"></span>
+	</div>
+	<div class="clear"></div>
+</div>
+<!--logo及搜索 end-->

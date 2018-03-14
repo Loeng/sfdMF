@@ -1,0 +1,171 @@
+#define(com.ekfans.base.store.model.Store Store)
+#define(com.ekfans.base.store.model.Accredit wfAccredit)
+<!--危险废物经营许可认证START-->
+<h2>危险废物经营许可</h2>
+<div class="rzTtem">
+	<span class="biaoti">认证状态</span>
+	<div class="rzDiv">
+		<span class="zizhi3name">危险废物经营许可认证</span>
+		<span class="#if(wfAccredit == null) failstate #elseif(wfAccredit.checkStatus) rzstate #else warnstate #end"></span>
+		<a href="javascript:void(0);" class="btnBase btnzk">展开</a>
+		<div class="clear"></div>
+		<input type="hidden" name="wfId" value="${wfAccredit!=null?wfAccredit.id:""}"/>
+		<dl class="formItem">
+			<dt>许可证号</dt>
+			<dd>
+				<input name="wflicenseNo" id="wflicenseNo" type="text" class="textBox box212" value="${wfAccredit!=null?wfAccredit.licenseNo:""}" placeholder="请输入证书编号"  >
+			</dd>
+		</dl>
+		<dl class="formItem">
+      <dt>发证机关</dt>
+      <dd>
+        <input name="wflinceseAuthor" id="wflinceseAuthor" type="text" class="textBox box212" value="${wfAccredit!=null?wfAccredit.linceseAuthor:""}" placeholder="请输入证书发证机关"  >
+      </dd>
+      <dd class="clear"></dd>
+    </dl>
+		<dl class="formItem">
+			<dt>证件有效期限</dt>
+			<dd><input name="wfstartTime" id="wfstartTime" type="text" class="timeBox box98 textBox" value="${wfAccredit!=null?wfAccredit.startTime:""}" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'wfstartTime\',{d:-3});}'})"></dd>
+			<dd class="lineColor">&nbsp;—&nbsp;</dd>
+			<dd><input name="wfendTime" id="wfendTime" type="text" class="timeBox box98 textBox" value="${wfAccredit!=null?wfAccredit.endTime:""}" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'wfendTime\',{d:+3});}'})"></dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem">
+      <dt>经营规模</dt>
+      <dd>
+        <input name="wfscale" id="wfscale" type="text" class="textBox box212" value="${wfAccredit!=null?wfAccredit.scale:""}" placeholder="核准经营规模，吨/年">
+      </dd>
+      <dd class="clear"></dd>
+    </dl>
+		<div class="clear"></div>
+		<dl class="formItem">
+      <dt>经营所在区域</dt>
+      <dd>
+        #tag systemAreaSel("wfareaId",wfAccredit!=null?wfAccredit.areaId:"") #end
+      </dd>
+      <dd class="clear"></dd>
+    </dl>
+		<div class="clear"></div>
+		<dl class="formItem">
+      <dt>经营设施地址</dt>
+      <dd>
+        <input name="wfaddress" id="wfaddress" type="text" class="textBox box212" value="${wfAccredit!=null?wfAccredit.address:""}" placeholder="如：永兴县柏林镇柏林工业园"  >
+      </dd>
+      <dd class="clear"></dd>
+    </dl>
+		<div class="clear"></div>
+    <dl class="formItem">
+			<dt>危险废物许可证</dt>
+			<dd>
+				#tag picUpload("wflicenseFile","3","150","150",wfAccredit!=null?wfAccredit.licenseFile:"") #end
+			</dd>
+		</dl>
+		<dl class="formItem">
+			<dt>危险废物许可证附件</dt>
+			<dd>
+				#tag picUpload("wflicenseTwoFile","3","150","150",wfAccredit!=null?wfAccredit.licenseTwoFile:"") #end
+			</dd>
+		</dl>
+		
+		<div class="clear"></div>
+		<dl class="formItem">
+			<dt><em class="mustIco"></em>核准危废类别</dt>
+			<dd>
+				<a href="javascript:loadDirectory();" class="btnXuanze">请选择</a>
+				<input type="hidden" name="wfDetails" id="wfDetails" value="${wfAccredit!=null?wfAccredit.childIds:""}"/>
+				<div class="clear"></div>
+			</dd>
+			<div class="clear"></div>
+			<div id="mlDiv" style="display:none;min-height:100px;margin:2px 0 10px -20px;" ></div>
+			<div class="clear"></div>
+		</dl>
+		
+		<div class="clear"></div>
+		
+	</div>
+  <div class="clear"></div>
+</div>
+<!--营业执照END-->
+
+<script>
+	var childIds = $("#wfDetails").val();
+	if(trim(childIds) != null && trim(childIds) != "" && trim(childIds) != "null"){
+		var url = "${webroot}/wfpscrap/wfpml/show";
+		$("#mlDiv").load(url,{"mlIds":childIds});
+		$("#mlDiv").show();
+	}
+
+
+	//load出契约列表
+	function loadDirectory(){
+		 $("#Directory").load("${webroot}/wfpscrap/wfpml",function(){
+		 	$("#wfmlChose").val($("#wfDetails").val())
+		 });
+		 $(".apLayerBg").show();
+		 $(".alertBrand").show();
+	}
+	function choseWfMls(){
+		var choses = $("#wfmlChose").val();
+		var url = "${webroot}/wfpscrap/wfpml/show";
+		$("#mlDiv").load(url,{"mlIds":choses});
+		$("#mlDiv").show();
+		$("#wfDetails").val(choses);
+		
+		$(".apLayerBg").hide();
+		 $(".alertBrand").hide();
+	}
+
+	function checkWf(){
+		var wflicenseNo = $("#wflicenseNo").val();
+		if(trim(wflicenseNo) == "" || trim(wflicenseNo) == "null"){
+			falert("请输入危险废物经营许可证号");
+			return false;	
+		}
+		
+		var wflinceseAuthor = $("#wflinceseAuthor").val();
+		if(trim(wflinceseAuthor) == "" || trim(wflinceseAuthor) == "null"){
+			falert("请输入危险废物经营许可证发证机关");
+			return false;	
+		}
+		
+		var wfstartTime = $("#wfstartTime").val();
+		var wfendTime = $("#wfendTime").val();
+		if(trim(wfstartTime) == "" || trim(wfstartTime) == "null" || trim(wfendTime) == "" || trim(wfendTime) == "null"){
+			falert("请选择危险废物经营许可证有效期");
+			return false;	
+		}
+		
+		var wfscale = $("#wfscale").val();
+		if(trim(wfscale) == "" || trim(wfscale) == "null"){
+			falert("请输入危险废物经营许可经营规模");
+			return false;	
+		}
+	
+		var wfareaId = $("#wfareaId").val();
+		if(trim(wfareaId) == "" || trim(wfareaId) == "null"){
+			falert("请选择危险废物经营许可经营所在区域");
+			return false;	
+		}
+		
+		var wfaddress = $("#wfaddress").val();
+		if(trim(wfaddress) == "" || trim(wfaddress) == "null"){
+			falert("请选择危险废物经营许可经营设施地址");
+			return false;	
+		}
+		if(!hasChoseFile("wflicenseFile")){
+			falert("请上传危险废物许可证扫描件");
+			return false;	
+		}
+		if(!hasChoseFile("wflicenseTwoFile")){
+			falert("请上传危险废物许可证附件扫描件");
+			return false;	
+		}
+		
+		var wfDetails = $("#wfDetails").val();
+		if(trim(wfDetails) == "" || trim(wfDetails) == "null"){
+			falert("请选择危险废物经营类别");
+			return false;	
+		}
+		return true;
+	}
+</script>

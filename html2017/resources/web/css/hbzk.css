@@ -1,0 +1,74 @@
+/* CSS Document */
+.main a:hover{color: #393;}
+.main{margin-top:10px;}
+.zkLeft{width: 981px;float: left;}
+.zkRight{width: 209px;float: right;}
+.zkType{width: 168px;height: 240px; padding: 1px 0; border: solid 1px #e6e6e6; float: left; margin:0 10px 36px 0;}
+.zkType li{height: 60px;line-height: 60px; padding-left: 30px; font-size: 16px; background: #F7FCF7;}
+.zkType li a{display: block;}
+.zkType li:hover{background: #fff;}
+.zkTypeContent{width: 801px; float: left; margin-bottom: 36px;}
+.subType{width: 208px; height: 230px; padding: 12px 15px 0 15px; border: solid 1px #D6EAD6; float: left; margin-right: 10px;}
+.subType a{display: block; margin: 0 5px 14px 5px; height: 20px; line-height: 20px; border-radius: 10px; border: solid 1px #ccc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 80px; padding: 0 10px; color: #a0a0a0; float: left;}
+.subType a:hover{border-color: #393;}
+.firstNewsImg{display: block; float: left; width: 271px;height: 244px;}
+.today{width: 261px; height: 244px; padding-left: 19px; float: left; background: #fafafa;}
+.today dt{height: 30px; line-height: 30px; overflow: hidden; margin: 13px 0 5px 0;font-size: 18px; font-style: italic;}
+.today dt em{color: #f00; font-size: 14px; font-style: italic; padding-left: 6px;}
+.today dd li{height: 32px; line-height: 32px; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+.today dd li a:hover{color: #393;}
+
+.zkBox{float: left; width: 482px; margin-bottom: 20px;}
+.zkHeader{height: 30px; line-height: 30px;}
+.zkHeader h3{background: url(../images/hbzk_title.png) no-repeat;width: 118px;height: 30px;font-size: 16px; color: #fff; padding-top: 5px; text-align: center; position: relative;margin: -5px 22px 0 0; float: left;}
+.boxType{float: left; white-space: nowrap; max-width: 290px; overflow: hidden; white-space: nowrap; font-size: 14px; color: #666;}
+.more{font-size: 14px; color: #666;}
+.zkHeader .more{display: block; float: right;}
+.zkBox .news{padding:4px 12px 5px 16px; border: solid 1px #e6e6e6;}
+.zkBox .news li{height: 29px; line-height: 29px; border-bottom: dashed 1px #e6e6e6; color: #666; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+.zkBox .news li:last-child{border-bottom: none;}
+.logos{height: 50px; width: 980px; margin-bottom: 30px;}
+.logos .prev,.logos .next{display: block; width: 20px; height: 50px; float: left;}
+.logos .prev{background: url(../images/logos_prev.png) no-repeat left center;}
+.logos .next{background: url(../images/logos_next.png) no-repeat right center;}
+.logosItems{width: 940px;height: 50px;float: left; overflow: hidden;}
+.logosItems ul{height: 50px;}
+.logosItems li{width: 138px; height: 48px; float: left; margin:0 8.3px; border:solid 1px #e6e6e6;display: flex;justify-content: center;align-items: center;}
+
+.zkLeftLine .boxType{max-width: 74%;}
+.tableList{width: 100%;font-size: 14px; border: solid 1px #e6e6e6;}
+.tableList th{height: 40px;line-height: 40px; background: #ebebeb; text-align: left; padding-left: 30px; color: #666;}
+.tableList td{line-height: 20px; padding: 9px 0 9px 30px; border-bottom: solid 1px #e6e6e6; padding-left: 30px;}
+.tableList tbody tr:hover *{color: #393;}
+.zhaobiao{width:750px; float: left; margin: 30px 0;}
+.zhuanjia{width: 440px; float: right; margin: 30px 0;}
+.zhuanjia ul{border: solid 1px #e6e6e6; height: 196px;}
+.zhuanjia li{color: #999; float: left;width: 120px; padding: 0 13px; margin-top: 20px;}
+.zhuanjia li img{display: block;width: 120px;height: 120px; margin-bottom: 12px;}
+.zhuanjia li span{display: block; line-height: 18px;}
+
+.middleAdv{height: 100px;margin-bottom: 30px;}
+.middleAdv img{}
+
+/*right*/
+.upAdv{display: block;height: 244px;}
+.rightTitle{height: 20px;line-height: 20px;font-size: 14px; border-left: solid 6px #393; margin-bottom: 10px; padding-left: 10px;}
+.rightNews{margin: 36px 0 30px 0;}
+.rightNews ul{height: 306px; padding-top: 12px; border: solid 1px #e6e6e6;}
+.rightNews li{border-left: solid 1px #e6e6e6; margin-left: 22px; margin-bottom: 9px; position: relative;}
+.rightNews .icon{display: block; background: url(../images/point_right.png) #fff no-repeat center center;;width: 6px;height: 10px; padding: 2px 0; position: absolute; left: -2px; top:0; float: left; margin: 4px 11px 0 -2px;}
+.rightNews a{display: block; line-height: 18px; max-height: 36px; overflow: hidden; margin:0 0 3px 14px;}
+.rightNews .time{display: block; line-height: 16px; color: #999; margin-left: 14px;}
+.luntan{margin-bottom: 30px;}
+.luntanBox{display: block; border:solid 1px #e6e6e6; padding-bottom: 10px;}
+.luntanBox img{display: block; position: relative; margin: -1px -1px 0 -1px;}
+.luntanBox em{display: block; line-height: 23px; margin: 12px 10px 9px 10px;font-size: 16px;}
+.luntanBox span{display: block; line-height: 16px; max-height: 90px; overflow: hidden; margin: 0 12px; color: #999;}
+.lundao ul{border: solid 1px #e6e6e6; padding: 10px;}
+.lundao li{height: 58px; margin-bottom: 12px;}
+.lundao li img{display: block; width: 58px;height: 58px; float: left;margin-right: 10px;}
+.lundao li em{display: block; position: relative; margin-top: -3px; line-height: 18px; height: 36px; overflow: hidden; margin-bottom: 8px;}
+.lundao li span{color: #999;}
+.companys ul{border: solid 1px #e6e6e6; padding: 16px 10px 1px 10px;}
+.companys li{height: 16px; line-height: 16px; margin-bottom: 15px;}
+.companys li .num{display: block; width: 14px;height: 14px; border-radius: 3px; text-align: center; background: #f5f5f5; border:solid 1px #e6e6e6; float: left; margin-right: 11px;}

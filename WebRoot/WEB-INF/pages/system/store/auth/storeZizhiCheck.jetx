@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/zizhi.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/base.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/store/auth/store_zizhi.js"></script>
+	<style>
+	/* 选项切换 */
+.tab{ position:relative;}
+	.tabNav{height:52px; line-height:52px; font-size:18px;overflow:hidden;border-bottom-style:solid; border-bottom-width:2px;}
+	.btnBox{ position:absolute ;right:0; top:10px;}
+	.tabNav li{cursor:pointer;display:block; min-width:134px; padding:0 12px;text-align:center;float:left;color:#595757;}
+	.tabNav .cur{display:block;color:#fff;}
+	.tabContent{ display:none;padding:20px 0px; min-height:80px;}
+	.boxchecked{margin-right:10px; display:inline-block;vertical-align: middle; width:15px; height:15px;}
+	.tabContent h2{border-bottom:1px solid #CCC; margin-left:40px; margin-right:20px; height:35px; line-height:35px;}
+	.rzTtem{margin:10px 0 10px 75px;}
+	.biaoti{display:inline-block; width:100px; height:28px; line-height:28px; float:left;}
+	.rzDiv{float:left; height:28px; overflow:hidden; width:815px;}
+	.rzDiv span{display:inline-block; height:28px; line-height:28px; float:left; margin-right:20px;}
+	.rzDiv .formItem{ min-width:330px; width:auto; max-width:810px; margin-top:15px;}
+	.rzstate{background:url(${webroot}/resources/userCenter/commons/images/icon_suc.png) no-repeat left center; width:46px; height:31px;background-size:28px 15px;}
+	.failstate{background:url(${webroot}/resources/userCenter/commons/images/icon_fail.png) no-repeat left center; width:46px; height:31px;background-size:18px 18px;}
+	.warnstate{background:url(${webroot}/resources/userCenter/commons/images/icon_un.png) no-repeat left center; width:46px; height:31px;background-size:18px 18px;}
+	
+	#mlDiv table{border-collapse:collapse;}
+	#mlDiv th{padding:0px 10px; height:35px;line-height:35px;color:#292729; font-size:14px; border:1px #DCDCDD solid;}
+	#mlDiv td{padding:8px 10px; line-height:22px; border:1px #DCDCDD solid;color:#7D7C7D; max-width:105px; overflow:hidden; text-align:center;}
+	#mlDiv .tabRight{text-align:right;}
+	#mlDiv .tabLeft{text-align:left;}
+	#mlDiv tr:hover{background:#F3F3F3;}
+	
+	/*.btnDiv{margin-left:20px;}
+	.zhengming{margin-left:-30px;}
+	.box280{margin-right: 10px;}
+	.fixed2{width:1015px;position:fixed;top:0px; background-color:#fff; z-index:90;}
+	.formItem{margin-right:10px;}
+	.formItem dd{height:auto;}*/
+	</style>
+</head>
+
+<body>
+
+#define(com.ekfans.base.store.model.Store Store)
+<input type="hidden" id="ctxpath" value="${webroot}" />
+<input type="hidden" id="rzType" value="${rzType}" />
+<div class="ht_btn sh_btn">
+  <a href="javascript:checkPass('${rzType}','${Store.id}');" class="btn">审核</a>
+  <a href="${webroot}/system/store/zizhi/jumplist/${rzType}" class="btn">返回列表</a>
+</div>
+<div class="tabContent">
+	<!--营业执照START-->
+	<h2>营业执照</h2>
+	<div class="rzTtem">
+		<span class="biaoti">认证状态</span>
+		<div class="rzDiv">
+			<span>营业执照信息认证</span>
+			<span class="rzstate"></span>
+			<a href="javascript:void(0);" class="btn btnzk">展开</a>
+			<div class="clear"></div>
+			
+			<dl class="formItem">
+				<dt>营业资格证</dt>
+				<dd><a href="${webroot}${Store.businessLicense}"><img src="${webroot}${Store.businessLicense}"/></a></dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+	      <dt>注册号</dt>
+	      <dd>${Store.businessLicenseNumber}</dd>
+	      <dd class="clear"></dd>
+	    </dl>
+			<dl class="formItem">
+	      <dt>注册资本</dt>
+	      <dd>${Store.regCapital}万元</dd>
+	      <dd class="clear"></dd>
+	    </dl>
+			<dl class="formItem">
+	      <dt>发证机关</dt>
+	      <dd>${Store.bureau}</dd>
+	      <dd class="clear"></dd>
+	    </dl>
+		</div>
+	  <div class="clear"></div>
+	</div>
+	<!--营业执照END-->
+	
+	<!--危险废物经营许可证-->
+	<div id="WFJYDIV"></div>
+	
+	<!--排放污染物许可证-->
+	<div id="PWDIV"></div>
+	
+	<!--道路运输经营许可证-->
+	<div id="DLYSDIV"></div>
+	
+</div>
+<script>
+
+	if("${rzType}" == "cz"){
+		$("#WFJYDIV").load("${webroot}/system/auth/jumpIntelPage/wfzz/load/${Store.id}");
+		$("#PWDIV").load("${webroot}/system/auth/jumpIntelPage/pwzz/load/${Store.id}");
+		$("#DLYSDIV").empty();
+	}else if("${rzType}"  == "cs"){
+		$("#WFJYDIV").empty();
+		$("#PWDIV").load("${webroot}/system/auth/jumpIntelPage/pwzz/load/${Store.id}");
+		$("#DLYSDIV").empty();
+	}else{
+		$("#WFJYDIV").empty();
+		$("#PWDIV").empty();
+		$("#DLYSDIV").load("${webroot}/system/auth/jumpIntelPage/yszz/load/${Store.id}");
+	}
+
+	$(document).ready(function(){
+		/*选项卡切换*/
+		$(".tabContent").eq(0).show();
+		$(".tabNav li").click(
+			function(){
+				$(this).siblings().removeClass("cur");
+				$(this).siblings().removeClass("bgColor");
+				$(this).addClass("cur");
+				$(this).addClass("bgColor");
+				var idStr = $(this).attr("id");
+				$("#rzType").val(idStr);
+				showChecks(idStr);
+			}
+		)
+		
+		$(".btnzk").live("click",function(){
+			$(this).parent(".rzDiv").css("height","auto");
+			$(this).parent(".rzDiv").css("overflow","visible");
+			$(this).text("收起");
+			$(this).addClass("btnsq");
+		});
+		
+		$(".btnsq").live("click",function(){
+			$(this).parent(".rzDiv").css("height","28px");
+			$(this).parent(".rzDiv").css("overflow","hidden");
+			$(this).text("展开");
+			$(this).removeClass("btnsq");
+		});
+		
+		//随屏滚动js
+		var scrollH2;
+		$(window).scroll(function(){
+			scrollH2 = $(document).scrollTop();
+			if(scrollH2 >= 147){
+				$(".budongBar").addClass("fixed2");
+			}
+			else{
+				$(".budongBar").removeClass("fixed2");
+			}
+		});
+	});
+</script>
+</body>
+</html>

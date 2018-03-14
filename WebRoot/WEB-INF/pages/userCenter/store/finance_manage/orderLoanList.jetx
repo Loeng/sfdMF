@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}-订单借贷管理</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/comList.css" />
+	<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/finance/loanList.js"></script>
+</head>
+
+<body>
+<input type="hidden" id="ctxpath" value="${webroot}" />
+
+<form action="${webroot}/store/finance/jumpOrdersLoanListPage/${type}" method="post" id="mainSearchForm">
+	<input type="hidden" name="pageNum" value="" />	
+	
+	<div class="formSearch borderColor">
+	  <dl class="formItem">
+	  	<dt>订单号</dt>
+	    <dd>
+	      <input name="orderId" type="text" value="${orderId}" class="textBox box212">
+	    </dd>
+	    <dd class="clear"></dd>
+	  </dl>
+	  <dl class="formItem">
+	  	<dt>借款时间</dt>
+	    <dd>
+	      <input name="startTime" type="text" value="${startTime}" id="ddbegin" class="timeBox box98 textBox" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'ddend\')}'})" />
+	    </dd>
+	    <dd>&nbsp;—&nbsp;</dd>
+	    <dd>
+	      <input name="endTime" type="text" value="${endTime}" id="ddend" class="timeBox box98 textBox" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'ddbegin\')}'})" />
+	    </dd>
+	    <dd class="clear"></dd>
+	  </dl>
+	  <dl class="formItem">
+			<dt>订单状态</dt>
+      <dd>
+      	<div class="selList" style="z-index: 2; width:150px;"> 
+      		<span class="textBox">
+          	<input name="status" type="text" class="box184" placeholder="" value="${status}" readonly="" />
+          	<em class="iconDown"></em> 
+         	</span>
+          <ul style="display:none;">
+            <li>提交中</li>
+            <li>审核中</li>
+            <li>审核成功</li>
+          </ul>
+        </div>
+      </dd>
+      <dd class="clear"></dd>
+    </dl>
+	  <div class="clear"></div>
+	</div>
+</form>
+<div class="btnArea">
+	<a href="javascript:searchSubmit();" class="btnBase btnSearch">搜索</a>
+  <a href="javascript:reset();" class="btnBase btnReset">重置</a>
+  <div class="clear"></div>
+</div>
+<div class="formTable borderColor">
+	<ul class="secNav">
+  	<li class="li1">借贷信息</li>
+  	<li><a href="javascript:addShen('${type}')" title="新增" class="li3">新增</a></li>
+  </ul>
+  <div class="clear"></div>
+  <div style="position:relative;" class="tableBox">
+  <table border="0" cellspacing="0" cellpadding="0" class="tabList">
+  <thead>
+  	<tr class="tabTit bgColor">
+      <th>订单号</th>
+      <th>订单总额（元）</th>
+      <th>借款总额（元）</th>
+      <th>借款期数（月）</th>
+      <th>申请时间</th>
+      <th>状态</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    #define(List<com.ekfans.base.store.model.MortgageApplication> malist)
+    #if(malist != null && malist.size() > 0)
+      #for(com.ekfans.base.store.model.MortgageApplication ma : malist)
+      	<tr>
+      		<td>${ma.orderId}</td>
+      		<td>${ma.order.totalPrice}</td>
+	        <td>${ma.amount}</td>
+	        <td>${ma.manumber}</td>
+	        <td>${ma.createTime.substring(0,10)}</td>
+	        <td>
+	        	#if(ma.status == 1)
+	        		提交中
+	        	#elseif(ma.status == 2)
+	        		审核中
+	        	#elseif(ma.status == 3)
+	        		审核成功
+	        	#end	
+	        </td>
+	        <td>
+	        	#if(ma.status == 1)	<a href="javascript:loanEdit('${ma.id}');" class="editIco" title="修改">修改</a> #end
+	          <a href="javascript:orderDetail('${ma.id}');" class="eyeIco" title="详情">详情</a>
+	        </td>	
+      	</tr>
+      #end
+    #end
+    </tbody>
+  </table>
+  </div>
+  #if(malist != null && malist.size() > 0)
+    ${include("../common/page.jetx")}
+  #end
+	<div class="clear"></div>
+	#if(malist == null || malist.size() <= 0)
+		<div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+	#end
+</div>
+
+</body>
+</html>

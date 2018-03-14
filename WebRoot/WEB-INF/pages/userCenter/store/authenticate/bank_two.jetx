@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>自主备案</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/addGoods.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/bankInfo2.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/tools.css" />
+	<!-- 提示框插件 -->
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/auth/center_bank.js"></script>
+</head>
+
+<body>
+#define(com.ekfans.base.store.model.Store tstore)
+#define(List<com.ekfans.base.store.model.StoreFinancialData> sfdlist)
+
+<input type="hidden" id="ctxpath" value="${webroot}" />
+
+<!-- 右侧主体 -->
+<div class="rightContent">
+	<div class="contentTit  borderColor budong borderbottom">
+		<h3>银行信息认证</h3>
+		<!-- 0：未认证，1：认证中，2：认证失败，3：认证成功 -->
+		#if(tstore.commonStatus != "2")
+			#if(tstore.bankStatus !="3")
+				<a href="javascript:storeBankSubmit();" class="btnBase btnSave">确认提交</a>
+			#end
+		#end
+		<div class="clear"></div>
+	</div>
+  <div class="step">
+	  <div class="stepItem">
+	    <a href="${webroot}/store/auth/bank_one" onmouseout="tempOut(this,1)" onmouseover="tempOver(this)">
+	  		<em class="stepIcon">1</em>
+	  	</a>
+	    <span class="stepText">法人信息认证</span>
+	    #if(tstore.bankStatus=="0")
+	    
+	    #elseif(tstore.bankStatus=="1")
+	    	<em class="stateIcon ingIcon"></em>
+	    #elseif(tstore.bankStatus=="2")
+	    	<em class="stateIcon failIcon"></em>
+	    #elseif(tstore.bankStatus=="3")
+	    	<em class="stateIcon sucIcon"></em>
+	    #end
+	  </div>
+	  <div class="stepItem alreadyItem">
+	    <a href="${webroot}/store/auth/bank_two" onmouseout="tempOut(this,2)" onmouseover="tempOver(this)">
+	  		<em class="stepIcon">2</em>
+	  	</a>
+	    <span class="stepText">近期财务数据</span>
+	    #if(tstore.bankStatus=="0")
+	    
+	    #elseif(tstore.bankStatus=="1")
+	    	<em class="stateIcon ingIcon"></em>
+	    #elseif(tstore.bankStatus=="2")
+	    	<em class="stateIcon failIcon"></em>
+	    #elseif(tstore.bankStatus=="3")
+	    	<em class="stateIcon sucIcon"></em>
+	    #end
+	  </div>
+	  <div class="clear"></div>
+  </div>
+  #if(tstore.bankStatus=="0")
+  	<div class="stateLayer ingState">
+  		<span class="pointIcon"></span>
+  		未认证
+  	</div>
+  #elseif(tstore.bankStatus=="1")
+  	<div class="stateLayer ingState">
+  		<span class="pointIcon"></span>
+  		认证中
+  	</div>
+  #elseif(tstore.bankStatus=="2")
+  	<div class="stateLayer failState">
+  		<span class="pointIcon"></span>
+  		<dl>
+      	<dt>认证未通过理由：</dt>
+  			<dd></dd>
+  		</dl>
+  	</div>
+  #elseif(tstore.bankStatus=="3")
+  	<div class="stateLayer sucState">
+  		<span class="pointIcon"></span>
+  		认证已通过
+  	</div>
+  #end
+	<div class="formSection">
+  	<h3 class="borderBottom">近期财务数据</h3>
+		<form action="${webroot}/store/auth/bank_two_save" method="post" id="threeSubmit">
+			<input type="hidden" name="id" value="${tstore.id}" />
+			
+	  	<div class="formIn">
+        <ul class="financeHeader">
+          <li>
+            <span>上年末（<em>单位：万元</em>）</span>
+            <span>本年上月末（<em>单位：万元</em>）</span>
+          </li>
+          <li>
+            <span>上年末（<em>单位：万元</em>）</span>
+            <span>本年上月末（<em>单位：万元</em>）</span>
+          </li>
+        </ul>
+	      <div class="clear"></div>
+	      #if(sfdlist==null || sfdlist.size()<=0)
+	        <div class="financeItem">
+	          <span class="formName">销售收入</span>
+	          <input type="hidden" name="dType" value="销售收入" />
+	          <input type="text" class="textBox box127" name="dsMoney" value="0" />
+	          <input type="text" class="textBox box127" name="deMoney" value="0" />
+	        </div>
+	        <div class="financeItem">
+	          <span class="formName">短期借款</span>
+	          <input type="hidden" name="dType" value="短期借款" />
+	          <input type="text" class="textBox box127" name="dsMoney" value="0" />
+	          <input type="text" class="textBox box127" name="deMoney" value="0" />
+	        </div>
+	        <div class="financeItem">
+	          <span class="formName">实收资本</span>
+	          <input type="hidden" name="dType" value="实收资本" />
+	          <input type="text" class="textBox box127" name="dsMoney" value="0" />
+	          <input type="text" class="textBox box127" name="deMoney" value="0" />
+	        </div>
+	        <div class="financeItem">
+	          <span class="formName">税金</span>
+	          <input type="hidden" name="dType" value="税金" />
+	          <input type="text" class="textBox box127" name="dsMoney" value="0" />
+	          <input type="text" class="textBox box127" name="deMoney" value="0" />
+	        </div>
+	        <div class="financeItem">
+	          <span class="formName">应付账款</span>
+	          <input type="hidden" name="dType" value="应付账款" />
+	          <input type="text" class="textBox box127" name="dsMoney" value="0" />
+	          <input type="text" class="textBox box127" name="deMoney" value="0" />
+	        </div>
+	        <div class="financeItem">
+	          <span class="formName">所有者权益总额</span>
+	          <input type="hidden" name="dType" value="所有者权益总额" />
+	          <input type="text" class="textBox box127" name="dsMoney" value="0" />
+	          <input type="text" class="textBox box127" name="deMoney" value="0" />
+	        </div>
+	        <div class="financeItem">
+	          <span class="formName">利润总额</span>
+	          <input type="hidden" name="dType" value="利润总额" />
+	          <input type="text" class="textBox box127" name="dsMoney" value="0" />
+	          <input type="text" class="textBox box127" name="deMoney" value="0" />
+	        </div>
+	        <div class="financeItem">
+	          <span class="formName">其他应付款</span>
+	          <input type="hidden" name="dType" value="其他应付款" />
+	          <input type="text" class="textBox box127" name="dsMoney" value="0" />
+	          <input type="text" class="textBox box127" name="deMoney" value="0" />
+	        </div>
+	        <div class="financeItem">
+	          <span class="formName">现金流结余</span>
+	          <input type="hidden" name="dType" value="现金流结余" />
+	          <input type="text" class="textBox box127" name="dsMoney" value="0" />
+	          <input type="text" class="textBox box127" name="deMoney" value="0" />
+	        </div>
+	        <div class="financeItem">
+	          <span class="formName">固定资产</span>
+	          <input type="hidden" name="dType" value="固定资产" />
+	          <input type="text" class="textBox box127" name="dsMoney" value="0" />
+	          <input type="text" class="textBox box127" name="deMoney" value="0" />
+	        </div>
+	        <div class="financeItem">
+	          <span class="formName">流动负债</span>
+	          <input type="hidden" name="dType" value="流动负债" />
+	          <input type="text" class="textBox box127" name="dsMoney" value="0" />
+	          <input type="text" class="textBox box127" name="deMoney" value="0" />
+	        </div>
+	        <div class="financeItem">
+	          <span class="formName">其他应收款</span>
+	          <input type="hidden" name="dType" value="其他应收款" />
+	          <input type="text" class="textBox box127" name="dsMoney" value="0" />
+	          <input type="text" class="textBox box127" name="deMoney" value="0" />
+	        </div>
+	        <div class="financeItem">
+	          <span class="formName">存货</span>
+	          <input type="hidden" name="dType" value="存货" />
+	          <input type="text" class="textBox box127" name="dsMoney" value="0" />
+	          <input type="text" class="textBox box127" name="deMoney" value="0" />
+	        </div>
+	        <div class="financeItem">
+	          <span class="formName">全部负债</span>
+	          <input type="hidden" name="dType" value="全部负债" />
+	          <input type="text" class="textBox box127" name="dsMoney" value="0" />
+	          <input type="text" class="textBox box127" name="deMoney" value="0" />
+	        </div>
+	        <div class="financeItem">
+	          <span class="formName">流动资产总额</span>
+	          <input type="hidden" name="dType" value="流动资产总额" />
+	          <input type="text" class="textBox box127" name="dsMoney" value="0" />
+	          <input type="text" class="textBox box127" name="deMoney" value="0" />
+	        </div>
+	        <div class="financeItem">
+	          <span class="formName">应收账款</span>
+	          <input type="hidden" name="dType" value="应收账款" />
+	          <input type="text" class="textBox box127" name="dsMoney" value="0" />
+	          <input type="text" class="textBox box127" name="deMoney" value="0" />
+	        </div>
+	        <div class="financeItem">
+	          <span class="formName">未分配利润</span>
+	          <input type="hidden" name="dType" value="未分配利润" />
+	          <input type="text" class="textBox box127" name="dsMoney" value="0" />
+	          <input type="text" class="textBox box127" name="deMoney" value="0" />
+	        </div>
+	        <div class="financeItem">
+	          <span class="formName">资产总额</span>
+	          <input type="hidden" name="dType" value="资产总额" />
+	          <input type="text" class="textBox box127" name="dsMoney" value="0" />
+	          <input type="text" class="textBox box127" name="deMoney" value="0" />
+	        </div>
+				#elseif(sfdlist!=null && sfdlist.size()>0)
+					#for(com.ekfans.base.store.model.StoreFinancialData fd : sfdlist)
+						#set(String types = fd.dataType)
+						#if(fd.dataTime.length()==4)
+							<div class="financeItem">
+	     					<span class="formName">${types}</span>
+	     					<input type="hidden" name="dType" value="${types}" />
+	          		<input type="text" name="dsMoney" class="textBox box127" value="${fd.money}" />
+	          	#for(com.ekfans.base.store.model.StoreFinancialData fds : sfdlist)
+	          		#if(fds.dataTime.length()!=4 && types==fds.dataType)
+		     						<input type="text" name="deMoney" class="textBox box127" value="${fds.money}" />
+		     					</div>
+	          		#end
+	          	#end
+						#end
+					#end
+				#end
+				<div class="clear"></div>
+			</div>
+		</form>
+	</div>
+</div>
+<!-- 右侧主体 -->
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$("input[type='text']").each(function(){
+		$(this).attr({onpaste:"return false",onblur:"javascript:if(this.value==''){this.value=0.00;}",onkeyup:"javascript:clearNoNum(this)",maxlength:"13",onclick:"this.value=''"});		
+	});
+});
+</script>
+ 
+<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+</body>
+</html>

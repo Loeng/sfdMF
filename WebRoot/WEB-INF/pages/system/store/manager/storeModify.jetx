@@ -1,0 +1,277 @@
+<!doctype html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+    	<title>新增店铺</title>
+    	<link href="${webroot}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+    	<link href="${webroot}/resources/system/css/list.css" rel="stylesheet" type="text/css" />
+    	<link href="${webroot}/resources/commons/css/upload/upload.css" rel="stylesheet" type="text/css" />
+    	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+			<!-- 文本插件 -->
+			<script type="text/javascript" src="${webroot}/resources/plugin/ckeditor/ckeditor.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/store/storeModify.js"></script>
+			
+			<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+    </head>
+    <body>
+    	<input type="hidden" id="modifyOk" value="${modifyOk}" />
+			<input type="hidden" id="ctxpath" value="${webroot}" />
+			
+    	<form action="${webroot}/system/store/modify" name="modify" method="post"  id="modifyStoreForm">
+				#define(com.ekfans.base.user.model.User user)
+				#define(com.ekfans.base.store.model.Store store)
+				<div class="ht_btn">
+			    <a href="#" onclick="formSubmit();" class="btn">保存</a>
+					<a href="#" onclick="reset();" class="btn">重置</a>
+					<a href="#" onclick="goBack('${webroot}');" class="btn">返回列表</a>
+			</div>
+				<div class="add_pro">
+					<input type="hidden" name="id" value="${user.id }">
+				<dl class="formBox">
+				
+				
+				
+					<dt>用户名<em class="mustIco"></em></dt>
+					<dd id="nameDd" class="">
+						<input type="text" class="i_bg"  name="name" value="${user.name }" onblur="javascript:checkNameBlur();" onkeyup="javascript:checkName();" onfocus="javascript:checkName();" />
+						<span id="nameSpan" class="ts_xx">会员名为6-20位字符组成</span>
+					</dd>
+				</dl>
+				<dl class="formBox">
+						<dt>手机号<em class="mustIco"></em></dt>
+						<dd id="mobileDd" class="">
+							<input type="text" id="mobile" class="i_bg"  name="mobile" value="${user.mobile }" onblur="javascript:checkMobileBlur();"	onkeyup="checkMobile();" onfocus="javascript:checkMobile();"/>
+							<span id="mobileSpan" class="ts_xx">请输入正确的手机号</span>
+						</dd>
+					</dl>
+				
+					
+				
+				<div class="clear"></div>
+				<dl class="formBox">
+					<dt>确认密码<em class="mustIco"></em></dt>
+					<dd id="pwdsDd">
+						<input id="pwd" class="i_bg" type="password" value="${user.password }" onblur="checkPwdSameBlur();" onkeyup="checkPwdSame();" onfocus="checkPwdSame();"/>
+						 <span class="ts_xx" id="pswspanS">两次输入必须一致</span>
+					</dd>
+				</dl>
+				<dl class="formBox">
+					<dt>密码<em class="mustIco"></em></dt>
+					<dd id="pwdDd">
+						<input class="i_bg" type="password" name="password" value="${user.password }" onblur="javascript:checkPasswordBlur();" onkeyup="checkPassword();" onfocus="javascript:checkPassword();" />
+						<span class="ts_xx" id="pswspan">密码为6-32位字符组成</span>
+						<div class="clear"></div>
+						<div class="psdDefault" id="pswCheck">&nbsp;</div>
+					</dd>
+					</dl>
+					<div class="clear"></div>
+					
+					
+				<dl class="formBox">
+						<dt>email<em class="mustIco"></em></dt>
+						<dd id="emailDd" class="">
+							<input type="text" id="email" class="i_bg" name="email" value="${user.email}" onblur="javascript:checkEmailBlur();" onkeyup="checkEmail();" onfocus="javascript:checkEmail();"/>
+							<span id="emailSpan" class="ts_xx">请输入正确的email</span>
+						</dd>
+					</dl>
+				<dl>
+				<dl class="formBox">
+					<dt>身份证号<em class="mustIco"></em></dt>
+					<dd id="cardNumberDd" class="">
+						<input type="text" class="i_bg"  id="cardNumber" name="cardNumber" value="${user.cardNumber }" onblur="javascript:checkCardNumberBlur();" onkeyup="checkCardNumber();" onfocus="javascript:checkCardNumber();"  />
+						<span id="cardNumberSpan" class="ts_xx">请输入正确的身份证</span>
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				
+				
+				
+				<dl class="formBox">
+			<dt>店铺角色<em class="mustIco"></em></dt>
+			<dd id="roleIdDd" class="">
+				<select  selected="selected" name="roleId" id="roleId" onblur ="checkRole();">
+			#define(List<com.ekfans.base.store.model.StoreRole> storeRoles)
+        <option value=''>--请选择--</option>
+        	#for(com.ekfans.base.store.model.StoreRole storeRole : storeRoles)
+         <option value='${storeRole.id}' #if(storeRole.id == store.roleId) selected #end>${storeRole.name}</option>
+         #end
+         </select>
+         <span id="" class="ts_xx">请选择店铺角色</span>
+			</dd>
+		</dl>
+				<dl class="formBox">
+					<dt >店铺名<em class="mustIco"></em></dt>
+					<dd id="storeNameDd" class="">
+						<input type="text" class="i_bg" id="storeName" name="storeName" onblur="checkStoreNameBlur();" value="${store.storeName}" />
+						<span class="ts_xx" id="storeNamespan">店铺名不能为空</span>
+					</dd>
+			</dl>
+				<div class="clear"></div>
+				
+				
+				<dl class="formBox">
+					<dt>昵称</dt>
+					<dd class="">
+						<input type="text" class="i_bg"  name="nickName" value="${user.nickName }" />
+					</dd>
+				</dl>
+				
+			<dl class="formBox">
+					<dt>当前省市区：</dt>
+					<dd id="storeNameDd" class="">
+					 ${store.province} &nbsp;&nbsp; ${store.city} &nbsp;&nbsp;${store.area}
+					</dd>
+			</dl>
+			
+			<div class="clear"></div>
+			<dl class="formBox">
+				<dt>更改省市区：</dt>
+				#define(List<com.ekfans.base.system.model.SystemArea> systemAreas)
+				<select name="province" onchange="searchFirstName(this.value);" >
+					<option value="==请选择==" >==请选择==</option>
+					#for(com.ekfans.base.system.model.SystemArea systemArea : systemAreas)
+					<option value="${systemArea.id}">${systemArea.areaName}</option>
+					#end
+				</select >
+				<select name="city" id="jsonBox2" onchange="searchTwoName(this.value);" >
+				</select >
+				<select name="area" id="jsonBox3" onchange="searchThreeName(this.value);" >
+				</select>
+			</dl>
+			
+			<dl class="formBox">
+					<dt>店铺所在地</dt>
+					<dd class="">
+						<input type="text" class="i_bg"  name="address" value="${store.address}" />
+					</dd>
+			</dl>
+			
+			<div class="clear"></div>
+			<dl class="formBox">
+					<dt>域名</dt>
+					<dd class="">
+						<input type="text" class="i_bg"  name="domain" value="${store.domain}" />
+					</dd>
+			</dl>
+			
+			
+			<dl class="pro_pp formBox">
+					<dt>店铺等级</dt>
+					<dd class="" id="storeIdDd">
+						<input type="text" class="i_bg"  id="levelName" value="${level}" name="levelName" readOnly/>
+						<span id="storeSpan" class="pp" title="关联店铺等级" onclick="loadUserLevel();" ></span>
+					</dd>
+				</dl>
+			<div class="clear"></div>
+			<dl class="formBox">
+					<dt>组织机构</dt>
+					<dd class="">
+						<input type="text" class="i_bg"  name="orgId" value="${store.orgId}" />
+					</dd>
+			</dl>
+			<div class="clear"></div>
+				<input type="hidden" value="${user.status }" name="userStatus"/>
+				<input type="hidden" value="${user.verificationStatus }" name="verificationStatus"/>
+				<input type="hidden" value="${user.verificationCode }" name="verificationCode"/>
+				
+				<input type="hidden" value="${user.headPortrait }" name="headPortrait"/>
+				<input type="hidden" value="${user.lastLoginTime }" name="lastLoginTime"/>
+				<input type="hidden" value="${user.loginNum }" name="loginNum"/>
+				<input type="hidden" value="${user.createTime }" name="userCreateTime"/>
+				<input type="hidden" value="${user.updateTime }" name="userUpdateTime"/>
+				<input type="hidden" value="${user.type }" name="type"/>
+				<input type="hidden" value="${user.integration }" name="integration"/>
+				<input type="hidden" id="strong" name="passwordStrong" value="${user.passwordStrong }" />
+			
+			
+			
+			<dl class="formBox">
+					<dt>logo</dt>
+					<dd>
+						#tag picUpload("storeLogo","1","300","300",store.storeLogo) #end
+		  		</dd>
+				</dl>
+				
+				
+			
+				<dl class="formBox">
+					<dt>身份证正面</dt>
+					<dd>
+						#tag picUpload("cardPositive","1","300","300",store.cardPositive) #end
+		  		</dd>
+				</dl>
+				<div class="clear"></div>
+				
+				<dl class="formBox">
+					<dt>身份证反面</dt>
+					<dd>
+						#tag picUpload("cardOpposite","1","300","300",store.cardOpposite) #end
+		  		</dd>
+				</dl>
+			
+				<dl class="formBox">
+					<dt>营业执照</dt>
+					<dd>
+						#tag picUpload("businessLicense","1","300","300",store.businessLicense) #end
+		  		</dd>
+				</dl>
+					
+				<div class="clear"></div>
+				<dl class="formBox">
+					<dt>税务登记证</dt>
+					<dd>
+						#tag picUpload("taxRegistrationCertificate","1","300","300",store.taxRegistrationCertificate) #end
+		  		</dd>
+				</dl>
+				<div class="clear"></div>
+				
+				<dl class="formBoxLine">
+					<dt>店铺简介</dt>
+					<dd class="">
+						<textarea name="notes" class="ckeditor" >${store.notes }</textarea>
+					</dd>
+				</dl>
+			
+		
+			<input type="hidden" name="storeLogo" value="${store.storeLogo }" />
+			
+			
+			
+			<input type="hidden"  name="oldProvince" value="${store.province}" />	
+			<input type="hidden"  name="oldCity" value="${store.city}" />	
+			<input type="hidden"  name="oldArea" value="${store.area}" />	
+			
+			
+			
+			
+			<input type="hidden" value="${store.status}" name="storeStatus"/>
+			<input type="hidden" value="${store.checkStatus}" name="checkStatus"/>
+			<input type="hidden" value="${store.checkMan}" name="checkMan"/>
+			<input type="hidden" value="${store.checkTime}" name="checkTime"/>
+			<input type="hidden" value="${store.checkNote}" name="checkNote"/>
+			
+			
+				<input type="hidden" id="levelId" value="${store.levelId}" name="levelId"/>
+			
+			<input type="hidden" value="${store.createTime }" name="storeCreateTime"/>
+			<input type="hidden" value="${store.updateTime }" name="storeUpdateTime"/>
+				
+			
+			
+			
+			<input type="hidden" name="coordinateX" value="${store.coordinateX }" />
+			<input type="hidden" name="coordinateY" value="${store.coordinateY }" />
+			
+			</div>
+		</form>
+		<!-- 关联店铺模块 -->
+	<div class="del_tcBg" id="userLevelBg" style="display:none;"></div>
+		<div class="del_tc shopListAlert"  id="userLeveltc" style="display:none;">
+			
+	</div>
+    </body>
+</html>

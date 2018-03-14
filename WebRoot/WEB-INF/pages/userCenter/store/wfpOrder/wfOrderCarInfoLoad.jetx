@@ -1,0 +1,43 @@
+
+#define(List<com.ekfans.base.store.model.CarInfo> showCarInfoList)
+
+<div class="apTit">
+	<span class="apClose"></span>
+	车辆选择
+</div>
+<div class="apContent">
+	
+	<table border="0" cellspacing="0" cellpadding="0" class="shopTable">
+		<tr>
+			<th><a href="javascript:void(0);" class="checkAll">全选</a></th>
+			<th>车牌号</th>
+			<th>核定载人数</th>
+			<th>车辆类型</th>
+			<th>核定载质量</th>
+		</tr>
+		
+		#for(com.ekfans.base.store.model.CarInfo carInfo:showCarInfoList)
+		<tr>
+			<td><input name="carInfos" type="checkbox" value="${carInfo.id}"></td>
+			<td>${carInfo.carNo}</td>
+			<td>${carInfo.fullNum}人</td>
+			<td>${carInfo.carType}</td>
+			<td>${carInfo.fullWeight}吨</td>
+		</tr>
+		#end
+	</table>
+</div>
+<div class="apBtns">
+	<a class="btnBase" href="javascript:okChoseCarInfo();">确定</a>
+	<a class="btnBase" href="javascript:cancelChoseCarInfo();">取消</a>
+</div>
+
+<script>
+	var chosedCarInfoIds = $("#carInfoIds").val();
+	$("input[name^='carInfos']").each(function(i, o){
+		   var infoId = $(o).val();
+		   if(chosedCarInfoIds != "" && chosedCarInfoIds.indexOf(infoId)!=-1){
+		   	$(o).attr("checked",true);
+		   }
+		});
+</script>

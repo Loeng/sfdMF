@@ -1,0 +1,4 @@
+#define(com.ekfans.base.content.model.ShopAd shopAd)
+#if(shopAd != null && shopAd.html != "" && shopAd.html != " " && shopAd.html != null)
+	${shopAd.html}
+#end

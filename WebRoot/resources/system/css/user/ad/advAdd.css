@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url("../../add.css");
+
+.btnBlue{display:inline-block; *display:inline; *zoom:1; height:24px; width:100px; line-height:24px; text-align:center; background:#02AFED; color:#fff;}
+.btnBlue:hover{background:#018ec5; color:#fff;}
+.tabStyle{width:755px; border:solid 1px #ececec; position:relative; margin-top:20px; display:none;}
+.tabStyle .tabs{height:29px; background:#eee; padding:8px 0 0 25px; line-height:29px; margin:0; border-bottom:none;}
+.tabs li{padding:0 20px; float:left; height:29px; margin-right:20px; cursor:pointer;}
+.tabs li.cur{background:#fff;}
+.styleContent{padding:17px 0 20px 20px; display:none; text-align:center;}
+.advStyleContent .cur{display:block;}
+.closeIco{position:absolute; top:12px; right:10px;}
+.pointTop{display:block; background:url(../../../images/ggimg.png) no-repeat; width:20px; height:12px; position:absolute; top:-12px; left:50%;}
+.formSort{width:240px; float:left;}
+.formSort dd{width:60%;}
+.formSort .i_bg{width:60px;}
+.hint{line-height:30px; color:#999; display:block; margin-bottom:10px;}
+.add_pro dt{width:75px;}
+.radio,.color{display:block; float:left; height:18px; line-height:18px; padding:10px 0;}
+.radio{margin-right:20px;}
+.radio input{display:block; float:left; margin-right:6px;}
+.color span{display:block; float:left; margin-right:6px;}
+.color em{background:url(../../../images/ggimg.png) no-repeat -20px 0; width:20px; height:20px; display:block; float:left;}
+.bigBox{display:block; width:420px; height:76px;}
+.normalStyle{display:block;}

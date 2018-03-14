@@ -1,0 +1,48 @@
+#define(List<com.ekfans.base.product.model.Product> products)
+#define(List<com.ekfans.base.product.model.ProductCategory> pcatg)
+#define(com.ekfans.base.product.model.ProductCategory pcatgRoot)
+#define(com.ekfans.base.channel.model.Channel channel)
+<div class="scFloor">
+	<div class="skMore">
+		<!--按商城nav二级规则 -->
+		<a href="${webroot}/web/wjbcProduct/jumpToListPage?curProCatgId=${pcatgRoot.id}&channelId=${channel.id}">查看全部</a>
+	</div>
+	<div class="mallFloor">
+		<div class="mallLeft">
+			<img src="${webroot}${pcatgRoot.icon}" width="203" height="175">
+			<div class="proClass">
+				#if(pcatg!=null&&pcatg.size()>0)
+				#for(com.ekfans.base.product.model.ProductCategory pc : pcatg)
+				<a href="${webroot}/web/wjbcProduct/jumpToListPage?curProCatgId=${pcatgRoot.id}&childId=${pc.id}&channelId=${channel.id}">${pc.name}</a>
+						 
+				#end
+				#end
+			</div>
+		</div>
+		<div class="mallRight">
+			#if(products!=null&&products.size()>0)
+			#for(com.ekfans.base.product.model.Product p : products)
+			<div class="mallPro" #if(for.index==4)style="margin-right:0px"#end>
+				<a href="#tag shortLink("01",p.id) #end?curProCatgId=${pcatgRoot.id}" title="${p.name}" class="proName">${p.name}</a> <span class="proXh">${p.productModel}</span>
+				<span class="proXh">${p.storeId}</span>
+				<a href="#tag shortLink("01",p.id) #end?curProCatgId=${pcatgRoot.id}" class="proPic"><img src="${webroot}${p.smallPicture}" width="180" height="180"
+					alt="" title="${p.name}"></a> 
+					<span class="price">
+					 #if(p.unitPrice != null && p.unitPrice != "" && p.unitPrice != 0)
+						￥${p.unitPrice}元/${p.unit}
+					 #else
+					   待议
+					 #end
+					</span>
+				<div class="proBtns">
+					<a href="#tag shortLink("01",p.id) #end?curProCatgId=${pcatgRoot.id}" class="proBtn" style="width:182px;">详情</a>
+				</div>
+			</div>
+			#end
+			#end
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+

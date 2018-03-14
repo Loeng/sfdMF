@@ -1,0 +1,73 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+em{font-style:normal;}
+.tit{width:100%;border-bottom:1px solid #e5e5e5;height:37px; position:relative;}
+.tit h2{float:left;font-size:14px;border-bottom:5px solid #fff; padding:0 20px 0 16px; font-weight:normal; height:32px; line-height:32px; cursor:pointer;position:relative; margin-right:20px;}
+.tit h2.cur{border-color:#ff8a00;}
+.rightTitle em{height:32px; line-height:32px; display:inline-block; border-bottom-width:5px; border-bottom-style:solid; padding:0 20px 0 16px; font-style:normal;}
+.rightTitle{height:37px; font-size:14px; border-bottom:1px solid #e5e5e5; position:relative; margin-bottom:20px;}
+.layerToggle{line-height:32px; padding-right:20px; background:url(../images/toup.png) no-repeat right center; position:absolute; right:20px; top:2px; font-size:12px;}
+.layerToggleDown{background:url(../images/todown.png) no-repeat right center;}
+
+.orderTable{width:100%; margin-bottom:20px;}
+.orderTable th{height:35px; line-height:35px; color:#fff; font-size:14px;}
+.orderTable td{padding:20px 0; color:#818181; border-bottom:solid 1px #e5e5e5;}
+.orderTable .tdProInfo{width:400px; padding-left:20px;}
+.tdProNum{width:120px;}
+.orderTable .tdProCount{width:120px; text-align:center;}
+.orderTable .tdSubtotal{width:140px; text-align:center;}
+td.tdSubtotal{text-align:right;}
+.orderImg{display:block; width:78px; height:78px; border:solid 1px #f2f2f2; float:left; margin-right:20px;}
+.proRight{float:left; width:272px;}
+.orderText{display:block; line-height:18px; margin-bottom:8px;}
+.nowPrice{display:inline-block; padding:0 10px; height:16px; line-height:16px; background:#f00; color:#fff; margin-bottom:8px;}
+.colorSize{display:block; width:113px; line-height:18px; margin-right:10px; float:left; color:#333;}
+.colorSize span{float:left; display:block; width:38px;}
+.colorSize em{color:#a9a9a9; float:left; display:block; width:75px;}
+
+.rightContent dl dt{line-height:20px; height:20px; margin-bottom:10px; font-size:14px;}
+.rightContent dl li,.payInfo li{line-height:24px; height:24px; color:#787878;}
+.rightContent dl li em,.payInfo li em{color:#303132; padding-right:14px; display:inline-block; width:70px; text-align:right;}
+.consignee{padding:20px 0 16px 25px; border-bottom:1px solid #e5e5e5;}
+.payStyle{padding:20px 0 0 25px; float:left; width:415px;}
+.invoiceInfo{padding:20px 20px 0 0; float:left;}
+.orderInfo{padding-bottom:20px; border-bottom:1px solid #e5e5e5; margin-bottom:16px;}
+.payInfo ul{padding-bottom:10px 0;}
+.payInfoLeft{float:left; width:390px;}
+.split{clear:both; height:1px; overflow:hidden; background:#e5e5e5; margin-bottom:20px;}
+
+/*无发票信息*/
+.invoiceNone{margin:60px 20px 0 -20px; position:relative; float:left; border:dotted 3px #ddd; width:190px; padding:20px 0; line-height:35px; text-align:center; font-size:30px; color:#d1d0d0;}
+
+
+.payInfo{padding:0 0 0px 0px; margin-bottom:16px; border-bottom:solid 1px #e5e5e5;}
+.btnBottom{width:62px; height:28px; line-height:28px; margin-left:25px; display:inline-block;}
+
+/*错误提示*/
+.errorText{display:block; height:25px; line-height:25px; position:absolute; top:8px; left:290px; min-width:200px; _width:200px;}
+.errorText *{display:block; height:25px; float:left;}
+.errorBoxL{width:9px; overflow:hidden; background:url(../images/site.png) no-repeat -13px 0;}
+.errorBoxR{width:4px; overflow:hidden;  background:url(../images/site.png) no-repeat -22px 0;}
+.errorMain{padding:0 5px; background:#ff8900; white-space:nowrap; color:#fff;}
+.errorRed .errorBoxL{background:url(../images/site.png) no-repeat 0 0;}
+.errorRed .errorBoxR{background:url(../images/site.png) no-repeat -9px 0;}
+.errorRed .errorMain{background:#f00;}
+
+/*订单跟踪*/
+.orderLog{padding:20px 0 10px 0; margin-bottom:16px; border-bottom:solid 1px #e5e5e5; display:none;}
+.orderLog li{line-height:26px; height:26px; padding-left:25px; color:#787878;}
+.freightText{height:20px; line-height:20px; padding-left:25px; margin-top:30px;}
+.freightText span{padding-right:40px;}
+
+/*拒绝理由*/
+.reasonSelect{height:50px; padding:0 14px; width:573px; background:#f0f0f0; line-height:50px;}
+.reasonSelect span{padding-right:30px;}
+.reasonSelect select{width:326px; border:solid 1px #d3d3d3;}
+.reasonBox{width:573px; height:128px; padding:14px; background:#f0f0f0; margin:24px 0;}
+.reasonBox textarea{width:559px; height:114px; border:solid 1px #d3d3d3; line-height:20px; padding:6px;}
+.hint{line-height:20px; background:#FFFDDA; color:#F84810; padding:10px 14px; height:30px; line-height:30px; margin-bottom:10px;}
+
+/*上传图片*/
+.imgUpload{float:left; margin:0 20px 20px 0;}

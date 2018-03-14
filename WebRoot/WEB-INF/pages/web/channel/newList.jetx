@@ -1,0 +1,39 @@
+#define(List<com.ekfans.base.store.model.Wftransport> wftransports)	
+
+	<ul class="infoList">
+		    
+		
+			#for(com.ekfans.base.store.model.Wftransport wftransport : wftransports)
+
+			<li><a href="javascript:void(0);">#if(wftransport.type == 1)<em class="icon">货</em>#else<em class="icon">车</em>#end<span>${wftransport.startFullPath.split(" ")[0]}-${wftransport.endFullPath.split(" ")[0]}</span>&nbsp;&nbsp;${wftransport.carName}</a></li>
+						
+	    #end
+	</ul>
+
+
+<script>
+/*var rongqi=0;
+	for(i=0;i<$("#newPriceList").find("li").length;i++){
+		rongqi+=$("#newPriceList").find("li").eq(i).outerWidth();
+	}
+	if(rongqi>1084){
+		setInterval(first,1200);
+	}
+
+$(".infoList").each(function(){
+var box=0;
+$(".infoList li").each(function() {
+	box+=$(this).outerWidth();
+});
+$(".infoList").css("width",box+"px");
+function first(){
+	var str=$(".infoList").find("li").eq(0);
+	var gao=str.outerWidth();
+	$(".infoList").animate({"marginLeft" : -gao+"px" }, 600,function(){
+		$(this).css("marginLeft","0px").find("li:eq(0)").appendTo(".infoList");
+	})
+}
+setInterval(first,1200);
+})*/
+
+</script>

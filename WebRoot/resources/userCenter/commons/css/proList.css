@@ -1,0 +1,18 @@
+/* CSS Document */
+
+/*列表*/
+
+.tdCheck{width:27px;}
+.tdCode{widdth:10%;}
+.tdInfo{width:37%;}
+.tdState{padding-right:7px;}
+.tdCount{ padding-right:10px;}
+.orderImg{display:block; width:78px; height:78px; line-height:78px; border:solid 1px #f2f2f2; float:left; margin-right:12px;text-align:center;overflow:hidden;}
+.orderImg img{max-width:78px;max-height:78px;line-height:78px;vertical-align:middle;text-align:center;}
+.proRight{float:left; width:170px;}
+.orderText{display:block; line-height: 22px; /* margin-bottom:10px; */ width:100%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.nowPrice{display:block; height:16px; line-height:16px; margin: 10px 0; color:#333;}
+.nowPrice em{background:#f00; color:#fff; padding:0 4px; display:inline-block; margin-left:8px;}
+.marketPrice{color:#333;}
+.marketPrice em{display:inline-block; margin-left:8px; padding:0 4px;}
+.proOnlyInfo{padding-left:20px; text-align:left;}

@@ -1,0 +1,58 @@
+#define(com.ekfans.base.product.model.Product p)
+ <div class="baojiaLayer">
+        <div class="dataInfo">
+        	<span><em>商品：</em>${p.name}</span>
+        	<span><em>库存：</em>${p.quantity}${p.unit}</span>
+            <span><em>规格：</em>${p.productModel}</span>
+           #if(p.unitPrice==0||p.unitPrice==""||p.unitPrice==0.00||p.unitPrice==" "||p.unitPrice==null)
+            <span><em>商家报价：</em><font class="red">待议</font></span>
+            #else
+             <span><em>商家报价：</em><font class="red">${p.unitPrice}</font>元/${p.unit}</span>
+            
+            #end
+           
+            <span><em>商家：</em>${p.storeName}</span>
+        </div>
+        <form action="${webroot}/store/bargain/add" method="post" id="bargainForm">
+        <input type="hidden" name="sourceId" value="${p.id}"/>
+        <input type="hidden" id="preQuantity" value="${p.quantity}"/>
+        <input type="hidden" name="sourceType" value="0"/>
+        <input type="hidden" name="sellerId" value="${p.storeId}"/>
+        
+        <div class="apForm">
+            <dl class="formItem">
+                <dt>采购数量</dt>
+                <dd class="formImport">
+                	<input name="quantity" type="text" class="formBox" onblur="checkFocus(this);" maxlength="13" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">单位：${p.unit}
+               		<span id="quantitySpan" class="errorText"></span>
+               	</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>商议价格</dt>
+                <dd class="formImport">
+                	<input name="price" type="text"  maxlength="13" onblur="checkFocus(this);" class="formBox" onkeyup="this.value=this.value.replace(/[^0-9.]/g,'')"  onafterpaste="this.value=this.value.replace(/[^0-9.]/g,'')">单位：元/${p.unit}
+                	<span id="priceSpan" class="errorText"></span>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>联系人</dt>
+                <dd class="formImport">
+                	<input name="contactMan"  maxlength="64" onblur="checkFocus(this);" type="text" class="formBox">
+                	<span id="contactManSpan" class="errorText"></span>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>联系电话</dt>
+                <dd class="formImport">
+                	<input name="contactPhone" onblur="checkFocus(this);" maxlength="11" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" type="text" class="formBox">
+                	<span id="contactPhoneSpan" class="errorText"></span>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+        </div>
+        </form>
+    </div>

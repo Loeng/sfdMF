@@ -1,0 +1,45 @@
+#define(List<com.ekfans.base.store.model.Wfpys> wfpys)
+	<div class="tabBox">
+      <table border="0" cellspacing="0" cellpadding="0" class="tabList"  style="width:100%;">
+        <thead>
+          <tr class="bgColor">
+            <th style="width:5%;"></th>
+            <th style="width:20%;">名称</th>
+            <th style="width:60%;">描述</th>
+          </tr>
+        </thead>
+        </table>
+        </div>
+        <div class="tabBox">
+        <table border="0" cellspacing="0" cellpadding="0" class="tabList" style="height:50px;width:100%;">
+        <tbody id="searchtwo">
+				#for(com.ekfans.base.store.model.Wfpys m:wfpys)
+					<tr>
+						<td style="max-width:65px;width:5%;"><label class="checkItem"><span class="check"><em><input name="checkvalue" id="${m.id}" class="mlCheck"  onclick="javascript:choseWfys(this)" type="checkbox" value="${m.id}"></em></span></label></td>
+						<td style="text-align:left;width:20%;">${m.name}</td>
+						<td style="text-align:left;width:60%;">${m.descr}</td>
+					</tr>
+				#end 	
+        </tbody>
+      </table>
+    </div>
+    
+	   <div class="clear"></div>
+   <div><a href="javascript:choseWfysList();" class="btnBase">确定</a></div>
+   
+   <script>
+   	var chosed = $("#wfysChose").val();
+		if(chosed != "" && chosed.indexOf(";")!=-1){
+			var choses = chosed.split(";");
+			for(i=0;i<choses.length;i++){
+				var idStr = choses[i];
+				if(idStr != "" && idStr != " "){
+					if($("#"+idStr) && $("#"+idStr) != undefined && $("#"+idStr) != "undefined" && $("#"+idStr).html() != undefined && $("#"+idStr).html() != "undefined"){
+							$("#"+idStr).attr("checked",true);
+							$("#"+idStr).parent().parent().addClass("checked");
+					}
+				}
+			
+			}
+		}
+   </script>

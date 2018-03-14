@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>银行部门管理</title>
+		<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/add.css" />
+		<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/upload.css" />
+		<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/tools.css" />
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+		<script type="text/javascript" src="${ctxpath}/resources/system/js/finance/bank/department.js"></script>
+	</head>
+
+	<body>
+
+		#define(List<com.ekfans.base.finance.model.BankDepartment> departmentList)
+		<input type="hidden" id="ctxpath" value="${webroot}" />
+		<input type="hidden" id="departmentId"/>
+		<input type="hidden" id="rootBankId" value="${bankId}"/>
+		<div class="ht_btn" id="buttonDiv"></div>
+		<div class="afterHt">
+			<div class="ht_fl">
+			<div class="ht_fl_btn" style="padding:0 0 0 0 ;">
+				<a href="javascript:void(0);" onclick="addDepartmentRoot();">添加根部门</a>
+				<a href="javascript:void(0);" onclick="addDepartment();">添加子部门</a>
+				<a href="${webroot}/system/bank/list">返回银行列表页</a>
+			</div>
+			#for(com.ekfans.base.finance.model.BankDepartment department: departmentList)
+				<div class="fl_nav">
+					<span class="fl_title" id="p${department.id}" onclick="showChilds('${department.id}')">
+						${department.name}
+						<label id="l${department.id}" onclick="showDepartment('${department.id}')">选择</label>
+						<em class="borderLine"></em>
+					</span>
+					<div id="${department.id}" class="fl_in"></div>
+				</div>
+			#end
+			</div>
+			<div class="ht_fl_bj" id="dataArea" style="padding: 0 0 0 0;"></div>
+		</div>
+	</body>
+</html>
+
+

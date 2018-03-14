@@ -1,0 +1,29 @@
+#define(Map<String, com.ekfans.base.channel.model.ChannelConfig> configMap)
+#define(String configType)
+#define(String position)
+#define(String channelId)
+
+#set(com.ekfans.base.channel.model.ChannelConfig config = configMap.get(configType + position))
+
+#if(configStatus == "true")
+	#include("../commons/config/configTitle.jetx",{"channelId":channelId,"configType":configType,"position":position})
+#end
+
+#if(config != null)
+  	<div class="boxTit borderbottom"><h2>${config.configName != null && config.configName != "" ? config.configName:config.catgName}</h2></div>
+	#for(com.ekfans.base.content.model.Content content : config.details)
+		#if(for.last)
+			<div class="zxList" style="border-bottom:0;">
+		#else
+	  		<div class="zxList">
+		#end
+			<div class="zxleft">
+	          	<a href="${webroot}/03-${content.id}-1.html" target="_blank" title="${content.contentName}" >${content.contentName}</a>
+          </div>
+          <a href="${webroot}/03-${content.id}-1.html" target="_blank" title="${content.contentName}" ><img class="vertical" src="${webroot}/${content.navigationImage}" title="${content.navigationText}" class="zxright"></a>
+  			<p class="author">${content.author}</p>
+		  <div class="clear"></div>
+		</div>
+	#end
+#end
+

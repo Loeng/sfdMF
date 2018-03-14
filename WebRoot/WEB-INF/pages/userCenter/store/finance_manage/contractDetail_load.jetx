@@ -1,0 +1,13 @@
+#define(com.ekfans.base.wfOrder.model.Contract contract)
+<input type="hidden" name="contractId" value="#if(contract!=null)${contract.id}#end" />
+<tr>
+  <th class="tdProInfo bgColor">合同编号</th>
+  <th class="tdProCount bgColor">类型</th>
+  <th class="tdSubtotal bgColor">时间</th>
+</tr>
+<tr>
+	<td>${contract.contractNo}</td>
+	<td class="tdProCount">#if(contract.type=="0")危废处置合同#elseif(contract.type=="1")危废运输合同#end</td>
+	<td class="tdSubtotal">${contract.createTime.substring(0,10)}</td>
+</tr>
+

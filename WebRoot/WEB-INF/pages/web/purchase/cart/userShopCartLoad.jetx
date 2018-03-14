@@ -1,0 +1,94 @@
+#define(com.ekfans.base.product.model.Product product)
+#define(List<com.ekfans.base.product.model.ProductPrice> priceList)
+#define(com.ekfans.base.product.model.ProductPrice usedPrice)
+#define(com.ekfans.base.store.model.Store cartStore)
+#define(com.ekfans.base.system.model.ShopCart shopCart)
+#if(shopCart == null || product == null)
+<div class="main">
+    <h2 class="cartTitle">我的购物车</h2>
+    <div class="empity">
+        <span class="red">购物车空空的！</span>
+        <span class="go">您可以去<a href="${webroot}/${indexChannelId}.html" id="indexHtml">商城</a>挑选喜欢的商品</span>
+    </div>
+</div>
+#else
+<div class="wrapper">
+    <div class="main">
+        <div class="step"></div>
+        <div class="shopTb">
+          <ul class="proHeader">
+            <li class="blue proNameImg"><!--<em></em><a href="javascript:void(0)" class="blue">店铺：${cartStore.storeName}</a>--></li>
+            <li class="proPrice">单价（元）</li>
+            <li class="proCount">数量</li>
+            <li class="priceTotal">小计（元）</li>
+          </ul>
+          <ul class="proItem">
+            <li class="proNameImg">
+                <input name="" type="checkbox" value="" checked disabled>
+                <a href="#tag shortLink("01",product.id) #end" class="proImg" title="${product.name}"><img src="${webroot}/${product.recommendPicture1}" width="98" height="98" alt="${product.name}"></a>
+                <div class="proInfo">
+                    <a href="#tag shortLink("01",product.id) #end" class="proName">${product.name}</a>
+                </div>
+            </li>
+            <li class="proPrice">
+            	#if(usedPrice!=null && usedPrice != "")
+	            	#for(com.ekfans.base.product.model.ProductPrice price:priceList)
+									#if(price.startNum <= 0)
+										<span #if(usedPrice.id == price.id) class="nowPrice" #else class="otherPrice" #end>${price.startNum}-${price.endNum}${product.unit}${price.price}</span>
+									#elseif(price.endNum <= 0)
+										<span  #if(usedPrice.id == price.id) class="nowPrice" #else class="otherPrice" #end>${price.startNum}${product.unit}以上${price.price}</span>
+									#else
+										<span  #if(usedPrice.id == price.id) class="nowPrice" #else class="otherPrice" #end>${price.startNum}-${price.endNum}${product.unit}${price.price}</span>
+									#end
+								#else
+									<span class="nowPrice">${product.pfPrice}/${product.unit}</span>
+								#end
+							#else
+									<span class="nowPrice">${product.pfPrice}/${product.unit}</span>
+							#end	
+            </li>
+            <li class="proCount">
+                <span class="proCountDom">
+                    <a href="javascript:void(0)" class="minus" onclick="jianPrice('${webroot}','${product.id}','${shopCart.productQuantity}')" title="减少数量">-</a>
+                    <input name="buyCount" id="buyCount" type="text" value="${shopCart.productQuantity}" onblur="numberCheck('${webroot}','${shopCart.productId}','${shopCart.productQuantity}')" onkeypress="return IsNum(event)"  maxlength="7">
+                    <a href="javascript:void(0)" onclick="addproductQuantity('${webroot}','${product.id}','${shopCart.productQuantity}')" class="plus" title="增加数量">+</a>
+                    #if(errorMsg != "" && errorMsg != null)
+                    	<span class="errorText"><em></em>${errorMsg}</span>
+                    #end
+                </span>
+            </li>
+            <li class="priceTotal">${shopCart.totalPrice}<br><span class="spare">省${shopCart.tempTotalPrefePrice}</span></li>
+            <li class="clear"></li>
+          </ul>
+        </div>
+        <div class="clear"></div>
+        <div class="shopBottom">
+            <div class="proDelete">
+
+            </div>
+            <div class="goBuy">商品金额总计：<em>￥${shopCart.totalPrice}</em><a href="javascript:void(0);" onclick="javascript:newTiJiao('${webroot}');" class="btnBlue">结算</a></div>
+            <div class="clear"></div>
+        </div>
+    </div>
+ #end
+		<div class="bottomProList">
+			<h3>推荐商品</h3>
+			#for(com.ekfans.base.product.model.Product p : products)
+				<dl class="bottomPro">
+					<dt>
+						<a href="#tag shortLink("01",p.id) #end"  target="_black">
+							<img src="${webroot}${p.recommendPicture4}"  alt="${p.name}" title="${p.name}">
+						</a>
+					</dt>
+					<dd class="bottomProTitle">
+						<a href="#tag shortLink("01",p.id) #end" title="${webroot}${p.sortName}"  target="_black">${p.name}</a>
+					</dd>
+					<dd class="bottomProPrice">
+						<span class="originalPrice"> ${p.listPrice}元</span>
+						<span class="nowPrice"><em>${p.pfPrice}</em> 元</span>
+					</dd>
+				</dl>
+			#end
+			<div class="clear"></div>
+		</div>
+</div>

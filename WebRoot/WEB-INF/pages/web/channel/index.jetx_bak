@@ -1,0 +1,701 @@
+#define(com.ekfans.base.channel.model.Channel channel)
+#define(com.ekfans.base.user.model.User User)
+#define(com.ekfans.base.store.model.Store Store)
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}-${channel.name}</title>
+<meta name="keywords" content="${channel.keyWords}" />
+<meta name="description" content="${channel.description}" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta property="wb:webmaster" content="04d00fb9eddaeb6f" />
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.superslide.2.1.1.js"></script>
+<script src="${webroot}/resources/web/js/base.js"></script>
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/base.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/index.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/plugin/echarts.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+<script src="${webroot}/resources/commons/js/layer/layer.js"></script>
+<script src="${webroot}/resources/web/js/userIDJudge.js"></script>
+#if(configStatus == "true")
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/control.js"></script>	
+	<link href="${webroot}/resources/commons/css/control.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script
+	<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+#end
+<style>
+.errorText{display:block;color:red;}
+</style>
+</head>
+
+<body>
+<input type="hidden" name="ctxpath" id="ctxpath" value="${webroot}" />
+<input type="hidden" name="channelId" id="channelId" value="${channelId}" />
+<input type="hidden" name="channelType" id="channelType" value="${channel.type}" />
+
+#if(configStatus == "true")
+	<!-- 频道配置导航条 -->
+	#include("commons/config/config-top.jetx")
+	<!-- 频道配置导航条 end -->
+#end
+
+<!--头部及导航条展示-->
+<div id="channelTop"></div>
+
+<div class="slideBox">
+    #include("commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"1"})
+</div>
+<div class="wrapper">
+    <div class="gongxu">
+    	<!--现货分类-->
+    	#include("index/proCatg.jetx",{"channelId":channelId,"configType":"pc","position":"1"})
+        <div class="tabContent classContent" style="display:block;">
+            <ul class="tabNav gongxuNav">
+                <li class="cur gy" >热门供应</li>
+                <li class="qg">热门求购</li>
+            </ul>
+            #include("index/proGy.jetx",{"channelId":channelId,"configType":"gy","position":"1"})
+            #include("index/proQg.jetx",{"channelId":channelId,"configType":"qg","position":"1"})
+        </div>
+        <div class="tabContent classContent">
+            <ul class="tabNav gongxuNav">
+                <li class="cur gy">热门供应</li>
+                <li class="qg">热门求购</li>
+            </ul>
+            #include("index/proGy.jetx",{"channelId":channelId,"configType":"gy","position":"2"})
+            #include("index/proQg.jetx",{"channelId":channelId,"configType":"qg","position":"2"})
+        </div>
+        <div class="tabContent classContent">
+            <ul class="tabNav gongxuNav">
+                <li class="cur gy">热门供应</li>
+                <li class="qg">热门求购</li>
+            </ul>
+           #include("index/proGy.jetx",{"channelId":channelId,"configType":"gy","position":"3"})
+           #include("index/proQg.jetx",{"channelId":channelId,"configType":"qg","position":"3"})
+        </div>
+        <div class="tabContent classContent">
+            <ul class="tabNav gongxuNav">
+                <li class="cur gy">热门供应</li>
+                <li class="qg">热门求购</li>
+            </ul>
+            #include("index/proGy.jetx",{"channelId":channelId,"configType":"gy","position":"4"})
+            #include("index/proQg.jetx",{"channelId":channelId,"configType":"qg","position":"4"})
+        </div>
+    </div>
+    <div class="upRight">
+        <ul class="gongnengdian">
+            <li><em class="weifeiIcon"></em>危废通</li>
+            <li><a href="javaScript:choseMenu('${webroot}','STORE_RENZHENG_BEIAN');"><em class="renzhengIcon"></em>企业认证</a></li>
+            <li><a href="javaScript:void(0);"><em class="yingxiaoIcon"></em>全网营销</a></li>
+            <li><a href="${webroot}/store/index"><em class="qiyeIcon"></em>企业中心</a></li>
+            <li><a href="javaScript:choseMenu('${webroot}','PRODUCT_ADD')"><em class="gongyingIcon"></em>发布供应</a></li>
+            <li><a href="javaScript:choseMenu('${webroot}','PRODUCT_PURCHASE_ADD')"><em class="caigouIcon"></em>发布求购</a></li>
+        </ul>
+        <div class="clear"></div>
+        <div id="deal"></div>
+    </div>
+    
+    <!-- 危废运输 -->
+	<div class="yunshu">
+    	<h2>危废运输</h2>
+        <ul class="tabNav chehuo">
+            <li datatype="0" class="cur">危废车源</li>
+            <li datatype="1">危废货源</li>
+        </ul>
+        <div class="clear"></div>
+        <div class="tabContent cyList" style="display:block;">
+        
+        </div>
+        <div class="tabContent hyList">
+        
+        </div>
+    </div>
+    <!--议价弹层-->
+	<div id="yijiaHtml" style="display:none;">
+	    
+	</div>
+	<!--议价弹层 end-->
+    <div class="search">
+        <h3>按交货地查找</h3>
+        <div class="cities">
+	        #for(com.ekfans.base.system.model.SystemArea s:@(com.ekfans.plugin.cache.base.Cache).getProvinces())
+	            <a href="javascript:void(0);" class="address" id="${s.areaName}" onclick="serchAddress('${s.id}')" dataType="${s.id}" >${s.areaName}</a>
+            #end
+        </div>
+        <div class="searchBtn" style="display:none">
+            <input name="pName" id="pName" type="text" placeholder="交货地"/>
+            <a href="javascript:void(0);" onclick="serchAddress()" class="btnGreen">查找</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    
+    <div class="news">
+        <ul class="tabNav">
+            <li class="cur">行业资讯</li>
+            <li>政策法规</li>
+            <li>财经新闻</li>
+            <li>企业库</li>
+        </ul>
+        <div class="tabContent" style="display:block;">
+        	#include("index/content_one.jetx",{"channelId":channelId,"configType":"c","position":"1"})
+        </div>
+        <div class="tabContent">
+        	#include("index/content_one.jetx",{"channelId":channelId,"configType":"c","position":"2"})
+        </div>
+        <div class="tabContent">
+        	#include("index/content_one.jetx",{"channelId":channelId,"configType":"c","position":"3"})
+        </div>
+        <div class="tabContent">
+        	#include("index/content_one.jetx",{"channelId":channelId,"configType":"c","position":"4"})
+        </div>
+    </div>
+    <div id="hx"></div>
+    <div class="clear"></div>
+    <div class="renzheng" style="min-height:20px;">
+        <h2>企业认证</h2>
+        <div class="autoAdv">
+             #include("commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"2"})
+        </div>
+        <div class="autoAdv">
+            #include("commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"3"})
+        </div>
+        <div class="autoAdv">
+            #include("commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"4"})
+        </div>
+        <div class="renzhengRight">
+            <div class="regLogin">
+                <h4>轻松注册，专业认证</h4>
+                <a href="${webroot}/web/jumpRegPage" class="btnGreen btnLogin">立即注册</a>
+                	已有帐号，<a href="${webroot}/web/login" class="loginLink green">立即登录</a><em></em>
+            </div>
+            <dl id="zbdj"></dl>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="jinrong">
+        <h2>金融在线</h2>
+        <div style="top:-12px;">#include("commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"5"})</div>
+    </div>
+</div>
+<!--底部-->
+<div id="channelFoot"></div>
+<!--底部 end-->
+
+<!--议价弹层-->
+<div id="yijiaHtml" style="display:none;">
+</div>
+<!--议价弹层 end-->
+
+<!--报价弹层-->
+<div id="baojiaHtml" style="display:none;">
+</div>
+
+
+<!--发布信息弹层-->
+<div id="updateHtml" style="display:none;">
+    <div class="update">
+        <div class="leftLayer">
+            <a href="${webroot}/web/login" class="btnGreen">登录后发布</a>
+            <div class="text">
+                <em class="red">*</em>保留完整的发布信息数据<br>
+                可编辑修改后再发布<br>
+                历史记录永久查阅
+            </div>
+        </div>
+        <div class="rightLayer">
+            <a href="javascript:void(0);" class="btnGreen" onclick="release();">发布临时信息</a>
+            <div class="text">
+                <em class="red">*</em>未注册用户可直接发布临时信息<br>
+                不可修改及查阅历史记录<br>
+            </div>
+        </div>
+    </div>
+</div>
+<!--发布信息弹层 end-->
+
+<script>
+$(document).ready(function() {
+	
+	//焦点图切换fold
+    jQuery(".slideBox").slide({mainCell:".bd ul",autoPlay:true,effect:"fold"});
+	
+	//选项卡切换
+	$(".tabNav li").live("hover",function(){
+		$(this).siblings().removeClass("cur");
+		$(this).addClass("cur");
+		var dom=$(this).parent().siblings(".tabContent");
+		var index=$(this).parent().children().index(this);
+		dom.hide();
+		dom.eq(index).show();
+	})
+	
+	//企业认证
+	$(".renzheng .autoAdv").live("hover",function(){
+		$(this).find(".autoAdvContent").stop(true,true).slideToggle();
+	})
+	
+	//行情图
+	$(".iconHangqing").live("hover",function(){
+		$(this).siblings(".itemLayer").toggle();
+	})
+	
+	// 危废运输
+	$(".cyList").load($("#ctxpath").val() + "/web/wftransport/getIndexWf/0");
+	$(".hyList").load($("#ctxpath").val() + "/web/wftransport/getIndexWf/1");
+	
+	//发布信息弹层
+	$(".updateLink").click(function(){
+		var userId = $("#userId").val();
+		var type = $(this).attr("datatype");
+		// 判断用户否登陆
+		if(userId != null && userId != "" && userId != " "){
+			location.href = $("#ctxpath").val() + "/store/wftransport/add/" + type;	
+		}else{
+			layer.open({
+				type: 1,
+				title: '发布信息',
+				skin: 'layer-class',
+				area: '600px', //宽高
+				content: $("#updateHtml")
+			});
+		}
+	})
+	
+});
+
+$("#channelTop").load($("#ctxpath").val() + "/web/channel/commons/channel-top.jetx",{"channelId":$("#channelId").val(),"channelType":$("#channelType").val(),"returnUrl":window.location.href});
+$("#channelFoot").load($("#ctxpath").val() + "/web/channel/commons/channel-footer.jetx");
+$("#gq").load($("#ctxpath").val() + "/web/gjsProduct/list",function(){
+$(".nowData").live("hover",function(){
+		var qxt=$(this).next(".qxt");
+		qxt.css("left","-176px");
+		qxt.css("bottom","-161px");
+		$(this).next(".qxt").toggle();		
+	});
+});
+
+//点击金属分类
+$(".onejie li").live("click",function(){
+	$("#infoMore").prop("href",$("#ctxpath").val()+"/xsgp.html");
+});
+
+//点击求购更多
+$(".qg").live("click",function(){
+	$("#infoMore").prop("href",$("#ctxpath").val()+"/qggp.html");
+});
+
+//点击供应更多
+$(".gy").live("click",function(){
+ 	$("#infoMore").prop("href",$("#ctxpath").val()+"/xsgp.html");
+});
+
+
+$("#deal").load($("#ctxpath").val() + "/web/indexOrder/indexOrderListByNum",{'num':10});
+
+$("#hx").load($("#ctxpath").val()+"/web/storeType/getHxInfo/index/null");
+
+$("#zbdj").load($("#ctxpath").val() + "/web/index/companyNum");
+
+$(".zoushi").each(function(){
+	var proId=$(this).attr("name");
+	// 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(this);
+    // 指定图表的配置项和数据
+    myChart.showLoading();
+    var radomId = "dt" + new Date().getTime();
+    $.post($("#ctxpath").val()+'/web/priceChange/asImg?time='+radomId,{'productId':proId},function (data){
+      data = JSON.parse(data);
+      myChart.hideLoading();      
+      myChart.showLoading({text: "图表数据正在努力加载..."});  
+      myChart.setOption(
+        option = {
+          color: ['#f3578a'],
+          tooltip : {
+            trigger: 'axis'
+          },
+          xAxis : [{
+            type : 'category',
+            boundaryGap : false,
+            splitNumber:1,
+            data: data.map(function (item) {
+              return item.date;
+            }),
+            axisLabel:{
+              interval:0
+            }
+          }],
+          grid: {x:60,x2:20,y:10,y2:20},
+          grid: {left: '5%',right: '5%',bottom: '10%',top:'2%',containLabel: true},
+          yAxis : [{
+            type : 'value',
+            //scale:false,
+            //min: 2000,
+           	//max: 5000,
+            axisLabel: {
+              textStyle: {
+                color: 'red',
+                fontSize: '12'
+              }
+            }
+          }],
+          series : [{
+            name:'当前行情',
+            type:'line',
+            data: data.map(function (item) {
+              return item.value;
+            })
+          }]
+        }
+      );
+
+	  myChart.hideLoading();
+});
+});
+
+$(".cities a").live("click",function(){
+$(this).siblings("a").removeClass("cur");
+$(this).addClass("cur");
+});
+
+// 搜索车源货源
+function serchAddress(address){
+	var flag = $(".chehuo li.cur").attr("datatype");
+	// var address = $(".address.cur").attr("datatype");
+	var addressName = "";
+	if($(".address.cur").text() == "全部"){
+	
+		address = null;
+	}else{
+		addressName = $(".address.cur").text();
+	}
+	var pName = $("#pName").val();
+	if("0" == flag){
+		location.href = $("#ctxpath").val() + "/wfcy.html?endFullPath=" + address + "&pName=" + pName + "&type=" + flag;
+	}else{
+		location.href = $("#ctxpath").val() + "/wfhy.html?endFullPath=" + address + "&pName=" + pName + "&type=" + flag;
+	}
+	
+}
+
+	// 议价弹出层
+	function yijia(id,storeId){
+		var userId=$("#userId").val();
+		if(userId == storeId){
+			layer.alert("不能对自己的发布的信息进行操作");
+			return;
+		}
+		if(null!=userId&&""!=userId&&" "!=userId ){
+			$("#yijiaHtml").load($("#ctxpath").val() + "/store/bargain/bargainDetail",{id:id},function(){
+				//议价弹层
+				layer.open({
+					type: 1,
+					title: '销售议价',
+					skin: 'layer-class',
+					area: '730px', //宽高
+					content: $("#yijiaHtml"),
+					btn:['确认','取消'],
+					yes:function(index){
+						//点击确定执行的语句
+						if(checkQuantity() && checkPrice() && checkContactMan() && checkContactPhone()){
+							$("#bargainForm").ajaxSubmit(function(data){
+					    		if(data == true || data=="true"){
+					    			layer.close(index);
+					    			layer.alert("议价成功")
+					    		}else if(data== false || data=="false"){
+					    			layer.close(index);
+					    			layer.alert("议价失败!");
+					    		}else if(data=="error"){
+					    			layer.close(index);
+					    			layer.alert("不能对自己的商品议价");
+					    		}
+					    	});
+						}else{
+					    	checkQuantity();
+					    	checkPrice(); 
+				    		checkContactMan();
+				    		checkContactPhone();
+			    		}
+					},
+					cancel:function(){
+						//点击取消执行的语句
+					}
+				});
+			});
+		}else{ //未登录跳转登录页面
+			location.href=$("#ctxpath").val()+"/web/login";
+		}
+	}
+
+//危废议价和报价	
+function wfYijia(id,type,storeId){
+		var title = "";
+		if("0" == type){
+			title = "议价";
+		}else{
+			title = "报价";
+		}
+		var userId=$("#userId").val();
+		if(userId == storeId){
+			layer.alert("不能对自己发布的信息"+title);
+			return;
+		}
+		if(null!=userId&&""!=userId&&" "!=userId || type=="1"){
+			$("#yijiaHtml").load($("#ctxpath").val() + "/web/wftransport/getwf/"+id+"/"+type,function(){
+				//议价弹层
+				layer.open({
+					type: 1,
+					title: title + "信息",
+					skin: 'layer-class',
+					area: '600px', //宽高
+					content: $("#yijiaHtml"),
+					btn:['确认','取消'],
+					yes:function(index){
+						// 判断类型
+						var flag = "false";
+						if(type == '0'){
+							flag = checkQuantity();
+						}else{
+							flag = true;
+						}
+						if( flag ){
+							//点击确定执行的语句
+							if(type == '0' && checkPrice() && checkContactMan() && checkContactPhone()){
+								$("#bargainForm").ajaxSubmit(function(data){
+						    		if(data=="1" || data=="true"){
+						    			layer.close(index);
+						    			layer.alert(title + "成功")
+						    		}else if(data=="error"){
+						    			layer.close(index);
+						    			layer.alert("不能对自己发布的车源议价");
+						    		}else{
+						    			layer.close(index);
+						    			layer.alert(title + "失败!");
+						    		}
+						    	});
+							}
+							if(type=='1' && checkPrice() && checkLinkPerson1() && checkLinkTel1()){
+								$("#bargainForm").ajaxSubmit(function(data){
+						    		if(data=="1" || data=="true" ){
+						    			layer.close(index);
+						    			layer.alert(title + "成功");
+						    		}else{
+						    			layer.close(index);
+						    			layer.alert(title + "失败!");
+						    		}
+						    	});
+							}
+				    	}else{
+				    		if(type == '0'){
+						    	checkPrice();
+					    		checkQuantity();
+					    		checkContactMan();
+					    		checkContactPhone();
+				    		}else{
+						    	checkPrice();
+						    	checkLinkPerson1();
+						    	checkLinkTel1(); 
+				    		}
+				    	}
+					},
+					cancel:function(){
+						//点击取消执行的语句
+					}
+				});
+			});
+		}else{ //未登录跳转登录页面
+			location.href=$("#ctxpath").val()+"/web/login";
+		}
+	}	
+	
+//加载报价信息
+function loadBaojia(id,storeId){
+	var ctxpath = $("#ctxpath").val();
+	var userId=$("#userId").val();
+		if(userId == storeId && storeId != ""){
+			layer.alert("不能对自己发布的信息操作");
+			return;
+		}
+	//弹层
+	$("#baojiaHtml").load(ctxpath+"/web/supply/loadBaojia",{id:id},function(){
+		layer.open({
+			type: 1,
+			title: '报价信息',//商品标题
+			skin: 'layer-class',
+			area: '730px', //宽高
+			content: $("#baojiaHtml"),
+			btn:['确认','取消'],
+			yes:function(index){
+			if(checkFinalPrice()&&checkStoreName()&&checkLinkPerson()&&checkLinkTel()){
+					$("#baojiaForm").ajaxSubmit(function(data){
+			    		if(data == "1"){
+			    			layer.close(index);
+			    			layer.alert("报价成功")
+			    		}else{
+			    			layer.close(index);
+			    			layer.alert("报价失败!");
+			    		}
+			    	});
+				}else{
+					checkFinalPrice();
+					checkStoreName();
+					checkLinkPerson();
+					checkLinkTel();
+				}
+			},
+			cancel:function(){
+				//点击取消执行的语句
+			}
+		});
+	});
+
+} 
+
+
+function checkFocus(obj) {
+	if($(obj).val()!=""){
+		$(obj).next().html("");
+	}
+}
+
+function checkQuantity(){
+	var flag=true;
+	var preQuantity = $("#preQuantity").val();
+	var quantity = $("input[name='quantity']").val();
+	if(quantity == "" || quantity == null || quantity == " "){
+		$('#quantitySpan').show();
+		$('#quantitySpan').text("请输入数量");
+		flag = false;
+	}else if(parseFloat(quantity) > parseFloat(preQuantity)){
+		$('#quantitySpan').show();
+		$('#quantitySpan').text("输入数量不能大于库存");
+		flag = false;
+	}
+	return flag;
+}
+function checkPrice(){
+	var flag=true;
+	var price = $("input[name='price']").val();
+	if(price == "" || price == null || price == " "){
+		$('#priceSpan').show();
+		$('#priceSpan').text("请输入价格");
+		flag = false;
+	}
+	return flag;
+}
+
+function checkContactMan(){
+	var flag=true;
+	var contactMan = $("input[name='contactMan']").val();
+	if(contactMan == "" || contactMan == null || contactMan == " "){
+		$('#contactManSpan').show();
+		$('#contactManSpan').text("请输入联系人");
+		flag = false;
+	}
+	return flag;
+}
+function checkLinkPerson1(){
+	var flag=true;
+	var contactMan = $("input[name='linkPerson']").val();
+	if(contactMan == "" || contactMan == null || contactMan == " "){
+		$('#contactManSpan').show();
+		$('#contactManSpan').text("请输入联系人");
+		flag = false;
+	}
+	return flag;
+}
+
+function checkContactPhone(){
+	var flag=true;
+	var regexp = /^(1[0-9][0-9])\d{8}$/;
+	var contactPhone = $("input[name='contactPhone']").val();
+	if(contactPhone == "" || contactPhone == null || contactPhone == " "){
+		$('#contactPhoneSpan').show();
+		$('#contactPhoneSpan').text("请输入联系电话");
+		flag = false;
+	}
+	return flag;
+}
+function checkLinkTel1(){
+	var flag=true;
+	var regexp = /^(1[0-9][0-9])\d{8}$/;
+	var contactPhone = $("input[name='linkTel']").val();
+	if(contactPhone == "" || contactPhone == null || contactPhone == " "){
+		$('#contactPhoneSpan').show();
+		$('#contactPhoneSpan').text("请输入联系电话");
+		flag = false;
+	}
+	return flag;
+}
+
+//报价验证
+function checkFinalPrice(){
+	var flag=true;
+	var quantity = $("input[name='FinalPrice']").val();
+	if(quantity == "" || quantity == null || quantity == " "){
+		$('#FinalPriceSpan').show();
+		$('#FinalPriceSpan').text("请输入报价");
+		flag = false;
+	}
+	return flag;
+}
+	
+function checkNumber(){
+	var flag=true;
+	var quantity = $("input[name='number']").val();
+	if(quantity == "" || quantity == null || quantity == " "){
+		$('#quantitySpan').show();
+		$('#quantitySpan').text("请输入数量");
+		flag = false;
+	}
+	return flag;
+}
+function checkStoreName(){
+	var flag=true;
+	var storeName = $("input[name='storeName']").val();
+	if(storeName == "" || storeName == null || storeName == " "){
+		$('#storeNameSpan').show();
+		$('#storeNameSpan').text("请输入组织机构名");
+		flag = false;
+	}
+	return flag;
+}
+
+function checkLinkPerson(){
+	var flag=true;
+	var contactMan = $("input[name='linkPerson']").val();
+	if(contactMan == "" || contactMan == null || contactMan == " "){
+		$('#contactManSpan').show();
+		$('#contactManSpan').text("请输入联系人");
+		flag = false;
+	}
+	return flag;
+}
+
+function checkLinkTel(){
+	var flag=true;
+	var regexp = /^(1[0-9][0-9])\d{8}$/;
+	var contactPhone = $("input[name='linkTel']").val();
+	if(contactPhone == "" || contactPhone == null || contactPhone == " "){
+		$('#contactPhoneSpan').show();
+		$('#contactPhoneSpan').text("请输入联系电话");
+		flag = false;
+	}
+	return flag;
+}
+
+</script>
+<div style="display:none;">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255237573'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1255237573' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>

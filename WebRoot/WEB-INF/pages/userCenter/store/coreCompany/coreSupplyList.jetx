@@ -1,0 +1,201 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>供应议价列表</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/comList.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/proList.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/bargainDetail.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/tools.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/supply/css/style.css" />
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/bargainList.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+	<!-- 导入自定义JS -->
+	<script src="${webroot}/resources/userCenter/coreCompany/js/coreSupplyList.js"></script>
+</head>
+
+<body>
+<input type="hidden" id="ctxpath" value="${webroot}" />
+#define(List<com.ekfans.base.order.model.Inquiry> inquiry)
+
+<form action="${webroot}/store/supply/coreSupplyList" method="post" id="searchSupplyProductList">
+	<input type="hidden" name="pageNum" value="" />
+	
+	<div class="formSearch borderColor">
+	  <dl class="formItem">
+	  	<dt>商品名称</dt>
+	    <dd>
+	      <input name="supplyProductName" value="${supplyProductName}" type="text" id="supplyProductName" class="textBox box212" />
+	    </dd>
+	    <dd class="clear"></dd>
+	  </dl>
+	  <dl class="formItem">
+	    <dt>议价状态</dt>
+	    <dd>
+	      <div class="selList">
+	        <span class="textBox">
+	          <input name="status" value="${status}" type="text" class="box184" readonly />
+	          <em class="iconDown"></em>
+	        </span>
+	        <ul>
+	          <li value ="2">已核价</li>
+	          <li value ="1">未核价</li>
+	        </ul>
+	      </div>
+	    </dd>
+	    <dd class="clear"></dd>
+	  </dl>
+	  <div class="clear"></div>
+	</div>
+</form>
+<div class="btnArea">
+	<a href="javascript:searchSubmit();" class="btnBase btnSearch">搜索</a>
+  <a href="javascript:reset();" class="btnBase btnReset">重置</a>
+  <div class="clear"></div>
+</div>
+<div class="formTable borderColor">
+	<ul class="secNav">
+  	<li class="li1">议价列表</li>
+  </ul>
+  <div class="clear"></div>
+  <div style="position:relative;" class="tableBox">
+  <table border="0" cellspacing="0" cellpadding="0" class="tabList">
+  <thead>
+    <tr class="bgColor">
+    	<!--
+    	<th class="tdCheck">
+    		<label class="checkAll">
+    			<span class="check">
+    				<em>
+    					<input name="" value="" type="checkbox" />
+    				</em>
+    			</span>
+    		</label>
+    	</th>
+    	-->
+      <th class="tdInfo">商品名称</th>
+      <th class="tdCount">协议数量</th>
+      <th class="tdCount">协议价格</th>
+      <th class="tdState">议价状态</th>
+      <th class="tdBrand" style="padding-left:0px;padding-right:0px">截止时间</th>
+      <th class="tdEdit">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    #if(inquiry!=null && inquiry.size()>0)
+    	#for(com.ekfans.base.order.model.Inquiry in:inquiry)
+    		<tr>
+	    		<!--
+	    		<td class="tdCheck">
+	    			<label class="checkItem">
+	    				<span class="check">
+	    					<em>
+	    						<input name="" value="" type="checkbox" />
+	    					</em>
+	    				</span>
+	    			</label>
+	    		</td>
+	    		-->
+	    		<td class="tdInfo">
+	          <div class="proOnlyInfo">
+	            <span class="orderText">
+	            	<a href="javascript:void(0)" title="${in.productName}">${in.productName}</a>
+	            </span>
+	           	#if(in.status=="2" ||in.status=="1")
+	            	<span class="nowPrice">核定数量<em>￥${in.sellersNumber}/${in.unit}</em></span>
+	            	<span class="nowPrice">核定价格<em>￥${in.FinalPrice}/${in.unit}</em></span>
+	        		#end
+	          </div>
+	          <div class="clear"></div>
+          </td>
+	    		#if(in.status=="0")
+            <td class="tdCount">${in.number}&nbsp;${in.unit}</td>
+            <td class="tdCount">${in.price}/${in.unit}</td>
+          #elseif(in.status=="1")
+	          <td class="tdCount">${in.sellersNumber}&nbsp;${in.unit}</td>
+	          <td class="tdCount">${in.FinalPrice}/${in.unit}</td>
+	        #elseif(in.status =="2")
+	          <td class="tdCount">${in.sellersNumber}&nbsp;${in.unit}</td>
+	          <td class="tdCount">${in.FinalPrice}/${in.unit}</td>
+	        #else
+	        	<td class="tdCount">${in.number}&nbsp;${in.unit}</td>
+            <td class="tdCount">${in.price}/${in.unit}</td>
+        	#end
+        	<td class="tdState">#if(checkTime=="true") 已过期 #else #if(in.status == "1") 已核价 #elseif(in.status == "0") 待回复#elseif(in.status=="2")已下单 #elseif(in.status =="3") 已关闭  #end #end</td>
+	      	<td class="tdBrand" style="padding-left:0px;padding-right:0px">#if(in.status=="1") ${in.endTime} #elseif(in.status=="2") ${in.endTime} #else暂未确定 #end</td>
+	      	<td class="tdEdit">
+          		#if(in.status =="1" && userId == in.buyersId)
+                	#if(in.checkTime=="true")
+                	  <a href="javascript:void(0);"  class="btnBase btnForbid" title="已过期">已过期</a>
+                	#else
+                	    <a href="javascript:void(0);"  class="btnBase" title="购买" onClick="loadQuery('${in.id}','2');">购买</a>
+                	#end
+                #elseif(in.status =="0" && userId == in.sellersId)
+                	<a href="javascript:void(0);" class="btnBase" title="核价" onClick="loadQuery('${in.id}','2','${userId}');">核价</a>
+                #elseif(in.status=="3")
+                	  <a href="javascript:void(0);"  class="btnBase btnForbid" title="已关闭">已关闭</a>
+                #elseif(in.checkTime=="true")
+                	  <a href="javascript:void(0);"  class="btnBase btnForbid" title="已过期">已过期</a>
+                #elseif(in.status =="2")
+                 <a href="javascript:void(0);"  class="btnBase btnForbid" title="已下单">已下单</a>
+                #else
+                  <a href="javascript:void(0);" class="btnBase" title="查看" onClick="loadQuery('${in.id}','1');">查看</a>
+                #end 
+          </td>
+	    	</tr>
+    	#end
+    #end
+    </tbody>
+	</table>
+	</div>
+	#if(inquiry!=null && inquiry.size()>0)
+		${include("../common/page.jetx")}
+	#else
+		<div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+	#end
+	<div class="clear"></div>
+</div>
+
+<!--议价弹层-->
+<div class="apLayerBg"></div>
+<div class="apLayer apBargain borderColor">
+	<div class="apTit">议价详情<a href="javascript:void(0);" class="apClose"></a></div>
+	    <div class="apContent" id="apContent">
+	    </div>
+</div>
+
+ <!--支持拖动+宽度调节JS-->
+<script src="${webroot}/resources/userCenter/commons/js/jquery-ui-1.9.2.custom.js"></script> 
+<script src="${webroot}/resources/userCenter/commons/js/jquery.dragtable.js"></script> 
+<script src="${webroot}/resources/userCenter/commons/js/jquery-migrate-1.1.1.js"></script> 
+<script src="${webroot}/resources/userCenter/commons/js/jquery.chili-2.2.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/jquery.resizableColumns.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+  $(".tabList").dragtable();
+	$(".tabList").resizableColumns({});
+});
+</script>
+<style type="text/css">
+.tableBox{width:100%;}
+.tabList{width:99%;}
+.tabList th{border-right:solid 1px #e3e3e3;}
+.tabList th:first-child{border-left:0;}
+.tabList th:last-child{border-right:0;}
+.rc-handle-container{position:relative;}
+.rc-handle{position:absolute;width:7px;cursor:ew-resize;*cursor:pointer;margin-left:-3px;}
+/* defaultTable sar-table listext tablesorter*/
+.tabList th.accept {cursor:move;}
+.dragtable-sortable {list-style-type: none; margin: 0; padding: 0; -moz-user-select: none; border:0;}
+.dragtable-sortable li {margin: 0; padding: 0; float: left; font-size: 1em; background:#fff; border:0px solid #F00;;text-align:center;}
+.dragtable-sortable th, .dragtable-sortable td{border-left: 0px #FF0000 solid;}
+.dragtable-sortable li:first-child th, .dragtable-sortable li:first-child td {border-left: 0px solid #CCC; }
+.ui-sortable-helper {opacity: 0.7;filter: alpha(opacity=70);border:0;}
+.ui-sortable-placeholder { -moz-box-shadow: 4px 5px 4px #C6C6C6 inset;-webkit-box-shadow: 4px 5px 4px #C6C6C6 inset;box-shadow: 4px 5px 4px #C6C6C6 inset;border-bottom: 1px solid #CCCCCC;border-top: 1px solid #CCCCCC; visibility: visible !important;background: #EFEFEF !important; visibility: visible !important;}
+.ui-sortable-placeholder * { opacity: 0.0; visibility: hidden; }
+</style>
+<!--支持拖动+宽度调节JS  end--> 
+</body>
+</html>

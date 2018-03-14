@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" >
+	<title>个人登录|${webName}</title>
+	<link rel="icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+	<link rel="shortcut icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/web/webcommon/css/perLogin.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/webcommon/js/login.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/webcommon/js/jquery.JPlaceholder.js.js"></script>
+</head>
+
+<body onkeydown="keyLogin()">
+${include("../../commons/regAndLogin/userTop.jetx")}
+
+<div class="wrapper">
+  <div class="main">
+    <img src="${webroot}/resources/web/webcommon/images/perBg.jpg" width="980" height="472" alt="个人登录" />
+    <div class="loginBg"></div>
+    <form action="${webroot}/web/login/userLoginUtil" method="post" id="userLogin">
+    	<input type="hidden" name="type" value="${ttype}" />
+    	
+	    <div class="loginBox">
+	      <div class="textBox box258 userBox">
+	     		<input name="name" type="text" class="box228" placeholder="用户名" tabIndex="1" onblur="nameBlur()" autocomplete="off"/>
+	      </div>
+	      <div class="boxHeight">
+	      	<div class="errorBox" id="name"></div>
+	      </div>
+	      
+	      <div class="textBox box258 key keyBox">
+	      	<input name="password" type="password" class="box228" placeholder="密码" tabIndex="2" onblur="passwordBlur()" autocomplete="off">
+	      </div>
+	      <a href="${webroot}/web/findpassword/jumpPasswordPage/zero" class="tips" title="忘记密码">忘记密码</a>
+	      <div class="clear"></div>
+	      <div class="boxHeight">
+	      	<div class="errorBox" id="password">请输入密码</div>
+	      </div>
+	  
+	      <div class="textBox box124 code codeBox">
+	      	<input name="yanzheng" type="text" class="box94" placeholder="验证码" tabIndex="3" style="*width:68%;" onblur="yanzhengBlur()" />
+	      </div>
+	      <a href="javascript:huang();" class="codePic" title="验证码">
+	      	<img src="${webroot}/web/security/image" id="yzimg" width="125" height="38" alt="验证码" />
+	      </a>
+	      <a href="javascript:huang();" class="tips" title="换一个">换一个</a>
+	      <div class="clear"></div>
+	      <div class="boxHeight">
+	      	<div class="errorBox" id="yanzheng">请输入验证码</div>
+	      </div>
+	      
+	      <a href="javascript:userLogin();" class="btnLogin">登录</a>
+	      <div class="regBox">还没有个人账号&nbsp;&nbsp;&nbsp;&nbsp;<a href="${webroot}/web/zero/jumpRegPage" class="btnReg">立即注册</a></div>
+	    </div>
+	  </form>
+  </div>
+</div>
+
+${include("../../commons/regAndLogin/bottom.jetx")}
+</body>
+</html>

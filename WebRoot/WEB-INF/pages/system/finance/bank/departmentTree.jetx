@@ -1,0 +1,12 @@
+#define(List<com.ekfans.base.finance.model.BankDepartment> departments)
+
+#for(com.ekfans.base.finance.model.BankDepartment department: departments)
+	<span class="fl_title" id="p${department.id}" onclick="showChilds('${department.id}')">
+		${department.name}
+		<label id="l${department.id}" onclick="showDepartment('${department.id}')">选择</label>
+		<em class="borderLine"></em>
+	</span>
+	<div id="${department.id}" class="fl_in"></div>
+#end
+
+			

@@ -1,0 +1,45 @@
+#define(Map<String, com.ekfans.base.channel.model.ChannelConfig> configMap)
+#define(String configType)
+#define(String position)
+#define(String channelId)
+
+#set(com.ekfans.base.channel.model.ChannelConfig config = configMap.get(configType + position))
+
+#if(configStatus == "true")
+	#include("../../../channel/commons/config/configTitle.jetx",{"channelId":channelId,"configType":configType,"position":position})
+#end
+
+#if(config != null)
+
+				<div class="autoAdvImg">
+          <a href="javascript:void(0);">
+          	#if(config != null && config.configIcon != "" && config.configName != null)
+          	<img src="${webroot + "/" + config.configIcon}" >
+          	#elseif(config != null && config.configName != "" && config.configName != null)
+          	${config.configName}
+          		#else
+         	 <img src="${webroot}/resources/web/gylweb/images/rz_icon2.png" width="51" height="60" alt="全流程在线" title="全流程在线">
+          #end
+          </a>
+        </div>
+        <div class="autoAdvText">
+        	#for(com.ekfans.base.content.model.Content content : config.details)
+					<div class="itemTitle"><a href="${webroot}/03-${content.id}-1.html" title="${content.contentName}">${content.contentName}</a></div>
+					<div class="itemText"><a href="${webroot}/03-${content.id}-1.html" title="${content.contentName}">${content.navigationText}</a></div>
+        #end
+        </div>
+        <div class="clear"></div>
+	
+#end
+<!--
+ <div class="autoAdvImg">
+          <a href="javascript:void(0);">
+         	 <img src="${webroot}/resources/web/gylweb/images/rz_icon1.png" width="51" height="60" alt="全流程在线" title="全流程在线">
+          </a>
+        </div>
+        <div class="autoAdvText">
+					<div class="itemTitle"><a href="javascript:void(0);" title="全流程在线">全流程在线</a></div>
+					<div class="itemText"><a href="javascript:void(0);" title="全流程在线">在线出账、在线质押、在线赎货、在线还款，全流程一站式线上服</a></div>
+        </div>
+        <div class="clear"></div>
+-->

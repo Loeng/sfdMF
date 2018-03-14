@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link href="${ctxpath}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+	<link href="${ctxpath}/resources/system/css/list.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+</head>
+	
+<body>
+
+#define(com.ekfans.base.store.model.AccountBank bank)
+#define(com.ekfans.base.store.model.Store store)
+<input type="hidden" id="ctxpath" value="${webroot}" />
+
+<form action="${webroot}/system/account/check/${bank.id}" name="modify" method="post"  id="modifyBankForm">
+	<input type="hidden" name="id" value="${bank.id}" />
+	<div class="ht_btn">
+		<a href="javaScript:void(0)" class="btn" onclick="formSubmit('1')">审核通过</a>
+		<a href="javaScript:void(0)" class="btn"  onclick="formSubmit('3')">审核不通过</a>
+		<a href="javaScript:void(0)" class="btn"  onclick="goList('${webroot}')">返回列表</a>
+	</div>
+	<div class="add_pro">
+		<dl class="formItem">
+			<dt>组织机构代码</dt>
+			<dd>${store.orgId}</dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem">
+			<dt>企业全称</dt>
+			<dd>${bank!=null?bank.companyName:""}</dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem">
+			<dt>账户名称</dt>
+			<dd>${bank!=null?bank.accountName:""}</dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem">
+			<dt>结算账户</dt>
+			<dd>${bank!=null?bank.accountNo:""}</dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem">
+			<dt>开户银行</dt>
+			<dd>${bank!=null?bank.bankNo:""}</dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem">
+			<dt>开户银行全称</dt>
+			<dd>${bank!=null?bank.bankName:""}</dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem">
+			<dt>联系手机号</dt>
+			<dd>${bank!=null?bank.mobile:""}</dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem">
+			<dt>电话号码</dt>
+			<dd>${bank!=null?bank.telPhone:""}</dd>
+			<dd class="clear"></dd>
+		</dl>
+		
+		<div class="clear"></div>
+		
+		<dl class="formItem formLine">
+			<dt>联系地址</dt>
+			<dd>${bank!=null?bank.address:""}</dd>
+			<dd class="clear"></dd>
+		</dl>
+		
+		<dl class="formItem formLine">
+			<dt>备注</dt>
+			<dd>${bank!=null?bank.note:""}</dd> 
+			<dd class="clear"></dd>
+		</dl>
+			
+		<script>
+			function goList(webroot){
+				location.href=webroot + "/system/account/checklist";
+			}
+			function formSubmit(checkType){
+				location.href="${webroot}/system/account/check/${bank.id}/"+checkType;
+			}
+			
+			if("${checkSuccess}" == "true"){
+				econfirm("审核成功,是否返回列表?",goList,["${webroot}"],null,null);
+				
+			}else if("${checkSuccess}" == "false"){
+				econfirm("审核失败,是否返回列表?",goList,["${webroot}"],null,null);
+			}
+			
+		</script>
+
+</body>
+</html>

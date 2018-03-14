@@ -1,0 +1,159 @@
+
+					#define(com.ekfans.base.product.model.Product product)
+					<input type="hidden" name="id" id="productId" value="${product.id}" />
+					<input type="hidden" class="i_bg" name="mainCategory" id="mainCategoryId"  value="${product.mainCategory}"/>
+					
+					<dl class="afterHt">
+						<dt>商品编号<em class="mustIco"></em></dt>
+						<dd id="idDd">
+							<input type="text" class="i_bg"  name="productNumber" value="${product.productNumber }" onblur="checkIdBlur(this.value);" onkeyup="checkId(this.value,'${webroot}');" onfocus="checkId(this.value,'${webroot}');"/>
+							<span id="idSpan" class="ts_xx">商品编号6-20位字符组成</span>
+						</dd>
+					</dl>
+					<dl>
+						<dt>商品状态<em class="mustIco"></em></dt>
+						<dd>
+							<span class="zt"><label><input type="radio" value="true" name="status" #if(product.status) checked=true #end/>上架</label></span>
+							<span class="zt"><label><input type="radio" value="false" name="status" #if(!product.status) checked=true #end/>下架</label></span>
+						</dd>
+					</dl>
+	    		<div class="clear"></div>
+	    		
+					<dl>
+						<dt>商品名称<em class="mustIco"></em></dt>
+						<dd id="nameDd">
+							<input type="text" class="i_bg"  name="name" value="${product.name }" onblur="javascript:checkNameBlur();" onkeyup="javascript:checkName();" onfocus="javascript:checkName();" />
+							<span id="nameSpan" class="ts_xx">商品名1-20位字符组成</span>
+						</dd>
+					</dl>
+					<dl>
+						<dt>库存量<em class="mustIco"></em></dt>
+						<dd><input type="text" class="i_bg"  name="quantity" id="quantity" value="${product.quantity }"  maxlength="11" /><span></span></dd>
+					</dl>
+					<div class="clear"></div>
+					
+					<dl>
+						<dt>库存预警<em class="mustIco"></em></dt>
+						<dd><input type="text" class="i_bg" name="quantityWarning" id="quantityWarning" value="${product.quantityWarning}"></dd>
+					</dl>
+					<dl>
+						<dt>商城价<em class="mustIco"></em></dt>
+						<dd><input type="text" class="i_bg"  name="unitPrice" id="unitPrice" value="${product.unitPrice}" /></dd>
+					</dl>
+					<div class="clear"></div>
+					
+					<dl>
+						<dt>市场价<em class="mustIco"></em></dt>
+						<dd><input type="text" class="i_bg"  name="listPrice"  value="${product.listPrice}" /></dd>
+					</dl>
+					<dl>
+						<dt>运费</dt>
+						<dd><input type="text" class="i_bg"  name="fare"  value="${product.fare}" onpaste="return false" onblur="javascript:if(this.value==''){this.value=0;}" onkeyup="javascript:clearNoNum(this)"/></dd>
+					</dl>
+					<dl>
+						<dt>商品名缩写</dt>
+						<dd><input type="text" class="i_bg"  name="sortName" value="${product.sortName }" />
+						<span class="ts_xx">请输入商品名缩写</span></dd>
+					</dl>
+	    		<div class="clear"></div>
+	
+					<dl class="linkAlert">
+						<dt>店铺<em class="mustIco"></em></dt>
+						<dd  id="storeIdDd">
+							<input id="storeName" class="i_bg" type="text" readOnly  value="${storeName}"   onblur="javascript:checkStoreIdBlur();" onkeyup="javascript:checkStoreId();" onfocus="javascript:checkStoreId();" />
+							<input type="hidden" name="storeId" id="storeId" value="${product.storeId}" />
+							<!--<span id="storeSpan" class="pp" title="关联店铺菜单" onclick="loadStore();" ></span> -->
+						</dd>
+					</dl>
+					<dl class="linkAlert">
+						<dt>品牌<em class="mustIco"></em></dt>
+						<dd id="brandDd">
+							<input id="brandName" class="i_bg" type="text" readOnly  value="${brandName }"  onblur="javascript:checkBrandBlur();" onkeyup="javascript:checkBrand();" onfocus="javascript:checkBrand();" />
+							<input type="hidden" name="brand" id="brand" value="${product.brand }" />
+							<span id="brandSpan" class="pp" title="关联品牌菜单" onclick="loadBrand();" ></span>
+						</dd>
+					</dl>
+	    		<div class="clear"></div>
+	 
+					#define(com.ekfans.base.product.model.ProductTemplate productTemplate)
+					#if(productTemplate!=null)
+					<dl>
+						<dt>模板<em class="mustIco"></em></dt>
+						<dd>
+							<select name="proTemplate" id="proTemplate" class="i_bg" onchange="loadTempfields(this.value);">
+								<option value="" #if(product.templateId == "") select #end>--请选择--</option>
+								<option value="${productTemplate.id}" #if(product.templateId.equals(productTemplate.id)) selected #end>${productTemplate.name}</option>
+								<option value="1" #if(product.templateId.equals("1")) selected="true" #end>系统默认</option>
+							</select>
+						</dd>
+					</dl>
+					#else
+					<dl>
+						<dt>模板<em class="mustIco"></em></dt>
+						<dd>
+							<select name="proTemplate" id="proTemplate" class="i_bg" onchange="loadTempfields(this.value);">
+								<option value="" #if(product.templateId == "") select #end>--请选择--</option>
+								<option value="1" #if(product.templateId.equals("1")) selected="true" #end>系统默认</option>
+							</select>
+						</dd>
+					</dl>
+					#end
+					<dl class="formBoxLine">
+						<dt>搜索关键字</dt>
+						<dd><textarea name="searchKey">${product.searchKey }</textarea></dd>
+						<dd class="clear"></dd>
+					</dl>
+	    		<div class="clear"></div>
+	    
+			    <!-- 遍历出可选字段的扩展字段和扩展字段的值 -->
+			    <font id="tempFieldsFont"> </font>
+	    
+					<dl class="formBoxLine">
+						<dt>商品图片</dt>
+						<dd>#tag picUpload("picture","1","200","200",product.picture) #end</dd>
+						<dd class="clear"></dd>
+					</dl>
+	    
+					<dl class="formBoxLine">
+						<dt>多角度视图</dt>
+						
+						<dd>
+							<div id="picForClone" style="display:none;">
+								<div class="uploadItem">
+									#tag picUpload("picClone","1","200","200","") #end
+									<a href="javascript:void(0);" id="picClone" class="closeIco"><img src="${webroot}/resources/system/images/del2.jpg" width="16" height="16"></a>
+								</div>
+							</div>
+							#define(List<com.ekfans.base.product.model.ProductPicture> pictureList)
+							#set(String popPicIds = "")
+							#for(com.ekfans.base.product.model.ProductPicture pP : pictureList)
+								<div class="uploadItem">
+									#set(popPicIds = popPicIds + "image"+for.index + ";")
+									#tag picUpload("image"+for.index,"1","200","200",pP.picture) #end
+									#if(for.index >1)<a href="javascript:void(0);" class="closeIco"><img src="${webroot}/resources/system/images/del2.jpg" width="16" height="16"></a>#end
+								</div>
+							#end
+							<a href="javascript:void(0);" class="btnAdd" >增加图片</a>
+							<input type="hidden" name="popPicProperties" id="popPicProperties" value="${popPicIds}"/>
+						</dd>
+						<dd class="clear"></dd>
+					</dl>
+					
+				
+	    
+					<dl class="formBoxLine countBox">
+						<dt>商品备注</dt>
+						<dd><textarea name="note" cols="" rows="" class="bigBox">${product.note}</textarea></dd>
+						<dd class="clear"></dd>
+					</dl>
+	    
+					<dl class="formBoxLine">
+						<dt>商品描述</dt>
+						<dd>
+							<textarea name="description" id="description" class="ckeditor">${product.description}</textarea>
+						</dd>
+						<dd class="clear"></dd>
+					</dl>
+						
+				</div>
+				

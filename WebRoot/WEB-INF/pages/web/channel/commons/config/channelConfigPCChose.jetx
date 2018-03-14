@@ -1,0 +1,87 @@
+#define(List<com.ekfans.base.product.model.ProductCategory> categoryList)
+<div class="apBg"></div>
+<div class="apLayer">
+	<div class="apTit"><h3>选择分类<em><span>&gt;</span>商品分类</em></h3><a href="javascript:void(0)" class="apClose"></a></div>
+	<div class="apContent">
+  	<div class="ht_fl">
+    	<div class="fl_nav">
+				#for(com.ekfans.base.product.model.ProductCategory rootCategory:categoryList)
+					#set(String rootCategoryFullName = rootCategory.name)
+					<span class="fl_title" style="text-align:left;">
+						${rootCategory.name}
+						<label>
+							选择
+							<input type="hidden" id="chosePcId" value="${rootCategory.id}"/>
+							<input type="hidden" id="chosePcName" value="${rootCategoryFullName}"/>
+						</label>
+						<em class="borderLine"></em>
+					</span>
+					#if(rootCategory.childList != null && rootCategory.childList.size()>0)
+						<div class="fl_in">
+							#for(com.ekfans.base.product.model.ProductCategory category1:rootCategory.childList)
+								#set(String categoryFullName = rootCategoryFullName + ">" + category1.name)
+								<span class="fl_title" style="text-align:left;">
+									${category1.name}
+									<label>
+										选择
+										<input type="hidden" id="chosePcId" value="${category1.id}"/>
+										<input type="hidden" id="chosePcName" value="${categoryFullName}"/>
+									</label>
+									<em class="borderLine"></em>
+								</span>
+								#if(category1.childList != null && category1.childList.size()>0)
+									<div class="fl_in">
+										#for(com.ekfans.base.product.model.ProductCategory category2:category1.childList)
+											#set(String categoryFullName2 = categoryFullName + ">" + category2.name)
+											<span class="fl_title" style="text-align:left;">
+												${category2.name}
+												<label>
+													选择
+													<input type="hidden" id="chosePcId" value="${category2.id}"/>
+													<input type="hidden" id="chosePcName" value="${categoryFullName2}"/>
+												</label>
+												<em class="borderLine"></em>
+											</span>
+											#if(category2.childList != null && category2.childList.size()>0)
+												<div class="fl_in">
+													#for(com.ekfans.base.product.model.ProductCategory category3:category2.childList)
+														#set(String categoryFullName3 = categoryFullName2 + ">" + category3.name)
+														<span class="fl_title" style="text-align:left;">
+															${category3.name}
+															<label>
+																选择
+																<input type="hidden" id="chosePcId" value="${category3.id}"/>
+																<input type="hidden" id="chosePcName" value="${categoryFullName3}"/>
+															</label>
+															<em class="borderLine"></em>
+														</span>
+														#if(category3.childList != null && category3.childList.size()>0)
+															<div class="fl_in">
+																#for(com.ekfans.base.product.model.ProductCategory category4:category3.childList)
+																	#set(String categoryFullName4 = categoryFullName3 + ">" + category4.name)
+																	<span class="fl_title" style="text-align:left;">
+																		${category4.name}
+																		<label>
+																			选择
+																			<input type="hidden" id="chosePcId" value="${category4.id}"/>
+																			<input type="hidden" id="chosePcName" value="${categoryFullName4}"/>
+																		</label>
+																		<em class="borderLine"></em>
+																	</span>
+																#end
+															</div>
+														#end
+													#end
+												</div>
+											#end
+										#end
+									</div>
+								#end
+							#end
+						</div>
+					#end
+				#end
+			</div>
+		</div>
+	</div>
+</div>

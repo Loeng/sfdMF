@@ -1,0 +1,94 @@
+#define(List<com.ekfans.base.product.model.Product> products)
+#define(List<com.ekfans.base.product.model.ProductCategory> pList)
+#define(com.ekfans.pub.util.Pager pager)
+<div class="listClass">
+	<input type="hidden" name="pageNum" value="${pager.currentPage}" />
+	<input type="hidden" name="pName" value="${pName}" />
+	<input type="hidden" name="wName" value="${wName}" />
+	<div class="wrapper">
+		<dl class="listItem">
+	    <dt>商品分类</dt>
+	    <dd class="listLink">
+	    	<a href="#" #if(pName==null || pName=="" || pName==" ") class="cur" #end onclick="searchP('')">不限</a>
+	    	#for(com.ekfans.base.product.model.ProductCategory p : pList)
+	    		#if(p.id.equals(pName))
+	    			<a href="#" class="cur" onclick="searchP('${p.id}')">
+	    		#else
+	    			<a href="#" onclick="searchP('${p.id}')">
+	    		#end
+	        ${p.name} </a>
+	      #end  
+	    </dd>
+	    <dd class="listMore"><a href="#" title="更多"></a></dd>
+	  	<dd class="clear"></dd>
+	  </dl>
+    <dl class="listItem">
+	    <dt>仓库</dt>
+	    <dd class="listLink">
+	    	<a href="#" #if(wName==null || wName=="" || wName==" ")class="cur"#end onclick="searchWh('')">不限</a>
+	    	#for(com.ekfans.base.store.model.Warehouse wh : whs)
+	        <a href="#" #if(wh.name.equals(wName))class="cur"#end  onclick="searchWh('${wh.name}')">${wh.name}</a>
+	      #end  
+	    </dd>
+	    <dd class="listMore"><a href="#" title="更多"></a></dd>
+      <dd class="clear"></dd>
+    </dl>
+	</div>
+</div>
+<div class="wrapper">
+	<div class="proList">
+		#if(products==null||products.size()<=0)
+			<table border="0" cellspacing="0" cellpadding="0" class="tbPro">
+				 <tr>   
+	        <th width="20%">商品名</th>
+	        <th width="18%">仓库</th>
+	        <th width="14%">价格</th>
+	        <th width="14%">单位</th>
+	        <th width="18%">&nbsp;</th>
+	      </tr>				
+			</table>
+			<!--没有数据的时候-->
+				<div class="ht_list_k" style="height:30px;line-height:30px;font-size:18px; padding:15px 0px; text-align:center;">暂时没有符合条件的数据</div>	
+		#else
+    	<table border="0" cellspacing="0" cellpadding="0" class="tbPro">
+	      <tr>   
+	        <th width="20%">商品名</th>
+	        <th width="18%">仓库</th>
+	        <th width="14%">价格</th>
+	        <th width="14%">单位</th>
+	        <th width="18%">&nbsp;</th>
+	      </tr>
+				#for(com.ekfans.base.product.model.Product product : products)
+        	<tr>
+            <td>${product.name}</td>
+            <td>${product.wareHouseId != "" ?product.wareHouseId :"暂未分配仓库" }</td>
+            <td class="red">￥${product.pfPrice}</td>         
+            <td>${product.unit}</td>
+            <td>
+            	<a href="#tag shortLink('01',product.id) #end" class="btnOrange" title="查看详情">查看详情</a>
+            </td>
+          </tr>
+      	#end
+      </table>
+			<div class="pageSize">
+				<a href="javascript:void(0);" class="pagePre" onclick="goPage('1');" >&lt;&lt;</a>
+      	#if(pager.currentPage == 1)
+					<a href="javascript:void(0);" class="pagePre">&lt;</a> 
+				#else
+					<a href="javascript:void(0);" onclick="goPage('${pager.currentPage-1 }');"   value="${pager.currentPage-1 }" class="pagePre">&lt;&lt;</a>
+				#end
+      	#for(int i : iterator(1,pager.totalPage))
+      		#if(pager.currentPage==i)
+						<a href="javascript:void(0);" onclick="goPage('${i}');"   value="${i }" class="page cur" >${i }</a>
+					#else
+						<a href="javascript:void(0);" onclick="goPage('${i}');"   value="${i }" class="page">${i }</a>
+					#end
+				#end
+				#if(pager.currentPage==pager.totalPage)
+					<a href="javascript:void(0);" class="pageNext">&gt;</a>
+				#else
+					<a href="javascript:void(0);" onclick="goPage('${pager.currentPage+1 }');"   value="${pager.currentPage+1 }" class="pageNext">&gt;&gt;</a>
+				#end
+				<a href="javascript:void(0);" class="pagePre" onclick="goPage('${pager.totalPage}');" >&gt;&gt;</a>
+      </div>
+		#end

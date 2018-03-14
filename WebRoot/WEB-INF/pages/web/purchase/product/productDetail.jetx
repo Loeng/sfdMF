@@ -1,0 +1,281 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+#define(com.ekfans.base.product.model.Product product)
+<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")} - ${product.name}</title>
+<link rel="icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+<link rel="shortcut icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/gylweb/css/proDetail.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/commons/css/tools.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+
+<!--导入自定义JS-->
+<script src="${webroot}/resources/userCenter/core/js/product/purChase/productList.js"></script>
+</head>
+
+<body>
+	
+	<input type="hidden" id="ctxPath" value="${webroot}"/>
+	#define(List<com.ekfans.base.store.model.Consult> cs)
+	#define(List<com.ekfans.base.product.model.ProductPicture> pps)
+	#define(List<com.ekfans.base.product.model.ProductPrice> prices)
+	#define(com.ekfans.base.user.model.User User)
+	
+	<input type="hidden" id="ctxpath" value="${webroot}" />
+	<input type="hidden" name="ctxpath" id="ctxpath" value="${ctxpath}" />
+	<input type="hidden" name="channelId" id="channelId" value="" />
+	<input type="hidden" name="channelType" id="channelType" value="1" />
+	<input type="hidden" name="configStatus" id="configStatus" value="" />
+	<input type="hidden" name="user" id="user" value="${User != null && User.type=="2" ? User:""}" />
+	<input type="hidden" id="proId" value="${product.id}"/>
+	<!--头部Start-->
+	<div class="header" id="channelTop"></div>
+	<!--头部END-->
+
+	<!--上面的面包屑Start-->
+	<div class="wrapper bread">
+		<a href="${webroot}/${indexChannelId}.html" title="首页" id="indexHtml">大宗采购</a>
+	  <span>${categoryName}</span>
+	</div>
+	<!--上面的面包屑END-->
+	
+	
+	
+	<div class="wrapper upInfo">
+		<!--商品图片-->
+		<dl class="leftPic">
+			<div class="dtPic">
+				<img src="${webroot}${product.centerPicture}" jqimg="${webroot}${product.centerPicture}"  alt="${product.name}" title="${product.name}" >
+			</div>
+			<div class="picBottom">
+				<a href="javascript:void(0)" class="pointLeft"><em></em></a>
+				<div class="picList" id="picList">
+					<ul>
+						<li class="cur"><em class="pointTop"></em><img src="${webroot}${product.smallPicture}" name="${webroot}${product.centerPicture}" data-original="${webroot}${product.bigPicture}" class="liImg cur" width="78" height="78" alt="${product.name}" /></li>
+						#for(com.ekfans.base.product.model.ProductPicture pp : pps)
+							<li>
+								<em class="pointTop"></em>
+								<img src="${webroot}${pp.smallPicture}" name="${webroot}${pp.midPicture}" data-original="${webroot}${pp.bigPicture}" class="liImg" width="78" height="78" alt="${product.name}" />
+							</li>
+						#end
+					</ul>
+				</div>
+				<a href="javascript:void(0)" class="pointRight"><em></em></a>
+			</div>
+		</dl>
+		<!--商品图片 end-->
+		
+		<!--价格信息和选择-->
+		<div class="rightInfo">
+			<h1>${product.name}</h1>
+			<div class="dataInfo">
+				<strong class="priceTitle">采购价</strong>
+				#if(prices != null && prices.size()>0)
+				<ul class="stair">
+					#for(com.ekfans.base.product.model.ProductPrice price:prices)
+						#if(price.startNum <= 0)
+							<li><span>${price.startNum}-${price.endNum}${product.unit}</span><em>¥ ${price.price}/${product.unit}</em>(不包含上限${price.endNum}${product.unit})</li>
+						#elseif(price.endNum <= 0)
+							<li><span>${price.startNum}${product.unit}以上</span><em>¥ ${price.price}/${product.unit}</em></li>
+						#else
+							<li><span>${price.startNum}-${price.endNum}${product.unit}</span><em>¥ ${price.price}/${product.unit}</em>(不包含上限${price.endNum}${product.unit})</li>
+						#end
+					#end
+					<div class="clear"></div>
+				</ul>
+				<div class="clear"></div>
+				#else
+					<!--只有单一批发价时-->
+					<div class="stair"><span class="singular">¥ ${product.pfPrice}/${product.unit}</span></div>
+					<!--只有单一批发价时 end-->
+				#end
+			</div>
+			<!-- 查询最新库存所需隐藏域 -->
+			<input type="hidden" id="info1NameAndValue" >
+			<input type="hidden" id="info2NameAndValue">
+			<input type="hidden" id="info3NameAndValue" >
+			<input type="hidden" id="info4NameAndValue">
+			<input type="hidden" id="detailList" value="${product.infoDetailList != null ? product.infoDetailList.size() : 0}">
+			
+			<dl class="count">
+				<dt>数量</dt>
+				<dd>
+					<div class="buyCount">
+						<a href="javascript:void(0)" class="minus" onclick="subtractCount();">-</a>
+						<input name="" id="pq"  type="text" value="1" onblur="subtractCountOnblur();" onkeypress="return IsNum(event)" onfocus="subtractCountOnfocus();"  maxlength="7">
+						<a href="javascript:void(0)" class="plus" onclick="addCount();">+</a>
+					</div>
+					<!--<span class="inventory">库存 ${proSum } ${product.unit}</span>
+					<span class="errorText errorRed" style="display:none;">
+						<em class="errorBoxL"></em>
+						<em class="errorMain">数量超过库存！</em>
+						<em class="errorBoxR"></em>
+					</span>-->
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			
+				#if(User != null)
+					#if(User.type == "2")
+						<div class="buyBtns">
+							<a href="javascript:void(0)" class="btnOrange btnBuy" onclick="javascript:buyNow();">立即购买</a>
+							<a href="javascript:void(0)" class="btnBlue btnBargain">我要议价</a>
+							<div class="clear"></div>
+						</div>
+					#else
+						<div class="buyBtns btnForbids"><!--如果不能购买，请添加class为btnForbids-->
+							<a href="javascript:void(0)" class="btnOrange btnForbids" alt="您不是采购商，无法购买！"  title="您不是采购商，无法购买！">立即购买</a>
+							<a href="javascript:void(0)" class="btnBlue btnForbids" alt="您不是采购商，无法议价！"  title="您不是采购商，无法议价！">我要议价</a>
+							<div class="clear"></div>
+						</div>
+					#end
+				#else
+					<div class="buyBtns btnForbids"><!--如果不能购买，请添加class为btnForbids-->
+						<a href="javascript:void(0)" class="btnOrange btnForbids" alt="您没有登陆，无法购买！"  title="您没有登陆，无法购买！">立即购买</a>
+						<a href="javascript:void(0)" class="btnBlue btnForbids" alt="您没有登陆，无法议价！"  title="您没有登陆，无法议价！">我要议价</a>
+						<div class="clear"></div>
+					</div>
+				#end
+				<!-- <a href="javascript:void(0)" class="btnSave"><em></em>收藏商品</a> -->
+			</div>
+		</div>
+		<!--价格信息和选择 end-->
+		<div class="clear"></div>
+	</div>
+	#define(List<com.ekfans.base.product.model.Product> psrlist)
+	<div class="wrapper">
+		<!--热销商品-->
+		<div class="others">
+			<h3>热销商品</h3>
+			#for(com.ekfans.base.product.model.Product psr : psrlist)
+				<dl class="proItem">
+					<dt>
+						<a href="#tag shortLink("01",psr.id) #end" class="hotImg"  target="_black"><img src="${webroot}${psr.recommendPicture3}" width="147" height="147" alt="${psr.name}" title="${psr.name}" /></a>
+					</dt>	
+					<dd class="proTitle">
+						<a href="#tag shortLink("01",psr.id) #end" title="${psr.name}"  target="_black">${psr.name}</a>
+					</dd>
+					<dd class="proPrice">
+						<span class="nowPrice"><em>￥${psr.pfPrice}</em> 元</span>
+					</dd>
+				</dl>	
+			#else
+				暂无商品
+			#end
+		</div>
+		<!--热销商品 end-->
+		
+		<div class="main">
+			<div class="tabZone">
+				<ul class="detailTabs tabCheck">
+					<li class="cur"><a href="javascript:void(0)" >商品详情</a><em class="detailPoint"></em></li>
+					<!-- <li><a href="javascript:void(0)" >物流信息</a><em class="detailPoint"></em></li> -->
+				</ul>
+				
+				<!--商品详情-->
+				<div class="checkLayer proDetail">
+					<dl class="parameter">
+						<dd>
+							#for(com.ekfans.base.product.model.ProductInfo proInfo : product.infoList)
+								#if(proInfo.infoType=="0")
+									<li>${proInfo.infoName}: ${proInfo.infoValue}</li>
+								#end
+							#end
+							<div class="clear"></div>
+						</dd>
+					</dl>
+					<div class="shopEdit">${product.description}</div><!--内容编辑就在此层-->
+				</div>
+				<!--商品详情 end-->
+				
+				<!--物流信息--| >
+				<div class="checkLayer proEvaluate">
+					<div class="productItem">物流信息</div>
+				</div>
+				<|  !--物流信息 end-->
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!--页脚-->
+	<div class="bottomSplit"></div>
+	#include("../channel/commons/buttom.jetx")
+	<!--页脚 end-->
+	<div class="apBg"></div>
+	<div class="apLayer apBargain" id="apContent">
+		<div class="apTit">大宗采购-议价<a href="javascript:void(0)" class="apClose" id="apClose"></a></div>
+			<div class="apBargainContent">
+				<div class="apPro">
+					<h1>${product.name}</h1>
+					<div class="dataInfo">
+						<strong class="priceTitle">采购价</strong>
+						#if(prices != null && prices.size()>0)
+							<ul class="stair">
+								#for(com.ekfans.base.product.model.ProductPrice price:prices)
+									#if(price.startNum <= 0)
+										<li><span>${price.startNum}-${price.endNum}${product.unit}</span><em>¥ ${price.price}/${product.unit}</em></li>
+									#elseif(price.endNum <= 0)
+										<li><span>${price.startNum}${product.unit}以上</span><em>¥ ${price.price}/${product.unit}</em></li>
+									#else
+										<li><span>${price.startNum}-${price.endNum}${product.unit}</span><em>¥ ${price.price}/${product.unit}</em></li>
+									#end
+								#end
+								<div class="clear"></div>
+							</ul>
+							<div class="clear"></div>
+						#else
+							<div class="stair"><span class="singular">¥ ${product.pfPrice}/${product.unit}</span></div>
+						#end
+					</div>
+				</div>
+				<!--卖家ID-->
+				<input type="hidden" name="sellersId" value="${product.storeId}"/>
+				<!--商品ID-->
+				<input type="hidden" name="productId" value="${product.id}"/>
+				<div class="apForm">
+					<dl class="formItem">
+						<dt>采购数量</dt>
+						<dd class="formImport"><input id="number" name="number" type="text" class="formBox" onBlur="numberBlur();" onfocus="numberFocus();"></dd>
+						<dd class="formText">单位：${product.unit}</dd>
+						<dd class="clear"></dd>
+					</dl>
+					<dl class="formItem">
+						<dt>商议价格</dt>
+						<dd class="formImport"><input id="price" name="price" type="text" class="formBox" ></dd>
+						<dd class="formText">单位：元/${product.unit}</dd>
+						<dd class="clear"></dd>
+					</dl>
+					<dl class="formItem">
+						<dt>联系人</dt>
+						<dd class="formImport"><input id="linkPerson" name="linkPerson" type="text" class="formBox" ></dd>
+						<dd class="clear"></dd>
+					</dl>
+					<dl class="formItem">
+						<dt>联系电话</dt>
+						<dd class="formImport"><input id="linkTel" name="linkTel" type="text" class="formBox" onBlur="linkTelBlur();"></dd>
+						<dd class="clear"></dd>
+					</dl>
+					<dl class="formItem">
+						<dt>其他留言</dt>
+						<dd class="formImport"><textarea  name="note" cols="" rows=""></textarea></dd>
+						<dd class="clear"></dd>
+					</dl>
+				</div>
+				<div class="bargainBtn">
+					<a href="javascript:void(0)" class="btnOrange" onClick="productSupplySubmit();">提交议价</a>
+					<a href="javascript:void(0)" class="btnBlue">取消</a>
+				</div>
+			</div>
+	</div>
+</body>
+	<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script src="${webroot}/resources/web/webcommon/js/alixixi_com.js"></script>
+	<script src="${webroot}/resources/web/webcommon/js/proDetail.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/gylweb/js/gylCommons.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/gylweb/js/headBase.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/gylweb/js/HJCproDetail.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/gylweb/js/backtop.js"></script>
+</html>

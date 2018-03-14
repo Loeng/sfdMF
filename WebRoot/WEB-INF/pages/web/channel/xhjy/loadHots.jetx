@@ -1,0 +1,166 @@
+#define(List<com.ekfans.base.metal.model.PreciousMetal> topMetals)
+#define(List<com.ekfans.base.metal.model.PreciousMetalCategory> topCategorys)
+
+<script type="text/javascript">
+  function loadHotEhcart(metalId){
+    var oldId = $("#chosedMetalId").val();
+    var oldObj = $("#" + oldId + "TopChose");
+    if(oldObj && oldObj != undefined){
+      $("#" + oldId + "TopChose").removeClass("cur");
+    }
+    var choseObj = $("#" + metalId + "TopChose");
+    if(choseObj && choseObj != undefined){
+      $("#" + metalId + "TopChose").addClass("cur");
+      $("#cMetal").val($("#" + metalId + "TopChose").text());
+    }
+
+    $("#chosedMetalId").val(metalId);
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('chartPicShow'));
+    // 指定图表的配置项和数据
+    myChart.showLoading();
+    var radomId = "dt" + new Date().getTime();
+    $.post('${webroot}/web/metal/hots/jsonload?time='+radomId,{metalId:metalId},function (data){
+      data = JSON.parse(data);
+      console.log(data);
+      var maxValue = parseInt(data[0].value);
+      var minValue = parseInt(data[0].value);
+      	for(i=0;i<data.length;i++){
+      		var currValue = parseInt(data[i].value);
+	      	if(maxValue<currValue){
+	      		maxValue=currValue;
+	      	}
+	      	if(minValue>currValue){
+	      		minValue=currValue;
+	      	}
+	      }
+	      var zone=parseInt(maxValue*0.01);
+	      maxValue=maxValue+zone;
+	      if(minValue-zone>0){
+	      	minValue=minValue-zone;
+	      }
+      myChart.hideLoading();      
+      myChart.showLoading({text: "图表数据正在努力加载..."}); 
+      myChart.setOption(
+        option = {
+          color: ['#f3578a'],
+          tooltip : {
+            trigger: 'axis'
+          },
+          xAxis : [{
+            type : 'category',
+            boundaryGap : false,
+            splitNumber:1,
+            data: data.map(function (item) {
+              return item.date;
+            }),
+            axisLabel:{
+              interval:0
+            }
+          }],
+          grid: {x:60,x2:20,y:10,y2:20},
+          grid: {left: '5%',right: '5%',bottom: '2%',top:'2%',containLabel: true},
+          yAxis : [{
+            type : 'value',
+            scale:false,
+            min: minValue,
+           	max: maxValue,
+           	splitNumber:10,
+            axisLabel: {
+              textStyle: {
+                color: 'red',
+                fontSize: '12'
+              }
+            }
+          }],
+          series : [{
+            name:'当前行情',
+            type:'line',
+            data: data.map(function (item) {
+              return item.value;
+            })
+          }]
+        }
+      );
+
+	  myChart.hideLoading();
+
+      
+    });
+  }
+
+
+function choseCategorys(categoryId,categoryName,typeStr){
+    $("#cMetal").val("品名");
+    $("#cCategory").val(categoryName);
+    $("#chosedCategoryId").val(categoryId);
+    var inHtml = "";
+    if(typeStr == "1"){
+      $.post('${webroot}/web/metal/hots/metalload',{chosedCategory:categoryId},function (data){
+        data = JSON.parse(data);
+        if(data != null && data.length >0){
+          
+          for(i=0;i<data.length;i++){
+            inHtml = inHtml + '<li onclick="javascript:choseMetal(\'' + data[i].id + '\',\'' + data[i].name + '\');" >' + data[i].name + '</li>';
+          }
+        }else{
+          inHtml = '<li>品名</li>';
+        }
+        $("#cMetalUl").html(inHtml);
+      });
+    }
+  }
+
+  function choseMetal(metalId,metalName){
+    $("#cMetal").val(metalName);
+    loadHotEhcart(metalId);
+  }
+</script>
+
+
+
+<h2>热门行情</h2>
+<input type="hidden" name="chosedCategoryId" id="chosedCategoryId" value="${chosedCategoryId}"/>
+<input type="hidden" name="chosedMetalId" id="chosedMetalId" value="${chosedMetal}"/>
+<ul class="classNav">
+  #for(com.ekfans.base.metal.model.PreciousMetal topMetal:topMetals)
+    <li #if(chosedMetal == topMetal.id)class="cur" #end onclick="javascript:loadHotEhcart('${topMetal.id}');" id="${topMetal.id}TopChose">${topMetal.name}</li>
+  #end
+  <div class="clear"></div>
+</ul>
+<div class="classContent" style="display:block;">
+  <div class="chartPic"  style="width:635px;height:322px;" id="chartPicShow"></div>
+  <div class="dataright">
+  	<h3>${dateStr}</h3>
+    <div class="selList"> <span class="textBox" style="width:158px;">
+      <input name="cCategory" id="cCategory" type="text" class="box184" placeholder="品类名称" readonly style="width:158px;">
+      <em class="iconDown readOnly"></em> </span>
+      <ul>
+        #for(com.ekfans.base.metal.model.PreciousMetalCategory category:topCategorys)
+        <li onclick="choseCategorys('${category.id}','${category.name}','1');">${category.name}</li>
+          #if(category.id == chosedCategoryId)
+            <script>
+              choseCategorys('${category.id}','${category.name}','0');
+            </script>
+          #end
+        #end
+      </ul>
+    </div>
+    <div class="selList"> <span class="textBox" style="width:158px;">
+      <input name="cMetal" id="cMetal" type="text" class="box184" placeholder="品目" readonly style="width:158px;">
+      <em class="iconDown readOnly"></em> </span>
+      <ul id="cMetalUl">
+        #for(com.ekfans.base.metal.model.PreciousMetal topMetal:topMetals)
+          <li onclick="javascript:choseMetal('${topMetal.id}','${topMetal.name}');" title="${topMetal.name}">${topMetal.name}</li>
+           #if(chosedMetal == topMetal.id)
+            <script type="text/javascript">
+              choseMetal('${topMetal.id}','${topMetal.name}');
+            </script>
+           #end 
+        #end
+        
+      </ul>
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>

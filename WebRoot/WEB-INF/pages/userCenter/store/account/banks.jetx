@@ -1,0 +1,114 @@
+
+#define(List<Map<String, Object>> banks)
+#define(com.ekfans.pub.util.Pager pager)
+<div class="apTit">
+	<span class="apClose"></span>
+	银行选择
+</div>
+<div class="apContent">
+	<div class="bankSearch">
+		<input type="hidden" name="pageNo" id="pageNo" value="0"/>
+		<dl class="formItem" style="width:35%;float:left;display:inline-block;">
+			<dt>开户行行号</dt>
+			<dd>
+				<input name="searchBankNo" id="searchBankNo" style="width:150px;" type="text" class="textBox box98" value="${searchBankNo != null?searchBankNo:""}">
+			</dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem" style="width:45%;float:left;display:inline-block;">
+			<dt>开户行名称</dt>
+			<dd>
+				<input name="key" id="key" type="text" class="textBox box98" style="width:180px;" value="${key != null?key:""}">
+			</dd>
+			<dd class="clear"></dd>
+		</dl>
+		<div class="btn" style="width:20%;float:right;margin-top:-63px;">
+			<a href="javascript:void(0);" class="btnBase loadBankSearch">搜索</a>
+		</div>
+		<div class="clear"></div>
+	</div>
+	
+	<ul class="bankList">
+		#for(Map<String, Object> bankInfMap:banks)
+			<li class="bankItem" style="height:90px;">
+				<input type="hidden" name="bankInfosId" id="bankInfosId" value="${bankInfMap["BANK_CODE"]}"/>
+				<input type="hidden" name="bankInfosName" id="bankInfosName" value="${bankInfMap["BANK_NAME"]}"/>
+				<span class="bank"><em>银行行号</em>${bankInfMap["BANK_CODE"]}</span>
+				<span class="fullBank"><em>银行全称</em>${bankInfMap["BANK_NAME"]}</span>
+			</li>
+		#else
+			#if(!(searchBankNo != null && searchBankNo != "") || !(key != null && key != ""))
+				<span style="color:red;margin-left:35px;">请输入银行行号或银行名称进行查询！</span>
+			#else
+				<span style="color:red;margin-left:35px;">没有您所需要的银行数据，请联系管理员！</span>
+			#end
+		#end
+		<div class="clear"></div>
+	</ul>
+	
+	<div class="pageSize">
+	 	#if(pager != null)
+	 <!--<a href="javascript:void(0);" onclick="goPage('1');" class="btn pageControl" value="1">&lt;&lt;</a>-->
+		#if(pager.currentPage == 1)
+			<a href="javascript:void(0);" class="btn pageControl">&lt;</a> 
+		#else
+			<a href="javascript:void(0);" class="btn pageControl" onclick="goPage('${pager.currentPage-1 }');"   value="${pager.currentPage-1 }" >&lt;</a>
+		#end
+		<!--
+		#if(pager.totalPage>6)
+			#if(pager.currentPage-2>1 && pager.currentPage+3<pager.totalPage)
+				<a>..</a>
+				#for(int i : iterator(pager.currentPage-1,pager.currentPage+1))
+					#if(pager.currentPage==i)
+						  <a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="btn cur" >${i }</a>
+					#else
+						  <a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="btn" >${i }</a>
+					#end
+				#end
+				<a>..</a>
+				#for(int i : iterator(pager.totalPage-2,pager.totalPage))
+					<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="btn" >${i }</a>
+				#end
+		   #elseif(pager.currentPage-2<=1)
+				#for(int i : iterator(1,3))
+					#if(pager.currentPage==i)
+						<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+					#else
+						<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn" >${i }</a>
+					#end
+				#end
+				<a>..</a>
+				#for(int i : iterator(pager.totalPage-2,pager.totalPage))
+					<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="btn" >${i }</a>
+				#end
+		   #else
+				<a>..</a>
+				#for(int i : iterator(pager.totalPage-5,pager.totalPage))
+					#if(pager.currentPage==i)
+						<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+					#else
+						<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn" >${i }</a>
+					#end
+				#end
+			#end
+		#else
+			#for(int i : iterator(1,pager.totalPage))
+				#if(pager.currentPage==i)
+					<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+				#else
+					<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn" >${i }</a>
+				#end
+			#end
+		#end
+		-->
+		<!--
+		共 ${pager.totalRow}条，${pager.totalPage}页
+		-->
+			<a href="javascript:void(0);" onclick="goPage('${pager.currentPage+1 }');"   value="${pager.currentPage+1 }" class="btn pageControl">&gt;</a>
+		<!--
+		<a  href="javascript:void(0);" onclick="goPage('${pager.totalPage }');"   value="${pager.totalPage }" class="btn pageControl" >&gt;&gt;</a>
+		-->
+		#end
+	</div>
+	
+</div>

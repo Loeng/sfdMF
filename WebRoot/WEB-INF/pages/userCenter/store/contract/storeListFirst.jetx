@@ -1,0 +1,40 @@
+#define(List<com.ekfans.base.store.model.Store> storeList)
+<div class="apTit">
+    	<span class="apClose"></span>
+        选择企业
+    </div>
+    <div class="apContent">
+        <div class="shopSearch">
+            <dl class="formItem">
+                <dt>企业名称</dt>
+                <dd>
+                <input id="searcherStoreName" type="text" class="textBox box212" value="${storeName}">
+                <input type="hidden" id="chosedHtType" value="${htType}"/>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+        </div>
+        <div class="btn">
+            <a onclick="findSrore();" class="btnBase">搜索</a>
+            <a onclick="reset();" class="btnBase">重置</a>
+        </div>
+        <div class="itemLayer">
+            #for(com.ekfans.base.store.model.Store store : storeList)
+            	<div class="classItem">
+            	<label>
+                    <span><em><input id="listStoreId" type="radio" onclick="checkedStoreFirst(this.value);"  value=${store.id}_${store.storeName}></em></span>
+                    ${store.storeName}
+                </label>
+            </div>
+            #else
+             <div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+            #end
+            <div class="clear"></div>
+        </div>
+        <div style="padding-left:20px;">
+           <input type="hidden" name="pageNum" value="${currentpageStr}" />
+                ${include("../common/page.jetx")}
+             <div class="clear"></div>
+        </div>
+    </div>

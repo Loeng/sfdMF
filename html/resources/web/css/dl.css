@@ -1,0 +1,45 @@
+/* CSS Document */
+@import url("base.css");
+
+.linkIndex{background-image:url(../images/icon_index2.png); background-repeat:no-repeat; background-position:11px center; margin-right:0;}
+.nav{height:80px; padding-left:100px; margin-bottom:0;}
+.nav a{display:block; width:120px; height:36px; line-height:36px; font-size:18px; color:#fff; text-align:center; float:left; margin:22px 40px 0 0; border-radius:14px;}
+.nav a:hover,.nav a.cur{background:#fff; color:#0085FD;}
+
+/*中部*/
+.main{width:100%; background-color:#2BB3FB; }
+.main .wrapper{position:relative; width:1200px; margin:0 auto;height:390px;}
+.hide{display:none;}
+.loginBg{position:absolute; width:400px; height:347px; top:96px; }
+.loginBox{position:absolute;width: 330px;height:310px;padding: 20px 27px 20px 43px; top:60px;right:96px; margin-left:-200px; z-index:3;background:#FFFFFF;}
+.loginBox h2{font-size:24px;color:#4B4848;height:32px; line-height:32px;margin-bottom:12px;}
+.bottomColor{ background-color:#0085FD; height:150px;}
+.bgPic{position:absolute; left:70px;top:60px;z-index:2;}
+.bottomPic{position:absolute; left:70px;bottom:-84px;}
+.key{float:left;}
+.errorBox{background:#F9D1D3; text-align:center;font-size:14px;color:#FF0000;width:259px;height:20px;line-height:20px;margin-bottom:2px;visibility:hidden;}
+.tips{color:#009FE9;font-size: 14px;line-height:36px;margin-left:9px;float:left;*width:60px;}
+.boxHeight{min-height:21px;}
+.btnLogin{background:#2BB2FB;color:#FFF;display:inline-block;width:259px;height:38px;line-height:38px;text-align:center;margin:0 auto;font-size:20px;margin-top:3px;}
+.btnLogin:hover{background:#006FD2; color:#fff;}
+.error{visibility:visible;}
+
+.regBox{height:28px;padding-left:39px;font-size:14px;color:#7D7C7D;margin-top:9px;width:259px;}
+.btnReg{border:solid 1px #DCDCDD; background:#fff; color:#000; display:inline-block;width:80px;height:28px;line-height:28px;text-align:center;margin:0 auto;font-size:14px;margin-left:10px;}
+.btnReg:hover{color:#666;}
+
+/*表单*/
+.code{float:left;}
+.codePic{float:left;margin-left:9px;}
+.textBox{display:block; border:solid 1px #EFEFEF; height:36px;}
+.textBox input{height:36px;line-height:36px\9;border:none;display:block;font-size:18px;margin-left:30px;text-indent:0.5em;*height:34px;}
+.box258{width:257px;}
+.box228{width:227px;}
+.box124{width:124px;}
+.box94{width:94px;}
+
+.userBox{background:url(../images/user_icon.jpg) no-repeat; background-position:0px 0px;}
+.keyBox{background:url(../images/key_icon.jpg) no-repeat; background-position:0px 0px;}
+.codeBox{background:url(../images/code_icon.jpg) no-repeat; background-position:0px 0px;}
+.errorBorder{border: 1px solid #F9D1D3;}
+.error{visibility:visible;}

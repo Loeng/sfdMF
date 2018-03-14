@@ -1,0 +1,198 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>合同列表</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+
+</head>
+<body oncontextmenu=self.event.returnValue=false onselectstart="return false">
+	#define(List<com.ekfans.base.wfOrder.model.Contract> contractList)
+    <!--右侧主体-->
+    <div class="rightContent">
+    <form action="${webroot}/store/contractList" method="post" id="contractFormList">
+    	<input name="pageNum" id="pageNum" type="hidden"/>
+    	<!--表单搜索区-->
+      <div class="formSearch borderColor">
+      	<dl class="formItem">
+          <dt>合同名称</dt>
+          <dd><input id="contractName" name="name" type="text" class="textBox box212" value="${contractName}"></dd>
+          <dd class="clear"></dd>
+        </dl>
+         <dl class="formItem">
+        	<dt>起止时间</dt>
+            <dd>
+              <input id="startTime" name="startTime" type="text" class="timeBox box98 textBox" value="${startTime}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+            </dd>
+            <dd class="lineColor">&nbsp;—&nbsp;</dd>
+            <dd>
+              <input id="endTime" name="endTime" type="text" class="timeBox box98 textBox" value="${endTime}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+        #if(viewType != "1")
+        <dl class="formItem">
+          <dt>甲方名称</dt>
+          <dd><input id="firstName" name="firstName" type="text" class="textBox box212" value="${firstName}"></dd>
+          <dd class="clear"></dd>
+        </dl>
+        #end
+        #if(viewType != "0")
+        <dl class="formItem">
+          <dt>乙方名称</dt>
+          <dd><input id="secondName" name="secondName" type="text" class="textBox box212" value="${secondName}"></dd>
+          <dd class="clear"></dd>
+        </dl>
+        #end
+        <dl class="formItem">
+          <dt>合同编号</dt>
+          <dd><input id="contractNo" name="contractNo" type="text" class="textBox box212" value="${contractNo}"></dd>
+          <dd class="clear"></dd>
+        </dl>
+
+        <div class="clear"></div>
+      </div>
+    </form>  
+      <!--表单搜索区end-->
+      <!--表单按钮区-->
+      <div class="btnArea">
+        <a onclick="formsubmit();" style="cursor:pointer" class="btnBase btnSearch">搜索</a>
+        <a onclick="reset();" style="cursor:pointer" class="btnBase btnReset">重置</a>
+        <div class="clear"></div>
+      </div>
+      <!--表单按钮区end-->
+      <!--表单列表区-->
+      <div class="formTable borderColor">
+        <ul class="secNav">
+          <li class="li1">合同信息</li>
+          #if(viewType != "0")
+          	<li><a onclick="addContract('${webroot}');" title="新增" style="cursor:pointer;" class="li3">新增</a></li>
+          #end
+        </ul>
+        <div class="clear"></div>
+        <div style="position:relative;" class="tableBox">
+        <table border="0" cellspacing="0" cellpadding="0" class="tabList">
+        <thead>
+          <tr class="bgColor">
+            <th>合同名称</th>
+            #if(viewType != "1")
+            <th>甲方名称</th>
+            #end
+            #if(viewType != "0")
+            <th>乙方名称</th>
+            #end
+            <th>合同类型</th>
+            <th>合同编号</th>
+            <th>合同有效期</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          #for(com.ekfans.base.wfOrder.model.Contract con : contractList)
+          <tr>
+            <td>${con.name}</td>
+            #if(viewType != "1")
+            <td>${con.firstName}</td>
+            #end
+            #if(viewType != "0")
+            <td>${con.secondName}</td>
+            #end
+            <td>#if(con.type =='0') 危废处置合同 #else 危废运输合同 #end</td>
+            <td>${con.contractNo}</td>
+            <td>${con.startTime}至${con.endTime}</td>
+            <td>
+            	#if(storeId == con.creatorId && con.contractCheckStatus !="1")
+                <a onclick="modify('${webroot}','${con.id}','0')" style="cursor:pointer" class="eyeIco" title="编辑">编辑</a> 
+                <a onclick="deleteContract('${webroot}','${con.id}');" style="cursor:pointer" class="eyeIco" title="删除">删除</a> 
+              #elseif( (storeId == con.secondId ||storeId == con.firstId)  && con.contractCheckStatus !="1")
+                <a onclick="modify('${webroot}','${con.id}','2')" style="cursor:pointer" class="eyeIco" title="审核">审核</a>
+              #else
+                <a onclick="modify('${webroot}','${con.id}','1')" style="cursor:pointer" class="eyeIco" title="查看">查看</a>
+              #end
+              #if((viewType == "0" && con.partyAORpartyB == "1") || (viewType == "1" && con.partyAORpartyB == "0"))
+              	<a onclick="ysContrants('${webroot}','${con.id}','3')" style="cursor:pointer" class="eyeIco" title="关联危废运输合同">关联危废运输合同</a>
+              #end
+              #if(con.contractCheckStatus == "1" && "1" == viewType)
+	              <a onclick="sbOnline('${webroot}','${con.id}','1')" style="cursor:pointer" class="eyeIco" title="在线申报">在线申报</a>
+              #end
+            </td>
+          </tr>   
+         #end
+         </tbody>
+        </table>
+        </div>
+        #if(contractList.size() ==0 || contractList ==  null )
+        	<div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+        #end 
+        #if(contractList !=null)
+        <!--分页-->
+        <div>
+				 <input type="hidden" name="pageNum" value="${currentpageStr}" />
+			      ${include("../common/page.jetx")}
+			   <div class="clear"></div>
+			  </div>
+        <div class="clear"></div>
+        <!--分页end-->
+        #else
+        <!--无记录Box-->
+        <div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+        <!--无记录Box end-->
+        #end
+      </div>
+      <!--表单列表区end-->
+    </div>
+    <!--右侧主体 end-->
+    <div class="clear"></div>
+
+<script>
+	function formsubmit(){
+		$(contractFormList).submit();
+	}
+	//新增按钮
+	function addContract(ctx){
+	 window.location.href=ctx+"/store/skipAddContract/${viewType}";
+	}
+	//删除
+	function deleteContract(ctx,cid){
+	   econfirm('确定删除?',goDelete,[ctx,cid],null,null);	
+	}
+	function goDelete(ctx,cid){
+	  window.location.href=ctx+"/contract/deleteContractById/"+cid;
+	}
+	function reset(){
+		$("#contractName").val("");
+		$("#startTime").val("");
+		$("#endTime").val("");
+		$("#firstName").val("");
+		$("#secondName").val("");
+		$("#contractNo").val("");
+		$("#type").val("");
+	}
+	function modify(ctx,contractId,contractType){
+		window.location.href=ctx + "/store/contract/contractById/" + contractType + "/" + contractId + "/${viewType}";
+	}
+function goPage(pageNum){
+	$("#pageNum").val(pageNum);
+	formsubmit();
+}
+
+function ysContrants(ctx,contractId,contractType){
+	window.location.href=ctx + "/store/contract/contractById/" + contractType + "/" + contractId + "/${viewType}";
+}
+function sbOnline(ctx,contractId,contractType){
+	window.location.href=ctx + "/store/wfpscrap/skipAdd/${viewType}/" + contractId;
+}
+</script>
+<script src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+
+</body>
+</html>

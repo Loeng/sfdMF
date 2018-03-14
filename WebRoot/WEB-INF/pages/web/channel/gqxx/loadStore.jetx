@@ -1,0 +1,42 @@
+	#define(List<com.ekfans.base.store.model.Store> yList)
+	#define(List<com.ekfans.base.store.model.Store> nyList)
+						 <div class="listContent">
+          	<h2>合作企业</h2>
+            <div id="fsD1" class="focus">
+              <div id="D1pic1" class="fPic">
+              	#if(nyList!=null&&nyList.size()>0)
+              		#for(com.ekfans.base.store.model.Store s:nyList)
+              <!--遍历-->
+                <div class="fcon" style="display: none;">
+                  <a href="${webroot}/web/storedetail/${s.id}" target="_black"  class="imgBox"><img  src="${webroot}${s.storeLogo}" /></a>
+                  <span class="shadow"><a href="${webroot}/web/storedetail/${s.id}" target="_black">${s.storeName}</a></span>
+                </div>
+               <!--遍历 end-->
+               	#end
+               #end
+              </div> 
+              <span class="prev"></span>
+              <span class="next"></span>
+            </div>
+          </div>
+          
+          <div class="listContent listContent2">
+          	<h2>合作仓储物流机构</h2>
+            <div id="fsD2" class="focus">
+              <div id="D1pic2" class="fPic">
+              	#if(yList!=null&&yList.size()>0)
+              		#for(com.ekfans.base.store.model.Store s:yList)
+              	<!--遍历-->
+                <div class="fcon" style="display: none;">
+                  <a href="${webroot}/web/storedetail/${s.id}" target="_black"  class="imgBox"><img src="${webroot}${s.storeLogo}"/></a>
+                  <span class="shadow"><a href="${webroot}/web/storedetail/${s.id}" target="_black">${s.storeName}</a></span>
+                </div>
+                <!--遍历 end-->
+                #end
+               #end
+              </div> 
+              <span class="prev"></span>
+              <span class="next"></span>
+            </div>
+          </div>
+          <div class="clear"></div>

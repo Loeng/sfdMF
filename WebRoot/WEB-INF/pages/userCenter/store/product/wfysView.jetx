@@ -1,0 +1,383 @@
+<!doctype html>
+<html>
+<head>
+<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>发布需求</title>
+		<script src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+		<script src="${webroot}/resources/userCenter/personal/js/ckeditor/ckeditor.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+		<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+		<link href="${webroot}/resources/userCenter/commons/css/proAdd.css" rel="stylesheet" type="text/css">
+		<link href="${webroot}/resources/userCenter/commons/css/zizhi1.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+		<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+		<!--导入自定义Js-->
+		<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/product/wftransportAdd.js"></script>
+		<style>
+		.select4 select { width: 100px;}
+		.formItem dt{height:28px;line-height:28px;}
+		.alertBrand{max-height:440px;}
+		.alertBrand .btn{padding-left:110px;}
+		.classItem{width:30%; margin:0 1.5%; float:left; height:50px; line-height:50px; border-bottom:solid 1px #e4e4e4;}
+		.classItem label{display:block;}
+		.classItem input{display:block; float:left; margin:19px 10px 0 8px;}
+		.alertBrand .pageSize{padding:20px 20px 0 0;}
+		
+		.danxuan input,.fuxuan input{float:left; display:block;}
+		span.pp{cursor:pointer; display:block; float:left; width:27px; height:28px; border:1px solid #e0e3ea; margin-left:-1px; position:relative; background:url(http://localhost:8080/sfd/resources/userCenter/commons/images/rightpoint2.png) no-repeat center center;}
+		span.pp:hover{background:url(http://localhost:8080/sfd/resources/userCenter/commons/images/rightpoint.png) #999 no-repeat center center; width:29px; height:30px; border:none;}
+				
+				/**资质选择弹框**/
+		.selectList{width:100%;overflow:hidden;margin:5px 0;}
+		.selectList li{float:left;min-height:130px;width:370px;height:130px;overflow-x:hidden; _overflow-y:scroll;border:1px solid #f6f6f6;}
+		.selectList li a{display:block;height:25px;line-height:25px;padding-left:13px;overflow:hidden;}
+		.selectList li a.cur,.selectList li a:hover{background:#ffedd7}
+		.tabBox{overflow-y:auto;overflow-x:hidden; margin-bottom:5px;}
+		.tableBox{width:100%;}
+		.tabBox .tabList{clear:bouth;width:758px;}
+		.tabBox .tabList th{padding:0px 10px; height:35px;line-height:35px;color:#fff; background-color: #339933;}
+		.tabBox .tabList td{padding:8px 10px; line-height:22px; border-bottom:1px #e5e5e5 solid;color:#7D7C7D; max-width:105px; overflow:hidden; text-align:center;}
+		.tabBox .tabList tr:hover{background:#F3F3F3;}
+		.tabBox .pageSize{margin-bottom:5px;}
+		.bgColor{background:#393;color:#fff;}
+		#mlDiv th{padding:0px 0px; height:35px;font-size:14px;color:#fff; border:1px #DCDCDD solid;}
+		#mlDiv td{padding:8px 10px; line-height:22px; border:1px #DCDCDD solid;color:#7D7C7D; max-width:105px; overflow:hidden; text-align:center;}
+		#mlDiv .tabRight{text-align:right;}
+		#mlDiv .tabLeft{text-align:left;}
+		.formItem  dt{width:100px;}
+		</style>
+</head>
+#define(com.ekfans.base.store.model.Wftransport wftransport)
+<body>
+	<div class="contentTit budong borderColor">
+		<h3>#if(wftransport.type == 0)发布车源#else发布货源#end</h3>
+		
+		#if(show == "edit")
+			<a href="javascript:void(0);" class="btnBase btnSave" onclick="formSubmit();">保存</a>
+		#end
+		<a href="javascript:void(0);" class="btnBase btnCancel" onclick="history.go(-1)">返回列表</a>
+		<div class="clear"></div>
+	</div>
+	<input type="hidden" id="ctxpath" value="${webroot}"/>
+	#if(show == "edit")
+		<form action="${webroot}/store/wftransport/updateWftransport"  method="post"  id="addWftransportForm">
+	#end
+	<input type="hidden" name="type" id="type" value="${wftransport.type}">
+	<input type="hidden" name="id"  value="${wftransport.id}">
+	<input type="hidden" name="checkStatus" id="checkStatus" value="${wftransport.checkStatus}"/>
+	<input type="hidden" name="createTime" value="${wftransport.createTime}"/>
+	<input type="hidden" name="updateTime" value="${wftransport.updateTime}"/>
+	<input type="hidden" name="storeId" value="${wftransport.storeId}"/>
+	<input type="hidden" name="checkTime" value="${wftransport.checkTime}"/>
+	<input type="hidden" name="checkMan" value="${wftransport.checkMan}"/>
+	<input type="hidden" name="checkNote" value="${wftransport.checkNote}"/>
+	<input type="hidden" name="startFullPath"  id="startFullPath" value="${wftransport.startFullPath}"/>
+	<input type="hidden" name="endFullPath" id="endFullPath" value="${wftransport.endFullPath}"/>
+	<input type="hidden" name="storeName" value="${wftransport.storeName}"/>
+	<input type="hidden" id="tankMaterialName" value="${wftransport.tankMaterialName}"/>
+	<div class="form borderColor">
+			<dl class="formItem formLine">
+				<dt><em class="mustIco"></em>#if(wftransport.type == 0)车源标题#else货源标题#end</dt>
+				<dd>
+						<input type="text" class="textBox box212" value="${wftransport.name}" placeholder="请输入#if(wftransport.type == 0)车源标题#else货源标题#end"  name="name"  maxlength="64"/>
+					  	<div class="clear"></div>
+					  <span id="nameSpan" class="errorText" style="display:none;"></span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+		<dl class="formItem">
+				<dt><em class="mustIco"></em>出发地</dt>
+				<dd class="select4">#tag systemAreaSel("startPlace",wftransport.startPlace) #end
+				<span id="startPlaceSpan" class="errorText" style="display:none;"></span>
+				
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			#if(wftransport.type == 0)
+			<dl class="formItem">
+					<dt><em class="mustIco"></em>车身长度</dt>
+					<dd>
+						<input type="text" class="textBox box212 carLength" placeholder="请输入车身长度" value="${wftransport.carLength}" name="carLength"  onblur="javascript:checkCarLength();" maxlength="64"/>
+						<span id="carLengthSpan" class="errorText" style="display:none;"></span>
+					</dd>
+					 <dd>&nbsp;<em class='red unit'>米</em></dd>
+					<dd class="clear"></dd>
+			</dl>
+			#end
+			#if(wftransport.type == 1)
+			<dl class="formItem">
+				<dt>装货地详细地址</dt>
+				<dd><input type="text" name="startHabitatAddress" class="textBox box212" maxlength="128" value="${wftransport.startHabitatAddress}"></dd>
+				<dd class="clear"></dd>
+			</dl>
+			#end
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>目的地</dt>
+				<dd class="select4">#tag systemAreaSel("endPlace",wftransport.endPlace) #end
+				<span id="endPlaceSpan" class="errorText" style="display:none;"></span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			#if(wftransport.type == 1)
+			<dl class="formItem">
+				<dt>卸货地详细地址</dt>
+				<dd><input type="text" name="endHabitatAddress" class="textBox box212" maxlength="128" value="${wftransport.endHabitatAddress}"></dd>
+				<dd class="clear"></dd>
+			</dl>
+			#end
+			#if(wftransport.type == 0)
+			<dl class="formItem">
+					<dt><em class="mustIco"></em>车身宽度</dt>
+					<dd>
+						<input type="text" class="textBox box212 carWidth" placeholder="请输入车身宽度"  name="carWidth" value="${wftransport.carWidth}" onblur="javascript:checkCarWidth();" maxlength="64"/>
+						<span id="carWidthSpan" class="errorText" style="display:none;"></span>
+					</dd>
+					 <dd>&nbsp;<em class='red unit'>米</em></dd>
+					<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem ">
+				<dt>详细地址</dt>
+				<dd><input type="text" name="habitatAddress" class="textBox box212" maxlength="128" value="${wftransport.habitatAddress}"></dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+					<dt><em class="mustIco"></em>车身高度</dt>
+					<dd>
+						<input type="text" class="textBox box212 carHeight" placeholder="请输入车身高度"  name="carHeight" value="${wftransport.carHeight}"  onblur="javascript:checkCarHeight();" maxlength="64" value="${wftransport.carHeight}"/>
+						<span id="carHeightSpan" class="errorText" style="display:none;"></span>
+					</dd>
+					 <dd>&nbsp;<em class='red unit'>米</em></dd>
+					<dd class="clear"></dd>
+			</dl>
+			#end
+			<dl class="formItem formLine">
+				<dt><em class=""></em>运价</dt>
+				<dd>
+					<input type="text" class="textBox box212 price" value="${wftransport.price}" placeholder="请输入运价不填为待议" onblur="javascript:checkprice();"  name="price"  maxlength="16"/>
+  				    <span id="priceSpan" class="errorText" style="display:none;"></span>
+  				 <div class="clear"></div>
+  				 <dd>&nbsp;<em class='red unitPrice'>元/${wftransport.unit}</em></dd>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			#define(List<com.ekfans.base.store.model.Wfpys> wfpys)
+			<input type="hidden" name="wfpysName" id="wfpysName" >
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>经营范围</dt>
+				<dd class="select4">
+					<select name="wfpysParentId" class="wfpysParentId" onchange="showCode(),selectwfpysName();">
+						<option value="">请选择</option>
+						#for(com.ekfans.base.store.model.Wfpys w : wfpys)
+							<option value="${w.id}"#if(w.id == wftransport.wfpysParentId)selected#end>${w.name}</option>
+						#end
+					</select>
+					<select name="wfpysId" id="wfpysId" class="wfpysId" style="display:none;">
+						<option >请选择</option>
+					</select>
+				<span id="wfpysSpan" class="errorText" style="display:none;"></span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem code"  style="display:none">
+				<dt>核准危废类别</dt>
+				<dd>
+					<a href="javascript:loadDirectory();" class="btnXuanze">请选择</a>
+					<input type="hidden" name="wfmlId" id="wfDetails" value="${wftransport != null ? wftransport.wfmlId : ""}"/>
+					<div class="clear"></div>
+				</dd>
+				<div class="clear"></div>
+			</dl>
+			
+			#define(List<com.ekfans.base.store.model.CategoryGoods> categoryGoods)
+			#if(wftransport.type == 1)
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>货物类型</dt>
+				<dd class="select4">
+					<select name="categoryName" class="categoryName" onchange="selectcategoryName();">
+						<option  value="">请选择</option>
+						#for(com.ekfans.base.store.model.CategoryGoods cg : categoryGoods)
+							<option value="${cg.name}" #if(cg.name == wftransport.categoryName)selected#end>${cg.name}</option>
+						#end
+					</select>
+				<span id="categoryNameSpan" class="errorText" style="display:none;"></span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			#end
+			#define(List<com.ekfans.base.store.model.VehicleType> vts)
+			#if(wftransport.type == 0)
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>车辆类型</dt>
+					<dd>
+						<dd class="select4">
+							  <select name="carName" class="carName" onchange="selectcarName();">
+								<option value="">请选择</option>
+								#for(com.ekfans.base.store.model.VehicleType v : vts)
+									<option value="${v.name}" id="${v.id}" #if(v.name == wftransport.carName)selected#end>${v.name}</option>
+								#end
+							</select>
+					<span id="carNameSpan" class="errorText" style="display:none;"></span>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+			    #define(List<com.ekfans.base.store.model.TankMaterial> tms)
+				<dl class="formItem" id="formItemm"  onclick="selecttankMaterialName();">
+					<dt>罐体材质</dt>
+					<dd class="select4">
+						<select name="tankMaterialName" class="tankMaterialName">
+							<option value="">请选择</option>
+						</select>
+					<span id="tankMaterialNameSpan" class="errorText" style="display:none;"></span>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+			#end
+			#if(wftransport.type == 0)
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>车辆载重</dt>
+					<dd>
+						<input type="text" class="textBox box212 wfpTotal" placeholder="请输入车辆载重"  name="wfpTotal" value="${wftransport.wfpTotal}"  onblur="javascript:checkwfpTotalNameBlur();" maxlength="64"/>
+						<span id="wfpTotalSpan" class="errorText" style="display:none;"></span>
+					</dd>
+					<dd>&nbsp;<em class='red unit'>吨</em></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+				<dt><em class="mustIco"></em>车牌号</dt>
+				<dd>
+					<input type="text" class="textBox box212 carNumber" value="${wftransport.carNumber}" placeholder="请输入车牌号"  name="carNumber"  onblur="javascript:checkCarNumber();" maxlength="64"/>
+					  <div class="clear"></div>
+					<span id="carNumberSpan" class="errorText" style="display:none;"></span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			#else
+				
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>货源名称</dt>
+					<dd>
+						<input type="text" class="textBox box212" placeholder="请输入货源名称"  name="supplyName" value="${wftransport.supplyName}"  onblur="javascript:checkcarNameBlur('${type}');" maxlength="64"/>
+						  <div class="clear"></div>
+						<span id="carNameSpan1" class="errorText" style="display:none;"></span>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>货源重量</dt>
+					<dd>
+						<input type="text" class="textBox box212 wfpTotal" placeholder="请输入货源总量"  name="wfpTotal" value="${wftransport.wfpTotal}"  onblur="javascript:checkwfpTotalNameBlur();" maxlength="64"/>
+						<span id="wfpTotalSpan" class="errorText" style="display:none;"></span>
+					</dd>
+					 <dd>&nbsp;<em class='red unit'>吨</em></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>货源体积</dt>
+					<dd>
+						<input type="text" class="textBox box212 cargoVolume" placeholder="请输入货源体积"  name="cargoVolume" value="${wftransport.cargoVolume}"  onblur="javascript:checkCargoVolume();" maxlength="64"/>
+						<span id="cargoVolumeSpan" class="errorText" style="display:none;"></span>
+					</dd>
+					 <dd>&nbsp;<em class='red unit'>立方米</em></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>期望车辆类型</dt>
+					<dd>
+						<dd class="select4">
+							  <select name="carName" class="carName" onchange="selectcarName();">
+								<option value="">请选择</option>
+								#for(com.ekfans.base.store.model.VehicleType v : vts)
+									<option value="${v.name}" id="${v.id}" #if(v.name == wftransport.carName)selected#end>${v.name}</option>
+								#end
+							</select>
+					<span id="carNameSpan" class="errorText" style="display:none;"></span>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+			    #define(List<com.ekfans.base.store.model.TankMaterial> tms)
+				<dl class="formItem" id="formItemm" onclick="selecttankMaterialName();">
+					<dt>期望罐体材质</dt>
+					<dd class="select4">
+						<select name="tankMaterialName" class="tankMaterialName">
+							<option value="">请选择</option>
+						</select>
+					<span id="tankMaterialNameSpan" class="errorText" style="display:none;"></span>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt></em>期望车辆长度</dt>
+					<dd>
+						<input type="text" class="textBox box212 carLength1" placeholder="请输入车辆长度"  name="carLength" value="${wftransport.carLength}"  onblur="javascript:checkCarLength1();" maxlength="64"/>
+						<span id="carLengthSpan1" class="errorText" style="display:none;"></span>
+					</dd>
+					 <dd>&nbsp;<em class='red unit'>米</em></dd>
+					<dd class="clear"></dd>
+				</dl>
+			#end
+		  <dl class="formItem">
+				<dt><em class="mustIco"></em>联系人</dt>
+				<dd>
+					<input type="text" class="textBox box212" placeholder="请输入联系人" value="${wftransport.linkMan}" name="linkMan"  onblur="javascript:checkContentNameBlur();" maxlength="64"/>
+					  <div class="clear"></div>
+					<span id="contactNameSpan" class="errorText" style="display:none;"></span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>联系电话</dt>
+				<dd>
+					<input type="text" class="textBox box212" placeholder="请输入联系方式" value="${wftransport.phone}" name="phone"  onblur="javascript:checkContentPhoneBlur();" maxlength="12"/>
+	  				 <div class="clear"></div>
+	  				<span id="contactPhoneSpan" class="errorText" style="display:none;"></span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			#if(wftransport.type==1)
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>最迟发货时间</dt>
+				<dd>
+					<input name="endTime" type="text" placeholder="请输入截止时间" value="${wftransport.endTime}" class="textBox box212"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" onblur="javascript:checkEndTimeBlur();" maxlength="19">
+					<div class="clear"></div>
+					<span id = "endTimeSpan" class="errorText" style="display:none;"></span>	  				 
+				</dd>						
+				<dd class="clear"></dd>
+			</dl>
+			#end
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>有效时间</dt>
+				<dd>
+					#if(type=="1")
+					<input name="validTime" type="text" placeholder="请输入有效时间" value="${wftransport.validTime}" class="textBox box212 validTime"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" onblur="javascript:checkValidTime();" maxlength="19">
+			        #else
+			        <input name="endTime" type="text" placeholder="请输入有效时间" class="textBox box212 validTime" value="${wftransport.endTime}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" onblur="javascript:checkValidTime();" maxlength="19">
+				    #end
+					<div class="clear"></div>
+					<span id = "validTimeSpan" class="errorText" style="display:none;"></span>	  				 
+				</dd>						
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem formLine">
+				<dt>备注</dt>
+				<dd >
+					<textarea name="content" style="width:545px;" maxlength="200">${wftransport.content}</textarea>
+				</dd> 
+				<dd class="clear"></dd>
+			</dl>
+		
+			<div class="clear"></div>
+			<div id="mlDiv" style="display:none;min-height:100px;margin:2px 0 10px -20px;width:1020px;" ></div>
+		</form>
+	</div>
+	<div class="apLayerBg"></div>
+	<div class="alertBrand" id="showLoads"></div>
+	<div id="Directory" class="apLayer borderColor alertBrand"></div>
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+	 
+</body>
+</html>

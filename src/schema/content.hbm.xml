@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ekfans.base.content.model">
+
+	<!-- 资讯表 -->
+    <class name="Content" table="CONTENT" dynamic-update="false">
+        <id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="assigned" />
+		</id>
+        <property name="contentName" type="string" column="CONTENT_NAME" />
+        <property name="createTime" type="string" column="CREATE_TIME" />
+        <property name="storeId" type="string" column="STORE_ID" />
+        <property name="checkStatus" type="boolean" column="CHECK_STATUS" />
+        <property name="checkTime" type="string" column="CHECK_TIME" />
+        <property name="checkNote" type="string" column="CHECK_NOTE" />
+        <property name="position" type="int" column="POSITION" />
+        <property name="navigationText" type="string" column="NAVIGATION_TEXT" />
+        <property name="navigationImage" type="string" column="NAVIGATION_IMAGE" />
+        <property name="updateTime" type="string" column="UPDATE_TIME" />
+        <property name="keyWords" type="string" column="KEY_WORDS" />
+        <property name="status" type="boolean" column="STATUS" />
+        <property name="description" type="string" column="DESCRIPTION"/>
+        <property name="author" type="string" column="AUTHOR"/>
+        <property name="appPic1" type="string" column="APP_PIC1"/>
+        <property name="appPic2" type="string" column="APP_PIC2"/>
+        <property name="appPic3" type="string" column="APP_PIC3"/>
+        <property name="contentType" type="string" column="C_TYPE"/>
+        <property name="contentLabel" type="string" column="C_LABEL"/>
+    </class>
+    
+    <!-- 内容分类 -->
+    <class name="ContentCategory" table="CONTENT_CATEGORY" dynamic-update="false">
+        <id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="assigned" />
+		</id>
+        <property name="name" type="string" column="NAME" />
+        <property name="parentId" type="string" column="PARENT_ID" />
+        <property name="description" type="string" column="DESCRIPTION" />
+        <property name="type" type="string" column="TYPE" />
+        <property name="position" type="int" column="POSITION" />
+        <property name="icon" type="string" column="ICON" />
+        <property name="fullPath" type="string" column="FULL_PATH" />
+        <property name="status" type="boolean" column="STATUS" />
+        <property name="createTime" type="string" column="CREATE_TIME" />
+        <property name="keyword" type="string" column="KEYWORD" />
+    </class>
+    
+    <!-- 内容和分类关系表 -->
+    <class name="ContentCategoryRel" table="CONTENT_CATEGORY_REL" dynamic-update="false">
+        <id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+        <property name="contentId" type="string" column="CONTENT_ID" />
+        <property name="categoryId" type="string" column="CATEGORY_ID" />
+        <property name="position" type="int" column="POSITION" />
+    </class>
+    
+    <!-- 资讯详细内容 -->
+    <class name="ContentModel" table="CONTENT_MODEL" dynamic-update="false">
+        <id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+        <property name="contentId" type="string" column="CONTENT_ID" />
+        <property name="pageNo" type="int" column="PAGE_NO" />
+        <property name="content" type="string" column="CONTENT" />
+        <property name="createTime" type="string" column="CREATE_TIME" />
+    </class>
+    
+    <!-- 相关内容关系表 -->
+    <class name="ContentRelation" table="CONTENT_RELATION" dynamic-update="false">
+        <id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+        <property name="contentId" type="string" column="content_id" />
+        <property name="relatedId" type="string" column="related_id" />
+    </class>
+    
+    <!-- 资讯频道关系表 -->
+    <class name="ContentRel" table="CONTENT_REL" dynamic-update="false">
+        <id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+        <property name="contentId" type="string" column="CONTENT_ID" />
+        <property name="channelId" type="string" column="CHANNEL_ID" />
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,14 @@
+/* CSS Document */
+
+.userInfo{background:#fff; width:400px; height:120px; float:left; margin-right:7px; padding:15px 10px 15px 14px;}
+.userPhoto{width:118px; height:118px; border:solid 1px #f2f1f1; float:left; margin-right:15px;}
+.userInfo .info{width:265px; float:left;}
+.userName{line-height:24px; max-height:44px; margin-bottom:10px; color:#484848; font-size:18px; overflow:hidden;}
+.yue{line-height:30px; height:30px; font-size:16px;}
+.yue em{color:#f00; padding-left:10px; font-size:20px;}
+.fund{float:left; padding:20px 0 0 30px;}
+.fund li{height:40px; line-height:40px; font-size:16px;}
+.fund li em{font-size:18px;}
+.tabList .red{color:#f00;}
+.tabList .green{color:#2CB118;}
+.formTable{border:none;}

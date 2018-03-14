@@ -1,0 +1,73 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*横排广告*/
+.hengAdv{overflow:hidden; margin:0 auto;}
+.hengAdv li{padding:0 5px; float:left;}
+.hengAdv li img{border:solid 1px #e4e4e4;}
+.hengAp{left:26%; width:auto;}
+.advText{color:#666; display:block; height:28px; line-height:28px; overflow:hidden; text-align:center;}
+
+/*竖排广告*/
+.shuAdv{margin:0 auto; overflow:hidden;}
+.shuAp{height:auto;}
+.shuAdv li{margin:0 auto; text-align:center;}
+.shuAdv li img{border:solid 1px #e4e4e4; height:100%;}
+
+/*单图广告*/
+.danAdv{text-align:center;}
+
+/*图文切换2*/
+
+.changePic2{height:100%; margin:0 auto;}
+.advDownList{width:100%; margin:-1px auto 0 auto;}
+.advDownList dt{border:solid 1px #e4e4e4; cursor:pointer; text-align:center;}
+.advDownList dd{border:solid 1px #e4e4e4; display:none; text-align:center; border-top:none;}
+.advDownList dd img{width:100%; height:100%;}
+
+/*图文切换1*/
+.tl{ text-align:left;}
+.tc{ text-align:center;}
+.tr{ text-align:right;}
+.bc{ margin-left:auto;margin-right:auto;}
+.fl{ float:left; display:inline;}
+.fr{ float:right; display:inline;}
+.vm{ vertical-align:middle;}
+.pr{ position:relative;}
+.pa{ position:absolute;}
+.zoom{ zoom:1;}
+.hidden{ visibility:hidden;}
+.block{ display:block;}
+.inline{ display:inline;}
+.in_b {display:inline-block;}
+.in_b{ *display:inline;}
+.none{ display:none;}  
+.oh{ overflow:hidden;}
+.ov{ overflow:visible;}
+
+.scroll_box{position:relative; margin:0 auto; overflow:hidden;}
+.box_163css{position:relative; overflow:hidden; width:100%; height:100%;}
+.box_163css img{display:block; width:100%; height:100%;}
+.box_163css ul li{float:left; height:100%;}
+.scroll_nav{width:100%; margin-left:-1px; position:absolute; text-align:center; bottom:0;}
+.scroll_nav li{height:30px; overflow:hidden; margin-right:1px; line-height:30px; cursor:pointer; background-color:#000; background:rgba(0,0,0,0.5);filter:alpha(opacity=50); float:left;}
+.scroll_nav li.current{background:rgba(0,0,0,0.9);filter:alpha(opacity=90);}
+.scroll_nav li p{ position:relative; color:#fff;}
+.prev,.next{ cursor:pointer; width:26px; height:51px; top:50%; margin-top:-25px; background:url(../images/btn_banner.png) 0 0 no-repeat;}
+.prev{ left:20px; background-position:0 -52px;}
+.next{ right:20px; background-position:-27px -52px;}
+.next img{ left:-27px;}
+
+/*大小图切换*/
+.img_nav{width:100%; height:14%; text-align:center; bottom:10px;}
+.img_nav li{width:12%; height:100% ; border:solid 2px #ececec; margin:0 3px; display:inline-block; float:none;}
+.img_nav li.current{border-color:#02AFED;}
+
+/*数字切换*/
+.num_nav{width:100%; text-align:right; bottom:10px;}
+.num_nav li{width:20px; height:20px; line-height:20px; text-align:center; background:#eee; margin:0 4px; display:inline-block; float:none;}
+.num_nav li.current{background:#02AFED;}
+
+/*图文*/
+.areaContent{line-height:20px; padding:20px; width:800px;}
+.areaContent img{float:left; margin:0 15px 15px 0;

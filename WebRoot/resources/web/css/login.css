@@ -1,0 +1,70 @@
+/*登录*/
+.nav{position:relative;}
+.secondNav{position:absolute; top:48px; left:0; right:0; z-index:98;display:none}
+
+.header img,.footer img{ display:block;}
+.main{background-color:#F2F2F2; width:100%; overflow:hidden; }
+.main .wrapper{position:relative; background:url(../images/login_bg.png) no-repeat 94px center; height:414px; padding:8% 0;}
+.loginBox{background-color:#fff;width: 400px; height: 414px;margin-left: 724px; }
+.logins{position:relative;padding-top:40px;}
+.logins h2{color:#00000F;font-size: 18px;font-weight:bold;padding-bottom:16px;margin-left: 42px;}
+
+@media screen and (max-height:750px) {
+    .main .wrapper{position:relative; background:url(../images/login_bg_min.png) no-repeat 94px center; height:414px; padding:0.9% 0;}
+}
+
+@media screen and (min-height:750px) and (max-height:850px) {
+    .main .wrapper{position:relative; background:url(../images/login_bg.png) no-repeat 94px center; height:414px; padding:5% 0;}
+}
+
+
+
+
+.inputBoxs{height: 44px;margin-bottom:20px;position:relative;margin-left: 16px;}
+.inputBox{height: 42px;line-height: 42px;border: 1px solid #CBCBCB;text-indent:3em;color:#00000F;font-size:14px;display: block;width:318px;margin-left:28px;}
+.codebox{width:149px; float:left;}
+.codePic{display:block; float:left; margin-left:19px; margin-right:10px;}
+.wordstip{display:block; float:left; font-size:14px; color:#333333; line-height:24px;}
+
+.regLink{ display:inline-block;font-size:14px; color:#A78749;}
+.forgetLink{ display:inline-block;font-size:14px; color:#191919; margin-bottom:40px; margin-left:28px;width:100px; margin-right:141px;}
+.btnlogin{display:block;height: 44px;line-height: 44px;width:320px;background-color:#339933;font-size:14px;color:#fff;margin-left:28px;text-align:center;border:0; margin-top:35px;}
+
+.inputBoxs em{position:absolute; left:31px; top:15px;}
+.username{background:url(../images/usericon.png) no-repeat 6px center; width:23px; height:20px;}
+.userpassword{background:url(../images/passwordicon.png) no-repeat 6px center;width:23px; height:20px;}
+
+.Validform_checktip{position:absolute;left:20px; top:0px;}
+
+input::-webkit-input-placeholder {color:#CCCCCC;}
+input:-moz-placeholder {color:#CCCCCC;}
+input::-moz-placeholder {color:#CCCCCC;}
+input:-ms-input-placeholder {color:#CCCCCC;}
+textarea::-webkit-input-placeholder {color:#CCCCCC;}
+textarea:-moz-placeholder {color:#CCCCCC;}
+textarea::-moz-placeholder {color:#CCCCCC;}
+textarea:-ms-input-placeholder {color:#CCCCCC;}
+
+
+input:-webkit-autofill {-webkit-box-shadow : 0 0 0px 1000px white inset;border : 1px solid #CBCBCB !important;height : 42px !important;line-height : 42px !important;background-color : #FFF;background-image : none;}
+input:focus {-webkit-box-shadow : 0 0 0px 1000px white inset ;border : 1px solid #CBCBCB !important ;height : 42px !important ;line-height : 42px !important ;}
+
+/*==========以下部分是Validform必须的===========*/
+.Validform_checktip{margin-left:8px;line-height:20px;height:20px;overflow:hidden;color:#999;font-size:12px;}
+.Validform_right{color:#71b83d;padding-left:20px;background:url(../images/right.png) no-repeat left center;display:none; font-size:0px;}
+.Validform_wrong{padding-left:32px;white-space:nowrap;background:url(../images/wranicon.png) no-repeat 5px center;border:1px solid #FF0000;background-color:#FFE7E7;color:#191919;font-size:14px;height: 42px;line-height: 42px;width:285px;}
+.Validform_loading{padding-left:20px;background:url(../images/onLoad.gif) no-repeat left center;display:none;}
+.Validform_error{}
+#Validform_msg{color:#7d8289; font: 12px/1.5 tahoma, arial, \5b8b\4f53, sans-serif; width:280px; -webkit-box-shadow:2px 2px 3px #aaa; -moz-box-shadow:2px 2px 3px #aaa; background:#fff; position:absolute; top:0px; right:50px; z-index:99999; display:none;filter: progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color='#999999'); box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);}
+#Validform_msg .iframe{position:absolute; left:0px; top:-1px; z-index:-1;}
+#Validform_msg .Validform_title{line-height:25px; height:25px; text-align:left; font-weight:bold; padding:0 8px; color:#fff; position:relative; background-color:#999;
+background: -moz-linear-gradient(top, #999, #666 100%); background: -webkit-gradient(linear, 0 0, 0 100%, from(#999), to(#666)); filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#999999', endColorstr='#666666');}
+#Validform_msg a.Validform_close:link,#Validform_msg a.Validform_close:visited{line-height:22px; position:absolute; right:8px; top:0px; color:#fff; text-decoration:none;}
+#Validform_msg a.Validform_close:hover{color:#ccc;}
+#Validform_msg .Validform_info{padding:8px;border:1px solid #bbb; border-top:none; text-align:left;}
+
+/*footer*/
+.footer{text-align:center; padding:10px 0 4px 0;}
+.footer a{font-size:14px; height:20px; line-height:20px; color:#fff; display:inline-block;}
+.footer .split{background:#fff; padding:2px 1px; height:0; width:0; margin:0 20px;}
+.footerBottom{background:none; color:#fff;}

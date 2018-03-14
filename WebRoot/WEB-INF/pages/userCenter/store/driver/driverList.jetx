@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>车辆列表</title>
+	<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/userCenter/commons/css/proList.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+</head>
+
+<body>
+	#define(List<com.ekfans.base.store.model.CarUser> userList)
+<form action="${webroot}/store/driver/carUser/list/${userType}" method="post" id="searchCarUser">
+	<div class="formSearch borderColor">
+	<dl class="formItem">
+		<dt>姓名</dt>
+		<dd><input type="text" name="name" id="name" class="textBox box212"></dd>
+	</dl>
+	<dl class="formItem">
+		<dt>手机号</dt>
+		<dd><input type="text" name="mobile" id="mobile" class="textBox box212"></dd>
+	</dl>
+	<dl class="formItem">
+	<dt>审核状态</dt>
+	<dd>
+	<select name="checkStatus" id="checkStatus" class="textBox">
+		<option value="-1">全部</option>	
+		<option value="1">已审核</option>	
+		<option value="0">未审核</option>	
+	</select>
+	</dd>
+	</dl>
+	<div class="clear"></div>
+	<input type="hidden" name="pageNum" value="" />
+	</div>
+	<div class="btnArea">
+		<input type="submit" value="搜索" class="btnBase btnSearch">
+		<input type="button" value="重置" onclick="reset()" class="btnBase btnReset">
+	</div>
+</form>
+ 
+<div class="formTable borderColor">
+		<ul class="secNav">
+			<li><a href="javascript:void(0);" onclick="dels()" title="删除所选"  class="li2">删除所选</a></li>
+			<li><a href="${webroot}/store/transport/caruser/add/${userType}" title="新增"  class="li3">新增</a></li>
+		</ul>
+		<div class="clear"></div>
+		#if(userList != null && userList.size()>0)
+		<div style="position:relative;" class="tableBox">   
+			<table border="0" cellspacing="0" cellpadding="0" class="tabList">
+			<thead>
+				<tr class="bgColor">
+					<th class="tdCheck"><label class="checkAll"><span class="check"><em><input name="checkbox1" type="checkbox" value=true></em></span></label></th>
+					<th class="tdBrand">姓名</th>
+					<th class="tdBrand accept">性别</th>
+					#if(userType=="1")
+					<th class="tdBrand accept">从业资格证号</th>
+					#end
+					<th class="tdBrand accept">手机号</th>
+					<th class="tdState accept">身份证号</th>
+					<th class="tdBrand accept">审核状态</th>
+					<th class="tdBrand accept">创建时间</th>
+					<th class="tdEdit accept">操作</th>
+				</tr>
+				</thead>
+				<tbody>
+				
+				<form action="${webroot}/store/driver/carUser/delCars" id="sub" method="post">
+					#for(com.ekfans.base.store.model.CarUser user : userList)
+					<tr>
+						<td class="tdCheck"><label class="checkItem"><span class="check"><em><input name="carUserIds" type="checkbox" value="${user.id}"></em></span></label></td>
+						<td class="tdBrand">${user.name}</td>
+						<td class="tdBrand">#if(user.sex=="0")女 #else 男 #end</td>
+						#if(user.type=="1")
+						<td class="tdState">${user.licenseNum}</td>
+						#end
+						<td class="tdState">${user.mobile}</td>
+						<td class="tdCount">${user.cardNo}</td>
+						<td class="tdBrand">#if(user.checkStatus=="0")未审核 #elseif(user.checkStatus=="1")已审核 #else 审核失败 #end</td>
+						<td class="tdBrand">${user.createTime}</td>
+						<td class="tdEdit">
+							<a href="${webroot}/store/driver/carUser/getCarUserById?carUserId=${user.id}&seeType=1" class="eyeIco">查看</a> 
+							<a href="${webroot}/store/driver/carUser/getCarUserById?carUserId=${user.id}&seeType=2" class="editIco">修改</a> 
+							<a href="javascript:void(0);" class="deleteItem" id="${user.id}">删除</a>
+						</td>
+					</tr>
+					#end
+					</form>
+				<div class="clear"></div>
+				
+				</tbody>
+			</table>
+			<input type="hidden" name="pageNum" value="${pager }" />
+				
+				${include( "../common/page.jetx")}
+				<script>
+					function goPage(pageNum){
+						$("input[name='pageNum']").val(pageNum);
+						$("#searchCarUser").submit();
+					}	
+				</script>
+			</div>
+			
+			#else
+			<table border="0" cellspacing="0" cellpadding="0" class="tabList">
+			<thead>
+				<tr class="bgColor">
+					<th class="tdCheck"><label class="checkAll"><span class="check"><em><input name="checkbox1" type="checkbox" value=true></em></span></label></th>
+					<th class="tdBrand">姓名</th>
+					<th class="tdBrand accept">性别</th>
+					#if(userType=="1")
+					<th class="tdBrand accept">从业资格证号</th>
+					#end
+					<th class="tdBrand accept">手机号</th>
+					<th class="tdState accept">身份证号</th>
+					<th class="tdBrand accept">审核状态</th>
+					<th class="tdBrand accept">创建时间</th>
+					<th class="tdEdit accept">操作</th>
+				</tr>
+				</thead>
+			</table>
+				<div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+				#end
+			
+			<div class="clear"></div>
+	</div>
+
+	<!--支持拖动+宽度调节JS-->
+<script src="${webroot}/resources/userCenter/commons/js/jquery-ui-1.9.2.custom.js"></script> 
+<script src="${webroot}/resources/userCenter/commons/js/jquery.dragtable.js"></script> 
+<script src="${webroot}/resources/userCenter/commons/js/jquery-migrate-1.1.1.js"></script> 
+<script src="${webroot}/resources/userCenter/commons/js/jquery.chili-2.2.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/jquery.resizableColumns.js"></script>
+<script type="text/javascript">
+	function dels(){
+		econfirm('是否确认删除？',deleteThis,[$("#ctxpath").val()],null,null);
+		function deleteThis(){
+  		$.post('${webroot}/store/driver/carUser/delCars',$("#sub").serialize(),function (data){
+					if(data==1 || data=="1"){
+						salertWithFunction("删除成功!", myupreset, null);
+          }else{
+          	salertWithFunction("失败成功!", myupreset, null);
+          }
+    	});
+    }
+	}
+ $(document).ready(function() {
+ 	/*删除*/
+	$(".deleteItem").live("click",function (){
+			var item_id=$(this).attr("id")
+			var webroot = $("#ctxpath").val();
+	    econfirm('是否确认删除？',deleteThis,[$("#ctxpath").val()],null,null);
+	    function deleteThis(){
+	    	$.post('${webroot}/store/driver/carUser/delCar',{'carUserId':item_id},function (data){
+							if(data==1 || data=="1"){
+								salertWithFunction("删除成功!", myupreset, null);
+              }else{
+              	salertWithFunction("删除失败!", myupreset, null);
+              }
+        });
+			    }
+			});
+ 	});
+ 	function myupreset(){
+ 		location.href="${webroot}/store/driver/carUser/list/${userType}";
+ 		}
+ 	//分页跳转
+	function goPage(pageNum){
+		$("input[name='pageNum']").val(pageNum);
+		$("#searchCarUser").submit();
+	}	
+	function reset(){
+		$("#carNo").val("");
+		$("#checkStatus").val("");
+	}
+ </script>
+</body>
+</html>

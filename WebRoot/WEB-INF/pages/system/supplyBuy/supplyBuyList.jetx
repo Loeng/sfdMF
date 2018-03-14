@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/demand.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/list.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/list.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/supplyBuy/supplyBuyList.js"></script>
+</head>
+
+<body>
+
+#define(List<com.ekfans.base.order.model.SupplyBuy> supplyBuys)
+
+<input type="hidden" id="ctxpath" value="${webroot}" />
+<input type="hidden" id="productType" value="${productType}" />
+<input type="hidden" id="type" value="${type}" />
+
+<form action="${webroot}/system/supplyBuy/list/${productType}/${type}" method="post" id="searchSupplyBuyForm">
+	<input type="hidden" name="pageNum" value="" />	
+
+	<dl class="pro_ss">
+		<dt><b>查询</b><span class="span_down"></span><span class="span_up"></span></dt>
+		<!--
+		<dd class="pro_ss_item">
+			<span>供需类型</span>
+			<span class="zt">
+				<label>
+					<input type="radio" name="type" value="" #if(type==""||type==" "||type==null) checked=true #end/>所有
+				</label>
+			</span>
+			<span class="zt">
+				<label>
+					<input type="radio" name="type" value="0" #if(type=="0") checked=true #end/>供应
+				</label>
+			</span>
+			<span class="zt">
+				<label>
+					<input type="radio" name="type" value="1" #if(type=="1") checked=true #end/>求购
+				</label>
+			</span>
+		</dd>
+		-->
+		<dd class="pro_ss_item">
+			<span>状态</span>
+			<span class="zt">
+				<label>
+					<input type="radio" name="status" value="" #if(status==""||status==" "||status==null) checked=true #end/>所有
+				</label>
+			</span>
+			<span class="zt">
+				<label>
+					<input type="radio" name="status" value="0" #if(status=="0") checked=true #end/>关闭
+				</label>
+			</span>
+			<span class="zt">
+				<label>
+					<input type="radio" name="status" value="1" #if(status=="1") checked=true #end/>正常
+				</label>
+			</span>
+			<span class="zt">
+				<label>
+					<input type="radio" name="status" value="2" #if(status=="2") checked=true #end/>完成
+				</label>
+			</span>
+		</dd>
+		<dd class="pro_ss_item">
+			<span>供需标题</span>
+			<input type="text" class="i_bg" name="title" value="${title}" />
+		</dd>
+		<dd class="pro_ss_item">
+			<span>截止日期</span>
+			<input type="text" class="i_bg" style="width:130px;" name="beginDate" id="beginDate" value="${beginDate}" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'endDate\')}'})" />—
+			<input type="text" class="i_bg" style="width:130px;" name="endDate" id="endDate" value="${endDate}" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'beginDate\')}'})" />
+		</dd>
+		<dd class="clear"></dd>
+	</dl>
+</form>
+<div class="pro_ss_btn">
+	<a href="javascript:searchSubmit();" class="btn">搜索</a>
+	<a href="javascript:resetForm();" class="btn">重置</a>
+</div>
+<div class="pro_ss_btn">
+	<a href="javascript:storeAdd(${tempType});" class="btn">新增</a>
+</div>
+		
+<!--没有数据的时候-->
+#if(supplyBuys==null||supplyBuys.size()<=0)
+	<div class="ht_list_k">暂时没有符合条件的数据</div>	
+#else
+	<!--有数据的时候-->
+	<div class="ht_list">
+		<table id="storeTab" cellpadding="0" cellspacing="0" border="0" >
+			<tr>
+				<th width="4%">全选</th>
+				<th width="4%">序号</th>
+        <th width="16%">供需标题</th>
+        <th width="12%">发布人</th>              
+        <th width="10%">商品类型</th>
+        <th width="13%">供需类型</th>
+        <th width="5%">状态</th>
+        <th width="5%">联系人</th>
+        <th width="9%">联系电话</th>
+        <th width="12%">创建时间</th>
+        <th colspan="10%">操作</th>
+			</tr>
+			#for(com.ekfans.base.order.model.SupplyBuy sb : supplyBuys)
+				<tr id="${sb.id}">
+					<td class="qx"><input type="checkbox" value="${sb.id}"/></td>
+					<td>${for.index}</td>
+				    <td>${sb.title}</td>
+				    <td>${sb.storeName}</td>
+		            <td>#if(sb.productType == "0")成品#elseif(sb.productType == "1")原材料#elseif(sb.productType == "2")危废品#end</td>
+		            <td>#if(sb.type == "0")供应#elseif(sb.type == "1")求购#end </td>
+		            <td>#if(sb.status == "0")关闭#elseif(sb.status == "1")正常#elseif(sb.status == "2")完成#end</td>        
+		            <td>${sb.contactName}</td>
+					<td>${sb.contactPhone}</td>
+          			<td>${sb.createTime}</td>
+				  <td class="cz"><!-- econfirm('确定要删除此企业吗？',checkCompanyIsProject,['${sb.id}','${webroot}'],null,null); -->
+				  	<a href="javascript:void(0);" class="eyeIco" onclick="queryId('${sb.id}');" title="详细" ></a>
+				   	#if(sb.status == "1")<a href="javascript:void(0);" class="editIco" onclick="storeModify('${sb.id}');" title="修改" ></a>#end
+				   	#if(sb.status == "1")<a href="javascript:void(0);" class="del_list" title="删除" onclick="singleDetele('${sb.id}')" ></a>#end
+				  </td>
+			  </tr>
+			#end
+		</table>
+		<div class="ht_pageBox">
+			<div class="ht_page_l">
+				<a href="javascript:selectAll();" class="btn">全选</a>
+				<a href="javascript:checkSelect();" class="btn">删除</a>
+			</div>
+			${include( "../common/page.jetx")}
+		</div>
+	</div>
+#end
+
+
+</body>
+</html>

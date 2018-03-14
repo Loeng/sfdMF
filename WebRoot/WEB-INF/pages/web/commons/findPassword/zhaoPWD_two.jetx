@@ -1,0 +1,117 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>三分地环保-找回密码</title>
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.form.js"></script>
+<script src="${webroot}/resources/commons/js/Validform_v5.3.2_min.js"></script>
+<script src="${webroot}/resources/web/js/base.js"></script>
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/base.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/reg.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<input type="hidden" id="ctxpath" value="${webroot}"/>
+
+<div id="channelTop"></div>
+<!--一极菜单-->
+<!--一极菜单 end-->
+<div class="main">
+	<div class="regHeader">
+    	<em>请重新设置登录密码</em>
+        <a href="${webroot}/web/login" class="loginLink green">返回登录</a>
+    </div>
+    <form class="regform"  action="${webroot}/web/findpassword/updateUserPassword" method="post" id="SubmitTwo">
+    <input type="hidden" name="name" value="${name}" />
+    
+    <div class="regBox">
+        <dl class="regItem">
+        	<dt><em class="mustItem">*</em>新密码：</dt>
+            <dd>
+              <input class="textBox" name="password" type="password" datatype="*6-18" nullmsg="新密码不能为空！" errormsg="新密码格式输入有误！">
+                <div class="Validform_checktip"></div>
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="regItem">
+        	<dt><em class="mustItem">*</em>确认新密码：</dt>
+            <dd>
+            	<input class="textBox" name="password2" type="password" datatype="*" recheck="password" nullmsg="请再次确认新密码！" errormsg="两次密码输入不一致！">
+            	<div class="Validform_checktip"></div>
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+      <div class="clear"></div>
+        <input type="submit" value="确定提交" class="btnGreen btnReg">
+    </div>
+    </form>
+    <div class="clear"></div>
+</div>
+<!--底部-->
+<div id="channelFoot"></div>
+<!--底部 end-->
+<script>
+$(document).ready(function(){
+	//加载头部和尾部
+	$("#channelTop").load($("#ctxpath").val() + "/web/channel/commons/channel-top.jetx",{"channelId":null,"channelType":null,"returnUrl":window.location.href});
+	$("#channelFoot").load($("#ctxpath").val() + "/web/channel/commons/channel-footer.jetx");
+	
+	//实例化验证插件
+	var formStatus=$(".regform").Validform({
+		btnSubmit:".btnReg", 
+		tiptype:3,
+		showAllError:true,
+		callback:function(data){
+			return false;
+		}
+	})
+	
+	$(".btnReg").click(function(){
+//		$(".inputBox").blur();
+		// 验证为true 则提交
+		if(formStatus.check()){
+			pwdtwo();
+		}
+	});
+	
+	$(".Validform_checktip").live("click",function(){
+		$(this).siblings(".textBox").focus();
+		$(this).removeClass("Validform_wrong");
+		$(this).text("");
+	});
+	
+	
+});
+
+// 修改密码
+function pwdtwo(){
+	var type = $("input[name='type']").val();
+	$("#SubmitTwo").ajaxSubmit(function(data){
+		alert(data)
+		// 1:成功，2:用户不存在，3:失败
+		if(data == 1){
+			window.location.href = $("#ctxpath").val() + "/web/findpassword/jumpPasswordPageThree?mark=" + data;
+		}else{
+			errorMsg(data);
+		}
+	});
+}
+
+function errorMsg(data){
+	if(data == 2){
+		$("input[name='password']").addClass("Validform_error");
+		$("input[name='password']").next(".Validform_checktip").addClass("Validform_wrong").show();
+		$("input[name='password']").next(".Validform_checktip").text("用户名不存在!");
+	}else if(data == 3){
+		$("input[name='password']").addClass("Validform_error");
+		$("input[name='password']").next(".Validform_checktip").addClass("Validform_wrong").show();
+		$("input[name='password']").next(".Validform_checktip").text("修改失败!");	
+	}
+}
+</script>
+</body>
+</html>

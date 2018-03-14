@@ -1,0 +1,80 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>三分地环保-企业登录</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" >
+<meta name="keywords" content="三分地环保" />
+<meta name="description" content="三分地环保" />
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/commons/js/Validform_v5.3.2_ncr_min.js"></script>
+<script src="${webroot}/resources/commons/js/html5.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.form.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.JPlaceholder.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.md5.js"></script>
+<script src="${webroot}/resources/web/js/login.js"></script>
+<script src="${webroot}/resources/web/js/base.js"></script>
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/base.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/login.css" rel="stylesheet" type="text/css">
+</head>
+
+<body onkeydown="keyLogin();">
+<!--头部-->
+${include("../../channel/commons/channel-top.jetx")}
+<div class="main">
+<input type="hidden" id="ctxpath" value="${webroot}" />
+	<div class="wrapper">
+  	<div class="loginBox">
+    	<form class="loginform"  action="${webroot}/web/login/userLoginUtil" method="post">
+        <div class="logins">
+          <h2>三分地账号登录</h2>
+        </div>
+        <div class="inputBoxs">
+          <em class="username"></em>
+          <input type="text" class="inputBox" name="name" id="name" value=""  autocomplete="off" maxlength="11" placeholder="手机号码" datatype="m" nullmsg="请输入手机号！" errormsg="手机号格式错误！" required tabindex="1" title="用户名">
+          <div class="Validform_checktip"></div>
+        </div>
+        <div class="inputBoxs">
+          <em class="userpassword"></em>
+          <input type="password" class="inputBox" name="password" id="password" value="" maxlength="16" autocomplete="off" placeholder="密码" datatype="*6-16" nullmsg="密码不能为空！" errormsg="密码最少为6位！" required tabindex="2"  title="密码">
+          <div class="Validform_checktip"></div>
+        </div>
+        
+        <div class="inputBoxs">
+          <input type="text" class="inputBox codebox" name="code" name="code" id="code" value="" maxlength="4" autocomplete="off" placeholder="验证码" datatype="*4-4" nullmsg="验证码不能为空！" errormsg="验证码最少为4位！" required tabindex="3"  title="验证码">
+          <div class="Validform_checktip" style="width:116px;"></div>
+          <a href="javascript:void(0);" class="codePic"><img src="${webroot}/web/security/image" id="yzimg" width="149" height="44"></a>
+        </div>
+        
+        <div class="inputBoxs">
+         <a href="javascript:void(0);" class="btnlogin" tabindex="4" >立即登录</a>
+        </div>
+        <div class="inputBoxs">
+          <a href="${webroot}/web/findpassword/jumpPasswordPage" class="forgetLink">忘记登录密码</a>
+          <a href="${webroot}/web/jumpRegPage" class="regLink">注册新用户</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!--底部-->
+<div class="footer">
+    <div class="wrapper">
+        <a href="${webroot}/web/help/00000063?cid=00000026">新手指导</a>
+        <span class="split"></span>
+        <a href="${webroot}/web/help/00000065?cid=00000026">服务与支持</a>
+        <span class="split"></span>
+        <a href="${webroot}/web/help/00000068?cid=00000026">安全保障</a>
+        <span class="split"></span>
+        <a href="${webroot}/web/help/00000073?cid=00000026">关于我们</a>
+        <div class="clear"></div>
+        <div class="footerBottom">© 2015 湖南三分地环保信息科技有限公司 蜀ICP备14005736号-5</div>
+    </div>
+</div>
+<!--底部 end-->
+</body>
+</html>

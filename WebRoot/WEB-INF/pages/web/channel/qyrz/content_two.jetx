@@ -1,0 +1,6 @@
+#define(List<com.ekfans.base.store.model.Store> storelist)
+<ul class="#if(type == '3')tjList #else jmList #end">
+	#for(com.ekfans.base.store.model.Store store:storelist)
+		<li><a href="${webroot}/web/storedetail/${store.id}" target="_blank">${store.storeName}</a>#if(type == '3')<em>荐</em>#end</li>
+	#end
+</ul>

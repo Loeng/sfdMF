@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+    	<title>新增广告</title>
+    	<link href="${ctxpath}/resources/system/css/user/ad/advAdd.css" rel="stylesheet" type="text/css" />
+			<link href="${ctxpath}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+    	<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery-1.8.3.min.js"></script>
+			<script type="text/javascript" src="${ctxpath}/resources/system/js/tools.js"></script>
+			<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.soChange.js"></script>
+			<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.json-2.2.min.js"></script>
+			<script type="text/javascript" src="${ctxpath}/resources/commons/js/ajaxupload.js"></script>
+			<script type="text/javascript" src="${ctxpath}/resources/commons/js/upload/upload.js"></script>
+			<script type="text/javascript" src="${ctxpath}/resources/system/js/base.js"></script>
+			<script type="text/javascript" src="${ctxpath}/resources/system/js/user/ad/wlbAdAdd.js"></script>
+			<script type="text/javascript" src="${ctxpath}/resources/plugin/ckeditor/ckeditor.js"></script>
+			<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.colorpicker.js"></script>
+    </head>
+    <body>
+    	<input type="hidden" id="ok" value="${requestScope.addOk}" />
+			<input type="hidden" id="ctxpath" value="${ctxpath}" />
+			<form action="${ctxpath}/system/advert/save" name="add" method="post"  id="addAdForm">
+				<div class="ht_btn">
+					<a href="#" class="btn" onclick="formSubmit();">保存</a>
+					<a href="#" class="btn" onclick="reset();">重置</a>
+					<a href="#" class="btn" onclick="goBack('${ctxpath}');">返回列表</a>
+				</div>
+				<div class="add_pro">
+					<dl>
+			        <dt><em class="mustIco"></em>广告类型</dt>
+			        <dd>
+			            <select name="type" id="typeSelect" class="i_bg advStyleCheck" onchange="typeLoad(this.value,'${ctxpath}');" >
+			            		<option class="normalStyle" value="" >请选择</option>
+			                <option class="normalStyle" value="0" >普通</option>
+			                <option class="changeStyle" value="1" >切换</option>
+			                <option class="diyStyle" value="2" >自定义</option>
+			                <option class="fontStyle" value="3" >文字</option>
+			            </select>
+			        </dd>    
+			    </dl>
+			    
+			    <!--选择类型load用的div-->
+			    <div id="typeLoad"></div>
+			    
+			</div>
+		</form>
+		</body>
+</html>

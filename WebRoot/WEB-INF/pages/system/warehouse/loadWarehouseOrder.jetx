@@ -1,0 +1,24 @@
+#define(com.ekfans.base.store.model.WarehouseOrder who)
+#if(who != null)
+				<dl class="formBox">
+					<dt>商品</dt>
+					<dd>
+						<input type="text" class="i_bg"   maxlength="11" value="${who.productName}"/>
+					</dd>
+				</dl>
+					<input type="hidden" name="productId"  id="productId" value="${who.productId}"/>
+				<dl class="formBox">
+					<dt>仓库</dt>
+					<dd>
+						<input type="text" class="i_bg" maxlength="11" value="${who.wareHouseName}"/>
+					</dd>
+				</dl>
+				<input type="hidden" name="warehouseId"  value="${who.warehouseId}"/>
+				<dl class="formBox">
+					<dt>商品数量</dt>
+					<dd>
+						<input type="text" class="i_bg"  name="number"   maxlength="11" value="${who.number}"/>
+					</dd>
+			</dl>
+			<input type="hidden" name="id"  id="id" value="${who.id}"/>
+#end

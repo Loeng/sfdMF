@@ -1,0 +1,53 @@
+#define(com.ekfans.base.system.model.Manager manager)
+<div class="tit" id="title">
+	<em class="apNum">管理员信息</em>
+	<span class="apClose" onclick="eyeClose();" ><img src="${webroot}/resources/system/images/del3.jpg" ></span>
+</div>
+<div class="previewContent">
+	<dl class="infoLine">
+  	<dt>管理员名：</dt>
+    <dd class="infoRight">${manager.name}</dd>
+    <dd class="clear"></dd>
+  </dl>
+  <dl class="infoLine">
+  	<dt>角色：</dt>
+    <dd class="infoRight">${manager.name}</dd>
+    <dd class="clear"></dd>
+  </dl>
+  <dl class="infoLine">
+  	<dt>状态：</dt>
+    <dd class="infoRight">#if(manager.status) 启用 #else 停用 #end</dd>
+    <dd class="clear"></dd>
+  </dl>
+  <dl class="infoLine">
+  	<dt>手机号：</dt>
+    <dd class="infoRight">${manager.mobile}</dd>
+    <dd class="clear"></dd>
+  </dl>
+  <dl class="infoLine">
+  	<dt>email：</dt>
+    <dd class="infoRight">${manager.email}</dd>
+    <dd class="clear"></dd>
+  </dl>
+  <dl class="infoLine">
+  	<dt>真实姓名：</dt>
+    <dd class="infoRight">${manager.realName}</dd>
+    <dd class="clear"></dd>
+  </dl>
+  <dl class="infoLine">
+  	<dt>角色名称：</dt>
+    <dd class="infoRight">${manager.roleName}</dd>
+    <dd class="clear"></dd>
+  </dl>
+  <dl class="infoLine">
+  	<dt>创建时间：</dt>
+    <dd class="infoRight">${manager.createTime}</dd>
+    <dd class="clear"></dd>
+  </dl>
+  <dl class="infoLine">
+  	<dt>修改时间：</dt>
+    <dd class="infoRight">${manager.updateTime}</dd>
+    <dd class="clear"></dd>
+  </dl>
+</div>
+

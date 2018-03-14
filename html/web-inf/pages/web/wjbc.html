@@ -1,0 +1,314 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>微晶板材</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<link rel="shortcut icon" href="../../../resources/commons/images/favicon.ico" type="image/x-icon">
+<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+<link href="../../../resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/web/css/base.css" rel="stylesheet" type="text/css">
+<style>
+.bread{height:38px; line-height:38px; background:#FCF4E5; font-size:14px; color:#A78749;}
+.banner{height:350px; overflow:hidden; margin-bottom:10px;}
+.leftLinks{width:200px; background:#fff; float:left;}
+.leftLinks h2{height:38px; line-height:38px; background:#B09C6F; font-size:16px; color:#fff; padding-left:16px;}
+.leftLinks li{height:38px; line-height:38px; padding:0 2px; font-size:16px;}
+.leftLinks li em{display:block; width:6px; height:6px; border:solid 1px #9C8759; border-radius:4px; float:left; margin:15px 10px 0 0;}
+.leftLinks a{display:block; height:38px; padding-left:16px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+.leftLinks a:hover,.leftLinks li.cur a{background:#FBF1DA;}
+.leftLinks li.cur em{background:#9C8759; border:none; width:8px; height:8px;}
+
+.rightContent{width:978px; float:right;}
+.proItem{padding:15px; margin-bottom:4px; background:#fff;}
+.proImg{width:180px; height:180px; float:left; margin-right:22px;}
+.proImg img{border:solid 5px #e4e4e4;}
+.proText{width:400px; height:180px; float:left; padding-right:23px; border-right:solid 1px #dcdcdd;}
+.proText dt{height:30px; line-height:30px; font-size:22px; width:400px; overflow:hidden;}
+.proInfo1{height:34px; line-height:34px; color:#484848; font-size:18px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:28px;}
+.proInfo2{height:26px; line-height:26px; color:#676767; font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:28px;}
+.proInfo3{height:24px; line-height:24px; color:#484848; font-size:16px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.danjia{width:152px; padding:64px 10px 0 10px; height:116px; text-align:center; border-right:solid 1px #dcdcdd; float:left;}
+.danjia em{display:inline-block; background:#EF4D4D; color:#fff; min-height:30px; line-height:30px; font-size:22px; padding:0 10px 4px 10px;}
+.danjia em sup{font-size:12px;}
+.proRight{float:left; padding:48px 0 0 31px;}
+.proRight a{display:block; width:100px; height:36px; line-height:36px; color:#fff; font-size:18px; text-align:center; border-radius:6px;}
+.btnRed{background:#EF4D4D; margin-bottom:12px;}
+.btnRed:hover{background:#EC2828; color:#fff;}
+.btnBlue{background:#4595F9;}
+.btnBlue:hover{background:#0A75F8; color:#fff;}
+
+/*页码*/
+.pageSize{text-align:center; padding:10px 0; background:#D3D3D3;}
+.pageSize a{display:inline-block; height:21px; line-height:21px; margin-right:8px; padding:0 8px; color:#12369b;}
+.pageLast,.pageNext{font-family:SimSun;}
+.pageSize a:hover,.pageSize .nowPage{background:#4594f9; color:#fff;}
+/*无记录*/
+.alterbox{margin:10px auto;background-color:#FDEAAF;width:248px;height:33px; display:block;}
+.alterbox .warn{background:url(../images/icon_warn.png) no-repeat left center; padding-left:23px; margin-left:75px;}
+.alterbox .warn span{line-height:33px;color:#4B4848;font-size:12px;}
+
+</style>
+</head>
+
+<body>
+<div class="wrapper topArea">
+	<h1 class="logo">
+    	<a href="index.html" title="鑫裕环保供应链平台"><img src="../../../resources/commons/images/logo.png" alt="鑫裕环保供应链平台"></a>
+    </h1>
+    <div class="topRight">
+    	<a href="index.html" class="linkIndex">首页</a>
+        <dl class="downList">
+        	<dt><a href="javascript:void(0)" class="linkLogin">登录</a></dt>
+            <dd>
+            	<div class="apBack">
+                  <em class="topPoint"></em>
+                  <div class="apLoadCont">
+                    <a href="cgsdl.html" class="btnLoad dlcg btnCart">采购商入口</a>
+                    <a href="gysdl.html" class="btnLoad dlgy btnRk">供应商入口</a>
+                    <a href="hxqydl.html" class="btnLoad dlhx btnhx">核心企业入口</a>
+                  </div>
+                </div>
+            </dd>
+        </dl>
+        <dl class="downList">
+        	<dt><a href="javascript:void(0)" class="linkReg">注册</a></dt>
+            <dd>
+                <div class="apBack2">
+                    <em class="topPoint2"></em>
+                    <div class="apRegCont">
+                      <a href="cgszc1.html" class="btnEnter zccg btnCart">采购商入口</a>
+                      <a href="gyszc1.html" class="btnEnter zcgy btnRk">供应商入口</a>
+                    </div>
+                </div>
+            </dd>
+        </dl>
+        <em class="split"></em>
+        <span class="telPhone">4000-888-1000</span>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="nav">
+	<div class="wrapper">
+    	<dl class="navItem">
+        	<dt>现货交易</dt>
+            <dd>
+            	<a href="gqxx.html">供求信息</a>
+                <a href="gjs.html">贵金属</a>
+                <a href="ylcg.html">原料采购</a>
+                <a href="wjbc.html" class="cur">微晶板材</a>
+            </dd>
+        </dl>
+        <dl class="navItem">
+        	<dt>危废处置</dt>
+            <dd>
+            	<a href="wxpcs.html">危险品产生</a>
+                <a href="wxpys.html">危险品运输</a>
+                <a href="wxpcz.html">危险品处置</a>
+                <a href="zcfg.html">政策法规</a>
+            </dd>
+        </dl>
+        <dl class="navItem" style="margin-right:0;">
+        	<dt>网络金融</dt>
+            <dd>
+            	<a href="qyrz.html">企业认证</a>
+                <a href="wlrz.html">网络融资</a>
+                <a href="javascript:void(0)">融资指引</a>
+                <a href="javascript:void(0)">建行专区</a>
+            </dd>
+        </dl>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="bread">
+	<div class="wrapper"><a href="javascript:void(0);">首页</a>&nbsp;&gt;&nbsp;微晶板材</div>
+</div>
+<div class="wrapper">
+	<div class="autoAdv banner">
+    	<div class="autoAdvImg"><img src="../../../resources/web/pic/banner_wjbc.jpg" width="1200" height="350" alt="微晶板材"></div>
+    </div>
+    <div class="leftLinks budong">
+    	<h2>微晶石系列</h2>
+        <ul>
+        	<li><a href="javascript:void(0)"><em></em>微晶板材分类项</a></li>
+            <li class="cur"><a href="javascript:void(0)"><em></em>微晶板材分类项</a></li>
+            <li><a href="javascript:void(0)"><em></em>微晶板材分类项</a></li>
+            <li><a href="javascript:void(0)"><em></em>微晶板材分类项</a></li>
+            <li><a href="javascript:void(0)"><em></em>微晶板材分类项</a></li>
+            <li><a href="javascript:void(0)"><em></em>微晶板材分类项</a></li>
+            <li><a href="javascript:void(0)"><em></em>微晶板材分类项</a></li>
+        </ul>
+    </div>
+    <div class="rightContent">
+        <div class="proItem">
+            <div class="proImg"><img src="../../../resources/web/pic/bancai_1.jpg" alt="微晶板材" title="微晶板材"></div>
+            <dl class="proText">
+                <dt>水晶绿微晶石 人造石 外墙装饰板材</dt>
+                <dd class="proInfo1">型号：3D1101T&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;产地：湖南永兴</dd>
+                <dd class="proInfo2">比重:2.73 | 抗压强度:500 | 抗弯强度:600 | 材质:微晶玉石</dd>
+                <dd class="proInfo3">湖南永鑫环保科技有限公司&nbsp;&nbsp;&nbsp;&nbsp;0735-2131858</dd>
+            </dl>
+            <div class="danjia">
+                <em>275元/m<sup>2</sup></em>
+            </div>
+            <div class="proRight">
+                <a href="javascript:void(0);" class="btnRed">下单</a>
+                <a href="javascript:void(0);" class="btnBlue">详情</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="proItem">
+            <div class="proImg"><img src="../../../resources/web/pic/bancai_2.jpg" alt="微晶板材" title="微晶板材"></div>
+            <dl class="proText">
+                <dt>水晶绿微晶石 人造石 外墙装饰板材</dt>
+                <dd class="proInfo1">型号：3D1101T&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;产地：湖南永兴</dd>
+                <dd class="proInfo2">比重:2.73 | 抗压强度:500 | 抗弯强度:600 | 材质:微晶玉石</dd>
+                <dd class="proInfo3">湖南永鑫环保科技有限公司&nbsp;&nbsp;&nbsp;&nbsp;0735-2131858</dd>
+            </dl>
+            <div class="danjia">
+                <em>275元/m<sup>2</sup></em>
+            </div>
+            <div class="proRight">
+                <a href="javascript:void(0);" class="btnRed">下单</a>
+                <a href="javascript:void(0);" class="btnBlue">详情</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="proItem">
+            <div class="proImg"><img src="../../../resources/web/pic/bancai_3.jpg" alt="微晶板材" title="微晶板材"></div>
+            <dl class="proText">
+                <dt>水晶绿微晶石 人造石 外墙装饰板材</dt>
+                <dd class="proInfo1">型号：3D1101T&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;产地：湖南永兴</dd>
+                <dd class="proInfo2">比重:2.73 | 抗压强度:500 | 抗弯强度:600 | 材质:微晶玉石</dd>
+                <dd class="proInfo3">湖南永鑫环保科技有限公司&nbsp;&nbsp;&nbsp;&nbsp;0735-2131858</dd>
+            </dl>
+            <div class="danjia">
+                <em>275元/m<sup>2</sup></em>
+            </div>
+            <div class="proRight">
+                <a href="javascript:void(0);" class="btnRed">下单</a>
+                <a href="javascript:void(0);" class="btnBlue">详情</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="proItem">
+            <div class="proImg"><img src="../../../resources/web/pic/bancai_4.jpg" alt="微晶板材" title="微晶板材"></div>
+            <dl class="proText">
+                <dt>水晶绿微晶石 人造石 外墙装饰板材</dt>
+                <dd class="proInfo1">型号：3D1101T&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;产地：湖南永兴</dd>
+                <dd class="proInfo2">比重:2.73 | 抗压强度:500 | 抗弯强度:600 | 材质:微晶玉石</dd>
+                <dd class="proInfo3">湖南永鑫环保科技有限公司&nbsp;&nbsp;&nbsp;&nbsp;0735-2131858</dd>
+            </dl>
+            <div class="danjia">
+                <em>275元/m<sup>2</sup></em>
+            </div>
+            <div class="proRight">
+                <a href="javascript:void(0);" class="btnRed">下单</a>
+                <a href="javascript:void(0);" class="btnBlue">详情</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="proItem">
+            <div class="proImg"><img src="../../../resources/web/pic/bancai_5.jpg" alt="微晶板材" title="微晶板材"></div>
+            <dl class="proText">
+                <dt>水晶绿微晶石 人造石 外墙装饰板材</dt>
+                <dd class="proInfo1">型号：3D1101T&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;产地：湖南永兴</dd>
+                <dd class="proInfo2">比重:2.73 | 抗压强度:500 | 抗弯强度:600 | 材质:微晶玉石</dd>
+                <dd class="proInfo3">湖南永鑫环保科技有限公司&nbsp;&nbsp;&nbsp;&nbsp;0735-2131858</dd>
+            </dl>
+            <div class="danjia">
+                <em>275元/m<sup>2</sup></em>
+            </div>
+            <div class="proRight">
+                <a href="javascript:void(0);" class="btnRed">下单</a>
+                <a href="javascript:void(0);" class="btnBlue">详情</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="pageSize">
+            <a href="javascript:void(0)" class="pageLast">&lt;&lt;</a>
+            <a href="javascript:void(0)" class="page">1</a>
+            <a href="javascript:void(0)" class="page">2</a>
+            <a href="javascript:void(0)" class="page nowPage">3</a>
+            <a href="javascript:void(0)" class="page">...</a>
+            <a href="javascript:void(0)" class="page">10</a>
+            <a href="javascript:void(0)" class="page">11</a>
+            <a href="javascript:void(0)" class="page">12</a>
+            <a href="javascript:void(0)" class="pageNext">&gt;&gt;</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<!--底部-->
+<div class="bottomMenu">
+    <div class="wrapper">
+    	<dl class="footItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c4.png" width="49" height="48" />
+              <span>采购流程</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="下单流程">下单流程</a></li>
+                <li><a href="javascript:void(0);" title="订单跟踪">订单跟踪</a></li>
+                <li><a href="javascript:void(0);" title="安全支付">安全支付</a></li>
+                <li><a href="javascript:void(0);" title="企业认证">企业认证</a></li>
+                <li><a href="javascript:void(0);" title="常见问题">常见问题</a></li>
+            </dd>
+        </dl>
+        <dl class="footItem">
+          <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c5.png" width="49" height="48" />
+              <span>服务与支持</span>
+            <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="物流配送">物流配送</a></li>
+                <li><a href="javascript:void(0);" title="经销商权益">经销商权益</a></li>
+                <li><a href="javascript:void(0);" title="不良品退货">不良品退货</a></li>
+                <li><a href="javascript:void(0);" title="在线咨询">在线咨询</a></li>
+                <li><a href="javascript:void(0);" title="融资操作手册">融资操作手册</a></li>
+            </dd>
+        </dl>
+        <dl class="footItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c6.png" width="49" height="48" />
+              <span>我的账户</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="子账户管理">子账户管理</a></li>
+                <li><a href="javascript:void(0);" title="密码重置">密码重置</a></li>
+                <li><a href="javascript:void(0);" title="在线打款">在线打款</a></li>
+            </dd>
+        </dl>
+        <dl class="lastItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c7.png" width="49" height="48" />
+              <span>关于我们</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="公司简介">公司简介</a></li>
+                <li><a href="javascript:void(0);" title="联系我们">联系我们</a></li>
+                <li><a href="javascript:void(0);" title="网站声明">网站声明</a></li>
+            </dd>
+        </dl>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--底部 end-->
+
+<!--尾部-->
+<div class="footer">
+	<div class="wrapper">
+        <p class="footerLeft">© 2014 成都易科远见科技有限公司 版权所有 蜀ICP备 14005736号</p>
+        <p class="footerRight">成都市高新区吉泰路666号花样年·福年广场2号楼1309室<br>服务热线：028-83190368</p>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--尾部 end-->
+<script src="../../../resources/web/js/base.js"></script>
+</body>
+</html>

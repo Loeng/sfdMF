@@ -1,0 +1,54 @@
+#define(List<com.ekfans.base.order.model.Wfpml> wfpml)
+	
+<div class="apTit">
+	<span class="apClose"></span>选择危险废物类别
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	危废代码：<input type="text" id="dynaName" name="dynaName" class="textBox box212" style="display:inline-block;"> <input type="button" onclick="dynaSearch1()" value="查询" class="btnBase">
+	
+</div>
+		
+    <div class="apContent">
+        <div class="itemLayer" style="border:0;margin-left:10px;">
+					<ul class="selectList">
+            <li style=" margin-right:15px;float:left;" id="searchone">
+            	#if(wfpml!=null)
+                #for(com.ekfans.base.order.model.Wfpml ml:wfpml)
+                <a href="javascript:searchertwo('${webroot}','${ml.id}','${ml.no}');searcherthree('${ml.id}')">${ml.name}122</a>
+                #end
+              #end
+            </li>
+            <li id="searchtwo" style="width:46%;float:left;" ></li>
+            <div class="clear"></div>
+          </ul>
+          <div id="three"></div>
+          <div class="clear"></div>
+          
+        </div>
+    </div>
+    <input type="hidden" name="wfmlChose" id="wfmlChose" value=""/>
+    
+<script>
+
+//load出二级页面
+function	searchertwo(ctx,partenId,code){
+	$("#wfmlChose").val(code);
+	$.ajax({
+			url:ctx+"/wfpscrap/wfpml/twoonly",
+		  data:{parentId:partenId},
+		  success:function(data){
+		  	var product = $.parseJSON(data);
+		  	var val="";
+		  	for(var i=0;i<product.length;i++){
+		  		val+="<a href=\"javascript:searcherthree('"+product[i].id+"','"+product[i].name+"')\">"+product[i].name+"</a>";
+		  	}
+        $("#searchtwo").html(val);
+		  }
+		})
+}
+
+// load出三级页面
+function searcherthree(partenId){
+		$("#three").load($("#ctxpath").val()+"/wfpscrap/wfpml/pageronly",{"parentId":partenId});
+}
+</script>	  
+	  

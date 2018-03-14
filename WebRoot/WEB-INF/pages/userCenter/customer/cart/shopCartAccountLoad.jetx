@@ -1,0 +1,287 @@
+	
+#define(List<com.ekfans.base.user.model.UserAddress> uas)
+#define(com.ekfans.base.user.model.UserAddress userAddress)
+#define(List<com.ekfans.base.system.model.SystemArea> systemAreaList)
+#define(List<com.ekfans.base.system.model.ShopCart> scs)	
+	
+<div class="step"></div>
+<ul class="siteList" id="adressUl">
+	#for(com.ekfans.base.user.model.UserAddress ua : uas)
+		#if(ua.status) <li class="siteNow"> #else <li> #end
+			<label>
+      	#if(ua.status) <em class="locationIco"></em>  #end
+      	<em class="locationIco"></em>
+      	<span onclick="optOrderAdress('${ua.provincial}','${ua.city}','${ua.area}','${ua.address}','${ua.zipcode}','${ua.mobile}','${ua.name}');">
+        	<em><font id="uaProvincialSpan">${ua.provincial}</font><font id="uaCitySpan"> ${ua.city}</font><font id="uaAreaSpan"> ${ua.area}</font></em>
+        	<em><font id="uaAddressSpan">${ua.address}</font></em>
+        	<em>邮编：<font id="uaZipcouaProvincialSpandeSpan">${ua.zipcode}</font></em>
+        	<em>电话：<font id="uaMobileSpan">${ua.mobile}</font> </em>
+        	<em>(<font id="uaNameSpan">${ua.name}</font> 收)</em>
+        </span>
+      </label>
+      #if(ua.status)  
+      	<a href="javascript:void(0)">默认</a>
+    	#else
+      	<a href="javascript:void(0)" onclick="econfirm('确定要设为默认地址吗?',setDefaultAddress,['${ua.id}','${webroot}','${ua.provincial}','${ua.city}','${ua.area}','${ua.address}','${ua.zipcode}','${ua.mobile}','${ua.name}'],null,null);">设为默认</a>
+    	#end
+    	<a href="javascript:void(0)" onclick="updateAdress('${ua.id}');">编辑本地址</a>
+    </li>
+	#end
+</ul>
+<div class="siteBottom">
+	<a href="javascript:void(0)" class="btnNew">使用新地址</a>
+	<a target="_blank" href="${webroot}/user/deliveryAddress" class="blue">管理收货地址</a>
+</div>
+<div class="address" id="addressAddDiv">
+	<span class="pointTop"></span>
+	<a href="javascript:void(0)" class="closeAddress" onclick="canelNewAddress();"></a>
+	<form action="${ctxpath }/user/adress/load" name="modifyOk" method="post"  id="addUserAddressForm">
+		<dl class="formLine">
+			<dt><em class="red">*</em>收货人姓名</dt>
+     	<dd class="formRight errorBox">
+     		<input type="text" name="name" id="name"  class="siteBox" onfocus="checkNameFocus();" onblur="checkNameBlur();" />
+     		<span class="formError" id="nameMsgSpan">请您填写收货人姓名</span>
+     	</dd>
+      <!--验证表单不通过则给一个errorBox的class-->
+      <dd class="clear"></dd>
+		</dl>
+  	<dl class="formLine">
+    	<dt><em class="red">*</em>所在地区</dt>
+      <dd class="formRight">
+      	<input type="hidden" name="pca" id="pca" readOnly="true" />
+        <select onchange="findUtils(this)" class="selectFindHome">
+        	<option value="">请选择</option>
+          #for(com.ekfans.base.system.model.SystemArea sa:systemAreaList)
+          	<option value="${sa.areaName},${sa.id}">${sa.areaName}</option>
+          #end
+        </select>
+      </dd>
+      <dd class="clear"></dd>
+    </dl>
+    <dl class="formLine">
+    	<dt><em class="red">*</em>街道地址</dt>
+      <dd class="formRight siteDetail">
+      	<span class="siteCheckText" id="tempInfoAddress"></span>
+      	<input name="address3" id="address" class="siteBox" onfocus="checkAddressFocus();" onblur="checkAddressBlur();" />
+        <span class="formError" id="addressMsgSpan">请您填写收货人详细地址</span>
+      </dd>
+      <dd class="clear"></dd>
+    </dl>
+		<dl class="formLine">
+    	<dt><em class="red">*</em>手机号码</dt>
+      <dd class="formRight boxDouble">
+	      <input name="mobile" type="text" id="mobile" class="siteBox" onfocus="checkMobileFocusTempNew();" onblur="checkMobileBlurTempNew();" />
+	      	或 <span class="rightDt">固定电话</span>
+	      <input name="phone" type="text" id="phone" class="siteBox" onfocus="checkMobileFocusTempNew();" onblur="checkMobileBlurTempNew();" />
+	      <span class="formError" id="UtilsError">请您填写收货人手机号码或固定电话号码</span>
+   		</dd>
+    	<dd class="clear"></dd>
+    </dl>
+		<dl class="formLine">
+			<dt>邮政编码</dt>
+      <dd class="formRight">
+      	<input name="zipcode" type="text" id="zipcode"  class="siteBox" onfocus="checkZipcodeFocus();" />
+      	<span class="formError" id="zipcodeMsg">请输入正确的邮政编码  如：100000</span>
+      </dd>
+      <dd class="clear"></dd>
+    </dl>
+		<div class="addressBtn">
+    	<a href="javascript:void(0)" class="btnBlue" onclick="formSubmit();">保存</a>
+    	<a href="javascript:void(0)" class="btnBlue cancel" onclick="canelNewAddress();">取消</a>	
+    </div>
+  </form>
+</div>
+<div class="address" id="addressUpdateDiv" style="display:none"></div>
+    	
+#define(com.ekfans.base.user.model.UserAddress ua)
+<form action="${ctxpath }/user/shopCart/pay" name="modifyOk" method="post" id="addshopCartPayForm">
+#if(null!=ua)
+	<input type="hidden" id="uaProvincial" name="uaProvincial" value="${ua.provincial}" />
+	<input type="hidden" id="uaCity" name="uaCity" value="${ua.city}" />
+	<input type="hidden" id="uaArea" name="uaArea" value="${ua.area}" />
+	<input type="hidden" id="uaAddress" name="uaAddress" value="${ua.address}" />
+	<input type="hidden" id="uaZipcode" name="uaZipcode" value="${ua.zipcode}" />
+	<input type="hidden" id="uaMobile" name="uaMobile" value="${ua.mobile}" />
+	<input type="hidden" id="uaName" name="uaName" value="${ua.name}"/>
+#else
+	<input type="hidden" id="uaProvincial" name="uaProvincial" />
+	<input type="hidden" id="uaCity" name="uaCity" />
+	<input type="hidden" id="uaArea" name="uaArea" />
+	<input type="hidden" id="uaAddress" name="uaAddress" />
+	<input type="hidden" id="uaZipcode" name="uaZipcode" />
+	<input type="hidden" id="uaMobile" name="uaMobile" />
+	<input type="hidden" id="uaName" name="uaName" />
+#end
+	<!-- 商品运费 -->
+	<input type="hidden" name="fare" value="${maxFare}"/>
+	#for(com.ekfans.base.system.model.ShopCart s : scs)   
+		<div class="shopOrder">
+    	<div class="shopTb">
+      	<ul class="proHeader">
+        	<li class="blue proNameImg"><em></em>店铺：${s.name}</li>
+        	<li class="proPrice">单价（元）</li>
+        	<li class="proCount">数量</li>
+        	<li class="proSpare">优惠</li>
+        	<li class="priceTotal">小计（元）</li>
+        	<li class="carriage">运费</li>
+        </ul>
+        #if(s.childList != null && s.childList.size()>0)
+      		#for(com.ekfans.base.system.model.ShopCart sc : s.childList)
+      			#if(sc.checked)
+          		<ul class="proItem">
+            		<li class="proNameImg">
+            			<a href="${webroot}/web/proDetail/${sc.productId}" class="proImg" title="${sc.productName}">
+             				#if(sc.picture == "" || sc.picture == " "|| sc.picture == null)
+             					<img src="${webroot}/resources/customer/images/imgdefault.jpg" width="98" height="98" alt="${sc.productName}">
+                  	#else 
+                			<img src="${webroot}${sc.picture}" alt="${sc.productName}" >
+                		#end
+                	</a>
+            			<div class="proInfo">
+                    <a href="${webroot}/web/proDetail/${sc.productId}" class="proName" title="${sc.productName}">${sc.productName}</a>
+                    <span class="sizeColor">
+                    	#if(sc.childDetail != null && sc.childDetail.size()>0)
+     					 					#for(com.ekfans.base.product.model.ProductInfoDetail pIDetail : sc.childDetail)
+                					<em>${pIDetail.infoName1}：${pIDetail.infoValue1}</em>
+                				#end
+                			#end
+                    </span>
+                	</div>
+            		</li>
+            		<li class="proPrice">
+                	<span class="originalPrice">￥${sc.listPrice}</span>
+                	<span class="red nowPrice">￥${sc.unitPrice}</span>
+                	<!-- <span class="spare">省${sc.price}</span> -->
+                	<!--
+                	<dl class="promotion">
+                  	<dt>卖家促销<em class="promotionIco"></em></dt>
+                    <dd>
+                    	<span>卖家促销:冰点价</span>
+                      <span>优惠45元</span>
+                    </dd>
+                	</dl>
+                	-->
+            		</li>
+            		<li class="proCount">${sc.productQuantity}</li>
+            		<li class="red proSpare">￥${sc.price}</li>
+            		<li class="red priceTotal">￥${sc.totalPrice}<br><span class="spare">省￥${sc.tempTotalPrefePrice}</span></li>
+            		<li class="carriage">￥${sc.fare}</li>
+            		<div class="clear"></div>
+          		</ul>
+         		#end
+					#end
+				#end
+      </div>
+      <div class="orderBottom">
+      	<div class="orderRemark">
+        	<em>订单备注</em>
+          <textarea name="note" cols="" rows=""></textarea>
+          <div class="clear"></div>
+          <span>收货人信息、支付方式、配送方式、发票信息等购买要求以选择为准，备注无效。</span>
+        </div>
+        <dl class="transport">
+        	<dt>配送方式</dt>
+          <dd>
+          	<select name="shipment">
+            	<!--
+            	<option value="15">快递 15.00</option>
+            	<option value="20">EMS 20.00</option>
+            	<option value="10">平邮 10.00</option>
+            	-->
+            	<option value="快递">快递</option>
+            	<option value="EMS">EMS</option>
+            	<option value="平邮">平邮</option>
+            </select>
+          </dd>
+        </dl>
+				<div class="coupon" style="display:none;">
+        	<a href="javascript:void(0)" class="blue">使用优惠券抵消部分总额</a>
+        	<div class="orderDown couponDown">
+          	<div class="couponHint">
+            	提示：1、优惠券每次只能使用一张；<br>
+            	2、参加促销活动的商品不能使用优惠券；<br>
+            	3、默认显示前三条，使用其他优惠券请输入卡号。
+            </div>
+            <ul class="couponList">
+            	<li class="couponList-title">
+              	<span class="couponId">编号</span>
+                <span class="couponNum">券号</span>
+                <span class="couponSet">操作</span>
+              </li>
+              <li class="couponLine">
+              	<span class="couponId">123456</span>
+              	<span class="couponNum">52415678219</span>
+              	<span class="couponSet"><a href="javascript:void(0)">取消</a></span>
+              </li>
+            	<li class="couponLine">
+              	<span class="couponId">123456</span>
+              	<span class="couponNum">52415678219</span>
+              	<span class="couponSet"><a href="javascript:void(0)">取消</a></span>
+              </li>
+            </ul>
+            <div class="couponImport">
+            	<em class="couponCount">您现在共有0张优惠券</em>
+            	<span>请输入您手中的优惠券卡号：</span>
+              <input name="" type="text">
+            	<a href="javascript:void(0)" class="btnBlue">确认</a>
+            </div>
+            <a href="javascript:void(0)" class="layerClose"></a>
+            <span class="layerPoint"></span>
+          </div>
+          </div>
+          <div class="invoice">
+          	<a href="javascript:void(0)" class="blue">索要发票</a>
+            <div class="orderDown invoiceDown">
+            	<strong class="invoiceTitle">发票信息</strong>
+              <dl class="invoiceStlye taitou">
+              	<dt>发票抬头</dt>
+              	<dd class="invoiceRight">
+                	<label><input type="radio" name="invoiceType" value="false" id="RadioGroup1_0">个人</label>
+                  <label><input type="radio" name="invoiceType" value="true" id="RadioGroup1_1">单位</label>
+                </dd>
+              	<dd class="clear"></dd>
+              </dl>
+              <dl class="invoiceStlye">
+              	<dt>发票内容</dt>
+                <dd class="invoiceRight">
+                	<label><input type="radio" name="invoiceContent" value="明细" id="RadioGroup1_0">明细</label>
+                	<label><input type="radio" name="invoiceContent" value="办公用品" id="RadioGroup1_1">办公用品</label>
+                	<label><input type="radio" name="invoiceContent" value="电脑配件" id="RadioGroup1_0">电脑配件</label>
+                	<label><input type="radio" name="invoiceContent" value="耗件" id="RadioGroup1_1">耗件</label>
+              	</dd>
+              	<dd class="clear"></dd>
+              </dl>
+              <dl class="invoiceName">
+              	<dt><em class="red">*</em>抬头名称</dt>
+                <dd class="invoiceRight">
+                	<input name="invoiceTitle" type="text" onfocus="checkInvoiceTitleFocus()" onblur="checkInvoiceTitleBlur(this)" />
+                	<span class="errorHint" id="invoiceTitlePromtMessage" style="display:none;">抬头名称不能为空！</span>
+                	<span class="invoiceHint">温馨提示：您填写的所有内容都将被系统自动打印到发票上，所以请千万别填写和发票抬头无关的信息。</span>
+                </dd>
+                <dd class="clear"></dd>
+              </dl>
+              <div class="btns">
+              	<a href="javascript:void(0)" class="btnBlue" onclick="invoiceConfirm('${s.storeId}');">确认</a>
+              	<a href="javascript:void(0)" class="btnBlue" onclick="invoiceCancel('${s.storeId}');">取消</a>
+              </div>
+              <a href="javascript:void(0)" class="layerClose"></a>
+              <span class="layerPoint"></span>
+            </div>
+          </div>
+					<div class="clear"></div>
+					<div class="invoiceInfo" style="display:none;" id="invoiceInfoContent">发票信息：<span>个人</span><span>电脑配件</span><span>成都易科远见科技有限公司</span></div>
+				</div>
+        <div class="shopPrice">店铺合计(含运费，服务费)：<em class="red">￥${s.totalPrice}</em></div>
+    	</div>
+    	<!--
+    	<input type="hidden" id="invoiceTitle${s.storeId}" name="invoiceTitle" value=""/>
+      <input type="hidden" id="companyName${s.storeId}" name="companyName" value=""/>
+      -->
+	#end
+</form>
+<div class="orderSubmit">
+	<span class="orange">可获积分：0</span>
+	<span class="orderPrice">金额总计：<em class="red">￥${sum}</em></span>
+	<a href="javascript:void(0);" class="btnSubmit" onclick="submitNewOrders()">提交订单</a>
+	<div class="clear"></div>
+</div>

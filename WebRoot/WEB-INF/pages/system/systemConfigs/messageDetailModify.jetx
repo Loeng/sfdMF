@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+    	<title>修改新配配置模板</title>
+    	<link href="${webroot}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+    	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/plugin/ckeditor/ckeditor.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/systemConfigs/messageDetailModify.js"></script>
+    </head>
+    <body>
+    	<input type="hidden" id="modifyOk" value="${modifyOk}" />
+			<input type="hidden" id="ctxpath" value="${webroot}" />
+			<form action="${webroot}/system/message/modify" name="modify" method="post"  id="modifyDetailForm">
+			#define(com.ekfans.base.system.model.MessageConfigDetail configDetail)
+			
+			<div class="ht_btn">
+					<a href="#"  class="btn"   onclick="formSubmit();">保存</a>
+					<a href="#"  class="btn"   onclick="reset();">重置</a>
+					<a href="#"  class="btn"   onclick="goBack('${webroot}');">返回列表</a>
+			</div>
+			
+	 		<div class="add_pro">
+	 			<dl class="formBox">
+	 			<dt>模版id<em class="mustIco"></em></dt>
+					<dd>
+						<input type="hidden" class="i_bg"  name="id" value="${configDetail.id }" />
+						${configDetail.id }
+					</dd>
+				</dl>
+				<dl class="formBox">
+				<dt>模版名<em class="mustIco"></em></dt>
+					<dd id="nameDd" class="">
+						<input type="text" class="i_bg"  name="name" value="${configDetail.name }" onblur="javascript:checkNameBlur();" onkeyup="javascript:checkName();" onfocus="javascript:checkName();" />
+						<span id="nameSpan" class="ts_xx">模板名为2-20位字符组成</span>
+					</dd>
+				</dl>
+				
+				<div class="clear"></div>
+				
+				<dl class="formBox">
+				<dt>排序位置<em class="mustIco"></em></dt>
+					<dd id="indexDd" class="">
+							<input type="text" class="i_bg"  name="index" value="${configDetail.index }" onblur="javascript:checkIndexBlur();" onkeypress="return IsNum(event)" onkeyup="javascript:checkIndex();" />
+							<span id="indexSpan" class="ts_xx">请输入排序位置</span>
+					</dd>
+				</dl>
+				
+				<dl class="formBox">
+					<dt>状态</dt>
+					<dd>
+						<span>
+							<span class="zt"><label><input type="radio" value="true" name="status" #if(configDetail.status) checked=true #end />启用 </label></span>
+							<span class="zt"><label><input type="radio" value="false" name="status" #if(!configDetail.status) checked=true #end />停用 </label></span>
+						</span>
+					</dd>
+				</dl>
+				
+				<div class="clear"></div>
+				
+				<dl class="formBox">
+					<dt>发送方式</dt>
+					<dd>
+						<span >
+							<span class="zt"><label><input type="radio" value="0" name="sendType" #if("0".equals(configDetail.sendType)) checked=true #end />及时发送 </label></span>
+							<span class="zt"><label><input type="radio" value="1" name="sendType" #if("1".equals(configDetail.sendType)) checked=true #end />异步发送 </label></span>
+							<span class="zt"><label><input type="radio" value="2" name="sendType" #if("2".equals(configDetail.sendType)) checked=true #end />定时发送 </label></span>
+						</span>
+					</dd>
+				</dl>
+				
+				<dl class="formBox">
+					<dt>信息类型</dt>
+					<dd>
+						<span >
+							<span class="zt"><label><input type="radio" value="0" name="messageType" #if("0".equals(configDetail.messageType)) checked=true #end />全部 </label></span>
+							<span class="zt"><label><input type="radio" value="1" name="messageType" #if("1".equals(configDetail.messageType)) checked=true #end />短信 </label></span>
+							<span class="zt"><label><input type="radio" value="2" name="messageType" #if("2".equals(configDetail.messageType)) checked=true #end />邮件 </label></span>
+						</span>
+					</dd>
+				</dl>
+				
+				<div class="clear"></div>
+				
+				<dl class="formBox">
+					<dt>短信类容</dt>
+					<dd class="">
+							<textarea name="mobileContent" >${configDetail.mobileContent }</textarea>
+					</dd>
+				</dl>
+				
+				<dl class="formBox">
+					<dt>邮件标题</dt>
+					<dd class="">
+							<input type="text" class="i_bg"  name="mailTitle" value="${configDetail.mailTitle }" />
+					</dd>
+				</dl>
+				
+				<div class="clear"></div>
+				
+				<dl class="formBox">
+					<dt>邮件正文</dt>
+					<dd class="">
+						<textarea name="mailContent" class="ckeditor" >${configDetail.mailContent }</textarea>
+					</dd>
+				</dl>
+				
+			</div>
+		</form>
+	</body>
+</html>

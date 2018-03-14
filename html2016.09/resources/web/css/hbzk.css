@@ -1,0 +1,51 @@
+/* CSS Document */
+
+.main{margin-top:50px;}
+.zkLeft{float:left;width:298px; height:298px; border:solid 1px #f1f1f1; margin-right:24px; position:relative;}
+.zkLeft img{display:block;}
+.zkMid{float:left;width:500px;}
+.zkMid li{line-height:26px; height:26px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+.zkMid li a{font-size:14px; display:block;}
+.newsTitle{font-size:16px; line-height:20px; height:20px; width:100%; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; display:inline-block;}
+.abstract{font-size:14px; line-height:22px; margin-top:12px; display:block; overflow:hidden;}
+.zkMid .abstract{margin:12px 0 28px 0; height:110px; }
+
+.zkRight{float:right;width:331px;}
+.zxTit{font-size:18px; color:#333333; height:35px; line-height:35px; margin-top:20px;}
+.rightZx ul{padding-top:5px;}
+.rightZx li{height:53px; line-height:53px; border-bottom:solid 1px #f1f1f1; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+.rightZx li:last-child{border-bottom:none;}
+.rightZx li a{font-size:14px;}
+
+
+.zk2left,.zk3left,.zk4left{width:850px; float:left; border:solid 1px #f1f1f1;}
+
+.zk2left .firstNew{background:#f8f8f8; padding:17px 38px;}
+.zk2left .firstNew dt{width:164px; height:164px; float:left; margin-right:20px; position:relative; border:solid 1px #f1f1f1;}
+.zk2left .firstNew dd{width:586px; float:left;}
+.zk2left .firstNew dd.clear{float:none;}
+.zk2left .firstNew .abstract{height:88px; overflow:hidden;}
+.zk2left ul{width:355px; float:left; margin:14px 0 19px 0; padding:0 30px 0 38px;}
+.zk2left ul li{height:25px; line-height:25px; margin-bottom:8px; font-size:14px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+.leftNews{border-right:solid 1px #f1f1f1;}
+.zk2right dl{width:120px; float:left; margin:0 45px 16px 0;}
+.zk2right dt{height:120px; width:120px; position:relative;}
+.zk2right dd{padding-top:5px; line-height:16px; height:32px; overflow:hidden;}
+
+.zk3left .newItem{width:355px; margin-top:16px; padding:0 30px 0 38px; float:left;}
+.zk3left .firstNew dt{width:100px; height:100px; float:left; margin-right:16px; position:relative;}
+.zk3left .firstNew dd{width:232px; float:left;}
+.zk3left .firstNew dd.clear{float:none;}
+.zk3left .firstNew .newsTitle{font-size:14px;}
+.zk3left .firstNew .abstract{height:66px; overflow:hidden;}
+.zk3left ul{padding:12px 0 15px 0;}
+.zk3left li{line-height:30px; height:30px; font-size:14px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+.zk3right a,.zk4right a{height:46px; line-height:46px; font-size:14px; display:block; border-bottom:solid 1px #f1f1f1; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+.zk3right a:last-child,.zk4right a:last-child{border-bottom:none;}
+
+.zk4left{padding:20px 16px 12px 16px; width:818px;}
+.zk4left dl{width:160px; padding:0 22px; float:left;}
+.zk4left dt{width:160px; height:160px; overflow:hidden; position:relative;}
+.zk4left dd{height:26px; line-height:26px; font-size:14px; text-align:center; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+.zk4right a{height:54px; line-height:54px;}
+.zk4left,.zk4right{margin-bottom:30px;}

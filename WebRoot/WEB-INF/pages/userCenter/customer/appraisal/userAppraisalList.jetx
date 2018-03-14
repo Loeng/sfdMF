@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>用户评价管理</title>
+<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/personal/css/personalBase.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/personal/css/style.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/personal/css/evaluateList.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="${webroot}/resources/userCenter/personal/js/evaluate/evaluate.js"></script>
+<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+</head>
+
+<body>
+
+#define(List<com.ekfans.base.store.dto.AppraiseContDto> appraiseContDtos)
+#define(List<com.ekfans.base.store.dto.AppraiseDto> appraiseDtos)
+
+<input type="hidden" id="ctxpath" value="${webroot}" />
+<div class="rightContent">
+	<!-- <form action="${webroot}/user/appraisal/list"  method="post"  id="appraiseForm"> -->
+		<!-- <input type="hidden" name="pageNum" value="${currentPage}" /> -->
+    <!-- 
+    	<div class="searchForm">
+        	<dl class="formLine">
+	        	<dt>商品名称</dt>
+	            <dd class="formRight"><input name="productName" id="productName" type="text"  class="searchBox" value="${productName}"></dd>
+	            <dd class="clear"></dd>
+            </dl>
+            <dl class="formLine">
+                <dt>评价时间</dt>
+	                 <dd class="formRight">
+		                <input name="beginDate" id="beginDate" type="text" value="${beginDate}" class="dateBox" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:new Date()})">
+		                <span class="sortSplit">-</span>
+		                <input name="endDate"  id="endDate" type="text"   value="${endDate}" class="dateBox" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:new Date()})"></dd>
+	                <dd class="clear"></dd>
+            </dl>
+        </div>
+         -->
+  <!-- </form> -->
+        <!--
+        <div class="searchBtn">
+         <a href="javascript:void(0)" class="btnBlue"  onclick="submitForm();">搜索</a>
+         <a href="javascript:void(0)" class="btnBlue"  onclick="resetForm();">清空</a>
+     </div>
+     -->
+	 <div class="formTable borderColor">
+	<ul  class="secNav">
+        <li class="li1">累计评价</li>
+  </ul>
+	<table border="0" cellspacing="0" cellpadding="0" class="tabList">
+  	<tr class="bgColor">
+    	<th class="evaluateLev">&nbsp;</th>
+      	<th>最近一周</td>
+        <th>最近一个月</th>
+        <th>最近六个月</th>
+        <th>六个月以前</th>
+      
+    </tr>
+    #for(com.ekfans.base.store.dto.AppraiseContDto acd:appraiseContDtos)
+    	<tr>
+	    	#if(acd.type=='1')
+	    		<td class="evaluateLev"><span class="good"><em></em>好评</span></td>
+	      #elseif(acd.type=='2')
+	       	<td class="evaluateLev"><span class="ordinary"><em></em>中评</span></td>
+	     	#elseif(acd.type=='3')
+	       	<td class="evaluateLev"><span class="bad"><em></em>差评</span></td>
+	      #else
+	      	<td class="evaluateLev"><span>总计</span></td>
+	      #end  
+        <td>${acd.weekNumber}</td>
+        <td>${acd.monthNumber}</td>
+        <td>${acd.sixNumber}</td>
+        <td>${acd.sixAgoNumber}</td>
+       
+	    </tr>      
+  	#end
+  </table>
+	<div class="tabs">
+		<a href="javascript:void(0)" class="nowItem" onclick="appraiseListLoad('${webroot}',this,1)" errors="nowItem111">给别人的评价</a>
+		<a href="javascript:void(0)" onclick="appraiseListLoad('${webroot}',this,2)" errors="nowItem111">别人给我的评价</a>
+		<div class="clear"></div>
+	</div>
+	<div class="toOther" id="toOther11New">
+		<input type="hidden" name="pageNum" value="${currentPage}" />
+		#if(appraiseDtos.size()==0)
+			<div class="orderNone">暂时没有符合条件的数据</div>
+		#else
+			<div class="listHeader">
+				<div class="consultText">评价内容</div>
+				<div class="proName">商品名称</div>
+		   	<div class="consultTime">评价时间</div>
+		    <div class="consultEdit">状态</div>
+		    <div class="clear"></div>
+		  </div>
+	   	#for(com.ekfans.base.store.dto.AppraiseDto appraiseDto:appraiseDtos)
+		  	<div class="consultLine">
+		    	<div class="consultText">
+		        <span>${appraiseDto.appraiseContent }</span>
+		        #if(appraiseDto.replyStatus == true)
+		        	<div class="replyText"><em class="pointTop"></em>${appraiseDto.replyContent}</div>
+		        #end
+		      </div>
+		     	<div class="proName">
+		      	<a href="${webroot}/web/proDetail/${appraiseDto.id}" class="proImg">
+		        	<!-- <img src="${appraiseDto.productImgUrl}" width="43" height="43" alt="ipad"> -->
+		         	<img src="${webroot}${appraiseDto.productImgUrl}" width="78" height="78" alt="${appraiseDto.productSortName}" onerror="this.src='${webroot}/resources/store/images/imgdefault.jpg'">
+		       	</a>
+		        <span class="proNameText"><a href="javascript:void(0)">${appraiseDto.productName}</a></span>
+		      </div>
+		      <div class="consultTime">${appraiseDto.createTime}</div>
+		      <div class="consultEdit">#if(appraiseDto.replyStatus == false)对方未评 #else 对方已评 #end</div>
+		      <div class="clear"></div>
+		    </div>
+		    
+			#end
+			
+			${include("../common/page.jetx")} 
+			<div class="clear"></div>
+		#end
+	</div>
+ 		
+ 		</div>
+	<div class="clear"></div>
+</div>
+
+</body>
+</html>

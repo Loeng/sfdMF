@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+<link href="../../../resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/web/css/base.css" rel="stylesheet" type="text/css">
+<style>
+.apLayerBg{filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8; opacity:0.8; background:#000; position:fixed; left:0; top:0; width:100%; height:100%; z-index:100;}
+.payApLayer{width:648px; margin-left:-324px; position:fixed; top:18%; left:50%; z-index:101;background:#fff;overflow:hidden; padding-bottom:30px;}
+.blueTit{width:100%; height:38px; background:#0085FC; position:relative;}
+.payApClose{background:url(../../../resources/web/images/icon_close_white.png) no-repeat center center; display:block; width:28px; height:28px; position:absolute; top:5px; right:10px; cursor:pointer;}
+.payApContent{background:url(../../../resources/web/images/icon_waring.png) no-repeat 53px 30px; padding:30px 0 0 216px;}
+.payApContent h4{height:30px; line-height:30px; font-size:24px; color:#636363; margin-bottom:24px;}
+.payText{line-height:28px; font-size:16px; color:#FF5400; margin-bottom:20px;}
+.payBtnBlue{background:#0085FC; padding:0 25px; height:35px; line-height:35px; font-size:16px; color:#fff; display:inline-block; margin-right:20px;}
+.payBtnBlue:hover{background:#00549F; color:#fff;}
+.backLink{display:block; margin-top:24px; font-size:14px; line-height:22px; height:22px; background:url(../../../resources/web/images/icon_pointleft.png) no-repeat left center; padding-left:22px; color:#707070; float:left;}
+</style>
+</head>
+
+<body>
+<div class="apLayerBg"></div>
+<div class="payApLayer">
+	<div class="blueTit"><span class="payApClose"></span></div>
+    <div class="payApContent">
+    	<h4>请你在新打开的页面上完成付款！</h4>
+        <div class="payText">付款完成前不要关闭此窗口<br>完成付款后请根据你的情况点击下面按钮</div>
+        <div class="payBtns">
+            <a href="javascript:void(0)" class="payBtnBlue">付款遇到问题</a>
+            <a href="javascript:void(0)" class="payBtnBlue">已完成付款</a>
+        </div>
+        <a href="javascript:void(0)" class="backLink">返回选择其他支付方式</a>
+    </div>
+</div>
+</body>
+<script>
+$(".payApClose").live("click",function(){
+	$(this).parents(".payApLayer").hide();
+	$(".apLayerBg").hide();
+})
+</script>
+</html>

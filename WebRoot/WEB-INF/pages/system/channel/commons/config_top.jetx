@@ -1,0 +1,47 @@
+<div class="homeDiy">
+	<div class="wrapper">
+		<ul class="leftTab">
+			<li class="cur">标题栏</li>
+			<li>导航条</li>
+			<li>banner</li>
+			<li>选项卡</li>
+			<li>DIY模块</li>
+		</ul>
+		<div class="templateList">
+			<ul class="tempTitle" style="display:block;">
+				<li class="temp1"></li>
+				<li class="temp2"></li>
+				<li class="temp3"></li>
+				<li class="temp4"></li>
+				<li class="temp5"></li>
+			</ul>
+			<ul class="tempNav">
+				<li class="temp1"></li>
+				<li class="temp2"></li>
+				<li class="temp3"></li>
+			</ul>
+			<ul class="tempBanner">
+				<li class="temp1"></li>
+				<li class="temp2"></li>
+				<li class="temp3"></li>
+				<li class="temp4"></li>
+			</ul>
+			<ul class="tempTab">
+				<li class="temp1"></li>
+				<li class="temp2"></li>
+			</ul>
+			<ul class="tempDiy">
+				<li class="temp1"></li>
+				<li class="temp2"></li>
+				<li class="temp3"></li>
+				<li class="temp4"></li>
+				<li class="temp5"></li>
+			</ul>
+		</div>
+		<div class="clear"></div>
+		<div class="btns">
+			<a href="javascript:void(0)" class="btnBlue" id="diySave">保存</a>
+			<a href="javascript:void(0)" class="btnBlue">取消</a>
+		</div>
+	</div>
+</div>

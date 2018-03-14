@@ -1,0 +1,51 @@
+#define(com.ekfans.base.store.model.Store Store)
+#define(com.ekfans.base.user.model.User User)
+
+<div class="header">
+	<div class="wrapper">
+        <h1 id="logo"><a href="${webroot}/" title="${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}"><img src="${webroot}/${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站Logo")}" alt="${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}"></a></h1>
+        <div class="headerRight">
+        	<a href="${webroot}/"  class="indexLink">首页</a>
+       		#if(null!=User&&null!=Store)
+       			<span class="topItem">您好，${Store.storeName}</span>
+       			<span class="split">|</span>
+	            <a href="${webroot}/store/index">企业中心</a>
+	            <span class="split">|</span>
+	            <a href="${webroot}/web/help">帮助中心</a>
+	            <span class="split">|</span>
+	            <a href="${webroot}/web/logout/userLogout">安全退出</a>
+       		#else
+	            <a href="${webroot}/web/login">登录</a>
+	            <a href="${webroot}/web/jumpRegPage">注册</a>
+	        #end
+            <span class="split">|</span>
+            <span class="serviceTel">服务热线：${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("热线电话")}</span>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<div class="logoBar">
+	<div class="wrapper">
+		#if(User.type == "1")<!--产生企业-->
+			<a href="${webroot}/store/index" class="logoName"><img src="${webroot}/resources/userCenter/commons/images/csqy-centername.png"></a><!--产生企业-->
+		#elseif(User.type == "2")<!--采购商-->
+			<a href="${webroot}/store/index" class="logoName"><img src="${webroot}/resources/userCenter/commons/images/cgs-centername.png"></a><!--采购商-->
+		#elseif(User.type == "3")<!--处置企业-->
+			<a href="${webroot}/store/index" class="logoName"><img src="${webroot}/resources/userCenter/commons/images/czqy-centername.png"></a><!--处置企业-->
+		#elseif(User.type == "4")<!--运输企业-->
+			<a href="${webroot}/store/index" class="logoName"><img src="${webroot}/resources/userCenter/commons/images/ysqy-centername.png"></a><!--运输企业-->
+		#elseif(User.type == "5")<!--供应商-->
+			<a href="${webroot}/store/index" class="logoName"><img src="${webroot}/resources/userCenter/commons/images/gys-centername.png"></a><!--供应商-->
+		#else
+			<a href="${webroot}/store/index" class="logoName">${@(com.ekfans.base.user.util.UserConst).userTypeNamesMap.get(User.type)}-企业中心</a>
+		#end
+		#define(java.util.List<com.ekfans.base.store.model.StorePurview> purviewList)
+		<div class="nav">
+			#for(com.ekfans.base.store.model.StorePurview purview:purviewList)
+				<a href="${webroot}/store/purview/${purview.id}" class="navItem">${purview.className}</a>
+			#end
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>

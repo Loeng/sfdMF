@@ -1,0 +1,113 @@
+
+<!doctype html>
+<html>
+<html xmlns:wb="http://open.weibo.com/wb">
+
+<head>
+<meta charset="utf-8">
+<meta property="wb:webmaster" content="04d00fb9eddaeb6f" />
+
+<title>三分地环保-行业资讯详情</title>
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.superslide.2.1.1.js"></script>
+<script src="${webroot}/resources/web/js/base.js"></script>
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=appkey" type="text/javascript" charset="utf-8"></script>
+
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/base.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/hyzx.css" rel="stylesheet" type="text/css">
+
+#if(configStatus == "true")
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/control.js"></script>	
+	<link href="${webroot}/resources/commons/css/control.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script
+	<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+#end
+</head>
+#define(com.ekfans.base.content.model.Content ctent)
+#define(com.ekfans.base.content.model.ContentCategory contentCategory)
+#define(List<com.ekfans.base.content.model.Content> contentList)
+<body>
+#if(configStatus == "true")
+	<!-- 频道配置导航条 -->
+	#include("../commons/config/config-top.jetx")
+	<!-- 频道配置导航条 end -->
+#end
+
+<!--头部及导航条展示-->
+<div id="channelTop"></div>
+
+<!--一极菜单 end-->
+<div class="slideBox">
+    <div class="hd">
+        <ul><li></li><li></li><li></li></ul>
+    </div>
+    <div class="bd">
+        #include("../commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"1"})
+    </div>
+</div>
+
+
+<div class="wrapper main">
+	<div class="zxxqTit">
+	<h2>${ctent.contentName}</h2>
+  	<div class="author">${ctent.author !=null ? ctent.author:""} ${ctent.createTime}</div>
+  	</div>
+	<div class="leftBox">
+		<div class="zxDetails">
+    		<div class="share">
+		        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+			    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+			</div>
+
+    	<div class="zxzy">
+      
+    	</div>
+    <div class="pages">
+	    #define(com.ekfans.pub.util.Pager pager)
+			    #define(List<Integer> Pages) 
+	      		#if(pager.currentPage == 1 )		
+	      			<a href="javascript:void(0)" class="pagePre">&lt;</a>    	
+	 			#else
+ 					<a href="${webroot}/03-${ctent.id}-${pager.currentPage-1}.html" class="pagePre">&lt;</a>   
+	 			#end
+	 				
+   				#for(Integer page :Pages)  					
+            	<a href="${webroot}/03-${ctent.id}-${page}.html"  class="page"  onclick="goPage('${ctent.id}','${page}','${webroot}')">${page}</a>
+          		#end
+		          
+		        #if(pager.currentPage == Pages.size())		
+			      		<a href="javascript:void(0)" class="pagePre">&gt;</a>  	
+	 			#else
+	 					<a href="${webroot}/03-${ctent.id}-${pager.currentPage+1}.html" class="pagePre">&gt;</a>   
+			 	#end  
+		            <a href="${webroot}/03-${ctent.id}-${Pages.size()}.html" class="pagePre">&gt;&gt;</a>  	
+		       </div>
+    </div>
+	</div>
+  
+  
+  <div class="rightBox">   
+    
+    <!--物流快讯-->
+    <div class="wlkx">
+    	<div class="boxTit"><h2>行业资讯</h2></div>
+    </div>
+    
+    <div class="xlpl"><wb:comments url="auto" brandline="y" width="auto"><iframe id="WBCommentFrame" src="http://widget.weibo.com/distribution/comments.php?url=http%3A%2F%2Fwww.sfdhb.com%2F03-00000113-1.html&amp;border=1&amp;width=0&amp;skin=1&amp;brandline=y&amp;fontsize=14&amp;language=zh_cn" width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" style="height: 398px;"></iframe></wb:comments></div>
+  </div>
+  
+  <div class="clear"></div>
+    
+</div>
+<!--底部-->
+<div class="footer">
+</div>
+<!--底部 end-->
+</body>
+</html>

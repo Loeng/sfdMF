@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>新增核价宝推送</title>
+	
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/add.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/layer/layer.js"></script>
+	
+</head>
+
+<body>
+<input type="hidden" id="ctxpath" value="${webroot}" />
+#define(com.ekfans.plugin.wuliubao.yunshu.base.model.Version version)
+<div class="ht_btn">
+	<a href="javascript:void(0);" class="btn" onclick="formSubmit('0')">仅保存</a>
+	<a href="javascript:void(0);" class="btn" onclick="formSubmit('1')">保存并设置为最新版本</a>
+	<a href="javascript:void(0);" class="btn" onclick="goBack()">返回列表</a>
+</div>
+<form action="${webroot}/system/wlbversion/save" method="post" id="addForm">
+<input type="hidden" id="newVersion" name="newVersion" value="" />
+<input type="hidden" id="id" name="id" value="${version.id}" />
+	<div class="add_pro afterHt">
+	 <dl class="formBox">
+			<dt>平台类型<em class="mustIco"></em></dt>
+			<dd>
+				<select name="type" class="i_bg advStyleCheck">
+					<option value='1' #if(version.type=="1") selected="true" #end>Android(运输端)</option>
+					<option value='3' #if(version.type=="3") selected="true" #end>Android(产生端)</option>
+				</select>
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt>版本号<em class="mustIco"></em></dt>
+			<dd>
+				<input type="text" name="num" placeholder="请输入版本号" value="${version.num}" id="num" class="i_bg">
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt>版本说明<em class="mustIco"></em></dt>
+			<dd>
+				<textarea id="textArea" name="description" value="${version.description}" placeholder="请输入版本说明">${version.description}</textarea><span id="textNum">0</span>/400</span>
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt>下载链接:</dt>
+			<dd>
+				<input type="text" name="url" id="url" placeholder="请输入下载地址" value="${version.url}" class="i_bg">
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt>更新时间:</dt>
+			<dd>
+				${version.updateTime}
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt>版本状态:</dt>
+			<dd>
+				#if(version.newVersion=="1")
+				最新版
+				#else
+				旧版
+				#end
+			</dd>
+		</dl>
+	</div>
+</form>
+<!--弹窗 css-->
+<div class="alertLayerBg" style="display:none"></div>
+<script>
+$('#textArea').on("keyup",function(){
+$('#textNum').text($('#textArea').val().length);//这句是在键盘按下时，实时的显示字数
+if($('#textArea').val().length > 400){
+$('#textNum').text(400);//长度大于100时0处显示的也只是100
+$('#textArea').val($('#textArea').val().substring(0,400));//长度大于100时截取钱100个字符
+}
+})
+	function formSubmit(act){
+	    $("#newVersion").val(act);
+	    var url = $("#url").val();
+	    var num = $("#num").val();
+	    var description = $("#textArea").val();
+	    if(url==null||url==""){
+	    	ealert("请输入下载地址");
+	    	return;
+	    }
+	    if(num==null||num==""){
+	    	ealert("请输入版本号");
+	    	return;
+	    }
+	    if(description==null||description==""){
+	    	ealert("请输入版本说明");
+	    	return;
+	    }
+		$("#addForm").ajaxSubmit(function(data){
+			if (data=="1") {
+				layer.confirm('保存成功，是否继续新增？', {
+					btn: ['继续新增','返回列表'] //按钮
+				}, function(){
+					window.location.reload();
+				}, function(){
+					location.href='${webroot}/system/wlbversion/list';
+				});
+			}
+		});
+	}
+	function goBack(){
+		location.href='${webroot}/system/wlbversion/list';
+	}
+	function apClose(){
+		$("#showDiv").hide();
+		$("#showBg").hide();
+	}
+</script>
+</body>
+</html>

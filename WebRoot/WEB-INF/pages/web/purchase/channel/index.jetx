@@ -1,0 +1,190 @@
+#define(com.ekfans.base.channel.model.Channel channel)
+
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Expires" content="0" />
+	<meta http-equiv="kiben" content="no-cache" />
+	<title>${channel.name}|${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}</title>
+	<link rel="icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+	<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/web/gylweb/css/base.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/web/gylweb/css/gyl.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/advList.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tuwen1.js"></script>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/advList.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/tools.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/gylweb/js/headBase.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/gylweb/js/gyl.js"></script>
+	#if(configStatus == "true")
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/control.js"></script>	
+		<link href="${webroot}/resources/commons/css/control.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script
+		<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+	#end
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/ad.css" />
+	<script type="text/javascript" src="${webroot}/resources/web/gylweb/js/gylCommons.js"></script>
+	
+	<meta name="Keywords" content="${channel.keyWords}">
+	<meta name="description" content="${channel.description}">
+</head>
+
+<body>
+
+	<input type="hidden" id="ctxpath" value="${webroot}" />
+	<input type="hidden" name="ctxpath" id="ctxpath" value="${ctxpath}" />
+	<input type="hidden" name="channelId" id="channelId" value="${channelId}" />
+	<input type="hidden" name="channelType" id="channelType" value="${channel.type}" />
+	<input type="hidden" name="configStatus" id="configStatus" value="${configStatus}" />
+	#if(configStatus == "true")
+		<!-- 频道配置导航条 -->
+		#include("../../channel/commons/config/config-top.jetx")
+		<!-- 频道配置导航条 end -->
+	#end
+	
+	<div class="header" id="channelTop"></div>
+	
+	<div class="center">
+		<div class="banner">
+			#include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"1"})
+		</div>
+		
+		
+		<div class="wrapper">
+			<div class="gyl">
+				<div class="gylItem">
+					<div class="itemImg borderRed">
+						#include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"2"})
+					</div>
+					<div class="itemContent">
+						<dl class="infoItem">
+							<dt>物流服务</dt>
+							<dd>整合认证物流企业12家<br>每天运出冰糖橙超100吨</dd>
+						</dl>
+						<div class="autoAdv advItem1">
+							<div class="autoAdvImg">
+								<img src="${webroot}/resources/web/gylweb/images/gyl_icon_r1_c8.png" width="35" height="31" alt="专业" title="专业">
+							</div>
+							<div class="autoAdvText">专业</div>
+						</div>
+						<div class="autoAdv advItem1">
+							<div class="autoAdvImg">
+								<img src="${webroot}/resources/web/gylweb/images/gyl_icon_r1_c9.png" width="33" height="31" alt="快捷" title="快捷">
+							</div>
+							<div class="autoAdvText">快捷</div>
+						</div>
+						<div class="autoAdv advItem1">
+							<div class="autoAdvImg">
+								<img src="${webroot}/resources/web/gylweb/images/gyl_icon_r1_c10.png" width="32" height="32" alt="价优" title="价优">
+							</div>
+							<div class="autoAdvText">价优</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+				<div class="gylItem">
+					<div class="itemImg borderGray">
+						#include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"3"})
+					</div>
+					<div class="itemContent infoList">
+						#include("index/content_one.jetx",{"channelId":channelId,"configType":"c","position":"1"})
+					</div>
+				</div>
+				<div class="gylItem itemDouble">
+					<div class="itemImg borderGray2">
+						#include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"4"})
+					</div>
+					<div class="itemContent bgOrange">
+						<h3>金融服务</h3>
+						<a href="javascript:void(0);" class="autoAdv advItem2">
+							<div class="autoAdvImg">
+								<img src="${webroot}/resources/web/gylweb/images/gyl_icon_r1_c11.png" width="25" height="31" alt="融资方案" title="融资方案" class="autoAdvImgNormal" />
+								<img src="${webroot}/resources/web/gylweb/images/gyl_icon_r1_c11_hover.png" width="25" height="31" alt="融资方案" title="融资方案" class="autoAdvImgHover" />
+							</div>
+							<div class="autoAdvText">
+								#include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"5"})	
+							</div>	
+						</a>
+						<a href="javascript:void(0);" class="autoAdv advItem2">
+							<div class="autoAdvImg">
+								<img src="${webroot}/resources/web/gylweb/images/gyl_icon_r1_c12.png" width="25" height="31" alt="企业认证" title="企业认证" class="autoAdvImgNormal" />
+								<img src="${webroot}/resources/web/gylweb/images/gyl_icon_r1_c12_hover.png" width="25" height="31" alt="企业认证" title="企业认证" class="autoAdvImgHover" />
+							</div>
+							<div class="autoAdvText">
+								#include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"6"})	
+							</div>	
+						</a>
+						<a href="javascript:void(0);" class="autoAdv advItem2">
+							<div class="autoAdvImg">
+								<img src="${webroot}/resources/web/gylweb/images/gyl_icon_r1_c13.png" width="25" height="31" alt="银企通道" title="银企通道" class="autoAdvImgNormal" />
+								<img src="${webroot}/resources/web/gylweb/images/gyl_icon_r1_c13_hover.png" width="25" height="31" alt="银企通道" title="银企通道" class="autoAdvImgHover" />
+							</div>
+							<div class="autoAdvText">
+								#include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"7"})	
+							</div>	
+						</a>
+					</div>
+					<div class="itemContent bgBlue">
+						<h3>订单农业</h3>
+						<div class="autoAdv advItem3 circle1"><div class="autoAdvText">#include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"8"})</div></div>
+						<div class="autoAdv advItem3 circle2"><div class="autoAdvText">#include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"9"})</div></div>
+						<div class="autoAdv advItem3 circle3"><div class="autoAdvText">#include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"10"})</div></div>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="gylList">
+				<ul class="listHeader">
+					<li style="width:16%;">时间</li>
+					<li style="width:50%;">商品名称</li>
+					<li style="width:14%;">数量</li>
+					<li style="width:20%;">买家</li>
+				</ul>
+				<div class="listContent" id="ordersListShow"></div>
+			</div>
+			<div class="data">
+				<h2>数据统计</h2>
+				<div class="dataItem dataIcon1"><em class="animateNum" id="userReg"></em>家企业完成注册</div>
+				<div class="dataItem dataIcon2"><em class="animateNum" id="companyIn"></em>家企业融资进行</div>
+				<div class="dataItem dataIcon3"><em class="animateNum" id="companyReg"></em>家企业融资成功</div>
+			</div>
+			<div class="clear"></div>
+			<div class="banks">
+				<h2>合作金融机构</h2>
+				<table border="0" cellspacing="0" cellpadding="0" class="bankList">
+					<tr>
+						<td width="143">
+							#include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"11"})
+						</td>
+						<td width="113">
+							#include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"12"})
+						</td>
+						<td width="196">
+							#include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"13"})
+						</td>
+						<td width="102">
+							#include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"15"})
+						</td>
+						<td width="134">
+							#include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"16"})
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div id="buttomDiv"></div>
+	<script type="text/javascript" src="${webroot}/resources/web/gylweb/js/backtop.js"></script>
+<div style="display:none">
+	<script src="http://s95.cnzz.com/z_stat.php?id=1253965659&web_id=1253965659" language="JavaScript"></script>
+</div>
+</body>
+</html>

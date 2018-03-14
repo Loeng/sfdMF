@@ -1,0 +1,226 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <title>融资申请列表</title>
+  <link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css" />
+  <link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+  <script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+  <script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+  <script type="text/javascript" src="${webroot}/resources/commons/js/layer/layer.js"></script>
+  <!-- 导入自定义的JS文件 -->
+
+</head>
+<body>
+  #define(List<com.ekfans.base.loan.model.LoanApp> appList)
+  #define(com.ekfans.pub.util.Pager pager)
+  <input type="hidden" value="${webroot}" id="contextPath"/>
+
+  
+  <form action="${webroot}/store/loan/applist" method="post" id="searchForm">
+    <input type="hidden" name="pageNum" id="pageNum" value="" />
+    <input name="appStatus" id="appStatus" type="hidden" value="${appStatus}">
+    <input name="bankId" id="bankId" type="hidden" value="${bankId}">
+    <input name="loanTypeId" id="loanTypeId" type="hidden" value="${loanTypeId}">
+    <div class="formSearch borderColor">
+    <dl class="formItem">
+      <dt>融资银行</dt>
+      <dd>
+        <div class="selList">
+          <span class="textBox">
+            <input name="bankName" id="bankName" type="text" class="box184" placeholder="" value="${bankName}" readonly>
+            <em class="iconDown"></em>
+          </span>
+          <ul>
+            #for(com.ekfans.base.user.model.Bank bank:bankList)
+              <li onclick="choseBanks('${bank.id}','${bank.bankName}');">${bank.bankName}</li>
+            #end
+          </ul>
+        </div>
+      </dd>
+      <dd class="clear"></dd>
+    </dl>
+    <dl class="formItem" id="loanTypeDl" style="display:none;">
+      <dt>融资类型</dt>
+      <dd>
+        <div class="selList">
+          <span class="textBox">
+            <input name="loanTypeName" id="loanTypeName" type="text" class="box184" placeholder="" value="${loanTypeName}" readonly>
+            <em class="iconDown"></em>
+          </span>
+          <ul id="loanTypeUl"></ul>
+        </div>
+      </dd>
+      <dd class="clear"></dd>
+    </dl>
+    <dl class="formItem">
+      <dt>融资状态</dt>
+      <dd>
+        <div class="selList">
+          <span class="textBox">
+            <input name="appStatusName" id="appStatusName" type="text" class="box184" placeholder="" value="${@(com.ekfans.base.loan.util.LoanAppUtil).appStatusMap?[appStatus]}" readonly>
+            <em class="iconDown"></em>
+          </span>
+          <ul>
+            #for(Map.Entry entry: @(com.ekfans.base.loan.util.LoanAppUtil).appStatusMap)
+            <li onclick="choseAppStatus('${entry.key}','${entry.value}');">${entry.value}</li>
+            #end
+          </ul>
+        </div>
+      </dd>
+      <dd class="clear"></dd>
+    </dl>
+
+    <div class="clear"></div>
+    </div>
+    <div class="btnArea">
+    <a href="javascript:void(0);" class="btnBase btnSearch" onclick="formSubmit();">搜索</a>
+    <a href="javascript:void(0);" class="btnBase btnReset" onclick="formReset();">重置</a>
+    <div class="clear"></div>
+    </div>
+  </form>
+
+  <div class="formTable borderColor">
+    <ul class="secNav">
+      <li class="li1">所有融资申请</li>
+    </ul>
+    <div class="clear"></div>
+      <!--没有订单时-->
+    <div style="position:relative;" class="tableBox">   
+      <table border="0" cellspacing="0" cellpadding="0" class="tabList">
+        <thead>
+          <tr class="bgColor">
+            <th>融资银行</th>
+            <th>融资类型</th>           
+            <th>融资金额</th>
+            <th>当前状态</th>
+            <th>申请时间</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          #for(com.ekfans.base.loan.model.LoanApp loanApp:appList)
+          <tr>
+            <td>${loanApp.bankName}</td>
+            <td>${loanApp.loanTypeName}</td>
+            <td>${loanApp.price}</td>
+            <td>${@(com.ekfans.base.loan.util.LoanAppUtil).appStatusMap?[loanApp.appStatus]}</td>
+            <td>${loanApp.createTime}</td>
+            <td>
+              <a href="${webroot}/store/loan/appview/${loanApp.id}"  title="查看" >查看</a>
+              #if(@(com.ekfans.base.loan.util.LoanAppUtil).APP_STATUS_APPLY.equals(loanApp.appStatus) || @(com.ekfans.base.loan.util.LoanAppUtil).APP_STATUS_LX.equals(loanApp.appStatus) || @(com.ekfans.base.loan.util.LoanAppUtil).APP_STATUS_SDKC.equals(loanApp.appStatus) || @(com.ekfans.base.loan.util.LoanAppUtil).APP_STATUS_XSH.equals(loanApp.appStatus))
+                &nbsp;&nbsp;<a href="${webroot}/store/loan/appedit/${loanApp.id}"  title="编辑" >编辑</a>
+                &nbsp;&nbsp;<a href="javascript:void(0);" onclick="cancelApp('${loanApp.id}');" title="取消" >取消</a>
+              #end
+            </td>
+          </tr>
+          #end
+        </tbody>
+      </table>
+    </div>
+    #if(appList==null || appList.size()==0)
+      <div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+    #else
+
+      <div class="listBottom">
+        <!-- <a href="javascript:void(0)" class="btnBase">导出订单</a>-->
+        <!-- 分页 -->
+        ${include("../common/page.jetx")}
+        <div class="clear"></div>
+      </div>
+    #end
+    <div class="clear"></div>
+  </div>
+
+  
+  
+
+  <script type="text/javascript">
+    function choseAppStatus(key,value){
+      $("#appStatus").val(key);
+      $("#appStatusName").val(value);
+    }
+    function choseBanks(key,value){
+      $("#bankId").val(key);
+      $("#bankName").val(value);
+      $.post("${webroot}/store/loan/loadtypes/" + $("#bankId").val(),function(data){
+          data = JSON.parse(data);
+          var optionStr = "";
+          $.each(data, function (n, value) {
+            optionStr = optionStr + "<li onclick=\"choseLoanType('"+value.id+"','"+ value.loanName + "');\">"+value.loanName+"</li>";
+          });  
+          $("#loanTypeUl").html(optionStr);
+          $("#loanTypeDl").show();
+          
+      });
+    }
+
+    function choseLoanType(key,value){
+      $("#loanTypeId").val(key);
+      $("#loanTypeName").val(value);
+    }
+    #if(bankId != null && bankId != "" && bankId != " ")
+      choseBanks('${bankId}','${bankName}');
+    #end
+
+    function goPage(pageNo){
+      $("#pageNum").val(pageNo);
+      formSubmit();
+    }
+    function formReset(){
+      $("#bankId").val("");
+      $("#bankName").val("");
+      $("#appStatus").val("");
+      $("#appStatusName").val("");
+      $("#loanTypeId").val("");
+      $("#loanTypeName").val("");
+      $("#loanTypeDl").hide();
+    }
+
+    function formSubmit(){
+      $("#searchForm").submit();
+    }
+
+    function cancelApp(appId){
+      layer.open({
+        content: '融资申请一经取消则无法恢复，是否确定取消该融资申请？'
+        ,btn: ['确定', '取消']
+        ,yes: function(index, layero){ //或者使用btn1
+          cancelAppSure(appId);
+          layer.close(index);
+        },cancel: function(index){ //或者使用btn2
+          layer.close(index);
+        }
+      });
+    }
+
+    function cancelAppSure(appId){
+      $.post("${webroot}/store/loan/appcancel/" + appId,function(data){
+          if("1" == data){
+            layer.alert("融资申请取消成功！",function(index){
+              goPage("${pager.currentPage}")
+              layer.close(index);
+            });
+          }else if("2" == data){
+            layer.alert("融资申请取消失败！",function(index){
+              goPage("${pager.currentPage}")
+              layer.close(index);
+            });
+          }else{
+            layer.alert("融资申请取消失败！",function(index){
+              goPage("${pager.currentPage}")
+              layer.close(index);
+            });
+          }
+          
+      });
+
+
+
+    }
+
+  </script>
+</body>
+</html>

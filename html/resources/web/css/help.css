@@ -1,0 +1,53 @@
+/* CSS Document */
+
+@import url("base.css");
+
+/*顶部*/
+.topArea{height:30px;}
+.topLeft{width:120px; line-height:30px; font-size:14px; float:left;}
+.topRight{width:360px; float:right; height:18px; line-height:18px; padding:6px 0; text-align:right;}
+.topItem{padding:0 10px; display:inline-block; height:18px; border-right:solid 1px #333; color:#666;}
+.topArea .itemLast{border-right:none;}
+
+.logoBar{height:62px; background:#0085FD; margin-bottom:10px;}
+.logo{display:block;width:500px;margin-right:40px;}
+.logo img{display:block; float:left; margin-right:10px;}
+.logo em{display:block; float:left; line-height:38px; font-size:18px; color:#fff;}
+.nav{float:left;}
+.navItem{display:block; float:left; margin-right:30px; font-size:16px; color:#fff; line-height:62px;}
+
+/*左侧菜单*/
+.leftNav{width:160px; float:left; overflow:hidden; background:#fff; margin-bottom:30px;}
+.leftList{overflow:hidden; margin-top:1px;}
+.leftList dt{height:35px; line-height:35px; padding-left:32px; background:#0085FD; color:#fff; font-size:14px; position:relative; cursor:pointer;}
+.leftList dt .itemIco{top:12px; right:12px;}
+.leftList dd{padding:5px 0; display:block;}
+.leftList dd a{display:block; height:25px; line-height:25px; padding-left:24px; color:#888; margin:6px 0;}
+.leftList dd a:hover,.leftList dd a.cur{background:url(../images/cur_orange.png) no-repeat left center; color:#333;}
+
+/*右部*/
+.rightContent{width:975px; min-height:684px; float:right; background:#fff; border-top:2px #0085FD solid; padding:0px 20px 20px 20px;}
+.rightContent h2{color:#4B4848; font-size:24px;height:42px; line-height:42px;}
+.contentDiv{ border:1px #0085FD solid; padding:20px;}
+.contentDiv *{max-width:701px;}
+.contentDiv p{font-size:14px;color:#888889;line-height:24px;}
+
+
+/*页码*/
+.pageSize{float:right;margin-bottom:20px;}
+.pageSize .pageControl{font-family:SimSun;}
+.pageSize a.btn{display:inline-block; padding:0 2px;width:15px;height:15px;text-align:center; font-size:12px; line-height:15px;margin:0px 2px;}
+.pageSize a.btn:hover{background:#3070B8; color:#fff;}
+.pageSize a.btn.cur{background:#3070B8; color:#fff;}
+.pageSize a.btn em{ padding:0 2px; font-size:12px;font-family:sim sun;}
+
+/*返回顶部*/
+.cbbfixed {position: fixed;right: 10px;transition: bottom ease .3s;bottom:-101px;z-index: 3;cursor:pointer;}
+.cbbfixed .cbbtn{width:60px;height:60px;display: block;}
+.cbbfixed .gotop {transition: background-color ease .3s;margin-top: 1px;}
+.cbbfixed .gotop .up-icon{float:left;width:60px;height:60px;background:url(../images/backTop.png);}
+.cbbfixed .gotop .up-icon:hover{opacity:0.8;}
+
+/*随屏滚动*/
+.fixed{position:fixed;top:0px;}
+.budong{z-index:90;}

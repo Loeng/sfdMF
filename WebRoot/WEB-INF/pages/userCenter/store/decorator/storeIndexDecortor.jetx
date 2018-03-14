@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+	<head>
+	
+	#define(com.ekfans.base.user.model.User User)
+	#set(String cssUrl = webroot + "/resources/userCenter/")
+	#if(@(com.ekfans.base.user.util.UserConst).USER_TYPE_STORE == User.type)
+		#set( cssUrl =  cssUrl + "commons/css/addGoods.css")
+		#set( cssUrl =  cssUrl + "commons/css/index.css")
+	#elseif(@(com.ekfans.base.user.util.UserConst).USER_TYPE_BUYER == User.type)
+		#set( cssUrl =  cssUrl + "commons/css/addGoods.css")
+		#set( cssUrl =  cssUrl + "commons/css/index.css")
+	#elseif(@(com.ekfans.base.user.util.UserConst).USER_TYPE_CODE == User.type)
+		#set( cssUrl =  cssUrl + "commons/css/addGoods.css")
+		#set( cssUrl =  cssUrl + "commons/css/index.css")
+	#elseif(@(com.ekfans.base.user.util.UserConst).USER_TYPE_YUNSHU == User.type)
+		#set( cssUrl =  cssUrl + "commons/css/addGoods.css")
+		#set( cssUrl =  cssUrl + "commons/css/index.css")
+	#elseif(@(com.ekfans.base.user.util.UserConst).USER_TYPE_GONGYING == User.type)
+		#set( cssUrl =  cssUrl + "commons/css/addGoods.css")
+		#set( cssUrl =  cssUrl + "commons/css/index.css")
+	#end
+	
+		<meta charset="UTF-8">
+		<title>${@(com.ekfans.base.user.util.UserConst).userTypeNamesMap.get(User.type)}中心 - <sitemesh:write property="title"></sitemesh:write></title>
+		<link rel="icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+		<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+		<sitemesh:write property="head"></sitemesh:write>
+	</head>
+	<body>
+		${include("../common/top.jetx")}
+	  		<div class="wrapper main">
+			<!--店铺中心头部-->
+			
+			<!--店铺中心body部分-->
+			<sitemesh:write property='body'></sitemesh:write>
+			
+			<!--店铺中心尾部-->
+			</div>
+		${include("../common/buttom.jetx")}
+	</body>
+</html>

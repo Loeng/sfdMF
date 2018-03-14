@@ -1,0 +1,424 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>绑定银行卡</title>
+<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+
+<style>
+.sfdHeader{background:#FFE4E4; padding:0 16px; position:relative; margin-top:-10px; width:993px; margin-left:-20px; margin-bottom:20px;}
+.sfdHeader dt{padding-top:9px; height:48px; line-height:48px; border-bottom:solid 1px #FFD0D0; padding-left:64px; background:url(${webroot}/resources/web/images/icon_waring2.png) no-repeat 20px 17px; font-size:18px;}
+.sfdHeader dd{color:#717171; font-size:16px; line-height:26px; padding:10px 240px 10px 50px; position:relative;}
+.btnOrange{width:156px; height:36px; line-height:36px; display:block; background:#FC7100; color:#fff; font-size:18px; text-align:center; position:absolute; right:40px; top:10px;}
+.btnOrange:hover{background:#FFB577; color:#333;}
+.state{width:200px; height:48px; line-height:48px; font-size:18px; color:#fff; text-align:center; margin-bottom:30px;}
+.grayState{background:#B5B5B5;}
+.yellowState{background:#FFCB00;}
+.greenState{background:#44B034;}
+.rightContent h2{font-size:18px; color:#9F9FA0; height:1px; background:#D2D3D3; position:relative; margin:30px 0;}
+.rightContent h2 em{display:inline-block; padding-right:30px; height:33px; line-height:33px; position:absolute; top:-16px; background:#fff;}
+input.btnBase{border:none; cursor:pointer;}
+.btnForbid,.btnForbid:hover{background:#b5b5b5; color:#fff; cursor:default;}
+.formItem dt{width:83px;}
+
+/*银行账户*/
+.bankCheck .apContent{padding:20px 0 20px 40px;}
+.bankList{margin-bottom:30px;}
+.bankList li{width:280px; background:#f5f5f5; border:solid 1px #d7d7d7; float:left; margin:0 40px 12px 0; cursor:pointer; padding:5px;}
+.bankList li.cur{border:solid 1px #FF6B49; background-image:url(${webroot}/resources/userCenter/commons/images/icon_check.png); background-repeat:no-repeat; background-position:top right; background-color:#fff;}
+.bankList li span{padding-left:5px; display:block; line-height:22px;}
+.bankList li em{color:#999; width:50px; display:inline-block; text-align:right; padding-right:20px;}
+.bankList .fullBank{border-bottom:#e5e5e5 solid 1px; padding-bottom:5px; margin-bottom:5px;}
+.bankList .num{letter-spacing:2px;}
+.bankList .cardAdd{border:dashed 1px #72A8D7; background:url(${webroot}/resources/userCenter/commons/images/icon_add2.png) no-repeat center 20px; padding-top:50px; height:54px; line-height:30px; text-align:center; color:#0087CB; font-size:14px;}
+
+.bankSearch{padding-bottom:10px;}
+.bankSearch dl{width:320px; float:left;}
+.bankSearch dt{height:20px; line-height:20px;}
+.apLayer .btn{padding: 0 0 20px 95px;}
+.apLayer .pageSize{float:none; text-align:center;}
+</style>
+
+</head>
+<body>
+	#define(com.ekfans.base.store.model.Store store)
+	#define(com.ekfans.base.store.model.AccountBank bank)
+	<div class="contentTit budong borderColor">
+		<h3>银行账户设置</h3>
+		#if(bank == null || bank.status != "0" )
+			<a href="javascript:formSubmit();" class="btnBase btnSave">提交</a>
+		#else
+			<a href="javascript:unRegedit();" class="btnBase btnSave">解除绑定</a>
+		#end
+		<!-- <a href="javascript:void(0);" class="btnBase btnCancel">返回</a> -->
+		<div class="clear"></div>
+	</div>
+	<div class="form borderColor">
+		<dl class="sfdHeader">
+			<dt>三分地提醒您，为了保障您的权益，建议您下载并签署<em class="red">《长沙银行资金托管安全协议》</em></dt>
+			<dd>
+				<em class="red">《长沙银行资金托管安全协议》</em>是由长沙银行为三分地平台的用户提供的包括资金托管、互联网支付在内的安全综合服务协议。
+				<a href="javascript:void(0);" class="btnOrange">协议下载</a>
+			</dd>
+		</dl>
+		#if(bank == null)
+			<div class="state grayState">账户未绑定</div>
+		#elseif(bank.status == "1")
+			<div class="state greenState" style="float:left;">账户已开通</div>
+			#if(bank.bankName.indexOf("长沙银行股份") != -1 && !store.accountSuccess)
+				#if(!bank.customerType)
+					<span style="float:left;margin-left:15px;margin-top:15px;color:rgb(194, 44, 44);">长沙银行的账户需到账户网银去签约，具体操作手册请查看<a href="${webroot}/resources/长沙银行个人网银签约操作指引.pdf" target="_blank" style="font-size:18px;color:red;">《长沙银行个人网银签约操作指引》</a></span>
+				#else
+					<span style="float:left;margin-left:15px;margin-top:15px;color:rgb(194, 44, 44);">长沙银行的账户需到账户网银去签约，具体操作手册请查看<a href="${webroot}/resources/长沙银行对公网银签约操作指引.pdf" target="_blank" style="font-size:18px;color:red;">《长沙银行对公网银签约操作指引》</a></span>
+				#end
+			#end
+
+		#elseif(bank.status == "2")
+			<div class="state yellowState">账户审核中</div>
+		#elseif(bank.status == "3")
+			<div class="state grayState">账户审核不通过，请联系客服</div>
+		#end
+		<div class="clear"></div>
+		<form action="${webroot}/store/account/bank/saveorupdate" name="addOk" method="post"  id="saveForm">
+			<input type="hidden" name="id" value="${bank!=null?bank.id:""}"/>
+			<h2><em>银行资料</em></h2>
+			<dl class="formItem">
+				<dt>账户类型</dt>
+				<dd>
+					<span class="radio"><label><input name="customerType" type="radio" onclick="javascript:changeType(this.value);" value="0" #if(bank!=null&&!bank.customerType) checked  #end #if(bank==null) checked #end >个人用户</label></span> &nbsp; &nbsp;
+					<span class="radio"><label><input name="customerType" type="radio" onclick="javascript:changeType(this.value);" value="1" #if(bank!=null&&bank.customerType) checked  #end >企业用户</label></span> &nbsp; &nbsp;
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem" >
+				<dt id="cardName">身份证号码</dt>
+				<dd>
+				<input name="orgId" id="orgId"  onblur="javascript:checkorgIdBlur();"  type="text" class="textBox box212" value="${store.orgId}"/>
+				<input name="indentity" id="indentity"  onblur="javascript:checkIndentityBlur();"  type="text" class="textBox box212" style="display:none;"/ >
+				<span id="indentitySpan" class="errorText" style="display:none;"></span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem" >
+				<dt  id="userName">真实姓名</dt>
+				<dd>
+				<input name="companyName" id="companyName" value="${bank!=null?bank.companyName:""}" onblur="javascript:checkCompanyNameBlur();" type="text" class="textBox box212" style="display:none;"/>
+				<input name="storeName" id="storeName" value="${store.storeName}" onblur="javascript:checkCompanyNameBlur();" type="text" class="textBox box212"/>
+				<span id="companyNameSpan" class="errorText" style="display:none;"></span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>账户名称</dt>
+				<dd><input name="accountName" id="accountName" value="${bank!=null?bank.accountName:store.storeName}" onblur="javascript:checkAccountNameBlur();" type="text" class="textBox box212">
+				<span id="accountNameSpan" class="errorText" style="display:none;"></span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>结算账户</dt>
+				<dd><input name="accountNo" id="accountNo" value="${bank!=null?bank.accountNo:""}" onblur="javascript:checkAccountNoBlur();" type="text" class="textBox box212">
+				<span id="accountNoSpan" class="errorText" style="display:none;"></span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			
+			<div class="clear"></div>
+			<input type="hidden" name="bankNo" id="bankNo" value="${bank!=null?bank.bankNo:""}"/>
+			<dl class="formItem formLine">
+				<dt><em class="mustIco"></em>开户银行</dt>
+				<dd>
+					<input name="bankName" id="bankName" value="${bank!=null?bank.bankName:""}" onblur="javascript:checkBankNameBlur();" type="text" class="textBox box436" style="display:inline-block;">
+					<span id="bankNameSpan" class="errorText" style="display:none;"></span>
+					<input type="button" class="btnBase bankLink" id="bankChose" value="选择银行">
+				</dd>
+				<!--
+				<dd><a href="javascript:void(0);" style="display:inline-block; margin-left:5px;">长沙银行操作手册</a></dd>
+				-->
+				<dd class="clear"></dd>
+			</dl>
+			<div class="clear"></div>
+			
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>联系手机号</dt>
+				<dd><input name="mobile" id="mobile" value="${bank!=null?bank.mobile:""}" onblur="javascript:checkMobileBlur();" type="text" class="textBox box212">
+				<span id="mobileSpan" class="errorText" style="display:none;"></span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt>电话号码</dt>
+				<dd><input name="telPhone" id="telPhone" value="${bank!=null?bank.telPhone:""}" type="text" class="textBox box212"></dd>
+				<dd class="clear"></dd>
+			</dl>
+			
+			<div class="clear"></div>
+			
+			<dl class="formItem formLine">
+				<dt>联系地址</dt>
+				<dd><input name="address" id="address" value="${bank!=null?bank.address:""}" type="text" class="textBox box560"></dd>
+				<dd class="clear"></dd>
+			</dl>
+			
+			<dl class="formItem formLine">
+				<dt>备注</dt>
+				<dd>
+					<textarea name="note" cols="" rows="" class="textBox box560" style="height:80px;" value="${bank!=null?bank.note:""}">${bank!=null?bank.note:""}</textarea>
+				</dd> 
+				<dd class="clear"></dd>
+			</dl>
+			<div class="clear"></div>
+			
+			<!--如已设置密码，此处变成修改密码，下面三个表单，分别是：原密码，新密码，确认密码-->
+			<!--
+			#if(store.payPassword == "" ||store.payPassword == null)
+			<h2><em>支付／提现密码</em></h2>
+			<dl class="formItem">
+				<dt>输入密码</dt>
+				<dd><input name="password" id="password" type="text" class="textBox box212"></dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt>确认密码</dt>
+				<dd><input name="rePassword" id="rePassword" type="text" class="textBox box212"></dd>
+				<dd class="clear"></dd>
+			</dl>
+			#else
+			
+			#end
+			-->
+		</form>
+		<div class="clear"></div>
+	</div>
+	
+	<div class="apLayerBg"></div>
+	<div id="Directory" class="apLayer borderColor bankCheck"></div>
+	
+	<script>
+		#if(bank!=null&&!bank.customerType) 
+			changeType("0");
+		#else
+			changeType("1");
+		#end
+		
+	function changeType(typeVal){
+			if("0" == typeVal){
+				$("#cardName").html("<em class='mustIco'></em>身份证号码");
+				$("#orgId").hide();
+				$("#indentity").show();
+				$("#userName").html("<em class='mustIco'></em>真实姓名");
+				$("#storeName").hide();
+				$("#companyName").show();
+				$("#indentity").val("${bank!=null?bank.indentity:""}");
+				$("#companyName").val("${bank!=null?bank.companyName:""}");
+				$("#accountName").val("${bank!=null?bank.accountName:""}");
+			}else{
+				$("#cardName").html("<em class='mustIco'></em>组织机构代码");
+				$("#orgId").show();
+				$("#indentity").hide();
+				$("#userName").html("<em class='mustIco'></em>企业全称");
+				$("#storeName").show();
+				$("#companyName").hide();
+				$("#orgId").val("${store.orgId}");
+		    	$("#storeName").val("${store.storeName}");
+				$("#companyName").val("${store.storeName}");
+				$("#accountName").val("${store.storeName}");
+			}
+		}
+		
+	function formSubmit(){
+			var cusType = $('input[name="customerType"]:checked').val();
+      if(checkIndentityBlur()&&checkorgIdBlur()&&checkMobileBlur()&&checkAccountNoBlur()&&checkAccountNameBlur()&&checkCompanyNameBlur()&&checkBankNameBlur()){
+			
+			$("#saveForm").ajaxSubmit(function(data){
+	    		if(data == "1"){
+	    			#if(store.payPassword == "" ||store.payPassword == null)
+	    						econfirm("申请已提交，客服经理将会尽快与您联系，为了您资金安全，建议您设置支付/提现密码。点击确定立即前往设置",gotoPassword,null,null,null);
+	    		    #else
+	    						salert("申请已提交，客服经理将会尽快与您联系");
+	    			#end
+	    		}else{
+	    			ealert("保存失败");
+	    		}
+	    	});
+	
+		}
+		}
+		
+		//检查身份证号
+	function checkIndentityBlur(){
+		    var cusType = $('input[name="customerType"]:checked').val();
+			var indentity = $("#indentity").val();
+			var regexp=/^[1-9]{1}[0-9]{14}$|^[1-9]{1}[0-9]{16}([0-9]|[xX])$/;
+		if("0"==cusType){
+		    if(indentity == "" || indentity == "undefined" || indentity == "null"){
+					$("#indentitySpan").show();
+					$("#indentitySpan").text("请输入身份证号!");
+				   return false;
+				}	else	if(!regexp.test(indentity)){
+					$("#indentitySpan").show();
+					$("#indentitySpan").text("请输入正确格式的身份证号!");
+				   return false;
+				}
+			}
+			        $("#indentitySpan").hide();
+			      return true;
+		}
+		
+		//检查组织机构代码
+	 function checkorgIdBlur(){
+		 var cusType = $('input[name="customerType"]:checked').val();
+		 var orgId = $("#orgId").val();
+		 if("1"==cusType){
+		 if(orgId == "" || orgId == "undefined" || orgId == "null"){
+				$("#indentitySpan").show();
+				$("#indentitySpan").text("请输入组织机构代码!");
+			   return false;
+		}
+		 }
+		    $("#indentitySpan").hide();
+			return true;
+	 }
+		//检查手机号
+		function checkMobileBlur(){
+			var mobile = $("#mobile").val();
+			var regexp = /^1\d{10}$/;
+			if(mobile == "" || mobile == "undefined" || mobile == "null"){
+				$("#mobileSpan").show();
+				$("#mobileSpan").text("请输入手机号!");
+				return false;
+			}
+			if(!regexp.test(mobile)){
+				$("#mobileSpan").show();
+				$("#mobileSpan").text("请输入正确的手机号!");
+				return false;
+			}
+			$("#mobileSpan").hide();
+			return true;
+		}
+		//检查结算账户号格式
+		function checkAccountNoBlur(){
+			var accountNo = $("#accountNo").val();
+			if(accountNo == "" || accountNo == "undefined" || accountNo == "null"){
+				$("#accountNoSpan").show();
+				$("#accountNoSpan").text("请输入结算账户号");
+				return false;
+			}
+			$("#accountNoSpan").hide();
+			return true;
+		}
+		//检查账户名
+		function checkAccountNameBlur(){
+			var accountName = $("#accountName").val();
+			if(accountName == "" || accountName == "undefined" || accountName == "null"){
+				$("#accountNameSpan").show();
+				$("#accountNameSpan").text("请输入账户名称!");
+				return false;
+			}
+			$("#accountNameSpan").hide();
+			return true;
+		}
+		//检查真实姓名或企业全称
+		function checkCompanyNameBlur(){
+			var cusType = $('input[name="customerType"]:checked').val();
+			var companyName = $("#companyName").val();
+			var storeName = $("#storeName").val();
+			if(companyName == "" || companyName == "undefined" || companyName == "null"){
+					$("#companyNameSpan").show();
+					$("#companyNameSpan").text("请输入真实姓名!");
+					return false;
+			}
+			if(storeName == "" || storeName == "undefined" || storeName == "null"){
+				$("#companyNameSpan").show();
+				$("#companyNameSpan").text("请输入企业全称!");
+				return false;
+			}
+			$("#companyNameSpan").hide();
+			return true;
+		}
+		//检查开户银行
+		function checkBankNameBlur(){
+			var bankNo = $("#bankName").val();
+			if(bankNo == "" || bankNo == "undefined" || bankNo == "null"){
+				$("#bankNameSpan").show();
+				$("#bankNameSpan").text("请选择开户银行");
+				return false;	
+			}
+			$("#bankNameSpan").hide();
+			return true;
+		}
+		
+		function gotoPassword(){
+			choseMenu('${webroot}','ACCOUNT_BANK_PAY_PASSWORD');
+		}
+		
+		
+		function loadBanks(){
+			
+			$(".apLayerBg").show();
+			$(".alertBrand").show();
+		}
+		
+		function unRegedit(){
+			econfirm("是否确定解除银行卡绑定？",unRegeditSure,null,null,null);
+		}
+
+		function unRegeditSure(){
+			$.post("${webroot}/store/account/bank/getlistprice",function(data){
+				if(parseFloat(data) > 0){
+					econfirm("您账户中还有余额"+data+"元,请先将余额提现再做解绑操作。是否立即提现？",goToView,["ACCOUNT_BANK_ACCOUNT"],null,null);
+				}else{
+					$.post("${webroot}/store/account/bank/unregedit",function(data){
+						if(data == "1"){
+							salertWithFunction("账号解绑成功！",goToView,["ACCOUNT_BANK_VIEW"]);
+						}else{
+							falert("账号解绑失败，请联系管理员！");
+						}
+					});
+				}
+			});
+		}
+
+	function goToView(viewId){
+		choseMenu('${webroot}',viewId)
+	}
+
+	//选择银行账户
+	$(".bankLink").live("click",function(){
+		$("#Directory").load("${webroot}/store/account/bank/load");
+		$(".apLayerBg,.bankCheck").show();
+	})
+	$(".bankItem").live("click",function(){
+		var bankInfosId = $(this).find("#bankInfosId").val();
+		var bankInfosName = $(this).find("#bankInfosName").val();
+		$("#bankNo").val(bankInfosId);
+		$("#bankName").val(bankInfosName);
+		
+		$(this).siblings().removeClass("cur");
+		$(this).addClass("cur");
+		$(this).parents(".apLayer").hide();
+		$(".apLayerBg").hide();
+	})
+		function goPage(pageNo){
+			var key = $("#key").val();
+			var searchBankNo = $("#searchBankNo").val();
+			$("#Directory").load("${webroot}/store/account/bank/load",{pageNo:pageNo,key:key,searchBankNo:searchBankNo});
+			$(".apLayerBg,.bankCheck").show();
+		}
+		$(".loadBankSearch").live("click",function(){
+			var key = $("#key").val();
+			var searchBankNo = $("#searchBankNo").val();
+			$("#Directory").load("${webroot}/store/account/bank/load",{pageNo:"0",key:key,searchBankNo:searchBankNo});
+			$(".apLayerBg,.bankCheck").show();
+		});
+	</script>
+	 
+<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+</body>
+</html>

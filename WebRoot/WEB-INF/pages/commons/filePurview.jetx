@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title>文件预览 - ${fileName}</title>
+<style type="text/css" media="screen"> 
+html, body	{height:100%;width:100%}
+body {margin:0; padding:0; overflow:auto;}   
+#flashContent {display:none;}
+</style> 
+	<script type="text/javascript" src="${webroot}/resources/plugin/FlexPaper_1.5.1_flash/js/flexpaper_flash.js"></script>
+</head>
+
+<body>
+
+<div style="position:absolute;left:10px;top:10px;right:10px;bottom:10px;">
+	<a id="viewerPlaceHolder" style="width:100%;height:100%;display:block"></a>
+<script type="text/javascript"> 
+var fp = new FlexPaperViewer(	
+	'${webroot}//resources/plugin/FlexPaper_1.5.1_flash/FlexPaperViewer',
+	'viewerPlaceHolder', {config : {
+	SwfFile : escape('${webroot}${swfPath}'),
+	Scale : 1, 
+	ZoomTransition : 'easeOut',
+	ZoomTime : 1,
+	ZoomInterval : 1,
+	FitPageOnLoad : true,
+	FitWidthOnLoad : true,
+	FullScreenAsMaxWindow : true,
+	ProgressiveLoading : true,
+	MinZoomSize : 1,
+	MaxZoomSize : 5,
+	SearchMatchAll : false,
+	InitViewMode : 'Portrait',
+	PrintPaperAsBitmap : false,
+	
+	ViewModeToolsVisible : true,
+	ZoomToolsVisible : true,
+	NavToolsVisible : true,
+	CursorToolsVisible : true,
+	SearchToolsVisible : true,
+	
+	localeChain: 'zh_CN'
+}});
+</script>
+</div>
+
+</body>
+</html>

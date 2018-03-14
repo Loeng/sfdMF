@@ -1,0 +1,394 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>产品采购详情</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<link rel="shortcut icon" href="../../../resources/commons/images/favicon.ico" type="image/x-icon">
+<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+<link href="../../../resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/web/css/base.css" rel="stylesheet" type="text/css">
+<style>
+.bread{height:38px; line-height:38px; background:#FCF4E5; font-size:14px; color:#A78749; margin-bottom:20px;}
+.pageNav{height:60px; background:#C29B51; color:#fff;}
+.pageNav h2{width:120px; line-height:60px; overflow:hidden; font-size:18px; text-align:center; background:#A78749; float:left; margin-right:10px;}
+.pageNavList a{display:block; padding:0 16px; float:left; margin:18px 8px; height:24px; line-height:24px; font-size:14px;}
+.pageNavList a:hover{background:#fff; border-radius:12px; color:#A78749;}
+.pageNav2{ margin-bottom:15px; background-color:#DAAF5C;}
+
+.product{border-top:solid 5px #4695FA; padding:20px 20px 30px 0; background:#fff;}
+.zoneName{display:block; width:55px; padding:10px 5px; line-height:22px; font-size:18px; background:#37A1FF; color:#fff; float:left; margin:20px 13px 0 0;}
+.proImg{width:448px; height:448px; border:solid 5px #e4e4e4; float:left; margin-right:56px;}
+.imgBox{width:448px; height:448px; display:table-cell; vertical-align:middle; text-align:center; *display:block;
+*font-size:382px;/*约为高度的0.873*/ *font-family:Arial;/*防止非utf-8引起的hack失效问题，如gbk编码*/}
+.imgBox img{vertical-align:middle; max-width:448px; max-height:448px;width:expression(document.body.clientWidth > 448?"448px":"auto" );height:expression(document.body.clientHeight > 448?"448px":"auto" );}
+.proInfo{float:left; width:558px;}
+.proName dt{height:34px; line-height:34px; overflow:hidden; font-size:22px; margin:4px 0 12px 0;}
+.proName .price{display:inline-block; height:34px; background:#EF4D4D; padding:0 12px; margin-left:30px; color:#fff;}
+.proName dd{line-height:30px; min-height:60px; font-size:16px;}
+.textInfo{padding:13px 0; background:#F2F1F1; width:100%; margin-bottom:10px;}
+.textInfo li{height:22px; line-height:22px; width:48%; float:left; padding-left:2%; font-size:14px;}
+.detection{padding:8px 65px; float:left; border-right:solid 1px #DCDCDD; width:87px; text-align:center;}
+.detection dt{font-size:18px; height:34px; line-height:34px; overflow:hidden;}
+.detectionImg{display:block; width:85px; height:80px;padding:10px 0 0 0;border:solid 1px #E5E6E6; margin-bottom:5px; border-radius:6px;}
+.yijiance{display:block; font-size:20px; font-weight:bold; color:#4695F9;}
+.weijiance{display:block; font-size:20px; font-weight:bold; color:#868686;}
+.detectionName{font-size:14px; line-height:20px; text-align:left; width:87px;height:60px; overflow:hidden;}
+
+.proBtns{float:left; padding:5px 0 0 37px;}
+.proBtns a{display:block; width:200px; height:48px; line-height:48px; color:#fff; font-size:24px; text-align:center; border-radius:6px;}
+.btnRed{background:#EF4D4D; margin-bottom:12px;}
+.btnRed:hover{background:#EC2828; color:#fff;}
+.btnBlue{background:#4595F9;color:#fff;}
+.btnBlue:hover{background:#0A75F8; color:#fff;}
+.btnOrange{ background-color:#FF7633;color:#fff;}
+.btnOrange:hover{ background-color:#FF7633;color:#fff;}
+
+.theTime{height:45px; line-height:45px; background:#f1f1f1; font-size:18px; margin-top:20px; text-indent:1em;}
+
+.proEdit{border-top:solid 5px #4695FA; padding:30px; width:1140px; background:#fff; margin-top:20px; font-size:14px; line-height:28px;}
+.proEdit *{max-width:1140px;}
+
+/***弹出层***/
+.apBg{position:fixed; top:0; left:0; right:0; bottom:0; background:#000; filter:alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity:0.5; opacity:0.5; z-index:20; display:none;}
+.apLayer{width:474px; border:solid 8px #eee; border:solid 8px rgba(255,255,255,0.4); border-radius:8px; position:fixed; z-index:21; top:20%; left:50%; margin-left:-238px; overflow:hidden; display:none;}
+.apTit{height:60px; line-height:60px; background:#ff8300; position:relative;}
+.apTit h3{font-size:24px; color:#fff; text-indent:1em;}
+.apClose{display:block; background:url(../../../resources/web/images/close_icon.png) no-repeat center center; width:18px; height:18px; position:absolute; top:21px; right:16px;}
+.apContent{background:#fff;}
+
+/*议价弹层*/
+.dataInfo{padding-bottom:14px; width:415px; overflow:hidden; border-bottom:solid 1px #b2b2b2; border-top:solid 1px #b2b2b2;}
+.dataInfo .priceTitle{display:block; height:45px; line-height:45px; border-top:solid 1px #f1f0f0; border-bottom:solid 1px #f1f0f0; font-size:24px; margin-bottom:14px;}
+.stair{width:415px; background:#FDE6DA; padding:10px 0;}
+.stair li{width:190px; padding:0 10px 0 7px; float:left; height:35px; line-height:35px; font-size:14px;}
+.stair li span{display:inline-block; width:110px; color:#666; text-align:right; padding-right:10px;}
+.stair li em{color:#f00;}
+
+.apBargain{width:750px; position:fixed; top:8%; bottom:8%; left:50%; margin-left:-375px; z-index:6; z-index:99; background:#fff; border:none; border-radius:0;}
+.apBargain .apTit{height:38px; line-height:38px; color:#fff; font-size:20px; background:#FF5900; position:relative; text-indent:20px;}
+.apBargain .apClose{background:url(../../../resources/web/images/close_icon.png) no-repeat; width:18px; height:18px; display:block; position:absolute; top:10px; right:10px;}
+.apBargainContent{position:absolute; top:38px; left:0; bottom:0; width:100%; overflow-y:auto;}
+.apBargain h1{line-height:45px; padding:0 5px; font-size:20px; background:#FF5900; color:#fff; margin:24px 46px 20px 46px; text-indent:12px;}
+.apBargain .dataInfo{width:auto; border:none; margin:0 46px; border-bottom:solid 1px #f1f0f0; margin-bottom:28px;}
+.apBargain .priceTitle{border-top:none;}
+.apBargain .stair{width:auto; width:698px;}
+.apBargain .stair li{margin-right:36px; width:195px;}
+.apBargain .apForm{border:solid 1px #EEEFEF; margin:0 46px; padding:0px 20px 0px 120px; margin-bottom:20px;}
+.apBargain .formItem{padding:10px 0;}
+.apBargain .apForm dt{line-height:30px; width:86px; font-size:16px; color:#888; float:left;}
+.apBargain .formImport,.apBargain .formText{float:left; line-height:28px; margin-right:18px;}
+.apBargain .formImport .formBox{width:200px; height:28px; line-height:28px\9; font-size:16px; padding:0 8px; border:solid 1px #EEEFEF;}
+.apBargain .formText{font-size:16px; color:#888;}
+.bargainBtn{text-align:center; padding-bottom:20px;}
+.apBargain .btnOrange,.apBargain .btnBlue{display:inline-block; width:170px; height:35px; line-height:35px; margin:0 10px; font-size:24px;}
+.apBargain .apForm textarea{display:block; width:200px; height:56px; line-height:28px\9; padding:0 8px; border:solid 1px #EEEFEF;}
+.apBargain .formItem textarea{resize:none;}
+</style>
+</head>
+
+<body>
+<div class="wrapper topArea">
+	<h1 class="logo">
+    	<a href="index.html" title="鑫裕环保供应链平台"><img src="../../../resources/commons/images/logo.png" alt="鑫裕环保供应链平台"></a>
+    </h1>
+    <div class="topRight">
+    	<a href="index.html" class="linkIndex">首页</a>
+        <dl class="downList">
+        	<dt><a href="javascript:void(0)" class="linkLogin">登录</a></dt>
+            <dd>
+            	<div class="apBack">
+                  <em class="topPoint"></em>
+                  <div class="apLoadCont">
+                    <a href="cgsdl.html" class="btnLoad dlcg btnCart">采购商入口</a>
+                    <a href="gysdl.html" class="btnLoad dlgy btnRk">供应商入口</a>
+                    <a href="hxqydl.html" class="btnLoad dlhx btnhx">核心企业入口</a>
+                  </div>
+                </div>
+            </dd>
+        </dl>
+        <dl class="downList">
+        	<dt><a href="javascript:void(0)" class="linkReg">注册</a></dt>
+            <dd>
+                <div class="apBack2">
+                    <em class="topPoint2"></em>
+                    <div class="apRegCont">
+                      <a href="cgszc1.html" class="btnEnter zccg btnCart">采购商入口</a>
+                      <a href="gyszc1.html" class="btnEnter zcgy btnRk">供应商入口</a>
+                    </div>
+                </div>
+            </dd>
+        </dl>
+        <em class="split"></em>
+        <span class="telPhone">4000-888-1000</span>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="nav">
+	<div class="wrapper">
+    	<dl class="navItem">
+        	<dt>现货交易</dt>
+            <dd>
+            	<a href="gqxx.html">供求信息</a>
+                <a href="gjs.html">贵金属</a>
+                <a href="ylcg.html">原料采购</a>
+                <a href="wjbc.html">微晶板材</a>
+            </dd>
+        </dl>
+        <dl class="navItem">
+        	<dt>危废处置</dt>
+            <dd>
+            	<a href="wxpcs.html">危险品产生</a>
+                <a href="wxpys.html">危险品运输</a>
+                <a href="wxpcz.html">危险品处置</a>
+                <a href="zcfg.html">政策法规</a>
+            </dd>
+        </dl>
+        <dl class="navItem" style="margin-right:0;">
+        	<dt>网络金融</dt>
+            <dd>
+            	<a href="qyrz.html">企业认证</a>
+                <a href="wlrz.html" class="cur">网络融资</a>
+                <a href="javascript:void(0)">融资指引</a>
+                <a href="javascript:void(0)">建行专区</a>
+            </dd>
+        </dl>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="bread">
+	<div class="wrapper"><a href="javascript:void(0);">首页</a>&nbsp;&gt;&nbsp;<a href="javascript:void(0);">原料采购</a>&nbsp;&gt;&nbsp;铁精粉</div>
+</div>
+<div class="wrapper">
+	<div class="pageNav">
+   	  	<h2>交易专区</h2>
+        <div class="pageNavList">
+        	<a href="javascript:void(0);">全部</a>
+            <a href="javascript:void(0);">华北专区</a>
+            <a href="javascript:void(0);">华中专区</a>
+            <a href="javascript:void(0);">华南专区</a>
+            <a href="javascript:void(0);">东北专区</a>
+            <a href="javascript:void(0);">西南专区</a>
+            <a href="javascript:void(0);">西北专区</a>
+            <a href="javascript:void(0);">陕甘宁专区</a>
+            <a href="javascript:void(0);">港澳台专区</a>
+        </div>
+    </div>
+    <div class="pageNav pageNav2">
+        <div class="pageNavList">
+        	<a href="javascript:void(0);">铁法煤业</a>
+          <a href="javascript:void(0);">阜新矿业</a>
+          <a href="javascript:void(0);" class="cur">沈煤集团</a>
+          <a href="javascript:void(0);">通化矿业</a>
+          <a href="javascript:void(0);">宝日希勒煤业</a>
+          <a href="javascript:void(0);">中煤集团</a>
+          <a href="javascript:void(0);">昆大化工</a>
+        </div>
+    </div>
+    <div class="product">
+   	  	<em class="zoneName">中石化专区</em>
+        <div class="proImg">
+        	<div class="imgBox">
+        		<img src="../../../resources/web/pic/pic448.jpg" alt="商品图片">
+            </div>
+        </div>
+        <div class="proInfo">
+        	<dl class="proName">
+            	<dt>铁精粉<em class="price">850元/吨</em></dt>
+                <dd>品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+            </dl>
+            <ul class="textInfo">
+            	<li>供货量：5,000 吨</li>
+                <li>交割日：即期</li>
+                <li>成交量：0 吨</li>
+                <li>交　货：仅支持自提</li>
+                <li>交割地：天津中通库</li>
+                <li>付　款：先款后货或者现款现货</li>
+                <div class="clear"></div>
+            </ul>
+            <!--已检测-->
+            <!--<dl class="detection">
+                <dt>检测机构</dt>
+                <dd class="detectionImg">
+                  <img src="../../../resources/web/images/yijiance.png" alt="已检测">
+                  <a href="javascript:void(0);" target="_blank" class="yijiance" title="已检测">已检测</a>
+                </dd>
+                <dd class="detectionName">华测检测技术股份有限公司</dd>
+            </dl>-->
+            <!--已检测-->
+            <!--未检测-->
+            <dl class="detection">
+            	<dt></dt>
+              <dd class="detectionImg">
+                <img src="../../../resources/web/images/weijiance.png" alt="未检测">
+                <span class="weijiance">未检测</span>
+              </dd>
+              <dd class="detectionName"></dd>
+            </dl>
+            <!--未检测-->
+            <div class="proBtns">
+                <a href="cart02.html" class="btnRed">立即下单</a>
+                <a href="javascript:void(0);" class="btnRed">我要订购</a>
+                <a href="javascript:void(0);" class="btnBlue btnBargain">我要议价</a>
+            </div>
+            <div class="clear"></div>
+            <div class="theTime">交易时间：9:00 - 17:00</div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="proEdit">
+    	<img src="../../../resources/web/pic/pic300.jpg" width="300" height="300" alt="商品图片" style="float:left; margin:0 20px 20px 50px; border:solid 5px #e4e4e4;">
+        <div>铁矿石经过破碎、磨碎、选矿等加工处理成矿粉叫铁精粉，铁精粉是烧结的主要原料，其中铁的含量的波动将直接影响成品烧结矿的质量。
+  在理论上来说，凡是含有铁元素或铁化合物的矿石都可以叫做铁矿石；
+  但是，在工业上或者商业上来说，铁矿石不但是要含有铁的成份，而且必须有利用的价值才行。
+  铁精粉是烧结的主要原料，其中铁的含量的波动将直接影响成品烧结矿的质量。
+   铁精粉定义
+  铁矿石经过破碎、磨碎、选矿等加工处理成矿粉叫精矿粉。
+  精矿粉按照选矿方法的不同分为多种精矿粉，如磁选、浮选、重选等精矿粉。
+  据数据显示，9月初至今，铁矿石价格从每吨90美元涨至120美元，涨幅约30%。11月单月，铁矿石进口量超过6500万吨，创历史次新高水平。铁矿石年末的翘尾行情，挑战着刚刚恢复盈利的钢铁业。 [1] 随着国际进口铁矿石价格不断上扬，国内市场铁矿石报价也在不断上涨。2006年年中时河北唐山地区铁矿石报价为600元/吨左右，2006年底上扬至710元/吨，2007年底上扬至1320元/吨，几乎翻倍，2008年5月初时价格曾一度触及1610元/吨的高位。在此之后，国内铁矿石价格受需求疲弱和供应过剩的压力便开始逐渐回落。</div>
+  		<div class="clear"></div>
+	</div>
+</div>
+<!--底部-->
+<div class="bottomMenu">
+    <div class="wrapper">
+    	<dl class="footItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c4.png" width="49" height="48" />
+              <span>采购流程</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="下单流程">下单流程</a></li>
+                <li><a href="javascript:void(0);" title="订单跟踪">订单跟踪</a></li>
+                <li><a href="javascript:void(0);" title="安全支付">安全支付</a></li>
+                <li><a href="javascript:void(0);" title="企业认证">企业认证</a></li>
+                <li><a href="javascript:void(0);" title="常见问题">常见问题</a></li>
+            </dd>
+        </dl>
+        <dl class="footItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c5.png" width="49" height="48" />
+              <span>服务与支持</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="物流配送">物流配送</a></li>
+                <li><a href="javascript:void(0);" title="经销商权益">经销商权益</a></li>
+                <li><a href="javascript:void(0);" title="不良品退货">不良品退货</a></li>
+                <li><a href="javascript:void(0);" title="在线咨询">在线咨询</a></li>
+                <li><a href="javascript:void(0);" title="融资操作手册">融资操作手册</a></li>
+            </dd>
+        </dl>
+        <dl class="footItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c6.png" width="49" height="48" />
+              <span>我的账户</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="子账户管理">子账户管理</a></li>
+                <li><a href="javascript:void(0);" title="密码重置">密码重置</a></li>
+                <li><a href="javascript:void(0);" title="在线打款">在线打款</a></li>
+            </dd>
+        </dl>
+        <dl class="lastItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c7.png" width="49" height="48" />
+              <span>关于我们</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="公司简介">公司简介</a></li>
+                <li><a href="javascript:void(0);" title="联系我们">联系我们</a></li>
+                <li><a href="javascript:void(0);" title="网站声明">网站声明</a></li>
+            </dd>
+        </dl>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--底部 end-->
+
+<!--尾部-->
+<div class="footer">
+	<div class="wrapper">
+        <p class="footerLeft">© 2014 成都易科远见科技有限公司 版权所有 蜀ICP备 14005736号</p>
+        <p class="footerRight">成都市高新区吉泰路666号花样年·福年广场2号楼1309室<br>服务热线：028-83190368</p>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--尾部 end-->
+
+<!--弹窗开始-->
+<div class="apBg"></div>
+<div class="apLayer apLoginLayer">
+<!--这里放登录弹窗-->
+
+</div>
+<!--这里放议价弹窗-->
+<div class="apLayer apBargain">
+	<div class="apTit">议价--铁精粉<a href="javascript:void(0)" class="apClose"></a></div>
+    <div class="apBargainContent">
+        <div class="apPro">
+            <div class="dataInfo">
+                <strong class="priceTitle">采购价</strong>
+                <ul class="stair">
+                    <li><span>1-10吨</span><em>¥ 11.30/吨</em></li>
+                    <div class="clear"></div>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="apForm">
+            <dl class="formItem">
+                <dt>采购数量</dt>
+                <dd class="formImport"><input name="" type="text" class="formBox"></dd>
+                <dd class="formText">单位：吨</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>商议价格</dt>
+                <dd class="formImport"><input name="" type="text" class="formBox"></dd>
+                <dd class="formText">单位：元/吨</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>联系人</dt>
+                <dd class="formImport"><input name="" type="text" class="formBox"></dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>联系电话</dt>
+                <dd class="formImport"><input name="" type="text" class="formBox"></dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>其他留言</dt>
+                <dd class="formImport"><textarea name="" cols="" rows=""></textarea></dd>
+                <dd class="clear"></dd>
+            </dl>
+        </div>
+        <div class="bargainBtn">
+            <a href="javascript:void(0)" class="btnOrange">提交议价</a>
+            <a href="javascript:void(0)" class="btnBlue">取消</a>
+        </div>
+    </div>
+</div>
+<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="../../../resources/web/js/base.js"></script>
+<script>
+/*议价弹窗*/
+	$(".btnBargain").click(function(){
+		$(".apBargain").show();
+		$(".apBg").show();
+	})
+	
+	$(".apClose").click(function() {
+        $(this).parents(".apLayer").hide();
+		$(".apBg").hide();
+    });
+
+</script>
+</body>
+</html>

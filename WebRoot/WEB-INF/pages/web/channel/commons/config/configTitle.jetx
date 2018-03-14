@@ -1,0 +1,15 @@
+#define(String configType)
+#define(String position)
+
+<div class="layerControl">
+	<dl class="controlList">
+		<dt></dt>
+		<dd>
+			<!-- <span>刷新缓存</span> -->
+			<span onclick="javascript:removeConfig(this,'${webroot}','${channelId}','${configType}','${position}');">清空</span>
+			<span onclick="javascript:editConfig('${webroot}','${channelId}','${configType}','${position}');">更改</span>
+		</dd>
+	</dl>
+</div>
+
+<div id="showConfig"></div>

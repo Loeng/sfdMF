@@ -1,0 +1,7 @@
+#define(List<com.ekfans.base.store.model.Store> slist)
+
+#if(slist!=null && slist.size()>0)
+	#for(com.ekfans.base.store.model.Store s : slist)
+		<a href="javascript:void(0);" onclick="getStoreByProject(this, '${s.id}')">#if(s.storeRefer=="" || s.storeRefer=="  ")${s.storeName}#else${s.storeRefer}#end</a>
+	#end
+#end

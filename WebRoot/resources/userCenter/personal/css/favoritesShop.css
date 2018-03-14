@@ -1,0 +1,31 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url("personalBase.css");
+
+.saveHeader{height:41px; line-height:36px; border-bottom:solid 1px #CBCFCF;}
+.saveHeader a{display:block; height:36px; width:132px; text-align:center; font-size:14px; float:left;}
+.nowItem{border-bottom:solid 5px #ff8900;}
+
+/*收藏店铺列表*/
+.userSave{border-bottom:solid 1px #f7f5f5;}
+.listDelete{height:40px; line-height:40px; position:relative; border-bottom:solid 1px #f7f5f5; padding-left:20px;}
+.check{display:block; width:10px; height:10px; border:solid 1px #d8d8d8; overflow:hidden;}
+.checked em{background:#424242; width:6px; height:6px; display:block; margin:2px; overflow:hidden;}
+.listDelete .check{position:absolute; left:0; top:13px;}
+.listDelete a{display:inline-block; margin-right:6px;}
+.shopList{width:200px; padding:16px 34px 8px 34px; border-bottom:solid 1px #f7f5f5; float:left; position:relative; margin-bottom:-1px;}
+.shopInfo{display:block; width:198px; height:198px; border:solid 1px #E4E9F1; position:relative;}
+.shopBg{display:none; width:198px; height:50px; border:solid 1px #b7b6b6; background:#000; position:absolute; left:-1px; bottom:-1px; z-index:1; filter:alpha(opacity=30); -moz-opacity:0.3; -khtml-opacity:0.3; opacity:0.3;}
+.shopName{display:none; width:198px; height:50px; line-height:36px; position:absolute; left:0; bottom:0; z-index:2; text-indent:1.5em; font-size:14px;}
+.shopName a{color:#fff;}
+.shopName a:hover{text-decoration:underline;}
+.shopBottom{height:45px; line-height:45px; position:relative; padding-left:20px;}
+.shopBottom .check{left:0; top:16px; position:absolute;}
+.shopBottom a{display:inline-block; margin-right:10px; color:#7d7d7d;}
+
+/*页码*/
+.pageSize{text-align:right; padding-top:20px;}
+.pageSize a{display:inline-block; height:21px; line-height:21px; margin-right:8px; padding:0 8px; background:#f6f6f6; color:#12369b;}
+.pageLast,.pageNext{font-family:SimSun;}
+.pageSize a:hover,.pageSize .nowPage{background:#4594f9; color:#fff;}

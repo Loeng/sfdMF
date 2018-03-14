@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>广告管理</title>
+	<link href="${WEBROOT_PATH}/resources/system/css/demand.css" rel="stylesheet" type="text/css">
+	<link href="${WEBROOT_PATH}/resources/system/css/list.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/commons/css/ad.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/base.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tuwen1.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/user/ad/wlbAdList.js"></script>
+</head>
+    
+<body>
+#define(com.ekfans.pub.util.Pager pager)	
+<input type="hidden" id="ctxpath" value="${ctxpath}" />
+<input type="hidden" id="currentPage" value="${pager.currentPage}" />
+<div class="apPreviewBg"></div>
+<div id="apPreview"></div>
+<form action="${ctxpath}/system/wlbad/list" method="post"  id="searchAdForm">
+	<input type="hidden" id="pageNum" name="pageNum" value="" />
+	
+	<dl class="pro_ss">
+		<dt><b>查询</b><span class="span_down"></span><span class="span_up"></span></dt>
+		<dd class="pro_ss_item">
+			<span>广告名</span>
+			<input type="text" class="i_bg" name="name" value="${name}"/>
+		</dd>
+		<dd class="pro_ss_item">
+			<span>广告类型</span>
+			<select name="type">
+				<option value="" #if(type==null || type=='') selected="selected" #end>====== 请选择 ======</option>
+				<option value="0" #if(type=='0') selected="selected" #end>普通</option>
+				<option value="1" #if(type=='1') selected="selected" #end>切换</option>
+				<option value="2" #if(type=='2') selected="selected" #end>自定义</option>
+				<option value="3" #if(type=='3') selected="selected" #end>文字</option>
+			</select>
+		</dd>
+	</dl>
+</form>	
+	
+<div class="pro_ss_btn">
+	<a href="#" class="btn" onclick="searchSubmit()">搜索</a>
+	<a href="#" class="btn" onclick="resetForm()">重置</a>
+</div>
+<div class="pro_ss_btn">
+	<a href="#" class="btn" onclick="adAdd('${ctxpath}')">新增</a>
+</div>
+
+#define(List<com.ekfans.base.content.model.ShopAd> shopAds)
+			
+#if(shopAds==null||shopAds.size()<=0)
+	<!--没有数据的时候-->
+	<div class="ht_list_k">暂时没有符合条件的数据</div>	
+#else
+	<!--有数据的时候-->
+	<div class="ht_list">
+		<table id="adTab" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<th width="8%">全选</th>
+				<th width="8%">序号</th>
+				<th width="15%">广告名</th>
+				<th width="10%">广告类型</th>
+				<th width="10%">显示类型</th>
+				<th width="10%">创建时间</th>
+				<th width="10%">是否配置上线</th>
+				<th width="10%">宽</th>
+				<th width="10%" >高</th>
+				<th width="10%" >操作</th>
+			</tr>
+			#for(com.ekfans.base.content.model.ShopAd shopAd : shopAds)
+				<tr>
+					<td class="qx"><input type="checkbox" value="${shopAd.id}"/></td>
+					<td></td>
+					<td>${shopAd.name}</td>
+          <td>
+          	#if("0".equals(shopAd.type))
+          		普通广告
+          	#elseif("1".equals(shopAd.type))
+          		切换广告
+          	#elseif("2".equals(shopAd.type))
+          		自定义广告
+          	#else
+          		文字广告
+          	#end
+          </td>
+          <td>
+          	${@(com.ekfans.base.system.util.AdvertConst).typeNameMap.get(shopAd.showType)}
+          </td>
+          <td>${shopAd.createTime}</td>
+          <td>#if(shopAd.isConfigure!="1")未配置#else已配置#end</td>
+          <td>${shopAd.width}</td>
+          <td>${shopAd.high}</td>
+			    <td class="cz">
+			    	#if(shopAd.showType!="chun"&&"0".equals(shopAd.type) || "1".equals(shopAd.type) || "2".equals(shopAd.type))
+			    	<a href="javascript:void(0);" class="eyeIco daxiao" title="预览" onclick="adQuery('${shopAd.id}','${ctxpath}');" ></a>
+			    	#end
+		        <a href="javascript:void(0);" class="editIco" onclick="adModify('${shopAd.id}','${webroot}');" title="修改"></a>
+		        <a href="javascript:void(0);" class="del_list" id="del${shopAd.id}" onclick="econfirm('确定要删除此广告吗？',adDelete,['${shopAd.id}','${ctxpath}'],null,null);" title="删除"></a>
+			    <a href="javascript:void(0);" title="配置广告" class="configIco" onclick="econfirm('确定要#if(shopAd.isConfigure!="1")#else取消#end配置此广告？',configure,['${shopAd.id}','${ctxpath}','#if(shopAd.isConfigure!="1")未配置#else已配置#end'],null,null);"></a>
+			    </td>
+				</tr>
+			#end
+		</table>
+		<div class="ht_pageBox">
+			<div class="ht_page_l">
+				<a href="#" onclick="selectAll();" class="btn">全选</a>
+				<a href="#" onclick="checkSelect();" class="btn">删除</a>
+			</div>
+			${include( "../common/page.jetx")}
+		</div>
+	</div>
+#end
+</body>
+</html>
+	

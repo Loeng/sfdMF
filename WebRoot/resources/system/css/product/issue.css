@@ -1,0 +1,76 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url("../add.css");
+
+/*图片上传
+.imgUpload{}
+.imgWindow{width:100%; height:86%; position:relative;}
+.imgWindow table{width:100%; height:100%; text-align:center; border:solid 1px #e4e4e4;}
+.imgControl{height:14%; width:100%;}
+.bottomBg{width:100%; height:22px; background:#000; filter:alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity:0.5; opacity:0.5; position:absolute; left:0; bottom:0; z-index:2; display:none;}
+.imgRemove{display:block; width:16px; height:16px; background-image:url(../images/imgdelete.png); _background-image:url(../images/imgdelete.gif); position:absolute; right:10px; bottom:3px; z-index:3; display:none;}
+.imgRemove:hover{background-position:-16px 0;}
+.btnUpload,.btnUploadNo{display:block; text-align:center;}
+.btnUpload{color:#fff; background:#02AFED; position:relative;}
+.btnUpload:hover{background:#018ec5; color:#fff;}
+.btnUploadNo,.btnUploadNo:hover{background:#f4f4f4; color:#e4e4e4;}
+.btnUpload input{position:absolute; display:block; top:0; right:0; z-index:2; font-size:480px; filter:alpha(opacity=0); -moz-opacity:0; -khtml-opacity:0; opacity:0;}
+.imgUpload .btnUpload,.imgUpload .btnUploadNo{width:100%;display:block; overflow:hidden;}
+.imgUpload .btnUpload input{width:100%; height:100%;}
+.uploadingBg{display:block; width:100%; height:100%; background-image:url(../images/loding02.gif); background-position:center center; background-repeat:no-repeat; background-color:#000; filter:alpha(opacity=85); -moz-opacity:0.85; -khtml-opacity:0.85; opacity:0.85; position:absolute; left:0; top:0;}
+
+
+.colorItem .imgWindow{width:60px; height:60px;}
+.colorItem .imgWindow table{width:58px; height:58px;}
+ --.imgControl{height:14%; width:100%;}
+.colorItem .bottomBg{width:100%; height:22px;}
+.colorItem .imgUpload .btnUpload,.colorItem .imgUpload .btnUploadNo{width:100%; height:28px; line-height:28px;}
+.colorItem .imgUpload{display:none;}
+.disabled{background:#dedede;}
+*/
+/*表单*/
+.ts{width:646px;height:23px;background:#1568AB;margin-bottom:14px;color:#fff;padding-top:5px;}
+.ts a{color:#fff;margin:0 8px;}
+.itemBox{width:56px; margin-bottom:2px;}
+.colorSize dd,.sizeList dd{float:left;}
+.colorSize dd.clear,.sizeList dd.clear{float:none;}
+.colorItem{float:left; padding-left:20px; position:relative; margin:0 44px 20px 0;}
+.colorItem .itemCheck{position:absolute; left:0; top:0; display:block;}
+.sizeItem{float:left; padding-left:20px; margin-right:44px; position:relative;}
+.sizeItem .itemCheck{position:absolute; left:0; top:5px; display:block;}
+.linkAlert .i_bg{display:block; float:left; margin-right:0;}
+span.pp{cursor:pointer; display:block; float:left; width:26px; height:26px; border:1px solid #e0e3ea; margin-left:-1px; position:relative; background:url(../../images/rightpoint2.png) no-repeat center center;}
+span.pp:hover{background:url(../../images/rightpoint.png) #1568AB no-repeat center center; width:28px; height:28px; border:none;}
+
+.colorSizeTable{width:820px; margin-top:20px;}
+.itemBox2{width:88px;}
+.colorSizeTable th{font-weight:normal; height:30px; line-height:30px; text-align:left;}
+.colorSizeTable td{width:16%; padding:5px 0;}
+.colorSizeTable td img{border:solid 1px #e4e4e4;}
+.checkAll{cursor:pointer;}
+.checkAll input{display:none;}
+.add_pro .bigBox{width:360px; height:160px; max-width:360px; max-height:160px;}
+.countBox dd{position:relative;}
+.sizeCount{position:absolute; bottom:10px; left:320px;}
+
+/*暂无数据*/
+.ht_list_k{margin:0 20px;background:#fffdda;font:lighter 24px/24px "微软雅黑";color:#fd6500;padding:25px 0;text-align:center;}
+
+.uploadItem{float:left; margin-right:20px; position:relative; padding-right:20px; margin-bottom:10px;}
+.btnAdd{display:block; width:60px; height:28px; line-height:28px; background:#02AFED; color:#fff; text-align:center; float:left; margin-top:172px;}
+.btnAdd:hover{background:#018ec5; color:#fff;}
+.uploadItem .closeIco{display:block; position:absolute; top:0; right:0; filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity:0.5;opacity:0.5;}
+.uploadItem .closeIco:hover{filter:alpha(opacity=100);-moz-opacity:1;-khtml-opacity:1;opacity:1;}
+
+/*价格区间*/
+.priceZone,.colorSize{margin-bottom:20px; padding:10px 0; border:solid 1px #e4e4e4;}
+.priceZone .btnBase{margin:0 10px;}
+.listHeader{height:30px; line-height:30px;}
+.listTd{float:left; padding:0 2%;}
+.listItem{padding:10px 0; width:100%;}
+.startNum{width:22%;}
+.endNum{width:22%;}
+.listPrice{width:24%;}
+.listItem .closeIco{margin-top:6px;}
+.hint{line-height:22px; color:#888; display:block; margin:10px;}

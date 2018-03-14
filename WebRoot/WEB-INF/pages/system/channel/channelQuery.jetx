@@ -1,0 +1,26 @@
+   	#define(com.ekfans.base.channel.model.Channel channel)
+    	<div class="tit" id="title">
+        	<em class="apNum">频道详情</em>
+             <span class="apClose" onclick="eyeClose();" ><img src="${webroot}/resources/system/images/del3.jpg" ></span>
+        </div>
+   	    <div class="previewContent">
+       	    <dl class="infoLine">
+            	<dt>频道名称：</dt>
+                <dd class="infoRight">${channel.name }</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>排序位置：</dt>
+                <dd class="infoRight">${channel.position }</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>频道说明：</dt>
+                <dd class="infoRight">${channel.note }</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>状态：</dt>
+                <dd class="infoRight">#if(channel.status) '显示' #else '不显示' #end</dd>
+                <dd class="clear"></dd>
+            </dl>

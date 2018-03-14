@@ -1,0 +1,7 @@
+<div class="footer">
+	<div class="wrapper">
+	  <p class="footerLeft">${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("底部版权信息")}</p>
+	  <p class="footerRight">${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("底部联系信息")}</p>
+	  <div class="clear"></div>
+	</div>
+</div>

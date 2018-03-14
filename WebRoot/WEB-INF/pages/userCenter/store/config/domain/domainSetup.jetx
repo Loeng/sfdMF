@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>list</title>
+<link href="${webroot}/resources/store/css/IDNSet.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="${webroot}/resources/store/js/tools.js"></script>
+<script type="text/javascript" src="${webroot}/resources/store/js/common/base.js"></script>
+<script type="text/javascript" src="${webroot}/resources/store/js/storeConfig/domain/domain.js"></script>
+</head>
+<body>
+	#define(com.ekfans.base.store.model.Store store)
+	<div class="sto_right">
+        <div class="hint"> 
+        	提示：地域名不能低于4个字符，不能超过32个字符且只能含有“字母”，“数字”，如果地域不变，直接点保存。
+        </div>
+        <form action="${webroot}/store/domain/update" method="post" id="domainInfo">
+	        <dl class="formLine">
+	        	<dt>域名<em class="mustIco"></em></dt>
+	            <dd class="formRight">
+	            	<input name="domain" id="domain" type="text" onblur="domainRepatCheck();" value="${store.domain}"><span>.ekfans.com</span>
+	            </dd>
+	            <dd class="clear"></dd>
+	            <input type="hidden" name="storeId" value="${store.id}">
+	            <input type="hidden" id="ok" value="${updateOk}">
+	        </dl>
+        </form>
+        <a href="javascript:void(0)" onclick="domainSubmit();" class="btnBlue">保存</a>
+	</div>
+	<input type="hidden" id="ctxpath" value="${webroot}">
+	<input type="hidden" id="ok" value="${updateOk}">
+</body>	

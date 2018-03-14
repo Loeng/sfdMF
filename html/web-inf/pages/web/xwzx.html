@@ -1,0 +1,340 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>新闻资讯</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<link rel="shortcut icon" href="../../../resources/commons/images/favicon.ico" type="image/x-icon">
+<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+<link href="../../../resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/web/css/base.css" rel="stylesheet" type="text/css">
+<style>
+.main{padding:32px 0 20px 10px;; background-color:#fff;}
+.main .itemLast{margin:0;}
+.main .lastcompanyItem{border-bottom:0;}
+
+/*最新资讯*/
+.leftBar{width:182px; float:left; margin-right:48px;}
+.leftBar h3{line-height:28px; color:#0068B6; font-size:18px; margin-bottom:27px;}
+.leftBar h3 em{display:inline-block; *display:inline; *zoom:1; width:90px; height:28px; margin-right:10px; background:#008CD6; border-radius:10px; text-align:center; font-size:12px; color:#fff;}
+.leftMembers li{padding-bottom:40px;}
+.leftMembers li a{line-height:24px; color:#008cd6; font-size:18px; display:block; height:48px; overflow:hidden;}
+.leftMembers li span{display:block; line-height:20px; margin-top:6px; font-size:14px;height:80px; overflow:hidden;}
+
+/*今日头条*/
+.companyStar{width:620px; float:left;}
+.companyUser{height:1px; background:#303030; position:relative; margin-bottom:12px;}
+.companyUserText{height:30px; line-height:30px; position:absolute; top:-17px; right:0; padding:0 8px; background-color:#fff;color:#a0a0a0; font-size:14px;}
+.companyUserText strong{font-size:22px; padding:0 15px; color:#757575;}
+.companyUserText strong em{color:#0068B6; font-weight:700;}
+.companyStar h3{line-height:44px; border-bottom:solid 1px #CFCFCF; font-size:24px; color:#757575;}
+.companyItem{padding:23px 0; border-bottom:solid 1px #CFCFCF;}
+.itemImg{display:block; width:180px; height:120px; float:left;}
+.companyItem dl{float:right; width:415px;}
+.companyItem dt{line-height:24px; margin-bottom:12px; font-size:20px;}
+.companyItem dt a{ display:block; height:48px; overflow:hidden;}
+.companyItem dd{line-height:20px; font-size:14px; color:#757575;display:block; height:60px; overflow:hidden;}
+.itemPage{padding-top:26px;}
+.pageBtn{display:block; width:90px; height:27px; line-height:27px; border-radius:10px; background:#fff; text-align:center;}
+.prev{float:left;}
+.next{float:right;}
+.pageBtn:hover{background:#a0a0a0; color:#008cd6;}
+
+/*右边栏*/
+.rightBar{width:290px; float:right;}
+
+/*政策法规*/
+.support{margin-bottom:40px;}
+.rightBar .title{font-size:16px;border-bottom:1px solid #71A7D7;height:35px;}
+.rightBar .title span{ background-color:#71A7D7; line-height:35px; display:block; color:#FFF;float:left;padding:0px 15px;max-width:250px;height:35px; overflow:hidden; }
+.support .newsList{padding:10px 0;}
+.support .newsList li{line-height:20px; padding:6px 10px 6px 0px; font-size:14px;}
+.support .newsList li a{display:block;min-height:20px;max-height:40px; overflow:hidden;}
+.support .newsList li .date{color:#949494; display:block;}
+
+
+/*会员介绍*/
+.memberIntroduce .title{margin-bottom:22px;}
+.introduceItem{display:inline-block; *display:inline; *zoom:1; padding:0 22px; height:36px; line-height:36px; border:solid 1px #CECBCB; background:#fff; border-radius:16px; margin:0 4px 20px 0; font-size:18px;}
+.introduceItem:hover{background:#71A7D7; color:#fff;}
+
+/*页码*/
+.pageSize{text-align:center; padding:10px 0; background:#D3D3D3; margin-top:20px;}
+.pageSize a{display:inline-block; height:21px; line-height:21px; margin-right:8px; padding:0 8px; color:#12369b;}
+.pageLast,.pageNext{font-family:SimSun;}
+.pageSize a:hover,.pageSize .nowPage{background:#4594f9; color:#fff;}
+
+</style>
+</head>
+
+<body>
+<div class="wrapper topArea">
+	<h1 class="logo">
+    	<a href="index.html" title="鑫裕环保供应链平台"><img src="../../../resources/commons/images/logo.png" alt="鑫裕环保供应链平台"></a>
+    </h1>
+    <div class="topRight">
+    	<a href="index.html" class="linkIndex">首页</a>
+        <dl class="downList">
+        	<dt><a href="javascript:void(0)" class="linkLogin">登录</a></dt>
+            <dd>
+            	<div class="apBack">
+                  <em class="topPoint"></em>
+                  <div class="apLoadCont">
+                    <a href="cgsdl.html" class="btnLoad dlcg btnCart">采购商入口</a>
+                    <a href="gysdl.html" class="btnLoad dlgy btnRk">供应商入口</a>
+                    <a href="hxqydl.html" class="btnLoad dlhx btnhx">核心企业入口</a>
+                  </div>
+                </div>
+            </dd>
+        </dl>
+        <dl class="downList">
+        	<dt><a href="javascript:void(0)" class="linkReg">注册</a></dt>
+            <dd>
+                <div class="apBack2">
+                    <em class="topPoint2"></em>
+                    <div class="apRegCont">
+                      <a href="cgszc1.html" class="btnEnter zccg btnCart">采购商入口</a>
+                      <a href="gyszc1.html" class="btnEnter zcgy btnRk">供应商入口</a>
+                    </div>
+                </div>
+            </dd>
+        </dl>
+        <em class="split"></em>
+        <span class="telPhone">4000-888-1000</span>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="nav">
+	<div class="wrapper">
+    	<dl class="navItem">
+        	<dt>现货交易</dt>
+            <dd>
+            	<a href="gqxx.html">供求信息</a>
+                <a href="gjs.html">贵金属</a>
+                <a href="ylcg.html">原料采购</a>
+                <a href="wjbc.html">微晶板材</a>
+            </dd>
+        </dl>
+        <dl class="navItem">
+        	<dt>危废处置</dt>
+            <dd>
+            	<a href="wxpcs.html">危险品产生</a>
+                <a href="wxpys.html">危险品运输</a>
+                <a href="wxpcz.html">危险品处置</a>
+                <a href="zcfg.html">政策法规</a>
+            </dd>
+        </dl>
+        <dl class="navItem" style="margin-right:0;">
+        	<dt>网络金融</dt>
+            <dd>
+            	<a href="qyrz.html">企业认证</a>
+                <a href="wlrz.html" class="cur">网络融资</a>
+                <a href="javascript:void(0)">融资指引</a>
+                <a href="javascript:void(0)">建行专区</a>
+            </dd>
+        </dl>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="wrapper">
+	<div class="main">
+  <div class="leftBar">
+    <h3><em>最新资讯</em>+28</h3>
+      <ul class="leftMembers">
+        <li>
+            <a href="zxxq.html">大同莱盛数控机床有限公司</a>
+              <span>专业生产和销售数控机床的厂家．公司拥有一批留日博士、专家、高级生产技术人员、长期从事数控机...</span>
+          </li>
+          <li>
+            <a href="javascript:void(0);">大同莱盛数控机床有限公司</a>
+              <span>专业生产和销售数控机床的厂家．公司拥有一批留日博士、专家、高级生产技术人员、长期从事数控机...</span>
+          </li>
+          <li>
+            <a href="javascript:void(0);">大同莱盛数控机床有限公司</a>
+              <span>专业生产和销售数控机床的厂家．公司拥有一批留日博士、专家、高级生产技术人员、长期从事数控机...</span>
+          </li>
+          <li>
+            <a href="javascript:void(0);">大同莱盛数控机床有限公司</a>
+              <span>专业生产和销售数控机床的厂家．公司拥有一批留日博士、专家、高级生产技术人员、长期从事数控机...</span>
+          </li>
+          <li>
+            <a href="javascript:void(0);">大同莱盛数控机床有限公司</a>
+              <span>专业生产和销售数控机床的厂家．公司拥有一批留日博士、专家、高级生产技术人员、长期从事数控机...</span>
+          </li>
+      </ul>
+  </div>
+  <div class="companyStar">
+    <div class="companyUser">
+        <div class="companyUserText"><strong>今日头条</strong></div>
+      </div>
+      <div class="companyItem">
+        <a href="javascript:void(0);" title="寿阳素兰商务发展有限责任公司" class="itemImg">
+            <img src="../../../resources/web/pic/adv180.jpg" width="180" height="120" alt="寿阳素兰商务发展有限责任公司">
+          </a>
+          <dl>
+            <dt><a href="javascript:void(0);">寿阳素兰商务发展有限责任公司</a></dt>
+              <dd>寿阳素兰商务发展有限责任公司位于山西省寿阳县最繁华的朝阳大街中心地段。90年代初从人民商场的三尺柜台起步，经过三十年的艰苦创业，2002年9月成立了寿阳素兰商务发...</dd>
+          </dl>
+          <div class="clear"></div>
+      </div>
+      <div class="companyItem">
+        <a href="javascript:void(0);" title="山西德元堂药业有限公司" class="itemImg">
+            <img src="../../../resources/web/pic/adv180_2.jpg" width="180" height="120" alt="山西德元堂药业有限公司">
+          </a>
+          <dl>
+            <dt><a href="javascript:void(0);">山西德元堂药业有限公司</a></dt>
+              <dd>德元堂，始创于金元年间。长期以来，德元堂人秉承“以德济世，以元养生”的堂规，使德元堂的金字招牌历经800余年，长盛不衰。...</dd>
+          </dl>
+          <div class="clear"></div>
+      </div>
+      <div class="companyItem">
+        <a href="javascript:void(0);" title="长治市荷英商贸有限公司" class="itemImg">
+            <img src="../../../resources/web/pic/adv180_3.jpg" width="180" height="120" alt="长治市荷英商贸有限公司">
+          </a>
+          <dl>
+            <dt><a href="javascript:void(0);">长治市荷英商贸有限公司</a></dt>
+              <dd>长治市荷英商贸有限公司是十七个知名品牌长治地区代理商。 长治市荷英商贸有限公司合作企业有：贵州茅台酒股份有限公司、宜宾五粮液股份有限公司。</dd>
+          </dl>
+          <div class="clear"></div>
+      </div>
+      <div class="companyItem">
+        <a href="javascript:void(0);" title="山西凯龙农业科教有限公司" class="itemImg">
+            <img src="../../../resources/web/pic/adv180_4.jpg" width="180" height="120" alt="山西凯龙农业科教有限公司">
+          </a>
+          <dl>
+            <dt><a href="javascript:void(0);">山西凯龙农业科教有限公司</a></dt>
+              <dd>成立于2009年2月，法人卫建宁，大专文化，从事企业管理多年，是山西省食用菌协会副会长，广灵县优秀民营企业家。公司地址位于大同市广灵县南村镇朔蔚线路北...</dd>
+          </dl>
+          <div class="clear"></div>
+      </div>
+      <div class="companyItem">
+        <a href="javascript:void(0);" title="山西格芙兰纺织有限公司" class="itemImg">
+            <img src="../../../resources/web/pic/adv180_5.jpg" width="180" height="120" alt="山西格芙兰纺织有限公司">
+          </a>
+          <dl>
+            <dt><a href="javascript:void(0);">山西格芙兰纺织有限公司</a></dt>
+              <dd>山西格芙兰家纺有限公司是一家专业研发、设计、生产为一条龙的家纺品牌。格芙兰家纺有限公司自2002年创建以来，始终坚持以诚信为宗旨，以质量求生存，以产品...</dd>
+          </dl>
+          <div class="clear"></div>
+      </div>
+      <div class="companyItem lastcompanyItem">
+        <a href="javascript:void(0);" title="山西光宇半导体照明股份有限公司" class="itemImg">
+            <img src="../../../resources/web/pic/adv180_5.jpg" width="180" height="120" alt="山西光宇半导体照明股份有限公司">
+          </a>
+          <dl>
+            <dt><a href="javascript:void(0);">山西光宇半导体照明股份有限公司</a></dt>
+              <dd>公司始建于1988年，历经20余载的技术沉淀，已发展成为专业从事大功率LED光源及系列应用产品、矿用照明产品等产品的研发、设计、制造、销售、安装于一体...</dd>
+          </dl>
+          <div class="clear"></div>
+      </div>
+  </div>
+  <div class="rightBar">
+      <div class="support">
+          <h4 class="title"><span>政策法规</span></h4>
+          <ul class="newsList">
+            <li><a href="javascript:void(0);">信用促进会第四届会员代表大会在晋举行</a><span class="date">[2013-09-30]</span></li>
+              <li><a href="javascript:void(0);">信促会平台举办2014年山西企业信用促进会政策宣讲会</a><span class="date">[2013-09-30]</span></li>
+              <li><a href="javascript:void(0);">山西企业信用促进会新三板专委会与开发区管委会举行对接交流会</a><span class="date">[2013-09-30]</span></li>
+              <li><a href="javascript:void(0);">信用促进会第四届会员代表大会在晋举行</a><span class="date">[2013-09-30]</span></li>
+              <li><a href="javascript:void(0);">信促会平台举办2014年山西企业信用促进会政策宣讲会</a><span class="date">[2013-09-30]</span></li>
+              <li><a href="javascript:void(0);">山西企业信用促进会新三板专委会与开发区管委会举行对接交流会</a><span class="date">[2013-09-30]</span></li>
+          </ul>
+      </div>
+      <div class="memberIntroduce">
+        <h4 class="title"><span>会员介绍</span></h4>
+          <a href="javascript:void(0);" class="introduceItem">入会条件</a>
+          <a href="javascript:void(0);" class="introduceItem">会员种类</a>
+          <a href="javascript:void(0);" class="introduceItem">会员权利义务</a>
+          <a href="javascript:void(0);" class="introduceItem">会员资质</a>
+          <a href="javascript:void(0);" class="introduceItem">会员资质变更终止说明</a>
+          <a href="javascript:void(0);" class="introduceItem">会员收费</a>
+      </div>
+  </div>
+  <div class="clear"></div>
+  
+  </div>
+  <div class="pageSize">
+    <a href="javascript:void(0)" class="pageLast">&lt;&lt;</a>
+    <a href="javascript:void(0)" class="page">1</a>
+    <a href="javascript:void(0)" class="page">2</a>
+    <a href="javascript:void(0)" class="page nowPage">3</a>
+    <a href="javascript:void(0)" class="page">...</a>
+    <a href="javascript:void(0)" class="page">10</a>
+    <a href="javascript:void(0)" class="page">11</a>
+    <a href="javascript:void(0)" class="page">12</a>
+    <a href="javascript:void(0)" class="pageNext">&gt;&gt;</a>
+  </div>
+</div>
+<!--底部-->
+<div class="bottomMenu">
+    <div class="wrapper">
+    	<dl class="footItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c4.png" width="49" height="48" />
+              <span>采购流程</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="下单流程">下单流程</a></li>
+                <li><a href="javascript:void(0);" title="订单跟踪">订单跟踪</a></li>
+                <li><a href="javascript:void(0);" title="安全支付">安全支付</a></li>
+                <li><a href="javascript:void(0);" title="企业认证">企业认证</a></li>
+                <li><a href="javascript:void(0);" title="常见问题">常见问题</a></li>
+            </dd>
+        </dl>
+        <dl class="footItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c5.png" width="49" height="48" />
+              <span>服务与支持</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="物流配送">物流配送</a></li>
+                <li><a href="javascript:void(0);" title="经销商权益">经销商权益</a></li>
+                <li><a href="javascript:void(0);" title="不良品退货">不良品退货</a></li>
+                <li><a href="javascript:void(0);" title="在线咨询">在线咨询</a></li>
+                <li><a href="javascript:void(0);" title="融资操作手册">融资操作手册</a></li>
+            </dd>
+        </dl>
+        <dl class="footItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c6.png" width="49" height="48" />
+              <span>我的账户</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="子账户管理">子账户管理</a></li>
+                <li><a href="javascript:void(0);" title="密码重置">密码重置</a></li>
+                <li><a href="javascript:void(0);" title="在线打款">在线打款</a></li>
+            </dd>
+        </dl>
+        <dl class="lastItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c7.png" width="49" height="48" />
+              <span>关于我们</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="公司简介">公司简介</a></li>
+                <li><a href="javascript:void(0);" title="联系我们">联系我们</a></li>
+                <li><a href="javascript:void(0);" title="网站声明">网站声明</a></li>
+            </dd>
+        </dl>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--底部 end-->
+
+<!--尾部-->
+<div class="footer">
+	<div class="wrapper">
+        <p class="footerLeft">© 2014 成都易科远见科技有限公司 版权所有 蜀ICP备 14005736号</p>
+        <p class="footerRight">成都市高新区吉泰路666号花样年·福年广场2号楼1309室<br>服务热线：028-83190368</p>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--尾部 end-->
+<script src="../../../resources/web/js/base.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>商户中心</title>
+		<link href="${webroot}/resources/store/css/base.css" rel="stylesheet" type="text/css" />
+		<link href="${webroot}/resources/store/css/shopLogo.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/store/js/tools.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/store/js/storeConfig/storeIconSetup.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/modernizr.custom.js"></script>
+		
+		<!-- 上传文件的CSS -->
+		<link href="${webroot}/resources/commons/css/upload/upload.css" rel="stylesheet" type="text/css" />
+		<!-- 上传文件控件  -->
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+	</head>
+	<body>
+			<input type="hidden" id="ok" value="${updateOk}" />
+			<input type="hidden" id="ctxpath" value="${webroot}" />
+			
+			<div class="sto_right">
+				<form action="${webroot}/store/icon/modify" name="update" method="post"  id="updateStoreForm">
+    	<h2><em>店铺LOGO设置</em></h2>
+    	<div class="imgLeft">
+            #tag picUpload("logo","1","200","200",(String) logo) #end
+        </div>
+        <div class="uploadHint">
+            <span>
+                建议图片尺寸大小200px*200px<br>
+                仅支持JPG、GIF、PNG图片文件,图片大小最好在500K以下
+            </span>
+            <a href="javascript:void(0)" class="btnBlue" onclick="formSubmit();">保存</a>
+        </div>
+        </form>
+	</div>
+	
+		
+
+	</body>
+</html>

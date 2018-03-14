@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>出售中的商品</title>
+	<link href="${webroot}/resources/system/css/demand.css" rel="stylesheet" type="text/css" />
+    <link href="${webroot}/resources/system/css/list.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/list.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/product/supplyAdd.js"></script>
+</head>
+<body>
+<!--右侧主体-->
+	<form action="${webroot}/system/supply/supplyProductList" method="post" name="addOk" id="searchProductForm">
+      <dl class="pro_ss">
+        <dt><b>查询</b><span class="span_down"></span><span class="span_up"></span></dt>
+        <dd class="pro_ss_item">
+           <span>商品名称</span><input name="supplyProductName" id="supplyProductName" type="text" value="${supplyProductName}" class="i_bg">
+        </dd>
+        <dd class="pro_ss_item">
+         <span>商品编号</span><input name="productNum" id="productNumsearch" type="text" value ="${productNum}" class="i_bg">
+        </dd>
+        <dd class="clear"></dd>
+      </dl>
+      <div class="pro_ss_btn">
+				<a href="javaScript:void(0)"  class="btn"  onclick="searchSubmit();">搜索</a>
+				<a href="javaScript:void(0)"  class="btn"  onclick="reset();">重置</a>
+			</div>
+  </form> 
+     #define(List<com.ekfans.base.product.model.SupplyProduct> supply)
+			<!--没有数据的时候-->
+			#if(supply==null||supply.size()<=0)
+				
+				<div class="ht_list_k">暂时没有符合条件的数据</div>	
+			#else
+      	<div class="ht_list">
+					<table id="productTab" cellpadding="0" cellspacing="0" border="0" >
+						<tr>
+							<th width="4%">序号</th>
+							<th width="10%">商品编号</th>
+							<th width="10%">商品名称</th>
+							<th width="10%">所属分类</th>
+							<th width="8%">状态</th>
+							<th width="8%">库存</th>
+							<th width="6%">操作</th>
+						</tr>
+						#for(com.ekfans.base.product.model.SupplyProduct p:supply)
+	            <tr>
+	            <td>${for.index}</td>
+	            <td>${p.productNum}</td>
+	            <td>${p.supplyProductName} </td>
+	            <td class="tdBrand">${p.mainCategory}</td>
+	            <td class="tdState">#if(p.status==1)上架 #else下架 #end</td>
+	            <td class="tdCount">${p.quantity}&nbsp;${p.unit}</td>
+	            <td class="cz">
+									<a href="#"  class="eyeIco" onClick="supplyDetail('${webroot}','${p.id}','2')" title="修改"/>
+								</td>
+	          </tr>
+            #end
+					</table>
+      #end
+     
+    		<!-- 分页 -->
+					#define(com.ekfans.pub.util.Pager pager)
+					<div class="ht_page">
+							<a href="javaScript:void(0)" onclick="goPage('1');"   value="1" class="btn"><<</a>
+							#if(pager.currentPage == 1)
+								<a href="javaScript:void(0)" class="btn"><</a> 
+							#else
+								<a href="javaScript:void(0)" onclick="goPage('${pager.currentPage-1 }');"   value="${pager.currentPage-1 }" class="btn"><</a>
+							#end
+							
+							#if(pager.totalPage>5)
+								#if(pager.currentPage-2>1 && pager.currentPage+2<pager.totalPage)
+									<a class="btn">..</a>
+									#for(int i : iterator(pager.currentPage-2,pager.currentPage+2))
+										#if(pager.currentPage==i)
+												<a href="javaScript:void(0)" onclick="goPage('${i }');" value="${i }" class="btn cur">${i }</a>
+										#else
+											<a href="javaScript:void(0)" onclick="goPage('${i }');" value="${i }" class="btn">${i }</a>
+										#end
+									#end
+									<a>..</a>
+								#elseif(pager.currentPage-2<=1)
+									#for(int i : iterator(1,5))
+										#if(pager.currentPage==i)
+											<a href="javaScript:void(0)" onclick="goPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+										#else
+											<a href="javaScript:void(0)" onclick="goPage('${i }');"   value="${i }" class="btn">${i }</a>
+										#end
+									#end
+									<a>..</a>
+								#else
+									<a>..</a>
+									#for(int i : iterator(pager.totalPage-4,pager.totalPage))
+										#if(pager.currentPage==i)
+											<a href="javaScript:void(0)" onclick="goPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+										#else
+											<a href="javaScript:void(0)" onclick="goPage('${i }');"   value="${i }" class="btn">${i }</a>
+										#end
+									#end
+								#end
+							#else
+								#for(int i : iterator(1,pager.totalPage))
+									#if(pager.currentPage==i)
+										<a href="javaScript:void(0)" onclick="goPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+									#else
+										<a href="javaScript:void(0)" onclick="goPage('${i }');"   value="${i }" class="btn">${i }</a>
+									#end
+								#end
+							#end
+							
+							#if(pager.currentPage==pager.totalPage)
+								<a href="javaScript:void(0)" class="btn">></a>
+							#else
+								<a href="javaScript:void(0)" onclick="goPage('${pager.currentPage+1 }');"   value="${pager.currentPage+1 }" class="btn">></a>
+							#end
+							<a  href="javaScript:void(0)" onclick="goPage('${pager.totalPage }');"   value="${pager.totalPage }" class="btn">>></a>
+						</div>
+					</div>
+				</div>
+			<div class="apPreviewBg"></div>
+				<div id="loadDiv"  class="apPreview">
+			</div>
+      <div class="clear"></div>
+    </body>

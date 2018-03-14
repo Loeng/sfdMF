@@ -1,0 +1,126 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url("../base.css");
+
+/* 浮动按钮 */
+.ht_btn{border-bottom:1px solid #dbd8d8; overflow:hidden; position:fixed; top:0; left:0; padding:8px 0 0 20px; height:36px; width:100%; background:#fff; background:rgba(255,255,255,0.9); z-index:2;}
+.ht_btn a{float:left; margin-right:2px;}
+.afterHt{margin-top:76px!important;}
+
+/* 基础css */
+*{margin:0;padding:0; outline:none; font-family:Arial,Microsoft YaHei,Hiragino Sans GB; word-break:break-all;}
+body{font-size:12px; color:#333; margin:0; padding:0; font-family:Arial,Microsoft YaHei,Hiragino Sans GB;}
+table{border-collapse:collapse;border-spacing:0;}
+fieldset,img{border:none; border:0;}
+address,caption, cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}
+ol,ul,li{list-style:none;}
+capation{text-align:left;}
+h1,h2,h3,h4,h5,h6{font-weight:normal;}
+h1{font-size:2em;}
+h2{font-size:1.5em;}
+h3{font-size:1.17em;}
+abbr,acronym,img{border:0;}
+
+.clear{clear:both;}
+a{color:#333; text-decoration:none;}
+a:hover{color:#008cd6;}
+.wrapper{width:1190px; margin:0 auto;}
+.blue{color:#009fe9;}
+.red{color:#f00;}
+
+
+/*公共控制*/
+.main{background:url(../images/bg_main.png) repeat;}
+.btnBlue{display:block; background:#5986E9; color:#fff; text-align:center; letter-spacing:5px;}
+.btnBlue:hover{background:#1F56D8; color:#fff;}
+.warning{color:#a0a0a0; background:url(../images/icon_warning.png) no-repeat left center; padding-left:23px;}
+.error{color:#E95364; background:url(../images/icon_error.png) no-repeat left center; padding-left:22px;}
+
+
+/*右侧主体*/
+.rightContent{width:1000px; background:#fff; min-height:770px;}
+.rightTitle{height:37px; line-height:37px; border-bottom:solid 1px #AAE7FB; font-size:18px;}
+.rightTitle em{padding:0 15px; display:block; height:35px; float:left; border-bottom:solid 2px #AAE7FB;}
+
+.rightTitle{margin-bottom:26px;}
+
+/*表单*/
+.evaluateBox{margin:5px 30px 25px 30px;border-radius:8px;background:#FFF5D6; height:70px;line-height:70px;font-size:24px; text-align:center;}
+.evaluateBoxSuc{color:#595757;}
+.evaluateBoxSuc .level{color:#009943; margin-left:40px;}
+.noEvaluate{color:#9F9FA0;}
+.evaluateing{color:#9F9FA0;}
+
+.formsFirst{margin:5px 30px 5px 30px;padding-bottom:5px;}
+.formsFirst h3{font-size:16px;color:#595757;margin:10px 0px 20px 70px;}
+.forms{margin:5px 30px 5px 30px;padding-bottom:5px;border-top:solid 1px #E6E6E6;}
+.forms h3{font-size:16px;color:#595757;margin:10px 0px 20px 70px;}
+.formsLeft{float:left;width:470px;}
+.formsRight{float:left;margin-left:20px;}
+.formItem{margin-bottom:29px;}
+.formItem dt{line-height:30px; width: 128px; color:#595757; margin-right:20px; font-size:14px; float:left; text-align:right;}
+.formItem dd{font-size:14px;color:#595757;line-height:30px;}
+.formItem .formRight{float:left; width:300px;}
+.formBox{height:30px; line-height:32px\9; border:solid 1px #e4e4e4; text-indent:6px; float:left; display:block; margin-right:10px; float:left;}
+.formItem textarea{height:98px; width:298px;border:1px solid #e4e4e4;text-indent:6px; float:left; display:block; margin-right:10px; float:left;}
+.formItem .error{display:block; height:30px; line-height:30px; font-size:14px; float:left;}
+.formItem .redTip{font-size:12px;color:#FE6262;margin-left:71px;line-height:22px;}
+.formItem .twoW{line-height:16px;}
+.formLast{padding-left:250px;margin-bottom:20px;height:45px;padding-top:10px;border-top:solid 1px #E6E6E6;}
+.formLast .btnBlue{height:31px;width:210px; margin-top:10px;margin-bottom:10px;line-height:28px;font-size:14px;float:left;margin-right:30px;}
+.formHint{color:#9f9f9f; padding:5px 0; line-height:20px; display:block;}
+.formItem .formRightLong{width: 720px;}
+
+/*模拟单选框*/
+.formsRadio{height:30px;line-height:28px; float:left;}
+.formsRadio label{padding-right:20px; display:block; float:left;}
+.radio{float:left;width:22px;height:24px;line-height:24px; display:block; cursor: pointer;background:url(../images/radio.png) no-repeat 0px -26px;margin:3px 0 0 0;}
+.radio input{display:none;}
+.radioImg{float:left;width:22px;height:24px;line-height:24px;padding-left:27px;cursor: pointer;background:url(../images/radio.png) no-repeat 0px -26px;margin:3px 0 0 37px;}
+.checked {float:left;width:22px;height:24px;line-height:24px;padding-left:27px;cursor: pointer;background:url(../images/radio.png) no-repeat 0px 0px;margin-left:7px; margin:3px 30px 0 0;}
+.formsRadio em{float:left; padding-left:4px; line-height:30px; font-size:14px; color:#595757;width: 40px;}
+.formsRadio .boy{background:url(../images/sex.png) no-repeat 3px 0px; width:20px;height:22px;padding-left:22px;display:block;line-height:22px;float:left; margin-right:35px;}
+.formsRadio .girl{background:url(../images/sex.png) no-repeat 3px -27px; width:20px;height:22px;padding-left:22px;display:block;line-height:22px;float:left;}
+.space{margin-right:10px;}
+
+
+/*模拟下拉列表*/
+.box177{width:177px;}
+.box210{width:210px;}
+.box300{width:300px;}
+.selList{float:left; position:relative; z-index:1; font-size:14px;}
+.selList .formBox{margin-right:0; border-right:none; cursor:pointer;}
+.selPoint{display:block; background:url(../images/select_point.png) no-repeat; width:34px; height:32px; float:left; cursor:pointer;margin-right:8px;}
+.selList ul{position:absolute; top:31px; left:0; border:solid 1px #e4e4e4; width:210px; max-height:300px; overflow-y:auto; background:#fff; display:none;}
+.selList ul li{line-height:30px; text-indent:6px; cursor:pointer;}
+.selList ul li:hover{background:#efefef;}
+
+/*上传下载附件及视频帮助*/
+.formOthers{float:left; width: 515px; height:30px; line-height:30px;}
+.formOthers li{float:left; padding:0 30px 0 18px;}
+.formOthers .uploadLink{background:url(../images/icon_download.png) no-repeat left center; width: 226px;}
+.formOthers .downloadLink{background:url(../images/icon_upload.png) no-repeat left center;}
+.formOthers .movieLink{background:url(../images/icon_movie.png) no-repeat left center; padding-left:26px;}
+
+/*上传文件*/
+.fileUpload{position:relative; margin-top:-8px;}
+.fileUpload .btnUpload{position:relative; float:left; height:28px; line-height:28px; margin:10px 10px 0 0;}
+.fileUpload .btnUploadNo{color:#fff; background:#ccc; position:relative; float:left; width:64px; height:28px; text-align:center; line-height:28px; margin:10px 40px 0 0; cursor:default;}
+.fileUpload .btnUploadNo:hover{color:#fff;}
+.fileUpload input{position:absolute; display:block; top:0; right:0; left:0; z-index:2; font-size:28px; filter:alpha(opacity=0); -moz-opacity:0; -khtml-opacity:0; opacity:0;}
+
+.fileUpload .fileLoading{width:40px; height:40px; background-image:url(../../commons/images/big_load.gif); background-position:center center; background-repeat:no-repeat; background-color:#e4e4e4; filter:alpha(opacity=85); -moz-opacity:0.85; display:block; float:left; margin-right:10px; border-radius:2px;}
+.fileName{display:block; padding:0 12px 0 5px; height:28px; line-height:28px; color:#262626; background:#f4f4f4; float:left; margin-top:10px; position:relative; width:100px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+.fileDelete{display:block; width:16px; height:16px; background:url(../../commons/images/imgdelete.png) no-repeat -32px 0; position:absolute; right:5px; top:6px;}
+
+.decline{width:589px; height:171px; padding:14px 0 0 12px; background:#f0f0f0; position:relative; margin:10px 0 0 14px; text-align:right;}
+.decline textarea{display:block; width:571px; height:126px; line-height:20px; border:solid 1px #e5e5e5; margin-bottom:8px;}
+.textPoint{display:block; background:url(../images/detailpoint.png) no-repeat; width:10px; height:7px; position:absolute; top:-7px; left:104px;}
+
+/*弹窗提示
+.alertLayer{width:600px;height:200px;margin-left:-300px; border-radius:8px;position:fixed; top:22%; left:50%; z-index:6;background:#fff;overflow:hidden;box-shadow:2px 2px 15px #AAAAAA;border:1px solid #AAAAAA;}
+.alertContent{padding:0 20px 2% 20px; margin:0 auto;text-align:center; display:table-cell; vertical-align:middle;}
+.sucFailLayer{padding:58px 35px; line-height:60px; text-align:left; font-size:32px; height:auto;color:#9F9FA0;}
+.sucFailLayer .sucIco{display:block; background:url(../images/sucico.png) no-repeat; width:64px; height:64px; float:left; margin:0 20px 0 100px;}
+.apClose{float:right;cursor:pointer; background:url(../images/del3.png) no-repeat; width:20px; height:20px; display:block; margin-top:0px;}*/

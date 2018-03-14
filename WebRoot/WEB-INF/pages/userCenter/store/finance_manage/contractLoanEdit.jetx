@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>订单借贷编辑</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/orderLoanApply.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/addGoods.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/upload.css" />
+	
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/upload.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/tools.css" />
+	
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/plugin/fileupload/js/vendor/jquery.ui.widget.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/plugin/fileupload/js/jquery.fileupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/tools.js"></script>    
+	<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/finance/contractLoan.js"></script>
+</head>
+
+<body>
+#define(List<com.ekfans.base.user.model.BankBinding> bblist)
+#define(com.ekfans.base.store.model.MortgageApplication ma)
+<input type="hidden" id="ctxpath" value="${webroot}" />
+<input type="hidden" id="mark" value="${mark}" />
+
+<!-- 右侧主体 -->
+<div class="rightContent">
+	<div class="contentTit borderColor budong">
+		<h3>合同借贷#if(jum!=2)编辑#else详情#end</h3>
+		<a href="javascript:history.go(-1);" class="btnBase btnCancel">返回</a>
+		#if(jum!=2)
+			<a href="javascript:updateMaInfo();" class="btnBase btnSave">修改</a>
+		#end
+	  <div class="clear"></div>
+	</div>
+	<div class="form borderColor">
+		<dl class="formItem formLine">
+	  	<dt>合同编号</dt>
+      <dd>
+        <input type="text" id="contractId" class="textBox box212" value="${ma.contract.contractNo}" style="display:inline-block" />
+        #if(jum!=2)
+        	<a href="javascript:selectOrder();" class="btnBase">查找</a>
+        #end
+      </dd>
+      <dd class="clear"></dd>
+	  </dl>
+	  #if(jum!=2)
+	  <form action="${webroot}/store/finance/updateMaDetail" method="post" id="updateSubmitForm">
+	  	<input type="hidden" name="id" value="${ma.id}" />
+	  	<input type="hidden" name="storeId" value="${ma.storeId}" />
+			<input type="hidden" name="createTime" value="${ma.createTime}" />
+			<input type="hidden" name="type" value="${ma.type}" />
+			<input type="hidden" name="status" value="${ma.status}" />
+			<input type="hidden" name="bankBackStatus" value="${ma.bankBackStatus}" />
+			<input type="hidden" name="bankFeedback" value="${ma.bankFeedback}" />
+	  #end
+	  <div style="position:relative;" class="tableBox">
+	  	<table border="0" cellspacing="0" cellpadding="0" class="orderTable" id="orderDetail">
+	  	<thead>
+	  		<input type="hidden" name="contractId" value="${ma.contract.id}" />
+	  		
+			  <tr>
+				  <th class="tdProInfo bgColor">合同编号</th>
+				  <th class="tdProCount bgColor">类型</th>
+				  <th class="tdSubtotal bgColor">时间</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td style="text-align:left;padding-left:10px;">${ma.contract.contractNo}</td>
+					<td class="tdProCount">#if(ma.contract.type=="0")危废处置合同#elseif(ma.contract.type=="1")危废运输合同#end</td>
+					<td class="tdSubtotal">${ma.contract.createTime.substring(0,10)}</td>
+				</tr>
+				</tbody>
+		  </table>
+		  </div>
+		  <dl class="formItem">
+		  	<dt><em class="mustIco"></em>借贷银行</dt>
+	      <dd>
+	        <select name="bankId" onclick="checkBank();">
+	        	<option value="">=== 请选择 ===</option>
+	        	#if(bblist != null && bblist.size() > 0)
+	        		#for(com.ekfans.base.user.model.BankBinding bb : bblist)
+	        			<option value="${bb.bankId}" #if(ma.bankId == bb.bankId) selected="selected" #end>${bb.bankName}</option>	
+	        		#end
+	        	#end
+	        </select>
+	        <span id="bankSpan" class="errorText" style="display:none;"></span>
+	      </dd>
+	      <dd class="clear"></dd>
+		  </dl>
+		  <dl class="formItem">
+		  	<dt><em class="mustIco"></em>借款总额</dt>
+	      <dd>
+	        <input name="amount" value="${ma.amount}" type="text" class="textBox box212" onblur="checkMoney();" />
+	        <span id="amountSpan" class="errorText" style="display:none;"></span>
+	      	<div class="clear"></div>
+	      </dd>
+	      <dd class="clear"></dd>
+		  </dl>
+		  <dl class="formItem">
+		  	<dt><em class="mustIco"></em>借款期数</dt>
+	      <dd>
+	        <input name="manumber" value="${ma.manumber}" type="text" class="textBox box212" onblur="checkNumber();" />
+	        <span id="manumberSpan" class="errorText" style="display:none;"></span>
+	      	<div class="clear"></div>
+	      </dd>
+	      <dd class="clear"></dd>
+		  </dl>
+			<dl class="formItem">
+		  	<dt><em class="mustIco"></em>联系人</dt>
+	      <dd>
+	        <input name="contactName" value="${ma.contactName}" type="text" class="textBox box212" onblur="checkContactName();"/>
+	        <span id="contactNameSpan" class="errorText" style="display:none;"></span>
+	      	<div class="clear"></div>
+	      </dd>
+	      <dd class="clear"></dd>
+		  </dl>
+		  <dl class="formItem">
+		  	<dt><em class="mustIco"></em>联系电话</dt>
+	      <dd>
+	        <input name="contactPhone" value="${ma.contactPhone}" type="text" class="textBox box212" onblur="checkPhone();"/>
+	        <span id="contactPhoneSpan" class="errorText" style="display:none;"></span>
+	      	<div class="clear"></div>
+	      </dd>
+	      <dd class="clear"></dd>
+		  </dl>
+		  <dl class="formItem formLine">
+		  	<dt>备注</dt>
+	      <dd>
+	        <textarea name="notes">${ma.notes}</textarea>
+	      </dd>
+	      <dd class="clear"></dd>
+		  </dl>
+		#if(jum!=2)
+	  </form>
+	  #end
+	  <div class="clear"></div>
+	</div>
+</div>
+<!-- 右侧主体 -->
+
+
+</body>
+</html>

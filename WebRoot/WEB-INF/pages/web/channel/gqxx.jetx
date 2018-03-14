@@ -1,0 +1,456 @@
+#define(com.ekfans.base.channel.model.Channel channel)
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}-${channel.name}</title>
+<meta name="keywords" content="${channel.keyWords}" />
+<meta name="description" content="${channel.description}" />
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/base.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/commons/css/zizhi1.css" rel="stylesheet" type="text/css">
+#if(configStatus == "true")
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/control.js"></script>	
+	<link href="${webroot}/resources/commons/css/control.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script
+	<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+#end
+<style>
+.bread { height: 38px; line-height: 38px; background: #FCF4E5; font-size: 14px; color: #A78749; margin-bottom: 20px; }
+.curPages { color: #000; }
+.leftLayer { width: 590px; float: left; }
+.rightLayer { width: 590px; float: right; }
+.info h2 { height: 26px; line-height: 26px; margin-bottom: 3px; display: inline-block; }
+.infoHeader { height: 38px; line-height: 38px; background: #FF5947; color: #fff; }
+.infoHeader .headerItem { font-size: 14px; white-space: nowrap; text-align: left; text-indent: 10px; float: left; }
+.tableBox { height: 400px; overflow: hidden; }
+.infoTable { width: 100%; background: #fff; margin-bottom: 30px; }
+.infoTable th { height: 38px; line-height: 38px; background: #FF5947; color: #fff; font-size: 14px; white-space: nowrap; text-align: left; text-indent: 10px; }
+.infoTable td { padding: 10px; color: #484848; line-height: 20px; vertical-align: top; border-bottom: solid 1px #f1f1f1; }
+.infoTable tr:hover { background-color: #F1F1F1; }
+.infoTable em { display: block; line-height: 20px; color: #FF5947; font-size: 14px; }
+.infoTable a { color: #FF5947; }
+.infoTable a:hover { color: #008cd6; }
+.leftLayer .info h2 { border-bottom: solid 4px #FF5947; }
+.more { color: #4B4947; font-size: 14px; display: inline-block; padding-left: 470px; }
+.rightLayer .info h2 { border-bottom: solid 4px #0085FD; }
+.rightLayer .infoHeader { background: #0085FD; }
+.biaoti { width: 160px; height: 22px; overflow: hidden; }
+.neirong { width: 160px; height: 56px; line-height: 19px; overflow: hidden; display: block; }
+
+/*无货列表*/
+.noPro { background-color: #fff; margin: 10px 0; padding-top: 15px; }
+.pageNav3 { height: 60px; border-bottom: 1px solid #f1f1f1; }
+.searchBox { height: 40px; line-height: 40px; width: 483px; margin-left: 319px; background-color: #fff; border: 1px #0085FD solid; background-image: url(${webroot}/resources/web/images/search.png); background-repeat: no-repeat; background-position: 10px center; padding-left: 40px; float: left; }
+.searchInput { display: block; height: 40px; line-height: 40px; width: 481px; border: none; }
+.noPro .btnBlue { color: #fff; text-align: center; background-color: #0085FD; width: 80px; height: 42px; line-height: 42px; display: block; font-size: 18px; float: left; }
+.noPro .btnBlue:hover { color: #fff; }
+.proList { padding: 0 10px; }
+
+.rightTitle { font-weight: normal; height: 37px; font-size: 18px; color:#4B4848;border-bottom: 1px solid #e5e5e5; position: relative;  margin: 10px 0;padding-bottom: 10px;}
+.rightSp { position: absolute; left: 0; top: 2px; line-height: 32px; }
+.rightSp span{display:inline-block;}
+.rightSp .price{display: inline-block; height: 34px; background: #EF4D4D; padding: 0 12px; margin-left: 60px; margin-right:60px; color: #fff; }
+.toggles{display:none;}
+
+.pinming{max-width:630px;height:34px;overflow:hidden; vertical-align:middle;}
+.layerToggle { line-height: 32px; padding-right: 20px; background: url(${webroot}/resources/userCenter/commons/images/todown.png) no-repeat right center; position: absolute; right: 20px; top: 2px; font-size: 12px; }
+.layerToggleDown { background: url(${webroot}/resources/userCenter/commons/images/toup.png) no-repeat right center; }
+.proItem { padding: 20px 20px 20px 20px; background: #fff; margin-bottom: 8px; position: relative;border-bottom: 1px solid #e5e5e5;  }
+.proImg { width: 180px; height: 180px; float: left; margin-right: 15px; position: relative; }
+.proImg img { display: block; width: 170px; height: 170px; border: solid 5px #E4E4E4; }
+.proImg em { display: block; width: 55px; padding: 10px 5px; text-align: center; line-height: 22px; font-size: 18px; background: #37A1FF; color: #fff; position: absolute; left: -43px; top: 15px; }
+.proText { float: left; width: 550px; padding-right: 64px; }
+
+.proInfo1 { line-height: 30px; min-height: 60px; font-size: 16px; }
+.proInfo2 span { display: block; height: 25px; line-height: 25px; overflow: hidden; width: 48%; padding-right: 2%; float: left; font-size: 14px; }
+.detection { padding: 0 42px; float: left; border-right: solid 1px #DCDCDD; border-left: solid 1px #DCDCDD; width: 87px; text-align: center; position: relative; }
+.detection dt { font-size: 18px; height: 34px; line-height: 34px; overflow: hidden; }
+.detectionImg { display: block; width: 85px; height: 80px; padding: 10px 0 0 0; border: solid 1px #E5E6E6; margin-bottom: 5px; border-radius: 6px; }
+.yijiance { display: block; font-size: 20px; font-weight: bold; color: #4695F9; }
+.weijiance { display: block; font-size: 20px; font-weight: bold; color: #868686; }
+.detectionName { font-size: 14px; line-height: 20px; text-align: left; width: 87px; height: 60px; overflow: hidden; }
+.proRight { float: left; padding: 48px 0 0 37px; }
+.proRight a { display: block; width: 100px; height: 36px; line-height: 36px; color: #fff; font-size: 18px; text-align: center; border-radius: 6px; }
+.btnRed { background: #EF4D4D; margin-bottom: 12px; }
+.btnRed:hover { background: #EC2828; color: #fff; }
+.btnBlue { background: #4595F9; }
+.btnBlue:hover { background: #0A75F8; color: #fff; }
+.bottomCompany { margin: 20px 0 30px 0; background-color: #fff; padding: 15px; }
+.bottomCompany2 { padding: 0px; }
+.leftList { width: 244px; padding: 10px 20px 10px 30px; border-right: solid 1px #dedede; float: left; height: 216px; overflow: hidden; }
+.rightCom { float: left; width: 272px; height: 216px; overflow: hidden; }
+.rightList { padding: 10px 0 10px 23px; }
+.bottomCompany li { height: 24px; line-height: 24px; width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 14px; }
+.listContent { padding: 7px 0 10px 0; float: left; width: 269px; height: 230px; border-right: 1px solid #DCDCDC; }
+.listContent2 { border-right: 0; padding-left: 20px; }
+.listContent h2 { height: 28px; line-height: 28px; margin-bottom: 12px; font-size: 18px; color: #4B4947; }
+.probg{background-color:#f2f1f1}
+
+/*合作企业*/
+.focus { position: relative; width: 269px; height: 201px; }
+.focus .imgBox { width: 150px; height: 150px; max-height: 150px; max-width: 150px; text-align: center; line-height: 150px; overflow: hidden; position: relative; display: table-cell; vertical-align: middle; }
+.focus .imgBox img { max-height: 150px; max-width: 150px; margin: 0 auto; vertical-align: middle; }
+.focus .shadow .title { width: 200px; height: 21px; padding-left: 30px; padding-top: 20px; }
+.focus .shadow .title a { color: #000; font-size: 14px; overflow: hidden; }
+.focus .btn { position: absolute; bottom: 34px; left: 510px; overflow: hidden; zoom: 1; }
+.focus .btn a { position: relative; display: inline; width: 13px; height: 13px; border-radius: 7px; margin: 0 5px; color: #B0B0B0; text-decoration: none; text-align: center; outline: 0; float: left; background: #D9D9D9; }
+.focus .btn a:hover, .focus .btn a.current { cursor: pointer; }
+.focus .fPic { position: absolute; left: 45px; top: 0px; }
+.focus .D1fBt { overflow: hidden; zoom: 1; height: 16px; z-index: 10;}
+.focus .shadow { width: 242px; position: absolute; bottom: -29px; left: -46px; z-index: 10; height: 21px; line-height: 21px; display: block; text-align: center;}
+.focus .shadow a {font-size: 14px; color: #4B4848; overflow: hidden;}
+.focus .fcon {position: relative; width: 100%; float: left; display: none;}
+.focus .fcon img {display: block;}
+.focus .fbg { bottom: 25px; right: 40px; position: absolute; height: 21px; text-align: center; z-index: 200; }
+.focus .fbg div { margin: 4px auto 0; overflow: hidden; zoom: 1; height: 14px }
+.focus .D1fBt a { position: relative; display: inline; width: 12px; height: 12px; border-radius: 7px; margin: 0 5px; color: #B0B0B0; text-align: center; outline: 0; float: left; background: #D9D9D9; }
+.focus .D1fBt .current, .focus .D1fBt a:hover { background: #FF6500; }
+.focus .D1fBt img { display: none }
+.focus .D1fBt i { display: none; }
+.focus .prev { position: absolute; width: 25px; height: 47px; background: url(${webroot}/resources/web/images/left.png) no-repeat; top:42%; margin-top: -30px; left: 0px; cursor: pointer; }
+.focus .next { position: absolute; width: 25px; height: 47px; background: url(${webroot}/resources/web/images/right.png) no-repeat; top:42%; margin-top: -30px; right: 27px; cursor: pointer; }
+
+/*成为会员和发布信息*/
+.leftClass { width: 285px; float: left; border-right: 5px solid #f2f1f1; padding: 40px 0 47px 0; text-align: center; }
+.leftClass .remeber { display: block; font-size: 24px; color: #0085FD; }
+.rightClass { width: 255px; float: left; padding: 57px 0 47px 20px; text-align: center; }
+.rightClass .fabu { display: block; font-size: 24px; color: #FF5947; }
+.bottomAdv { height: 130px; padding: 20px 10px; background: #fff; }
+.bottomAdv .autoAdv { float: left; width: 275px; height: 130px; padding: 0 10px;}
+
+/*弹窗背景公共样式*/
+.alertLayerBg { filter: alpha(opacity=80); -moz-opacity: 0.8; -khtml-opacity: 0.8; opacity: 0.8; background: #000; position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 100; display: none; }
+.layerClose { display: block; width: 20px; height: 17px; position: absolute; top: 22px; right: 10px; background: url(${webroot}/resources/web/images/closeLayer.png) no-repeat; }
+
+/*详情弹窗*/
+.alterBox { position: fixed; top: 50%; left: 50%; margin: -160px 0 0 -300px; width: 600px; height: 320px; z-index: 101; background: #fff; overflow: hidden; border-top: 10px #0085FD solid; display: none; }
+.alterBox .layHeader { background-color: #FDF5E5; padding: 10px 0 10px 22px; position: relative; }
+.alterBox .layHeader h6 { height: 30px; line-height: 30px; color: #313030; font-size: 24px; margin-bottom: 10px;   width: 520px;overflow: hidden;}
+.alterBox .layHeader .h6Detail { color: #313030; font-size: 18px; height: 20px; line-height: 20px; width: 520px; overflow: hidden; }
+.alterContent { padding: 10px 0px 10px 22px; }
+.alterContent .proDetailLi { float: left; border-right: 1px solid #D3D2D2; padding: 10px 10px 10px 0; }
+.alterContent .proDetailLi li { color: #777777; font-size: 14px; height: 28px; line-height: 28px; }
+.alterContent .contact { float: left; padding: 10px 0px 10px 50px; }
+.alterContent .contact li { color: #777777; font-size: 14px; height: 28px; line-height: 28px; }
+
+/*登录弹窗*/
+.loginBox2 { position: fixed; top: 50%; left: 50%; margin: -211px 0 0 -193px; width: 387px; height: 422px; z-index: 101; background: #fff; overflow: hidden; display: none; border: solid 8px rgba(0,0,0,0.4); border-radius: 8px; }
+.apTit2 { height: 60px; line-height: 60px; background: #0085FD; position: relative; }
+.apTit2 h3 { font-size: 24px; color: #fff; text-indent: 1em; }
+.apContent2 { background: #fff; }
+.apLogin2 { width: 350px; margin: 0 auto; }
+.formLine2 { padding-top: 2px; padding-bottom: 10px; width: 350px; }
+.formLine2 dt { height: 37px; line-height: 37px; font-size: 14px; position: relative; }
+.formLine2 dd { height: 42px; position: relative; clear: both; width: 350px; text-align: right; }
+.textBox { height: 35px; line-height: 35px\9; border-radius: 3px; border: 1px solid #e0e0e0; border-top-width: 2px; width: 345px; padding-left: 2px; }
+.textBoxFocus { border-color: #eee; outline: none; }
+.codeBox { width: 160px; display: block; float: left; margin-right: 24px; }
+.codeImg { display: block; width: 160px; height: 36px; float: right; }
+.refreshCode { display: block; float: right; color: #adadad; }
+.formBottom { margin-bottom: 5px; }
+.code { margin-bottom: 0px; padding-bottom: 0px; }
+.errorText2 { height: 21px; line-height: 21px; color: #FF0101; font-size: 14px; }
+.yanleft { float: left; }
+.btnLogin { display: block; width: 349px; height: 36px; line-height: 36px; background-color: #01AFED; color: #fff; border-radius: 6px; text-align: center; font-size: 16px; }
+.bottomText { margin-top: 5px; }
+.btnLeft { color: #313030; font-size: 12px; float: left; }
+.btnReg { color: #FF0000; font-size: 18px; margin-left: 10px; }
+.btnLost { float: right; color: #FF8900; font-size: 12px; }
+
+/*页码*/
+.pageSize { text-align: center; padding: 10px 0; background: #D3D3D3; margin-top: 20px; }
+.pageSize a { display: inline-block; height: 21px; line-height: 21px; margin-right: 8px; padding: 0 8px; color: #12369b; }
+.pageLast, .pageNext { font-family: SimSun; }
+.pageSize a:hover, .pageSize .nowPage { background: #4594f9; color: #fff; }
+
+
+/*弹窗背景公共样式*/
+.alertLayerBg { filter: alpha(opacity=80); -moz-opacity: 0.8; -khtml-opacity: 0.8; opacity: 0.8; background: #000; position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 100; display: none; }
+.layerClose2 { display: block; width: 20px; height: 17px; position: absolute; top: 0px; right: 0px; background: url(${webroot}/resources/web/images/close_icon.png) no-repeat; }
+
+/*计价单弹窗*/
+.jijiadan { cursor: pointer;}
+.alterPoint { position: absolute; top: 79px; left: -14px; width: 13px; height: 22px; z-index: 103; background-image: url(${webroot}/resources/web/images/leftPoint.png); background-repeat: no-repeat; background-position: center center; }
+.alterBox2 { position: absolute; top: -65px; left: 618px; width: 440px; min-height: 95px; max-height: 320px; z-index: 103; background-color: #fff; border: 1px solid #0085FC; border-top: 10px #0085FD solid; border-radius: 8px; display: none; padding: 20px 0 10px 0; }
+.alterContent2 { padding: 0px 20px 15px 15px; min-height: 95px; max-height: 310px; overflow: auto; }
+.jjTab { width: 100%; }
+.jjTab th { width: 33%; padding: 0 0 0 10px; height: 30px; line-height: 30px; color: #000000; font-size: 16px; background-color: #B5DBFC; text-align: left; }
+.jjTab td { width: 33%; padding: 0 0 0 10px; line-height: 30px; border-bottom: 1px #DCDCDD solid; max-width: 135px; background-color: #fff; font-size: 14px; overflow: hidden; text-align: left; }
+.colorH { color:#717071;}
+.colorB { color:#000;}
+</style>
+</head>
+
+<body>
+	
+<input type="hidden" name="ctxpath" id="ctxpath" value="${ctxpath}" />
+<input type="hidden" name="channelId" id="channelId" value="${channelId}" />
+<input type="hidden" name="channelType" id="channelType" value="${channel.type}" />
+	#if(configStatus == "true")
+	<!-- 频道配置导航条 -->
+	#include("commons/config/config-top.jetx")
+	<!-- 频道配置导航条 end -->
+	#end
+	<!--顶栏 end-->
+<div id="channelTop"></div>
+
+
+
+<div class="bread">
+	<div class="wrapper"><a href="${webroot}">首页</a>&nbsp;&gt;&nbsp;<em class="curPages">${channel.name}</em></div>
+</div>
+<div class="wrapper">
+	<div class="leftLayer">
+    	<div class="info" id="loadGy" style="position:relative;">
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="rightLayer">
+    	<div class="info" id="loadCg"  style="position:relative;">
+        	
+        </div>
+         
+	</div>
+    <div class="clear"></div>
+    <div id="productListDiv"></div>
+    <div class="leftLayer">
+    	<div class="bottomCompany" id="loadStore">
+      </div>
+    </div>
+    <div class="rightLayer">
+    	<div class="bottomCompany bottomCompany2">
+        	<div class="leftClass">
+             <a href="${webroot}/web/two/jumpRegPage" title="成为会员"><img src="${webroot}/resources/web/images/remeber.png" alt="成为会员" width="161" height="156" /></a>
+             <a href="${webroot}/web/two/jumpRegPage" title="成为会员" class="remeber">成为会员</a>
+          </div>
+          <div class="rightClass">
+             <a href="${webroot}/store/manager/CG_GX_CPGUANLI_ADD" title="发布信息"><img src="${webroot}/resources/web/images/fabu.png" alt="发布信息" width="132" height="133" /></a>
+             <a href="javascript:void(0)" title="发布信息" class="fabu">发布供求信息</a>
+        	</div>
+          <div class="clear"></div>
+    	</div>
+    </div>
+    <div class="clear"></div>
+    <div class="bottomAdv">
+    	<div class="autoAdv">
+             #include("../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"1"})
+        </div>
+        <div class="autoAdv">
+             #include("../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"2"})
+        </div>
+        <div class="autoAdv">
+            	 #include("../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"3"})
+        </div>
+        <div class="autoAdv">
+             #include("../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"4"})
+        </div>
+    </div>
+</div>
+<!--底部-->
+<!--底部-->
+<div id="channelFoot"></div>
+<!--尾部 end-->
+
+<!--弹窗 css-->
+
+<!--详情弹窗-->
+
+<!--详情弹窗 end-->
+
+
+
+<script src="${webroot}/resources/web/js/base.js"></script>
+<script src="${webroot}/resources/web/js/koala.min.1.5.js"></script>
+<script>
+$(document).ready(function() {
+	
+	/*查看详情弹窗*/
+
+	
+	$("#loadGy").load($("#ctxpath").val() + "/web/gySupplyBuy/list",function(){
+		//$(".infoTable").css("height",count*264+"px");
+	var count=$(".infoTable tr").length;
+	
+	var scrollTimer1;
+
+	var $this=$(".tableBox").eq(0);
+	$this.hover(function(){
+		clearInterval(scrollTimer1);
+	},function(){
+		scrollTimer1 = setInterval(function(){
+		scrollNews($this);
+	 }, 5000 );
+	}).trigger("mouseleave");
+
+	  
+	function scrollNews(obj){
+	   var $self = obj.find(".infoTable"); 
+	   var lineHeight = $self.find("tr:first").height(); //获取宽度，向上滚动则需要获取高度.height()
+	   $self.animate({ "marginTop" : -lineHeight +"px" }, 600 , function(){ //向左滚动，向上滚动则需要改为marginTop,其他方向类似，下同
+			 $self.css({marginTop:0}).find("tr:first").appendTo($self.find("tbody")); //appendTo能直接移动元素
+	   })
+	}
+
+	
+	
+/*展开和收起*/
+    $(".layerToggle").live("click",function(){
+		$(this).toggleClass("layerToggleDown");
+		$(this).parent().next(".toggles").slideToggle(100);
+		//$(this).parent().next().next(".toggles").slideToggle(100);
+		$(".layerToggle").text("展开");
+		$(".layerToggleDown").text("收起");
+		$(this).parent().next(".toggles").children(".proItem").addClass("probg");
+		$(".layerToggle").parent(".rightTitle").css("border-bottom-color","#e5e5e5");
+		$(".layerToggleDown").parent(".rightTitle").css("border-bottom-color","#000");
+	})
+	
+	 //计价单展开后   收起
+	$(".layerToggleDown").live("click",function(){
+		$(this).removeClass("layerToggleDown");
+		$(".layerToggle").text("展开");
+		$(this).parent().next(".toggles").slideUp(100);
+	})
+	
+	  //计价单
+	$(".jijiadan").live("click",function(){
+			$(this).parent(".rightSp").siblings(".layerToggle").text("收起");
+			$(this).parent(".rightSp").siblings(".layerToggle").addClass("layerToggleDown");
+			$(this).parents(".rightTitle").css("border-bottom-color","#000");
+			$(this).parents(".rightTitle").next(".toggles").show();
+		 $(this).parents(".rightTitle").next(".toggles").find(".proItem").css("z-index","102");
+		 $(".alertLayerBg").show();
+		 $(this).parents(".rightTitle").next(".toggles").find(".proItem").find(".alterBox2").show();
+		 $(this).parents(".rightTitle").next(".toggles").find(".proItem").addClass("probg");
+		 
+	});
+	
+	$(".layerClose2").live("click",function(){
+		 $(this).parents(".proItem").css("z-index","1");
+		 $(".alertLayerBg").hide();
+		 $(this).parents(".proItem").find(".alterBox2").hide();
+		 
+	});
+	
+	});
+	
+	$("#loadCg").load($("#ctxpath").val() + "/web/cgSupplyBuy/list",function(){
+		//$(".infoTable").css("height",count*264+"px");
+	var count=$(".infoTable tr").length;
+	
+	var scrollTimer2;
+	
+	var $this2=$(".tableBox").eq(1);
+	$this2.hover(function(){
+		clearInterval(scrollTimer2);
+	},function(){
+		scrollTimer2 = setInterval(function(){
+		scrollNews($this2);
+	 }, 5000 );
+	}).trigger("mouseleave");
+	  
+	function scrollNews(obj){
+	   var $self = obj.find(".infoTable"); 
+	   var lineHeight = $self.find("tr:first").height(); //获取宽度，向上滚动则需要获取高度.height()
+	   $self.animate({ "marginTop" : -lineHeight +"px" }, 600 , function(){ //向左滚动，向上滚动则需要改为marginTop,其他方向类似，下同
+			 $self.css({marginTop:0}).find("tr:first").appendTo($self.find("tbody")); //appendTo能直接移动元素
+	   })
+	}
+	
+
+	});
+
+		
+	$("#loadStore").load($("#ctxpath").val() + "/web/gxStore/list",function(){
+			Qfast.add('widgets', { path: "${webroot}/resources/web/js/terminator2.2.min.js", type: "js", requires: ['fx'] });  
+			Qfast(false, 'widgets', function () {
+			K.tabs({
+			  id: 'fsD1',   //焦点图包裹id  
+			  conId: "D1pic1",  //** 大图域包裹id  
+			  tabTn:"a",
+			  conCn: '.fcon', //** 大图域配置class       
+			  auto: 1,   //自动播放 1或0
+			  effect: 'fade',   //效果配置
+			  eType: 'click', //** 鼠标事件
+			  pageBt:true,//是否有按钮切换页码
+			  bns: ['.prev', '.next'],//** 前后按钮配置class                          
+			  interval: 5000  //** 停顿时间  
+			})
+			K.tabs({
+			  id: 'fsD2',   //焦点图包裹id  
+			  conId: "D1pic2",  //** 大图域包裹id  
+			  tabTn:"a",
+			  conCn: '.fcon', //** 大图域配置class       
+			  auto: 1,   //自动播放 1或0
+			  effect: 'fade',   //效果配置
+			  eType: 'click', //** 鼠标事件
+			  pageBt:true,//是否有按钮切换页码
+			  bns: ['.prev', '.next'],//** 前后按钮配置class                          
+			  interval: 5000  //** 停顿时间  
+			})  
+			})
+			
+		});
+	window.onload=function(){
+	$("#channelTop").load($("#ctxpath").val() + "/web/channel/commons/channel-top.jetx",{"channelId":$("#channelId").val(),"channelType":$("#channelType").val(),"returnUrl":window.location.href});
+	$("#channelFoot").load($("#ctxpath").val() + "/web/channel/commons/channel-footer.jetx");
+	}
+	$("#productListDiv").load($("#ctxpath").val() + "/web/gjsGdProduct/getProductList/0",function(){
+		$(".rightTitle").eq(0).children(".layerToggle").text("收起");
+		$(".rightTitle").eq(0).children(".layerToggle").addClass("layerToggleDown");
+		$(".toggles").eq(0).show();
+		});
+	});
+
+		
+
+</script>
+
+<script type="text/javascript">
+
+function openAl(obj){
+			var d="#al"+obj;
+			var d2 = "#alert"+obj;
+			$(d).show();
+			$(d2).show();
+		}	
+
+function closeAl(obj){
+			var d="#al"+obj;
+			var d2 = "#alert"+obj;
+			$(d).hide();
+			$(d2).hide();
+		}	
+		
+function goSupplyList(){
+		window.location.href=$("#ctxpath").val() + "/web/supplyBuy/gdlist";
+}		
+	
+	function goPage(pageNum){
+		$("#pageNum").val(pageNum);
+		var pageNum = $("#pageNum").val();
+		$("#productListDiv").load($("#ctxpath").val() + "/web/gjsGdProduct/getProductList/0",{pageNum:pageNum});
+	}
+	function searchs(){
+		$("#productListDiv").load($("#ctxpath").val() + "/web/gjsGdProduct/getProductList/0",{productName:$("#productName").val()});
+	}
+</script>
+<div style="display:none;">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255237573'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1255237573' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>
+

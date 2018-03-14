@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>个人中心-修改收货地址</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/addGoods.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/personal/css/personalBase.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/personal/css/style.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/personal/css/site.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/tools.css" />
+<style type="text/css"> 
+<!-- 
+#areaid{margin-left:94px; width:179px;}
+--> 
+</style>
+	
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/base.js"></script> 
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<!-- private -->
+	<script type="text/javascript" src="${webroot}/resources/userCenter/personal/js/deliveryAddress.js"></script>
+</head>
+
+<body>
+#define(com.ekfans.base.user.model.UserAddress ud)
+<input type="hidden" id="ctxpath" value="${webroot}" />
+
+<!-- 右侧主体 -->
+<div class="rightContent">
+  <div class="contentTit budong  borderColor">
+    <h3>我的地址薄</h3>
+    <div class="clear"></div>
+  </div>
+  <h2 class="siteAppend"><em class="borderBottomColor">修改收货地址</em></h2>
+  <form action="${webroot}/user/modify" method="post" id="addUserAddressForm">
+		<input type="hidden" name="id" value="${ud.id}" />
+		<input type="hidden" name="createTime" value="${ud.createTime}" />
+		<input type="hidden" name="status" value="${ud.status}" />
+		
+		<dl class="formItem formLine">
+		  <dt>收货人姓名</dt>
+		  <dd>
+		    <input name="name" value="${ud.name}" type="text" class="siteBox" onfocus="checkFocusUtil(this)" onblur="checknameBlur()" />
+		    <span class="errorText" id="name" style="display:none;"></span> 
+		  </dd>
+		  <dd class="clear"></dd>
+		</dl>
+		<dl class="formItem formLine">
+		  <dt>所在地区</dt>
+		  <dd class="select4">
+		    #tag systemAreaSel("area",ud.area) #end
+		  </dd>
+		  <dd class="clear" style="height:0px;"></dd>
+			<span class="errorText" id="areaid" style="display:none;"></span>	
+		</dl>
+		<dl class="formItem">
+		  <dt>邮政编码</dt>
+		  <dd>
+		    <input name="zipcode" value="${ud.zipcode}" type="text" class="siteBox" onfocus="checkFocusUtil(this)" onblur="checkzipcodeBlur()" />
+		    <span class="errorText" id="zipcode" style="display:none;"></span>  
+		  </dd>
+		  <dd class="clear"></dd>
+		</dl>
+		<dl class="formItem">
+		  <dt>电话</dt>
+		  <dd>
+		  	#if(ud.phone!=null && ud.phone!="")
+		  		#set(java.lang.String[] tempP = (ud.phone).split("-"))
+		  		#for(java.lang.String str : tempP)
+		  			<input name="phone${for.index}" value="${str}" type="text" class="siteBox1" />
+		  		#end
+		  		#if(tempP.length==1)
+			  		<input name="phone2" type="text" class="siteBox1" />
+			  		<input name="phone3" type="text" class="siteBox1" />
+			  	#elseif(tempP.length==2)
+			  		<input name="phone3" type="text" class="siteBox1" />
+			  	#end
+			  #else
+			  	<input name="phone1" type="text" class="siteBox1" />
+			  	<input name="phone2" type="text" class="siteBox1" />
+			  	<input name="phone3" type="text" class="siteBox1" />
+		  	#end
+		  </dd>
+		  <dd class="clear"></dd>
+		</dl>
+		<dl class="formItem formLine">
+		  <dt>手机</dt>
+		  <dd>
+		    <input name="mobile" value="${ud.mobile}" type="text" class="siteBox" onfocus="checkFocusUtil(this)" onblur="checkmobileBlur()" />
+		    <span class="errorText" id="mobile" style="display:none;">手机号码和电话至少填写一项！</span>
+		  </dd>
+		  <dd class="clear"></dd>
+		</dl>
+		<dl class="formItem formLine">
+		  <dt>街道地址</dt>
+		  <dd class="formRight">
+		    <textarea name="address" onfocus="checkFocusUtil(this)" onblur="checkaddressBlur()">${ud.address}</textarea>
+		    <span class="errorText" id="address" style="display:none;"></span>
+		    <a href="javascript:updateUserAddress();" class="btnBlue">保存</a> <a href="javascript:myupreset();" class="btnBlue">返回</a> 
+		  </dd>
+		  <dd class="clear"></dd>
+		</dl>
+	</form>
+  <div class="clear"></div>
+</div>
+<!-- 右侧主体 -->
+
+</body>
+</html>

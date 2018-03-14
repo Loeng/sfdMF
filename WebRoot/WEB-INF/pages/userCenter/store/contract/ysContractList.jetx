@@ -1,0 +1,91 @@
+#define(List<com.ekfans.base.wfOrder.model.Contract> contractList)
+<div class="apTit">
+	<span class="apClose"></span>选择运输合同
+</div>
+<div class="apContent">
+	<div class="shopSearch">
+		<dl class="formItem" style="width:335px;">
+			<dt>合同名称</dt>
+			<dd><input id="searchContractName" name="searchContractName" type="text" class="textBox box184" value="${contractName}"></dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem" style="width:335px;">
+			<dt>起止时间</dt>
+			<dd>
+				<input id="searchCtartTime" name="searchCtartTime" type="text" class="timeBox box98 textBox" value="${startTime}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+			</dd>
+			<dd class="lineColor">&nbsp;—&nbsp;</dd>
+			<dd>
+				<input id="searchEndTime" name="searchEndTime" type="text" class="timeBox box98 textBox" value="${endTime}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+			</dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem" style="width:335px;">
+			<dt>甲方名称</dt>
+			<dd><input id="searchFirstName" name="searchFirstName" type="text" class="textBox box184" value="${firstName}"></dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem" style="width:335px;">
+			<dt>乙方名称</dt>
+			<dd><input id="searchSecondName" name="searchSecondName" type="text" class="textBox box184" value="${secondName}"></dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem" style="width:335px;">
+			<dt>合同编号</dt>
+			<dd><input id="searchContractNo" name="searchContractNo" type="text" class="textBox box184" value="${contractNo}"></dd>
+			<dd class="clear"></dd>
+		</dl>
+		<div class="clear"></div>
+	</div>
+	<div class="btn">
+		<a onclick="findYsContract();" class="btnBase">搜索</a>
+	</div>
+    <div class="itemLayer" id="ysSels">
+			#for(com.ekfans.base.wfOrder.model.Contract contract : contractList)
+				<div class="classItem">
+					<label class="checkItem" style="padding:0; line-height:35px;">
+						<span class="check" style="margin:12px 10px 0 0;"><em><input name="checkbox1" type="checkbox" value="${contract.id}_${contract.name}_${contract.secondId}" onclick="choseYsC(this);"></em></span>
+						${contract.name}
+					</label>
+				</div>
+			#else
+				<div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+			#end
+        <div class="clear"></div>
+        <a onclick="finishYsCon();" style="cursor:pointer;margin-top:10px;margin-left:10px;" class="btnBase">选择完成</a>
+    </div>
+    <div style="padding-left:20px;">
+       <input type="hidden" name="pageNum" value="${currentpageStr}" />
+            ${include("../common/page.jetx")}
+         <div class="clear"></div>
+    </div>
+</div>
+
+<script>
+	function choseYsC(obj){
+		var values = $("#ysContracts").val();
+		if(obj.checked){
+			values = values + obj.value + ";";
+		}else{
+			values = values.replaceAll(obj.value + ";","");
+		}
+		$("#ysContracts").val(values);
+	}
+	
+	var values = $("#ysContracts").val();
+	var selects = $("#ysSels").find("input[name='checkbox1']");
+	if(selects != null && selects.length>0){
+		selects.each(function(i){
+				if(values.indexOf(this.value) != -1){
+					this.checked = "true";
+					$(this).parent().parent().addClass("checked");
+				}
+				
+		});	
+		
+		
+	}
+	
+	
+
+</script>

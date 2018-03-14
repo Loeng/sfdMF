@@ -1,0 +1,91 @@
+#define(com.ekfans.base.user.model.User User)
+#define(com.ekfans.base.store.model.Store Store)
+#if(User == null)
+	<div class="bottomBtns" >
+		<a href="javascript:void(0);" onclick="javascript:channelLogin();">下载标书</a>
+		<a href="javascript:void(0);" onclick="javascript:channelLogin();">立即报名</a>
+	</div>
+#else
+	<div class="bottomBtns" >
+		<a href="${webroot}/resources/招标说明书.doc">下载标书</a>
+		<a href="javascript:void(0);" class="btnBm">立即报名</a>
+	</div>
+	<div class="apLayerBg"></div>
+	<div class="bmForm">
+	  <ul>
+	  		<form action="${webroot}/web/tenderlog/add" method="post" id="addTenderLogForm">
+	  			<input type="hidden" name="tenderId" value="1"/>
+	  			<input type="hidden" name="creator" value="${Store.id}"/>
+	  			<input type="hidden" name="creatorName" value="${Store.storeName}"/>
+		      <li><em>公司名称：</em>${Store.storeName}</li>
+		      <li><em>联系人：</em><input name="name" id="userName" type="text"></li>
+		      <li><em>联系电话：</em><input name="phone" id="userPhone" type="text"></li>
+		      <li><em>联系邮箱：</em><input name="mail" id="userMail" type="text"></li>
+		    </form>
+	  </ul>
+	  <div class="bmBtns">
+	  	<a href="javascript:void(0);" class="submitBtn">确定</a>
+	      <a href="javascript:void(0);" class="closeBtn">取消</a>
+	  </div>
+	</div>
+#end
+
+
+<script>
+	function setCookie(c_name, value, expiredays){
+		var exdate=new Date(); 
+		exdate.setDate(exdate.getDate() + expiredays); 
+		document.cookie=c_name+ "=" + escape(value) + ((expiredays==null) ? "" : ";expires="+exdate.toGMTString());
+	}
+
+
+	function channelLogin(){
+		setCookie("gylReturnUrl",window.location.href,30);
+		window.location.href="${webroot}/web/login/four";
+	}
+
+	$(".btnBm").click(function(){
+		$.post('${webroot}/web/checktenderlog/${Store!=null?Store.id:""}/1',function (data){
+			if(data){
+				falert("您已报名，请勿重复报名！");
+  		}else{
+				$(".bmForm").show();
+				$(".apLayerBg").show();
+  		}
+  	});
+	})
+	$(".closeBtn").click(function(){
+		$(".bmForm").hide();
+		$(".apLayerBg").hide();
+	})
+	
+	$(".submitBtn").click(function(){
+		
+		var userName = $("#userName").val();
+		if(userName == "" || userName == " "){
+			falert("请输入联系人姓名！");
+			return;
+		}
+		var userPhone = $("#userPhone").val();
+		if(userPhone == "" || userPhone == " "){
+			falert("请输入联系方式！");
+			return;
+		}
+		var userMail = $("#userMail").val();
+		if(userMail == "" || userMail == " "){
+			falert("请输入联系邮箱！");
+			return;
+		}
+		
+		$("#addTenderLogForm").ajaxSubmit(function(data){
+			if(data){
+				salert("报名成功！")
+				$(".bmForm").hide();
+				$(".apLayerBg").hide();
+			}else{
+				falert("报名失败，请稍后再试！")
+			}  
+		});
+	})
+
+</script>

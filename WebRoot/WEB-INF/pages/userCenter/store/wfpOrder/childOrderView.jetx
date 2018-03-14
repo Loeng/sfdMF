@@ -1,0 +1,540 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>添加子订单</title>
+	<meta name="keywords" content="鑫裕环保" />
+	<meta name="description" content="鑫裕环保" />
+	<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+	<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/userCenter/commons/css/proAdd.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+	<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+	<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+	<script src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+	
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload.js"></script>
+<style>
+.form h3{height:46px; line-height:46px; font-size:16px; background:#FDEFED; text-indent:1em;}
+.tbHeader{height:30px; line-height:30px; padding-top:6px; font-size:14px; width:100%; text-indent:0.5em;}
+.tbLine{height:40px; line-height:40px; font-size:14px; width:100%; clear:both; margin-bottom:6px;}
+.jiage,.danwei,.guige,.mingcheng{height:28px; line-height:28px; float:left;}
+.tbLine input{width:158px; height:28px; border:solid 1px #e5e5e5;}
+.budongItem{border-bottom:0;}
+.budongItem .formItem{ width:420px; margin-right:5px;}
+.tbLine .formItem{ width:260px; margin-right:5px;}
+.danwei{width:100px;}
+.tbLine .guige,.tbLine .danwei{color:#717171;}
+.tbLine .jiage,.tbLine .jiage *{color:#f00;}
+.tbTitle{height:30px; padding-top:13px; font-size:16px; border-top:solid 3px #FF4100; border-bottom:solid 1px #d0d0d0;}
+.danwei .btnBase{margin-left:20px;}
+.tbAdd{padding:10px 0 20px 16px;margin-left: 30px;}
+.hideBox{border:1px solid #e5e5e5;padding-top:20px;display:block;}
+.addBtns{margin-left:30px;margin-bottom:10px;}
+.tips{margin-left:30px;height:25px;color:#939393;}
+.hideBox2{border:1px solid #e5e5e5;padding-top:20px;}
+.budongItem{margin:0 auto;padding:0;}
+
+
+em{font-style:normal;}
+.tit{width:100%;border-bottom:1px solid #e5e5e5;height:37px; position:relative;}
+.tit h2{float:left;font-size:14px;border-bottom:5px solid #fff; padding:0 20px 0 16px; font-weight:normal; height:32px; line-height:32px; cursor:pointer;position:relative; margin-right:20px;}
+.tit h2.cur{border-color:#ff8a00;}
+.rightTitle em{height:32px; line-height:32px; display:inline-block; border-bottom-width:5px; border-bottom-style:solid; padding:0 20px 0 16px; font-style:normal;}
+.rightTitle{ height:37px; font-size:14px; border-bottom:1px solid #e5e5e5;margin:0 0 10px 0;}
+.rightTitle .btnBlue{width:100px; height:28px; line-height:28px; position:absolute; right:0; top:4px;}
+
+</style>
+</head>
+
+<body>
+#define(com.ekfans.base.store.model.ContractOrderChild childOrder)
+
+<!-- begin 右侧主体 -->
+<form action="${webroot}/store/childOrder/sureChildOrder" method="post" id="addChildOrder">
+	<input type="hidden" name="id" value="${childOrder.id}"/>
+	<input type="hidden" name="pageType" value="${pageType}"/>
+	<div class="rightContent">
+	  <div class="contentTit budong borderColor">
+	    <h3>#if(pageType == "1" || pageType == "4") 订单确认 #elseif(pageType == "5") 订单发货 #elseif(pageType == "6") 订单收货 #else 订单详情 #end</h3>
+	    <a href="javascript:history.go(-1);" class="btnBase btnCancel" >返回</a>
+	    #if(pageType == "1" || pageType == "4")
+	    	<a href="javascript:void(0);" class="btnBase btnCancel" onclick="orderSure();">确认订单</a>
+	    #elseif(pageType == "5")	
+	    	<a href="javascript:void(0);" class="btnBase btnCancel" onclick="orderSure();">确认物流信息并发货</a>
+	    #elseif(pageType == "6")	
+	    	<a href="javascript:void(0);" class="btnBase btnCancel" onclick="orderSure();">确认收货</a>
+	    #end
+	    <div class="clear"></div>
+	  </div>
+		<div class="form borderColor">
+			<dl class="ldList" style="margin:0;">
+	      <dd class="ldListdd">
+	        <div class="tbList">
+	          <div class="budongItem">
+	          	
+	            <h2 class="rightTitle">
+								<em class="borderBottomColor">订单基础信息</em>
+							</h2> 
+	            <dl class="formItem">
+	              <dt>危废品名称</dt>
+	              <dd><input name="wfpName" type="text" readOnly  id="wfpName" value="${childOrder.wfpName}" class="textBox box212"></dd>
+	              <dd class="clear"></dd>
+	            </dl>
+	            <dl class="formItem">
+	              <dt>所属合同</dt>
+	              <dd>
+	              	<input type="text"  name="contractName" value="${childOrder.contractName}" readonly class="textBox box212" #if(pageType != "3" && pageType != "4") onclick="javascript:showContract('${childOrder.contractId}');" #end> 
+	              	#if(pageType != "3" && pageType != "4") <span>点击查看合同详细信息。</span> #end
+	              </dd>
+	              <dd class="clear"></dd>
+	            </dl>
+	            <dl class="formItem">
+	              <dt>产生方</dt>
+	              <dd>
+	              	<input type="text"  name="contractName" value="${childOrder.saleName}" readonly class="textBox box212"> 
+	              </dd>
+	              <dd class="clear"></dd>
+	            </dl>
+	            <dl class="formItem">
+	              <dt>处置方</dt>
+	              <dd>
+	              	<input type="text"  name="contractName" value="${childOrder.buyName}" readonly class="textBox box212"> 
+	              </dd>
+	              <dd class="clear"></dd>
+	            </dl>
+	            
+	            <dl class="formItem">
+	              <dt>检测报告</dt>
+	              <dd style="width:40%">#tag fileUpload("testReport","pdf",childOrder.testReport) #end</dd>
+	              <dd class="clear"></dd>
+	            </dl> 
+	            <dl class="formItem">
+	              <dt>五联单</dt>
+	              <dd style="width:40%">#tag fileUpload("fiveSingle","pdf",childOrder.fiveSingle) #end</dd>
+	              <dd class="clear"></dd>
+	            </dl> 
+	            
+	            <div class="clear"></div>
+							<h2 class="rightTitle">
+								<em class="borderBottomColor">订单详细信息</em>
+							</h2>  
+							
+							<dl class="formItem">
+	              <dt>货物数量</dt>
+	              <dd>
+	              	<input name="wfpTotal" type="text"  readOnly id="wfpTotal" value="${childOrder.wfpTotal}" class="textBox box212">
+	              	<span>货物数量都是以吨为计量单位。</span>
+	              </dd>
+	              <dd class="clear"></dd>
+	            </dl>
+							#if(pageType != "3" && pageType != "4")
+		             <dl class="formItem">
+		              <dt>计价类型</dt>
+		              <dd>
+		              	<div style="width:236px;">
+		                	<input name="jjType" disabled type="radio" #if(childOrder.countType=="1") checked #end value="1" class="addhide">&nbsp; <span style="clear:both;color:#000000;">一口价</span> &nbsp; &nbsp;
+		                	<input name="jjType" disabled type="radio"  #if(childOrder.countType=="0") checked #end value="0" class="addshow">&nbsp; <span style="clear:both;color:#000000;">含量</span> 
+	                	</div>
+		              </dd>
+		              <dd class="clear"></dd>
+		            </dl>
+		            #if(childOrder.countType=="1")
+			            <dl class="formItem">
+			              <dt>合同单价</dt>
+			              <dd>
+			              	<input name="originalPrice" type="text"  readonly value="${childOrder.originalPrice}" class="textBox box212">
+			              	<span>合同单价以元为计量单位。（元/吨）</span>
+			              </dd>
+			              <dd class="clear"></dd>
+			            </dl>
+		            #end
+		            <dl class="formItem">
+		              <dt>订单单价</dt>
+		              <dd>
+		              	#set(String danjia = "")
+		              	#if(childOrder.actualPrice.compareTo(new java.math.BigDecimal(0)) == 1 && childOrder.orderChildStoreId==storeId)
+		              	 #set(danjia = "收费") 
+		              	#else 
+		              	 #set(danjia = "付费") 
+		              	#end
+		              	#if(childOrder.actualPrice.compareTo(new java.math.BigDecimal(0)) == 1) 
+		              		<input name="actualPrice" type="text"  readonly value="${danjia} ${childOrder.actualPrice}元/吨" class="textBox box212">
+			            	#else
+			            			<input name="actualPrice" type="text"  readonly value="${danjia} ${new java.math.BigDecimal(0).subtract(childOrder.actualPrice)}元/吨" class="textBox box212">
+
+			            	#end
+		              	
+		              	<span>单价以元为计量单位。（元/吨）</span>
+		              </dd>
+		              <dd class="clear"></dd>
+		            </dl>
+		          #end
+		          #set(List<com.ekfans.base.store.model.ContentPrice> priceList = childOrder.priceList)
+	            #if(priceList != null && priceList.size()>0)
+								<div class="clear"></div>
+								<div id="mlDiv" style="float:left;width:758px;min-height:100px;margin:2px 0 10px 93px;" >
+									<table border="0" cellspacing="0" cellpadding="0" class="tabList" style="width:708px;">
+										<thead>
+										<tr class="bgColor">
+											<th>品位名称</th>
+											<th>品位含量</th>
+											#if(pageType != "3" && pageType != "4")
+											<th>品位单价(元/吨)</th>
+											#end
+										</tr>
+										</thead>
+										<tbody id="resultThree">
+										#for(com.ekfans.base.store.model.ContentPrice price:priceList)
+											<tr>
+												<td>${price.contentName}</td>
+												<td>${price.content}%</td>
+												
+												#if(pageType != "3" && pageType != "4")
+													<td>${price.contentPrice}</td>
+												#end
+											</tr>
+										#end
+										</tbody>
+									</table>
+								</div>
+              #end
+	            #if(pageType != "3" && pageType != "4")
+		            <div class="clear"></div>
+		            <dl class="formItem" style="width:100%;">
+		              <dt>订单总额</dt>
+		              <dd style="width:80%;">
+		              	#set(String zongjia = "")
+		              	#if(childOrder.totalPrice.compareTo(new java.math.BigDecimal(0)) == 1 && childOrder.orderChildStoreId==storeId)
+		              	 #set(zongjia = "收费") 
+		              	#else 
+		              	 #set(zongjia = "付费") 
+		              	#end
+		              	#if(childOrder.totalPrice.compareTo(new java.math.BigDecimal(0)) == 1) 
+			            		<input name="totalPrice" type="text" id="totalPrice" readonly value="${zongjia} ${childOrder.totalPrice}元" class="textBox box212">
+			            	#else
+			            		<input name="totalPrice" type="text" id="totalPrice" readonly value="${zongjia} ${new java.math.BigDecimal(0).subtract(childOrder.totalPrice)}元" class="textBox box212">
+			            	#end
+		              	
+		              	<span>订单总额由系统自动计算得出！</span>
+		              </dd>
+		              <dd class="clear"></dd>
+		            </dl>
+	            #end
+	            <div class="clear"></div>
+							<h2 class="rightTitle">
+								<em class="borderBottomColor">运输信息</em>
+							</h2>
+							    
+	            <dl class="formItem" style="width:100%;">
+	              <dt>运输企业</dt>
+	              <dd style="width:80%;">
+	              	#if(childOrder.transportStoreId != null && childOrder.transportStoreId != "" && childOrder.transportStoreId != " ")
+	              		<input name="transportStoreName" type="text" id="transportStoreName" readonly value="${childOrder.transportStoreName}" class="textBox box212">
+	              		<input type="hidden" name="transportStoreId" id="transportStoreName" value="${childOrder.transportStoreId}"/>
+	              	#else
+	              		#define(List<com.ekfans.base.store.model.Store> storelist)
+	              		#if(storelist != null && storelist.size()>0)
+		              		<select style="width:40%;" name="transportStoreId" class="textBox" id="transportStoreId" value="${childOrder.transportStoreId}">
+												<option value="">选择运输企业</option>
+												#for(com.ekfans.base.store.model.Store st : storelist)
+													<option value="${st.id}" #if(childOrder.transportStoreId == st.id) selected #end>${st.storeName}</option>
+												#end
+											</select>
+											<input type="hidden" name="transportStoreName" id="transportStoreName" value="${childOrder.transportStoreName}"/>
+										#else
+											<span style="clear:both;color:red;">您还未选择运输企业，请确认订单并选择运输企业!</span>
+											
+										#end
+	              	#end
+	              </dd>
+	              <dd class="clear"></dd>
+	            </dl>
+	            #set(List<com.ekfans.base.store.model.OrderChildDetials> details = childOrder.details)
+	            #if(pageType != "4")
+		            
+		            #if(details != null && details.size()>0)
+									<div class="clear"></div>
+									<div id="mlDiv" style="float:left;width:758px;min-height:100px;margin:2px 0 10px 93px;" >
+										<table border="0" cellspacing="0" cellpadding="0" class="tabList" style="width:708px;">
+											<thead>
+											<tr class="bgColor">
+												<th>车牌号</th>
+												<th>载货量</th>
+												<th>车辆状态</th>
+											</tr>
+											</thead>
+											<tbody id="resultThree">
+											#for(com.ekfans.base.store.model.OrderChildDetials detail:details)
+												<tr>
+													<td>${detail.carNum}</td>
+													<td>${detail.num}</td>
+													<td>
+														#if(childOrder.orderStatus == "2")
+															即将出发
+														#elseif(childOrder.orderStatus == "3")
+														  在途
+														#else
+															送达
+														#end
+													</td>
+												</tr>
+											#end
+											</tbody>
+										</table>
+									</div>
+	              #end
+	            #else
+	            	<div class="clear"></div>
+	            	#set(String values = "")
+	            	#if(details != null && details.size()>0)
+	            		#for(com.ekfans.base.store.model.OrderChildDetials detail:details)
+										<div class="tbLine">
+										  <dl class="formItem">
+										    <dt>车牌</dt>
+										    <dd><input name="${detail.id}CarNo" id="${detail.id}CarNo" value="${detail.carNum}" style="text-transform:uppercase;"  type="text" class="textBox box148"></dd>
+										    <dd class="clear"></dd>
+										  </dl>
+										  <dl class="formItem">
+										    <dt>数量</dt>
+										    <dd><input name="${detail.id}Num"  value="${detail.num}" onblur="checkContent(this)" type="text" class="textBox box148"></dd>
+										    <dd class="clear"></dd>
+										  </dl>
+										  <div class="danwei">#if(!for.first) <a href="javascript:void(0);" id="${detail.id}" class="btnBase deleteLine">删除</a> #end</div>
+										  <div class="clear"></div>
+										</div>
+										#set(values = values + detail.id + ";")
+									#end
+	            	#else
+		            	<div class="tbLine">
+	                    <dl class="formItem">
+	                      <dt>车牌</dt>
+	                      <dd><input name="firstCarNo" id="firstCarNo" style="text-transform:uppercase;"  type="text" class="textBox box148"></dd>
+	                      <dd class="clear"></dd>
+	                    </dl>
+	                    <dl class="formItem">
+	                      <dt>数量</dt>
+	                      <dd><input name="firstNum" onblur="checkContent(this)" type="text" class="textBox box148"></dd>
+	                      <dd class="clear"></dd>
+	                    </dl>
+	                    <div class="danwei"></div>
+	                    <div class="clear"></div>
+	                </div>
+	                #set(values = "first;")
+                #end
+                <div class="tbAdd"><a href="javascript:void(0);" class="btnBase addLine">添加一列</a></div>
+                <input type="hidden" name="detailValues" id="detailValues" value="${values}"/>
+	            #end
+	               
+							<div class="clear"></div>
+							<h2 class="rightTitle">
+								<em class="borderBottomColor">发货人信息</em>
+							</h2> 
+							<dl class="formItem">
+							  <dt>发货人</dt>
+							  <dd><input name="sendLinkman" type="text" readOnly id="takeMan" class="textBox box212" value="${childOrder.sendLinkman}"></dd>
+							  <dd class="clear"></dd>
+							</dl>
+							<dl class="formItem">
+							  <dt>发货地址</dt>
+							  <dd><input name="sendAddress" type="text" readonly id="address" class="textBox box212" value="${childOrder.sendAddress}"></dd>
+							  <dd class="clear"></dd>
+							</dl>
+							<dl class="formItem">
+							  <dt>联系方式</dt>
+							  <dd><input name="sendLinkMethod" type="text" readOnly class="textBox box212" value="${childOrder.sendLinkMethod}"></dd>
+							  <dd class="clear"></dd>
+							</dl>
+							
+							
+	            <div class="clear"></div>
+	            <h2 class="rightTitle">
+								<em class="borderBottomColor">收货人信息</em>
+							</h2>
+							<dl class="formItem">
+							  <dt>收货人</dt>
+							  <dd><input name="takeLinkman" type="text" readOnly id="takeMan" class="textBox box212" value="${childOrder.takeLinkman}"></dd>
+							  <dd class="clear"></dd>
+							</dl>
+							<dl class="formItem">
+							  <dt>收货地址</dt>
+							  <dd><input name="takeAddress" type="text" readonly id="address" class="textBox box212" value="${childOrder.takeAddress}"></dd>
+							  <dd class="clear"></dd>
+							</dl>
+							<dl class="formItem">
+							  <dt>联系方式</dt> 
+							  <dd><input name="takeLinkMethod" type="text" readOnly class="textBox box212" value="${childOrder.takeLinkMethod}"></dd>
+							  <dd class="clear"></dd>
+							</dl>
+            	
+            	
+							<div class="clear"></div>
+            	<h2 class="rightTitle">
+								<em class="borderBottomColor">订单日志</em>
+							</h2>
+            	#set(List<com.ekfans.base.store.model.ChildOrderLog> logs = childOrder.logs)
+							#if(logs != null && logs.size()>0)
+								<div class="clear"></div>
+								<div id="mlDiv" style="float:left;width:758px;min-height:100px;margin:2px 0 10px 93px;" >
+									<table border="0" cellspacing="0" cellpadding="0" class="tabList" style="width:708px;">
+										<tbody id="resultThree">
+										#for(com.ekfans.base.store.model.ChildOrderLog log:logs)
+											<tr>
+												<td>${log.note}</td>
+											</tr>
+										#end
+										</tbody>
+									</table>
+								</div>
+							#end
+            	
+          	</div>
+          </div>
+        </dd>
+      </dl>
+   	</div>
+  </div>
+	<div class="clear"></div>
+</form>
+<div style="display:none;" id="copyDiv">
+	<div class="tbLine">
+	    <dl class="formItem">
+	      <dt>车牌</dt>
+	      <dd><input name="replaceCarNo" style="text-transform:uppercase;" type="text" class="textBox box148"></dd>
+	      <dd class="clear"></dd>
+	    </dl>
+	    <dl class="formItem">
+	      <dt>数量</dt>
+	      <dd><input name="replaceNum" onblur="checkContent(this)" type="text" class="textBox box148"></dd>
+	      <dd class="clear"></dd>
+	    </dl>
+	    <div class="danwei"><a href="javascript:void(0);" id="replace" class="btnBase deleteLine">删除</a></div>
+	    <div class="clear"></div>
+	</div>
+</div>
+
+<!-- end 右侧主体 -->
+	<script>
+		String.prototype.replaceAll = function(reallyDo, replaceWith, ignoreCase) {  
+			if (!RegExp.prototype.isPrototypeOf(reallyDo)) {  
+				return this.replace(new RegExp(reallyDo, (ignoreCase ? "gi": "g")), replaceWith);  
+			} else {  
+				return this.replace(reallyDo, replaceWith);  
+			}  
+		} 
+		
+		function checkNumStr(num){
+			var exp = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;
+			if(exp.test(num)){
+				return true;
+			}else{
+				return false;
+			}
+		}
+		
+		function checkContent(obj){
+			if(!checkNumStr(obj.value)){
+				falert("请输入数字！");
+				obj.value = "0.00";
+				obj.focus();
+			}
+			countTotalPrice();
+		}
+		
+		$(document).ready(function() {
+			$("#transportStoreId").change(function(){
+				var a=$(this).children("option:selected").text();
+				$("#transportStoreName").val(a);
+			}); 
+			
+			
+			$(".addLine").click(function() {
+				var obj=$("#copyDiv").clone();
+				obj.find("input").val("");
+				if(obj.find(".deleteLine").length<1){
+					obj.children(".danwei").append('<a href="javascript:void(0);" id="replace" class="btnBase deleteLine">删除</a>');
+				}
+				var htmlStr = obj.html();
+				var randomId = Math.random(); 
+				htmlStr = htmlStr.replaceAll("replace",randomId);
+				var values = $("#detailValues").val();
+				values = values + randomId + ";";
+				$("#detailValues").val(values);
+				$(this).parent().before(htmlStr);
+			});
+			
+			$(".deleteLine").live("click",function(){
+				var obj=$(this).parents(".tbLine").siblings(".tbLine").length;
+				console.log(obj);
+				if(obj<=0){
+					falert("最后一行不能删除！");
+				}
+				else{
+					var chosedId = $(this).attr("id");
+					var values = $("#detailValues").val();
+					values = values.replaceAll(chosedId+";","");
+					$("#detailValues").val(values);
+					$(this).parents(".tbLine").remove();
+				}
+			})
+			
+			$(".ldList .ldListdd").hide();
+			$(".ldList .ldListdd:eq(0)").show();
+			$(".zanniu").live("click",function(){
+				$(this).parent("dt").next("dd").toggle();
+				if($(this).parent("dt").next("dd").css("display")=="block"){
+					$(this).removeClass("zhanup");
+					$(this).addClass("zhandown");
+				}
+				else{
+					$(this).removeClass("zhandown");
+					$(this).addClass("zhanup");
+				}
+			});
+
+			
+		});
+	
+		function showContract(contractId){
+			window.open("${webroot}/store/contract/contractById/0/"+contractId);
+		}
+		
+		
+		function orderSure(){
+			if($("#transportStoreId") && $("#transportStoreId").val() == ""){
+   			falert("请选择运输企业！");
+   			return false;
+	   	}
+	   	
+	   	if($("#firstCarNo") && $("#firstCarNo").val() == ""){
+   			falert("请录入车辆信息！");
+   			return false;
+	   	}
+	   	
+			$("#addChildOrder").ajaxSubmit(
+				function(data){
+				if("true" == data){
+					salertWithFunction("订单确认成功！",returnURL,null)
+				}else{
+					falert("订单确认失败，请稍后再试！");
+				}
+			});
+		}
+		
+		function returnURL(){
+			#if("3" == pageType || "4" == pageType)
+				location.href="${webroot}/store/order/contractOrder/buyOrderList";
+			#else
+				location.href="${webroot}/store/order/wfpOrderDetail?orderId=${childOrder.contractOrderId}&type=1";
+			#end
+		}
+	</script>
+ </body>
+</html>

@@ -1,0 +1,345 @@
+<!doctype html>
+
+<html>
+	<head>
+		<meta charset="UTF-8">
+    	<title>银行监管账户管理</title>
+    	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/add.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/list.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/demand.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/list.js"></script>
+    </head>
+    <body>
+    #define(List<com.ekfans.base.finance.model.BankAccount> accountList)
+    #define(List<com.ekfans.base.finance.model.BankDepartment> departments)
+    
+		<form action="${webroot}/system/bankaccount/list/${bankId}" method="post"  id="searchUserForm">
+			<input type="hidden" name="bankId" id="bankId" value="${bankId}"/>
+			<input type="hidden" name="pageNum" value="" />
+
+			<dl class="pro_ss">
+				<dt><b>查询</b><span class="span_down"></span><span class="span_up"></span></dt>
+				<dd class="pro_ss_item" style="width:30%;">
+					<span>用户名</span>
+					<input type="text" class="i_bg" name="name" value="${name}" style="width:200px;"/>
+				</dd>
+				
+				<dd class="pro_ss_item" style="width:30%;">
+					<span>监管人</span>
+					<input type="text" class="i_bg" name="realName" id="realName" value="${realName}" style="width:200px;"/>
+				</dd>
+				
+				<dd class="pro_ss_item" style="width:30%;">
+					<span>手机号</span>
+					<input type="text" class="i_bg" name="phone" id="phone" value="${phone}" style="width:200px;"/>
+				</dd>
+				<dd>&nbsp;</dd>
+				<div class="clear"></div>
+				<dd class="pro_ss_item">
+					<span>所属部门</span>
+					<select name="departmentId" id="departmentId" value="departmentId" style="width:50%">
+						<option value="">---请选择---</option>
+						#for(com.ekfans.base.finance.model.BankDepartment depart:departments)
+							<option value="${depart.id}" #if(departmentId != null && depart.id == departmentId) selected="true" #end>${depart.name}</option>
+							#if(depart.childList != null && depart.childList.size()>0)
+								#for(com.ekfans.base.finance.model.BankDepartment depart1:depart.childList)
+									<option value="${depart1.id}" #if(departmentId != null && depart1.id == departmentId) selected="true" #end>
+									&nbsp;&nbsp;&nbsp;&nbsp;${depart1.name}
+									</option>
+									#if(depart1.childList != null && depart1.childList.size()>0)
+										#for(com.ekfans.base.finance.model.BankDepartment depart2:depart1.childList)
+											<option value="${depart2.id}" #if(departmentId != null && depart2.id == departmentId) selected="true" #end>
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${depart2.name}
+											</option>
+											#if(depart2.childList != null && depart2.childList.size()>0)
+												#for(com.ekfans.base.finance.model.BankDepartment depart3:depart2.childList)
+													<option value="${depart3.id}" #if(departmentId != null && depart3.id == departmentId) selected="true" #end>
+													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${depart3.name}
+													</option>
+												#end
+											#end
+										#end
+									#end
+								#end
+							#end
+						#end
+					</select>
+				</dd>
+				
+			</dl>
+		</form>
+			<div class="pro_ss_btn">
+				<a href="#" onclick="searchSubmit();" class="btn">搜索</a>
+				<a href="#" onclick="resetForm();" class="btn">重置</a>
+			</div>
+			
+			<div class="pro_ss_btn">
+				<a href="${webroot}/system/bankaccount/add/${bankId}" class="btn">新增</a>
+				<a href="${webroot}/system/bank/list" class="btn">返回银行列表</a>
+			</div>
+		
+			
+			<!--没有数据的时候-->
+			#if(accountList==null||accountList.size()<=0)
+				<div class="ht_list_k">暂时没有符合条件的数据</div>	
+			#else
+			
+			<!--有数据的时候-->
+			<div class="ht_list">
+				<table id="userTab" cellpadding="0" cellspacing="0" border="0" >
+					<tr>
+						<th width="4%">全选</th>
+						<th width="4%">序号</th>
+						<th width="10%">用户名</th>
+			            <th width="17%">真实姓名</th>
+			            <th width="17%">手机号</th>          
+			            <th width="17%">所属部门</th>
+			            <th width="17%">状态</th>
+			            <th width="17%">操作</th>
+					</tr>
+					#for(com.ekfans.base.finance.model.BankAccount account:accountList)
+						<tr>
+							#if(!@(com.ekfans.pub.util.StringUtil).isEmpty(account.departmentId))
+							<td class="qx"><input type="checkbox" value="${account.id }"/></td>
+							#else
+							<td class="qx">&nbsp;</td>
+							#end
+							<td>${for.index}</td>
+							<td>${account.name}</td>
+							<td>${account.realName}</td>
+							<td>${account.phone}</td>
+							<td>${@(com.ekfans.pub.util.StringUtil).isEmpty(account.departmentId)?"总管理员":account.department}</td>
+							<td>${account.status?"启用":"停用" }</td>
+							<td class="cz">
+								<a href="${webroot}/system/bankaccount/edit/${account.id}" title="编辑">编辑</a>
+								#if(!@(com.ekfans.pub.util.StringUtil).isEmpty(account.departmentId))
+									<a href="javascript:void(0);" id="del${account.id}" title="删除"
+									onclick="econfirm('确定要删除此账户吗？',deletes,['${account.id}','${webroot}'],null,null);" >删除</a>
+								#end
+							</td>
+						</tr>
+					#end
+				</table>
+				<div class="ht_pageBox">
+				<div class="ht_page_l">
+					<a href="javascript:void(0);" onclick="selectAll();" class="btn">全选</a>
+					
+					<!-- 为删除前验证服务的隐藏域 -->
+					<input type="hidden" id="ctxpath" value="${webroot}" /> 
+					<a href="javascript:void(0);" onclick="checkSelect();" class="btn">删除</a>
+				</div>
+				<!-- 分页 -->
+				#define(com.ekfans.pub.util.Pager pager)
+				<div class="ht_page">
+						<a href="javascript:void(0);" onclick="goPage('1');"   value="1" class="btn"><<</a>
+						#if(pager.currentPage == 1)
+							<a href="javascript:void(0);" class="btn"><</a> 
+						#else
+							<a href="javascript:void(0);" onclick="goPage('${pager.currentPage-1 }');"   value="${pager.currentPage-1 }" class="btn"><</a>
+						#end
+						
+						#if(pager.totalPage>5)
+							#if(pager.currentPage-2>1 && pager.currentPage+2<pager.totalPage)
+								<a class="btn">..</a>
+								#for(int i : iterator(pager.currentPage-2,pager.currentPage+2))
+									#if(pager.currentPage==i)
+											<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="btn cur">${i }</a>
+									#else
+										<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="btn">${i }</a>
+									#end
+								#end
+								<a>..</a>
+							#elseif(pager.currentPage-2<=1)
+								#for(int i : iterator(1,5))
+									#if(pager.currentPage==i)
+										<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+									#else
+										<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn">${i }</a>
+									#end
+								#end
+								<a>..</a>
+							#else
+								<a>..</a>
+								#for(int i : iterator(pager.totalPage-4,pager.totalPage))
+									#if(pager.currentPage==i)
+										<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+									#else
+										<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn">${i }</a>
+									#end
+								#end
+							#end
+						#else
+							#for(int i : iterator(1,pager.totalPage))
+								#if(pager.currentPage==i)
+									<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+								#else
+									<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn">${i }</a>
+								#end
+							#end
+						#end
+						
+						#if(pager.currentPage==pager.totalPage)
+							<a href="javascript:void(0);" class="btn">></a>
+						#else
+							<a href="javascript:void(0);" onclick="goPage('${pager.currentPage+1 }');"   value="${pager.currentPage+1 }" class="btn">></a>
+						#end
+						<a  href="javascript:void(0);" onclick="goPage('${pager.totalPage }');"   value="${pager.totalPage }" class="btn">>></a>
+						
+					</div>
+				</div>
+			</div>
+		#end
+		<div class="apPreviewBg"></div>
+		<div id="div1"  class="apPreview">
+
+		<script>
+			$(function(){
+				$(".ht_list tr").mouseover(function(){
+					$(this).addClass("tr_bg");
+				});
+				$(".ht_list tr").mouseout(function(){
+					$(this).removeClass("tr_bg");
+				});
+				$(".pro_ss dt span.span_down").click(function(){
+					$(this).hide();
+					$(this).next(".span_up").show();
+					$(this).parent().nextAll("dd").hide();
+					$(this).parent().parent().next(".pro_ss_btn").hide();
+				});
+				$(".pro_ss dt span.span_up").click(function(){
+					$(this).hide();
+					$(this).prev(".span_down").show();
+					$(this).parent().nextAll("dd").show();
+					$(this).parent().parent().next(".pro_ss_btn").show();
+				});
+			});	
+
+			// 全选与全不选
+			function selectAll(){
+				var items = document.getElementsByTagName("input");
+				// 定义是否已经全选
+				var seleced = true;
+				// 遍历选择框，看是否已经全选
+				for(var i=0;i<items.length;i++){  
+					if(items[i].type=="checkbox"){
+						if(!items[i].checked){
+							seleced = false;
+							break;
+						}
+					}
+				}
+				// 如果已经全选，则全取消，否则全选
+				if(seleced){
+					for(var i=0;i<items.length;i++){  
+						if(items[i].type=="checkbox"){
+							items[i].checked = false;
+						}
+					}
+				}else{
+					for(var i=0;i<items.length;i++){  
+						if(items[i].type=="checkbox"){
+							items[i].checked = true;
+						}
+					}
+				}
+			}
+
+
+			//分页跳转
+			function goPage(pageNum){
+				$("input[name='pageNum']").val(pageNum);
+				document.getElementById("searchUserForm").submit();
+			}
+
+			//searchUserForm的提交
+			function searchSubmit(){
+				document.getElementById("searchUserForm").submit();
+			}
+			// 重置
+			function resetForm(){
+				document.getElementsByName("name")[0].value="";
+				
+				$("#realName").val("");
+				$("#phone").val("");
+				$("#departmentId").val("");
+			}
+			
+
+			//删除选择的记录
+			function deleteAll(){
+				var items = document.getElementsByTagName("input");  
+				var ids = [];
+				for(var i=0;i<items.length;i++){  
+					if(items[i].type=="checkbox" && items[i].checked){
+						ids.push(items[i].value);
+					}
+				} 
+				$.post(
+					"${webroot}/system/bankaccount/remove",
+					{accountId:ids.join(";")},
+					function(data){
+						if(data == "1"){
+							ealert("删除成功！");
+							for(var i=0;i<items.length;i++){  
+								if(items[i].type=="checkbox" && items[i].checked){
+									var d="#del"+items[i].value;
+									$(d).parent().parent().remove();
+									var oTable = document.getElementById("userTab");
+									for(var i=1;i<oTable.rows.length;i++){
+										oTable.rows[i].cells[1].innerHTML = (i);
+									}
+								}
+							} 
+						}else{
+							ealert("删除失败！");
+						}
+					}
+				);
+			}
+			
+			//删除会员
+			function deletes(id,contextPath){
+				$.post(
+					contextPath + "/system/bankaccount/remove",
+					{accountId:id},
+					function(data){
+						if(data == "1"){
+							ealert("删除成功！");
+							var d="#del"+id;
+							$(d).parent().parent().remove();
+							var oTable = document.getElementById("userTab");
+							for(var i=1;i<oTable.rows.length;i++){
+								oTable.rows[i].cells[1].innerHTML = (i);
+							}
+						}else{
+							ealert("删除失败！");
+						}
+					}
+				);
+			}
+
+			
+			//删除前验证
+			function checkSelect(){
+				var selected = false;
+				var items = document.getElementsByTagName("input");  
+				for(var i=0;i<items.length;i++){
+					if(items[i].type=="checkbox"&&items[i].checked){
+						selected = true;
+					}
+				} 
+
+				if(selected) {
+					econfirm('是否确认删除？',deleteAll,null,null,null);
+				}else {
+					ealert("请至少选择一条数据！");
+				}
+			}
+
+
+		</script>
+	</body>
+</html>
+	

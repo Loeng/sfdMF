@@ -1,0 +1,237 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>管理系统登录</title>
+	
+	<link href="${webroot}/resources/system/css/base.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/system/css/demand.css" rel="stylesheet" type="text/css">
+	<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+	<script src="${webroot}/resources/commons/js/layer/layer.js"></script>
+	<script src="${webroot}/resources/system/js/base.js"></script>
+	<style type="text/css">
+		.typeIn{margin:20px; position:relative;}
+		.leftType a{color:#48B0FD; margin-left:6px;}
+		.leftType{width:274px; position:absolute; left:0; top:0; border:solid 1px #DFDFDF; padding-bottom:50px;}
+		.rightType{left:296px; right:0; position:absolute;}
+		.leftType dt{height:30px; line-height:30px; padding:0 10px; border-bottom:solid 1px #dfdfdf; font-size:14px; position:relative; margin-bottom:10px;}
+		.leftType dt a{font-size:12px; right:10px; top:0; position:absolute;}
+		.leftType li{margin:0 8px; padding:0 10px; height:30px; line-height:30px; border-bottom:solid 1px #dfdfdf;}
+		.leftType li .name{float:left; white-space:nowrap;}
+		.leftType li .link{float:right; white-space:nowrap;}
+		.leftType li .name input{display:block; float:left; margin:9px 6px 0 0;}
+		.box120{width:116px;}
+		.ht_list .typeList td a,.ht_list .typeList th a{color:#48B0FD; opacity:1!important;}
+
+	</style>
+</head>
+
+<body>
+#define(List<com.ekfans.base.metal.model.PreciousMetalCategory> categorys)
+
+<div class="typeIn">
+    <dl class="leftType">
+        <dt>品类 <a href="javascript:void(0);" class="addType">增加品类</a></dt>
+        <dd>
+        	#for(com.ekfans.base.metal.model.PreciousMetalCategory category:categorys)
+            <li>
+                <span class="name" onclick="javascript:loadMetal('${category.id}');"><label><input id="${category.id}" name="typeName1" type="radio" value="${category.id}" #if(for.first) checked #end><em>${category.name}</em></label></span>
+                <span class="link">
+                    <a href="javascript:void(0);" class="bianjiLink">编辑</a>
+                    <a href="javascript:void(0);" class="delLink">删除</a>
+                </span>
+            </li>
+            #if(for.first)
+            <input type="hidden" name="chosedCategory" id="chosedCategory" value="${category.id}"/>
+            #end
+            #end
+        </dd>
+    </dl>
+    <div class="rightType">
+        
+    </div>
+    <div class="clear"></div>
+</div>
+<script>
+$(document).ready(function () {
+	//左侧分类编辑
+	$(".bianjiLink").live("click",function(){
+		var obj=$(this).parents("li").find("em");
+		var data=obj.text();
+		layer.config({
+			extend: 'extend/layer.ext.js'
+		});
+		layer.ready(function () {
+			layer.prompt({
+				title: '品类编辑',
+				value: data,
+				formType: 0
+			}, function (str,index) {
+				var categoryId = obj.parents("li").find("input[type='radio']").val();
+				$.post('${webroot}/system/metalCategory/update',{categoryName:str,categoryId:categoryId},function (data){
+					if(data == "1"){
+						obj.text(str);
+						layer.close(index);
+					}
+				});
+			});
+		});
+	})
+	
+	//左侧新增分类
+	$(".addType").live("click",function(){
+		layer.config({
+			extend: 'extend/layer.ext.js'
+		});
+		layer.ready(function () {
+			layer.prompt({
+				title: '品类编辑',
+				formType: 0
+			}, function (str,index) {
+				$.post('${webroot}/system/metalCategory/save',{categoryName:str},function (data){
+					if(data != "null" && data != null){
+						var itemHtml='<li><span class="name"><label><input name="typeName1" id="'+data+'" type="radio" value="'+data+'"><em>'+str+'</em></label></span><span class="link"><a href="javascript:void(0);" class="bianjiLink">编辑</a> <a href="javascript:void(0);" class="delLink">删除</a></span></li>'
+						$(".leftType dd").append(itemHtml);
+						layer.close(index);
+					}
+				});
+
+				
+			});
+		});
+	})
+	
+	//左侧删除分类
+	$(".delLink").live("click",function(){
+		var obj=$(this);
+		layer.confirm('删除品类将会同时删除该品类下的所有数据,确定删除吗', {btn:['确定','取消']},function(index){ //不设置btn将默认为确定和取消两个按钮
+			var categoryId = obj.parents("li").find("input[type='radio']").val();
+			$.post('${webroot}/system/metalCategory/remove',{categoryId:categoryId},function (data){
+				if(data == "1"){
+					obj.parents("li").remove();//点击确定执行的语句
+					layer.close(index);
+				}
+			});
+		},function(){
+			//点击取消执行的语句
+		});
+	})
+	
+	
+	//右侧分类编辑
+	$(".bianjiLine").live("click",function(){
+		var objs=$(this).parents("tr").children(".edItem");
+		objs.each(function(index) {
+            var value=$(this).text();
+            var tagName = $(this).attr("tags");
+			$(this).html('<input name="'+tagName+'" type="text" class="i_bg box120">');
+			$(this).find(".i_bg").val(value);
+        });
+        $(this).parents("tr").find("input[name='metalCheck']").attr("checked",true);
+		$(this).text("保存").addClass("saveLine").removeClass("bianjiLine");
+	})
+	
+	$(".saveLine").live("click",function(){
+		var thisObj = $(this);
+		var trObj = $(this).parents("tr");
+		var objs=trObj.find(".i_bg");
+
+		var metalId = trObj.find("input[name='metalCheck']").val();
+		var cName = trObj.find("input[name='name']").val();
+		var spec = trObj.find("input[name='spec']").val();
+		var unit = trObj.find("input[name='unit']").val();
+		var categoryId = $("#chosedCategory").val();
+		if(cName == "" || cName == null){
+			layer.alert("品名不能为空！",{title:"信息提示",icon:2});
+			return false;
+		}
+
+		if(spec == "" || spec == null){
+			layer.alert("规格不能为空！",{title:"信息提示",icon:2});
+			return false;
+		}
+
+		if(unit == "" || unit == null){
+			layer.alert("计价单位不能为空！",{title:"信息提示",icon:2});
+			return false;
+		}
+
+		$.post('${webroot}/system/metal/save',{metalId:metalId,name:cName,spec:spec,unit:unit,categoryId:categoryId},function (data){
+			if(data != "0"){
+				trObj.find("input[name='name']").parent().html(cName);
+				trObj.find("input[name='spec']").parent().html(spec);
+				trObj.find("input[name='unit']").parent().html(unit);
+				thisObj.text("编辑").addClass("bianjiLine").removeClass("saveLine");
+				trObj.find("input[type='checkbox']").val(data);
+				trObj.find("input[type='checkbox']").attr("checked",false);
+			}
+		});
+	})
+	
+	//右侧新增分类
+	$(".addLine").live("click",function(){
+		var line=$("#addLine tbody").html();
+		$(".typeList tbody").append(line);
+	})
+	
+	//右侧删除品目
+	$(".delLine").live("click",function(){
+		var obj=$(this);
+		layer.confirm('确定删除吗', {btn:['确定','取消']},function(index){ //不设置btn将默认为确定和取消两个按钮
+			$.post('${webroot}/system/metal/remove',{metalId:obj.parents("tr").find("input[name='metalCheck']").val()},function (data){
+				if(data == "1"){
+					obj.parents("tr").remove();//点击确定执行的语句
+					layer.close(index);
+				}
+			});
+		},function(){
+			//点击取消执行的语句
+		});
+	})
+
+	//右侧反选
+	$("#choseAll").live("click",function(){
+		var objs = $("input[name='metalCheck']");
+		objs.each(function(index) {
+			if($(this).attr("checked")){   
+				$(this).removeAttr("checked");
+			}else {   
+				$(this).attr("checked",'true'); 
+			}   
+        });
+	})
+
+
+	//右侧批量删除
+	$("#removes").live("click",function(){
+		var objs = $("#f1").find("input[name='metalCheck']");
+		layer.confirm('确定删除所选品目吗', {btn:['确定','取消']},function(index){ //不设置btn将默认为确定和取消两个按钮
+			$.post('${webroot}/system/metal/removebatch',$("#f1").serialize(),function (data){
+				if(data == "1"){
+					objs.each(function(index) {
+						if($(this).attr("checked")){   
+							$(this).parents("tr").remove();//点击确定执行的语句
+							layer.close(index);
+						}
+					});
+				}
+			});
+		},function(){
+			//点击取消执行的语句
+		});
+	})
+
+
+});
+function loadMetal(categoryId){
+	$("#"+categoryId).attr("checked",true);
+	$("#chosedCategory").val(categoryId);
+	$(".rightType").load("${webroot}/system/metal/showmetals/"+categoryId);
+}
+
+loadMetal($("#chosedCategory").val());
+</script>
+</body>
+</html>

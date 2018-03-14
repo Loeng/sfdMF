@@ -1,0 +1,160 @@
+#define(com.ekfans.base.wfOrder.model.WfOrder showWfOrder)
+#define(List<com.ekfans.base.wfOrder.model.WfOrderDetail> details)
+
+
+#set(Double totalPrice = 0.00)
+#if(!showWfOrder.countType)
+<!--第一种模式-->
+<div class="orderStyle1">
+#for(com.ekfans.base.wfOrder.model.WfOrderDetail detail:details)
+	<div class="orderItem">
+		<div class="orderItemHeader">
+			<dl class="formItem formItem5">
+				<dt>重量</dt>
+				<dd>
+					<input name="" type="text" value="${detail.weight}" class="textBox box80" disabled style="background:#eaeaea;">
+					<span class="hint">t</span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem formItem5">
+				<dt>水分</dt>
+				<dd>
+					<input name="" type="text" value="${detail.moistureContent}" class="textBox box80" disabled style="background:#eaeaea;">
+					<span class="hint">%</span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem formItem5">
+				<dt>干重</dt>
+				<dd>
+					<input name="" type="text" value="${detail.dryWeight}" class="textBox box80" disabled style="background:#eaeaea;">
+					<span class="hint">t</span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem formItemJcbg">
+				<dt>检测报告</dt>
+				<dd>
+					<a href="${webroot}/${detail.testReport}" target="_blank">检测报告.pdf</a>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			
+			<span class="shouzhan">收起详情</span>
+			<div class="clear"></div>
+		</div>
+		<table border="0" cellspacing="0" cellpadding="0" class="tabList">
+			<tr>
+				<th>元素</th>
+				<th>品味</th>
+				<th>金属量</th>
+				<th>网上平均价</th>
+				<th>计价系数</th>
+				<th>单价</th>
+				<th>小计金额</th>
+			</tr>
+			#set(List<com.ekfans.base.wfOrder.model.WfOrderPrice> prices = detail.prices)
+			#for(com.ekfans.base.wfOrder.model.WfOrderPrice price:prices)
+				#set(totalPrice = totalPrice + price.contentTotalPrice.doubleValue())
+			  <tr>
+			    <td>${price.contentName}</td>
+			    <td><input type="text" value="${price.content}" name="" class="textBox box98" disabled style="background:#eaeaea;">${price.chargingType == "0"?"%":(price.chargingUnit+"/t")}</td>
+			    <td><input type="text" value="${price.contentQuantity}" name="" class="textBox box98" disabled style="background:#eaeaea;">${price.chargingType == "0"?"t":(price.chargingUnit)}</td>
+			    <td><input type="text" value="${@(java.lang.String).format("%.2f",price.contentPrice)}" name="" class="textBox box98 ${price.contractContentId}ContentPrice" readonly style="background:#eaeaea;">元</td>
+			    <td><input type="text" value="${price.coefficient}" name="" class="textBox box98" readonly style="background:#eaeaea;">%</td>
+			    <td><input type="text" value="${@(java.lang.String).format("%.2f",price.finalPrice)}" name="" class="textBox box98" readonly style="background:#eaeaea;">元</td>
+			    <td><input type="text" value="${@(java.lang.String).format("%.2f",price.contentTotalPrice)}" name="" class="textBox box98 orange" readonly style="background:#eaeaea;">元</td>
+			  </tr>
+			#end
+		</table>
+		<div class="clear"></div>
+		<div class="orderItemBtn"></div>
+	</div>
+#end
+</div>
+<!--第一种模式 end-->
+#else
+<!--第二种模式-->
+<div class="orderStyle2">
+
+#for(com.ekfans.base.wfOrder.model.WfOrderDetail detail:details)
+	#set(totalPrice = totalPrice + detail.totalPrice.doubleValue())
+	<div class="orderItem">
+		<div class="orderItemHeader">
+			<dl class="formItem formItem5">
+				<dt>重量</dt>
+				<dd>
+					<input name="" type="text" value="${detail.weight}" class="textBox box80" disabled style="background:#eaeaea;">
+					<span class="hint">t</span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem formItem5">
+				<dt>水分</dt>
+				<dd>
+					<input name="" type="text" value="${detail.moistureContent}" class="textBox box80" disabled style="background:#eaeaea;">
+					<span class="hint">%</span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem formItem5">
+				<dt>干重</dt>
+				<dd>
+					<input name="" type="text" value="${detail.dryWeight}" class="textBox box80" disabled style="background:#eaeaea;">
+					<span class="hint">t</span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem formItem5">
+				<dt>单价</dt>
+				<dd>
+					<input name="" type="text" value="${detail.price}" class="textBox box80" disabled style="background:#eaeaea;">
+					<span class="hint">元</span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem formItem5">
+				<dt>总价</dt>
+				<dd>
+					<input name="" type="text" value="${detail.totalPrice}" class="textBox box80" disabled style="background:#eaeaea;">
+					<span class="hint">元</span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<div class="clear"></div>
+			
+			<dl class="formItem formItemJcbg">
+				<dt>检测报告</dt>
+				<dd>
+					<a href="${webroot}/${detail.testReport}" target="_blank">检测报告.pdf</a>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			
+		</div>
+		<div class="clear"></div>
+		<div class="orderItemBtn"></div>
+	</div>
+#end
+</div>
+<!--第二种模式 end-->
+#end
+
+
+<div class="orderTotal">订单总额：<em class="orange">${@(java.lang.String).format("%.2f",totalPrice)}</em><span style="color:#333;">元</span></div>
+
+
+
+
+<script>
+
+//收起展开详情
+$(".shouzhan").live("click",function(){
+	var obj=$(this).parents(".orderItemHeader").next(".tabList");
+	obj.toggle();
+	$(this).toggleClass("shouzhanDown");
+	$(".shouzhan").text("收起详情");
+	$(".shouzhanDown").text("展开详情");
+})
+</script>

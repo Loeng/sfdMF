@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+    	<title>新增小区</title>
+    		<link href="${ctxpath}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+				<link href="${ctxpath}/resources/system/css/list.css" rel="stylesheet" type="text/css" />
+				<!-- 上传文件的CSS -->
+				<link href="${ctxpath}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+				<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery-1.8.3.min.js"></script>
+				<script type="text/javascript" src="${ctxpath}/resources/system/js/tools.js"></script>
+				<script type="text/javascript" src="${webroot}/resources/system/js/warehouse/goWarehouseAdd.js"></script>
+				<!-- 上传文件控件  -->
+				<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.soChange.js"></script>
+				<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.json-2.2.min.js"></script>
+				<script type="text/javascript" src="${ctxpath}/resources/commons/js/ajaxupload.js"></script>
+				<script type="text/javascript" src="${ctxpath}/resources/commons/js/upload/upload.js"></script>
+
+
+    </head>
+    <body>
+   		<div class="ht_btn">
+          <a href="#" onclick="formSubmit();" class="btn">保存</a>
+        </div>
+        <div class="add_pro">
+			<input type="hidden" id="ok" value="${addOk}" />
+			<input type="hidden" id="ctxpath" value="${webroot}" />
+    	<form action="${webroot}/system/warehouse/goWarehouseSave" name="add" method="post"  id="addGoWarehouseForm">
+    		<dl class="pro_pp formBox">
+					<dt>选择商品<em class="mustIco"></em></dt>
+					<dd class="" id="productIdDd">
+						<input type="text" class="i_bg"  id="product"  readOnly  onblur="javascript:checkProductIdBlur();"   />
+						<span id="productSpan" class="pp" title="关联商品" onclick="loadProduct();" ></span>
+						<span id="" class="ts_xx">请选择商品</span>
+					</dd>
+				</dl>
+						<input type="hidden" id="productId" name="productId"/>
+					<div class="clear"></div>
+				<dl class="pro_pp formBox">
+					<dt>选择仓库<em class="mustIco"></em></dt>
+					<dd class="" id="warehouseIdDd">
+						<input type="text" class="i_bg"  id="warehouse"  readOnly  onblur="javascript:checkWarehouseIdBlur();"   />
+						<span id="warehouseSpan" class="pp" title="关联仓库" onclick="loadWareHouse();" ></span>
+						<span id="" class="ts_xx">请选择仓库</span>
+					</dd>
+				</dl>
+					<input type="hidden" id="warehouseId" name="warehouseId"/>
+				<div class="clear"></div>
+				<dl class="formBox">
+					<dt>商品数量</dt>
+					<dd>
+						<input type="text" class="i_bg"  name="number"  value="0" maxlength="11" />
+					</dd>
+				</dl>
+						<dl class="formBox">
+					<dt>入库凭证</dt>
+					<dd>
+						#tag picUpload("orderId","1","300","300","") #end
+		  		</dd>
+				</dl>
+				
+		 		<dl class="formBox">
+	 				<dt>备注</dt>
+					<dd>
+					<textarea maxlength="256" name="note"></textarea>
+				</dd>
+				</dl>
+				
+    	</form>
+    	<div class="del_tcBg" id="productBg" style="display:none;"></div>
+				<div class="del_tc shopListAlert"  id="productTc" style="display:none;">
+			
+				</div>
+		<div class="del_tcBg" id="warehouseBg" style="display:none;"></div>
+				<div class="del_tc shopListAlert"  id="warehouseTc" style="display:none;">
+			
+				</div>
+    </body>
+</html>

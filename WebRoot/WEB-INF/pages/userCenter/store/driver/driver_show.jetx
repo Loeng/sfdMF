@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>人员查看</title>
+	<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css">
+	<script src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+	<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+	<style>
+	.formItem dt{width:100px;}
+	</style>
+</head>
+
+<body>
+	#define(com.ekfans.base.store.model.CarUser user)
+		<div class="rightContent">
+			<div class="contentTit  borderColor budong">
+				#if(user.type=="0")
+					<h3>驾驶员-查看</h3>
+				#else
+					<h3>押运员-查看</h3>
+				#end
+				
+				<a href="${webroot}/store/driver/carUser/list/${user.type}" class="btnBase btnSave">返回列表</a>
+				<div class="clear"></div>
+			</div>
+			<div class="form borderColor">
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>姓名</dt>
+					<dd><input name="name" type="text" value="${user.name}" readonly class="textBox box212"></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>性别</dt>
+					<dd><input name="sex" type="text" #if(user.sex=="0")value="女" #else value="男" #end readonly class="textBox box212"></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>手机号码</dt>
+					<dd><input name="mobile" type="text" value="${user.mobile}" readonly class="textBox box212"></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>身份证号</dt>
+					<dd><input name="cardNo" type="text" value="${user.cardNo}" readonly class="textBox box212"></dd>
+					<dd class="clear"></dd>
+				</dl>
+				
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>审核状态</dt>
+					<dd><select name="checkStatus" readonly style="width:80px;">
+							<option value="1" #if(user.checkStatus=="1")selected #end>已审核</option>
+							<option value="0" #if(user.checkStatus=="0")selected #end>未审核</option>
+						</select></dd>
+					<dd class="clear"></dd>
+				</dl>
+				#if(user.checkStatus=="1")
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>审核人</dt>
+					<dd><input name="checkMan" type="text" value="${user.checkMan}" readonly class="textBox box212"></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>审核时间</dt>
+					<dd><input name="checkTime" type="text" value="${user.checkTime}" readonly class="textBox box212"></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>审核备注</dt>
+					<dd><input name="checkNote" type="text" value="${user.checkNote}" readonly class="textBox box212"></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>从业资格证号</dt>
+					<dd><input name="licenseNum" type="text" value="${user.licenseNum}" readonly class="textBox box212"></dd>
+					<dd class="clear"></dd>
+				</dl>
+				#end
+				#if(user.type=="0")
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>行驶证有效期</dt>
+					<dd><input name="startTime" type="text" value="${user.startTime}" readonly class="textBox box98"></dd>
+					<dd>&nbsp;&nbsp;-&nbsp;&nbsp;</dd>
+					<dd><input value="${user.endTime}" name="endTime" type="text" class="textBox box98"></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>驾驶证附件</dt>
+					<dd> #tag picUpload("driverFile","1","20","20",user.driverFile) #end </dd>
+					<dd class="clear"></dd>
+				</dl>
+				#end
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>从业资格证附件</dt>
+					<dd> #tag picUpload("licenseFile","1","20","20",user.licenseFile) #end </dd>
+					<dd class="clear"></dd>
+				</dl>
+			</div>
+		</div>  
+	
+</body>
+</html>

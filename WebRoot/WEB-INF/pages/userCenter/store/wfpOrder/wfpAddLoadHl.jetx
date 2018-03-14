@@ -1,0 +1,24 @@
+#define(List<com.ekfans.base.order.model.OrderValuation> list)
+	#if(list!=null && list.size()>0)
+	<a  class="btnBase">废品含量</a>
+	<span class="hint">点击添加危废品含量按钮,下面操作框填写具体信息！</span>
+	<div class="pfPriceList" id="guigeList">
+	    <div class="listHeader">
+	        <div class="listTd startNum">规格</div>
+	        <div class="listTd endNum">数量</div>
+	        <div class="listTd endUnit">单位</div>
+	    </div>
+	    #for(com.ekfans.base.order.model.OrderValuation vc :list)
+	   	<div class="listItem" >
+	      <div class="listTd startNum">
+	      	<select name="select" disabled>	      		
+	      	   <option>${vc.specName}</option>
+	      	</select>
+	      </div>
+	      <div class="listTd endNum"><input name="endNum" type="text" class="textBox box50" disabled value="${vc.valuationNumber}"></div>
+	      <div class="listTd endNum"><input name="endUnit" type="text" class="textBox box50" disabled value="${vc.valuationUnit}"></div>
+	      <div class="clear"></div>
+	    </div>
+	    #end
+	</div>
+#end

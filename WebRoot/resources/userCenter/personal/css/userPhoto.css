@@ -1,0 +1,25 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url("personalBase.css");
+@import url("upload.css");
+
+.rightContent h2 em{height:32px; line-height:32px; display:inline-block; border-bottom:solid 5px #ff8900; padding:0 46px 0 6px;}
+.rightContent h2{border-bottom:solid 1px #CBCFCF; font-size:14px; margin-bottom:12px; font-size:14px;}
+
+.hint{height:20px; line-height:20px; margin:0 0 6px 28px;}
+.imgLeft{width:200px; height:300px; overflow:visible; float:left; margin-right:84px; padding:20px 68px 0 48px; border-right:solid 1px #8d8d8d;}
+.uploadHint{float:left; height:400px; width:280px;}
+.uploadHint span{line-height:24px; display:block; margin-bottom:10px; font-size:14px; color:#894F04;}
+.rightContent .btnBlue{display:block; width:62px; height:28px; line-height:28px; margin:0 0 20px 28px;}
+.photo160{width:162px; float:left; margin-right:38px;}
+.photoMin{float:left;}
+.photo60{margin-bottom:20px;}
+.photo60,.photo30{width:62px;}
+.uploadHint dt{border:solid 1px #e5e5e5;}
+.photo160 dt{width:160px; height:160px;}
+.photo60 dt{width:60px; height:60px;}
+.photo30 dt{width:30px; height:30px;}
+.uploadHint dd{line-height:20px;}
+.photo160 dd{line-height:30px; text-align:center;}
+

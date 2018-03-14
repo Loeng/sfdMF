@@ -1,0 +1,23 @@
+#define(com.ekfans.base.order.model.OrderWfp odw)
+
+<input type="hidden" id="orderId" name="orderId" value="#if(odw != null)${odw.orderNumber}#end" />
+<input type="hidden" id="countsum" value="#if(odw != null)${odw.totalPrice}#end" />
+
+#if(odw != null)
+	<tr>
+    <th class="bgColor">订单号</th>
+    <th class="bgColor">危废品名称</th>
+    <th class="bgColor">数量</th>
+    <th class="bgColor">订单金额</th>
+    <th class="bgColor">订单状态</th>
+    <th class="bgColor">下单时间</th>
+  </tr>
+  <tr>
+    <td>${odw.orderNumber}</td>
+    <td>${odw.wfpName}</td>
+    <td>${odw.wfpNumber}${odw.unit}</td>
+    <td>${odw.totalPrice}</td>
+    <td>#if(odw.status=="0") 未完成  #else 已完成 #end </td>
+    <td>${odw.createTime}</td>
+  </tr>	
+#end

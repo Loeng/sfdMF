@@ -1,0 +1,55 @@
+#define(com.ekfans.base.store.model.Accredit pwAccredit)
+<!--排放污染物许可认证START-->
+<h2>排放污染物许可</h2>
+<div class="rzTtem">
+	<span class="biaoti">认证状态</span>
+	<div class="rzDiv">
+		<span>排放污染物许可认证</span>
+		<span class="#if(pwAccredit == null) failstate #elseif(pwAccredit.checkStatus) rzstate #else warnstate #end"></span>
+		<a href="javascript:void(0);" class="btn btnzk">展开</a>
+		<div class="clear"></div>
+		<input type="hidden" name="pwId" value="${pwAccredit!=null?pwAccredit.id:""}"/>
+		<dl class="formItem">
+			<dt>许可证号</dt>
+			<dd>${pwAccredit!=null?pwAccredit.licenseNo:""}</dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem">
+      <dt>发证机关</dt>
+      <dd>${pwAccredit!=null?pwAccredit.linceseAuthor:""}</dd>
+      <dd class="clear"></dd>
+    </dl>
+		<dl class="formItem">
+			<dt>证件有效期限</dt>
+			<dd>${pwAccredit!=null?pwAccredit.startTime:""}</dd>
+			<dd class="lineColor">&nbsp;—&nbsp;</dd>
+			<dd>${pwAccredit!=null?pwAccredit.endTime:""}</dd>
+			<dd class="clear"></dd>
+		</dl>
+		<div class="clear"></div>
+		<dl class="formItem">
+      <dt>经营所在区域</dt>
+      <dd>${pwAccredit!=null?pwAccredit.areaFullName:""}</dd>
+      <dd class="clear"></dd>
+    </dl>
+		<div class="clear"></div>
+		<dl class="formItem">
+      <dt>地址</dt>
+      <dd>${pwAccredit!=null?pwAccredit.address:""}</dd>
+      <dd class="clear"></dd>
+    </dl>
+		<div class="clear"></div>
+    <dl class="formItem">
+			<dt>排放污染物许可证</dt>
+			<dd><a href="${webroot}${pwAccredit!=null?pwAccredit.licenseFile:""}"><img src="${webroot}${pwAccredit!=null?pwAccredit.licenseFile:""}"/></a></dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem">
+			<dt>排放污染物许可证附件</dt>
+			<dd><a href="${webroot}${pwAccredit!=null?pwAccredit.licenseTwoFile:""}"><img src="${webroot}${pwAccredit!=null?pwAccredit.licenseTwoFile:""}"/></a></dd>
+			<dd class="clear"></dd>
+		</dl>
+	</div>
+  <div class="clear"></div>
+</div>
+<!--排放污染物许可认证END-->

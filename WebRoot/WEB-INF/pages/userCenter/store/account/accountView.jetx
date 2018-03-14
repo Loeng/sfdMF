@@ -1,0 +1,224 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>支付/提现密码设置</title>
+
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+
+<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script> 
+
+
+<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css">
+
+
+
+<style>
+
+.rightContent .form h3{height:35px; border-bottom:solid 1px #e4e4e4; margin-bottom:20px;}
+.rightContent .form h3 em{display:inline-block; padding:0 30px; height:30px; line-height:30px; border-bottom-style:solid; border-bottom-width:5px;}
+
+.upInfo{height:58px; background:#f9f7f7; line-height:58px; padding-left:20px; margin:20px 0;}
+.upInfo span{font-size:16px;}
+.upInfo span em{ padding-left:10px;}
+.yue,.lilv{padding-right:30px;}
+.yue em{color:#ff4100;}
+.lilv em{color:#33A7FF;}
+.bootomHint{background:#f9f9f7; padding:12px; margin:15px 0;}
+.bootomHint dt{color:#f00; height:30px; line-height:30px; margin-bottom:10px; font-size:14px;}
+.bootomHint dd{color:#FF3100; line-height:20px;}
+.tabList .orange{color:#f60; font-size:14px;}
+.tabList .green{color:#2CB118; font-size:14px;}
+
+.contentTit .btnBase{float:right;}
+.apLayer .errorText{background:none;}
+.apLayer .formItem{min-height:55px;}
+#chongzhi,#tixian{width:400px; left:50%; margin-left:-200px;}
+
+
+/**2016.4.25新加*/
+.tipsB{ width:550px; height:39px; line-height:39px; text-align:center; background-color:#FFF1C2; color:#000000; font-size:14px; margin:-17px auto 30px auto;}
+.yhItem{line-height:30px; font-size:14px; margin-left:30px;}
+.yhItem span{color:#656565; width:100px; text-align:right; margin-right:20px; display:inline-block;}
+</style>
+
+</head>
+<body>
+	#define(com.ekfans.base.store.model.Store store)
+	#define(com.ekfans.base.store.model.AccountBank account)
+	#define(java.math.BigDecimal[] prices)
+
+	<div class="contentTit  borderColor budong">
+		<h3>账户信息</h3>
+		<a href="javascript:void(0);" class="btnBase btnChongzhi">充值</a>
+		<a href="javascript:void(0);" class="btnBase btnTixian">提现</a>
+		<div class="clear"></div>
+	</div>
+	<div class="formTable borderColor">
+		<div class="upInfo">
+			<span class="yue">账户余额<em id="showPrice">${prices[0]}元</em></span>
+			<span class="yue">可用金额<em id="showListPrice">${prices[1]}元</em></span>
+			<!--
+			<span class="yue">冻结金额<em>99999999.99</em></span>
+			<span class="lilv">年利率<em>0.35％</em></span>
+			<span class="yue">昨日收益<em>999999999.99</em></span>
+			-->
+		</div>
+		<div id="showLogs">
+			
+		</div>
+	</div>
+
+
+
+
+<div class="clear"></div>
+<div class="apLayerBg"></div>
+#if(account != null && account.bankName.indexOf("长沙银行股份有限") != -1)
+<div class="apLayer apConfirm borderColor" style="max-height:400px;" id="chongzhi">
+	<form  action="${webroot}/store/account/bank/chongzhi" name="czForm" method="post"  id="czForm">
+		<div class="apTit">
+			<span class="apClose"></span>
+			充值
+		</div>
+		<div class="apContent" style="padding-top:20px;">
+			<dl class="formItem formLine">
+				<dt>金额</dt>
+				<dd>
+					<input name="czPrice" id="czPrice" type="text" class="textBox box300">
+					<span class="errorText" style="display:none;" id="czPriceError">请输入充值金额</span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem formLine">
+				<dt>密码</dt>
+				<dd>
+					<input name="czPwd" id="czPwd" type="password" class="textBox box300">
+					<span class="errorText" style="display:none;" id="czPwdError">请输入安全密码(充值/提现密码)</span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem formLine">
+				<dt>备注</dt>
+				<dd>
+					<textarea name="czNote" cols="" rows="" class="textBox box300" style="height:80px;"></textarea>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+		</div>
+		<div class="apBtns"><a class="btnBase" href="javascript:czok();">确定</a><a class="btnBase" href="javascript:cancel();">取消</a></div>
+	</form>
+</div>
+#elseif(account != null)
+<div class="apLayer apConfirm" style="width:600px;height:309px;border-top:10px solid #2D9A2B; margin:-155px 0 0 -300px; top:50%; left:50%;" id="chongzhi">
+	<div class="apTit">
+		<span class="apClose"></span>
+		充值
+	</div>
+	<div class="apContent" style="padding-top:20px;">
+		<div class="tipsB">由于你的账户非长沙银行账户，请使用网银向以下账户充值。</div>
+		<div class="yhItem"><span>开户行</span>长沙银行股份有限公司营业部</div>
+		<div class="yhItem"><span>账号</span>${store.accountNo}</div>
+		<div class="yhItem"><span>户名</span>${account.accountName}</div>
+	</div>
+	<div class="apBtns"><a class="btnBase" href="javascript:cancel();">确定</a><a class="btnBase" href="javascript:cancel();">取消</a></div>
+</div>
+#end
+<div class="apLayer apConfirm borderColor" style="max-height:400px;" id="tixian">
+	<form  action="${webroot}/store/account/bank/tixian" name="txForm" method="post"  id="txForm">
+		<div class="apTit">
+			<span class="apClose"></span>
+			提现
+		</div>
+		<div class="apContent" style="padding-top:20px;">
+			<dl class="formItem formLine">
+				<dt>金额</dt>
+				<dd>
+					<input name="txPrice" id="txPrice" type="text" class="textBox box300">
+					<span class="errorText" style="display:none;" id="txPriceError">请输入金额</span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<input type="hidden" name="chargePrice" id="chargePrice" value="0.00"/>
+			<dl class="formItem formLine">
+				<dt>密码</dt>
+				<dd>
+					<input name="txPwd"  id="txPwd" type="password" class="textBox box300">
+					<span class="errorText" style="display:none;" id="txPwdError">请输入密码</span>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem formLine">
+				<dt>备注</dt>
+				<dd>
+					<textarea name="" cols="" rows="" class="textBox box300" style="height:80px;"></textarea>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+		</div>
+		<div class="apBtns"><a class="btnBase" href="javascript:txok();">确定</a><a class="btnBase" href="javascript:cancel();">取消</a></div>
+	</form>
+</div>
+
+
+
+	
+	<script>
+		$(".btnChongzhi").click(function(){
+			$("#chongzhi,.apLayerBg").show();
+		})
+		$(".btnTixian").click(function(){
+			$("#tixian,.apLayerBg").show();
+		})
+		
+		
+		
+		function czok(){
+				var price = $("#czPrice").val();
+				if(price == null || price == "" || price == " "){
+					$("#czPriceError").show();
+					return;	
+				}
+			$("#czForm").submit();
+		}
+		
+		function txok(){
+			var price = $("#txPrice").val();
+			if(price == null || price == "" || price == " "){
+				$("#txPriceError").show();
+				return;	
+			}
+			$.post("${webroot}/store/account/bank/sxf",{price:price},function(data){
+				$("#chargePrice").val(data);
+				econfirm("提现金额:"+ price + "元（其中含手续费："+data+"元）是否确认提现？",txSub,null,cancel,null);
+			},'text');
+		}
+
+		function txSub(){
+			$("#txForm").submit();
+		}
+		
+		if("${subStatus}" == "true"){
+				salertWithFunction("${errorMessage}",choseMenu,['${webroot}','ACCOUNT_BANK_ACCOUNT']);
+		}else if("${subStatus}" == "false"){
+				falertWithFunction("${errorMessage}",choseMenu,['${webroot}','ACCOUNT_BANK_ACCOUNT']);
+		}else{
+			$("#showLogs").load("${webroot}/store/account/bank/loglist");	
+		}
+
+		function cancel(){
+			$("#chongzhi,.apLayerBg").hide();
+			$("#tixian,.apLayerBg").hide();
+		}
+		
+		
+	</script>
+</body>
+</html>

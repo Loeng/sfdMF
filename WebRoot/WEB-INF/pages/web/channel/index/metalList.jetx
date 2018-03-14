@@ -1,0 +1,43 @@
+#define(List<com.ekfans.base.metal.model.PreciousMetal> metals)
+#define(com.ekfans.pub.util.Pager pager)
+
+<div class="tr trHeader">
+    <div class="td num1">品名</div>
+    <div class="td num2">区间价</div>
+    <div class="td num3">均价</div>
+    <div class="td num4">涨跌</div>
+</div>
+#for(com.ekfans.base.metal.model.PreciousMetal metal:metals)
+#set(String colorCss = (metal.detail.riseAndDrop > 0?"red":(metal.detail.riseAndDrop< 0?"green":"")))
+	#if(for.first)
+		<script type="text/javascript">
+			loadMetalChat('${metal.id}','${metal.name}','${metal.spec}',${metal.detail.price},'${metal.detail.startPrice}','${metal.detail.endPrice}','${metal.unit}');
+		</script>
+	#end
+<div class="tr ${for.first?"cur":""}" onclick="javascript:loadMetalChat('${metal.id}','${metal.name}','${metal.spec}',${metal.detail.price},'${metal.detail.startPrice}','${metal.detail.endPrice}','${metal.unit}')" style="cursor:pointer;" id="${metal.id}">
+    <div class="td num1"><div>${metal.name}<br>${metal.spec}</div></div>
+    <div class="td num2 ${colorCss}">${metal.detail.startPrice}-${metal.detail.endPrice}</div>
+    <div class="td num3 ${colorCss}">${metal.detail.price}</div>
+    <div class="td num4 ${colorCss}" style="border:none;">${metal.detail.riseAndDrop}</div>
+</div>
+#end
+#if(metals.size()<6)
+#for(int i : iterator(1,6-metals.size()))
+<div class="tr">
+    <div class="td num1"><div></div></div>
+    <div class="td num2"></div>
+    <div class="td num3"></div>
+    <div class="td num4" style="border:none;"></div>
+</div>
+#end
+#end
+
+
+<div class="pageSize">
+    <a href="javascript:void(0)" onclick="javascript:loadMetalDetail('${categoryId}','${pager.currentPage>1?(pager.currentPage-1):1}');" class="pagePre">上一页</a>
+    #for(int i : iterator(1,pager.totalPage))
+    	<a href="javascript:void(0)" onclick="javascript:loadMetalDetail('${categoryId}','${i}');" class="page #if(pager.currentPage == i) cur #end">${i}</a>
+    #end
+    <a href="javascript:void(0)" onclick="javascript:loadMetalDetail('${categoryId}','${pager.currentPage<pager.totalPage?(pager.currentPage+1):pager.totalPage}');" class="pageNext">下一页</a>
+    <span class="totalPage">共${pager.totalPage}页</span>
+</div>

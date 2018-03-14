@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>个人中心-用户资料设置</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/addGoods.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/personal/css/personalBase.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/personal/css/style.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/tools.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/personal/css/userdata.css" />
+	
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+	<!-- 上传文件的CSS -->
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/upload.css" />
+	<!-- 上传文件控件  -->
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload.js"></script>
+	<!-- private -->
+	<script type="text/javascript" src="${webroot}/resources/userCenter/personal/js/userInfoSetup.js"></script>
+</head>
+
+<body>
+#define(com.ekfans.base.user.model.User User)
+#define(com.ekfans.base.user.model.UserInfo userInfo)
+
+<!-- 右侧主体 -->
+<div class="rightContent">
+	<div class="contentTit budong borderColor">
+	  <h3>个人资料</h3>
+	  <!--
+	  <a href="javascript:void(0);" class="btnBase btnCancel">取消</a>
+	  -->
+	  <a href="javascript:updateUserInfo();" class="btnBase btnSave">保存</a>
+	  <div class="clear"></div>
+	</div>
+  <div class="form borderColor">
+	  <div class="readForm">
+	    <dl class="formItem">
+	      <dt>用户名</dt>
+	      <dd>${User.name}</dd>
+	      <dd class="clear"></dd>
+	    </dl>
+	    <dl class="formItem">
+	      <dt>电子邮箱</dt>
+	      <dd>${User.email}</dd>
+	      <dd class="clear"></dd>
+	    </dl>
+	    <div class="clear"></div>
+	  </div>
+	  <form action="${webroot}/user/count/userInfoSetup" method="post" id="userInfo">
+		  <div class="formLayer">
+		  	<dl class="formItem">
+		      <dt>昵称</dt>
+		      <dd>
+		      	<input name="nickName" value="${User.nickName}" type="text" class="textBox box212" />
+		      </dd>
+		      <dd class="clear"></dd>
+		    </dl>
+		    <dl class="formItem">
+		      <dt>头像</dt>
+		      <dd>
+		      	#tag picUpload("headPortrait","1","200","200",User.headPortrait) #end
+		      </dd>
+		      <dd class="clear"></dd>
+		    </dl>
+		    <dl class="formItem">
+		      <dt><em class="mustIco"></em>真实姓名</dt>
+		      <dd>
+		      	<input name="realName" value="${userInfo.realName}" type="text" class="textBox box212" onfocus="checkRealNameFocus(this)" onblur="checkRealNameBlur()" />
+		      	<span class="errorText" id="realName" style="visibility:hidden;"></span>
+		      </dd>
+		      <dd class="clear"></dd>
+		    </dl>
+		    <dl class="formItem">
+		      <dt><em class="mustIco"></em>身份证号</dt>
+		      <dd>
+		      	<input name="cardNumber" value="${User.cardNumber}" type="text" class="textBox box212" onfocus="checkCardNumberFocus(this)" onblur="checkCardNumberBlur()" />
+		      	<span class="errorText" id="cardNumber" style="visibility:hidden;"></span>
+		      </dd>
+		      <dd class="clear"></dd>
+		    </dl>
+		    <dl class="formItem">
+		      <dt><em class="mustIco"></em>手机号码</dt>
+		      <dd>
+		      	<input name="mobile" value="${User.mobile}" type="text" class="textBox box212" onfocus="checkMobileFocus(this)" onblur="checkMobileBlur()" />
+		      	<span class="errorText" id="mobile" style="visibility:hidden;"></span>
+		      </dd>
+		      <dd class="clear"></dd>
+		    </dl>
+		    <dl class="formItem">
+		      <dt>我的性别</dt>
+		      <dd>
+		        <div class="selList">
+		          <span class="textBox">
+		            <input name="sex" value="#if(userInfo.sex)男#else女#end" type="text" class="box184" placeholder="请选择性别" readonly>
+		            <em class="iconDown readOnly"></em>
+		          </span>
+		          <ul>
+		            <li>男</li>
+		            <li>女</li>
+		          </ul>
+		        </div>
+		      </dd>
+		      <dd class="clear"></dd>
+		    </dl>
+		    <dl class="formItem formLine perAdress">
+		      <dt><em class="mustIco"></em>省&nbsp;&nbsp;市&nbsp;&nbsp;区</dt>
+		      <dd class="select4" style="height:28px;min-height:28px;">
+		        #tag systemAreaSel("areaId",userInfo.areaId) #end
+		      </dd>
+		      <dd class="clear" style="height:0px;"></dd>
+		      <span class="errorText" id="areaid" style="visibility:hidden;width:225px;"></span>	
+		    </dl>
+		    <dl class="formItem formLine">
+		      <dt><em class="mustIco"></em>详细地址</dt>
+		      <dd>
+		        <input name="address" value="${userInfo.address}" type="text" class="textBox box560" style="width:578px;" onfocus="checkAddressFocus(this)" onblur="checkAddressBlur()" />
+		        <span class="errorText" id="address" style="visibility:hidden;"></span>
+		      </dd>
+		      <dd class="clear"></dd>
+		    </dl>
+		    <dl class="formItem">
+		      <dt>出生日期</dt>
+		      <dd><input name="birthday" value="${userInfo.birthday}" type="text" class="textBox box212" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})"></dd>
+		      <dd class="clear"></dd>
+		    </dl>
+		    <dl class="formItem">
+		      <dt>固定电话</dt>
+		      <dd>
+		      	<input name="homePhone" value="${userInfo.homePhone}" type="text" class="textBox box212" />
+		      </dd>
+		      <dd class="clear"></dd>
+		    </dl>
+		  </div>
+		</form>
+  </div>
+</div>
+<!-- 右侧主体 -->
+    
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>待付款订单详情</title>
+	<link href="${webroot}/resources/userCenter/commons/css/goodsDetail.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+	<script src="${webroot}/resources/userCenter/commons/js/goodsDetail.js"></script>
+	<script src="${webroot}/resources/userCenter/commons/js/ckeditor/ckeditor.js"></script>
+	<!-- 引入私有js -->
+	<script type="text/javascript" src="${webroot}/resources/userCenter/core/js/order/orderManager/orderHandle/StoreOrderRefundHandle.js"></script>
+</head>
+<body>
+
+<!-- 一个订单所对应的商品信息 -->
+#--#define(List<com.ekfans.base.product.model.Product> products)--#
+#define(List<com.ekfans.base.order.model.OrderDetail> orderDetails)
+<!-- 订单地址 -->
+#define(com.ekfans.base.order.model.OrderAddress address)
+<!-- 订单信息 -->
+#define(com.ekfans.base.order.model.Order order)
+<!-- 订单操作信息 -->
+#define(com.ekfans.base.order.model.OrderTreatDetail treatDetail)
+<!-- 订单操作的详情信息 -->
+#define(List<com.ekfans.base.order.model.OrderTreatDetail> treatDetails)
+	
+<div class="rightContent">
+	<div class="contentTit borderColor budong">
+      	<h3>订单详情</h3>
+        <a href="javascript:void(0);" class="btnBase btnBack" onclick="goBack();">返回列表</a>
+        <div class="clear"></div>
+      </div>	
+      	<div class="form borderColor">
+	<table border="0" cellspacing="0" cellpadding="0" class="orderTable">
+		<tr>
+    	<th class="tdProInfo bgColor">商品信息</th>
+    	<th class="tdProNum bgColor">商品编号</th>
+    	<th class="tdProCount bgColor">数量</th>
+    	<th class="tdSubtotal bgColor">小计</th>
+    </tr>
+    #for(com.ekfans.base.order.model.OrderDetail orderDetail : orderDetails)
+			<tr>
+				<td class="tdProInfo">
+					<a href="${webroot}/web/proDetail/${orderDetail.productId}" title="${orderDetail.productName}" class="orderImg">
+						#if(orderDetail.smallPicture=="" || orderDetail.smallPicture==" " || orderDetail.smallPicture==null)
+							<img src="${webroot}/resources/store/images/imgdefault.jpg" width="78" height="78" alt="${orderDetail.productName}" />
+						#else
+							<img src="${webroot}${orderDetail.smallPicture}" alt="${orderDetail.productName}" />
+						#end
+					</a>
+					<div class="proRight">
+          	<span class="orderText"><a href="${webroot}/web/proDetail/${orderDetail.productId}" title="${orderDetail.productName}">${orderDetail.productName}</a></span>
+          	<span class="nowPrice">￥${orderDetail.price}</span>
+          	<div class="clear"></div>
+          	<div class="colorSize"><span>${orderDetail.productInfoDetail.infoName1}#if(orderDetail.productInfoDetail.infoName1!=null && orderDetail.productInfoDetail.infoName1!="")：#end</span><em>${orderDetail.productInfoDetail.infoValue1}</em></div>
+          	<div class="colorSize"><span>${orderDetail.productInfoDetail.infoName2}#if(orderDetail.productInfoDetail.infoName2!=null && orderDetail.productInfoDetail.infoName2!="")：#end</span><em>${orderDetail.productInfoDetail.infoValue2}</em></div>
+          	<div class="clear"></div>
+          	<div class="colorSize"><span>${orderDetail.productInfoDetail.infoName3}#if(orderDetail.productInfoDetail.infoName3!=null && orderDetail.productInfoDetail.infoName3!="")：#end</span><em>${orderDetail.productInfoDetail.infoValue3}</em></div>
+          	<div class="colorSize"><span>${orderDetail.productInfoDetail.infoName4}#if(orderDetail.productInfoDetail.infoName4!=null && orderDetail.productInfoDetail.infoName4!="")：#end</span><em>${orderDetail.productInfoDetail.infoValue4}</em></div>
+          	<div class="clear"></div>
+          </div>
+        	<div class="clear"></div>
+        </td>
+        <td class="tdProNum">${orderDetail.productNumber}</td>
+        <td class="tdProCount">${orderDetail.quantity}</td>
+        <td class="tdSubtotal">￥${orderDetail.totalPrice}</td>
+      </tr>
+		#end 
+	</table>
+	<div class="tit">
+		<h2 class="orderInfoTab cur">订单信息</h2>
+		<h2 class="orderLogTab">订单跟踪</h2>
+		<a href="javascript:void(0)" class="layerToggle">收起</a>
+	</div>
+	<div class="toggles orderInfo">
+		<dl class="consignee">
+			<dt>收货人信息</dt>
+			<dd>
+      	<li>收&nbsp;&nbsp;货&nbsp;&nbsp;人：${address.name}</li>
+      	<li>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：${address.provincial+address.city+address.area+address.address }</li>
+      	<li>固定电话：${address.phoneNum}</li>
+      	<li>手机号码：${address.mobile}</li>
+      	<li>电子邮件：${address.email}</li>
+      </dd>
+		</dl>
+		<dl class="payStyle">
+    	<dt>支付及配送方式</dt>
+    	<dd>
+      	<li>支付方式：#if(order.paymentId=='1')财付通#elseif(order.paymentId=='2')支付宝#elseif(order.paymentId=='3')网银#end</li>
+        <li>运&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;费：￥${order.fare}</li>
+      </dd>
+    </dl>  
+    #if(order.invoice)
+	    <dl class="invoiceInfo">
+	    	<dt>发票信息</dt>
+	    	<dd>
+	      	<li>发票类型：#if(order.invoiceType)普通发票#elseif(order.invoiceType)增值税发票#else无发票#end</li>
+	      	<li>发票抬头：${order.invoiceTitle}</li>
+	      	<li>发票内容：${order.invoiceContent}</li>
+	      </dd>
+	    </dl>
+		#else
+			<!--无发票信息-->
+    	<div class="invoiceNone" style="margin-top:24px;">无发票信息</div>
+      <!--无发票信息 end-->
+		#end 
+    <div class="clear"></div>
+	</div>
+	<div class="orderLog">
+		<ul>
+			#for(com.ekfans.base.order.model.OrderTreatDetail otd:treatDetails)
+				<li>${otd.createTime}&nbsp;&nbsp;${otd.creater}&nbsp;&nbsp;${otd.note}</li>
+			#end
+    </ul>
+  	<div class="freightText"><span>送货方式：${order.shipment}</span><span>承运人：${order.logisticsName}</span><span>货运单号：${order.logisticsNo}</span></div>
+	</div>
+	<h2 class="rightTitle"><em>付款信息</em><a href="javascript:void(0)" class="layerToggle">收起</a></h2>
+	<div class="toggles payInfo">
+		<ul class="payInfoLeft">
+    	<li>付款方式：#if(order.paymentId=='1')财付通#elseif(order.paymentId=='2')支付宝#elseif(order.paymentId=='3')网银#end</li> 
+    	<li>商品金额：#if(order.status=='0' || order.status=='1'  || order.status=='2')#else￥${order.productPrice}#end</li> 
+    	<li>优惠金额：￥0.00</li> 
+    	
+    </ul>
+    <ul>
+    	<li>运费金额：#if(order.status=='0' || order.status=='1'  || order.status=='2')￥0.00 #else￥${order.fare}#end</li>
+    	<!--
+    	<li>实际运费：￥5.00</li>
+    	<li>交易余额：￥0.00</li>
+    	-->
+    	<li>支付金额：￥#if(order.status=='0' || order.status=='1'  || order.status=='2')0.00 #else${order.paid}#end</li>
+    	<li>付款时间：
+	    	#if(treatDetail!=null)
+	    		${treatDetail.createTime}
+	    	#end
+    	</li>
+    </ul>
+		<div class="split"></div>
+		<div class="money">
+			<span class="moneyTotal">金额总计：<em class="price" style="display:inline;">￥#if(order.status=='0' || order.status=='1'  || order.status=='2')0.00 #else${order.paid}#end</em></span>
+		</div>
+	</div>
+	<div class="clear"></div>
+		</div>
+</div>
+<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+
+
+</body>
+</html>

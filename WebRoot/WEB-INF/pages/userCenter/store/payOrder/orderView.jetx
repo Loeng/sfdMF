@@ -1,0 +1,267 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>发布危废订单</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/commons/css/orderPay.css" rel="stylesheet" type="text/css">
+
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.form.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+<script src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+<script src="${webroot}/resources/commons/js/upload.js"></script>
+	<script src="${webroot}/resources/commons/js/layer/layer.js"></script>
+	<script src="${webroot}/resources/commons/js/pay.js"></script>
+
+<style>
+.rightContent .form h3{height:35px; border-bottom:solid 1px #e4e4e4; margin-bottom:20px;}
+.rightContent .form h3 em{display:inline-block; padding:0 30px; height:30px; line-height:30px;}
+.formItem{margin-bottom:20px;}
+.formItem .textBox{display:inline-block;}
+.formItem .hint{display:inline-block; padding-left:5px;}
+.btnBase{padding:0 18px;}
+
+/*上传控件*/
+.fileUpload{width:auto; height:30px; margin-top:0; float:left;}
+.fileUpload .fileLoading{height:30px; width:30px;}
+.fileUpload .btnUpload{margin-top:0;}
+.btnNo,.btnNo:hover{background:#ccc; color:#fff; cursor:default;}
+.pingzheng{padding:10px 0;}
+
+/*付款方式*/
+.tabContent{display:none; padding:20px 0;}
+.tabNav{height:36px; line-height:36px; border-bottom:solid 1px #e4e4e4; padding-left:140px; position:relative; margin-top:-57px;}
+.tabNav li{padding:0 20px; height:35px; font-size:14px; color:#666; float:left; border:solid 1px #e4e4e4; position:relative; margin:0 -1px -1px 0; z-index:1; cursor:pointer;}
+.tabNav li.cur{border-bottom:solid 1px #fff; color:#333;}
+.upInfo{height:58px; background:#f9f7f7; line-height:58px; padding-left:20px; margin:20px 0;}
+.upInfo span{font-size:16px;}
+.upInfo span em{ padding-left:10px;}
+.yue{padding-right:30px;}
+.yue em{color:#ff4100;}
+.bgColor{background-color: #393;color:#fff;}
+
+.checkList{padding-left:50px;}
+.checkList li{width:280px; float:left; height:40px; margin:0 50px 10px 0;}
+.checkList li input{display:block; float:left; margin:12px 10px 0 0;}
+.checkList li span{display:block; width:250px; height:38px; text-align:center; line-height:38px; border:solid 1px #e4e4e4; background:#f3f2f2; overflow:hidden;}
+.shopSearch .btn{padding: 0 0 20px 0; float:left;}
+.shopSearch{padding:16px 10px 0 0;}
+.shopSearch dl{width:310px; float:left; margin-right:16px;}
+.shopSearch dt{height:20px; line-height:20px;}
+.apLayer .pageSize{padding:20px 20px 0 0; float:none; text-align:center;}
+
+
+/*银行账户*/
+.bankList{margin-bottom:30px;}
+.bankList li{width:280px; background:#f5f5f5; border:solid 1px #d7d7d7; float:left; margin:0 30px 12px 0; cursor:pointer; padding:5px;}
+.bankList li.cur{border:solid 1px #FF6B49; background:#fff;}
+.bankList li span{padding-left:5px; display:block; line-height:22px;}
+.bankList li em{color:#999; width:50px; display:inline-block; text-align:right; padding-right:20px;}
+.bankList .fullBank{border-bottom:#e5e5e5 solid 1px; padding-bottom:5px; margin-bottom:5px;}
+.bankList .num{letter-spacing:2px;}
+.bankList .cardAdd{border:dashed 1px #72A8D7; background:url(${webroot}/resources/userCenter/commons/images/icon_add2.png) no-repeat center 20px; padding-top:50px; height:54px; line-height:30px; text-align:center; color:#0087CB; font-size:14px;}
+.apLayer .errorText{background:none;}
+
+.companyItem{margin-bottom:20px;}
+.truckList{width:100%;margin-bottom:10px;}
+.truckList th{padding:0px 10px; height:35px;line-height:35px;font-size:14px;}
+.truckList td{padding:8px 10px; line-height:22px; border-bottom:1px #DCDCDD solid;color:#7D7C7D; max-width:105px; overflow:hidden; text-align:center;}
+.truckList .tabRight{text-align:right;}
+.truckList .tabLeft{text-align:left;}
+
+
+
+
+
+</style>
+</head>
+<body>
+	#define(com.ekfans.base.store.model.Store Store)
+	
+	#define(com.ekfans.base.order.model.Order order)
+	<input type="hidden" name="webroot" id="webroot" value="${webroot}"/>
+ <!--右侧主体-->
+	<div class="rightContent">
+		<div class="contentTit  borderColor budong">
+			#if(order.status == @(com.ekfans.base.order.util.OrderConst).ORDER_STATUS_NEW_ORDER)
+				<h3>确认企业直付订单</h3>
+				<a href="javascript:choseMenu('${webroot}','${purviewId}');" class="btnBase btnCancel">返回</a>
+				<a href="javaScript:orderSure('6');" class="btnBase btnSave">取消订单</a>
+				#if(Store.id == order.storeId)
+				<a href="javaScript:orderSure('1');" class="btnBase btnSave">确认订单</a>
+				#end
+			#elseif(Store.id == order.userId && order.status == @(com.ekfans.base.order.util.OrderConst).ORDER_STATUS_WAIT_PAY)
+				<h3>企业直付订单支付</h3>
+				<a href="javascript:choseMenu('${webroot}','${purviewId}');" class="btnBase btnCancel">返回</a>
+				<a href="javaScript:orderPay('${order.id}','${@(com.ekfans.base.wfOrder.model.OrderPayLog).ORDER_TYPE_ZF}','${@(com.ekfans.base.wfOrder.model.OrderPayLog).PAY_TYPE_JS}');" class="btnBase btnSave">立即支付</a>
+			#elseif(Store.id == order.storeId && order.status == @(com.ekfans.base.order.util.OrderConst).ORDER_STATUS_WAIT_PAY_SURE)
+				<h3>企业直付订单确认收款</h3>
+				<a href="javascript:choseMenu('${webroot}','${purviewId}');" class="btnBase btnCancel">返回</a>
+				<a href="javaScript:orderPaySure();" class="btnBase btnSave">确认收款</a>
+			#else
+				<h3>查看企业直付订单</h3>
+				<a href="javascript:choseMenu('${webroot}','${purviewId}');" class="btnBase btnCancel">返回</a>
+			#end
+			
+			
+			<div class="clear"></div>
+		</div>
+		<div class="form borderColor">
+			
+			#if(Store.id == order.userId && (null==order.payCert||order.payCert==""||order.payCert==" "))
+			<!--<h3><em>订单支付</em></h3>
+			<form action="${webroot}/store/order/payunlie" method="post" id="orderPay">
+				<input type="hidden" name="orderId" value="${order.id}"/>
+				<dl class="formItem">
+					<dt>支付凭证</dt>
+					<dd>
+	      		#tag picUpload("payCert","2","200","200","") #end
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+			</form>
+			-->
+			<div class="clear"></div>  
+			#end
+
+			<h3><em class="">订单信息</em></h3>
+			#if(Store.id == order.userId)
+				<dl class="formItem">
+					<dt>收款企业</dt>
+					<dd>${order.salName}</dd>
+					<dd class="clear"></dd>
+				</dl>
+			#else
+				<dl class="formItem">
+					<dt>付款企业</dt>
+					<dd>${order.buyName}</dd>
+					<dd class="clear"></dd>
+				</dl>
+			#end
+			<dl class="formItem">
+				<dt>金额</dt>
+				<dd>${order.totalPrice}</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt>订单状态</dt>
+				<dd>${@(com.ekfans.base.order.util.OrderConst).orderStatusNameMap.get(order.status)}</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt>相关合同</dt>
+				<dd>
+      		#if(order.contractType)
+        		${order.contractName}
+        	#else
+        		直付合同.pdf
+        	#end
+          <a href="${webroot}${order.contract}" target="_blank" class="btnBase" style="margin-left:15px;">预览</a>
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+			
+			#if(null!=order.payCert&&order.payCert!=""&&order.payCert!=" ")
+				<dl class="formItem formLine">
+					<dt>支付凭证</dt>
+					<dd><a href="${webroot}/${order.payCert}" target="_blank"><image src="${webroot}/${order.payCert}" width="500px;"/></a></dd>
+					<dd class="clear"></dd>
+				</dl>
+			#end
+			<dl class="formItem formLine">
+				<dt>订单说明</dt>
+				<dd>${order.note}</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<div class="clear"></div>
+			
+      <h3><em class="">订单日志</em></h3>
+			<div class="companyItem">
+				<table border="0" cellspacing="0" cellpadding="0" class="truckList">
+					<tr class="bgColor">
+						<th>操作人</th>
+						<th>操作内容</th>
+						<th>操作时间</th>
+					</tr>
+					#define(List<com.ekfans.base.order.model.OrderLog> orderLogs)
+					#for(com.ekfans.base.order.model.OrderLog orderLog:orderLogs)
+						<tr>
+							<td>${orderLog.creatorName}</td>
+							<td>${orderLog.note}</td>
+							<td>${orderLog.createTime}</td>
+						</tr>
+					#end
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<!--右侧主体 end-->
+	<div class="clear"></div>
+
+
+
+<div id="fukuan"></div>
+
+<script>
+	function viewOrderContract(){
+		#if(order.contractType)
+			window.open("${webroot}/store/contract/contractById/2/${order.contractId}/1");
+		#else
+			window.open("${webroot}/${order.contract}");
+		#end
+		
+	}
+	
+	function orderSure(status){
+		var $_s="订单确认成功";
+		var $_f="订单确认失败，请稍后再试";
+		if(status=="6"){
+			 $_s="订单取消成功";
+			 $_f="订单取消失败，请稍后再试";
+		}
+	  	$.post('${webroot}/store/order/payorder/sure',{orderId:"${order.id}",'status':status},function (data){
+				if(data==1 || data=="1"){
+					salertWithFunction($_s,reloadUrl,null);
+				}else{
+					falertWithFunction($_f,reloadUrl,null);
+				}
+	  	});
+  }
+
+
+  function orderPaySure(){
+		econfirm('您将确认收款，点击确定继续，如需返回，请点击取消',orderPaySureComit,null,null,null);
+  }
+  
+  function orderPaySureComit(){
+  	$.post('${webroot}/store/payorder/paysure/${order.id}',function (data){
+			if(data==1 || data=="1"){
+				salertWithFunction("确认收款成功",reloadUrl,null);
+			}else{
+				falertWithFunction("确认收款失败",reloadUrl,null);
+			}
+  	});	
+  }
+  
+  function reloadUrl(){
+		location.href="${webroot}/store/order/payorder/view/${order.id}/view";
+	}
+	
+function choseMenu(webroot,choseId){
+	location.href=webroot + "/store/manager/" + choseId;	
+}
+	
+</script>	
+ </body>
+</html>

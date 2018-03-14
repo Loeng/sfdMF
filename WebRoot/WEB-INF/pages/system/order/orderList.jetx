@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>订单列表</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/demand.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/list.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+	
+	<script type="text/javascript" src="${webroot}/resources/system/js/order/orderList.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/list.js"></script>
+</head>
+
+<body>
+<input type="hidden" id="ctxpath" value="${webroot}" />	
+
+<form action="${webroot}/system/order/list/${type}" method="post" id="searchOrderForm">
+	<input type="hidden" name="pageNum" />
+	
+	<dl class="pro_ss">
+		<dt><b>查询</b><span class="span_down"></span><span class="span_up"></span></dt>
+		<dd class="pro_ss_item">
+			<span>状态</span>
+			<span class="zt">
+				<label>
+					<input type="radio" value="" name="shippingStatus" #if(shippingStatus == null  || shippingStatus == "" || shippingStatus == " ") checked=true #end/>所有
+				</label>
+			</span>
+			<span class="zt">
+				<label>
+					<input type="radio" value="true" name="shippingStatus" #if("true".equals(shippingStatus)) checked=true #end/>已发货
+				</label>
+			</span>
+			<span class="zt">
+				<label>
+					<input type="radio" value="false" name="shippingStatus" #if("false".equals(shippingStatus)) checked=true #end/>未发货
+				</label>
+			</span>
+		</dd>
+		<dd>&nbsp;</dd>
+		<div class="clear"></div>
+		<dd class="pro_ss_item">
+			<span>订单号</span>
+			<input type="text" class="i_bg" name="orderNum" value="${orderNum}" />
+		</dd>
+		<dd class="pro_ss_item">
+			<span>订单日期</span>
+			<input type="text" class="i_bg" style="width:130px;" name="beginDate" id="beginDate" value="${beginDate}" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'endDate\')}'})" />—
+			<input type="text" class="i_bg" style="width:130px;" name="endDate" id="endDate" value="${endDate}" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'beginDate\')}'})" />
+		</dd>
+		<dd class="pro_ss_item">
+			<span>订单金额</span>
+			<input type="text" class="i_bg" style="width:130px;" name="beginPrice" value="${beginPrice}" />
+			—
+			<input type="text" class="i_bg" style="width:130px;" name="endPrice" value="${endPrice}" />
+		</dd>
+	</dl>
+</form>
+<div class="pro_ss_btn">
+	<a href="javascript:searchSubmit();" class="btn">搜索</a>
+	<a href="javascript:resetForm();" class="btn">重置</a>
+</div>
+
+#define(List<com.ekfans.base.order.model.Order> orders)
+		
+#if(orders==null||orders.size()<=0)
+	<!-- 没有数据的时候 -->
+	<div class="ht_list_k">暂时没有符合条件的数据</div>	
+#else
+	<!-- 有数据的时候 -->
+	<div class="ht_list">
+		<table id="orderTab" cellpadding="0" cellspacing="0" border="0" >
+			<tr>
+				<!--
+				<th width="4%">全选</th>
+				-->
+				<th width="4%">序号</th>
+				<th width="10%">订单号</th>
+				<th width="10%">总金额</th>
+				<th width="10%">买家</th>
+				<th width="10%">卖家</th>
+				<th width="10%">配送方式</th>
+				<th width="10%">发货状态</th>
+				<th width="10%">订单状态</th>
+				<th width="10%">服务状态</th>
+				<th width="10%">订单日期</th>
+				<th width="3%">操作</th>
+			</tr>
+			#for(com.ekfans.base.order.model.Order order : orders)
+				<tr>
+		      <!--
+		      <td class="qx"><input type="checkbox" value="${order.id }"/></td>
+		      -->
+			  <td>${for.index}</td>
+			  <td>${order.id}</td>
+	          <td>${order.totalPrice}</td>
+	          <td>${order.userId}</td>
+	          <td>${order.storeId}</td>
+	          <td>${order.shipment}</td>
+	          <td>#if(order.shippingStatus) 发货 #else 未发货 #end</td>
+	          <td>#if(order.type==1)
+	          ${@(com.ekfans.base.order.util.OrderConst).orderStatusNameMap.get(order.status)}
+	          #else
+	          	#if(order.status=="0")
+	          		取消
+	          	#elseif(order.status=="1")
+	          		关闭
+	          	#elseif(order.status=="2")
+	          		待付款 
+	          	#elseif(order.status == "3")
+	          		已付款
+	          	#elseif(order.status == "4")
+	          		确认收货
+	          	#elseif(order.status == "5")
+	          		成功
+	          	#end
+	         #end
+          </td>
+          <td>
+	      	  #if(order.serviceStatus == "0")
+	      	  	申请退款
+	      	  #elseif(order.serviceStatus == "1")
+	      	  	退款
+	      	  #elseif(order.serviceStatus == "2")
+	      	  	完成
+	      	  #end
+          </td>
+          <td>${order.createTime}</td>
+          <td class="cz">
+          	<a href="javascript:showOrderDetail('${order.id}');" class="eyeIco" title="查看详情"></a>
+		      </td>
+				</tr>
+			#end
+		</table>
+		<div class="ht_pageBox">
+			<!--
+			<div class="ht_page_l">
+				<a href="javascript:void(0)"  class="btn"  onclick="selectAll();">全选</a>
+				<a href="javascript:void(0)"  class="btn"  onclick="checkSelect();">删除</a>
+			</div>
+			-->
+			${include( "../common/page.jetx")}
+		</div>
+	</div>
+#end
+		
+					  
+    
+      <!-- 订单详情信息处 -->
+      <div class="apPreviewBg"></div>
+      <div id="div1" class="apPreview">
+    	 <div class="tit" id="div2">
+        	<em class="apNum">订单详情</em>
+            <span class="apClose"><img src="${webroot}/resources/system/images/del3.jpg"></span>
+       </div>
+    	<div class="previewContent" id="orderDetail">
+    		
+      </div>
+      </div>
+</body>
+</html>

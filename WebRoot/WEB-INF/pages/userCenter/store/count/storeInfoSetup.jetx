@@ -1,0 +1,106 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>会员中心-账户中心</title>
+		<link href="${webroot}/resources/store/css/shopdata.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/store/js/common/base.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/store/js/count/storeInfoSetup.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/store/js/tools.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/userCenter/personal/js/ckeditor/ckeditor.js"></script>
+		
+		<script type="text/javascript" src="${webroot}/resources/plugin/area/js/area.js"></script>
+	        
+	</head>
+	<body>
+	  #define(com.ekfans.base.store.model.Store store)
+	  <input type="hidden" id="updateOk" value="${updateOk}" />
+	  <input type="hidden" id="ctxpath" value="${webroot}" />
+	  <div class="sto_right">
+	     <h2><em>商户资料设置</em></h2>
+			<form action="${webroot}/store/storeInfo/update" method="post" id="updateStoreInfo">
+					<input type="hidden" name="id" value="${store.id}" />
+				
+					<div class="readForm">
+						<dl class="formLine">
+							<dt>审核状态</dt>
+							<dd class="formRight">
+								#if(store.checkStatus) 审核通过 #else 审核中 #end
+							</dd>
+							<dd class="clear"></dd>
+						</dl>
+						<dl class="formLine">
+							<dt>审核时间</dt>
+							<dd class="formRight">${store.checkTime}</dd>
+						    <dd class="clear"></dd>
+						</dl>
+						<dl class="formLine">
+							<dt>用&nbsp;&nbsp;户&nbsp;&nbsp;名</dt>
+							<dd class="formRight">${userName}</dd>
+							<dd class="clear"></dd>
+						</dl>
+						<dl class="formLine">
+							<dt>电子邮箱</dt>
+							<dd class="formRight">${userEmail}</dd>
+						    <dd class="clear"></dd>
+						</dl>
+						
+						<dl class="formLine">
+							<dt>商户类型</dt>
+							<dd class="formRight">#if(store.roleId=="1")普通商户 #else 默认 #end</dd>
+							 <dd class="clear"></dd>
+						</dl>
+				  </div>
+				  <div class="editData">
+						<dl class="formLine" >
+							 <dt><em class="mustIco"></em>店铺名称</dt>
+							 <dd class="formRight">
+			                	<input  type="text" id="storeName" class="dataBox"  onblur="existStoreName();" name="storeName" value="${store.storeName}">
+			                    <span class="errorText errorRed errorInit" id="storeNameSpan" style="display:none">
+			                        <em class="errorBoxL"></em>
+			                        <em class="errorMain" id="storeNameError">店铺名称不可用！</em>
+			                        <em class="errorBoxR"></em>
+			                    </span>
+			                    <div class="clear"></div>
+			                </dd>
+			                <dd class="clear"></dd>
+						</dl>
+						
+						<dl class="formLine">
+							  <dt><em class="mustIco"></em>省&nbsp;&nbsp;市&nbsp;&nbsp;区</dt>
+                			  <dd class="formRight">
+							     <input name="province" type="text"  id="pca" class="dataBox siteBox"  onclick="area(this,null,checkPCAIsNull);" value="${store.province}" readOnly="true">
+								    <span id="checkPCA" class="errorText errorRed errorInit">
+				                        <em class="errorBoxL"></em>
+				                        <em class="errorMain">请选择省市区！</em>
+				                        <em class="errorBoxR"></em>
+				                    </span>
+				                    <div class="clear"></div>
+				                </dd>
+				                <dd class="clear"></dd>
+						</dl>
+						<dl class="formLine">
+							 <dt><em class="mustIco"></em>详细地址</dt>
+							<dd class="formRight">
+								<input type="text" name="address" class="dataBox detailBox" onblur="checkAddressIsNull();" value="${store.address}"  />
+									<span class="errorText errorRed errorInit">
+				                        <em class="errorBoxL"></em>
+				                        <em class="errorMain">请输入详细地址！</em>
+				                        <em class="errorBoxR"></em>
+				                    </span>
+				                    <div class="clear"></div>
+				                </dd>
+				                <dd class="clear"></dd>
+						</dl>
+						<dl class="formEditor">
+							 <dt>店铺介绍</dt>
+							 <dd>
+							    <textarea name="notes" cols="" rows="" class="ckeditor" >${store.notes}</textarea>
+							 </dd>
+						</dl>
+					</div>
+					<a href="javascript:void(0)" class="btnBlue" onclick="updateStore()" >保存</a>
+		</form>
+	  </div>
+	</body>
+</html>

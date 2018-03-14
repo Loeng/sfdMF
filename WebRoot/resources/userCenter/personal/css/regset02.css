@@ -1,0 +1,17 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url("personalBase.css");
+
+body{background:url(../images/loginbody.jpg) no-repeat center center fixed; padding-top:17px;}
+.regLogo{display:block; float:right;}
+.regBox{width:570px; min-height:410px; background-color:#fff; margin:14px auto 0 auto; padding:36px 165px 20px 245px; box-shadow:1px 1px 1px #c0c0c0;}
+.regBox h2{font-size:24px; height:36px; line-height:36px;}
+.mailSend{font-size:18px; line-height:29px; padding:20px 0;}
+.btnResend{width:244px; height:36px; line-height:36px; font-size:18px; margin-bottom:34px; border-radius:4px;}
+.mailFail dt{height:30px; line-height:30px; font-size:14px;}
+.mailFail dd{line-height:25px; color:#8c8c8c; font-size:14px;}
+.mailFail{padding-bottom:10px;}
+
+/*底部*/
+.footer{padding:16px 0; line-height:22px; margin-bottom:10px;}

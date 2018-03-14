@@ -1,0 +1,650 @@
+#define(com.ekfans.base.channel.model.Channel channel)
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}-${channel.name}</title>
+<meta name="keywords" content="${channel.keyWords}" />
+<meta name="description" content="${channel.description}" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<link rel="shortcut icon" href="${ctxpath}/resources/commons/images/favicon.ico" type="image/x-icon">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.form.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.superslide.2.1.1.js"></script>
+<script src="${webroot}/resources/web/js/kxbdSuperMarquee.js"></script>
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/base.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/xhjy.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/commons/css/zizhi1.css" rel="stylesheet" type="text/css">
+
+<script src="${webroot}/resources/plugin/echarts.js"></script>
+<script src="${webroot}/resources/web/js/base.js"></script>
+<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+<script src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+<script src="${webroot}/resources/web/js/userIDJudge.js"></script>
+<script src="${webroot}/resources/commons/js/layer/layer.js"></script>
+#if(configStatus == "true")
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.soChange.js"></script>
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.json-2.2.min.js"></script>
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/control.js"></script>	
+	<link href="${ctxpath}/resources/commons/css/control.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/upload/upload.js"></script
+	<link href="${ctxpath}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+#end
+<style>
+.alterContent{display:none;padding:10px 15px;}
+.h6Detail { color: #313030;ine-height: 20px;overflow: hidden;  padding: 10px;}
+.proDetailLi { float: left; border-right: 1px solid #D3D2D2; padding: 10px;margin-top:10px;}
+.proDetailLi p{ color: #777777; font-size: 14px; height: 28px; line-height: 28px; }
+.contact { float: left; padding: 10px 10px 10px 50px;margin-top:10px;}
+.contact p{ color: #777777; font-size: 14px; height: 28px; line-height: 28px; }
+.yijia-class .layui-layer-title{color:#393; font-size:24px;}
+.errorText{display:block;color:red;}
+
+/*优化发布页面样式*/
+.baojiaLayer .dbformfloat{float:left;width:350px;margin: 0 10px 20px 10px;}
+.baojiaLayer .formLine{float:none;clear:both;width:680px;margin: 0 10px 20px 10px;}
+.dbformfloat dd{float:left;}
+.formLine dd{float:left;}
+
+.baojiaLayer .formItem dt{width:100px;}
+.layui-layer-btn .layui-layer-btn0{background: #393;}
+.btnXuanze{background: #393;margin-left:10px;color:#fff;width:80px;height:28px;line-height:28px;text-align:center;}
+.baojiaLayer .textBox{border:solid 1px #DFE2EA;height:28px;line-height:28px;text-indent:0.8em; margin-right:12px;}
+.box212{width:212px;}
+.zizhiList li{width:182px;height:26px;line-height:26px;}
+.areaIdArea{width:80px;border:solid 1px #DFE2EA;height:26px;line-height:26px;}
+.inputselect{width:212px;border:solid 1px #DFE2EA;height:26px;line-height:26px;}
+#content{border:solid 1px #DFE2EA;}
+.checkItem{position: relative;}
+.alertLayerBg{opacity: 0.3;}
+.closeLi{height:26px;line-height:26px;}
+</style>
+</head>
+
+<body>
+
+<input type="hidden" name="ctxpath" id="ctxpath" value="${webroot}" />
+<input type="hidden" name="channelId" id="channelId" value="${channelId}" />
+<input type="hidden" name="channelType" id="channelType" value="${channel.type}" />
+#if(configStatus == "true")
+	<!-- 频道配置导航条 -->
+	#include("commons/config/config-top.jetx")
+	<!-- 频道配置导航条 end -->
+#end
+<!--头部-->
+<div id="channelTop"></div>
+<!--头部end-->
+
+<div class="wrapper main">
+	<!---顶部分类-->
+  	<div class="filtrate">
+    	<dl class="filtrateItem">
+            <dt>品类</dt>
+			#include("index/topCatg.jetx",{"channelId":channelId,"configType":"pc","position":"1"})
+            <dd class="filtrateMore" style="display:block;"><a href="javascript:void(0);"></a></dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="filtrateItem">
+            <dt>交货地</dt>
+            <dd class="filtrateLink deliveryAddressList">
+                <a href="javascript:void(0);" class="cur">全部</a>
+                #for(com.ekfans.base.system.model.SystemArea s:@(com.ekfans.plugin.cache.base.Cache).getProvinces())
+                	<a href="javascript:void(0);" class="address" id="${s.areaName}">${s.areaName}</a>
+                #end
+            </dd>
+            <dd class="filtrateMore"><a href="javascript:void(0);"></a></dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="search">
+        	<dt>搜索</dt>
+            <dd>
+            	<input name="search" type="text" placeholder="品类名称" class="textBox nameBox">
+                <a href="javascript:void(0);" class="btnGreen btnSearch">搜索</a>
+                <a href="javascript:void(0);" class="btnGreen btnReset">重置</a>
+                <a href="javaScript:void(0);" class="btnGreen btnFabu btnFb updateLink" datatype="0">发布销售</a>
+                <div class="clear"></div>
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+    </div>
+    <!---顶部分类 end -->
+
+    
+    <div class="hyList">  
+    </div>
+  
+  <div class="clear"></div>
+    
+</div>
+
+<!--底部-->
+<div id="channelFoot"></div>
+<!--底部 end-->
+<!--发布信息弹层-->
+<div id="updateHtml" style="display:none;">
+    <div class="update">
+        <div class="leftLayer">
+            <a href="${webroot}/web/login" class="btnGreen">登录后发布</a>
+            <div class="text">
+                <em class="red">*</em>保留完整的发布信息数据<br>
+                可编辑修改后再发布<br>
+                历史记录永久查阅
+            </div>
+        </div>
+        <div class="rightLayer">
+            <a href="javascript:void(0);" class="btnGreen" onclick="release();">发布临时信息</a>
+            <div class="text">
+                <em class="red">*</em>未注册用户可直接发布临时信息<br>
+                不可修改及查阅历史记录<br>
+            </div>
+        </div>
+    </div>
+</div>
+<!--发布信息弹层 end-->
+<!--发布弹层-->
+<div id="fbHtml" style="display:none;">
+</div>
+<!--发布弹层 end-->
+
+
+<!--议价弹层-->
+<div id="yijiaHtml" style="display:none;">
+</div>
+<!--议价弹层 end-->
+
+<!--询价弹层-->
+<div id="xunjiaHtml" style="display:none;">
+<script>
+$(document).ready(function() {
+
+	jQuery(".txtScroll-left").slide({mainCell:".bd ul",autoPlay:true,effect:"leftMarquee",interTime:50,vis:7,trigger:"click"});
+	/*最新信息滚动*/
+	
+	jQuery(".txtScroll-top").slide({titCell:".hd ul",mainCell:".bd ul",autoPage:true,effect:"top",autoPlay:true,vis:6});
+	/*列表信息滚动*/
+		
+	//选项卡切换
+	$(".tabNav li").click(function(){
+		$(this).siblings().removeClass("cur");
+		$(this).addClass("cur");
+		var dom=$(this).parent().siblings(".tabContent");
+		var index=$(this).parent().children().index(this);
+		dom.hide();
+		dom.eq(index).show();
+	})
+	
+		/*模拟下拉菜单*/
+	$(".selList input").live("focus",function() {
+		$(".selList ul").hide();
+		$(".selList").css("z-index", "1");
+		$(this).parents(".selList").children("ul").show();
+		$(this).parents(".selList").css("z-index", "2");
+	});
+	$(".selList .iconDown").live("click",function() {
+			$(".selList ul").hide();
+			$(".selList").css("z-index", "1");
+			$(this).parents(".selList").children("ul").show();
+			$(this).parents(".selList").css("z-index", "2");
+	});
+	$(".selList ul li").live("click",function() {
+		var str = $(this).text();
+		$(this).parents(".selList").find("input").val(str);
+		$(this).parent().hide();
+	})
+
+	/*点击外部收起下拉菜单*/
+	$(".selList").live("click",function(e) {
+		e ? e.stopPropagation() : event.cancelBubble = true;
+	});
+	$(document).live("click",function(e) {
+		$(".selList ul").hide();
+	})
+	
+	
+	$("#channelTop").load($("#ctxpath").val() + "/web/channel/commons/channel-top.jetx",{"channelId":$("#channelId").val(),"channelType":$("#channelType").val(),"returnUrl":window.location.href});
+	$("#channelFoot").load($("#ctxpath").val() + "/web/channel/commons/channel-footer.jetx");
+	$("#xsgp").load($("#ctxpath").val() + "/web/channel/xsgpList",{'num':10});
+	$("#qggp").load($("#ctxpath").val()+"/web/supply/getSupplyToXhjy",{'num':10});
+  //最新报价LOAD
+  $("#newPrices").load($("#ctxpath").val()+"/web/metal/loadprices",{'num':10});
+  //热门行情
+  $("#hotQuotation").load($("#ctxpath").val()+"/web/metal/hots",{'num':10},function(){
+  jQuery(".txtScroll-top").slide({titCell:".hd ul",mainCell:".bd ul",autoPage:true,effect:"top",autoPlay:true,vis:6});
+  });
+  
+	
+$(".opendetail").live("click",function(){
+	layer.open({
+		type: 1,
+		title: $(this).attr("dataname"),
+		skin: 'yijia-class',
+		area: ['600px', '300px'],
+		content: $(this).next(".alterContent").html()
+	});});
+	
+	/*选择弹窗*/
+	$(".btnXuanze").live("click",function(){
+		var ids = "";
+		$("input[name='intelId']").each(function(){
+			ids += "," + $(this).val();
+		});	
+		
+		$(".alterBox").load($("#ctxpath").val() + "/web/supplyBuy/loadZz",function(){
+		$(".alterContent").show();
+			$(".alterBox input[type='checkbox']").each(function(){
+				if(ids.indexOf($(this).val()) >= 0){
+					$(this).attr("checked", true);
+					$(this).parent().parent().addClass("checked");
+				}
+			});
+			$(".alertLayerBg").show();
+			$(".alertLayerBg").next(".alterBox").show();
+		});
+	});
+	/*关闭弹窗*/
+	$(".layerClose").live("click",function(){
+		$(this).parent(".alterBox").hide();
+		$(this).parent(".alterBox").prev(".alertLayerBg").hide();
+	});
+	
+	/*确定弹窗*/
+	$(".altSure").live("click",function(){
+		var idname = "";
+		$("input[type='checkbox']").each(function(){
+			if($(this).is(":checked")){
+				var names = $(this).parent().parent().next().html();
+				idname += '<li title="' + names + '">'+ names + '<a href="javascript:void(0);" class="closeLi"></a>';
+				idname += '<input type="hidden" name="intelId" value="' + $(this).val() + '" /></li>';
+			}
+		});
+		$(".zizhiList").empty();
+		$(".zizhiList").html(idname);
+		
+		$(this).parents(".alterBox").hide();
+		$(this).parents(".alterBox").prev(".alertLayerBg").hide();
+	});
+	
+	/*取消弹窗*/
+	$(".altCancel").live("click",function(){
+		$(this).parents(".alterBox").hide();
+		$(this).parents(".alterBox").prev(".alertLayerBg").hide();
+	});
+	
+	/*删除当前资质*/
+	$(".closeLi").live("click",function(){
+		if($(".zizhiList li").length<2){
+			$(this).parent("li").attr("title", "选择你要认证的资质名称");
+			$(this).parent("li").html('选择你要认证的资质名称');
+		}else{
+			$(this).parent("li").remove();
+		}
+	});
+		
+	//发布信息弹层
+	$(".updateLink").live("click",function(){
+	
+		var userId = $("#userId").val();
+		var type = $(this).attr("datatype"); //type=0发布销售 1发布采购
+		
+		// 判断用户否登陆
+		if(userId != null && userId != "" && userId != " "){
+			if(type=="0"){ 
+				choseMenu($("#ctxpath").val(),'PRODUCT_ADD');
+			}else{
+				choseMenu($("#ctxpath").val(),'PRODUCT_PURCHASE_ADD');
+			}
+		}else{
+			if(type=="0"){
+				location.href = $("#ctxpath").val()+"/web/login";
+			}else{
+				layer.open({
+					type: 1,
+					title: '发布采购信息',
+					skin: 'layer-class',
+					area: '600px', //宽高
+					content: $("#updateHtml")
+				});
+			}
+		}
+	})
+	
+});
+
+// 发布弹出层
+function release(){
+	$("#fbHtml").load($("#ctxpath").val() + "/web/supplyBuy/loadQg/0/1",function(){
+		// 发布弹出层
+		layer.open({
+			type: 1,
+			title: '发布信息',
+			skin: 'layer-class',
+			area: ['800px', '600px'], //宽高
+			content: $("#fbHtml"),
+			btn:['确认','取消'],
+			yes:function(index){
+				var areaInfo="";
+				$(".areaIdArea").each(function(){
+					areaInfo+=$(this).find("option:selected").text()+",";
+				});
+				$("#destination").val(areaInfo);
+				//点击确定执行的语句
+				if(checkTitleBlur()&&checkContentNameBlur()&&checkContentPhoneBlur()&&categoryBlur()&&checkNumberBlur()&&futurePricesBlur()&&unitBlur()&&qualityLevelBlur()&&checkAreaBlur()){
+					$("#addForm").ajaxSubmit(function(data){
+			    		if(data){
+			    			layer.close(index);
+			    			layer.alert("发布成功")
+			    			$("#updateHtml").hide();
+							$("#layui-layer1,#layui-layer-shade1").hide();
+			    		}else{
+			    			layer.alert("发布失败!");
+			    			$("#updateHtml").hide();
+							$("#layui-layer1,#layui-layer-shade1").hide();
+			    		}
+			    	});
+				}else{
+					checkTitleBlur();
+					checkContentNameBlur();
+					checkContentPhoneBlur();
+					categoryBlur();
+					checkNumberBlur();
+					futurePricesBlur();
+					unitBlur();
+					qualityLevelBlur();
+					checkAreaBlur();
+				}
+			},
+			cancel:function(){
+				//点击取消执行的语句
+				$("#updateHtml").hide();
+				$("#layui-layer1,#layui-layer-shade1").hide();
+				window.location.reload();
+			}
+		});
+	});
+}
+
+//加载涨幅排名数据
+$("#runUp").load($("#ctxpath").val()+"/web/metal/getRunUps",{num:8});
+
+
+function checkFocus(obj) {
+	if($(obj).val()!=""){
+		$(obj).next().html("");
+	}
+}
+
+// 议价弹出层
+	function yijia(id,storeId){
+	var userId=$("#userId").val();
+	if(userId == storeId){
+		layer.alert("不能对自己的发布的信息进行操作");
+		return;
+	}
+	if(null!=userId&&""!=userId&&" "!=userId){
+		$("#yijiaHtml").load($("#ctxpath").val() + "/store/bargain/bargainDetail",{id:id},function(){
+			//议价弹层
+			layer.open({
+				type: 1,
+				title: '销售议价',
+				skin: 'layer-class',
+				area: '730px', //宽高
+				content: $("#yijiaHtml"),
+				btn:['确认','取消'],
+				yes:function(index){
+					//点击确定执行的语句
+					if(checkQuantity() && checkPrice() && checkContactMan() && checkContactPhone()){
+						$("#bargainForm").ajaxSubmit(function(data){
+				    		if(data == true || data=="true"){
+				    			layer.close(index);
+				    			layer.alert("议价成功")
+				    		}else if(data== false || data=="false"){
+				    			layer.close(index);
+				    			layer.alert("议价失败!");
+				    		}else if(data=="error"){
+				    			layer.close(index);
+				    			layer.alert("不能对自己的商品议价");
+				    		}
+				    	});
+					}else{
+				    	checkQuantity();
+				    	checkPrice(); 
+			    		checkContactMan();
+			    		checkContactPhone();
+		    		}
+				},
+				cancel:function(){
+					//点击取消执行的语句
+				}
+			});
+		});
+	}else{ //未登录跳转登录页面
+		location.href=$("#ctxpath").val()+"/web/login";
+	}
+}
+
+//加载询价
+function loadXunjia(id,storeId){
+	var ctxpath = $("#ctxpath").val();
+	var userId=$("#userId").val();
+		if(userId == storeId && storeId != ""){
+			layer.alert("不能对自己发布的信息操作");
+			return;
+		}
+	//弹层
+	$("#xunjiaHtml").load(ctxpath+"/web/supply/loadXunJia",{id:id},function(){
+		layer.open({
+			type: 1,
+			title: '询价',//商品标题
+			skin: 'layer-class',
+			area: '730px', //宽高
+			content: $("#xunjiaHtml"),
+			btn:['确认','取消'],
+			yes:function(index){
+				if(checkQuantity1()&&checkStoreName1()&&checkContactMan1()&&checkContactPhone1()){
+					$("#xunjiaForm").ajaxSubmit(function(data){
+			    		if(data == "1"){
+			    			layer.close(index);
+			    			layer.alert("询价成功")
+			    		}else{
+			    			layer.alert("询价失败!");
+			    		}
+			    	});
+				}else{
+				    	checkQuantity1();
+			    		checkStoreName1();
+			    		checkContactMan1()
+			    		checkContactPhone1();
+		    		}
+			},
+			cancel:function(){
+				//点击取消执行的语句
+			}
+		});
+	});
+
+} 
+
+
+function checkQuantity(){
+	var flag=true;
+	var preQuantity = $("#preQuantity").val();
+	var quantity = $("input[name='quantity']").val();
+	if(quantity == "" || quantity == null || quantity == " "){
+		$('#quantitySpan').show();
+		$('#quantitySpan').text("请输入数量");
+		flag = false;
+	}else if(parseFloat(quantity) > parseFloat(preQuantity)){
+		$('#quantitySpan').show();
+		$('#quantitySpan').text("输入数量不能大于库存");
+		flag = false;
+	}
+	return flag;
+}
+function checkPrice(){
+	var flag=true;
+	var price = $("input[name='price']").val();
+	if(price == "" || price == null || price == " "){
+		$('#priceSpan').show();
+		$('#priceSpan').text("请输入价格");
+		flag = false;
+	}
+	return flag;
+}
+
+function checkContactMan(){
+	var flag=true;
+	var contactMan = $("input[name='contactMan']").val();
+	if(contactMan == "" || contactMan == null || contactMan == " "){
+		$('#contactManSpan').show();
+		$('#contactManSpan').text("请输入联系人");
+		flag = false;
+	}
+	return flag;
+}
+
+function checkContactPhone(){
+	var flag=true;
+	var regexp = /^(1[0-9][0-9])\d{8}$/;
+	var contactPhone = $("input[name='contactPhone']").val();
+	if(contactPhone == "" || contactPhone == null || contactPhone == " "){
+		$('#contactPhoneSpan').show();
+		$('#contactPhoneSpan').text("请输入联系电话");
+		flag = false;
+	}
+	return flag;
+}
+
+
+
+function checkQuantity1(){
+	var flag=true;
+	var quantity = $("input[name='number']").val();
+	if(quantity == "" || quantity == null || quantity == " "){
+		$('#quantitySpan').show();
+		$('#quantitySpan').text("请输入数量");
+		flag = false;
+	}
+	return flag;
+}
+function checkStoreName1(){
+	var flag=true;
+	var storeName = $("input[name='storeName']").val();
+	if(storeName == "" || storeName == null || storeName == " "){
+		$('#storeNameSpan').show();
+		$('#storeNameSpan').text("请输入组织机构名");
+		flag = false;
+	}
+	return flag;
+}
+
+function checkContactMan1(){
+	var flag=true;
+	var contactMan = $("input[name='linkPerson']").val();
+	if(contactMan == "" || contactMan == null || contactMan == " "){
+		$('#contactManSpan').show();
+		$('#contactManSpan').text("请输入联系人");
+		flag = false;
+	}
+	return flag;
+}
+
+function checkContactPhone1(){
+	var flag=true;
+	var contactPhone = $("input[name='linkTel']").val();
+	if(contactPhone == "" || contactPhone == null || contactPhone == " "){
+		$('#contactPhoneSpan').show();
+		$('#contactPhoneSpan').text("请输入联系电话");
+		flag = false;
+	}
+	return flag;
+}
+function checkFocus(obj) {
+	if($(obj).val()!=""){
+		$(obj).parent().next().html("");
+	}
+}
+
+
+/* -------16 9月改版------- */
+//展开筛选项
+$(".filtrateLink").each(function(index, element) {
+	var sumWidth =0;
+	$(this).find("a").each(function(){
+		var a=$(this).width();
+		sumWidth += a;
+	});
+	if (sumWidth>1007){$(this).next(".filtrateMore").css("visibility"," visible")}
+	else if($(this).children().hasClass("filtrateLinkSub")){$(this).next(".filtrateMore").css("visibility"," visible")}
+	else{$(this).next(".filtrateMore").css("visibility","hidden")}
+   });
+
+$(".filtrateMore").click(function(){
+	$(this).parents(".filtrateItem").toggleClass("filtrateAll");
+});
+
+$(".filtrateLink a").live("click",function(){
+	$(this).siblings("a").removeClass("cur");
+	$(this).addClass("cur");
+	var categoryName = getCurrSelectVar();
+	var address = $(".address.cur").prop("id");
+	var name = $("input[name='search']").val();
+	$(".hyList").load($("#ctxpath").val() + "/web/channel/xsgp/1",{categoryName:categoryName,address:address,name:name,mainCatgId:$("#mainCatgId").val()});
+});
+
+function goPage(num){
+	var name = $("input[name='name']").val();
+	var categoryName = getCurrSelectVar();
+	var address = $(".address.cur").prop("id");
+	var mainCatgId=$("#mainCatgId").val();
+	$(".hyList").load($("#ctxpath").val() + "/web/channel/xsgp/"+num,{categoryName:categoryName,address:address,name:name,mainCatgId:mainCatgId});
+}
+
+//分页跳转
+$(".surepage").live("click",function(){
+	var pageNum = $("input[name='gopage']").val();
+	goPage(pageNum);
+});
+
+//搜索
+$(".btnSearch").live("click",function(){
+	var categoryName = getCurrSelectVar();
+	var address = $(".address.cur").prop("id");
+	var name = $("input[name='search']").val();
+	var mainCatgId=$("#mainCatgId").val();
+	$(".hyList").load($("#ctxpath").val() + "/web/channel/xsgp/1",{categoryName:categoryName,address:address,name:name,mainCatgId:mainCatgId});
+	
+  });
+  
+//重置 
+$(".btnReset").live("click",function(){
+	$(".filtrateLink a:first-child").siblings('a').removeClass('cur');
+	$(".filtrateLink .catgParent:first").addClass('cur');
+	$(".deliveryAddressList a:first-child").siblings('a').removeClass('cur');
+	$(".deliveryAddressList a:first-child").addClass('cur');
+	$(".search .nameBox").val("");
+	var categoryName = getCurrSelectVar();
+	var address = $(".address.cur").prop("id");
+	var name = $("input[name='search']").val();
+	var mainCatgId=$("#mainCatgId").val();
+	$(".hyList").load($("#ctxpath").val() + "/web/channel/xsgp/1",{categoryName:categoryName,address:address,name:name,mainCatgId:mainCatgId});
+  });
+
+
+// 默认搜索
+goPage(1);
+
+</script>
+<div style="display:none;">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255237573'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1255237573' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>
+

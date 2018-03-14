@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link href="${webroot}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<!-- 配置私有的js文件 -->
+	<script type="text/javascript" src="${webroot}/resources/system/js/content/contentRel.js"></script>
+</head>
+<body>
+#define(List<com.ekfans.base.content.model.ContentCategory> categories)
+#if(categories!=null && categories.size()>0)
+			#for(com.ekfans.base.content.model.ContentCategory c : categories)
+				#if(c.name == '频道分类')
+					#if(c.parentId == ''|| c.parentId == null)
+						<div class="limitList limits">
+							<h3 class="limitItem">
+								<label>
+									<span class="check #if(c.checked) checked #end">
+										<em>
+											<input type="checkbox" name="purviewId" value="${c.id}" #if(c.checked) checked="checked" #end />
+										</em>
+									</span>
+									${c.name}
+								</label>
+							</h3>
+							<div class="limitList">
+								#for(com.ekfans.base.content.model.ContentCategory c1 : c.childList)
+									#if(c1.parentId != '' && c1.parentId == c.id)
+										<h3 class="limitItem">
+											<label>
+												<span class="check #if(c1.checked) checked #end">
+													<em>
+														<input type="checkbox" name="purviewId" value="${c1.id}" #if(c1.checked) checked="checked" #end />
+													</em>
+												</span>
+												${c1.name}
+											</label>
+										</h3>
+										<div class="limitList">
+											#for(com.ekfans.base.content.model.ContentCategory c2 : c1.childList)
+												#if(c2.parentId != '' && c1.id == c2.parentId)
+													<h3 class="limitItem">
+														<label>
+															<span class="check #if(c2.checked) checked #end">
+																<em>
+																	<input type="checkbox" name="purviewId" value="${c2.id}" #if(c2.checked) checked="checked" #end />
+																</em>
+															</span>
+															${c2.name}
+														</label>
+													</h3>
+													<div class="limitList">
+														#for(com.ekfans.base.content.model.ContentCategory c3 : c2.childList)
+															#if(c3.parentId != '' && c2.id == c3.parentId)
+																<h3 class="limitItem">
+																	<label>
+																		<span class="check #if(c3.checked) checked #end">
+																			<em>
+																				<input type="checkbox" name="purviewId" value="${c3.id}" #if(c3.checked) checked="checked" #end />
+																			</em>
+																		</span>
+																		${c3.name}
+																	</label>
+																</h3>
+															#end
+														#end	
+													</div>
+												#end
+											#end
+										</div>		
+									#end
+								#end
+							</div>
+						</div>
+					#end
+				#end
+			#end
+		#end
+<input type="hidden" id="channelId">	
+</body>
+</html>

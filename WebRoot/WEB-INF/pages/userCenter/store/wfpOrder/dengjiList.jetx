@@ -1,0 +1,276 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>危废品报废列表</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/commons/js/tools.js"></script>
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.form.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/upload.js"></script>
+</head>
+<body>
+	#define(List<com.ekfans.base.order.model.WfpScrap> wfpScrap)
+	#define(String status)
+	#define(String scrapName)
+	#define(String endTime)
+	#define(String startTime)
+	#define(String fileId) 
+  #define(String storeId)
+<!--右侧主体-->
+<input id="storeId" type="hidden" value="${storeId}" />
+<input id="ctxPath" type="hidden" value="${webroot}" />
+  <div class="rightContent">
+  <form action="${webroot}/store/wfpscrap/skipScrapList" method="post" id="searchWfpOrder">
+  	<input type="hidden" name="pageNum" />
+  	<div class="formSearch borderColor">
+ 			  <dl class="formItem">
+        	<dt>报废名称</dt>
+            <dd>
+              <input id="scarpName" name="scarpName" type="text" class="textBox box212" value="${scrapName}">
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="formItem">
+        	<dt>报废状态</dt>
+          <dd>
+          	<div class="selList">
+              <span class="textBox">
+                  <input id="status" name="status" type="text" class="box184" placeholder="" readonly value="#if(status=="0")上传审批资料 #elseif(status=="1")未审核#elseif(status=="2")已通过 #elseif(status=="3") 未通过#else#end">
+                  <em class="iconDown"></em>
+              </span>
+              <ul>
+              	<li>未审核</li>
+                <li>未通过</li>
+                <li>已通过</li>
+                <li>上传审批资料</li>
+              </ul>
+            </div>
+          </dd>
+          <dd class="clear"></dd>
+        </dl>
+        <dl class="formItem">
+        	<dt>报废时间</dt>
+          <dd>
+            <input id="startTime" name="startTime" type="text" class="timeBox box98 textBox" value="${startTime}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+          </dd>
+          <dd class="lineColor">&nbsp;—&nbsp;</dd>
+          <dd>
+            <input id="endTime" name="endTime" type="text" class="timeBox box98 textBox" value="${endTime}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+          </dd>
+          <dd class="clear"></dd>
+        </dl>
+        <div class="clear"></div>
+      </div>
+      <div class="btnArea">
+        	<a href="javascript:formSubmit();" class="btnBase btnSearch">搜索</a>
+          <a href="javascript:reset();" class="btnBase btnReset">重置</a>
+          <div class="clear"></div>
+      </div> 
+  </form>    
+      <div class="formTable borderColor">
+      	<ul class="secNav">
+        <li class="li1">报废信息</li>
+        </ul>
+        <div class="clear"></div>
+        <div style="position:relative;" class="tableBox">
+          <table border="0" cellspacing="0" cellpadding="0" class="tabList">
+            <thead>
+              <tr class="tabTit bgColor">
+                <th class="accept">报废名称</th>
+                <th class="accept">报废数量</th>
+                <th class="accept">报废状态</th>
+
+                <th class="accept">报废时间</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+            	#for(com.ekfans.base.order.model.WfpScrap scrp : wfpScrap)
+              <tr>
+                <td>${scrp.scarpName}</td>
+                <td>${scrp.scarpNumber}</td>
+                <td>#if(scrp.status=="0") 上传审批资料  #elseif(scrp.status=="1") 未审核 #elseif(scrp.status=="2") 已通过#else未通过 #end </td>
+         
+                <td>${scrp.createTime.substring(0,10)}</td>
+                <td>
+                	#if(scrp.status=="0")
+                	<a href="javascript:orderDetail('${webroot}','${scrp.id}','2');" class="eyeIco" title="详情">编辑</a>
+                	<a href="javascript:showfile('${webroot}','${scrp.id}');" class="eyeIco scbtnBase" title="上传审批资料">上传审批资料</a>
+                	#else
+                	<a href="javascript:orderDetail('${webroot}','${scrp.id}','1');" class="eyeIco" title="详情">查看</a>
+                	#end
+                </td>
+              </tr>    
+                                      
+              #end
+            </tbody>
+          </table>
+          </div>
+          #if(wfpScrap.size() == 0 || wfpScrap ==  null)
+           <div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+           #else
+           <div>
+	            <input type="hidden" name="pageNum" value="${currentpageStr}" />
+	                ${include("../common/page.jetx")}
+	             <div class="clear"></div>
+	        </div>
+          #end
+        </div>
+      </div>
+      <div class="clear"></div>
+      </div>
+    <!--右侧主体 end-->
+    <div id="file" style="display:none; position:fixed;z-index:5"> 
+    <form action="${webroot}/wfpscrap/fileupload" method="post" id="updateWfpOrder">
+    <input id="updateid" name="updateid" type="hidden"/>
+     <div class="apLayerBg" id="apLayerBgid">
+			</div>
+			 <div id="apLayer" class="apLayer" style="height:200px; width:500px; margin:-100px 0 0 -250px; top:50%; left:50%;border-top-color: #FF4100;">
+		    	<div class="apTit" id ="close" ><span class="apClose"></span>生成合同订单</div>
+		    	<div style="margin:20px auto;margin-left:20px;height:45px;">
+		          #tag fileUpload("scrapUpload","pdf","") #end
+		      </div>
+		      <dl class="formItem" style="margin-left:20px;">
+                <dt><em class="mustIco"></em>合同选择</dt>
+              <dd class="clickAbout">
+                <input id="htname" name="htname" type="text" class="textBox box184" style="float:left;" value="" placeholder="点击右侧选择危废处置合同">
+                <input name="contractId" id ="contractId" type="hidden" />
+                <input name="buyerId" id="buyerId" type ="hidden"/>
+                <span class="pp clickBrand"  onclick="loadContrcat('${webroot}','1')" title="关联危废处置合同"></span>
+              </dd>
+              <dd class="clear"></dd>
+            </dl>
+		      <a class="btnBase" href="javascript:updateSubmit('${webroot}','${storeId}');" style="margin-right:20px;float:right;">确定</a>
+		      <div class="clear"></div>
+	   </div>	
+	   </form>
+    </div>
+	 
+<script type="text/javascript">
+	$(document).ready(function() {
+		
+		$(".clickBrand").live("click",function(){
+			$("#qiyue").show();
+		});
+		
+		$(".apClose2").live("click",function(){
+			$(this).parents("#qiyue").hide();
+		});
+		
+	 $("#close").live("click",function(){
+	   	$("#file").hide();
+	   	$("#apLayerBgid").hide();
+			$("#apLayer").hide();
+			$("#updateId").val();
+	 });	
+	});
+function updateSubmit(ctx){
+	if(!hasChoseFile("scrapUpload")){
+	   falert('审批资料不能为空');
+	   return false;
+	}
+	if($("#contractId").val()==''){
+	   falert('请选择危废处置合同');
+	   return false;
+	}
+	 $("#updateWfpOrder").ajaxSubmit(function(data){
+	 		if(data==true){
+	 			salertWithFunction("合同订单已生成成功！",goList,[ctx]);
+	 		}else{
+	 			salertWithFunction("合同订单已生成失败！",goList,[ctx]);
+	 		}
+	 		$("#file").hide();
+	   	$("#apLayerBgid").hide();
+			$("#apLayer").hide();
+			$("#updateId").val();
+	 	});
+}
+function goList(ctx){
+ window.location.href=ctx+"/store/wfpscrap/skipScrapList";	
+}
+function showfile(ctx,id){
+	$("#apLayerBgid").show();
+	$("#apLayer").show();
+	$("#file").show();
+	$("#updateid").val(id);
+}
+//查询详情
+function orderDetail(ctx,id,type){
+	window.location.href=ctx+"/store/wfpScrap/detail?wfpScrapId="+id+"&type="+type;
+}
+//申请金融服务
+function gaoBankService(ctx,id){
+   window.location.href=ctx+"/store/finance/jumpDaiPape/4?orderId="+id;
+}
+//分页跳转
+function goPage(pageNum){
+	$("input[name='pageNum']").val(pageNum);
+	$("#searchWfpOrder").submit();
+}
+//上传审批资料
+function fileupload(ctx,id){
+	
+	$(".apLayerBg").show();
+	$('.show_box').show();
+	
+}
+//重置
+	function reset(){
+		$("#scarpName").val("");
+		$("#status").val("");
+		$("#startTime").val("");
+		$("#endTime").val("");
+	}
+//提交
+function formSubmit(){
+	$(searchWfpOrder).submit();	
+}
+//load出合同列表
+	function loadContrcat(ctx,id){
+		 $("#qiyue").load(ctx+"/order/wfpOrder/loadContract",{idType:id,contractName:$("#contractNameId").val()});
+		 $(".apLayerBg").show();
+		 $(".alertBrand").show();
+	}
+	
+function checkdContract(con){
+	var contract = con.split("_");
+	$("#contractId").val(contract[0]);
+	$("#htname").val(contract[1]);
+	if($("#storeId").val() == contract[2]){
+		$("#buyerId").val(contract[5]);
+	}else if($("#storeId").val() == contract[5]){
+		$("#buyerId").val(contract[2]);
+	}
+	
+	$(".alertBrand").hide();
+}
+</script>
+
+<style type="text/css">
+
+/*合同弹窗*/
+span.pp{cursor:pointer; display:block; float:left; width:27px; height:28px; border:1px solid #e0e3ea; margin-left:-1px; position:relative; background:url(${webroot}/resources/userCenter/commons/images/rightpoint2.png) no-repeat center center;}
+span.pp:hover{background:url(${webroot}/resources/userCenter/commons/images/rightpoint.png) #999 no-repeat center center; width:29px; height:30px; border:none;}
+.apTit .apClose2{position:absolute; background:url(${webroot}/resources/userCenter//commons/images/del3.jpg) no-repeat; width:20px; height:20px; top:10px; right:10px;}
+.apLayer .btn{padding: 0 0 20px 84px;}
+.shopSearch{padding:16px 10px 0 16px;}
+.shopSearch dl{width:320px; float:left;}
+.shopSearch dt{height:20px; line-height:20px;}
+.shopListAlert div.btn a{float:none;}
+.shopListAlert .ht_page{margin-bottom:20px; padding-right:20px;}
+.alertBrand .pageSize{padding-right:8px;}
+.itemLayer{margin:0 12px; margin-bottom:20px;  border-top:solid 1px #333;} 
+</style>
+<div id="qiyue" class="apLayer borderColor alertBrand">
+</body>
+</html>

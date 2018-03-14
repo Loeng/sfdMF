@@ -1,0 +1,1178 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>供求信息</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<link rel="shortcut icon" href="../../../resources/commons/images/favicon.ico" type="image/x-icon">
+<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+<link href="../../../resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/web/css/base.css" rel="stylesheet" type="text/css">
+<style>
+.bread { height: 38px; line-height: 38px; background: #FCF4E5; font-size: 14px; color: #A78749; margin-bottom: 20px; }
+.curPages { color: #000; }
+.leftLayer { width: 590px; float: left; }
+.rightLayer { width: 590px; float: right; }
+.info h2 { height: 26px; line-height: 26px; margin-bottom: 3px; display: inline-block; }
+.infoHeader { height: 38px; line-height: 38px; background: #FF5947; color: #fff; }
+.infoHeader .headerItem { font-size: 14px; white-space: nowrap; text-align: left; text-indent: 10px; float: left; }
+.tableBox { height: 400px; overflow: hidden; }
+.infoTable { width: 100%; background: #fff; margin-bottom: 30px; }
+.infoTable th { height: 38px; line-height: 38px; background: #FF5947; color: #fff; font-size: 14px; white-space: nowrap; text-align: left; text-indent: 10px; }
+.infoTable td { padding: 10px; color: #484848; line-height: 20px; vertical-align: top; border-bottom: solid 1px #f1f1f1; }
+.infoTable tr:hover { background-color: #F1F1F1; }
+.infoTable em { display: block; line-height: 20px; color: #FF5947; font-size: 14px; }
+.infoTable a { color: #FF5947; }
+.infoTable a:hover { color: #008cd6; }
+.leftLayer .info h2 { border-bottom: solid 4px #FF5947; }
+.more { color: #4B4947; font-size: 14px; display: inline-block; padding-left: 470px; }
+.rightLayer .info h2 { border-bottom: solid 4px #0085FD; }
+.rightLayer .infoHeader { background: #0085FD; }
+.biaoti { width: 160px; height: 22px; overflow: hidden; }
+.neirong { width: 160px; height: 56px; line-height: 19px; overflow: hidden; display: block; }
+
+/*无货列表*/
+.noPro { background-color: #fff; margin: 10px 0; padding-top: 15px; }
+.pageNav3 { height: 60px; border-bottom: 1px solid #f1f1f1; }
+.searchBox { height: 40px; line-height: 40px; width: 483px; margin-left: 319px; background-color: #fff; border: 1px #0085FD solid; background-image: url(../../../resources/web/images/search.png); background-repeat: no-repeat; background-position: 10px center; padding-left: 40px; float: left; }
+.searchInput { display: block; height: 40px; line-height: 40px; width: 481px; border: none; }
+.btnBlue { color: #fff; text-align: center; background-color: #0085FD; width: 80px; height: 42px; line-height: 42px; display: block; font-size: 18px; float: left; }
+.btnBlue:hover { color: #fff; }
+.proList { padding: 0 10px; }
+
+.rightTitle { font-weight: normal; height: 37px; font-size: 18px; color:#4B4848;border-bottom: 1px solid #e5e5e5; position: relative;  margin: 10px 0;padding-bottom: 10px;}
+.rightSp { position: absolute; left: 0; top: 2px; line-height: 32px; }
+.rightSp span{display:inline-block;}
+.rightSp .price{display: inline-block; height: 34px; background: #EF4D4D; padding: 0 12px; margin-left: 60px; margin-right:60px; color: #fff; }
+.toggles{display:none;}
+
+.pinming{max-width:630px;height:34px;overflow:hidden; vertical-align:middle;}
+.layerToggle { line-height: 32px; padding-right: 20px; background: url(../../../resources/userCenter/commons/images/todown.png) no-repeat right center; position: absolute; right: 20px; top: 2px; font-size: 12px; }
+.layerToggleDown { background: url(../../../resources/userCenter/commons/images/toup.png) no-repeat right center; }
+.proItem { padding: 20px 20px 20px 20px; background: #fff; margin-bottom: 8px; position: relative;border-bottom: 1px solid #e5e5e5;  }
+.proImg { width: 180px; height: 180px; float: left; margin-right: 15px; position: relative; }
+.proImg img { display: block; width: 170px; height: 170px; border: solid 5px #E4E4E4; }
+.proImg em { display: block; width: 55px; padding: 10px 5px; text-align: center; line-height: 22px; font-size: 18px; background: #37A1FF; color: #fff; position: absolute; left: -43px; top: 15px; }
+.proText { float: left; width: 550px; padding-right: 64px; }
+
+.proInfo1 { line-height: 30px; min-height: 60px; font-size: 16px; }
+.proInfo2 span { display: block; height: 25px; line-height: 25px; overflow: hidden; width: 48%; padding-right: 2%; float: left; font-size: 14px; }
+.detection { padding: 0 42px; float: left; border-right: solid 1px #DCDCDD; border-left: solid 1px #DCDCDD; width: 87px; text-align: center; position: relative; }
+.detection dt { font-size: 18px; height: 34px; line-height: 34px; overflow: hidden; }
+.detectionImg { display: block; width: 85px; height: 80px; padding: 10px 0 0 0; border: solid 1px #E5E6E6; margin-bottom: 5px; border-radius: 6px; }
+.yijiance { display: block; font-size: 20px; font-weight: bold; color: #4695F9; }
+.weijiance { display: block; font-size: 20px; font-weight: bold; color: #868686; }
+.detectionName { font-size: 14px; line-height: 20px; text-align: left; width: 87px; height: 60px; overflow: hidden; }
+.proRight { float: left; padding: 48px 0 0 37px; }
+.proRight a { display: block; width: 100px; height: 36px; line-height: 36px; color: #fff; font-size: 18px; text-align: center; border-radius: 6px; }
+.btnRed { background: #EF4D4D; margin-bottom: 12px; }
+.btnRed:hover { background: #EC2828; color: #fff; }
+.btnBlue { background: #4595F9; }
+.btnBlue:hover { background: #0A75F8; color: #fff; }
+.bottomCompany { margin: 20px 0 30px 0; background-color: #fff; padding: 15px; }
+.bottomCompany2 { padding: 0px; }
+.leftList { width: 244px; padding: 10px 20px 10px 30px; border-right: solid 1px #dedede; float: left; height: 216px; overflow: hidden; }
+.rightCom { float: left; width: 272px; height: 216px; overflow: hidden; }
+.rightList { padding: 10px 0 10px 23px; }
+.bottomCompany li { height: 24px; line-height: 24px; width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 14px; }
+.listContent { padding: 7px 0 10px 0; float: left; width: 269px; height: 230px; border-right: 1px solid #DCDCDC; }
+.listContent2 { border-right: 0; padding-left: 20px; }
+.listContent h2 { height: 28px; line-height: 28px; margin-bottom: 12px; font-size: 18px; color: #4B4947; }
+.probg{background-color:#f2f1f1}
+
+/*合作企业*/
+.focus { position: relative; width: 269px; height: 201px; }
+.focus .imgBox { width: 150px; height: 150px; max-height: 150px; max-width: 150px; text-align: center; line-height: 150px; overflow: hidden; position: relative; display: table-cell; vertical-align: middle; }
+.focus .imgBox img { max-height: 150px; max-width: 150px; margin: 0 auto; vertical-align: middle; }
+.focus .shadow .title { width: 200px; height: 21px; padding-left: 30px; padding-top: 20px; }
+.focus .shadow .title a { color: #000; font-size: 14px; overflow: hidden; }
+.focus .btn { position: absolute; bottom: 34px; left: 510px; overflow: hidden; zoom: 1; }
+.focus .btn a { position: relative; display: inline; width: 13px; height: 13px; border-radius: 7px; margin: 0 5px; color: #B0B0B0; text-decoration: none; text-align: center; outline: 0; float: left; background: #D9D9D9; }
+.focus .btn a:hover, .focus .btn a.current { cursor: pointer; }
+.focus .fPic { position: absolute; left: 45px; top: 0px; }
+.focus .D1fBt { overflow: hidden; zoom: 1; height: 16px; z-index: 10; }
+.focus .shadow { width: 242px; position: absolute; bottom: -29px; left: -46px; z-index: 10; height: 21px; line-height: 21px; display: block; text-align: center; }
+.focus .shadow a { font-size: 14px; color: #4B4848; overflow: hidden; }
+.focus .fcon { position: relative; width: 100%; float: left; display: none; }
+.focus .fcon img { display: block; }
+.focus .fbg { bottom: 25px; right: 40px; position: absolute; height: 21px; text-align: center; z-index: 200; }
+.focus .fbg div { margin: 4px auto 0; overflow: hidden; zoom: 1; height: 14px }
+.focus .D1fBt a { position: relative; display: inline; width: 12px; height: 12px; border-radius: 7px; margin: 0 5px; color: #B0B0B0; text-align: center; outline: 0; float: left; background: #D9D9D9; }
+.focus .D1fBt .current, .focus .D1fBt a:hover { background: #FF6500; }
+.focus .D1fBt img { display: none }
+.focus .D1fBt i { display: none; }
+.focus .prev { position: absolute; width: 25px; height: 47px; background: url(../../../resources/web/images/left.png) no-repeat; top: 50%; margin-top: -30px; left: 0px; cursor: pointer; }
+.focus .next { position: absolute; width: 25px; height: 47px; background: url(../../../resources/web/images/right.png) no-repeat; top: 50%; margin-top: -30px; right: 27px; cursor: pointer; }
+
+/*成为会员和发布信息*/
+.leftClass { width: 285px; float: left; border-right: 5px solid #f2f1f1; padding: 40px 0 47px 0; text-align: center; }
+.leftClass .remeber { display: block; font-size: 24px; color: #0085FD; }
+.rightClass { width: 255px; float: left; padding: 57px 0 47px 20px; text-align: center; }
+.rightClass .fabu { display: block; font-size: 24px; color: #FF5947; }
+.bottomAdv { height: 130px; padding: 20px 10px; background: #fff; }
+.bottomAdv .autoAdv { float: left; width: 275px; height: 130px; padding: 0 10px; }
+
+/*弹窗背景公共样式*/
+.alertLayerBg { filter: alpha(opacity=80); -moz-opacity: 0.8; -khtml-opacity: 0.8; opacity: 0.8; background: #000; position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 100; display: none; }
+.layerClose { display: block; width: 20px; height: 17px; position: absolute; top: 22px; right: 10px; background: url(../../../resources/web/images/closeLayer.png) no-repeat; }
+
+/*详情弹窗*/
+.alterBox { position: fixed; top: 50%; left: 50%; margin: -160px 0 0 -300px; width: 600px; height: 320px; z-index: 101; background: #fff; overflow: hidden; border-top: 10px #0085FD solid; display: none; }
+.alterBox .layHeader { background-color: #FDF5E5; padding: 10px 0 10px 22px; position: relative; }
+.alterBox .layHeader h6 { height: 30px; line-height: 30px; color: #313030; font-size: 24px; margin-bottom: 10px; }
+.alterBox .layHeader .h6Detail { color: #313030; font-size: 18px; height: 20px; line-height: 20px; width: 520px; overflow: hidden; }
+.alterContent { padding: 10px 0px 10px 22px; }
+.alterContent .proDetailLi { float: left; border-right: 1px solid #D3D2D2; padding: 10px 10px 10px 0; }
+.alterContent .proDetailLi li { color: #777777; font-size: 14px; height: 28px; line-height: 28px; }
+.alterContent .contact { float: left; padding: 10px 0px 10px 50px; }
+.alterContent .contact li { color: #777777; font-size: 14px; height: 28px; line-height: 28px; }
+
+/*登录弹窗*/
+.loginBox2 { position: fixed; top: 50%; left: 50%; margin: -211px 0 0 -193px; width: 387px; height: 422px; z-index: 101; background: #fff; overflow: hidden; display: none; border: solid 8px rgba(0,0,0,0.4); border-radius: 8px; }
+.apTit2 { height: 60px; line-height: 60px; background: #0085FD; position: relative; }
+.apTit2 h3 { font-size: 24px; color: #fff; text-indent: 1em; }
+.apContent2 { background: #fff; }
+.apLogin2 { width: 350px; margin: 0 auto; }
+.formLine2 { padding-top: 2px; padding-bottom: 10px; width: 350px; }
+.formLine2 dt { height: 37px; line-height: 37px; font-size: 14px; position: relative; }
+.formLine2 dd { height: 42px; position: relative; clear: both; width: 350px; text-align: right; }
+.textBox { height: 35px; line-height: 35px\9; border-radius: 3px; border: 1px solid #e0e0e0; border-top-width: 2px; width: 345px; padding-left: 2px; }
+.textBoxFocus { border-color: #eee; outline: none; }
+.codeBox { width: 160px; display: block; float: left; margin-right: 24px; }
+.codeImg { display: block; width: 160px; height: 36px; float: right; }
+.refreshCode { display: block; float: right; color: #adadad; }
+.formBottom { margin-bottom: 5px; }
+.code { margin-bottom: 0px; padding-bottom: 0px; }
+.errorText2 { height: 21px; line-height: 21px; color: #FF0101; font-size: 14px; }
+.yanleft { float: left; }
+.btnLogin { display: block; width: 349px; height: 36px; line-height: 36px; background-color: #01AFED; color: #fff; border-radius: 6px; text-align: center; font-size: 16px; }
+.bottomText { margin-top: 5px; }
+.btnLeft { color: #313030; font-size: 12px; float: left; }
+.btnReg { color: #FF0000; font-size: 18px; margin-left: 10px; }
+.btnLost { float: right; color: #FF8900; font-size: 12px; }
+
+/*页码*/
+.pageSize { text-align: center; padding: 10px 0; background: #D3D3D3; margin-top: 20px; }
+.pageSize a { display: inline-block; height: 21px; line-height: 21px; margin-right: 8px; padding: 0 8px; color: #12369b; }
+.pageLast, .pageNext { font-family: SimSun; }
+.pageSize a:hover, .pageSize .nowPage { background: #4594f9; color: #fff; }
+
+
+/*弹窗背景公共样式*/
+.alertLayerBg { filter: alpha(opacity=80); -moz-opacity: 0.8; -khtml-opacity: 0.8; opacity: 0.8; background: #000; position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 100; display: none; }
+.layerClose2 { display: block; width: 20px; height: 17px; position: absolute; top: 0px; right: 0px; background: url(../../../resources/web/images/close_icon.png) no-repeat; }
+
+/*计价单弹窗*/
+.jijiadan { cursor: pointer;}
+.alterPoint { position: absolute; top: 79px; left: -14px; width: 13px; height: 22px; z-index: 103; background-image: url(../../../resources/web/images/leftPoint.png); background-repeat: no-repeat; background-position: center center; }
+.alterBox2 { position: absolute; top: -65px; left: 618px; width: 440px; min-height: 95px; max-height: 320px; z-index: 103; background-color: #fff; border: 1px solid #0085FC; border-top: 10px #0085FD solid; border-radius: 8px; display: none; padding: 20px 0 10px 0; }
+.alterContent2 { padding: 0px 20px 15px 15px; min-height: 95px; max-height: 310px; overflow: auto; }
+.jjTab { width: 100%; }
+.jjTab th { width: 33%; padding: 0 0 0 10px; height: 30px; line-height: 30px; color: #000000; font-size: 16px; background-color: #B5DBFC; text-align: left; }
+.jjTab td { width: 33%; padding: 0 0 0 10px; line-height: 30px; border-bottom: 1px #DCDCDD solid; max-width: 135px; background-color: #fff; font-size: 14px; overflow: hidden; text-align: left; }
+.colorH { color: #717071; }
+.colorB { color: #000; }
+</style>
+</head>
+
+<body>
+<div class="wrapper topArea">
+  <h1 class="logo"> <a href="index.html" title="鑫裕环保供应链平台"><img src="../../../resources/commons/images/logo.png" alt="鑫裕环保供应链平台"></a> </h1>
+  <div class="topRight"> <a href="index.html" class="linkIndex">首页</a>
+    <dl class="downList">
+      <dt><a href="javascript:void(0)" class="linkLogin">登录</a></dt>
+      <dd>
+        <div class="apBack"> <em class="topPoint"></em>
+          <div class="apLoadCont"> <a href="cgsdl.html" class="btnLoad dlcg btnCart">采购商入口</a> <a href="gysdl.html" class="btnLoad dlgy btnRk">供应商入口</a> <a href="hxqydl.html" class="btnLoad dlhx btnhx">核心企业入口</a> </div>
+        </div>
+      </dd>
+    </dl>
+    <dl class="downList">
+      <dt><a href="javascript:void(0)" class="linkReg">注册</a></dt>
+      <dd>
+        <div class="apBack2"> <em class="topPoint2"></em>
+          <div class="apRegCont"> <a href="cgszc1.html" class="btnEnter zccg btnCart">采购商入口</a> <a href="gyszc1.html" class="btnEnter zcgy btnRk">供应商入口</a> </div>
+        </div>
+      </dd>
+    </dl>
+    <em class="split"></em> <span class="telPhone">4000-888-1000</span> </div>
+  <div class="clear"></div>
+</div>
+<div class="nav">
+  <div class="wrapper">
+    <dl class="navItem">
+      <dt>现货交易</dt>
+      <dd> <a href="gqxx.html" class="cur">供求信息</a> <a href="gjs.html">贵金属</a> <a href="ylcg.html">原料采购</a> <a href="wjbc.html">微晶板材</a> </dd>
+    </dl>
+    <dl class="navItem">
+      <dt>危废处置</dt>
+      <dd> <a href="wxpcs.html">危险品产生</a> <a href="wxpys.html">危险品运输</a> <a href="wxpcz.html">危险品处置</a> <a href="zcfg.html">政策法规</a> </dd>
+    </dl>
+    <dl class="navItem" style="margin-right:0;">
+      <dt>网络金融</dt>
+      <dd> <a href="qyrz.html">企业认证</a> <a href="wlrz.html">网络融资</a> <a href="javascript:void(0)">融资指引</a> <a href="javascript:void(0)">建行专区</a> </dd>
+    </dl>
+    <div class="clear"></div>
+  </div>
+</div>
+<div class="bread">
+  <div class="wrapper"><a href="javascript:void(0);">首页</a>&nbsp;&gt;&nbsp;<em class="curPages">供求信息</em></div>
+</div>
+<div class="wrapper">
+  <div class="leftLayer">
+    <div class="info">
+      <h2>供应信息</h2>
+      <a href="gqxxList.html" class="more">更多...</a>
+      <div class="infoHeader">
+        <div class="headerItem" style="width:30%;">产品信息</div>
+        <div class="headerItem" style="width:30%;">交货仓库</div>
+        <div class="headerItem" style="width:18%;">报价(元)</div>
+        <div class="headerItem">交货方式</div>
+      </div>
+      <div class="tableBox">
+        <table border="0" cellspacing="0" cellpadding="0" class="infoTable">
+          <tr>
+            <td width="30%"><em class="biaoti">铁精粉</em><span class="neirong">品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+            <td width="30%"><br>
+              广西国储物流有限责任公司</td>
+            <td width="18%"><br>
+              850/吨</td>
+            <td><br>
+              支持自提</td>
+            <td><br>
+              <a href="javascript:void(0)" class="ckDetail">详情</a></td>
+          </tr>
+          <tr>
+            <td><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+            <td><br>
+              广西国储物流有限责任公司</td>
+            <td><br>
+              850/吨</td>
+            <td><br>
+              支持自提</td>
+            <td><br>
+              <a href="javascript:void(0)" class="ckDetail">详情</a></td>
+          </tr>
+          <tr>
+            <td><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+            <td><br>
+              广西国储物流有限责任公司</td>
+            <td><br>
+              850/吨</td>
+            <td><br>
+              支持自提</td>
+            <td><br>
+              <a href="javascript:void(0)" class="ckDetail">详情</a></td>
+          </tr>
+          <tr>
+            <td><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+            <td><br>
+              广西国储物流有限责任公司</td>
+            <td><br>
+              850/吨</td>
+            <td><br>
+              支持自提</td>
+            <td><br>
+              <a href="javascript:void(0)" class="ckDetail">详情</a></td>
+          </tr>
+          <tr>
+            <td><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+            <td><br>
+              广西国储物流有限责任公司</td>
+            <td><br>
+              850/吨</td>
+            <td><br>
+              支持自提</td>
+            <td><br>
+              <a href="javascript:void(0)" class="ckDetail">详情</a></td>
+          </tr>
+          <tr>
+            <td><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+            <td><br>
+              广西国储物流有限责任公司</td>
+            <td><br>
+              850/吨</td>
+            <td><br>
+              支持自提</td>
+            <td><br>
+              <a href="javascript:void(0)" class="ckDetail">详情</a></td>
+          </tr>
+          <tr>
+            <td><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+            <td><br>
+              广西国储物流有限责任公司</td>
+            <td><br>
+              850/吨</td>
+            <td><br>
+              支持自提</td>
+            <td><br>
+              <a href="javascript:void(0)" class="ckDetail">详情</a></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="rightLayer">
+    <div class="info">
+      <h2>采购信息</h2>
+      <a href="gqxxList2.html" class="more">更多...</a>
+      <div class="infoHeader">
+        <div class="headerItem" style="width:30%;">产品信息</div>
+        <div class="headerItem" style="width:30%;">交货仓库</div>
+        <div class="headerItem" style="width:18%;">报价(元)</div>
+        <div class="headerItem">交货方式</div>
+      </div>
+      <div class="tableBox">
+        <table border="0" cellspacing="0" cellpadding="0" class="infoTable">
+          <tr>
+            <td width="30%"><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+            <td width="30%"><br>
+              广西国储物流有限责任公司</td>
+            <td width="18%"><br>
+              850/吨</td>
+            <td><br>
+              支持自提</td>
+            <td><br>
+              <a href="javascript:void(0)" class="ckDetail">详情</a></td>
+          </tr>
+          <tr>
+            <td><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+            <td><br>
+              广西国储物流有限责任公司</td>
+            <td><br>
+              850/吨</td>
+            <td><br>
+              支持自提</td>
+            <td><br>
+              <a href="javascript:void(0)" class="ckDetail">详情</a></td>
+          </tr>
+          <tr>
+            <td><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+            <td><br>
+              广西国储物流有限责任公司</td>
+            <td><br>
+              850/吨</td>
+            <td><br>
+              支持自提</td>
+            <td><br>
+              <a href="javascript:void(0)" class="ckDetail">详情</a></td>
+          </tr>
+          <tr>
+            <td><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+            <td><br>
+              广西国储物流有限责任公司</td>
+            <td><br>
+              850/吨</td>
+            <td><br>
+              支持自提</td>
+            <td><br>
+              <a href="javascript:void(0)" class="ckDetail">详情</a></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="noPro">
+    <div class="pageNav3">
+      <div class="searchBox">
+        <input name="" type="text" class="searchInput" placeholder="请输入商品名称">
+      </div>
+      <a href="javascript:void(0);" class="btnBlue">搜索</a>
+      <div class="clear"></div>
+    </div>
+    <div class="proList">
+      <h2 class="rightTitle">
+        <div class="rightSp"><span class="pinming">品名:铁精粉</span><span class="price">价格:850元/kg</span><span>交割地:广州市</span></div>
+        <a href="javascript:void(0)" class="layerToggle">展开</a> </h2>
+      <div class="toggles">
+        <div class="proItem">
+          <div class="proImg"><img src="../../../resources/web/pic/pic170-1.jpg"></div>
+          <dl class="proText">
+            <dt></dt>
+            <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+            <dd class="proInfo2"> <span>供货量：5,000 吨</span> <span>成交量：0 吨</span> <span>交割地：天津中通库</span> <span>交割日：即期</span> <span>交&nbsp;&nbsp;货：仅支持自提</span> <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+              <div class="clear"></div>
+            </dd>
+          </dl>
+          <dl class="detection">
+            <dt>检测机构</dt>
+            <dd class="detectionImg"> <img src="../../../resources/web/images/yijiance.png" alt="已检测"> <a href="javascript:void(0);" target="_blank" class="yijiance" title="已检测">已检测</a> </dd>
+            <dd class="detectionName">华测检测技术股份有限公司</dd>
+          </dl>
+          <div class="proRight"> <a href="proDetail.html" class="btnRed">预定</a> <a href="javascript:void(0);" class="btnBlue">详情</a> </div>
+          <div class="clear"></div>
+        </div>
+      </div>
+      
+      <h2 class="rightTitle">
+        <div class="rightSp"><span class="pinming">品名:批发氧化镨 镨黄色釉</span><span class="price jijiadan">计价单</span><span>交割地：河北石家庄</span></div>
+        <a href="javascript:void(0)" class="layerToggle">展开</a>
+      </h2>
+      <div class="toggles">
+        <div class="proItem">
+          <div class="proImg"><img src="../../../resources/web/pic/pic170-2.jpg"></div>
+          <dl class="proText">
+            <dt></dt>
+            <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+            <dd class="proInfo2"> <span>供货量：5,000 吨</span> <span>成交量：0 吨</span> <span>交割地：天津中通库</span> <span>交割日：即期</span> <span>交&nbsp;&nbsp;货：仅支持自提</span> <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+              <div class="clear"></div>
+            </dd>
+          </dl>
+          <dl class="detection">
+            <dt></dt>
+            <dd class="detectionImg"> <img src="../../../resources/web/images/weijiance.png" alt="未检测"> <span class="weijiance">未检测</span> </dd>
+            <dd class="detectionName"></dd>
+          </dl>
+          <div class="proRight"> <a href="javascript:void(0);" class="btnRed">预定</a> <a href="javascript:void(0);" class="btnBlue">详情</a> </div>
+          <div class="clear"></div>
+          <div class="alterBox2">
+            <div class="alterPoint"></div>
+            <a href="javascript:void(0);" class="layerClose2"></a>
+            <div class="alterContent2">
+              <table border="0" cellspacing="0" cellpadding="0" class="jjTab">
+                <thead>
+                  <tr class="bgColor">
+                    <th>名称</th>
+                    <th>规格</th>
+                    <th>价格</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <h2 class="rightTitle">
+        <div class="rightSp"><span class="pinming">品名:氧化镁矿石、氧化镁石粉、氧化镁矿粉</span><span class="price jijiadan">计价单</span><span>交割地:广州市</span></div>
+        <a href="javascript:void(0)" class="layerToggle">展开</a>
+      </h2>
+      <div class="toggles">
+        <div class="proItem">
+          <div class="proImg"><img src="../../../resources/web/pic/pic170-2.jpg"></div>
+          <dl class="proText">
+            <dt></dt>
+            <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+            <dd class="proInfo2"> <span>供货量：5,000 吨</span> <span>成交量：0 吨</span> <span>交割地：天津中通库</span> <span>交割日：即期</span> <span>交&nbsp;&nbsp;货：仅支持自提</span> <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+              <div class="clear"></div>
+            </dd>
+          </dl>
+          <dl class="detection">
+            <dt>检测机构</dt>
+            <dd class="detectionImg"> <img src="../../../resources/web/images/yijiance.png" alt="已检测"> <a href="javascript:void(0);" target="_blank" class="yijiance" title="已检测">已检测</a> </dd>
+            <dd class="detectionName">华测检测技术股份有限公司</dd>
+          </dl>
+          <div class="proRight"> <a href="javascript:void(0);" class="btnRed">预定</a> <a href="javascript:void(0);" class="btnBlue">详情</a> </div>
+          <div class="clear"></div>
+          <div class="alterBox2">
+            <div class="alterPoint"></div>
+            <a href="javascript:void(0);" class="layerClose2"></a>
+            <div class="alterContent2">
+              <table border="0" cellspacing="0" cellpadding="0" class="jjTab">
+                <thead>
+                  <tr class="bgColor">
+                    <th>名称</th>
+                    <th>规格</th>
+                    <th>价格</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <h2 class="rightTitle">
+        <div class="rightSp"><span class="pinming">品名:铁精粉</span><span class="price">价格:850元/kg</span><span>交割地:广州市</span></div>
+        <a href="javascript:void(0)" class="layerToggle">展开</a> </h2>
+      <div class="toggles">
+        <div class="proItem">
+          <div class="proImg"><img src="../../../resources/web/pic/pic170-1.jpg"></div>
+          <dl class="proText">
+            <dt></dt>
+            <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+            <dd class="proInfo2"> <span>供货量：5,000 吨</span> <span>成交量：0 吨</span> <span>交割地：天津中通库</span> <span>交割日：即期</span> <span>交&nbsp;&nbsp;货：仅支持自提</span> <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+              <div class="clear"></div>
+            </dd>
+          </dl>
+          <dl class="detection">
+            <dt></dt>
+            <dd class="detectionImg"> <img src="../../../resources/web/images/weijiance.png" alt="未检测"> <span class="weijiance">未检测</span> </dd>
+            <dd class="detectionName"></dd>
+          </dl>
+          <div class="proRight"> <a href="proDetail.html" class="btnRed">预定</a> <a href="javascript:void(0);" class="btnBlue">详情</a> </div>
+          <div class="clear"></div>
+        </div>
+      </div>
+      
+      <h2 class="rightTitle">
+        <div class="rightSp"><span class="pinming">品名:产品鹅卵石|鹅卵石滤料|五彩鹅卵石</span><span class="price jijiadan">计价单</span><span>交割地：山东淄博</span></div>
+        <a href="javascript:void(0)" class="layerToggle">展开</a>
+      </h2>
+      <div class="toggles">
+        <div class="proItem">
+          <div class="proImg"><img src="../../../resources/web/pic/pic170-2.jpg"></div>
+          <dl class="proText">
+            <dt></dt>
+            <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+            <dd class="proInfo2"> <span>供货量：5,000 吨</span> <span>成交量：0 吨</span> <span>交割地：天津中通库</span> <span>交割日：即期</span> <span>交&nbsp;&nbsp;货：仅支持自提</span> <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+              <div class="clear"></div>
+            </dd>
+          </dl>
+          <dl class="detection">
+            <dt></dt>
+            <dd class="detectionImg"> <img src="../../../resources/web/images/weijiance.png" alt="未检测"> <span class="weijiance">未检测</span> </dd>
+            <dd class="detectionName"></dd>
+          </dl>
+          <div class="proRight"> <a href="javascript:void(0);" class="btnRed">预定</a> <a href="javascript:void(0);" class="btnBlue">详情</a> </div>
+          <div class="clear"></div>
+          <div class="alterBox2">
+            <div class="alterPoint"></div>
+            <a href="javascript:void(0);" class="layerClose2"></a>
+            <div class="alterContent2">
+              <table border="0" cellspacing="0" cellpadding="0" class="jjTab">
+                <thead>
+                  <tr class="bgColor">
+                    <th>名称</th>
+                    <th>规格</th>
+                    <th>价格</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <h2 class="rightTitle">
+        <div class="rightSp"><span class="pinming">品名:批发氧化镨 镨黄色釉</span><span class="price jijiadan">计价单</span><span>交割地：河北石家庄</span></div>
+        <a href="javascript:void(0)" class="layerToggle">展开</a>
+      </h2>
+      <div class="toggles">
+        <div class="proItem">
+          <div class="proImg"><img src="../../../resources/web/pic/pic170-2.jpg"></div>
+          <dl class="proText">
+            <dt></dt>
+            <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+            <dd class="proInfo2"> <span>供货量：5,000 吨</span> <span>成交量：0 吨</span> <span>交割地：天津中通库</span> <span>交割日：即期</span> <span>交&nbsp;&nbsp;货：仅支持自提</span> <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+              <div class="clear"></div>
+            </dd>
+          </dl>
+          <dl class="detection">
+            <dt></dt>
+            <dd class="detectionImg"> <img src="../../../resources/web/images/weijiance.png" alt="未检测"> <span class="weijiance">未检测</span> </dd>
+            <dd class="detectionName"></dd>
+          </dl>
+          <div class="proRight"> <a href="javascript:void(0);" class="btnRed">预定</a> <a href="javascript:void(0);" class="btnBlue">详情</a> </div>
+          <div class="clear"></div>
+          <div class="alterBox2">
+            <div class="alterPoint"></div>
+            <a href="javascript:void(0);" class="layerClose2"></a>
+            <div class="alterContent2">
+              <table border="0" cellspacing="0" cellpadding="0" class="jjTab">
+                <thead>
+                  <tr class="bgColor">
+                    <th>名称</th>
+                    <th>规格</th>
+                    <th>价格</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <h2 class="rightTitle">
+        <div class="rightSp"><span class="pinming">品名:氧化镁矿石、氧化镁石粉、氧化镁矿粉</span><span class="price jijiadan">计价单</span><span>交割地：山东淄博</span></div>
+        <a href="javascript:void(0)" class="layerToggle">展开</a>
+      </h2>
+      <div class="toggles">
+        <div class="proItem">
+          <div class="proImg"><img src="../../../resources/web/pic/pic170-2.jpg"></div>
+          <dl class="proText">
+            <dt></dt>
+            <dd class="proInfo1">品位0.66；产地河北丰宁；硫含量&lt;0.1%；硅含量&lt;7.5%；钛含量&lt;0.5%；</dd>
+            <dd class="proInfo2"> <span>供货量：5,000 吨</span> <span>成交量：0 吨</span> <span>交割地：天津中通库</span> <span>交割日：即期</span> <span>交&nbsp;&nbsp;货：仅支持自提</span> <span>付&nbsp;&nbsp;款：先款后货或者现款现货</span>
+              <div class="clear"></div>
+            </dd>
+          </dl>
+          <dl class="detection">
+            <dt></dt>
+            <dd class="detectionImg"> <img src="../../../resources/web/images/weijiance.png" alt="未检测"> <span class="weijiance">未检测</span> </dd>
+            <dd class="detectionName"></dd>
+          </dl>
+          <div class="proRight"> <a href="javascript:void(0);" class="btnRed">预定</a> <a href="javascript:void(0);" class="btnBlue">详情</a> </div>
+          <div class="clear"></div>
+          <div class="alterBox2">
+            <div class="alterPoint"></div>
+            <a href="javascript:void(0);" class="layerClose2"></a>
+            <div class="alterContent2">
+              <table border="0" cellspacing="0" cellpadding="0" class="jjTab">
+                <thead>
+                  <tr class="bgColor">
+                    <th>名称</th>
+                    <th>规格</th>
+                    <th>价格</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                  <tr>
+                    <td class="colorB">电解钴(T)</td>
+                    <td class="colorH">≥99.8%</td>
+                    <td class="colorH"><em class="red">3000.00</em>元/吨</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pageSize"> <a href="javascript:void(0)" class="pageLast">&lt;&lt;</a> <a href="javascript:void(0)" class="page">1</a> <a href="javascript:void(0)" class="page">2</a> <a href="javascript:void(0)" class="page nowPage">3</a> <a href="javascript:void(0)" class="page">...</a> <a href="javascript:void(0)" class="page">10</a> <a href="javascript:void(0)" class="page">11</a> <a href="javascript:void(0)" class="page">12</a> <a href="javascript:void(0)" class="pageNext">&gt;&gt;</a> </div>
+  </div>
+  <div class="clear"></div>
+  <div class="leftLayer">
+    <div class="bottomCompany">
+      <div class="listContent">
+        <h2>合作企业</h2>
+        <div id="fsD1" class="focus">
+          <div id="D1pic1" class="fPic"> 
+            <!--遍历-->
+            <div class="fcon" style="display: none;"> <a href="javascript:void(0)" class="imgBox"><img  src="../../../resources/web/pic/com150_150.png" ></a> <span class="shadow"><a href="javascript:void(0)">永兴鑫裕环保镍业有限公司</a></span> </div>
+            <div class="fcon" style="display: none;"> <a href="javascript:void(0)" class="imgBox"><img  src="../../../resources/web/pic/pic448.jpg" ></a> <span class="shadow"><a href="javascript:void(0)">永兴鑫裕环保镍业有限公司</a></span> </div>
+            <div class="clear"></div>
+            <!--遍历 end--> 
+          </div>
+          <span class="prev"></span> <span class="next"></span> </div>
+      </div>
+      <div class="listContent listContent2">
+        <h2>合作仓储物流机构</h2>
+        <div id="fsD2" class="focus">
+          <div id="D1pic2" class="fPic"> 
+            <!--遍历-->
+            <div class="fcon" style="display: none;"> <a href="javascript:void(0)" class="imgBox"><img src="../../../resources/web/pic/com150_150_2.png"></a> <span class="shadow"><a href="javascript:void(0)">云南冶金集团进出口物流股份有限公司</a></span> </div>
+            <div class="fcon" style="display: none;"> <a href="javascript:void(0)" class="imgBox"><img src="../../../resources/web/pic/icon54-5.jpg"></a> <span class="shadow"><a href="javascript:void(0)">云南冶金集团进出口物流股份有限公司</a></span> </div>
+            <!--遍历 end-->
+            <div class="clear"></div>
+          </div>
+          <span class="prev"></span> <span class="next"></span> </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+  <div class="rightLayer">
+    <div class="bottomCompany bottomCompany2">
+      <div class="leftClass"> <a href="javascript:void(0)" title="成为会员"><img src="../../../resources/web/images/remeber.png" alt="成为会员" width="161" height="156"/></a> <a href="javascript:void(0)" title="成为会员" class="remeber">成为会员</a> </div>
+      <div class="rightClass"> <a href="javascript:void(0)" title="发布信息"><img src="../../../resources/web/images/fabu.png" alt="发布信息" width="132" height="133"/></a> <a href="javascript:void(0)" title="发布信息" class="fabu">发布供求信息</a> </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="bottomAdv">
+    <div class="autoAdv">
+      <div class="autoAdvImg"> <a href="javascript:void(0);" title="广告"><img src="../../../resources/web/pic/adv275.jpg" width="275" height="130" alt="广告"></a> </div>
+    </div>
+    <div class="autoAdv">
+      <div class="autoAdvImg"> <a href="javascript:void(0);" title="广告"><img src="../../../resources/web/pic/adv275-2.jpg" width="275" height="130" alt="广告"></a> </div>
+    </div>
+    <div class="autoAdv">
+      <div class="autoAdvImg"> <a href="javascript:void(0);" title="广告"><img src="../../../resources/web/pic/adv275-3.jpg" width="275" height="130" alt="广告"></a> </div>
+    </div>
+    <div class="autoAdv">
+      <div class="autoAdvImg"> <a href="javascript:void(0);" title="广告"><img src="../../../resources/web/pic/adv275-4.jpg" width="275" height="130" alt="广告"></a> </div>
+    </div>
+  </div>
+</div>
+<!--底部-->
+<div class="bottomMenu">
+  <div class="wrapper">
+    <dl class="footItem">
+      <dt> <img src="../../../resources/commons/images/gyl_icon_r1_c4.png" width="49" height="48" /> <span>采购流程</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="下单流程">下单流程</a></li>
+        <li><a href="javascript:void(0);" title="订单跟踪">订单跟踪</a></li>
+        <li><a href="javascript:void(0);" title="安全支付">安全支付</a></li>
+        <li><a href="javascript:void(0);" title="企业认证">企业认证</a></li>
+        <li><a href="javascript:void(0);" title="常见问题">常见问题</a></li>
+      </dd>
+    </dl>
+    <dl class="footItem">
+      <dt> <img src="../../../resources/commons/images/gyl_icon_r1_c5.png" width="49" height="48" /> <span>服务与支持</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="物流配送">物流配送</a></li>
+        <li><a href="javascript:void(0);" title="经销商权益">经销商权益</a></li>
+        <li><a href="javascript:void(0);" title="不良品退货">不良品退货</a></li>
+        <li><a href="javascript:void(0);" title="在线咨询">在线咨询</a></li>
+        <li><a href="javascript:void(0);" title="融资操作手册">融资操作手册</a></li>
+      </dd>
+    </dl>
+    <dl class="footItem">
+      <dt> <img src="../../../resources/commons/images/gyl_icon_r1_c6.png" width="49" height="48" /> <span>我的账户</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="子账户管理">子账户管理</a></li>
+        <li><a href="javascript:void(0);" title="密码重置">密码重置</a></li>
+        <li><a href="javascript:void(0);" title="在线打款">在线打款</a></li>
+      </dd>
+    </dl>
+    <dl class="lastItem">
+      <dt> <img src="../../../resources/commons/images/gyl_icon_r1_c7.png" width="49" height="48" /> <span>关于我们</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="公司简介">公司简介</a></li>
+        <li><a href="javascript:void(0);" title="联系我们">联系我们</a></li>
+        <li><a href="javascript:void(0);" title="网站声明">网站声明</a></li>
+      </dd>
+    </dl>
+    <div class="clear"></div>
+  </div>
+</div>
+<!--底部 end--> 
+
+<!--尾部-->
+<div class="footer">
+  <div class="wrapper">
+    <p class="footerLeft">© 2014 成都易科远见科技有限公司 版权所有 蜀ICP备 14005736号</p>
+    <p class="footerRight">成都市高新区吉泰路666号花样年·福年广场2号楼1309室<br>
+      服务热线：028-83190368</p>
+    <div class="clear"></div>
+  </div>
+</div>
+<!--尾部 end--> 
+
+<!--弹窗 css-->
+<div class="alertLayerBg"></div>
+<!--详情弹窗-->
+<div class="alterBox">
+  <div class="layHeader">
+    <h6>金精粉</h6>
+    <div class="h6Detail">产地进口；其他指标金20-25g/DMT；砷10%；</div>
+    <a href="javascript:void(0);" class="layerClose"></a> </div>
+  <div class="alterContent">
+    <ul class="proDetailLi">
+      <li>报　价：<em class="red">3,600</em> 元/吨</li>
+      <li>供货量：2,000 吨 ( 已成交 1,628 吨 | 剩余 372 吨)</li>
+      <li>起订量：500 吨</li>
+      <li>交割地：灵宝1号库</li>
+      <li>交割日：即期</li>
+      <li>交　货：仅支持自提</li>
+      <li>付　款：先款后货或者现款现货</li>
+    </ul>
+    <ul class="contact">
+      <li>联系人：王小亮</li>
+      <li>手　机：13621061523</li>
+      <li>电　话：13621061523</li>
+    </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+<!--详情弹窗 end--> 
+
+<!--登录弹窗-->
+<div class="loginBox2">
+  <div class="apTit2">
+    <h3>查看详情登录</h3>
+    <a href="javascript:void(0);" class="layerClose"></a> </div>
+  <div class="apContent2">
+    <div class="apLogin2">
+      <dl class="formLine2">
+        <dt>用户名</dt>
+        <dd>
+          <input name="name" type="text" class="textBox textBoxFocus">
+          <span class="errorText2">请输入用户名</span> </dd>
+      </dl>
+      <dl class="formLine2">
+        <dt>密码</dt>
+        <dd>
+          <input type="password" class="textBox textBoxFocus">
+          <span class="errorText2">请输入密码</span> </dd>
+      </dl>
+      <dl class="formLine2 code">
+        <dt>验证码</dt>
+        <dd>
+          <input name="verifyCode" type="text" class="textBox codeBox textBoxFocus">
+          <a href="javascript:void(0);" title="点击图片刷新验证码" class="codeImg"> <img src="../../../resources/web/images/layerCode.png" width="160" height="36" alt="验证码"> </a>
+          <div class="clear"></div>
+        </dd>
+      </dl>
+      <div class="formBottom"> <span class="errorText2 yanleft">请输入验证码</span> <span class="refreshCode">点击图片刷新验证码</span>
+        <div class="clear"></div>
+      </div>
+      <a href="javascript:void(0);" class="btnLogin">登录</a>
+      <div class="bottomText"> <span class="btnLeft">还没注册?<a href="javascript:void(0)" class="btnReg">请注册</a></span> <a href="javascript:void(0)" class="btnLost">忘记密码？</a>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--登录弹窗 end--> 
+
+<script src="../../../resources/web/js/base.js"></script> 
+<script src="../../../resources/web/js/koala.min.1.5.js"></script> 
+<script>
+$(document).ready(function() {
+	/*循环滚动*/
+	//$(".infoTable").css("height",count*264+"px");
+	var count=$(".infoTable tr").length;
+	
+	var scrollTimer1;
+	var scrollTimer2;
+	var $this=$(".tableBox").eq(0);
+	$this.hover(function(){
+		clearInterval(scrollTimer1);
+	},function(){
+		scrollTimer1 = setInterval(function(){
+		scrollNews($this);
+	 }, 3000 );
+	}).trigger("mouseleave");
+	
+	var $this2=$(".tableBox").eq(1);
+	$this2.hover(function(){
+		clearInterval(scrollTimer2);
+	},function(){
+		scrollTimer2 = setInterval(function(){
+		scrollNews($this2);
+	 }, 3000 );
+	}).trigger("mouseleave");
+	  
+	function scrollNews(obj){
+	   var $self = obj.find(".infoTable"); 
+	   var lineHeight = $self.find("tr:first").height(); //获取宽度，向上滚动则需要获取高度.height()
+	   $self.animate({ "marginTop" : -lineHeight +"px" }, 600 , function(){ //向左滚动，向上滚动则需要改为marginTop,其他方向类似，下同
+			 $self.css({marginTop:0}).find("tr:first").appendTo($self.find("tbody")); //appendTo能直接移动元素
+	   })
+	}
+	/*循环滚动 end*/ 
+	
+	/*查看详情弹窗*/
+	$(".ckDetail").live("click",function(){
+		$(".alertLayerBg").show();
+		$(".alterBox").show();
+		$(".loginBox2").show();
+	});
+	
+	/*关闭弹窗*/
+	$(".layerClose").live("click",function(){
+		$(this).parents(".alterBox").hide();
+		$(this).parents(".loginBox2").hide();
+		$(".alertLayerBg").hide();
+		//$(this).parents(".alterBox").prev(".alertLayerBg").hide();
+	});
+	
+	
+	/*$(".focus").live("hover",function(){
+		$(this).find(".prev").toggle();
+		$(this).find(".next").toggle();
+	});*/
+	
+	/*展开和收起*/
+    $(".layerToggle").click(function(){
+		$(this).toggleClass("layerToggleDown");
+		$(this).parent().next(".toggles").slideToggle(100);
+		//$(this).parent().next().next(".toggles").slideToggle(100);
+		$(".layerToggle").text("展开");
+		$(".layerToggleDown").text("收起");
+		$(this).parent().next(".toggles").children(".proItem").addClass("probg");
+		$(".layerToggle").parent(".rightTitle").css("border-bottom-color","#e5e5e5");
+		$(".layerToggleDown").parent(".rightTitle").css("border-bottom-color","#000");
+	})
+	
+	 //计价单展开后   收起
+	$(".layerToggleDown").click(function(){
+		$(this).removeClass("layerToggleDown");
+		$(".layerToggle").text("展开");
+		$(this).parent().next(".toggles").slideUp(100);
+	})
+	
+	  //计价单
+	$(".jijiadan").live("click",function(){
+			$(this).parent(".rightSp").siblings(".layerToggle").text("收起");
+			$(this).parent(".rightSp").siblings(".layerToggle").addClass("layerToggleDown");
+			$(this).parents(".rightTitle").css("border-bottom-color","#000");
+			$(this).parents(".rightTitle").next(".toggles").show();
+		 $(this).parents(".rightTitle").next(".toggles").find(".proItem").css("z-index","102");
+		 $(".alertLayerBg").show();
+		 $(this).parents(".rightTitle").next(".toggles").find(".proItem").find(".alterBox2").show();
+		 $(this).parents(".rightTitle").next(".toggles").find(".proItem").addClass("probg");
+		 
+	});
+	
+	$(".layerClose2").live("click",function(){
+		 $(this).parents(".proItem").css("z-index","1");
+		 $(".alertLayerBg").hide();
+		 $(this).parents(".proItem").find(".alterBox2").hide();
+		 
+	});
+	
+});
+</script> 
+<!--合作企业--> 
+<script type="text/javascript">
+Qfast.add('widgets', { path: "../../../resources/web/js/terminator2.2.min.js", type: "js", requires: ['fx'] });
+Qfast(false, 'widgets', function () {
+K.tabs({
+  id: 'fsD1',   //焦点图包裹id  
+  conId: "D1pic1",  //** 大图域包裹id  
+  tabTn:"a",
+  conCn: '.fcon', //** 大图域配置class       
+  auto: 1,   //自动播放 1或0
+  effect: 'fade',   //效果配置
+  eType: 'click', //** 鼠标事件
+  pageBt:true,//是否有按钮切换页码
+  bns: ['.prev', '.next'],//** 前后按钮配置class                          
+  interval: 5000  //** 停顿时间  
+})
+K.tabs({
+  id: 'fsD2',   //焦点图包裹id  
+  conId: "D1pic2",  //** 大图域包裹id  
+  tabTn:"a",
+  conCn: '.fcon', //** 大图域配置class       
+  auto: 1,   //自动播放 1或0
+  effect: 'fade',   //效果配置
+  eType: 'click', //** 鼠标事件
+  pageBt:true,//是否有按钮切换页码
+  bns: ['.prev', '.next'],//** 前后按钮配置class                          
+  interval: 5000  //** 停顿时间  
+})
+})
+</script> 
+<!--合作企业 end-->
+</body>
+</html>

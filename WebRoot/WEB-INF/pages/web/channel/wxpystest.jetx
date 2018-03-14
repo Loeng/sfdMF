@@ -1,0 +1,396 @@
+#define(com.ekfans.base.channel.model.Channel channel)
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}-${channel.name}</title>
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<meta name="Keywords" content="${channel.keyWords}">
+<meta name="description" content="${channel.description}">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.superslide.2.1.1.js"></script>
+<script src="${webroot}/resources/web/js/base.js"></script>
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/base.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/wfys.css" rel="stylesheet" type="text/css">
+#if(configStatus == "true")
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/control.js"></script>	
+	<link href="${webroot}/resources/commons/css/control.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script
+	<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+#end
+</head>
+
+<body>
+<input type="hidden" name="ctxpath" id="ctxpath" value="${ctxpath}" />
+	<input type="hidden" name="channelId" id="channelId" value="${channelId}" />
+	<input type="hidden" name="channelType" id="channelType" value="${channel.type}" />
+	#if(configStatus == "true")
+		<!-- 频道配置导航条 -->
+		#include("commons/config/config-top.jetx")
+		<!-- 频道配置导航条 end -->
+	#end
+		
+<div id="channelTop"></div>
+
+
+<div class="wrapper main">
+	
+	<div class="leftBox">
+    <!--最新车源-->
+  	<div class="newCars">
+      <h2>最新车源</h2>
+      <div class="txtScroll-left">
+        <div class="hd"></div>
+        <div class="bd">
+          <ul class="infoList">
+            <li><span>重庆-广东</span>&nbsp;&nbsp;不锈钢罐车</li>
+            <li><span>山西运城市-河南</span>&nbsp;&nbsp;箱式货车</li>
+            <li><span>山东东营市-山东临沂市</span>&nbsp;&nbsp;不锈钢罐车</li>
+            <li><span>陕西西安市-山东</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <!--最新车源 end-->
+    
+    <!--车源信息滚动-->
+    <div class="huoyuan"><span>车源信息</span><a href="javascript:void(0);" class="btnFb">发布车源信息</a><a href="javascript:void(0);" class="btnMore">更多...</a></div>
+    <div class="hyList">  
+    	<ul class="tabTit">
+        <li style="width:232px;">出发地→到达地 / 说明</li>
+        <li style="width:146px;">车辆类型</li>
+        <li style="width:115px;">车源类型</li>
+        <li style="width:110px;">运价</li>
+        <li style="width:107px;">发布日期</li>
+        <li style="width:40px;">操作</li>
+      </ul>
+      <div class="hyTab txtScroll-top">
+      	<div class="hd"></div>
+        <div class="bd">
+        	<ul class="hytabList">
+            <li>
+            	<div style="width:240px;" class="listFloat"><div class="green">湖南长沙市-全国</div><div class="hyCom">三分地环保平台官方</div></div>
+              <div style="width:165px;" class="listFloat"><div>不锈钢罐车</div><div class="hyzl">5.00吨 25立方</div></div>
+              <div style="width:128px;" class="listFloat"><div>回程车</div></div>
+              <div style="width:125px;" class="listFloat"><div>待议</div></div>
+              <div style="width:125px;" class="listFloat"><div>2016.03.05</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">查看</a></div>
+            </li>
+            <li>
+            	<div style="width:240px;" class="listFloat"><div class="green">湖南长沙市-全国</div><div class="hyCom">三分地环保平台官方</div></div>
+              <div style="width:165px;" class="listFloat"><div>不锈钢罐车</div><div class="hyzl">5.00吨 25立方</div></div>
+              <div style="width:128px;" class="listFloat"><div>回程车</div></div>
+              <div style="width:125px;" class="listFloat"><div>待议</div></div>
+              <div style="width:125px;" class="listFloat"><div>2016.03.05</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">查看</a></div>
+            </li>
+            <li>
+            	<div style="width:240px;" class="listFloat"><div class="green">湖南长沙市-全国</div><div class="hyCom">三分地环保平台官方</div></div>
+              <div style="width:165px;" class="listFloat"><div>不锈钢罐车</div><div class="hyzl">5.00吨 25立方</div></div>
+              <div style="width:128px;" class="listFloat"><div>回程车</div></div>
+              <div style="width:125px;" class="listFloat"><div>待议</div></div>
+              <div style="width:125px;" class="listFloat"><div>2016.03.05</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">查看</a></div>
+            </li>
+            <li>
+            	<div style="width:240px;" class="listFloat"><div class="green">湖南长沙市-全国</div><div class="hyCom">三分地环保平台官方</div></div>
+              <div style="width:165px;" class="listFloat"><div>不锈钢罐车</div><div class="hyzl">5.00吨 25立方</div></div>
+              <div style="width:128px;" class="listFloat"><div>回程车</div></div>
+              <div style="width:125px;" class="listFloat"><div>待议</div></div>
+              <div style="width:125px;" class="listFloat"><div>2016.03.05</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">查看</a></div>
+            </li>
+            <li>
+            	<div style="width:240px;" class="listFloat"><div class="green">湖南长沙市-全国</div><div class="hyCom">三分地环保平台官方</div></div>
+              <div style="width:165px;" class="listFloat"><div>不锈钢罐车</div><div class="hyzl">5.00吨 25立方</div></div>
+              <div style="width:128px;" class="listFloat"><div>回程车</div></div>
+              <div style="width:125px;" class="listFloat"><div>待议</div></div>
+              <div style="width:125px;" class="listFloat"><div>2016.03.05</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">查看</a></div>
+            </li>
+            <li>
+            	<div style="width:240px;" class="listFloat"><div class="green">湖南长沙市-全国</div><div class="hyCom">三分地环保平台官方</div></div>
+              <div style="width:165px;" class="listFloat"><div>不锈钢罐车</div><div class="hyzl">5.00吨 25立方</div></div>
+              <div style="width:128px;" class="listFloat"><div>回程车</div></div>
+              <div style="width:125px;" class="listFloat"><div>待议</div></div>
+              <div style="width:125px;" class="listFloat"><div>2016.03.05</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">查看</a></div>
+            </li>
+            <li>
+            	<div style="width:240px;" class="listFloat"><div class="green">湖南长沙市-全国</div><div class="hyCom">三分地环保平台官方</div></div>
+              <div style="width:165px;" class="listFloat"><div>不锈钢罐车</div><div class="hyzl">5.00吨 25立方</div></div>
+              <div style="width:128px;" class="listFloat"><div>回程车</div></div>
+              <div style="width:125px;" class="listFloat"><div>待议</div></div>
+              <div style="width:125px;" class="listFloat"><div>2016.03.05</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">查看</a></div>
+            </li>
+            <li>
+            	<div style="width:240px;" class="listFloat"><div class="green">湖南长沙市-全国</div><div class="hyCom">三分地环保平台官方</div></div>
+              <div style="width:165px;" class="listFloat"><div>不锈钢罐车</div><div class="hyzl">5.00吨 25立方</div></div>
+              <div style="width:128px;" class="listFloat"><div>回程车</div></div>
+              <div style="width:125px;" class="listFloat"><div>待议</div></div>
+              <div style="width:125px;" class="listFloat"><div>2016.03.05</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">查看</a></div>
+            </li>
+            <li>
+            	<div style="width:240px;" class="listFloat"><div class="green">湖南长沙市-全国</div><div class="hyCom">三分地环保平台官方</div></div>
+              <div style="width:165px;" class="listFloat"><div>不锈钢罐车</div><div class="hyzl">5.00吨 25立方</div></div>
+              <div style="width:128px;" class="listFloat"><div>回程车</div></div>
+              <div style="width:125px;" class="listFloat"><div>待议</div></div>
+              <div style="width:125px;" class="listFloat"><div>2016.03.05</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">查看</a></div>
+            </li>
+          </ul>
+          </div>
+      </div>
+    </div>
+    <!--车源信息滚动 end-->
+    
+    <!--单图广告-->
+    <div class="oneAdpic">
+        <a href="javascript:void(0);"><img src="${webroot}/resources/web/pic/ad850_148.jpg" width="850" height="148">
+    </div>
+    <!--单图广告 end-->
+    
+    <!--最新货源-->
+    <div class="newCars">
+      <h2>最新货源</h2>
+      <div class="txtScroll-left">
+        <div class="hd"></div>
+        <div class="bd">
+          <ul class="infoList">
+            <li><span>重庆-广东</span>&nbsp;&nbsp;甲醇钠</li>
+            <li><span>山西运城市-河南</span>&nbsp;&nbsp;纯苯</li>
+            <li><span>山东东营市-山东临沂市</span>&nbsp;&nbsp;二氧化晒</li>
+            <li><span>陕西西安市-山东</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <!--最新货源 end-->
+    
+    <!--货源滚动-->
+    <div class="huoyuan"><span>货源信息</span><a href="javascript:void(0);" class="btnFb">发布货源信息</a><a href="javascript:void(0);" class="btnMore">更多...</a></div>
+    <div class="hyList">  
+    	<ul class="tabTit">
+        <li style="width:240px;">出发地→到达地 / 说明</li>
+        <li style="width:140px;">货源类型</li>
+        <li style="width:115px;">数量／吨</li>
+        <li style="width:110px;">运价</li>
+        <li style="width:110px;">有效期</li>
+        <li style="width:40px;">操作</li>
+      </ul>
+      <div class="hyTab txtScroll-top">
+      	<div class="hd"></div>
+        <div class="bd">
+        	<ul class="hytabList">
+            <li>
+            	<div style="width:250px;" class="listFloat"><div class="green">湖南长沙市-全国</div><div class="hyCom">广东德力智慧物流股份有限公司</div></div>
+              <div style="width:156px;" class="listFloat"><div>二氧化硒</div></div>
+              <div style="width:128px;" class="listFloat"><div>3682.89</div></div>
+              <div style="width:125px;" class="listFloat"><div>待议</div></div>
+              <div style="width:125px;" class="listFloat"><div>2016.03.05</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">查看</a></div>
+            </li>
+            <li>
+            	<div style="width:250px;" class="listFloat"><div class="green">湖南长沙市-全国</div><div class="hyCom">广东德力智慧物流股份有限公司</div></div>
+              <div style="width:156px;" class="listFloat"><div>二氧化硒</div></div>
+              <div style="width:128px;" class="listFloat"><div>3682.89</div></div>
+              <div style="width:125px;" class="listFloat"><div>待议</div></div>
+              <div style="width:125px;" class="listFloat"><div>2016.03.05</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">查看</a></div>
+            </li>
+            <li>
+            	<div style="width:250px;" class="listFloat"><div class="green">湖南长沙市-全国</div><div class="hyCom">广东德力智慧物流股份有限公司</div></div>
+              <div style="width:156px;" class="listFloat"><div>二氧化硒</div></div>
+              <div style="width:128px;" class="listFloat"><div>3682.89</div></div>
+              <div style="width:125px;" class="listFloat"><div>待议</div></div>
+              <div style="width:125px;" class="listFloat"><div>2016.03.05</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">查看</a></div>
+            </li>
+            <li>
+            	<div style="width:250px;" class="listFloat"><div class="green">湖南长沙市-全国</div><div class="hyCom">广东德力智慧物流股份有限公司</div></div>
+              <div style="width:156px;" class="listFloat"><div>二氧化硒</div></div>
+              <div style="width:128px;" class="listFloat"><div>3682.89</div></div>
+              <div style="width:125px;" class="listFloat"><div>待议</div></div>
+              <div style="width:125px;" class="listFloat"><div>2016.03.05</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">查看</a></div>
+            </li>
+            <li>
+            	<div style="width:250px;" class="listFloat"><div class="green">湖南长沙市-全国</div><div class="hyCom">广东德力智慧物流股份有限公司</div></div>
+              <div style="width:156px;" class="listFloat"><div>二氧化硒</div></div>
+              <div style="width:128px;" class="listFloat"><div>3682.89</div></div>
+              <div style="width:125px;" class="listFloat"><div>待议</div></div>
+              <div style="width:125px;" class="listFloat"><div>2016.03.05</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">查看</a></div>
+            </li>
+            <li>
+            	<div style="width:250px;" class="listFloat"><div class="green">湖南长沙市-全国</div><div class="hyCom">广东德力智慧物流股份有限公司</div></div>
+              <div style="width:156px;" class="listFloat"><div>二氧化硒</div></div>
+              <div style="width:128px;" class="listFloat"><div>3682.89</div></div>
+              <div style="width:125px;" class="listFloat"><div>待议</div></div>
+              <div style="width:125px;" class="listFloat"><div>2016.03.05</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">查看</a></div>
+            </li>
+            <li>
+            	<div style="width:250px;" class="listFloat"><div class="green">湖南长沙市-全国</div><div class="hyCom">广东德力智慧物流股份有限公司</div></div>
+              <div style="width:156px;" class="listFloat"><div>二氧化硒</div></div>
+              <div style="width:128px;" class="listFloat"><div>3682.89</div></div>
+              <div style="width:125px;" class="listFloat"><div>待议</div></div>
+              <div style="width:125px;" class="listFloat"><div>2016.03.05</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">查看</a></div>
+            </li>
+            <li>
+            	<div style="width:250px;" class="listFloat"><div class="green">湖南长沙市-全国</div><div class="hyCom">广东德力智慧物流股份有限公司</div></div>
+              <div style="width:156px;" class="listFloat"><div>二氧化硒</div></div>
+              <div style="width:128px;" class="listFloat"><div>3682.89</div></div>
+              <div style="width:125px;" class="listFloat"><div>待议</div></div>
+              <div style="width:125px;" class="listFloat"><div>2016.03.05</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">查看</a></div>
+            </li>
+            <li>
+            	<div style="width:250px;" class="listFloat"><div class="green">湖南长沙市-全国</div><div class="hyCom">广东德力智慧物流股份有限公司</div></div>
+              <div style="width:156px;" class="listFloat"><div>二氧化硒</div></div>
+              <div style="width:128px;" class="listFloat"><div>3682.89</div></div>
+              <div style="width:125px;" class="listFloat"><div>待议</div></div>
+              <div style="width:125px;" class="listFloat"><div>2016.03.05</div></div>
+              <div style="width:40px;" class="listFloat"><a href="javascript:void(0);">查看</a></div>
+            </li>
+          </ul>
+          </div>
+      </div>
+    </div>
+    <!--货源滚动 end-->
+    
+	</div>
+  
+  
+  <div class="rightBox">
+  	<!--单图广告-->
+    <div class="oneAdpic">
+        <a href="javascript:void(0);"><img src="${webroot}/resources/web/pic/ad331_309.jpg" width="331" height="309">
+    </div>
+    <!--单图广告 end-->
+    
+    <div class="btnArea">
+      <a href="javascript:void(0);" class="fbBtns" style="margin-right:2px;">车源发布</a><a href="javascript:void(0);"  class="fbBtns">货源发布</a>
+      <div class="clear"></div>
+    </div>
+    
+     <!--最新加盟-->
+    <div class="jmBox">
+    	<div class="boxTit"><h2>最新加盟</h2><a href="javascript:void(0);" class="btnjr">我要加入...</a></div>
+       <ul class="tjList">
+       	<li><a href="javascript:void(0);">邯郸万合物流有限公司</a><em>荐</em></li>
+        <li><a href="javascript:void(0);">广东德力智慧物流股份有限公司</a><em>荐</em></li>
+        <li><a href="javascript:void(0);">日照奥迅达运输有限公司</a><em>荐</em></li>
+        <li><a href="javascript:void(0);">安徽华鑫物流</a><em>荐</em></li>
+        <li><a href="javascript:void(0);">常州市中油华东危险品运输有限公司</a><em>荐</em></li>
+       </ul>
+       <ul class="jmList">
+       	<li><a href="javascript:void(0);">邯郸万合物流有限公司</a></li>
+        <li><a href="javascript:void(0);">广东德力智慧物流股份有限公司</a></li>
+        <li><a href="javascript:void(0);">日照奥迅达运输有限公司</a></li>
+        <li><a href="javascript:void(0);">安徽华鑫物流</a></li>
+        <li><a href="javascript:void(0);">常州市中油华东危险品运输有限公司</a></li>
+        <li><a href="javascript:void(0);">山东荣锋货运代理有限公司</a></li>
+        <li><a href="javascript:void(0);">衢州市联众物流有限公司</a></li>
+       </ul>
+      
+    </div>
+    
+    <!--物流快讯-->
+    <div class="wlkx">
+    	<div class="boxTit"><h2>物流快讯</h2></div>
+       <ul class="wlList">
+       	<li><em></em><a href="javascript:void(0);">即日起东莞交警集中整治危化品运输车</a><span>1小时前</span></li>
+        <li><em></em><a href="javascript:void(0);">泰安：危化品运输车超载300% 司机称不超载不挣钱</a><span>1小时前</span></li>
+        <li><em></em><a href="javascript:void(0);">广东加快高速公路建设今年计划投资850亿</a><span>1小时前</span></li>
+        <li><em></em><a href="javascript:void(0);">“十三五”湖南将投资1500亿元用于高速公路建设</a><span>1小时前</span></li>
+        <li><em></em><a href="javascript:void(0);">暴雨导致公路积水或溜方 公路人冒雨护路保保运输畅通</a><span>1小时前</span></li>
+       </ul>
+    </div>
+    
+  </div>
+  
+  <div class="clear"></div>
+    
+</div>
+<!--底部-->
+<div class="footer">
+  <div class="wrapper">
+        <dl class="footerItem">
+          <dt>新手指导</dt>
+          <dd>
+              <li><a href="javascript:void(0);">注册登录</a></li>
+              <li><a href="javascript:void(0);">忘记密码</a></li>
+              <li><a href="javascript:void(0);">企业认证</a></li>
+              <li><a href="javascript:void(0);">常见问题</a></li>
+          </dd>
+        </dl>
+        <dl class="footerItem">
+            <dt>服务与支持</dt>
+            <dd>
+                <li><a href="javascript:void(0);">主营业务</a></li>
+                <li><a href="javascript:void(0);">商品管理流程</a></li>
+                <li><a href="javascript:void(0);">危废再循环流程</a></li>
+                <li><a href="javascript:void(0);">技术和设备</a></li>
+            </dd>
+        </dl>
+        <dl class="footerItem">
+            <dt>安全保障</dt>
+            <dd>
+                <li><a href="javascript:void(0);">平台安全</a></li>
+                <li><a href="javascript:void(0);">交易服务协议</a></li>
+                <li><a href="javascript:void(0);">平台交易规则</a></li>
+                <li><a href="javascript:void(0);">信息发布规则</a></li>
+            </dd>
+        </dl>
+        <dl class="footerItem">
+            <dt>关于我们</dt>
+            <dd>
+                <li><a href="javascript:void(0);">产品和服务</a></li>
+                <li><a href="javascript:void(0);">特点与优势</a></li>
+                <li><a href="javascript:void(0);">公司介绍</a></li>
+                <li><a href="javascript:void(0);">联系我们</a></li>
+            </dd>
+        </dl>
+        <dl class="footerItem">
+            <dt>危废通 扫码安装</dt>
+            <dd><img src="${webroot}/resources/web/pic/erweima.jpg" width="100" height="100" alt="二维码"></dd>
+        </dl>
+        <div class="clear"></div>
+	</div>
+    <div class="footerBottom">
+   	  <div class="wrapper">
+            <div class="footerBottomLeft">© 2015 湖南三分地环保信息科技有限公司 蜀ICP备14005736号-5</div>
+            <div class="footerBottomRight">总部基地：湖南省永兴县便江镇荣裕国际新城8栋401室<br>技术中心：成都市高新区吉泰路666号花样年·福年广场2-1309室</div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+<!--底部 end-->
+<script>
+$(document).ready(function() {
+
+	jQuery(".txtScroll-left").slide({mainCell:".bd ul",autoPlay:true,effect:"leftMarquee",interTime:50,vis:4,trigger:"click"});
+	/*最新信息滚动*/
+	
+	jQuery(".txtScroll-top").slide({titCell:".hd ul",mainCell:".bd ul",autoPage:true,effect:"top",autoPlay:true,vis:6});
+	/*列表信息滚动*/
+		
+});
+</script>
+<div style="display:none;">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255237573'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1255237573' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>

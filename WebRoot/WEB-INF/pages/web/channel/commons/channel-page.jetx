@@ -1,0 +1,53 @@
+#define(com.ekfans.pub.util.Pager pager)
+			
+<div class="pageSize">
+	<a href="javascript:void(0);" onclick="goPage('1');" class="pageLast" value="1">&lt;&lt;</a>
+			
+	#if(pager.totalPage>6)
+		#if(pager.currentPage-2>1 && pager.currentPage+3<pager.totalPage)
+			<a>..</a>
+			#for(int i : iterator(pager.currentPage-1,pager.currentPage+1))
+				#if(pager.currentPage==i)
+					<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="page nowPage">${i }</a>
+				#else
+					<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="page">${i }</a>
+				#end
+			#end
+			<a>..</a>
+			#for(int i : iterator(pager.totalPage-2,pager.totalPage))
+				<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="page">${i }</a>
+			#end
+		#elseif(pager.currentPage-2<=1)
+			#for(int i : iterator(1,3))
+				#if(pager.currentPage==i)
+					<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="page nowPage">${i }</a>
+				#else
+					<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="page">${i }</a>
+				#end
+			#end
+			<a>..</a>
+			#for(int i : iterator(pager.totalPage-2,pager.totalPage))
+				<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="page">${i }</a>
+			#end
+		#else
+			<a>..</a>
+			#for(int i : iterator(pager.totalPage-5,pager.totalPage))
+				#if(pager.currentPage==i)
+					<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="page nowPage">${i }</a>
+				#else
+					<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="page">${i }</a>
+				#end
+			#end
+		#end
+	#else
+		#for(int i : iterator(1,pager.totalPage))
+			#if(pager.currentPage==i)
+				<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="page nowPage">${i }</a>
+			#else
+				<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="page">${i }</a>
+			#end
+		#end
+	#end
+							
+	<a href="javascript:void(0);" onclick="goPage('${pager.totalPage }');" value="${pager.totalPage }" class="pageNext">&gt;&gt;</a>
+</div>

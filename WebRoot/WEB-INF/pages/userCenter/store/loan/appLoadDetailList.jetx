@@ -1,0 +1,158 @@
+<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+#define(com.ekfans.base.store.model.Store Store)
+
+#set(String mustId = "")
+  #set(mustId = mustId + "price-融资金额-input;")
+  <div class="upBox">
+    <div class="upName"><em class="mustIco"></em>融资金额</div>
+    <input type="text" name="price" id="price" value="" class="textBox box184" placeholder="单位为：元" onkeyup="javascript:clearNoNum(this);"/>
+ </div>
+#for(com.ekfans.base.loan.model.LoanTypeDetail detail:detailList)
+  <input name="${detail.id}TypeDetailId" id="${detail.id}TypeDetailId" type="hidden" class="textBox box184" value="${detail.id}" />
+  <div class="upBox #if(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_CKEDITOR == detail.type) upBoxLine #end">
+    <div class="upName">#if(detail.commentType)<em class="mustIco"></em>#end ${detail.name}</div>
+    #if(detail.commentType && @(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_SHOP != detail.type)
+      #set(mustId = mustId + detail.id + "-" + detail.name +"-")
+    #end
+    #if(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_SHOP == detail.type)
+      #if(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_CODE_YW == detail.nameCode)
+        <div class="fileUpload">
+			<a href="${webroot}/store/loan/viewHistoreOrders?storeId=${Store.id}" class="btnUpload btnlook" target="_blank" style="width:120px">查看历史业务数据</a>
+        </div>
+      #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_CODE_WL == detail.nameCode)
+        <div class="fileUpload">
+          <a href="javascript:viewWlls('${Store.id}');" class="btnUpload btnlook" target="_blank" style="width:140px">查看跟下游企业往来流水</a>
+        </div>
+      #end
+    #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_PIC == detail.type)
+      #if(detail.commentType)
+        #set(mustId = mustId + "file")
+      #end
+      #set(String picValue="")
+      #if(!@(com.ekfans.pub.util.StringUtil).isEmpty(detail.nameCode) && @(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_CODE_YYZZ == detail.nameCode)
+        #set(picValue= Store.businessLicense)
+      #elseif(!@(com.ekfans.pub.util.StringUtil).isEmpty(detail.nameCode) && @(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_CODE_DMZ == detail.nameCode)
+        #set(picValue= Store.creditCodeCard)
+      #end
+      #tag picUpload(detail.id,"5","20","20",picValue) #end
+    #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_EXCEL == detail.type)
+      #if(detail.commentType)
+        #set(mustId = mustId + "file")
+      #end
+      #tag fileUpload(detail.id,"excel","") #end  
+    #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_WORD == detail.type)
+      #if(detail.commentType)
+        #set(mustId = mustId + "file")
+      #end
+      #set(String wordValue = "")
+      #if(!@(com.ekfans.pub.util.StringUtil).isEmpty(detail.nameCode) && @(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_CODE_JJ == detail.nameCode)
+        #set(wordValue= Store.synopsis)
+      #end
+      #tag fileUpload(detail.id,"word",wordValue) #end
+    #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_PDF == detail.type)
+      
+      #if(!@(com.ekfans.pub.util.StringUtil).isEmpty(detail.nameCode) && @(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_CODE_ORDER == detail.nameCode)
+        #if(detail.commentType)
+          #set(mustId = mustId + "chose")
+        #end
+        <!-- 订单选择-->
+        <div class="clickAbout">
+          <input name="${detail.id}Name" id="${detail.id}Name" type="text" class="textBox box184" value="" placeholder="点击右侧按钮选择订单" readonly>
+          <input name="${detail.id}" id="${detail.id}" type="hidden" class="textBox box184" value="" >
+          <input name="${detail.id}ValueType" id="${detail.id}ValueType" type="hidden" class="textBox box184" value="">
+          <span class="pp clickBrand" title="点击选择订单" id="choseOrderSpan" showId="${detail.id}"></span>
+        </div>
+      #elseif(!@(com.ekfans.pub.util.StringUtil).isEmpty(detail.nameCode) && @(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_CODE_CONTRACT == detail.nameCode)
+        #if(detail.commentType)
+          #set(mustId = mustId + "choseOrfile")
+        #end
+		<span class="radio"><label><input name="contractType" onclick="changeContractType('0')" type="radio" value="0" checked >上传</label></span> &nbsp; &nbsp;
+		<span class="radio"><label><input name="contractType" onclick="changeContractType('1')" type="radio" value="1" >选择</label></span>
+		<div id="contractUpload">
+			#tag fileUpload(detail.id,"pdf","") #end 
+		</div>
+		<div id="contractChose" style="display:none">
+			<!-- 合同选择-->
+			<div class="clickAbout">
+				<a href="javascript:void(0);" target="_blank" id="${detail.id}View">
+				<!-- 默认提交pdf文件形式，故disabled所有input -->
+				<input name="${detail.id}Name" id="${detail.id}Name" type="text" class="textBox box184" value=""  disabled="disabled" readonly style="cursor:pointer;" placeholder="点击右侧按钮选择合同"></a>
+				<input name="${detail.id}" id="${detail.id}" type="hidden" class="textBox box184" value="" disabled="disabled">
+				<input name="${detail.id}ValueType" id="${detail.id}ValueType" type="hidden" class="textBox box184" value="" disabled="disabled">
+				<span class="pp clickBrand" title="点击选择合同" id="choseContractSpan" showId="${detail.id}"></span>
+			</div>
+		</div>
+      #else
+        #if(detail.commentType)
+          #set(mustId = mustId + "file")
+        #end
+        #set(String pdfValue = "")
+        #if(!@(com.ekfans.pub.util.StringUtil).isEmpty(detail.nameCode) && @(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_CODE_ZC == detail.nameCode)
+          #set(pdfValue= Store.articles)
+        #end
+        #tag fileUpload(detail.id,"pdf",pdfValue) #end
+      #end
+    #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_INPUT == detail.type)
+      #if(detail.commentType)
+        #set(mustId = mustId + "input")
+      #end
+      <input type="text" name="${detail.id}" id="${detail.id}" class="textBox box184" value="" placeholder="${detail.note}"/>
+    #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_TEXTAREA == detail.type)
+      #if(detail.commentType)
+        #set(mustId = mustId + "testArea")
+      #end
+      <textarea name="${detail.id}" id="${detail.id}" cols="" rows="" class="textarea" ></textarea>
+    #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_CHECKBOX == detail.type)
+      #if(detail.commentType)
+        #set(mustId = mustId + "checkBox")
+      #end
+      #set(String[] typeValues = detail.typeValue.split(";"))
+      #for(String typeValue:typeValues)
+        <label class="checkbox"><input type="checkbox" name="${detail.id}" value="${typeValue}">${typeValue}</label>
+      #end  
+    #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_RADIO == detail.type)
+      #if(detail.commentType)
+        #set(mustId = mustId + "radio")
+      #end
+      #set(String[] typeValues = detail.typeValue.split(";"))
+      #for(String typeValue:typeValues)
+        <label class="radio"><input type="radio" name="${detail.id}" value="${typeValue}"  #if(for.first) checked #end>${typeValue}</label>
+      #end
+    #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_SELECT == detail.type)
+      #if(detail.commentType)
+        #set(mustId = mustId + "select")
+      #end
+      #set(String[] typeValues = detail.typeValue.split(";"))
+      <select name="${detail.id}" id="${detail.id}">
+        <option>请选择</option>
+        #for(String typeValue:typeValues)
+          <option value="${typeValue}">${typeValue}</option>
+        #end
+      </select>
+    #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_DATE == detail.type)
+      #if(detail.commentType)
+        #set(mustId = mustId + "input")
+      #end
+      <input type="text" name="${detail.id}" id="${detail.id}" class="textBox box184" value="" placeholder="${detail.note}" readonly onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"/> 
+    #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_DATETIME == detail.type)
+      #if(detail.commentType)
+        #set(mustId = mustId + "input")
+      #end
+      <input type="text" name="${detail.id}" id="${detail.id}" class="textBox box184" value="" placeholder="${detail.note}" readonly onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/> 
+    #elseif(@(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_CKEDITOR == detail.type)
+      #if(detail.commentType)
+        #set(mustId = mustId + "ckeditor")
+      #end
+      <textarea name="${detail.id}" id="${detail.id}" class="ckeditor"></textarea>
+      <script type="text/javascript">
+        CKEDITOR.replace("${detail.id}"); 
+      </script>
+    #end
+    #if(detail.commentType && @(com.ekfans.base.loan.util.LoanTypeUtil).LOAN_DETAIL_TYPE_SHOP != detail.type)
+      #set(mustId = mustId + ";")
+    #end
+    
+  </div>
+#end
+<input type="hidden" name="mustId" id="mustId" value="${mustId}"/>
+<div class="clear"></div>

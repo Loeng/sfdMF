@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>新增后台角色</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/add.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/store/account/add.js"></script>
+</head>
+
+<body>
+#define(List<com.ekfans.base.store.model.StorePurview> purviewList)
+<input type="hidden" id="ctxpath" value="${webroot}" />
+
+<div class="ht_btn">
+	<a href="javascript:formSubmit();" class="btn">保存</a>
+	<a href="javascript:reset();" class="btn">重置</a>
+	<a href="javascript:goBack();" class="btn">返回列表</a>
+</div>
+<form action="${webroot}/system/store/account/save" method="post" id="addRoleForm">
+	<input type="hidden" name="storeId" value="${storeId}" />
+	<input type="hidden" name="type" value="${type}" />
+	
+	<div class="add_pro">
+		<dl class="formBox">
+			<dt><em class="mustIco"></em>邮箱</dt>	
+			<dd>
+				<input name="name" type="text" class="i_bg" onblur="checkNameBlur()" />
+				<span class="ts_xx"></span>
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt><em class="mustIco"></em>密码</dt>	
+			<dd>
+				<input name="password" type="password" class="i_bg" onblur="checkPasswordBlur()" />
+				<span class="ts_xx"></span>
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt><em class="mustIco"></em>管理员</dt>	
+			<dd>
+				<input name="contactName" type="text" class="i_bg" onblur="checkContactNameBlur()" />
+				<span class="ts_xx"></span>
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt>部门名称</dt>
+			<dd>
+				<input name="department" type="text" class="i_bg" />
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt>联系电话</dt>	
+			<dd>
+				<input name="contactPhone" type="text" class="i_bg" />
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt>备注</dt>
+			<dd>
+				<textarea name="note" maxlength="100"></textarea>
+			</dd>
+		</dl>
+		<div class="clear"></div>
+		<dl>
+			<dt>权限设置</dt>
+			<dd></dd>
+		</dl>
+		<h3 class="limitAll"><label><span class="check"><em><input type="checkbox" /></em></span>全选</label></h3>
+		#if(purviewList!=null && purviewList.size()>0)
+			#for(com.ekfans.base.store.model.StorePurview sp : purviewList)
+				<div class="limitList limits">
+					<h3 class="limitItem">
+						<label>
+							<span class="check">
+								<em>
+									<input type="checkbox" name="purviewId" value="${sp.id}" />
+								</em>
+							</span>
+							${sp.className}
+						</label>
+					</h3>
+					<div class="limitList">
+						#for(com.ekfans.base.store.model.StorePurview sp1 : sp.childList)
+							<h3 class="limitItem">
+								<label>
+									<span class="check">
+										<em>
+											<input type="checkbox" name="purviewId" value="${sp1.id}" />
+										</em>
+									</span>
+									${sp1.className}
+								</label>
+							</h3>
+							<div class="limitList">
+								#for(com.ekfans.base.store.model.StorePurview sp2 : sp1.childList)
+									<h3 class="limitItem">
+										<label>
+											<span class="check">
+												<em>
+													<input type="checkbox" name="purviewId" value="${sp2.id}" />
+												</em>
+											</span>
+											${sp2.className}
+										</label>
+									</h3>
+								#end	
+							</div>	
+						#end
+					</div>
+				</div>
+			#end
+		#end
+	</div>
+</form>
+</body>
+</html>

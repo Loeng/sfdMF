@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+		<title>商户中心</title>
+		<link href="${webroot}/resources/store/css/map/map.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=E3ed39df683a72ffe13a56804700ca74"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/modernizr.custom.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/store/js/product/storeProductAdd.js"></script>
+	</head>
+	<body>
+	
+		<div class="sto_right">
+		<table cellpadding="0" cellspacing="0" border="0" class="list_ss">
+			<tr>
+				<td>资金流向&nbsp;&nbsp;&nbsp;&nbsp;<input name="" type="checkbox" value="">收入&nbsp;&nbsp;&nbsp;&nbsp;<input name="" type="checkbox" value="">支出</td>
+				<td>金额区间&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="i_text" style="width:100px;">&nbsp;至&nbsp;<input type="text" class="i_text" style="width:100px;" ></td>
+			</tr>
+			<tr>
+				<td colspan="2">起止时间&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="i_text" style="width:100px;">&nbsp;至&nbsp;<input type="text" class="i_text" style="width:100px;" ></td>
+			</tr>
+		</table>
+		<div class="list_ss_btn">
+			<a href="#">搜索</a>
+			<a href="#">清空</a>
+		</div>
+        <div class="billCount">总收入：<span class="income">3547821.25</span>&nbsp;&nbsp;&nbsp;&nbsp;总支出：<span class="expend">3547821.25</span></div>
+		<div class="list_bt"><h3>账单流水</h3></div>
+		<table cellpadding="0" cellspacing="0" border="0" class="sh_list">
+			<tr>
+            	<th width="6%"></th>
+				<th width="20%">流水号</th>
+				<th width="20%">发生时间</th>
+				<th width="22%">名称/备注</th>
+				<th width="18%">发生金额</th>
+				<th width="14%">操作</th>
+			</tr>
+			<tr>
+            	<td><input name="" type="checkbox" value="" class="orderCheck"></td>
+				<td>201458756</td>
+				<td>2014-10-26</td>
+				<td>售出-iphone5s</td>
+				<td><span class="income">+5288.00</span></td>
+                <td><a href="#">删除</a></td>
+			</tr>
+            <tr>
+            	<td><input name="" type="checkbox" value="" class="orderCheck"></td>
+				<td>201458756</td>
+				<td>2014-10-26</td>
+				<td>退款-iphone5s</td>
+				<td><span class="expend">-5288.00</span></td>
+                <td><a href="#">删除</a></td>
+			</tr>
+            <tr>
+            	<td><input name="" type="checkbox" value="" class="orderCheck"></td>
+				<td>201458756</td>
+				<td>2014-10-26</td>
+				<td>售出-iphone5s</td>
+				<td><span class="income">+5288.00</span></td>
+                <td><a href="#">删除</a></td>
+			</tr>
+            <tr>
+            	<td><input name="" type="checkbox" value="" class="orderCheck"></td>
+				<td>201458756</td>
+				<td>2014-10-26</td>
+				<td>退款-iphone5s</td>
+				<td><span class="expend">-5288.00</span></td>
+                <td><a href="#">删除</a></td>
+			</tr>
+		</table>
+		<div class="sh_list_cz">
+			<div class="sto_page">
+				<a href="#"><<</a>
+				<a href="#" class="cur">1</a>
+				<a href="#">2</a>
+				<a href="#">3</a>
+				<a href="#">4</a>
+				<a href="#">5</a>
+				<span>...</span>
+				<a href="#">>></a>
+			</div>
+			<input type="checkbox" name="" value="">全选&nbsp;&nbsp;
+			<span class="del">删除</span>
+		</div>
+	</div>
+</div>
+
+
+
+
+	</body>
+</html>

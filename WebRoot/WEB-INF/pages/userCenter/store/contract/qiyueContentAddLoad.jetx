@@ -1,0 +1,461 @@
+#define(List<com.ekfans.base.wfOrder.model.ContractContent> contents)
+#define(com.ekfans.base.wfOrder.model.Contract contract)
+#define(com.ekfans.base.store.model.Store store)
+#set(java.text.NumberFormat nf = @(java.text.NumberFormat).getInstance())
+
+<span class="tipSpan">
+	含量区间为向上包含，如:30-50表示大于或等于30，小于50。如果是30-0或者30-空，则表示大于或等于30。<br/>
+	如果区间存在交叉，则会取价格较高的那一列(不区分收费与付费)。</span>
+<!--元素添加结果-->
+<div class="wfpBox">
+	#for(com.ekfans.base.wfOrder.model.ContractContent content:contents)
+		#set(String conValues = content.name + ";" + content.chargingType + ";" + content.chargingUnit + ";{")
+		<div class="wfpList" id="${content.id}Id">
+			<div class="wTitle"><span class="wname">${content.name}</span></div>
+			<table border="0" cellspacing="0" cellpadding="0" class="wfTab">
+				<thead>
+					<tr>
+						<th class="tLeft copyQujianTit">区间(${content.chargingType == "0"?"%":content.chargingUnit+"/吨"})</th>
+						<th class="tLeft">付费类型</th>
+						<th class="tRight copyPriceTit">计价系数</th>
+					</tr>
+				</thead>
+				#set(List<com.ekfans.base.wfOrder.model.ContractDetails> details = content.childList)
+				<tbody class="copyTbody">
+					#for(com.ekfans.base.wfOrder.model.ContractDetails detail:details)
+						<tr class="copyTr">
+							<td class="tLeft copyQujian">${detail.startRegion} ${detail.endRegion<=0?"以上":("-"+detail.endRegion)}</td>
+							<td class="tLeft copyFufeiType">
+								#if((detail.type=="0" && contract.creatorId == store.id) || (detail.type=="1" && contract.creatorId != store.id))
+									收费 
+								#else
+									付费
+								#end	
+							</td>
+							<td class="tRight copyPrice" >${nf.format(detail.price)}%</td>
+						</tr>
+						#if(!for.first)
+							#set(conValues=conValues +  "|")
+						#end
+						#set(conValues= conValues +  detail.startRegion + "," + detail.endRegion + "," + nf.format(detail.price) + "," +(detail.type=="0"?"收费":"付费"))
+					#end
+				</tbody>
+			</table>
+			#set(conValues = conValues + "};" + (content.type?"1":"0"))
+			<input type="hidden" id="${content.id}ContentId" name="contentValues" class="contentValue" value="${conValues}"/>
+			#if(bjStatus == "true")
+				<a href="javascript:void(0);" id="${content.id}Content" class="btnBase btnEdit">编辑</a>
+				#if(!for.first)
+				<a href="javascript:void(0);" class="btnBase btnDelete">删除</a>
+				#end
+			#end
+		</div>
+	#end
+	<div class="wfpList addBox2" style="display:none">
+		<a href="javascript:void(0);" class="btnAdd" id="addWFYS" title="新增危废品元素" ></a>
+	</div>
+	<div class="clear"></div>
+</div>
+<!--元素添加结果 end-->
+
+
+<div class="alertLayerBg2"></div>
+<div class="altBox">
+	<h2>添加微量元素</h2>
+  <div class="serchBox">
+    <dl class="formItem" style="width:196px;">
+      <dt>微量元素名称</dt>
+      <dd ><input name="wlysName" id="sf" type="text" class="textBox box98"></dd>
+      <dd class="clear"></dd>
+    </dl>
+    <dl class="formItem" style="width:196px;">
+      <dt>计价方式</dt>
+      <dd>
+				<select class="textBox box98 countStyle" name="wlysType">
+				  <option value="0">百分比</option>
+				  <option value="1">单位计量</option>
+				</select>
+      </dd>
+      <dd class="clear"></dd>
+    </dl>
+    <dl class="formItem" style="width:196px; display:none;" id="wlysUnitDiv">
+      <dt>计价单位</dt>
+      <dd>
+      	<select class="textBox box98" name="wlysUnit" id="wlysUnit">
+				  <option value="g">g</option>
+				  <option value="kg">kg</option>
+				</select>
+      <dd class="clear"></dd>
+    </dl>
+    <div class="clear"></div>
+  </div>
+  <div class="addBox">
+  	<div class="tbList">
+	    <div class="gaoBox">
+	  		<div class="tbLine">
+				  <dl class="formItem">
+				    <dt>区间</dt>
+				    <dd><input name="qujian1" id="qj1" type="text" value="0" class="textBox box58 qkong"></dd>
+				    <dd class="lineColor">&nbsp;—&nbsp;</dd>
+				    <dd><input name="qujian2" id="qj2" type="text" value="0" class="textBox box58 qkong"></dd>
+				    <dd style="padding-left:5px;" class="qujianUnit">%</dd>
+				    <dd class="clear"></dd>
+				  </dl>
+				  <dl class="formItem">
+				    <dt>计价系数</dt>
+				    <dd><input name="qujianPrice" id="pricehh" value="0" type="text" class="textBox box58 qkong"></dd>
+				    <dd class="tips">%</dd>
+				    <dd class="clear"></dd>
+				  </dl>
+				  <dl class="formItem" style="width:140px;">
+				    <dt>付费类型</dt>
+				    <dd>
+				      <div class="selList"> <span class="textBox">
+				      <input name="qujianPayType" type="text" class="box184" placeholder="收费"  value="收费" readonly>
+				      <em class="iconDown"></em> </span>
+				      <ul>
+				        <li>免费</li>
+				        <li>收费</li>
+				        <li>付费</li>
+				      </ul>
+				    </div>
+				    </dd>
+				    <dd class="clear"></dd>
+				  </dl>
+				  <div class="danwei"><a href="javascript:void(0);" class="btnBase deleteLine">删除</a></div>
+				  <div class="clear"></div>
+				</div>
+		  </div>
+  		<div class="tbAdd">	
+      	<a href="javascript:void(0);" class="btnBase addLine">添加一列</a>	
+      	<a href="javascript:void(0);" id="addWFYSsure" class="btnBase btnSure">确定</a>
+        <a href="javascript:void(0);" id="addWFYSclose" class="btnBase btnClose">关闭</a>	
+        <input type="hidden" name="qujianType" value="0">
+				<input type="hidden" name="editId" value="">
+				<div class="clear"></div>
+      </div>
+		</div>
+  </div>
+</div>
+
+<div class="copyBox"  style="display:none;">
+<div class="wfpList"  id="replaceIdFirstDiv">
+	<div class="wTitle"><span class="wname"></span></div>
+	<table border="0" cellspacing="0" cellpadding="0" class="wfTab">
+		<thead>
+			<tr>
+				<th class="tLeft copyQujianTit">区间（%）</th>
+				<th class="tLeft">付费类型</th>
+				<th class="tRight copyPriceTit">计价系数</th>
+			</tr>
+		</thead>
+		<tbody class="copyTbody">
+			<tr class="copyTr">
+				<td class="tLeft copyQujian" ></td>
+				<td class="tLeft copyFufeiType" ></td>
+				<td class="tRight copyPrice" ></td>
+			</tr>
+		</tbody>
+	</table>
+	<input type="hidden"  id="replaceIdContentId" name="contentValues" class="contentValue" value=""/>
+	<a href="javascript:void(0);" id="replaceIdContent" class="btnBase btnEdit">编辑</a>
+  <a href="javascript:void(0);" class="btnBase btnDelete">删除</a>
+</div>
+</div>
+
+<script>
+	
+	String.prototype.replaceAll = function(reallyDo, replaceWith, ignoreCase) {  
+    if (!RegExp.prototype.isPrototypeOf(reallyDo)) {  
+        return this.replace(new RegExp(reallyDo, (ignoreCase ? "gi": "g")), replaceWith);  
+    } else {  
+        return this.replace(reallyDo, replaceWith);  
+    }  
+}  
+$(document).ready(function() {
+    $(".addLine").live("click",function() {
+      var obj=$(this).parent().prev(".gaoBox").find(".tbLine:last").clone();
+      var qj2Val = obj.find("#qj2").val();
+			obj.find(".qkong").val("0");
+			obj.find("#qj1").val(qj2Val);
+			if(obj.find(".deleteLine").length<1){
+				obj.children(".danwei").append('<a href="javascript:void(0);" class="btnBase deleteLine">删除</a>');
+			}
+			$(this).parent().prev(".gaoBox").append(obj);
+    });
+	
+	clear();
+	$(".deleteLine").live("click",function(){
+		var obj=$(this).parents(".tbLine").siblings(".tbLine").length;
+		console.log(obj);
+		if(obj<=0){
+			alert("最后一行不能删除！");
+			}
+		else{
+			$(this).parents(".tbLine").remove();
+		}
+	})
+	
+	/**确定按钮**/
+	$("#addWFYSsure").live("click",function(){
+		$(".alertLayerBg2").hide();
+		var copyName = $("input[name='wlysName']").val();
+		if(copyName == "" || copyName == " "){
+		 	alert("请输入微量元素名称");
+		 	$("input[name='wlysName']").focus();
+			return;	
+		}
+		var wlysType = $("select[name='wlysType']").val();
+		var wlysUnit = $("#wlysUnit").val();
+		if(wlysType == "1" && (wlysUnit == "" || wlysUnit == " ")){
+			alert("请输入计价单位");
+			$("input[name='wlysUnit']").focus();
+			return;	
+		}
+		
+		var copyType = $("input[name='qujianType']").val();
+		var editId = $("input[name='editId']").val();
+		var cloneStr;
+		if(editId != "" && editId != " " && editId != null){
+			//编辑	
+			cloneStr = $("#"+editId).clone();
+		}else{
+			//新增
+			cloneStr = $(".copyBox:eq(0)").clone();
+		}
+		var copyContent = copyName +";" + wlysType + ";" + wlysUnit + ";{" ;
+		var qujianTit = "区间(";
+		var danjiaTit = "计价系数";
+		if(wlysType == "0"){
+			qujianTit = qujianTit + "%";
+		}else{
+			qujianTit = qujianTit + wlysUnit + "/吨";
+		}
+		qujianTit = qujianTit + ")";
+		cloneStr.find(".copyQujianTit").html(qujianTit);
+		cloneStr.find(".copyPriceTit").html(danjiaTit);
+		cloneStr.find(".wname").html(copyName);
+		var obj=$(".tbLine");
+		
+		cloneStr.find(".copyTr").not(":eq(0)").remove();
+		var tbCopy = cloneStr.find(".copyTbody:eq(0)").clone();
+		var tbsStr = "";
+		for(var i=0;i<obj.length;i++){
+			var qujian = obj[i];
+			var qujian1 = $(qujian).find("input[name='qujian1']").val();
+			var qujian2 = $(qujian).find("input[name='qujian2']").val();
+			var qujianPrice  = $(qujian).find("input[name='qujianPrice']").val();
+			var qujianPayType = $(qujian).find("input[name='qujianPayType']").val();
+			
+			if(isNaN(qujian1) || parseFloat(qujian1)<0){
+				alert("开始区间必须为大于或等于0的数字");
+				$(qujian).find("input[name='qujian1']").focus();
+				return;
+			}
+			if((!isNaN(qujian2) && parseFloat(qujian2)>0 && (parseFloat(qujian2) < parseFloat(qujian1))) || (qujian2 != "" && qujian2 != " " && isNaN(qujian2))){
+				alert("结束区间必须为大于或等于开始区间的数字");
+				$(qujian).find("input[name='qujian2']").focus();
+				return;
+			}
+			if(isNaN(qujianPrice) || parseFloat(qujianPrice)<0){
+				alert("计价系数必须为大于或等于0的数字");
+				$(qujian).find("input[name='qujianPrice']").focus();
+				return;
+			}
+			
+			if( i!= 0){
+				copyContent = copyContent + "|";
+			}
+			copyContent = copyContent + qujian1 + "," + qujian2 + "," + qujianPrice + "," + qujianPayType;
+			
+			var qujianStrs = qujian1;
+			if(parseFloat(qujian2)>= parseFloat(qujian1)){
+				qujianStrs = qujianStrs + "-" + qujian2;
+			}else{
+				qujianStrs = qujianStrs + "以上";
+			}
+			tbCopy.find(".copyQujian").html(qujianStrs);
+			tbCopy.find(".copyFufeiType").html(qujianPayType);
+			tbCopy.find(".copyPrice").html(qujianPrice +"%");
+			tbsStr = tbsStr + tbCopy.html();
+		}
+		cloneStr.find(".copyTbody").html(tbsStr);
+		copyContent = copyContent + "};" + copyType;
+		cloneStr.find(".contentValue").attr("value",copyContent);
+		cloneStr.show();
+		var copyStrs = cloneStr.html();
+		copyStrs = copyStrs.replaceAll("replaceId",Math.ceil(Math.random()*1000000000));
+		
+		if(editId != "" && editId != " " && editId != null){
+			//编辑
+			$("#"+editId).html(copyStrs);
+		}else{
+			//新增
+			$(".wfpHl").find(".addBox2").before(copyStrs);
+		}
+		var obj=$(this).parent().prev(".gaoBox").find(".tbLine:eq(0)").clone();
+		obj.find(".qkong").val("0");
+		if(obj.find(".deleteLine").length<1){
+			obj.children(".danwei").append('<a href="javascript:void(0);" class="btnBase deleteLine">删除</a>');
+		}
+		$(this).parent().prev(".gaoBox").html(obj);
+		
+		$("input[name='wlysName']").val("");
+		$("select[name='wlysType']").val("0");
+		$("#wlysUnit").val("g");
+		$("input[name='qujianType']").val(0);
+		$("input[name='editId']").val("");
+		$("#wlysUnitDiv").hide();
+		$("#wlysUnit").parents(".altBox").find(".tips").text("%");
+		$("#wlysUnit").parents(".altBox").find(".qujianUnit").text("%");
+			
+		
+		$(this).parents(".altBox").hide();
+		$(".alertLayerBg").hide();
+		clear();
+	});
+	
+	
+	/*编辑打开*/
+	$(".btnEdit").live("click",function() {
+		$(".alertLayerBg2").show();
+		var parentId = $(this).parent().attr("id");
+		var chosedId = $(this).attr("id");
+		var chosedValue =$("#" + chosedId + "Id").val();
+		var values = chosedValue.split(";");
+		var nameStr = values[0];
+		var wlysType = values[1];
+		var wlysUnit = values[2];
+		var priceStr = values[3];
+		var qujianType = values[4];
+		priceStr = priceStr.replace("{","");
+		priceStr = priceStr.replace("}","");
+		var prices = priceStr.split("|");
+		$("input[name='wlysName']").val(nameStr);
+		$("select[name='wlysType']").val(wlysType);
+		$("#wlysUnit").val(wlysUnit);
+		$("input[name='qujianType']").val(qujianType);
+		$("input[name='editId']").val(parentId);
+		var lineStr = "";
+		var cloneStr = $(".gaoBox").clone();
+		for(var i=0;i<prices.length;i++){
+				var str = prices[i];
+				var strSp = str.split(",");
+				var qujian1 = strSp[0];
+				var qujian2 = strSp[1];
+				var qujianPrice = strSp[2];
+				var qujianPayType = strSp[3];
+				cloneStr.find("input[name='qujian1']").attr("value", qujian1);
+				cloneStr.find("input[name='qujian2']").attr("value", qujian2);
+				cloneStr.find("input[name='qujianPrice']").attr("value", qujianPrice);
+				cloneStr.find("input[name='qujianPayType']").attr("value", qujianPayType);
+				cloneStr.find("input[name='qujianPayType']").attr("placeholder", qujianPayType);
+				
+				lineStr += cloneStr.html();
+		}
+		$(".gaoBox").html(lineStr);
+		$(".altBox").show();
+		$(".alertLayerBg").show();
+		if(wlysType == "1"){
+			$("#wlysUnitDiv").show();
+			$("#wlysUnit").parents(".altBox").find(".tips").text("%");
+			$("#wlysUnit").parents(".altBox").find(".qujianUnit").text(wlysUnit+"/吨");
+		}
+		
+	})
+	/*添加打开*/
+	$("#addWFYS").live("click",function() {
+		var obj=$(this).parent().prev(".gaoBox").find(".tbLine:eq(0)").clone();
+		obj.find(".qkong").val("0");
+		if(obj.find(".deleteLine").length<1){
+			obj.children(".danwei").append('<a href="javascript:void(0);" class="btnBase deleteLine">删除</a>');
+		}
+		$(this).parent().prev(".gaoBox").html(obj);
+		$("input[name='wlysName']").val("");
+		$("select[name='wlysType']").val("0");
+		$("#wlysUnit").val("");
+		$("input[name='qujianType']").val(0);
+		$("input[name='editId']").val("");
+		$("#wlysUnitDiv").hide();
+		$("#wlysUnit").parents(".altBox").find(".tips").text("%");
+		$("#wlysUnit").parents(".altBox").find(".qujianUnit").text("%");
+		$(".altBox").show();
+		$(".alertLayerBg2").show();
+	})
+	/*关闭*/
+	$("#addWFYSclose").live("click",function() {
+		$(".alertLayerBg2").hide();
+		var obj=$(this).parent().prev(".gaoBox").find(".tbLine:eq(0)").clone();
+		obj.find(".qkong").val("0");
+		if(obj.find(".deleteLine").length<1){
+			obj.children(".danwei").append('<a href="javascript:void(0);" class="btnBase deleteLine">删除</a>');
+		}
+		$(this).parent().prev(".gaoBox").html(obj);
+		$("input[name='wlysName']").val("");
+		$("select[name='wlysType']").val("0");
+		$("input[name='wlysUnit']").val("");
+		$("input[name='qujianType']").val(0);
+		$("input[name='editId']").val("");
+		$("#wlysUnitDiv").hide();
+		$("#wlysUnit").parents(".altBox").find(".tips").text("%");
+		$("#wlysUnit").parents(".altBox").find(".qujianUnit").text("%");
+			
+		$(this).parents(".altBox").hide();
+		$(".alertLayerBg").hide();
+	})
+	/*删除*/
+	$(".btnDelete").live("click",function() {
+		$(this).parents(".wfpList").remove();
+		clear();
+	})
+	
+	$(".addshow").live("click",function(){
+	$(".addBox2").show();
+	})
+	
+	$(".addhide").live("click",function(){
+	$(".addBox2").hide();
+	})
+	
+	$(".closeIco").live("click",function(){
+			$(this).parent().parent().remove();
+		});
+	
+ 
+  
+  /*计价方式*/
+	$(".countStyle").change(function(){
+		var text=$(this).children("option:selected").text();
+		if (text=="单位计量"){
+			$(this).parents(".formItem").next(".formItem").show();
+			var text=$("#wlysUnit").val();
+			if(text != "" && text != " " && text != null){
+				$(this).parents(".altBox").find(".tips").text("%");
+				$(this).parents(".altBox").find(".qujianUnit").text(text + "/吨");
+			}
+		}
+		else{
+			$(this).parents(".formItem").next(".formItem").hide();
+			$(this).parents(".altBox").find(".tips").text("%");
+			$(this).parents(".altBox").find(".qujianUnit").text("%");
+		}
+	})
+	$("#wlysUnit").live("change",function(){
+		var text=$(this).val();
+		$(this).parents(".altBox").find(".tips").text("%");
+		$(this).parents(".altBox").find(".qujianUnit").text(text + "/吨");
+	})
+  
+  
+});	
+	
+function clear(){
+	$(".wfpBox .clear").remove();
+	var count=$(".wfpList").length;
+	for(i=0;i<=count;i++){
+		if(i%3==0 && i>0){
+			$(".wfpList").eq(i-1).after("<div class='clear'></div>");
+		}
+	}
+}
+</script>

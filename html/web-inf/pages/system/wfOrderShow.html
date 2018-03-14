@@ -1,0 +1,288 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<link href="../../../resources/system/css/base.css" rel="stylesheet" type="text/css" />
+<link href="../../../resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/commons/css/upload.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../../../resources/system/js/jquery-1.5.1.min.js"></script>
+<script type="text/javascript" src="../../../resources/system/js/base.js"></script>
+<style>
+/*浮动按钮*/
+.ht_btn{border-bottom:1px solid #dbd8d8; overflow:hidden; position:fixed; top:0; left:0; padding:8px 0 0 20px; height:36px; width:100%; background:#fff; background:rgba(255,255,255,0.9); z-index:11;}
+.ht_btn a{float:left; margin-right:2px;}
+.form{margin-top:56px; border-top:none;}
+
+
+.form h3{height:35px; border-bottom:solid 1px #e4e4e4; margin-bottom:20px;}
+.form h3 em{display:inline-block; padding:0 30px; height:30px; line-height:30px; border-bottom-style:solid; border-bottom-width:5px;}
+.formItem{margin-bottom:20px;}
+.formItem .textBox{display:inline-block;}
+.formItem .hint{display:inline-block; padding-left:5px;}
+.formItem4{width:230px; margin-right:12px;}
+.formItem3{width:300px; margin-right:12px;}
+.box120{width:118px;}
+.btnBase{padding:0 18px;}
+.infoTitle{height:28px; line-height:28px; padding-left:20px; font-size:14px;}
+.infoTitle em{padding-right:20px;}
+.lineSplit{height:1px; background:#e4e4e4; margin-bottom:20px;}
+
+.companyItem{margin-bottom:20px;}
+.truckList{width:100%;margin-bottom:10px;}
+.truckList th{padding:0px 10px; height:35px;line-height:35px;color:#292729; font-size:14px;}
+.truckList td{padding:8px 10px; line-height:22px; border-bottom:1px #DCDCDD solid;color:#7D7C7D; max-width:105px; overflow:hidden; text-align:center;}
+.truckList .tabRight{text-align:right;}
+.truckList .tabLeft{text-align:left;}
+.truckList tr:hover{background:#F3F3F3;}
+
+
+.tabList{width:100%;margin-bottom:20px; background:#eeefef;}
+.tabList th{padding:0px 10px; height:35px;line-height:35px;color:#292729; font-size:14px; border-bottom:solid 1px #e4e4e4;}
+.tabList td{padding:8px 10px; line-height:22px; color:#7D7C7D; max-width:105px; overflow:hidden; text-align:center;}
+.tabList .tabRight{text-align:right;}
+.tabList .tabLeft{text-align:left;}
+.tabList tr:hover{background:#F3F3F3;}
+.tabList input{display:inline-block; margin-right:6px;}
+.orderTotal{height:40px; line-height:40px; color:#777; font-size:14px; text-align:right; margin-bottom:20px;}
+.orderTotal em{font-size:24px; padding-right:6px;}
+input.orange,input.green{text-align:right; padding-right:6px;}
+</style>
+</head>
+
+<body>
+<div class="ht_btn sh_btn">
+  <a href="javascript:void(0);" class="btn">返回列表</a>
+</div>
+<div class="form add_pro">
+        	<h3><em class="borderBottomColor">订单基础信息</em></h3>
+            <dl class="formItem">
+                <dt>危废品名称</dt>
+                <dd>废弃的矿渣</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>所属合同</dt>
+                <dd>废弃的矿渣合同BETA版</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>产生方</dt>
+                <dd>废弃的矿渣合同BETA版</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>处置方</dt>
+                <dd>那个啥</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>检测报告</dt>
+                <dd><a href="javascript:void(0);">用户体验交互视觉设计方法论.pdf</a></dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>五联单</dt>
+                <dd><a href="javascript:void(0);">用户体验交互视觉设计方法论.pdf</a></dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+            <h3><em class="borderBottomColor">订单详细信息</em></h3>
+            <!--第一种模式-->
+            <dl class="formItem formItem3">
+                <dt>重量</dt>
+                <dd>
+                    <input name="" type="text" value="2000" class="textBox box120">
+                    <span class="hint">吨</span>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formItem3">
+                <dt>水分</dt>
+                <dd>
+                    <input name="" type="text" value="2000" class="textBox box120">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formItem3">
+                <dt>干重</dt>
+                <dd>
+                    <input name="" type="text" value="2000" class="textBox box120">
+                    <span class="hint">吨</span>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="lineSplit clear"></div>
+            <table border="0" cellspacing="0" cellpadding="0" class="tabList">
+              <tr>
+                <th>元素</th>
+                <th>品味</th>
+                <th>金属量</th>
+                <th>单价</th>
+                <th>小计金额</th>
+              </tr>
+              <tr>
+                <td>金</td>
+                <td><input name="" type="text" value="200.21" class="textBox box98">kg/t</td>
+                <td><input name="" type="text" value="200.21" class="textBox box98">kg/t</td>
+                <td><input name="" type="text" value="200.21" class="textBox box98">元</td>
+                <td><input name="" type="text" value="200.21" class="textBox box98 orange">元</td>
+              </tr>
+              <tr>
+                <td>汞</td>
+                <td><input name="" type="text" value="29.21" class="textBox box98">%</td>
+                <td><input name="" type="text" value="29.21" class="textBox box98">%</td>
+                <td><input name="" type="text" value="200.21" class="textBox box98">元</td>
+                <td><input name="" type="text" value="200.21" class="textBox box98 orange">元</td>
+              </tr>
+              <tr>
+                <td>水分</td>
+                <td><input name="" type="text" value="26.38" class="textBox box98">%</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td><input name="" type="text" value="-1000" class="textBox box98 green">元</td>
+              </tr>
+            </table>
+            <div class="clear"></div>
+            <div class="orderTotal">订单总额：<em class="orange">4444.00</em><span style="color:#333;">元</span></div>
+            <!--第一种模式 end-->
+            
+            <!--第二种模式-->
+            <dl class="formItem formItem4">
+                <dt>重量</dt>
+                <dd>
+                    <input name="" type="text" value="2000" class="textBox box98">
+                    <span class="hint">吨</span>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formItem4">
+                <dt>水分</dt>
+                <dd>
+                    <input name="" type="text" value="2000" class="textBox box98">
+                    <span class="hint">%</span>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formItem4">
+                <dt>一口价</dt>
+                <dd>
+                    <input name="" type="text" value="2000" class="textBox box98">
+                    <span class="hint">元</span>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem formItem4">
+                <dt>水分扣除</dt>
+                <dd>
+                    <input name="" type="text" value="2000" class="textBox box98">
+                    <span class="hint">元</span>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="lineSplit clear"></div>
+            <div class="orderTotal">订单总额：<em class="orange">4444.00</em><span style="color:#333;">元</span></div>
+
+            <!--第二种模式 end-->
+            
+            <h3><em class="borderBottomColor">运输信息</em></h3>
+            <div class="companyItem">
+            	<div class="infoTitle">
+                	<span>运输企业：远大集团</span>
+                </div>
+                <table border="0" cellspacing="0" cellpadding="0" class="truckList">
+                  <tr class="bgColor">
+                    <th>车牌号</th>
+                    <th>核定载人数</th>
+                    <th>车辆类型</th>
+                    <th>核定载质量</th>
+                    <th>押运员</th>
+                    <th>驾驶员</th>
+                  </tr>
+                  <tr>
+                    <td>川A.75910</td>
+                    <td>3人</td>
+                    <td>重型厢式货车</td>
+                    <td>154268KG</td>
+                    <td>慕容追风</td>
+                    <td>村民一号，村民二号，村民三号，村民四号</td>
+                  </tr>
+                  <tr>
+                    <td>川A.75910</td>
+                    <td>3人</td>
+                    <td>重型厢式货车</td>
+                    <td>154268KG</td>
+                    <td>慕容追风</td>
+                    <td>村民一号，村民二号，村民三号，村民四号</td>
+                  </tr>
+                  <tr>
+                    <td>川A.75910</td>
+                    <td>3人</td>
+                    <td>重型厢式货车</td>
+                    <td>154268KG</td>
+                    <td>慕容追风</td>
+                    <td>村民一号，村民二号，村民三号，村民四号</td>
+                  </tr>
+                </table>
+            </div>
+            <div class="companyItem">
+            	<div class="infoTitle">
+                	<span>运输企业：远大集团</span>
+                </div>
+                <table border="0" cellspacing="0" cellpadding="0" class="truckList">
+                  <tr class="bgColor">
+                    <th>车牌号</th>
+                    <th>核定载人数</th>
+                    <th>车辆类型</th>
+                    <th>核定载质量</th>
+                    <th>押运员</th>
+                    <th>驾驶员</th>
+                  </tr>
+                  <tr>
+                    <td>川A.75910</td>
+                    <td>3人</td>
+                    <td>重型厢式货车</td>
+                    <td>154268KG</td>
+                    <td>慕容追风</td>
+                    <td>村民一号，村民二号，村民三号，村民四号</td>
+                  </tr>
+                  <tr>
+                    <td>川A.75910</td>
+                    <td>3人</td>
+                    <td>重型厢式货车</td>
+                    <td>154268KG</td>
+                    <td>慕容追风</td>
+                    <td>村民一号，村民二号，村民三号，村民四号</td>
+                  </tr>
+                </table>
+            </div>
+            <div class="companyItem">
+            	<div class="infoTitle">
+                	<span>运输企业：远大集团</span>
+                </div>
+                <table border="0" cellspacing="0" cellpadding="0" class="truckList">
+                  <tr class="bgColor">
+                    <th>车牌号</th>
+                    <th>核定载人数</th>
+                    <th>车辆类型</th>
+                    <th>核定载质量</th>
+                    <th>押运员</th>
+                    <th>驾驶员</th>
+                  </tr>
+                  <tr>
+                    <td>川A.75910</td>
+                    <td>3人</td>
+                    <td>重型厢式货车</td>
+                    <td>154268KG</td>
+                    <td>慕容追风</td>
+                    <td>村民一号，村民二号，村民三号，村民四号</td>
+                  </tr>
+                </table>
+            </div>
+        </div>
+            <!--右侧主体 end-->
+<div class="clear"></div>
+<div class="apLayerBg"></div>
+<div id="qiyue" class="apLayer borderColor alertBrand"></div>
+</body>
+</html>

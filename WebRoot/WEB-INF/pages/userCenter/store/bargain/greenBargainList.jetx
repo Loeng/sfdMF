@@ -1,0 +1,276 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>议价列表</title>
+	<link rel="icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+	<link rel="shortcut icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	
+	<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/userCenter/commons/css/proList.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script src="${webroot}/resources/commons/js/layer/layer.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/bargainList.js"></script>
+	<link href="${webroot}/resources/web/css/proDetail.css" rel="stylesheet" type="text/css">
+	<style>
+	.baojiaLayer .formItem dt{margin-right:0px;}
+	.layer-class .layui-layer-title{color:#393; font-size:20px; border-top:solid 5px #393;}
+	.layer-class .layui-layer-btn{text-align:center; padding-bottom:16px;}
+	.layer-class .layui-layer-btn0,.layer-class .layui-layer-btn1{width:60px; height:26px; text-align:center; font-size:14px; background:#393; border:none; color:#fff;}
+	.layer-class .layui-layer-btn0:hover,.layer-class .layui-layer-btn1:hover{background:#136333; color:#fff;}
+	.errorText{display:block;color:red;background:#99CC67;width:200px;}
+	</style>
+	
+</head>
+
+
+<body>
+<input type="hidden" id="ctxpath" value="${webroot}" />
+<input type="hidden" name="sourceType" id="sourceType" value="${sourceType}" />
+#define(List<com.ekfans.base.order.model.Bargain> bargains)
+
+<form action="${webroot}/store/bargain/list/0" method="post" id="searchForm">
+	<input type="hidden" name="pageNum" value="" />
+	
+	<div class="formSearch borderColor">
+	  <dl class="formItem">
+	  	<dt>商品名称</dt>
+	    <dd>
+	      <input name="productName" value="${productName}" type="text" maxlength="32" id="productName" class="textBox box212" />
+	    </dd>
+	    <dd class="clear"></dd>
+	  </dl>
+	  <dl class="formItem">
+	  	<dt>议价类型</dt>
+	    <dd>
+			<span class="radio">
+		        <label>
+		        	<input name="type" value="0" type="radio" id="type"  checked=true  />发布的议价
+		        </label>
+		    </span>
+	        <span class="radio">
+		        <label>
+		        	<input name="type" value="1" type="radio" id="type" #if(type=="1") checked=true #end/>收到的议价
+		        </label>
+	        </span>
+	    </dd>
+	    <dd class="clear"></dd>
+	  </dl>
+	  <div class="clear"></div>
+	</div>
+</form>
+<div class="btnArea">
+	<a href="javascript:searchSubmit();" class="btnBase btnSearch">搜索</a>
+  <a href="javascript:reset();" class="btnBase btnReset">重置</a>
+  <div class="clear"></div>
+</div>
+<div class="formTable borderColor">
+	<ul class="secNav">
+  	<li class="li1">议价列表</li>
+  </ul>
+  <div class="clear"></div>
+  <div style="position:relative;" class="tableBox">
+  <table border="0" cellspacing="0" cellpadding="0" class="tabList">
+  	<thead>
+	    <tr class="bgColor">
+	      <th>商品名</th>
+	      <th>买家</th>
+	      <th>卖家</th>
+	      <th>购买数量</th>
+	      <th>购买价格</th>
+	      <th>议价状态</th>
+	      <th >创建时间</th>
+	      <th>操作</th>
+	    </tr>
+    </thead>
+    <tbody>
+    #if(bargains!=null && bargains.size()>0)
+    	#for(com.ekfans.base.order.model.Bargain b:bargains)
+    		<tr id="bId" value="${b.id}">
+    			<td>${b.productName}</td>
+    			<td>${b.buyerName}</td>
+    			<td>${b.sellerName}</td>
+    			<td>${b.quantity}</td>
+    			<td>${b.price}</td>
+    			<td>#if(b.status=="0")议价中#elseif(b.status=="1")已议价#end</td>
+    			<td>${b.createTime}</td>
+    			<td>
+    			<!-- // 议价状态status（0：议价中，1：已议价，2：取消） type:!=1发出的议价 1收到的议价 -->
+    				#if( type=="1" && b.status=="0" )
+    					<a href="javascript:void(0);"  class="btnBase btnYijia" title="核价" onClick="hejia('${b.id}')">核价</a>
+    				#elseif( type=="1" && b.status=="1" )
+    					<a href="javascript:void(0);"  class="btnBase" title="查看" onClick="bargainDetail('${b.id}')">查看</a>
+    					<!--<a href="javascript:void(0);"  class="btnBase" title="下单" onClick="">下单</a>-->
+    				#elseif(type!="1" && b.status=="0" )
+    					<a href="javascript:void(0);"  class="btnBase" title="查看" onClick="bargainDetail('${b.id}')">查看</a>
+    					<a href="javascript:void(0);"  class="btnBase" title="取消议价" onClick="cancleConfirm('${b.id}')">取消议价</a>
+    				#elseif( type!="1" && b.status=="1" && b.orderStatus=="0")
+    					<a href="javascript:void(0);"  class="btnBase" title="查看" onClick="bargainDetail('${b.id}')">查看</a>
+    					#if(userId!=b.sellerId && b.status != "2")
+    					<a href="${webroot}/purchase/bargain/cart/${b.id}"  class="btnBase" id ="btnBase1" title="下单" onClick="">下单</a>
+    					#else  	#end
+    				#elseif( type!="1" && b.status=="1" && b.orderStatus=="1")
+    					<a href="javascript:void(0);"  class="btnBase" title="查看" onClick="bargainDetail('${b.id}')">查看</a>
+    					<a href="javascript:void(0);"  class="btnBase" id="btnBase1" title="下单" onClick="">已下单</a>
+    				#end
+    			</td>
+	    	</tr>
+    	#end
+    #end
+    </tbody>
+	</table>
+	</div>
+	#if(bargains!=null && bargains.size()>0)
+		${include("../common/page.jetx")}
+	#else
+		<div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+	#end
+	<div class="clear"></div>
+</div>
+
+<!--议价弹层-->
+<div class="apLayerBg"></div>
+<div class="apLayer apBargain borderColor">
+	<div class="apTit">议价详情<a href="javascript:void(0);" class="apClose"></a></div>
+	    <div class="apContent" id="apContent">
+	    </div>
+</div>
+
+<!--核定议价弹层-->
+<div id="hejiaHtml" style="display:none;">
+</div>
+<!--核定议价 end-->
+
+<!--议价详情弹层-->
+<div id="detailHtml" style="display:none;">
+</div>
+<!--议价详情 end-->
+
+<script type="text/javascript">
+$(function(){
+	var userId=$("#userId").val();
+	console.log(userId);
+	
+})
+function checkFocus(obj) {
+	if($(obj).val()!=""){
+		$(obj).next().html("");
+	}
+}
+
+function checkFinalQuantity(){
+	var flag=true;
+	var reg="/^-?\d{1,13}(\.\d{1,2})?$/gi";
+	var finalQuantity = $("input[name='finalQuantity']").val();
+	if(finalQuantity == "" || finalQuantity == null || finalQuantity == " "){
+		$('#finalQuantitySpan').show();
+		$('#finalQuantitySpan').text("请输入核定数量");
+		flag = false;
+	}
+	return flag;
+}
+function checkFinalPrice(){
+	var flag=true;
+	var finalPrice = $("input[name='finalPrice']").val();
+	if(finalPrice == "" || finalPrice == null || finalPrice == " "){
+		$('#finalPriceSpan').show();
+		$('#finalPriceSpan').text("请输入核定价格");
+		flag = false;
+	}
+	
+	return flag;
+}
+
+//核价
+function hejia(id){
+	$("#hejiaHtml").load($("#ctxpath").val() + "/store/bargain/auditDetail/0",{id:id},function(){
+		layer.open({
+			type: 1,
+			title: '核价',
+			skin: 'layer-class',
+			area: '732px', //宽高
+			content: $("#hejiaHtml"),
+			btn:['确认','取消'],
+			yes:function(index){
+				//点击确定执行的语句
+				if(checkFinalQuantity() && checkFinalPrice()){
+					$("#auditForm").ajaxSubmit(function(data){
+			    		if(data == true){
+			    			layer.close(index);
+			    			layer.alert("核价成功",function(){
+			    				location.href = $("#ctxpath").val() + "/store/bargain/list/0";
+			    			});
+			    		}else{
+			    			layer.alert("核价失败!");
+			    		}
+			    	});
+				}else{
+					checkFinalQuantity();
+					checkFinalPrice();
+				}
+		    	
+			},
+			cancel:function(){
+				//点击取消执行的语句
+			}
+		});
+		
+	});
+	
+}
+
+//查看议价详情
+function bargainDetail(id){
+	
+	var sourceType = $("#sourceType").val();
+	$("#detailHtml").load($("#ctxpath").val() + "/store/bargain/detail/"+sourceType,{id:id},function(){
+		layer.open({
+			type: 1,
+			title: '议价详细信息',
+			skin: 'layer-class',
+			area: '732px', //宽高
+			content: $("#detailHtml"),
+			btn:['返回'],
+			yes:function(index){
+				//点击确定执行的语句
+    			layer.close(index);
+			},
+		});
+		
+	});
+	
+}
+
+//取消（删除）议价前确认
+function cancleConfirm(id){
+	layer.confirm('确定要取消此议价吗？', function(){
+		deleteBargain(id);
+	}, null, null, null);
+}
+
+function deleteBargain(id){
+	$.post($("#ctxpath").val() + "/store/bargain/delete", {id:id}, function(data){
+		if(data == true || data == "true"){
+			layer.alert("操作成功",function(){
+				location.href = $("#ctxpath").val() +"/store/bargain/list/0";
+			});
+		}else{
+			layer.alert("操作失败");
+		}
+		
+	});
+}
+
+
+</script>
+
+<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+</body>
+</html>

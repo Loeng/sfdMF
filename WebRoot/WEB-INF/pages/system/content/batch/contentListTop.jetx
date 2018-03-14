@@ -1,0 +1,34 @@
+<input type="hidden" id="totalRowTop" value="${totalRow}">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <th width="20%">序号</th>
+    <th width="20%"><span onclick="selectAllTop();">全选</span></th>
+    <th width="45%">资讯名称</th>
+    <th width="15%" class="cz">预览</th>
+  </tr>
+  <tbody >
+  	#define(List<com.ekfans.base.content.model.Content> contents)
+			#if(contents==null || contents.size()<=0)
+				<tr id="tempMsg">
+					<td colspan="5">
+						<div class="noneData">对不起，系统暂时没有符合条件的数据记录！</div>	
+					</td>	
+				</tr>
+				</tbody>
+			</table>
+			#else
+				#for(com.ekfans.base.content.model.Content c : contents)
+					<tr id="${c.id}">
+						<td>${for.index}</td>
+						<td><input name='checkbox1' type="checkbox" value="${c.id}"></td>
+						<td>${c.contentName}</td>
+						<td class="cz"><a href="#tag shortLink("03",c.id) #end" target="_Blank" class="eyeIco"></a>
+						</td>
+					</tr>
+				#end
+			  </tbody>
+			</table>
+			<div class="ht_pageBox">
+				#include("../../common/page.jetx")
+			</div>
+			#end

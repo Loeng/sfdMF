@@ -1,0 +1,133 @@
+#define(com.ekfans.base.store.model.Store Store)
+#define(com.ekfans.base.store.model.Accredit ysAccredit)
+<!--道路运输经营许可认证START-->
+<h2>道路运输经营许可</h2>
+<div class="rzTtem">
+	<span class="biaoti">认证状态</span>
+	<div class="rzDiv">
+		<span class="zizhi3name">道路运输经营许可</span>
+		<span class="#if(ysAccredit == null) failstate #elseif(ysAccredit.checkStatus) rzstate #else warnstate #end"></span>
+		<a href="javascript:void(0);" class="btnBase btnzk">展开</a>
+		<div class="clear"></div>
+		<input type="hidden" name="ysId" value="${ysAccredit!=null?ysAccredit.id:""}"/>
+		<dl class="formItem">
+			<dt>许可证号</dt>
+			<dd>
+				<input name="yslicenseNo" id="yslicenseNo" type="text" class="textBox box212" value="${ysAccredit!=null?ysAccredit.licenseNo:""}" placeholder="请输入证书编号"  >
+			</dd>
+		</dl>
+		<dl class="formItem">
+      <dt>发证机关</dt>
+      <dd>
+        <input name="yslinceseAuthor" id="yslinceseAuthor" type="text" class="textBox box212" value="${ysAccredit!=null?ysAccredit.linceseAuthor:""}" placeholder="请输入证书发证机关"  >
+      </dd>
+      <dd class="clear"></dd>
+    </dl>
+		<dl class="formItem">
+			<dt>证件有效期限</dt>
+			<dd><input name="ysstartTime" id="ysstartTime" type="text" class="timeBox box98 textBox" value="${ysAccredit!=null?ysAccredit.startTime:""}" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'ysendTime\',{d:-3});}'})"></dd>
+			<dd class="lineColor">&nbsp;—&nbsp;</dd>
+			<dd><input name="ysendTime" id="ysendTime" type="text" class="timeBox box98 textBox" value="${ysAccredit!=null?ysAccredit.endTime:""}" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'ysstartTime\',{d:+3});}'})"></dd>
+			<dd class="clear"></dd>
+		</dl>
+		<div class="clear"></div>
+		<dl class="formItem">
+      <dt>地址所在区域</dt>
+      <dd>
+        #tag systemAreaSel("ysareaId",ysAccredit!=null?ysAccredit.areaId:"") #end
+      </dd>
+      <dd class="clear"></dd>
+    </dl>
+		<div class="clear"></div>
+		<dl class="formItem">
+      <dt>地址</dt>
+      <dd>
+        <input name="ysaddress" id="ysaddress" type="text" class="textBox box212" value="${ysAccredit!=null?ysAccredit.address:""}" placeholder="如：永兴县柏林镇柏林某某村"  >
+      </dd>
+      <dd class="clear"></dd>
+    </dl>
+		<div class="clear"></div>
+    <dl class="formItem" style="width:100%">
+		<dt style="width:130px;">道路运输经营许可证</dt>
+		<dd>
+			#tag picUpload("yslicenseFile","3","150","150",ysAccredit!=null?ysAccredit.licenseFile:"") #end
+		</dd>
+	</dl>
+	<dl class="formItem">
+		<dt><em class="mustIco"></em>危废品运输界定标准</dt>
+		<dd>
+			<a href="javascript:loadWfpysDirectory();" class="btnXuanze">请选择</a>
+			<input type="hidden" name="wfysDetails" id="wfysDetails" value="${ysAccredit!=null?ysAccredit.childIds:""}"/>
+			<div class="clear"></div>
+		</dd>
+		<div class="clear"></div>
+		<div id="mlDiv" style="display:none;min-height:100px;margin:2px 0 10px -20px;" ></div>
+		<div class="clear"></div>
+	</dl>
+	<div class="clear"></div>
+	</div>
+  <div class="clear"></div>
+</div>
+<!--营业执照END-->
+
+
+<script>
+
+	var childIds = $("#wfysDetails").val();
+	if(trim(childIds) != null && trim(childIds) != "" && trim(childIds) != "null"){
+		var url = "${webroot}/store/auth/accredit/wfpysShow";
+		$("#mlDiv").load(url,{"mlIds":childIds});
+		$("#mlDiv").show();
+	}
+
+function loadWfpysDirectory(){
+	var name="";
+	if($("#wfpysName").length>0){
+		name=$("#wfpysName").val();
+	}
+	 $("#Directory").load("${webroot}/store/auth/accredit/wfpysLoad",{'name':name},function(){
+	 	$("#wfysChose").val($("#wfysDetails").val())
+	 });
+	 $(".apLayerBg").show();
+	 $(".alertBrand").show();
+}
+
+function checkYs(){
+	var yslicenseNo = $("#yslicenseNo").val();
+	if(trim(yslicenseNo) == "" || trim(yslicenseNo) == "null"){
+		falert("请输入道路运输经营许可证号");
+		return false;	
+	}
+	
+	var yslinceseAuthor = $("#yslinceseAuthor").val();
+	if(trim(yslinceseAuthor) == "" || trim(yslinceseAuthor) == "null"){
+		falert("请输入道路运输经营许可证发证机关");
+		return false;	
+	}
+	
+	var ysstartTime = $("#ysstartTime").val();
+	var ysendTime = $("#ysendTime").val();
+	if(trim(ysstartTime) == "" || trim(ysstartTime) == "null" || trim(ysendTime) == "" || trim(ysendTime) == "null"){
+		falert("请选择道路运输经营许可证有效期");
+		return false;	
+	}
+	
+	var ysareaId = $("#ysareaId").val();
+	if(trim(ysareaId) == "" || trim(ysareaId) == "null"){
+		falert("请选择道路运输经营许可证地址所在区域");
+		return false;	
+	}
+	
+	var ysaddress = $("#ysaddress").val();
+	if(trim(ysaddress) == "" || trim(ysaddress) == "null"){
+		falert("请选择道路运输经营许可证地址");
+		return false;	
+	}
+	if(!hasChoseFile("yslicenseFile")){
+		falert("请上传道路运输经营许可证扫描件");
+		return false;	
+	}
+	
+	return true;
+}
+</script>

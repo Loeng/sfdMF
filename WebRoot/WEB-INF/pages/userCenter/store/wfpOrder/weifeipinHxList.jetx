@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>危废品订单列表</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	#define(List<com.ekfans.base.order.model.OrderWfp> wfpList)
+	#define(String orderNumber)
+	#define(String startTime)
+	#define(String endTime)
+	#define(String orderStatus)
+	#define(String wfpName)
+	#define(String storeId)
+<!--右侧主体-->
+
+<input id="ctxPath" type="hidden" value="${webroot}" />
+  <div class="rightContent">
+  <form action="${webroot}/store/order/wfpOrderList?isType='1'" method="post" id="searchWfpOrder">
+  	<input type="hidden" name="pageNum" />
+  	
+			<div class="formSearch borderColor">
+      	<dl class="formItem">
+        	<dt>订单号</dt>
+            <dd>
+              <input id="orderNumber" name="orderNumber" type="text" class="textBox box212" value="${orderNumber}">
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+		   <dl class="formItem">
+        	<dt>订单状态</dt>
+          <dd>
+          	<div class="selList">
+              <span class="textBox">
+                  <input id="orderStatus" name="orderStatus" type="text" class="box184" placeholder="" readonly value="#if(orderStatus=="0") 未完成 #elseif(orderStatus=="1") 已完成 #else #end">
+                  <em class="iconDown"></em>
+              </span>
+              <ul>
+                <li>未完成</li>
+                <li>已完成</li>
+              </ul>
+            </div>
+          </dd>
+          <dd class="clear"></dd>
+        </dl>
+ 			  <dl class="formItem">
+        	<dt>订单名称</dt>
+            <dd>
+              <input id="wfpName" name="wfpName" type="text" class="textBox box212" value="${wfpName}">
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="formItem">
+        	<dt>下单时间</dt>
+          <dd>
+            <input id="startTime" name="startTime" type="text" class="timeBox box98 textBox" value="${startTime}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+          </dd>
+          <dd class="lineColor">&nbsp;—&nbsp;</dd>
+          <dd>
+            <input id="endTime" name="endTime" type="text" class="timeBox box98 textBox" value="${endTime}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+          </dd>
+          <dd class="clear"></dd>
+        </dl>
+        <div class="clear"></div>
+      </div>
+      <div class="btnArea">
+        	<a href="javascript:formSubmit();" class="btnBase btnSearch">搜索</a>
+          <a href="javascript:reset();" class="btnBase btnReset">重置</a>
+          <div class="clear"></div>
+      </div>
+  </form>    
+      <div class="formTable borderColor">
+      	<ul class="secNav">
+        <li class="li1">订单信息</li>
+        </ul>
+        <div class="clear"></div>
+      
+        <div style="position:relative;" class="tableBox">
+          <table border="0" cellspacing="0" cellpadding="0" class="tabList">
+            <thead>
+              <tr class="tabTit bgColor">
+                <th class="accept">订单号</th>
+                <th class="accept">危废品名称</th>
+                <th class="accept">数量</th>
+                <th class="accept">订单金额</th>
+                <th class="accept">订单状态</th>
+                <th class="accept">物流状态</th>
+                <th class="accept">下单时间</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+            	#for(com.ekfans.base.order.model.OrderWfp wfp : wfpList)
+              <tr>
+                <td>${wfp.orderNumber}</td>
+                <td>${wfp.wfpName}</td>
+                <td>${wfp.wfpNumber}&nbsp;${wfp.unit}</td>               
+                
+                 <td>${wfp.totalPrice}</td>
+                 <td>#if(wfp.status=="0") 未完成  #else 已完成 #end </td><!--三种状态分别为订单状态，物流状态，财务状态-->
+                 <td>#if(wfp.shoppingStatus=="0") 待确定运输企业 #elseif(wfp.shoppingStatus=="1") 运输企业已确认 #elseif(wfp.shoppingStatus=="2") 运输中 #else 处置企业已接收 #end</td>
+                <td>${wfp.createTime}</td>
+                <td>
+                	#if((wfp.ysStoreId=="" || wfp.ysStoreId == null) && wfp.storeId != storeId)
+                  <a href="javascript:orderDetail('${webroot}','${wfp.id}');" class="eyeIco" title="详情">确认运输企业</a>
+                  #end
+                  #if(wfp.storeId == storeId)
+                  <a href="javascript:orderDetail('${webroot}','${wfp.id}');" class="eyeIco" title="详情">查看</a>
+                  <!-- 连接到金融系统  -->
+                  <a href="javaScript:choseMenu('${webroot}','LOAN_APP_ADD');" class="eyeIco"  title="金融服务">金融服务</a>
+                  #end
+                </td>
+              </tr>                        
+              #end
+            </tbody>
+          </table>
+          #if(wfpList.size() == 0 || wfpList ==  null)
+           <div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+           #else
+           <div>
+	          <input type="hidden" name="pageNum" value="${currentpageStr}" />
+	                ${include("../common/page.jetx")}
+	             <div class="clear"></div>
+	        </div>
+          #end
+        </div>
+      </div>
+      <div class="clear"></div>
+      </div>
+    </div>
+    <!--右侧主体 end-->
+    <div class="clear"></div>
+  </div>
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+
+<script type="text/javascript">
+//查询详情
+function orderDetail(ctx,id){
+	window.location.href=ctx+"/store/order/wfpOrderDetail?orderId="+id;
+}
+//申请金融服务
+function gaoBankService(ctx,id){
+   window.location.href=ctx+"/store/finance/jumpDaiPape/1?orderId="+id;
+}
+//分页跳转
+function goPage(pageNum){
+	$("input[name='pageNum']").val(pageNum);
+	$("#searchWfpOrder").submit();
+}
+	function reset(){
+		$("#orderNumber").val("");
+		$("#orderStatus").val("");
+		$("#startTime").val("");
+		$("#endTime").val("");
+		$("#wfpName").val("");
+	}
+
+function formSubmit(){
+	$(searchWfpOrder).submit();	
+}
+</script>
+
+</body>
+</html>

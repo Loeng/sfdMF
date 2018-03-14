@@ -1,0 +1,175 @@
+#define(List<com.ekfans.base.store.model.Store> transStores)
+#define(Map<String,com.ekfans.base.wfOrder.model.ScrapWfpTrans> transStoreMap)	
+#for(com.ekfans.base.store.model.Store transStore:transStores)
+#set(com.ekfans.base.store.model.Accredit transAcc = transStore.transAccredit)
+#set(com.ekfans.base.wfOrder.model.ScrapWfpTrans wfpTrans = transStoreMap.get(transStore.id))
+<h3>
+	#if(transStores.size()==1)
+		运输单位
+		<input type="hidden" id="${transStore.id}Title" value="运输单位"/>
+	#else
+		第${for.index}承运单位
+		<input type="hidden" id="${transStore.id}Title" value="第${for.index}承运单位"/>
+	#end
+</h3>
+<dl class="formItem">
+  <dt><em class="mustIco"></em>单位名称</dt>
+  <dd>
+    <input name="${transStore.id}TransName" id="${transStore.id}TransName" type="text" class="textBox box212" value="${transStore != null?transStore.storeName:""}" readonly>
+  </dd>
+  <dd class="clear"></dd>
+</dl>
+<dl class="formItem">
+  <dt><em class="mustIco"></em>单位地址</dt>
+  <dd>
+    <input name="${transStore.id}TransAddress" id="${transStore.id}TransAddress" type="text" class="textBox box212" value="${wfpTrans != null ? wfpTrans.transAddress:(transAcc!= null?transAcc.address:"")}">
+  </dd>
+  <dd class="clear"></dd>
+</dl>
+<dl class="formItem">
+  <dt><em class="mustIco"></em>邮政编码</dt>
+  <dd>
+    <input name="${transStore.id}TransZipCode" id="${transStore.id}TransZipCode" type="text" class="textBox box212" value="${wfpTrans != null ? wfpTrans.transZipCode:(transStore != null ? transStore.zipCode:"")}">
+  </dd>
+  <dd class="clear"></dd>
+</dl>
+<dl class="formItem">
+  <dt><em class="mustIco"></em>联系人</dt>
+  <dd>
+    <input name="${transStore.id}TransMan" id="${transStore.id}TransMan"  type="text" class="textBox box212" value="${wfpTrans != null ? wfpTrans.transMan:(transStore != null ? transStore.contactName:"")}">
+  </dd>
+  <dd class="clear"></dd>
+</dl>
+<dl class="formItem">
+  <dt><em class="mustIco"></em>联系电话</dt>
+  <dd>
+    <input name="${transStore.id}TransPhone" id="${transStore.id}TransPhone" type="text" class="textBox box212" value="${wfpTrans != null ? wfpTrans.transPhone:(transStore != null ? transStore.contactPhone:"")}">
+  </dd>
+  <dd class="clear"></dd>
+</dl>
+<dl class="formItem" style="width:360px;">
+  <dt style="width:122px;"><em class="mustIco"></em>危废经营许可证号</dt>
+  <dd>
+    <input name="${transStore.id}TransLicenseNo" id="${transStore.id}TransLicenseNo" type="text" class="textBox box212" style="width:188px;" value="${transAcc!= null?transAcc.licenseNo:""}" readonly>
+  </dd>
+  <dd class="clear"></dd>
+</dl>
+<dl class="formItem">
+  <dt><em class="mustIco"></em>发证机关</dt>
+  <dd>
+    <input name="${transStore.id}TransLinceseAuthor" type="text" class="textBox box212" value="${transAcc!= null?transAcc.linceseAuthor:""}">
+  </dd>
+  <dd class="clear"></dd>
+</dl>
+<dl class="formItem">
+  <dt><em class="mustIco"></em>有效期</dt>
+  <dd>
+    <input name="${transStore.id}TransStartTime" type="text" class="textBox box80" value="${transAcc!= null?transAcc.startTime:""}" readonly">
+    <span class="inputSplit">&mdash;</span>
+    <input name="${transStore.id}TransEndTime" type="text" class="textBox box80" value="${transAcc!= null?transAcc.endTime:""}" readonly>
+  </dd>
+  <dd class="clear"></dd>
+</dl>
+#if(!for.last)
+	<div class="clear"></div>
+#end
+#else
+	<h3>运输单位</h3>
+	<dl class="formItem">
+	  <dt><em class="mustIco"></em>单位名称</dt>
+	  <dd>
+	    <input name="transName" type="text" class="textBox box212" value="" readonly>
+	  </dd>
+	  <dd class="clear"></dd>
+	</dl>
+	<dl class="formItem">
+	  <dt><em class="mustIco"></em>单位地址</dt>
+	  <dd>
+	    <input name="transAddress" type="text" class="textBox box212" value="">
+	  </dd>
+	  <dd class="clear"></dd>
+	</dl>
+	<dl class="formItem">
+	  <dt><em class="mustIco"></em>邮政编码</dt>
+	  <dd>
+	    <input name="transZipCode" type="text" class="textBox box212" value="">
+	  </dd>
+	  <dd class="clear"></dd>
+	</dl>
+	<dl class="formItem">
+	  <dt><em class="mustIco"></em>联系人</dt>
+	  <dd>
+	    <input name="transMan" type="text" class="textBox box212" value="">
+	  </dd>
+	  <dd class="clear"></dd>
+	</dl>
+	<dl class="formItem">
+	  <dt><em class="mustIco"></em>联系电话</dt>
+	  <dd>
+	    <input name="transPhone" type="text" class="textBox box212" value="">
+	  </dd>
+	  <dd class="clear"></dd>
+	</dl>
+	<dl class="formItem" style="width:360px;">
+	  <dt style="width:122px;"><em class="mustIco"></em>危废经营许可证号</dt>
+	  <dd>
+	    <input name="transLicenseNo" type="text" class="textBox box212" style="width:188px;" value="" readonly>
+	  </dd>
+	  <dd class="clear"></dd>
+	</dl>
+	<dl class="formItem">
+	  <dt><em class="mustIco"></em>发证机关</dt>
+	  <dd>
+	    <input name="transLinceseAuthor" type="text" class="textBox box212" value="">
+	  </dd>
+	  <dd class="clear"></dd>
+	</dl>
+	<dl class="formItem">
+	  <dt><em class="mustIco"></em>有效期</dt>
+	  <dd>
+	    <input name="transStartTime" type="text" class="textBox box80" value="" readonly">
+	    <span class="inputSplit">&mdash;</span>
+	    <input name="transEndTime" type="text" class="textBox box80" value="" readonly>
+	  </dd>
+	  <dd class="clear"></dd>
+	</dl>
+#end
+
+
+
+<script>
+	function checkTransInfoSub(){
+		var transStoreIds = $("#transStoreIds").val();
+		var ids = transStoreIds.split(";");
+		for(i=0;i<ids.length;i++){
+			var storeId = ids[i];
+			if(trimStr(storeId) != ""){
+				var titleName = $("#" + storeId + "Title").val();
+				var transAddress = $("#" + storeId + "TransAddress").val();
+				if(trimStr(transAddress) == "" || trimStr(transAddress) == "null"){
+					falert("请输入" + titleName + "所在地址");
+					return false;
+				}
+				
+				var transZipCode = $("#" + storeId + "TransZipCode").val();
+				if(trimStr(transZipCode) == "" || trimStr(transZipCode) == "null"){
+					falert("请输入" + titleName + "邮政编码");
+					return false;
+				}
+				
+				var transMan = $("#" + storeId + "TransMan").val();
+				if(trimStr(transMan) == "" || trimStr(transMan) == "null"){
+					falert("请输入" + titleName + "联系人");
+					return false;
+				}
+				
+				var transPhone = $("#" + storeId + "TransPhone").val();
+				if(trimStr(transPhone) == "" || trimStr(transPhone) == "null" || !checkMobile(transPhone)){
+					falert("请输入" + titleName + "联系电话");
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+</script>

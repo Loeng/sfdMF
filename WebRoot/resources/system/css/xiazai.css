@@ -1,0 +1,58 @@
+/* CSS Document */
+
+@import url("base.css");
+
+.form{padding:10px 20px 5px 20px; background:#FFF;}
+.formItem{ margin:0px 1px 10px 0px;min-height:30px;display:block;}
+.formItem dt{float:left;font-size:12px;color:#303132; width:90px; line-height:32px; margin-right:20px; text-align:right; position:relative;}
+.formItem dd{float:left;line-height:30px; min-height:30px; color:#787878;width:420px;}
+.formItem dd.clear{float:none; clear:both; min-height:0;}
+.formLine{width:100%; margin-right:0; float:none; clear:both;}
+.radio{font-size:12px;color:#303132;margin-right:25px;}
+.radio input{margin-right:8px;}
+.formItem select{height:28px; line-height:28px; border:solid 1px #E0E3EA; text-indent:0.6em; font-family:Microsoft YaHei;cursor:pointer;width:160px;}
+.formLine select{width:578px;}
+.formItem .select4 select{width:142px;}
+.formItem .select3 select{width:190px;}
+.formItem .select2 select{width:288px;}
+.formItem .checkItem .check,.formItem .limitAll .check{display:inline-block;margin-right:15px;}
+.checkBox{margin-right:23px;}
+.formItem textarea{display:block; border:solid 1px #E0E3EA; padding:0.6em; width:196px;}
+.formLine textarea{width:560px;}
+.clickAbout input{display:block; float:left;}
+.mustIco{background:url(../images/mustico.png) no-repeat right center; width:9px; height:7px; overflow:hidden; display:inline-block; margin-right:5px;}
+
+/*表单详情*/
+.textBox{display:block;height:28px;line-height:22px;border:solid 1px #E0E3EA;text-indent:0.6em; background:#EFEFEF;color:#7D7C7D;}
+.textBox input{width:100%; height:26px; line-height:26px;border:solid 1px #E0E3EA; text-indent:0.6em; font-family:Microsoft YaHei;cursor:pointer;color:#7D7C7D;}
+.selList .textBox{position:relative; z-index:2; display:block; height:28px;border:none;text-indent:0px;background:#EFEFEF;color:#7D7C7D;}
+.selList .textBox input{ width:100%; height:26px; border:solid 1px #E0E3EA; text-indent:0.6em; font-family:Arial,Microsoft YaHei; line-height:26px;cursor:pointer;background:#EFEFEF;color:#7D7C7D;}
+
+.readOnly{z-index:-1;}
+
+/*表单错误提示*/
+.wrongText{height:25px; line-height:25px;color:#f00; padding-left:12px;word-break:break-all;word-wrap:break-word;width:660px;}
+
+/*错误提示*/
+.wrongText{height:25px; line-height:25px; float:left; margin-top:4px; min-width:100px; _width:100px; margin-right:10px;}
+.wrongText *{ height:25px; float:left;}
+.tipName{font-size:14px;height:35px;line-height:35px;width:662px; background:#e4e4e4;padding-left:10px;}
+.mustIco{background:url(../images/mustico.png) no-repeat right center; width:9px; padding:2px; margin-right:5px; display:inline-block; *display:inline; *zoom:1;}
+.xiazai{border:1px solid #e4e4e4;padding:10px; width:650px; margin-bottom:10px;}
+.shangchuan{border:1px solid #e4e4e4;padding:10px; width:650px; margin-right:10px;}
+.tishi{border:1px solid #e4e4e4;width:670px; margin-top:10px;}
+.tishi .formItem dd{width:200px;}
+/*按钮*/
+.btnUpload {display:inline-block; *display:inline; *zoom:1; padding:0 16px; height:28px; line-height:28px; border-radius:3px; background:#cfd7e8;}
+.btnUpload:hover {background:#008dff; color:#fff;}
+.fileUpload{display: block;width:420px;}
+
+/*上传文件*/
+.fileUpload .btnUpload{color:#fff; background:#02AFED; position:relative; float:left; width:64px; height:28px; text-align:center; line-height:28px; margin:10px 40px 0 0;}
+.fileUpload .btnUpload:hover{background:#018ec5;color:#fff;}
+.fileUpload .btnUploadNo{color:#fff; background:#ccc; position:relative; float:left; width:64px; height:28px; text-align:center; line-height:28px; margin:10px 40px 0 0; cursor:default;}
+.fileUpload .btnUploadNo:hover{color:#fff;}
+.fileUpload input{position:absolute; display:block; top:0; right:0; z-index:2; font-size:28px; filter:alpha(opacity=0); -moz-opacity:0; -khtml-opacity:0; opacity:0;}
+.fileUpload .fileLoading{width:40px; height:40px; background-image:url(../images/upload/big_load.gif); background-position:center center; background-repeat:no-repeat; background-color:#e4e4e4; filter:alpha(opacity=85); -moz-opacity:0.85; display:block; float:left; margin-right:40px; border-radius:2px;}
+.fileName{display:block; padding:0 28px 0 5px; height:28px; line-height:28px; color:#262626; background:#f4f4f4; float:left; margin-top:10px; position:relative;}
+.fileDelete{display:block; width:22px; height:28px; float:left; position:absolute; right:5px; top:6px;}

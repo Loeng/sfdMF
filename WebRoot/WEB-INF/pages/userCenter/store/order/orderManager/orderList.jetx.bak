@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>所有订单</title>
+<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+<!-- 导入自定义的JS文件 -->
+<script type="text/javascript" src="${webroot}/resources/userCenter/core/js/order/orderManager/StoreOrderList.js"></script>
+</head>
+<body>
+	#define(List<com.ekfans.base.order.model.Order> orders)
+	<div class="rightContent">
+		  <form action="${webroot}/store/order/list" method="post" id="searchStoreRefundOrder">
+		  	<input type="hidden" name="pageNum" value="" />
+        <div class="formSearch borderColor">
+						<dl class="formItem">
+							<dt>订&nbsp;单&nbsp;号&nbsp;</dt>
+							<dd><input name="orderId" id="orderId" value="${orderId }"  type="text" class="textBox box212"></dd>
+							<dd class="clear"></dd>
+						</dl>
+						<dl class="formItem">
+							<dt>下单时间</dt>
+							<dd>
+								<input name="beginDate" id="beginDate" value="${beginDate}" type="text" class="timeBox box98 textBox"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+							</dd>
+							<dd>&nbsp;—&nbsp;</dd>
+							<dd>
+								<input name="endDate" id="endDate" value="${endDate }" type="text" class="timeBox box98 textBox" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+							</dd>
+							<dd class="clear"></dd>
+						</dl>
+						<dl class="formItem">
+	            <dt>买家用户</dt>
+	            <dd ><input name="userName" id="userName" value="${userName }" type="text" class="textBox box212"></dd>
+	            <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+        </div>
+				<div class="btnArea">
+					<a href="javascript:void(0);" class="btnBase btnSearch" onclick="formSubmit();">搜索</a>
+					<a href="javascript:void(0);" class="btnBase btnReset" onclick="formReset();">重置</a>
+					<div class="clear"></div>
+				</div>
+      </form>
+      
+      <div class="formTable borderColor">
+      	<ul>
+        	<li class="li1">所有订单</li>
+        </ul>
+        <div class="clear"></div>
+         <!--没有订单时-->
+             
+         <table border="0" cellspacing="0" cellpadding="0" class="tabList">
+        	<tr class="bgColor">
+            <th class="tabLeft">
+              <label class="checkAll"><span class="check"><em><input name="checkbox1" type="checkbox" value=true></em></span></label>
+            </th>
+            <th class="tabLeft">订单号</th>
+            <th class="tabLeft">订单状态</th>
+            <th class="tabRight">下单时间</th>
+            <th class="tabRight">订单金额</th>
+            <th class="tabLeft">订单用户</th>
+            <th class="tabLeft">操作</th>
+            <th></th>
+          </tr>
+          #if(orders!=null && orders.size()>0)
+           #for(com.ekfans.base.order.model.Order order:orders)
+              <tr>
+                <td class="tabLeft">
+                	<label class="checkItem"><span class="check"><em><input name="checkbox" type="checkbox" value=true ></em></span></label>
+                </td>
+                <td class="tabLeft">${order.id}</td>
+                <td class="tabLeft">
+                	      #if(order.status == "0")取消
+                	      #elseif(order.status == "1") 关闭 
+                	      #elseif(order.status == "2")待付款
+				            	  #elseif(order.status == "3" && order.shippingStatus == false)待发货 
+				            	  #elseif(order.shippingStatus == true && "3".equals(order.status))已发货
+				            	  #elseif(order.status=='4' && order.userApp == false)待用户评价
+				            	  #elseif(order.userApp == true && order.storeApp == false)待评价
+				            	  #elseif(order.status == "5") 交易成功
+				            	  #end
+				        </td>
+                <td class="tabRight">${order.createTime }</td>
+                <td class="tabRight">${order.totalPrice }</td>
+                <td class="tabLeft">${order.userId }</td>
+                <td class="tabLeft">
+                	<a href="javascript:void(0);" onclick="xxx('${ctxpath }','${order.id}','${order.status}','${order.shippingStatus}','${order.userApp}');"  class="btnBase btnOrange">
+                	      #if(order.status == "0") 查看详情
+                	      #elseif(order.status == "1") 查看详情 
+                	      #elseif(order.status == "2")修改价格
+				            	  #elseif(order.status == "3" && order.shippingStatus == false)商品发货 
+				            	  #elseif(order.status == "3" && order.userApp == false)查看详情
+				            	  #elseif(order.userApp == true && order.storeApp == false) 回复评价
+				            	  #elseif(order.shippingStatus == true)查看详情
+				            	  #elseif(order.status == "5") 查看详情
+				            	  #end
+				            	  
+				            	
+                	</a>
+                
+                </td>
+              </tr>
+              #end
+             #end
+        </table>
+         #if(orders==null || orders.size()==0)
+                <div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+              #else
+              
+         <div class="listBottom">
+                <a href="javascript:void(0)" class="btnBase">导出订单</a>
+                <!-- 分页 -->
+                <input type="hidden" name="pageNum" value="${currentpageStr }" />
+                ${include("../../common/page.jetx")}
+                <div class="clear"></div>
+           </div>
+           #end
+      	<div class="clear"></div>
+    
+     		</div>
+            
+          </div>
+        </div>
+	
+</body>
+</html>

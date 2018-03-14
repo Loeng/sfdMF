@@ -1,0 +1,31 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+/*订单表头*/
+.exchangeOrder{height:35px; line-height:35px;margin-bottom:10px;font-size:14px;}
+.orderNumber{padding:0 80px 0 20px;}
+.orderTime{padding-right:80px;}
+.orderTable th{height:26px; line-height:26px; background:none;}
+
+
+/*服务单明细*/
+.formItem dt{width:90px;}
+.serviceLine,.formItem{padding-left:24px;}
+.serviceLine .formItem{float:left;padding-left:0;}
+.formItem .price{font-size:18px; color:#f00;}
+.formLong{width:545px;}
+
+.proImgs{border-top:solid 1px #e4e4e4; padding:20px 0 0 24px;}
+.proImgs{padding:0 0 0 114px;}
+.proImgs li{width:200px; height:200px; padding:20px 100px 30px 0; float:left;}
+.bottomBtn{border-top:solid 1px #e5e5e5; padding:20px 0 20px 114px;}
+.bottomBtn .btnBlue{display:inline-block; width:64px; height:28px; line-height:28px; margin-right:10px;}
+.decline{width:589px; height:171px; padding:14px 0 0 12px; background:#f0f0f0; position:relative; margin-left:164px; text-align:right; display:none;}
+.decline textarea{display:block; width:571px; height:126px; line-height:20px; border:solid 1px #e5e5e5; margin-bottom:8px;}
+.textPoint{display:block; background:url(../images/detailpoint.png) no-repeat; width:10px; height:7px; position:absolute; top:-7px; left:50px;}
+.btnOrange{background:#ff8900; text-align:center; color:#fff; font-size:12px; width:62px; height:28px; line-height:28px; display:inline-block; margin-right:16px;}
+
+.money{height:30px; line-height:30px; padding-left:24px;}
+.money span{padding-right:40px; font-size:14px;}
+.money span em{font-size:24px; color:#f00;}

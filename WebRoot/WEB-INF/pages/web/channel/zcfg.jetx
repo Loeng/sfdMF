@@ -1,0 +1,142 @@
+#define(com.ekfans.base.channel.model.Channel channel)
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}-${channel.name}</title>
+	<meta name="Keywords" content="${channel.keyWords}">
+	<meta name="description" content="${channel.description}">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<link rel="icon" type="image/x-icon" href="${ctxpath}/resources/commons/images/favicon.ico" />
+	<link rel="shortcut" type="image/x-icon icon" href="${ctxpath}/resources/commons/images/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="${ctxpath}/resources/web/css/base.css" />
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script src="${ctxpath}/resources/web/js/base.js"></script>
+#if(configStatus == "true")
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.soChange.js"></script>
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.json-2.2.min.js"></script>
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/control.js"></script>	
+	<link href="${ctxpath}/resources/commons/css/control.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/upload/upload.js"></script
+	<link href="${ctxpath}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+#end
+<style type="text/css">
+.bread{height:38px; line-height:38px; background:#FCF4E5; font-size:14px; color:#A78749;}
+.curPages{color:#000;}
+.banner{height:150px; overflow:hidden; margin-bottom:10px;}
+.leftLinks{width:280px; background:#fff; float:left; padding-bottom:10px;}
+.leftLinks h2{height:38px; line-height:38px; background:#0085FD; font-size:16px; color:#fff; padding-left:16px;}
+.leftLinks li{height:30px; line-height:30px; padding:0 2px; font-size:16px;}
+.leftLinks li em{display:block; width:6px; height:6px; border:solid 1px #1D4FA3; border-radius:4px; float:left; margin:11px 10px 0 0;}
+.leftLinks a{display:block; height:30px; padding-left:16px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+.leftLinks a:hover,.leftLinks li.cur a{background:#E0EFFD;}
+.leftLinks li.cur em{background:#1D4FA3; border:none; width:8px; height:8px;}
+
+.rightContent{width:898px; float:right;}
+.rightContent h2{height:38px; line-height:38px; font-size:16px; background:#D2E8FB; padding-left:16px;}
+.rightList{background:#fff;}
+.rightList li{height:48px; line-height:48px; font-size:14px; padding:0 15px; margin:0 4px 0 2px;}
+.rightList li a{display:block; float:left; max-width:70%; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+.rightList li em{color:#959595; width:24px; display:inline-block;}
+.rightList li span{display:block; max-width:28%; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; float:right; font-size:12px; color:#959595;}
+.rightList li:hover{background:#E0EFFD;}
+.oushu{background:#F2F2F2;}
+
+/*无信息样式*/
+.newNone{margin:10px auto; background-image:url(${ctxpath}/resources/web/images/none.png); background-repeat:no-repeat; background-position:left center; width:223px; height:71px;padding-left:136px;}
+.noInfo{ font-size:24px; color:#221714; width:213px; height:71px; line-height:71px; }
+
+
+/*页码*/
+.pageSize{text-align:center; padding:10px 0; background:#D3D3D3; margin-top:16px;}
+.pageSize a{display:inline-block; height:21px; line-height:21px; margin-right:8px; padding:0 8px; color:#12369b;}
+.pageLast,.pageNext{font-family:SimSun;}
+.pageSize a:hover,.pageSize .nowPage{background:#4594f9; color:#fff;}
+</style>
+</head>
+
+<body>
+<input type="hidden" name="channelId" id="channelId" value="${channelId}" />
+<input type="hidden" name="channelType" id="channelType" value="${channel.type}" />
+#if(configStatus == "true")
+	<!-- 频道配置导航条 -->
+	#include("commons/config/config-top.jetx")
+	<!-- 频道配置导航条 end -->
+#end
+<div id="channelTop"></div>
+
+<div class="bread">
+	<div class="wrapper">
+		<a href="${ctxpath}">首页</a>&nbsp;&gt;&nbsp;<em class="curPages">${channel.name}</em>
+	</div>
+</div>
+<div class="wrapper">
+	<div class="autoAdv banner">
+		<div class="autoAdvImg">
+			#include("commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"2"})
+		</div>
+	</div>
+	<!-- 机构分类 -->
+  <div class="leftLinks"></div>
+  
+  <!-- 资讯列表 -->
+  <div class="rightContent"></div>
+  <div class="clear"></div>
+</div>
+
+<div id="channelFoot"></div>
+</body>
+<script type="text/javascript">
+window.onload=function(){
+	$("#channelTop").load("${ctxpath}/web/channel/commons/channel-top.jetx",{"channelId":$("#channelId").val(),"channelType":$("#channelType").val(),"returnUrl":window.location.href});
+	$("#channelFoot").load("${ctxpath}/web/channel/commons/channel-footer.jetx");
+}
+	
+$(".leftLinks").load("${ctxpath}/web/wfcz/zcfgOne",function(){
+	var name = $("#firstName").val();
+	$(".rightContent").load("${ctxpath}/web/wfcz/zcfgTwo?id=" + $("#firstId").val() + "&name=&pageNum=1",function(){
+		$("#contentTitle").html(name);	
+		$(".rightList li:odd").addClass("oushu");
+		for(i=1;i<=$(".rightList li em").length;i++){
+			$(".rightList li em").eq(i-1).text(i);
+		}
+		$(".rightList li em").each(function() {
+	        if($(this).text()<10){
+				var now=$(this).text();
+				$(this).text("0"+now);
+			}
+	    });
+	});
+});
+
+function goPage(num){
+	$(".rightContent").load("${ctxpath}/web/wfcz/zcfgTwo?id=" + $("#firstId").val() + "&name=" + $("#firstName").val() + "&pageNum=" + num);
+}
+
+function loadConList(obj, id, name){
+	$("li").removeAttr("class");
+	$(obj).attr("class", "cur");
+	$(".rightContent").load("${ctxpath}/web/wfcz/zcfgTwo?id=" + id + "&name=&pageNum=1",function(){
+		$("#contentTitle").html(name);
+		
+		$(".rightList li:odd").addClass("oushu");
+		for(i=1;i<=$(".rightList li em").length;i++){
+			$(".rightList li em").eq(i-1).text(i);
+		}
+		$(".rightList li em").each(function() {
+	        if($(this).text()<10){
+				var now=$(this).text();
+				$(this).text("0"+now);
+			}
+	    });
+	});
+}
+</script>
+<div style="display:none;">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255237573'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1255237573' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</html>

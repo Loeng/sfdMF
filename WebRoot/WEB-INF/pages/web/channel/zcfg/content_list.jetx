@@ -1,0 +1,25 @@
+#define(List<com.ekfans.base.content.model.Content> clist)
+<input type="hidden" id="tempId" value="${id}" />
+<input type="hidden" id="tempName" value="${name}" />
+<h2 id="contentTitle"></h2>
+<ul class="rightList">
+	#if(clist!=null && clist.size()>0)
+		#for(com.ekfans.base.content.model.Content c : clist)
+			<li>
+				<a href="${webroot}/03-${c.id}-1.html">
+					<em></em>${c.contentName}
+				</a>
+				<span>  ${c.author}</span>
+			</li>
+		#end
+		 #else
+	       <div style="height:90px;background:#fff; padding:50px 0;">
+		        <div class="newNone">
+			        <div class="noInfo">暂无信息记录！</div>
+		      </div>
+	      </div>
+	#end
+</ul>
+#if(clist!=null && clist.size()>0)
+	#include("../commons/channel-page.jetx")
+#end

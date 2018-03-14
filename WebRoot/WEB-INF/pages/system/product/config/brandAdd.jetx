@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+    	<title>新增品牌</title>
+    	<link href="${webroot}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+    <link href="${webroot}/resources/system/css/demand.css" rel="stylesheet" type="text/css" />
+    	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/product/productBrandAdd.js"></script>
+			<!-- 上传文件的CSS -->
+		<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+		<!-- 上传文件控件  -->
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+			<script type="text/javascript">
+			$(document).ready(function(){
+    		$(".pp").click(function(){
+			$(".del_tc").show();
+			$(".del_tcBg").show();
+			})
+			});
+		</script>	
+    </head>
+    
+    <body>
+    	<input type="hidden" id="ok" value="${requestScope.addOk}" />
+			<input type="hidden" id="ctxpath" value="${webroot}" />
+			<form action="${webroot}/system/product/brand/save" name="add" method="post"  id="addProductBrandForm">
+				<div class="ht_btn">
+					<a href="#"  class="btn" onclick="formSubmit();">保存</a>
+					<a href="#" class="btn" onclick="reset();">重置</a>
+					<a href="#" class="btn" onclick="goBack('${webroot}');">返回列表</a>
+				</div>
+				#define(com.ekfans.base.product.model.ProductBrand productBrand)
+				
+				#define(List<com.ekfans.base.product.model.ProductCategory> productCategories)
+				<div class="add_pro">
+	 			
+				<dl class="formBox" style="width:550px;">
+					<dt>品牌名<em class="mustIco"></em></dt>
+					<dd id="nameDd" >
+						<input type="text" class="i_bg"  name="name" onblur="javascript:checkNameBlur();" onkeyup="javascript:checkName();" onfocus="javascript:checkName();" />
+						<span id="nameSpan" class="ts_xx">品牌名为1-20位字符组成</span>
+					</dd>
+					
+				</dl>
+				<dl class="formBox" style="width:550px;">
+					<dt>品牌图标</dt>
+					<dd>
+						#tag picUpload("icon","1","298","298","") #end
+		  		</dd>
+				</dl>
+				<dl class="formBox">
+					<dt>链接地址</dt>
+					<dd >
+						<input type="text" class="i_bg"  name="linkUrl" />
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				<dl class="formBox">
+					<dt>排序</dt>
+					<dd >
+						<input type="text" class="i_bg"  name="position" value="0" />
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				<dl>
+					<dt>状态</dt>
+					<dd>
+							<span class="zt"><label><input type="radio" value="true" name="status" checked=true/>显示</label></span>
+							<span class="zt"><label><input type="radio" value="false" name="status"/>不显示</label></span>
+						</span>
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				<dl class="formBox">
+					<dt>品牌描述</dt>
+					<dd>
+						<textarea name="note"></textarea>
+					</dd>
+				</dl>
+				
+				<!-- 方便获取应用地址的隐藏域 -->
+				<input type="hidden" id="path" value="${webroot}" />	
+			
+			</div>
+		</form>
+	</body>
+</html>

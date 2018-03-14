@@ -1,0 +1,28 @@
+#define(List<List<com.ekfans.base.product.model.Product>> products)
+<!--现货-销售挂牌-->
+
+#for(List<com.ekfans.base.product.model.Product> ps:products)
+<li class="listLine">
+    #for(com.ekfans.base.product.model.Product product:ps)
+    <div class="listItem">
+        <div class="name">
+            <em class="itemIco"></em>
+            <span class="nameLine" title="${product.name}">${product.name}</span>
+            <span class="nameParms" title="${product.productModel}">${product.productModel}</span>
+        </div>
+        <div class="area" title="${product.habitat}">
+            ${product.habitat}
+        </div>
+        <div class="price">
+            #if(product.unitPrice == 0.00)
+                待议
+            #else
+            <em class="${product.riseDrop>0?"red":(product.riseDrop<0?"green":"")}">
+                ${product.riseDrop>0?"↑":(product.riseDrop<0?"↓":"")} ${product.unitPrice}
+            </em>元/${product.unit}
+            #end
+        </div>
+    </div>
+    #end
+</li>
+#end

@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>管理系统</title>
+	        <link href="${webroot}/resources/store/css/count/bound.css" rel="stylesheet" type="text/css" />
+	    
+		<script type="text/javascript" src="${webroot}/resources/store/js/storeCount/updateEmail.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/store/js/tools.js"></script>
+	</head>
+	<body>
+		<div class="sto_right">
+		<input type="hidden" id="ok" value="${updateOk}" />
+		<input type="hidden" id="ctxpath" value="${webroot}" />
+		<form action="${webroot}/store/count/email/updateEmail" name="update" method="post"  id="updateStoreForm">
+				<div class="sto_right">
+        <h2><em>绑定邮箱</em></h2>
+        <dl class="formLine">
+            <dt>我的邮箱</dt>
+            <dd class="formRight">${email}</dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="formLine">
+            <dt>新的邮箱<em class="mustIco"></em></dt>
+            <dd class="formRight">
+               <input name="email" id="email" type="text" class="dataBox" onblur="checkNewEmail();">
+                <span class="errorText errorRed" style="display:none" id="emailSpan">
+                    <em class="errorBoxL"></em>
+                    <em class="errorMain" id="emailError">请输入正确的邮箱！&nbsp;&nbsp;&nbsp;&nbsp;</em>
+                    <em class="errorBoxR"></em>
+                </span>
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="formLine">
+            <dt>确认邮箱<em class="mustIco"></em></dt>
+            <dd class="formRight">
+                <input name="" id="email2" type="text" class="dataBox" onblur="checkRepeatEmail();">
+                <span class="errorText errorRed" style="display:none" id="emailSpan2">
+                    <em class="errorBoxL"></em>
+                    <em class="errorMain" id="emailError2">两次输入邮箱不相同！</em>
+                    <em class="errorBoxR"></em>
+                </span>
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+        <div class="split"></div>
+        <a href="javascript:void(0)" class="btnBlue" onclick = "formSubmit();">下一步</a>
+    </div>
+
+
+		</form>
+		</div>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

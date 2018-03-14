@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+    	<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}-新增模板分类</title>
+    	<link href="${webroot}/resources/system/css/product/templateCategory.css" rel="stylesheet" type="text/css" />
+    	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/product/templateCategory/templateCategoryAdd.js"></script>
+    </head>
+    <body>
+    	<input type="hidden" id="ok" value="${addOk}" />
+			<input type="hidden" id="ctxpath" value="${webroot}" />
+			<div class="ht_btn">
+				<a href="#"  class="btn" onclick="formSubmit();">保存</a>
+				<a href="#"  class="btn" onclick="reset();">重置</a>
+				<a href="#"  class="btn" onclick="goBack('${webroot}');">返回列表</a>
+			</div>
+			<form action="${webroot}/system/templateCategory/save" name="add" method="post"  id="addCategoryForm">
+			#define(com.ekfans.base.product.model.TemplateFieldsCategory category)
+	 		<div class="add_pro">
+				<dl>
+        	<dt>分类名<em class="mustIco"></em></dt>
+	        <dd id="nameDd">
+	            <input type="text" class="i_bg" name="categoryName" onblur="javascript:checkNameBlur();" onkeyup="javascript:checkName();" onfocus="javascript:checkName();">
+	            <a href="javascript:void(0);" class="btn AddItem">增加二级分类</a>
+	            <span id="nameSpan" class="ts_xx">分类名为2-20位字符组成</span>
+	        </dd>
+   		 	</dl>
+				<dl>
+	        <dt>备注</dt>
+	        <dd><textarea name="" name="categoryNote"></textarea></dd>
+	   		</dl>
+				<div class="clear" ></div>
+				<div class="splitLine"></div>
+		    <div class="boxContent">
+		    </div>
+			</div>
+		</form>
+		
+	</body>
+</html>

@@ -1,0 +1,33 @@
+.header{height: 60px;position: relative;z-index: 10; position: relative;}
+.headerBg{background:#202124;height: 60px;width: 100%; top:0;display: none;position: absolute;z-index: -1;}
+.header .wrapper{width: 1150px;margin: 0 auto;}
+#logo{height: 40px;float: left; margin: 10px 20px 0 0;}
+.nav{min-width: 480px;float: right;}
+.nav a{display: block;float: right; margin-left: 80px;color: #fff;line-height: 60px;font-size: 14px;transition:transform 0.2s linear;}
+.nav a:hover{transform:scale(1.1);}
+.banner{height: 400px;position: relative;}
+.banner img{display: block;margin-top: -60px;height: 400px; position: absolute;left:50%;margin-left:-960px;}
+
+.wrapper{width: 1050px;margin: 0 auto;}
+.search{padding-left: 50px;margin-bottom: 60px;}
+.search ul{margin-bottom: 20px;height: 40px;}
+.search li{width: 130px;height: 40px;line-height: 40px;float: left;margin-right: 32px;text-align: center;font-size: 16px; cursor: pointer;}
+.search li.cur{background: #3388FF;color: #fff;}
+.searchForm{height:50px;}
+.searchBox{height: 46px;border: solid 2px #3388FF;display: block;width: 646px;float: left;}
+.searchSubmit{display: block;width: 122px;height: 50px;line-height: 50px;background: #3388FF;color: #fff;font-size: 16px;float: left;border: none;margin-right:32px; }
+.moreSearch{display: block;width: 140px;height: 50px;line-height: 50px;background: #3388FF;color: #fff;font-size: 16px;float: left;text-align: center;}
+
+.indexList{margin-bottom: 60px;}
+.indexList dl{width:180px;float: left;margin-right: 110px;}
+.indexList dt{width: 150px;text-align: center;height: 128px;display: flex;justify-content: center;align-items: center;margin: 0 auto;position: relative;}
+.itemBg{display: block;position: absolute;left: 4px;top: 4px;z-index: -1;margin-left: -10px; opacity: 0; transition:all 0.3s linear;}
+.itemTitle{padding-bottom: 12px;display: block;white-space: nowrap;text-align: center;font-size: 20px; margin: 0 auto;position: relative;margin-bottom: 12px;}
+.itemTitle em{display:block;width: 40px;height:1px;background:#1E78EB; position: absolute;bottom: 0;left: 50%;margin-left: -20px;}
+.itemText{line-height: 22px;font-size: 14px;color: #999;text-align: center;display: block;}
+.indexList .indexItem4{margin-right: 0;}
+.indexList dl:hover .itemBg{margin: 0; opacity: 1;}
+
+@media screen and (min-height: 913px) {
+    .footer {position:absolute;left: 0;bottom: 0;}
+}

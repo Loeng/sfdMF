@@ -1,0 +1,73 @@
+#define(List
+<com.ekfans.base.metal.model.PreciousMetal> reList) <!--当日涨幅--> <!-- <div class="boxTit"> -->
+<!-- 	<h2>当日涨幅排名</h2> --> <!-- </div> -->
+
+	<ul class="tabNav">
+		<li class="cur">当日涨幅排名</li>
+		<li>当日跌幅排名</li>
+	</ul>
+	<div class="tabContent zfBox" style="display: block;">
+		<table border="0" cellspacing="0" cellpadding="0" class="zftab">
+			<tbody>
+				<tr>
+					<th width="20%;">排名</th>
+					<th width="25%;">品类</th>
+					<th width="30%;">价格</th>
+					<th width="25%;">涨幅</th>
+				</tr>
+				
+				#if(null!=reList&&reList.size()>0) 
+				#set(int i = 1)
+				#for(com.ekfans.base.metal.model.PreciousMetal pm:reList)
+					#if(pm.riseAndDrop>0)
+					<tr>
+						<td>${i++}</td>
+						<td>${pm.name}</td> 
+						<td class="zup">${pm.riseAndDrop} &#8593;</td> 
+						<td>${pm.runUpPer}</td>
+					</tr>
+					#end
+				#end
+				#end
+			</tbody>
+		</table>
+	</div>
+	<div class="tabContent zfBox">
+		<table border="0" cellspacing="0" cellpadding="0" class="zftab">
+			<tbody>
+				<tr>
+					<th width="20%;">排名</th>
+					<th width="25%;">品类</th>
+					<th width="30%;">价格</th>
+					<th width="25%;">跌幅</th>
+				</tr>
+				#if(null!=reList&&reList.size()>0) 
+				#set(int i = 1)
+				#for(com.ekfans.base.metal.model.PreciousMetal pm:reList)
+					#if(pm.riseAndDrop<0)
+					<tr>
+						<td>${i++}</td>
+						<td>${pm.name}</td> 
+						<td class="zdown">${0 - pm.riseAndDrop} &#8595;</td>
+						<td>${pm.runUpPer}</td>
+					</tr>
+					#end
+				#end
+				#end
+			</tbody>
+		</table>
+	</div>
+
+<!--当日涨幅end-->
+<script>
+//选项卡切换
+$(".tabNav li").click(function(){
+	$(this).siblings().removeClass("cur");
+	$(this).addClass("cur");
+	var dom=$(this).parent().siblings(".tabContent");
+	var index=$(this).parent().children().index(this);
+	dom.hide();
+	dom.eq(index).show();
+})
+
+</script>

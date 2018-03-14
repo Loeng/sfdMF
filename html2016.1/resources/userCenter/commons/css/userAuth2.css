@@ -1,0 +1,13 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url("userAuth.css");
+
+.pointIcon{top:-12px; left:346px;}
+.ingState{color:#878787;}
+
+/*企业信息*/
+.imgUpload,.fileUpload{float:left;}
+.formSection{padding-left:20px;}
+.formSection .formName{min-width:72px;}
+.box87{width:87px;}

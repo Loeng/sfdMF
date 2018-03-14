@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>运输车辆-修改</title>
+	<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css">
+	<script src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+	<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+	<style>
+	.formItem dt{width:110px;}
+	
+	</style>
+</head>
+
+<body>
+	#define(com.ekfans.base.store.model.CarInfo info)
+   <form method="post" id="f1">
+   <input type="hidden" value="${info.id}" name="id">
+   <input type="hidden" value="${info.checkStatus}" name="checkStatus">
+   <input type="hidden" value="${info.checkTime}" name="checkTime">
+   <input type="hidden" value="${info.checkMan}" name="checkMan">
+   <input type="hidden" value="${info.checkNote}" name="checkNote">
+   <input type="hidden" value="${info.createTime}" name="createTime">
+		<div class="rightContent">
+			<div class="contentTit  borderColor budong">
+				<h3>车辆管理-修改</h3>
+				<a href="${webroot}/store/transport/car/list" class="btnBase btnCancel">取消</a>
+				<a href="javascript:void(0);" onclick="ajax1()" class="btnBase btnSave">保存</a>
+				<div class="clear"></div>
+			</div>
+			<div class="form borderColor">
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>车牌号</dt>
+					<dd><input name="carNo" id="carNo"onblur="checkFocus(this,'车牌号不能为空');" type="text" value="${info.carNo}" class="textBox box212" placeholder="1-30个字符"><span class="errorText" style="display:none;"></span></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>车辆类型</dt>
+					<dd><input name="carType" onblur="checkFocus(this,'车辆类型不能为空');" id="carType" type="text" value="${info.carType}" class="textBox box212"><span class="errorText" style="display:none;"></span></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>核定载质量</dt>
+					<dd><input name="fullWeight" onblur="checkFocus(this,'核定载质量不能为空');" id="fullWeight" type="number" value="${info.fullWeight}" class="textBox box212"><span class="errorText" style="display:none;"></span></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>行驶证有效期</dt>
+					<dd><input name="startTime" onblur="checkFocus(this,'开始时间不能为空');" id="startTime" type="text" value="${info.startTime}" readonly class="textBox box98" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"><span class="errorText" style="display:none;"></span></dd> 
+					<dd class="lineColor">&nbsp;—&nbsp;</dd>
+					<dd><input value="${info.endTime}" onblur="checkFocus(this,'结束时间不能为空');" name="endTime" id="endTime" type="text" class="textBox box98" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"><span class="errorText" style="display:none;"></span></dd>
+					<dd class="clear"></dd>
+				</dl>
+				
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>道路运输证号</dt>
+					<dd><input name="ysNo" id="ysNo" onblur="checkFocus(this,'运输证号不能为空');" type="text" value="${info.ysNo}" class="textBox box212"><span class="errorText" style="display:none;"></span></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>核定载人数</dt>
+					<dd><input name="fullNum" id="fullNum" onblur="checkFocus(this,'核定载人数不能为空');" type="number" value="${info.fullNum}" class="textBox box212"><span class="errorText" style="display:none;"></span></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>行驶证附件</dt>
+					<dd> #tag picUpload("xszFile","0.5","20","20",info.xszFile) #end </dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>道路运输证附件</dt>
+					<dd> #tag picUpload("yszFile","0.5","20","20",info.yszFile) #end </dd>
+					<dd class="clear"></dd>
+				</dl>
+			</div>
+		</div>  
+	</form>	
+	
+	
+<script>
+	function checkFocus(obj,tit) {
+		if($(obj).val()!=null&&$(obj).val()!=""&&$(obj).val()!=" "){
+			$(obj).next().html("");
+			$(obj).next().hide();
+		}else{
+			$(obj).next().html(tit);
+			$(obj).next().show();
+		}
+	}
+
+	function ajax1(){
+	
+		/*if($("#carNo").val()==""||$("#carNo").val()==" "||$("#carNo").val()==null){
+			falert("车牌号不能为空");
+			return false;
+		}else if($("#carType").val()==""||$("#carType").val()==" "||$("#carType").val()==null){
+			falert("车辆类型不能为空");
+			return false;
+		}else if($("#fullWeight").val()==""||$("#fullWeight").val()==" "||$("#fullWeight").val()==null){
+			falert("核定载质量不能为空");
+			return false;
+		}else if($("#startTime").val()==""||$("#startTime").val()==" "||$("#startTime").val()==null){
+			falert("开始时间不能为空");
+			return false;
+		}else if($("#endTime").val()==""||$("#endTime").val()==" "||$("#endTime").val()==null){
+			falert("结束时间不能为空");
+			return false;
+		}else if($("#ysNo").val()==""||$("ysNo").val()==" "||$("#ysNo").val()==null){
+			falert("运输证号不能为空");
+			return false;
+		}else if($("#fullNum").val()==""||$("fullNum").val()==" "||$("#fullNum").val()==null){
+			falert("核定载人数不能为空");
+			return false;
+		}else if($("#fullNum").val()<=0){
+			falert("核定载人数不能小于1");
+			return false;
+		}else*/
+		
+		var flag=true;
+		$("input[type='text']").each(function(){
+			$(this).blur();
+			if($(this).next().is(':visible')){
+				flag=false;
+			}
+		})
+		
+		$("input[type='number']").each(function(){
+			$(this).blur();
+			if($(this).next().is(':visible')){
+				flag=false;
+			}
+		})
+		
+	 	if($("#xszFileOldUrlPath").val()==""||$("#xszFileOldUrlPath").val()==" "||$("#xszFileOldUrlPath").val()==null){
+			falert("行驶证附件不能为空");
+			return false;
+		}else if($("#yszFileOldUrlPath").val()==""||$("#yszFileOldUrlPath").val()==" "||$("#yszFileOldUrlPath").val()==null){
+			falert("道路运输证附件不能为空");
+			return false;
+		}
+		if(flag){
+			$.post('${webroot}/store/transport/car/update',$("#f1").serialize(),function (data){
+		           if(data==1 || data=="1"){
+							econfirm('修改成功，是否继续修改？',null,null,goBack,[$("#ctxpath").val()]);
+						}else{
+							falert("修改失败");
+						}
+		        }
+	    	);
+    	}
+	}	
+	function goBack(contextPath){
+		// 判定contextPath是否为空
+		if(contextPath==null||contextPath==""){
+			window.location.href="${webroot}/store/transport/car/list";
+		}
+	}
+</script>
+</body>
+</html>

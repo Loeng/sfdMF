@@ -1,0 +1,260 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>三分地环保-商品详情</title>
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+<script src="${webroot}/resources/web/js/base.js"></script>
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/base.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/proDetail.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/commons/js/layer/layer.js"></script>
+<script src="${webroot}/resources/web/js/userIDJudge.js"></script>
+<style>
+.errorText{display:block;color:red;}
+</style>
+</head>
+
+<body>
+#define(com.ekfans.base.product.model.Product p)    
+<input type="hidden" name="ctxpath" id="ctxpath" value="${webroot}" />
+<div id="channelTop"></div>
+<!--一极菜单-->
+<!--一极菜单 end-->
+
+
+<div class="wrapper main">
+    <div class="proUp">
+        #define(List<com.ekfans.base.product.model.ProductPicture> pictures)
+        <div class="pic">
+            #if(p.picture != null)
+                <img src="${webroot}/${p.picture}"  width="200" height="200">
+            #end
+        </div>
+   
+    <dl class="proInfo">
+            <dt>${p.name}</dt>
+            <dd class="infoLine1"><em>质量等级</em><span>#if(p.productModel==null||p.productModel==""||p.productModel==" ") #else${p.productModel}#end</span></dd>
+            <dd class="price"><em>价格</em><span><strong class="red">#if(p.unitPrice==null||p.unitPrice==0.00||p.unitPrice==" ")待议#else${p.unitPrice}</strong> 元/${p.unit}#end</strong></span></dd>
+            <dd class="infoLine2"><em>数量</em><span>#if(p.quantity==null||p.quantity==""||p.quantity==" ")暂无#else${p.quantity} ${p.unit}#end</span></dd>
+            <dd class="infoLine2"><em>交货地</em><span>#if(p.deliceAddress==null||p.deliceAddress==""||p.deliceAddress==" ") #else${p.deliceAddress}#end</span></dd>
+            <dd class="infoLine2"><em>发布日</em><span>#if(p.createTime==null||p.createTime==""||p.createTime==" ") #else${p.createTime.substring(0,10)}#end</span></dd>
+        </dl>
+        <div class="proRight">
+            <dl class="count">
+                <dt>采购数量</dt>
+                <dd class="countBox">
+                    <a href="javascript:void(0)" class="minus" onclick="minus();" title="减少数量">-</a>
+                    <input name="buyCount" id="buyCount" type="text" value="1" maxlength="7" onkeyup="value=value.replace(/[^\0-9\.]/g,'')"onpaste="value=value.replace(/[^\0-9\.]/g,'')" oncontextmenu ="value=value.replace(/[^\0-9\.]/g,'')">
+                    <a href="javascript:void(0)" class="plus" onclick="plus();" title="增加数量">+</a>
+                </dd>
+            </dl>
+            <div class="clear"></div>
+                #if(p.unitPrice!=null && p.unitPrice!="" && p.unitPrice!=0)
+                    <a href="javascript:void(0);" onclick="validUser('${p.id}','0','detail','${p.storeId}');" class="btnGreen btnBuy">立即购买</a>
+                #else
+                    <a href="javascript:void(0);" class="btnRed btnYijia" onclick="yijia('${p.id}','${p.storeId}');">我要议价</a>
+                #end
+                #if(p.isAdvance == "1")
+                    <a href="javascript:void(0);" onclick="validUser('${p.id}','1','detail','${p.storeId}');" class="btnGreen btnBuy">我要订购</a>
+                #end
+                <!--<a href="javascript:void(0);" class="btnRed btnYijia" onclick="yijia('${p.id}','${p.storeId}');" id="yj">我要议价</a>-->
+
+        </div>
+    </div>
+
+    
+    #if(p.description!=null&&p.description!=""&&p.description!=" ")
+    <div class="proDetail">
+    	<h2>详情说明</h2>
+        <div class="detailContent">
+                    <!--详情说明内容，由后台富文本编辑器添加-->
+                    ${p.description}
+        </div>
+    </div>
+    #end
+</div>
+
+
+<!--底部-->
+<div id="channelFoot"></div>
+<!--底部 end-->
+<div id="yijiaHtml" style="display:none;">
+</div>
+<script>
+var count;
+function minus(){
+	count = $("#buyCount").val();
+	if (count > 1.0){
+		count -= 1.0;
+	}
+	$("#buyCount").val(count);
+}
+
+function plus(){
+	count = parseInt($("#buyCount").val());
+	if (count < 9999999){
+		count += 1.0;
+	}
+	$("#buyCount").val(count);
+}
+
+function GetQueryString(name){
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  unescape(r[2]); return null;
+}
+
+function checkQuantity(){
+    var flag=true;
+    var preQuantity = $("#preQuantity").val();
+    var quantity = $("input[name='quantity']").val();
+    if(quantity == "" || quantity == null || quantity == " "){
+        $('#quantitySpan').show();
+        $('#quantitySpan').text("请输入数量");
+        flag = false;
+    }else if(parseFloat(quantity) > parseFloat(preQuantity)){
+        $('#quantitySpan').show();
+        $('#quantitySpan').text("输入数量不能大于库存");
+        flag = false;
+    }
+    return flag;
+}
+function checkPrice(){
+    var flag=true;
+    var price = $("input[name='price']").val();
+    if(price == "" || price == null || price == " "){
+        $('#priceSpan').show();
+        $('#priceSpan').text("请输入价格");
+        flag = false;
+    }
+    return flag;
+}
+
+function checkContactMan(){
+    var flag=true;
+    var contactMan = $("input[name='contactMan']").val();
+    if(contactMan == "" || contactMan == null || contactMan == " "){
+        $('#contactManSpan').show();
+        $('#contactManSpan').text("请输入联系人");
+        flag = false;
+    }
+    return flag;
+}
+
+function checkContactPhone(){
+    var flag=true;
+    var regexp = /^(1[0-9][0-9])\d{8}$/;
+    var contactPhone = $("input[name='contactPhone']").val();
+    if(contactPhone == "" || contactPhone == null || contactPhone == " "){
+        $('#contactPhoneSpan').show();
+        $('#contactPhoneSpan').text("请输入联系电话");
+        flag = false;
+    }
+    return flag;
+}
+
+function yijia(id,storeId){
+    var userId=$("#userId").val();
+    if(userId == storeId){
+        layer.alert("不能对自己的发布的信息进行操作");
+        return;
+    }
+    if(null!=userId&&""!=userId&&" "!=userId){
+        $("#yijiaHtml").load($("#ctxpath").val() + "/store/bargain/bargainDetail",{id:id},function(){
+            //议价弹层
+            count = $("#buyCount").val();
+            $("input[name='quantity']").val(count)
+            layer.open({
+                type: 1,
+                title: '销售议价',
+                skin: 'layer-class',
+                area: '730px', //宽高
+                content: $("#yijiaHtml"),
+                btn:['确认','取消'],
+                yes:function(index){
+                    //点击确定执行的语句
+                    if(checkQuantity() && checkPrice() && checkContactMan() && checkContactPhone()){
+                        $("#bargainForm").ajaxSubmit(function(data){
+                            if(data == true || data=="true"){
+                                layer.close(index);
+                                layer.alert("议价成功")
+                            }else if(data== false || data=="false"){
+                                layer.close(index);
+                                layer.alert("议价失败!");
+                            }else if(data=="error"){
+                                layer.close(index);
+                                layer.alert("不能对自己的商品议价");
+                            }
+                        });
+                    }else{
+                        checkQuantity();
+                        checkPrice(); 
+                        checkContactMan();
+                        checkContactPhone();
+                    }
+                },
+                cancel:function(){
+                    //点击取消执行的语句
+                }
+            });
+        });
+    }else{ //未登录跳转登录页面
+        location.href=$("#ctxpath").val()+"/web/login";
+    }
+}
+
+
+$(document).ready(function(){
+    $("#channelTop").load($("#ctxpath").val() + "/web/channel/commons/channel-top.jetx",{"channelId":null,"channelType":null,"returnUrl":window.location.href},
+    function() {
+        // 默认选择
+//      $(".firstNav li:last-child").addClass("show");
+//      $(".firstNav li[class='show'] a:first-child").addClass("cur");
+//      $(".secondNav,.navList em").show();
+//      $(".wjbclssc").addClass("cur");
+    });
+    $("#channelFoot").load($("#ctxpath").val() + "/web/channel/commons/channel-footer.jetx");
+    var curProCatgId=GetQueryString("curProCatgId");
+    if(null!=curProCatgId&&""!=curProCatgId&&" "!=curProCatgId){
+            $("#yj").hide();
+    }else{
+        $("#yj").show();
+    }
+});
+
+//切换图片
+$(".picList li").click(function(){
+    $(this).addClass("cur").siblings().removeClass("cur");
+    var lujing=$(this).find("img").attr("jqimg");
+    $(".thePic").find("img").attr("src",lujing);
+})
+
+//详情切换
+$(".detailTitle a").click(function(){
+    $(this).addClass("cur").siblings().removeClass("cur");
+})
+
+
+//选项卡切换
+$(".tabNav li").click(function(){
+    $(this).siblings().removeClass("cur");
+    $(this).addClass("cur");
+    var dom=$(this).parent().siblings(".tabContent");
+    var index=$(this).parent().children().index(this);
+    dom.hide();
+    dom.eq(index).show();
+})
+
+function checkFocus(obj) {
+    if($(obj).val()!=""){
+        $(obj).next().html("");
+    }
+}
+
+</script>
+</body>
+</html>

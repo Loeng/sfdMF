@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>企业黄页</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<link rel="icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+	<link rel="shortcut icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/commons.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/web/css/base.css" />
+<style>
+.main{margin-top:30px;}
+
+.companyHead{ padding:25px 20px; margin-bottom:20px;}
+.companyImg{height:198px; width:258px; border:solid 1px #efefef; margin-bottom:20px;}
+.companyImg .imgBox{position:relative; width:148px; height:148px; border:solid 1px #efefef; margin:25px auto;}
+.companyImg .imgBox img{max-width:100%; max-height:100%;}
+.companyInfo{margin-bottom:20px;}
+.companyInfo h2{font-size:22px;height:46px; line-height:46px; border:solid 1px #efefef; padding-left:20px; position:relative;}
+.rzCom{background-color:#FF5947; color:#fff; width:90px; height:30px; line-height:30px; text-align:center; font-size:16px; position:absolute; right:20px; top:8px;}
+
+.leftCon{float:left;width:260px;}
+.leftCon h3{background-color:#393; color:#fff; height:38px; line-height:38px; font-size:16px; padding-left:20px;}
+.comInfo{padding:16px 20px; display:block; min-height:100px;}
+.comInfo li{height:25px; line-height:25px;list-style-type:disc; list-style-position:inside;}
+
+.rightCon{float:right; width:920px;}
+.rightCon h3{ background-color:#393; color:#fff; height:38px; line-height:38px; font-size:14px; padding-left:20px;}
+.comIntro{padding:16px 20px; line-height:28px; color:#666; border:solid 1px #efefef; margin-bottom:20px;}
+.comIntro *{max-width:880px;}
+
+.comDangan{padding:0 16px; margin-top:20px; border:solid 1px #efefef;}
+.companyItems{padding:12px 1%; height:44px;}
+.dangan{color:#595757;width:26%; padding-right:2%; margin-right:5%; float:left; border-right:solid 1px #d1d1d1;}
+.dangan:last-child{border-right:none;}
+.dangan li{height:22px; line-height:22px; overflow:hidden;}
+.jinying{border-top:1px solid #e1e1e1;; color:#666; line-height:24px; padding:8px 10px;min-height:45px;}
+.zizhiContent{border:solid 1px #efefef; margin-bottom:20px;}
+.zizhiItem{position:relative; width:178px; height:178px; border:solid 1px #efefef; display:inline-block; margin:20px 23px;}
+</style>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+</head>
+
+<body>
+<div id="channelTop"></div>
+
+#define(com.ekfans.base.store.model.Store store)
+#define(List<com.ekfans.base.store.model.Intel> tgilist)
+#define(List<com.ekfans.base.store.model.Accredit> accreditList)
+
+
+
+<div class="main wrapper">
+    <div class="leftCon">
+      <div class="companyImg">
+          <div class="imgBox">
+              <img src="${webroot}${store.storeLogo}" alt="${store.storeName}" class="vertical" />
+          </div>
+      </div>
+      <h3>企业信息</h3>
+      <ul class="comInfo">
+          <li>联系人：#if(store.contactName=="")未填写#else${store.contactName}#end</li>
+          <li>电　话：#if(store.contactPhone=="")未填写#else${store.contactPhone}#end</li>
+          <li>手　机：未填写</li>
+          <li>传　真：#if(store.contactFax=="")未填写#else${store.contactFax}#end</li>
+      </ul>
+    </div>
+    <div class="rightCon">
+        <div class="companyInfo" >
+            <h2>${store.storeName}<span class="rzCom">#if(store.commonStatus=="0")未认证#elseif(store.commonStatus=="1")认证中#elseif(store.commonStatus=="2")认证失败#elseif(store.commonStatus=="3")认证#end企业</span></h2>
+            
+            <div class="comDangan"><!--每项必填不可缺-->
+                <div class="companyItems">
+                    <ul class="dangan">
+                        <li>公司类型：#if(store.unitType==1)个人独资企业#elseif(store.unitType==2)合伙企业#else未填写#end </li>
+                        <li>所在地区：#if(store.mailingAddress=="")未填写#else${store.mailingAddress}#end</li>
+                    </ul>
+                    <ul class="dangan">
+                        <li>注册资本：#if(store.regCapital=="")未填写#else${store.regCapital}万元#end</li>
+                        <li>注册日期：#if(store.regTime=="")未填写#else${store.regTime.substring(0,4)}#end</li>
+                    </ul>
+                    <ul class="dangan">
+                        <li>公司规模：#if(store.numberEmployees==0)未填写#else${store.numberEmployees}人#end</li>
+                        <li>资料认证：#if(store.commonStatus=="0")未认证#elseif(store.commonStatus=="1")认证中#elseif(store.commonStatus=="2")认证失败#elseif(store.commonStatus=="3")认证成功#end</li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+                <div class="jinying">
+                  经营范围：#if(store.businessScope=="")未填写#else${store.businessScope}#end
+                </div>
+            </div>
+        </div>
+        <h3>公司介绍</h3>
+        <div class="comIntro"><!--此处在编辑器里必须使用字号大小：12号，字体：微软雅黑-->
+            <span class="words">${store.notes}</span>
+      		<div class="clear"></div>
+        </div>
+        
+        <!--荣誉资质无数据时整个区块（含标题）不展示-->
+        <h3>荣誉资质</h3>
+        <div class="zizhiContent">
+        	#for(com.ekfans.base.store.model.Accredit accredit : accreditList)
+        	<div class="zizhiItem"><img src="${webroot}/${accredit.licenseFile}" class="vertical"></div>
+        	#end
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+
+
+
+<div id="channelFoot"></div>
+
+<script type="text/javascript" src="${webroot}/resources/web/js/base.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#channelTop").load("${webroot}/web/channel/commons/channel-top.jetx",{"channelId":"","channelType":"","returnUrl":window.location.href});
+	$("#channelFoot").load("${webroot}/web/channel/commons/channel-footer.jetx")	
+});	
+</script>
+<div style="display:none;">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255237573'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1255237573' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>

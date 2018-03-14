@@ -1,0 +1,28 @@
+<!--文字-->
+<div class="advStyleList fontStyle">
+    <dl>
+        <dt><em class="mustIco"></em>广告名称</dt>
+        <dd id="nameDd"><input type="text" class="i_bg" name="name" 
+        	onkeyup="checkName();" onblur="checkNameBlur();">
+      		<span id="nameSpan" class="ts_xx">广告名为2-32位字符</span>
+      </dd>     
+    </dl>
+    <dl>
+      <dt>广告说明</dt>
+      <dd id="nameDd"><textarea name="note" cols="" rows="" class="bigBox"></textarea>
+      </dd>    
+  	</dl>
+    <dl>
+    	<dt id="numDd"><em class="mustIco"></em>广告数量</dt>
+      <dd>
+      	<input type="text" class="i_bg countBox" value="1" id="number" onblur="numLoad(this.value,'${ctxpath}');" onkeyup="javascript:clearNoNum(this);">
+       	<span id="numSpan" class="ts_xx">请输入广告数量</span>
+      </dd>  
+       <script>
+       		numLoad($("#number").val(),'${ctxpath}');
+       </script>  
+    </dl>
+    <div class="advItem" id="numLoad">
+        
+    </div>
+</div>

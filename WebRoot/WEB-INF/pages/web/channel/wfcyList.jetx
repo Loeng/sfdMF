@@ -1,0 +1,91 @@
+	#define(List<com.ekfans.base.store.model.Wftransport> wftransports)	
+	
+	<input type="hidden" name="pageNumCyxx" id="pageNumCyxx" value="${pageNum}">
+    
+	<div class="tabContent";">
+        <div class="gqList">
+            <ul class="tabTit">
+            	<li class="tdNum6">认证</li>
+                <li class="tdNum1">线路信息 / 说明</li>
+                <li class="tdNum2">车辆信息</li>
+                <li class="tdNum3">价格</li>
+                <li class="tdNum4">发布日期</li>
+                <li class="tdNum5">操作</li>
+            </ul>
+          	<div class="gqTab">
+                <ul class="gqtabList">
+
+                #for(com.ekfans.base.store.model.Wftransport wftransport : wftransports)
+                    <li>
+                        <div class="listFloat tdNum6">
+                        	<div class="tdIn vertical">                   
+                    #if(!@(com.ekfans.pub.util.StringUtil).isEmpty(wftransport.storeName) && !@(com.ekfans.pub.util.StringUtil).isEmpty(wftransport.storeId))<em class="gyrz">证</em>
+					#else<em class="gyls">临</em>
+					#end
+                    		</div>
+                    	</div>
+                        <div class="listFloat tdNum1">
+                            <div class="xlxx xlLine">${wftransport.storeName}</div>
+                            <div class="xlxx">
+                                <span class="tablecName">出发地点：</span>
+                                <span class="tablecContent" title="${wftransport.startFullPath}">${wftransport.startFullPath}</span>
+                            </div>
+                            <div class="xlxx">
+                                <span class="tablecName">到达地点：</span>
+                                <span class="tablecContent" title="${wftransport.endFullPath}">${wftransport.endFullPath}</span>
+                            </div>
+                        </div>
+                        <div class="listFloat tdNum2">
+                            <div class="clxx">
+                                <span class="tablecName">车辆载重：</span><span class="tablecContent mowi" title="1200 吨">${wftransport.wfpTotal} ${wftransport.unit}</span>
+                            </div>
+                            <div class="clxx">
+                                <span class="tablecName">车辆类型：</span><span class="tablecContent mari20" title="${wftransport.carName}">${wftransport.carName}</span>
+                                <span class="tablecName">罐体材质：</span><span class="tablecContent mowi" title="${wftransport.tankMaterialName}">${wftransport.tankMaterialName}</span>
+                            </div>
+                            <div class="clxx">
+                                <span class="tablecName">货物类型：</span><span class="tablecContent mari20" title="${wftransport.categoryName}">${wftransport.categoryName}</span>
+                                <span class="tablecName">货物种类：</span><span class="tablecContent mowi" title="${wftransport.wfpysName}">${wftransport.wfpysName}</span>
+                            </div>
+                        </div>
+                        <div class="listFloat tdNum3">
+                            <div class="tdIn vertical inline rightAlign">
+                                <span class="green">#if(wftransport.price)${wftransport.price}</span>
+                                <span class="gray">元/公里/${wftransport.unit}</span>
+                                #else待议</span>
+                                #end
+                            </div>
+                        </div>
+                        <div class="listFloat tdNum4"><div class="tdIn vertical">${wftransport.createTime.substring(0,10)}</div></div>
+                        <div class="listFloat tdNum5"><div class="tdIn vertical"><a href="javascript:void(0);" onclick="yijia('${wftransport.id}','0','${wftransport.storeId}')"  class="yijiaLink btnYj">议价</a></div></div>
+                    </li>
+                    #end                          
+
+                   
+              	</ul>
+          	</div>
+        </div>
+    
+    <!-- 分页 -->    
+	    #if(wftransports!=null&&wftransports.size()>0)
+		    #include("commons/channelNew-page.jetx")
+	    #else
+	    	<div class="noneBox">
+	    		<span>抱歉，没找到相关的信息！</span>
+	    	</div>
+	    #end
+    </div>
+    
+    
+    
+    
+    <script>
+	   /*$(".cyTable").each(function() {
+		   	var objs=$(this).find(".cheyuanIn tr:eq(0) td");
+			var objHeader=$(this).find(".cheyuanHeader tr:eq(0) td");
+			for(i=0;i<objs.length;i++){
+				var kuan=objs.eq(i).width();
+				objHeader.eq(i).css("width",kuan+"px");
+			}
+		});*/
+    </script>

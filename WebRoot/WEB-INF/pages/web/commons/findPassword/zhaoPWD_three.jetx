@@ -1,0 +1,69 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>三分地环保-找回密码</title>
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/commons/js/Validform_v5.3.2_min.js"></script>
+<script src="${webroot}/resources/web/js/base.js"></script>
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/base.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/reg.css" rel="stylesheet" type="text/css">
+<style>
+/*找回密码第二步*/
+.findContent{width:630px; margin:10px auto 10px auto;min-height:278px;padding:35px 70px;}
+.findContent .findTit{font-size:24px; color:#313131; height:32px; line-height:32px;margin-top:20px;margin-bottom:20px;}
+.findContent .findIn2{margin-left:174px;}
+.tip{font-size:14px; color:#8C8C8C; margin-bottom:50px;}
+.btnNext{display:block;width:259px;height:38px;line-height:38px; border-radius:4px; font-size:20px;margin-right:10px;}
+</style>
+</head>
+
+<body>
+<input type="hidden" id="ctxpath" value="${webroot}"/>
+
+<div id="channelTop"></div>
+<!--一极菜单-->
+<!--一极菜单 end-->
+<div class="main">
+	<div class="findContent">
+    	<div class="findIn2">
+            <div class="findTit">登录密码修改#if(mark=="1")成功#elseif(mark=="2" || mark=="3")失败#end!</div>
+            <div class="tip">系统将在<em class="time">10</em>秒后进入登录页面，如果没有请点击</div>
+            <a href="javascript:void(0);" class="btnGreen btnNext">登录</a>
+       </div>
+    </div>
+</div>
+<!--底部-->
+<div id="channelFoot"></div>
+<!--底部 end-->
+<script>
+$(document).ready(function() {
+	//加载头部和尾部
+	$("#channelTop").load($("#ctxpath").val() + "/web/channel/commons/channel-top.jetx",{"channelId":null,"channelType":null,"returnUrl":window.location.href});
+	$("#channelFoot").load($("#ctxpath").val() + "/web/channel/commons/channel-footer.jetx");
+
+	var wait=10;
+	function time(o) {
+			if (wait == 0) {
+				window.location.href = $("#ctxpath").val() +"/web/login";
+			} else {
+				o.text(wait);
+				wait--;
+				setTimeout(function() {
+					time(o)
+				},
+				1000)
+			}
+		}
+	time($(".time"));
+	
+	$(".btnNext").click(function(){
+		window.location.href = 	$("#ctxpath").val() + "/web/login"
+	});
+});
+</script>
+</body>
+</html>

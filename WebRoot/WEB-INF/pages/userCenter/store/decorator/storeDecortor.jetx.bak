@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+	<head>
+	
+	#define(com.ekfans.base.user.model.User User)
+	#set(String cssUrl = webroot + "/resources/userCenter/")
+	#if(@(com.ekfans.base.user.util.UserConst).USER_TYPE_STORE == User.type)
+		#set( cssUrl =  cssUrl + "supply/css/style.css")
+	#elseif(@(com.ekfans.base.user.util.UserConst).USER_TYPE_BUYER == User.type)
+		#set( cssUrl =  cssUrl + "purchase/css/style.css")
+	#elseif(@(com.ekfans.base.user.util.UserConst).USER_TYPE_CODE == User.type)
+		#set( cssUrl =  cssUrl + "coreCompany/css/style.css")
+	#end
+	
+		<meta charset="UTF-8">
+		<title>${webName + "-" + @(com.ekfans.base.user.util.UserConst).userTypeNamesMap.get(User.type)}中心-<sitemesh:write property="title"></sitemesh:write></title>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+		<sitemesh:write property="head"></sitemesh:write>
+		<link href="${cssUrl}" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+		
+		<!--店铺中心头部-->
+		${include( "../common/top.jetx")}
+		
+		<div class="main">
+			<div class="wrapper">
+				<!-- 左侧功能菜单 -->
+				<div class="leftNav budong">
+					${include( "../common/leftPurview.jetx")}
+				</div>
+				
+				<!-- 右侧主体 -->
+				<div class="rightContent">
+					<sitemesh:write property='body'></sitemesh:write>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+		
+		<!--店铺中心尾部-->
+		${include( "../common/buttom.jetx")}	
+		
+	</body>
+</html>

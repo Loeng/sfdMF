@@ -1,0 +1,20 @@
+#define(com.ekfans.base.product.model.TemplateFieldsCategory category)
+<dl class="pro_sh pro_sh2">
+	<dt>分类名：</dt>
+		<dd>${category.categoryName}</dd>
+</dl>
+<dl class="pro_sh pro_sh2">
+	<dt>备注：</dt>
+		<dd>${category.categoryNote}</dd>
+</dl>
+<dl class="pro_sh pro_sh2">
+		<dt>二级分类：</dt>
+		<dd>
+			
+				#if(category.childList != null && category.childList.size()>0)
+				 	#for(com.ekfans.base.product.model.TemplateFieldsCategory categories : category.childList)
+					<span class="classItem">${categories.categoryName}</span>
+					#end
+				#end
+		</dd>
+</dl>

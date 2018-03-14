@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>福利采购详情</title>
+	<link href="${webroot}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/order/flcgDetail.js"></script>
+</head>
+
+<body>
+	#define(com.ekfans.base.user.model.WelfarePurchase purchase)
+	<input type="hidden" id="ctxpath" value="${webroot}" />
+	
+	<div class="ht_btn">
+		<a href="${webroot}/system/flcg/list" class="btn" >返回列表</a>
+	</div>
+
+	<div class="add_pro">
+		<dl class="formBox">
+	 		<dt>状态</dt>
+			<dd id="idDd">
+				#if(purchase.status=="0")未处理
+          	#elseif(purchase.status=="1")已处理
+          	#elseif(purchase.status=="2")关闭
+          	#end
+			</dd>
+		</dl>
+		<dl class="formBox">
+	 		<dt>商品编号</dt>
+			<dd id="idDd">
+				<input type="text" class="i_bg" value="${purchase.productNo}" readonly />
+			</dd>
+		</dl>
+		<div class="clear"></div>
+		<dl class="formBox">
+			<dt>核心企业名</dt>
+			<dd>
+				<input type="text" class="i_bg" value="${purchase.storeName}" readonly/>
+			</dd>
+		</dl>
+		<dl class ="formBox">
+		 	<dt>希望到货时间</dt>
+		 	<dd>
+				<input type="text" class="i_bg" value="${purchase.reciveTime}" readonly/>
+			</dd>
+		</dl>
+		<div class="clear"></div>
+		<dl class ="formBox">
+		 	<dt>采购数量</dt>
+		 	<dd>
+				<input type="text" class="i_bg" value="${purchase.quantity}" readonly/>
+			</dd>
+		</dl>
+		<dl class ="formBox">
+		 	<dt>采购企业名</dt>
+		 	<dd>
+				<input type="text" class="i_bg" value="${purchase.companyName}" readonly/>
+			</dd>
+		</dl>
+		<div class="clear"></div>
+		<dl class ="formBox">
+		 	<dt>联系人姓名</dt>
+		 	<dd>
+				<input type="text" class="i_bg" value="${purchase.linkMan}" readonly/>
+			</dd>
+		</dl>
+		<dl class ="formBox">
+		 	<dt>联系人手机</dt>
+		 	<dd>
+				<input type="text" class="i_bg" value="${purchase.mobile}" readonly/>
+			</dd>
+		</dl>
+		<div class="clear" ></div>
+		<dl class ="formBox">
+		 	<dt>希望联系时间</dt>
+		 	<dd>
+				<input type="text" class="i_bg" value="${purchase.linkTime}" readonly/>
+			</dd>
+		</dl>
+		<dl class ="formBox">
+		 	<dt>留言</dt>
+		 	<dd>
+				<textarea class="i_bg" disabled>${purchase.note}</textarea>
+			</dd>
+		</dl>
+		<div class="clear" ></div>
+	</div>
+		
+</body>
+</html>

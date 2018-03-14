@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+    	<title>内容管理</title>
+			<link href="${webroot}/resources/system/css/demand.css" rel="stylesheet" type="text/css" />
+    	<link href="${webroot}/resources/system/css/list.css" rel="stylesheet" type="text/css" />
+    	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/content/contentList.js"></script>
+		  <script type="text/javascript" src="${webroot}/resources/system/js/list.js"></script>
+		  <script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+		</head>
+		<body>
+			
+			#define(List<com.ekfans.base.content.model.Content> contents)
+			#define(List<com.ekfans.base.content.model.ContentCategory> oneContentCategory)
+			#define(List<com.ekfans.base.content.model.ContentCategory> twoContentCategory)
+			#define(List<com.ekfans.base.content.model.ContentCategory> threeContentCategory)
+			#define(com.ekfans.base.user.model.User user)
+			#define(java.lang.String[] ccIds)
+		<input type="hidden" id="ctxpath" value="${webroot}" />
+			<form action="${webroot}/system/content/list" method="post"  id="searchContentForm">
+			<dl class="pro_ss">
+				<dt><b>查询</b><span class="span_down"></span><span class="span_up"></span></dt>
+				<dd class="pro_ss_item">
+			<span>资讯分类</span>
+			<font id="cDd" class="">
+				<em id="select1Span">
+					<select>
+						<option value="" #if(ccIds==null && ccIds=="") selected="selected" #end>==请选择分类==</option>
+						#for(com.ekfans.base.content.model.ContentCategory cc : oneContentCategory)
+							<option value="${cc.id}" #if(ccIds!=null && ccIds[0]==cc.id) selected="selected" #end>${cc.name}</option>	
+						#end
+					</select>
+				
+					<input type="hidden" value="YIJIS">
+				</em>					
+				<em id="select2Span">
+					#if(twoContentCategory!=null && twoContentCategory.size()>0)
+						<select>
+							<option value="">==请选择分类==</option>
+							#for(com.ekfans.base.content.model.ContentCategory cc : twoContentCategory)
+								<option value="${cc.id}" #if(ccIds!=null && ccIds.length>=2 && ccIds[1]==cc.id) selected="selected" #end>${cc.name}</option>	
+							#end
+						</select>
+					#end
+					<input type="hidden" value="ERJIS">
+				</em>
+				<em id="select3Span">
+					#if(threeContentCategory!=null && threeContentCategory.size()>0)
+						<select>
+							<option value="">==请选择分类==</option>
+							#for(com.ekfans.base.content.model.ContentCategory cc : threeContentCategory)
+								<option value="${cc.id}" #if(ccIds!=null && ccIds.length>=3 && ccIds[2]==cc.id) selected="selected" #end>${cc.name}</option>	
+							#end
+						</select>
+					#end
+					<input type="hidden" value="SANJIS">
+				</em>
+			</font>
+		</dd>
+		
+			
+						
+				<dd class="pro_ss_item">
+					<span>资讯名</span>
+					<input type="text" class="i_bg" name="name" value="${name}"/>
+				</dd>
+				
+				<dd class="pro_ss_item">
+					<span>审核状态</span>
+					<span class="zt"><label><input type="radio" value="" name="checkStatus" #if(!"true".equals(checkStatus) && !"false".equals(checkStatus)) checked=true #end/>全部</label></span>
+					<span class="zt"><label><input type="radio" value="true" name="checkStatus" #if("true".equals(checkStatus)) checked=true #end/>已通过</label></span>
+					<span class="zt"><label><input type="radio" value="false" name="checkStatus" #if("false".equals(checkStatus)) checked=true #end/>未通过</label></span>
+				</dd>
+				<dd class="pro_ss_item">
+					<span>创建时间</span><input type="text" class="i_bg" name="bigenDate" value="${bigenDate}" style="width:130px;" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
+					— <input type="text" class="i_bg" name="endDate" value="${endDate}" style="width:130px;" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
+				</dd>
+				<input type="hidden" name="pageNum" value="" />
+				<!-- 这里管理的是资讯分类 -->
+				
+				<div class="clear"></div>
+				<!-- 真实提交的分类ID,以及默认情况下的分类ID -->
+				<input type="hidden" id="categoryId" name="categoryId" value="">	
+					<input type="hidden" id="ctxpath" value="${ctxpath }">
+			</dl>
+			<div class="pro_ss_btn">
+				<a href="javascript:void(0);" class="btn" onclick="searchSubmit();">搜索</a>
+				<a href="javascript:void(0);" class="btn" onclick="resetForm();">重置</a>
+			</div>
+			
+			<div class="pro_ss_btn">
+				<a href="javascript:void(0);" class="btn" onclick="contentAdd('${webroot}');">新增</a>
+			</div>
+			<!--没有数据的时候-->
+			#if(contents==null||contents.size()<=0)
+				<div class="ht_list_k">暂时没有符合条件的数据</div>	
+			#else
+			
+			<!--有数据的时候-->
+				<div class="ht_list">
+					<table id="contentTab" cellpadding="0" cellspacing="0" border="0" >
+						<tr>
+							<th width="3%">全选</th>
+							<th width="3%">序号</th>
+							<th width="6%">导航图片</th>
+							<th width="6%">资讯名</th>
+							<th width="8%">创建时间</th>
+							<th width="4%">是否显示</th>
+							<th width="6%">审核状态</th>
+				      <th width="8%">审核时间</th>
+							<th width="6%">排序位置</th>
+				      <th width="8%">更新时间</th>
+							<th width="5%">操作</th>
+						</tr>
+						#for(com.ekfans.base.content.model.Content content : contents)
+							<tr>
+								<td class="qx"><input type="checkbox" value="${content.id }"/></td>
+							    <td></td>
+							    <td>
+					        	 <img #if(content.navigationImage==null || content.navigationImage==" " || content.navigationImage=="") src="${webroot}/resources/system/images/imgdefault.jpg" #else src="${ctxpath }${content.navigationImage }" #end width="50px" />
+					        </td>
+							   	<td>${content.contentName }</td>
+					        <td>${content.createTime }</td>
+					        <td> #if(content.status) 显示 #else 不显示 #end </td>
+					        <td> #if(content.checkStatus) 通过 #else 未通过 #end </td>
+					        <td>${content.checkTime }</td>
+					        <td>${content.position }</td>
+					        <td>${content.updateTime }</td>
+							    <td class="cz">
+							    	<a href="${content.linkUrl}" title="预览" class="eyeIco" target="_blank"></a>
+							    <!--	<a href="javascript:void(0);" class="eyeIco" onclick="showContentDetail('${content.id }');" title="查看详情"></a> -->
+					          <a href="javascript:void(0);" class="editIco" onclick="contentModify('${content.id}','${webroot}');" title="修改"></a>
+					          <a href="javascript:void(0);" class="del_list" id="del${content.id }" onclick="econfirm('确定要删除此记录吗?',contentDelete,['${webroot}','${content.id}'],null,null);" title="删除"></a>
+							    </td>
+						   </tr>
+						#end
+					</table>
+					<div class="ht_pageBox">
+					<div class="ht_page_l">
+						<a href="javascript:void(0);" onclick="selectAll();" class="btn">全选</a>
+						<a href="javascript:void(0);" onclick="checkSelect();" class="btn">删除</a>
+					</div>
+					
+					<!-- 分页 -->
+					#define(com.ekfans.pub.util.Pager pager)
+					<input type="hidden" name="pageNum" value="${currentPage }">
+					<div class="ht_page">
+						
+							<a href="javascript:void(0);" onclick="goPage('1');" class="btn" value="1"><<</a>
+							#if(pager.currentPage == 1)
+								<a href="javascript:void(0);" class="btn"><</a> 
+							#else
+								<a href="javascript:void(0);" onclick="goPage('${pager.currentPage-1 }');" class="btn" value="${pager.currentPage-1 }" ><</a>
+							#end
+							
+							#if(pager.totalPage>5)
+								#if(pager.currentPage-2>1 && pager.currentPage+2<pager.totalPage)
+									<a>..</a>
+									#for(int i : iterator(pager.currentPage-2,pager.currentPage+2))
+										#if(pager.currentPage==i)
+												<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class=" btn cur" >${i }</a>
+										#else
+											<a href="javascript:void(0);" onclick="goPage('${i }');" class="btn" value="${i }" >${i }</a>
+										#end
+									#end
+									<a>..</a>
+								#elseif(pager.currentPage-2<=1)
+									#for(int i : iterator(1,5))
+										#if(pager.currentPage==i)
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+										#else
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn" >${i }</a>
+										#end
+									#end
+									<a>..</a>
+								#else
+									<a>..</a>
+									#for(int i : iterator(pager.totalPage-4,pager.totalPage))
+										#if(pager.currentPage==i)
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+										#else
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn" >${i }</a>
+										#end
+									#end
+								#end
+							#else
+								#for(int i : iterator(1,pager.totalPage))
+									#if(pager.currentPage==i)
+										<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="btn cur" >${i }</a>
+									#else
+										<a href="javascript:void(0);" onclick="goPage('${i }');" class="btn" value="${i }" >${i }</a>
+									#end
+								#end
+							#end
+							
+							#if(pager.currentPage==pager.totalPage)
+								<a href="javascript:void(0);" class="btn">></a>
+							#else
+								<a href="javascript:void(0);" onclick="goPage('${pager.currentPage+1 }');" class="btn"  value="${pager.currentPage+1 }">></a>
+							#end
+							<a  href="javascript:void(0);" onclick="goPage('${pager.totalPage }');"  class="btn" value="${pager.totalPage }" >>></a>
+							
+						</div>
+					</div>
+				</div>
+		    #end
+		  </div>
+		</div>
+		
+		  <!-- 咨询详情信息处 -->
+		  <!--
+      <div class="apPreviewBg"></div>
+      <div class="apPreview" id="div1">
+    	 <div class="tit" id="div2">
+        	<em class="apNum">咨询详情</em>
+            <span class="apClose"><img src="${webroot}/resources/system/images/del3.jpg"></span>
+       </div>
+    	<div class="previewContent" id="contentDetail">
+    		
+      </div>
+      </div>
+      -->
+	</body>
+</html>
+	

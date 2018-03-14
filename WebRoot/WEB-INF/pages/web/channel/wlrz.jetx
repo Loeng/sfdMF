@@ -1,0 +1,105 @@
+#define(com.ekfans.base.channel.model.Channel channel)
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}-${channel.name}</title>
+<meta name="keywords" content="${channel.keyWords}" />
+<meta name="description" content="${channel.description}" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<link rel="shortcut icon" href="${ctxpath}/resources/commons/images/favicon.ico" type="image/x-icon">
+<script src="${ctxpath}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<link href="${ctxpath}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${ctxpath}/resources/web/css/base.css" rel="stylesheet" type="text/css">
+#if(configStatus == "true")
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.soChange.js"></script>
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.json-2.2.min.js"></script>
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/control.js"></script>	
+	<link href="${ctxpath}/resources/commons/css/control.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/upload/upload.js"></script
+	<link href="${ctxpath}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+#end
+
+
+<style>
+.bread{height:38px; line-height:38px; background:#FCF4E5; font-size:14px; color:#A78749;}
+.curPages{color:#000;}
+.advUp{height:150px;}
+h2{height:30px; line-height:30px; font-size:18px; margin-top:20px;}
+.rongziItem{width:224px;height:223px; float:left; margin-right:20px; background:#fff;}
+.rongziItem .autoAdv{width:224px;height:223px; overflow:hidden;}
+.rongziItem .autoAdvImg{width:224px;height:223px; float:left; margin-right:10px;}
+.advMiddle{height:140px;}
+.cangku{padding:28px 22px 2px 22px; background:#fff;height:442px;}
+.cangkuImg{display:block; float:left; margin:0 22px 20px 0;}
+.cangkuText{width:650px; float:left; font-size:14px; line-height:24px; color:#4b4947;}
+.cangkuText p{padding-bottom:20px;}
+</style>
+</head>
+
+<body>
+
+<input type="hidden" name="ctxpath" id="ctxpath" value="${ctxpath}" />
+<input type="hidden" name="channelId" id="channelId" value="${channelId}" />
+<input type="hidden" name="channelType" id="channelType" value="${channel.type}" />
+#if(configStatus == "true")
+	<!-- 频道配置导航条 -->
+	#include("commons/config/config-top.jetx")
+	<!-- 频道配置导航条 end -->
+#end
+
+
+<div id="channelTop"></div>
+<div class="bread">
+	<div class="wrapper"><a href="${ctxpath}">首页</a>&nbsp;&gt;&nbsp;<em class="curPages">${channel.name}</em></div>
+</div>
+<div class="wrapper advUp">
+	#include("commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"1"})
+</div>
+
+<div class="wrapper">
+    <h2>融资模式</h2>
+    <div class="rongziItem">
+    	#include("commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"2"})
+    </div>
+    <div class="rongziItem">
+    	#include("commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"3"})
+    </div>
+    <div class="rongziItem">
+    	#include("commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"4"})
+    </div>
+    <div class="rongziItem">
+    	#include("commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"5"})
+    </div>
+    <div class="rongziItem" style="margin-right:0;">
+    	#include("commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"6"})
+    </div>
+    <div class="clear"></div>
+  	<h2>对接金融机构</h2>
+    <div class="advMiddle">
+    	#include("commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"7"})
+    </div>
+  	<h2>监管仓库</h2>
+    <div class="cangku">
+    	#include("commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"8"})
+    </div>
+</div>
+
+<!--底部-->
+<div id="channelFoot"></div>
+
+<!--尾部 end-->
+<script src="${ctxpath}/resources/web/js/base.js"></script>
+<script>
+$("#channelTop").load($("#ctxpath").val() + "/web/channel/commons/channel-top.jetx",{"channelId":$("#channelId").val(),"channelType":$("#channelType").val(),"returnUrl":window.location.href});
+$("#channelFoot").load($("#ctxpath").val() + "/web/channel/commons/channel-footer.jetx")
+</script>
+<div style="display:none;">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255237573'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1255237573' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>

@@ -1,0 +1,551 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>供求信息列表</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<link rel="shortcut icon" href="../../../resources/commons/images/favicon.ico" type="image/x-icon">
+<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+<link href="../../../resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/web/css/base.css" rel="stylesheet" type="text/css">
+<style>
+.bread{height:38px; line-height:38px; background:#FCF4E5; font-size:14px; color:#A78749; margin-bottom:20px;}
+.leftLayer{}
+.rightLayer{}
+.info h2{height:26px; line-height:26px; margin-bottom:3px; display:inline-block;}
+.infoHeader{height:38px; line-height:38px; background:#FF5947; color:#fff;}
+.infoHeader .headerItem{font-size:14px; white-space:nowrap; text-align:left; text-indent:10px; float:left;}
+.tableBox{min-height:200px;}
+.infoTable{width:100%; background:#fff;}
+.infoTable th{height:38px; line-height:38px; background:#FF5947; color:#fff; font-size:14px; white-space:nowrap; text-align:left; text-indent:10px;}
+.infoTable td{padding:10px; color:#484848; line-height:20px; vertical-align:top; border-bottom:solid 1px #f1f1f1;}
+.infoTable tr:hover{ background-color:#F1F1F1;}
+.infoTable em{display:block; line-height:20px; color:#FF5947; font-size:14px;}
+.infoTable a{color:#FF5947;}
+.infoTable a:hover{color:#008cd6;}
+.leftLayer .info h2{border-bottom:solid 4px #FF5947;}
+.more{color:#4B4947; font-size:14px; display:inline-block; padding-left:470px;}
+.rightLayer .info h2{border-bottom:solid 4px #0085FD;}
+.rightLayer .infoHeader{background:#0085FD;}
+
+.bottomCompany{margin-bottom:30px;}
+.bottomCompany h2{height:28px; line-height:28px; border-bottom:solid 5px #4594F9;}
+.leftList{width:244px; padding:10px 20px 10px 30px; border-right:solid 1px #dedede; float:left; height:216px; overflow:hidden;}
+.rightList{width:272px; padding:10px 0 10px 23px; float:left; height:216px; overflow:hidden;}
+.bottomCompany li{height:24px; line-height:24px; width:100%; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-size:14px;}
+.listContent{padding:7px 0 10px 0; background:#fff;}
+.leftClass{width:285px; float:left;}
+.rightClass{width:285px; float:right;}
+.leftClass ul,.rightClass ul{padding:17px 18px 20px 18px; background:#fff; height:216px; overflow:hidden;}
+
+.bottomAdv{height:130px; padding:20px 10px; background:#fff;}
+.bottomAdv .autoAdv{float:left; width:275px; padding:0 10px;}
+
+/*选项卡*/
+.tabs{position:relative;}
+.tabNav{height:26px; line-height:26px; margin-bottom:8px;}
+.tabNav li{margin-right:40px; float:left; *display:inline; height:26px; line-height:26px; color:#4B4947; font-size:18px; padding:0 20px; cursor:pointer;}
+.tabNav .li1{ border-bottom:4px solid #FF5947;}
+.tabNav .li2{ border-bottom:4px #0085FD solid;}
+.tabContent{ display:none;}
+.ckDetail{}
+
+/*页码*/
+.pageSize{text-align:center; padding:10px 0; background:#D3D3D3; margin-top:20px;}
+.pageSize a{display:inline-block; height:21px; line-height:21px; margin-right:8px; padding:0 8px; color:#12369b;}
+.pageLast,.pageNext{font-family:SimSun;}
+.pageSize a:hover,.pageSize .nowPage{background:#4594f9; color:#fff;}
+
+/*弹窗背景公共样式*/
+.alertLayerBg{filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8; opacity:0.8; background:#000; position:fixed; left:0; top:0; width:100%; height:100%; z-index:100; display:none;}
+.layerClose{display:block; width:20px; height:17px; position:absolute; top:22px; right:10px; background:url(../../../resources/web/images/closeLayer.png) no-repeat;}
+
+/*详情弹窗*/
+.alterBox{position:fixed;top:50%;left:50%;margin:-160px 0 0 -300px;width:600px;height:320px;z-index:101;background:#fff;overflow:hidden; border-top:10px #0085FD solid;display:none;}
+.alterBox .layHeader{background-color:#FDF5E5; padding:10px 0 10px 22px; position:relative;}
+.alterBox .layHeader h6{height:30px; line-height:30px;color:#313030; font-size:24px; margin-bottom:10px;}
+.alterBox .layHeader .h6Detail{color:#313030; font-size:18px;height:20px; line-height:20px;width: 520px;overflow: hidden;}
+.alterContent{padding:10px 0px 10px 22px;}
+.alterContent .proDetailLi{ float:left; border-right:1px solid #D3D2D2; padding:10px 10px 10px 0;}
+.alterContent .proDetailLi li{ color:#777777; font-size:14px; height:28px; line-height:28px;}
+.alterContent .contact{ float:left;padding:10px 0px 10px 50px;}
+.alterContent .contact li{color:#777777; font-size:14px;height:28px; line-height:28px;}
+
+/*登录弹窗*/
+.loginBox{position:fixed;top:50%;left:50%;margin:-211px 0 0 -193px;width:387px;height:422px;z-index:101;background:#fff;overflow:hidden;display:none;border:solid 8px rgba(0,0,0,0.4); border-radius:8px;}
+.apTit{height:60px; line-height:60px; background:#0085FD; position:relative;}
+.apTit h3{font-size:24px; color:#fff; text-indent:1em;}
+.apContent{background:#fff;}
+.apLogin{width:350px; margin:0 auto;}
+.formLine{padding-top:2px; padding-bottom:10px;width:350px; }
+.formLine dt{height:37px; line-height:37px; font-size:14px; position:relative;}
+.formLine dd{height:42px; position:relative; clear:both; width:350px; text-align:right;}
+.textBox{height:35px; line-height:35px\9; border-radius:3px; border:1px solid #e0e0e0;border-top-width:2px;width:345px;padding-left:2px;}
+.textBoxFocus{border-color:#eee;outline:none;}
+.codeBox{width:160px; display:block; float:left; margin-right:24px;}
+.codeImg{display:block; width:160px; height:36px; float:right;}
+.refreshCode{display:block; float:right; color:#adadad;}
+.formBottom{ margin-bottom:5px;}
+.code{margin-bottom:0px; padding-bottom:0px;}
+.errorText2{height:21px; line-height:21px; color:#FF0101;font-size:14px;}
+.yanleft{float:left;}
+.btnLogin{display:block;width:349px; height:36px; line-height:36px; background-color:#01AFED; color:#fff; border-radius:6px; text-align:center; font-size:16px;}
+.bottomText{margin-top:5px;}
+.btnLeft{color:#313030; font-size:12px; float:left;}
+.btnReg{color:#FF0000; font-size:18px; margin-left:10px;}
+.btnLost{ float:right; color:#FF8900; font-size:12px;}
+</style>
+</head>
+
+<body>
+<div class="wrapper topArea">
+	<h1 class="logo">
+    	<a href="index.html" title="鑫裕环保供应链平台"><img src="../../../resources/commons/images/logo.png" alt="鑫裕环保供应链平台"></a>
+    </h1>
+    <div class="topRight">
+    	<a href="index.html" class="linkIndex">首页</a>
+        <dl class="downList">
+        	<dt><a href="javascript:void(0)" class="linkLogin">登录</a></dt>
+            <dd>
+            	<div class="apBack">
+                  <em class="topPoint"></em>
+                  <div class="apLoadCont">
+                    <a href="cgsdl.html" class="btnLoad dlcg btnCart">采购商入口</a>
+                    <a href="gysdl.html" class="btnLoad dlgy btnRk">供应商入口</a>
+                    <a href="hxqydl.html" class="btnLoad dlhx btnhx">核心企业入口</a>
+                  </div>
+                </div>
+            </dd>
+        </dl>
+        <dl class="downList">
+        	<dt><a href="javascript:void(0)" class="linkReg">注册</a></dt>
+            <dd>
+                <div class="apBack2">
+                    <em class="topPoint2"></em>
+                    <div class="apRegCont">
+                      <a href="cgszc1.html" class="btnEnter zccg btnCart">采购商入口</a>
+                      <a href="gyszc1.html" class="btnEnter zcgy btnRk">供应商入口</a>
+                    </div>
+                </div>
+            </dd>
+        </dl>
+        <em class="split"></em>
+        <span class="telPhone">4000-888-1000</span>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="nav">
+	<div class="wrapper">
+    	<dl class="navItem">
+        	<dt>现货交易</dt>
+            <dd>
+            	<a href="gqxx.html" class="cur">供求信息</a>
+                <a href="gjs.html">贵金属</a>
+                <a href="ylcg.html">原料采购</a>
+                <a href="wjbc.html">微晶板材</a>
+            </dd>
+        </dl>
+        <dl class="navItem">
+        	<dt>危废处置</dt>
+            <dd>
+            	<a href="wxpcs.html">危险品产生</a>
+                <a href="wxpys.html">危险品运输</a>
+                <a href="wxpcz.html">危险品处置</a>
+                <a href="zcfg.html">政策法规</a>
+            </dd>
+        </dl>
+        <dl class="navItem" style="margin-right:0;">
+        	<dt>网络金融</dt>
+            <dd>
+            	<a href="qyrz.html">企业认证</a>
+                <a href="wlrz.html">网络融资</a>
+                <a href="javascript:void(0)">融资指引</a>
+                <a href="javascript:void(0)">建行专区</a>
+            </dd>
+        </dl>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="bread">
+	<div class="wrapper"><a href="javascript:void(0);">首页</a>&nbsp;&gt;&nbsp;<a href="javascript:void(0);">供求信息</a>&nbsp;&gt;&nbsp;供应信息</div>
+</div>
+<div class="wrapper">
+	<div class="tabs">
+    <ul class="tabNav">
+      <li class="li1">供应信息</li>
+      <li class="li2">采购信息</li>
+    </ul>
+    <div class="clear"></div>
+    <div class="tabContent" style="display:block;">
+    	<div class="leftLayer">
+        <div class="info">
+            <div class="infoHeader">
+              <div class="headerItem" style="width:30%;">产品信息</div>
+                <div class="headerItem" style="width:30%;">交货仓库</div>
+                <div class="headerItem" style="width:18%;">报价(元)</div>
+                <div class="headerItem">交货方式</div>
+            </div>
+            <div class="tableBox">
+                <table border="0" cellspacing="0" cellpadding="0" class="infoTable">
+                  <tr>
+                    <td width="30%"><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+                    <td width="30%"><br>畅越飞平有色金属储运（上海）有限公司赣州仓库</td>
+                    <td width="18%"><br>850/吨</td>
+                    <td><br>支持自提</td>
+                    <td><br><a href="javascript:void(0)" class="ckDetail">详情</a></td>
+                  </tr>
+                 <tr>
+                    <td width="30%"><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+                    <td width="30%"><br>畅越飞平有色金属储运（上海）有限公司赣州仓库</td>
+                    <td width="18%"><br>850/吨</td>
+                    <td><br>支持自提</td>
+                    <td><br><a href="javascript:void(0)" class="ckDetail">详情</a></td>
+                  </tr>
+                  <tr>
+                    <td width="30%"><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+                    <td width="30%"><br>畅越飞平有色金属储运（上海）有限公司赣州仓库</td>
+                    <td width="18%"><br>850/吨</td>
+                    <td><br>支持自提</td>
+                    <td><br><a href="javascript:void(0)" class="ckDetail">详情</a></td>
+                  </tr>
+                  <tr>
+                    <td width="30%"><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+                    <td width="30%"><br>畅越飞平有色金属储运（上海）有限公司赣州仓库</td>
+                    <td width="18%"><br>850/吨</td>
+                    <td><br>支持自提</td>
+                    <td><br><a href="javascript:void(0)" class="ckDetail">详情</a></td>
+                  </tr>
+                  <tr>
+                    <td width="30%"><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+                    <td width="30%"><br>畅越飞平有色金属储运（上海）有限公司赣州仓库</td>
+                    <td width="18%"><br>850/吨</td>
+                    <td><br>支持自提</td>
+                    <td><br><a href="javascript:void(0)" class="ckDetail">详情</a></td>
+                  </tr>
+                  <tr>
+                    <td width="30%"><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+                    <td width="30%"><br>畅越飞平有色金属储运（上海）有限公司赣州仓库</td>
+                    <td width="18%"><br>850/吨</td>
+                    <td><br>支持自提</td>
+                    <td><br><a href="javascript:void(0)" class="ckDetail">详情</a></td>
+                  </tr>
+                  <tr>
+                    <td width="30%"><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+                    <td width="30%"><br>畅越飞平有色金属储运（上海）有限公司赣州仓库</td>
+                    <td width="18%"><br>850/吨</td>
+                    <td><br>支持自提</td>
+                    <td><br><a href="javascript:void(0)" class="ckDetail">详情</a></td>
+                  </tr>
+                  <tr>
+                    <td width="30%"><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+                    <td width="30%"><br>畅越飞平有色金属储运（上海）有限公司赣州仓库</td>
+                    <td width="18%"><br>850/吨</td>
+                    <td><br>支持自提</td>
+                    <td><br><a href="javascript:void(0)" class="ckDetail">详情</a></td>
+                  </tr>
+                  <tr>
+                    <td width="30%"><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+                    <td width="30%"><br>畅越飞平有色金属储运（上海）有限公司赣州仓库</td>
+                    <td width="18%"><br>850/吨</td>
+                    <td><br>支持自提</td>
+                    <td><br><a href="javascript:void(0)" class="ckDetail">详情</a></td>
+                  </tr>
+                  <tr>
+                    <td width="30%"><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+                    <td width="30%"><br>畅越飞平有色金属储运（上海）有限公司赣州仓库</td>
+                    <td width="18%"><br>850/吨</td>
+                    <td><br>支持自提</td>
+                    <td><br><a href="javascript:void(0)" class="ckDetail">详情</a></td>
+                  </tr>
+                </table>
+            </div>
+          </div>
+      </div>
+      <div class="pageSize">
+      <a href="javascript:void(0)" class="pageLast">&lt;&lt;</a>
+      <a href="javascript:void(0)" class="page">1</a>
+      <a href="javascript:void(0)" class="page">2</a>
+      <a href="javascript:void(0)" class="page nowPage">3</a>
+      <a href="javascript:void(0)" class="page">...</a>
+      <a href="javascript:void(0)" class="page">10</a>
+      <a href="javascript:void(0)" class="page">11</a>
+      <a href="javascript:void(0)" class="page">12</a>
+      <a href="javascript:void(0)" class="pageNext">&gt;&gt;</a>
+  		</div>
+    </div>
+    <div class="tabContent">
+    	<div class="rightLayer">
+      	<div class="info">
+            <div class="infoHeader">
+              <div class="headerItem" style="width:30%;">产品信息</div>
+                <div class="headerItem" style="width:30%;">交货仓库</div>
+                <div class="headerItem" style="width:18%;">报价(元)</div>
+                <div class="headerItem">交货方式</div>
+            </div>
+            <div class="tableBox">
+                <table border="0" cellspacing="0" cellpadding="0" class="infoTable">
+                  <tr>
+                    <td width="30%"><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+                    <td width="30%"><br>广西国储物流有限责任公司</td>
+                    <td width="18%"><br>850/吨</td>
+                    <td><br>支持自提</td>
+                    <td><br><a href="javascript:void(0)" class="ckDetail">详情</a></td>
+                  </tr>
+                  <tr>
+                    <td><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+                    <td><br>广西国储物流有限责任公司</td>
+                    <td><br>850/吨</td>
+                    <td><br>支持自提</td>
+                    <td><br><a href="javascript:void(0)" class="ckDetail">详情</a></td>
+                  </tr>
+                  <tr>
+                    <td><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+                    <td><br>广西国储物流有限责任公司</td>
+                    <td><br>850/吨</td>
+                    <td><br>支持自提</td>
+                    <td><br><a href="javascript:void(0)" class="ckDetail">详情</a></td>
+                  </tr>
+                  <tr>
+                    <td><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+                    <td><br>广西国储物流有限责任公司</td>
+                    <td><br>850/吨</td>
+                    <td><br>支持自提</td>
+                    <td><br><a href="javascript:void(0)" class="ckDetail">详情</a></td>
+                  </tr>
+                  <tr>
+                    <td><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+                    <td><br>广西国储物流有限责任公司</td>
+                    <td><br>850/吨</td>
+                    <td><br>支持自提</td>
+                    <td><br><a href="javascript:void(0)" class="ckDetail">详情</a></td>
+                  </tr>
+                  <tr>
+                    <td><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+                    <td><br>广西国储物流有限责任公司</td>
+                    <td><br>850/吨</td>
+                    <td><br>支持自提</td>
+                    <td><br><a href="javascript:void(0)" class="ckDetail">详情</a></td>
+                  </tr>
+                  <tr>
+                    <td><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+                    <td><br>广西国储物流有限责任公司</td>
+                    <td><br>850/吨</td>
+                    <td><br>支持自提</td>
+                    <td><br><a href="javascript:void(0)" class="ckDetail">详情</a></td>
+                  </tr>
+                  <tr>
+                    <td><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+                    <td><br>广西国储物流有限责任公司</td>
+                    <td><br>850/吨</td>
+                    <td><br>支持自提</td>
+                    <td><br><a href="javascript:void(0)" class="ckDetail">详情</a></td>
+                  </tr>
+                  <tr>
+                    <td><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+                    <td><br>广西国储物流有限责任公司</td>
+                    <td><br>850/吨</td>
+                    <td><br>支持自提</td>
+                    <td><br><a href="javascript:void(0)" class="ckDetail">详情</a></td>
+                  </tr>
+                  <tr>
+                    <td><em>铁精粉</em><span>品位0.66 产地河北丰宁 硫含量&lt;0.1% 硅含量&lt;7.5% 钛含量&lt;0.5%</span></td>
+                    <td><br>广西国储物流有限责任公司</td>
+                    <td><br>850/吨</td>
+                    <td><br>支持自提</td>
+                    <td><br><a href="javascript:void(0)" class="ckDetail">详情</a></td>
+                  </tr>
+                </table>
+            </div>
+        </div>
+  </div>
+  		<div class="pageSize">
+        <a href="javascript:void(0)" class="pageLast">&lt;&lt;</a>
+        <a href="javascript:void(0)" class="page">1</a>
+        <a href="javascript:void(0)" class="page">2</a>
+        <a href="javascript:void(0)" class="page nowPage">3</a>
+        <a href="javascript:void(0)" class="page">...</a>
+        <a href="javascript:void(0)" class="page">10</a>
+        <a href="javascript:void(0)" class="page">11</a>
+        <a href="javascript:void(0)" class="page">12</a>
+        <a href="javascript:void(0)" class="pageNext">&gt;&gt;</a>
+  		</div>
+    </div>
+  </div>
+</div>
+<!--底部-->
+<div class="bottomMenu">
+    <div class="wrapper">
+    	<dl class="footItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c4.png" width="49" height="48" />
+              <span>采购流程</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="下单流程">下单流程</a></li>
+                <li><a href="javascript:void(0);" title="订单跟踪">订单跟踪</a></li>
+                <li><a href="javascript:void(0);" title="安全支付">安全支付</a></li>
+                <li><a href="javascript:void(0);" title="企业认证">企业认证</a></li>
+                <li><a href="javascript:void(0);" title="常见问题">常见问题</a></li>
+            </dd>
+        </dl>
+        <dl class="footItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c5.png" width="49" height="48" />
+              <span>服务与支持</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="物流配送">物流配送</a></li>
+                <li><a href="javascript:void(0);" title="经销商权益">经销商权益</a></li>
+                <li><a href="javascript:void(0);" title="不良品退货">不良品退货</a></li>
+                <li><a href="javascript:void(0);" title="在线咨询">在线咨询</a></li>
+                <li><a href="javascript:void(0);" title="融资操作手册">融资操作手册</a></li>
+            </dd>
+        </dl>
+        <dl class="footItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c6.png" width="49" height="48" />
+              <span>我的账户</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="子账户管理">子账户管理</a></li>
+                <li><a href="javascript:void(0);" title="密码重置">密码重置</a></li>
+                <li><a href="javascript:void(0);" title="在线打款">在线打款</a></li>
+            </dd>
+        </dl>
+        <dl class="lastItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c7.png" width="49" height="48" />
+              <span>关于我们</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="公司简介">公司简介</a></li>
+                <li><a href="javascript:void(0);" title="联系我们">联系我们</a></li>
+                <li><a href="javascript:void(0);" title="网站声明">网站声明</a></li>
+            </dd>
+        </dl>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--底部 end-->
+
+<!--尾部-->
+<div class="footer">
+	<div class="wrapper">
+        <p class="footerLeft">© 2014 成都易科远见科技有限公司 版权所有 蜀ICP备 14005736号</p>
+        <p class="footerRight">成都市高新区吉泰路666号花样年·福年广场2号楼1309室<br>服务热线：028-83190368</p>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--尾部 end-->
+
+<!--弹窗 css-->
+<div class="alertLayerBg"></div>
+<!--详情弹窗-->
+<div class="alterBox">
+	<div class="layHeader">
+    <h6>金精粉</h6>
+    <div class="h6Detail">产地进口；其他指标金20-25g/DMT；砷10%；</div>
+    <a href="javascript:void(0);" class="layerClose"></a>
+  </div>
+  <div class="alterContent">
+  	<ul class="proDetailLi">
+    	<li>报　价：<em class="red">3,600</em> 元/吨</li>
+			<li>供货量：2,000 吨 ( 已成交 1,628 吨 | 剩余 372 吨)</li>
+			<li>起订量：500 吨</li>
+			<li>交割地：灵宝1号库</li>
+			<li>交割日：即期</li>
+			<li>交　货：仅支持自提</li>
+			<li>付　款：先款后货或者现款现货</li>
+    </ul>
+    <ul class="contact">
+    	<li>联系人：王小亮</li>
+			<li>手　机：13621061523</li>
+			<li>电　话：13621061523</li>
+    </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+<!--详情弹窗 end-->
+
+<!--登录弹窗-->
+<div class="loginBox">
+		<div class="apTit">
+    	<h3>查看详情登录</h3>
+    <a href="javascript:void(0);" class="layerClose"></a>
+    </div>
+    <div class="apContent">
+    	<div class="apLogin">
+        <dl class="formLine">
+            <dt>用户名</dt>
+            <dd>
+              <input name="name" type="text" class="textBox textBoxFocus">
+              <span class="errorText2">请输入用户名</span>
+            </dd>
+        </dl>
+        <dl class="formLine">
+            <dt>密码</dt>
+            <dd>
+              <input type="password" class="textBox textBoxFocus">
+              <span class="errorText2">请输入密码</span>
+           </dd>    
+        </dl>
+        <dl class="formLine code">
+            <dt>验证码</dt>
+            <dd>
+              <input name="verifyCode" type="text" class="textBox codeBox textBoxFocus">
+              <a href="javascript:void(0);" title="点击图片刷新验证码" class="codeImg">
+                <img src="../../../resources/web/images/layerCode.png" width="160" height="36" alt="验证码">
+              </a>
+              <div class="clear"></div>
+            </dd>
+        </dl>
+        <div class="formBottom">
+        	<span class="errorText2 yanleft">请输入验证码</span>
+          <span class="refreshCode">点击图片刷新验证码</span>
+          <div class="clear"></div>
+        </div>
+        <a href="javascript:void(0);" class="btnLogin">登录</a>
+        <div class="bottomText">
+          <span class="btnLeft">还没注册?<a href="javascript:void(0)" class="btnReg">请注册</a></span>
+          <a href="javascript:void(0)" class="btnLost">忘记密码？</a>
+          <div class="clear"></div>
+        </div>
+     </div> 
+   </div>
+</div>
+<!--登录弹窗 end-->
+
+<script src="../../../resources/web/js/base.js"></script>
+<script>
+$(document).ready(function() {
+	/*选项卡切换*/
+	$(".tabNav li").click(function(){
+		var dom=$(this).parent().siblings(".tabContent");
+		var index=$(this).parent().children().index(this);
+		dom.hide();
+		dom.eq(index).show();
+	})
+	
+	/*查看详情弹窗*/
+	$(".ckDetail").live("click",function(){
+		$(".alertLayerBg").show();
+		$(".alterBox").show();
+		$(".loginBox").show();
+	});
+	
+	/*关闭弹窗*/
+	$(".layerClose").live("click",function(){
+		$(this).parents(".alterBox").hide();
+		$(this).parents(".loginBox").hide();
+		$(".alertLayerBg").hide();
+		//$(this).parents(".alterBox").prev(".alertLayerBg").hide();
+	});
+});
+</script>
+</body>
+</html>

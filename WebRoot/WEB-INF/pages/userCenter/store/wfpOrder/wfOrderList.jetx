@@ -1,0 +1,268 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>危废${viewType == "0"?"处置":("1" == viewType?"再循环":"运输")}订单列表</title>
+	<meta name="keywords" content="鑫裕环保" />
+	<meta name="description" content="鑫裕环保" />
+	<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+	<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+#define(List<com.ekfans.base.wfOrder.model.WfOrder> orderList)
+	<!--右侧主体-->
+
+	<input id="ctxPath" type="hidden" value="${webroot}" />
+	<input id="orgId" type="hidden" value="${@(com.ekfans.plugin.cache.base.Cache).getResource("orgId")}" />
+	<div class="rightContent">
+		<form action="${webroot}/store/order/contractOrder/orderList/${viewType}" method="post" id="searchWfpOrder">
+			<input type="hidden" name="pageNum" />
+			<input type="hidden" name="scrapId" value="${scrapId}"/>
+			<div class="formSearch borderColor">
+				<dl class="formItem" >
+					<dt>订单号</dt>
+					<dd>
+						<input id="orderId" name="orderId" type="text" class="textBox box212" value="${orderId}">
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt>危废品名称</dt>
+					<dd>
+						<input id="wfName" name="wfName" type="text" class="textBox box212" value="${wfName}">
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt>订单状态</dt>
+					<dd>
+						<div class="selList">
+						<span class="textBox">
+							<input id="orderStatus" name="orderStatus" type="text" class="box184" placeholder="" readonly value="${orderStatus}">
+							<em class="iconDown"></em>
+						</span>
+							<ul>
+								<li>所有</li>
+								<li>待处理</li>
+								<li>已处理</li>
+							</ul>
+						</div>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt>下单时间</dt>
+					<dd>
+						<input id="startTime" name="startTime" type="text" class="timeBox box98 textBox" value="${startTime}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+					</dd>
+					<dd class="lineColor">&nbsp;—&nbsp;</dd>
+					<dd>
+						<input id="endTime" name="endTime" type="text" class="timeBox box98 textBox" value="${endTime}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<div class="clear"></div>
+			</div>
+			<div class="btnArea">
+				<a href="javascript:formSubmit();" class="btnBase btnSearch">搜索</a>
+				<a href="javascript:reset();" class="btnBase btnReset">重置</a>
+				<div class="clear"></div>
+			</div>
+		</form>
+		<div class="formTable borderColor">
+			<ul class="secNav">
+				<li class="li1">危废${viewType == "0"?"处置":("1" == viewType?"再循环":"运输")}订单信息</li>
+			</ul>
+			<div class="clear"></div>
+
+			<div style="position:relative;" class="tableBox">
+				<table border="0" cellspacing="0" cellpadding="0" class="tabList">
+					<thead>
+					<tr class="tabTit bgColor">
+						#if(viewType == "0" || viewType == "2")
+						<th class="accept">委托方</th>
+						#end
+						#if(viewType == "1" || viewType == "2")
+						<th class="accept">处置方</th>
+						#end
+
+						<th class="accept">危废品名称</th>
+						<th class="accept">数量</th>
+						#if(viewType != "2")
+						<th class="accept">订单金额</th>
+						#end
+						<th class="accept">订单状态</th>
+						<th class="accept">下单时间</th>
+						<th></th>
+					</tr>
+					</thead>
+					<tbody>
+					#for(com.ekfans.base.wfOrder.model.WfOrder wfOrder : orderList)
+					<tr>
+						#if(viewType == "0" || viewType == "2")
+						<td>${wfOrder.saleName}</td>
+						#end
+						#if(viewType == "1" || viewType == "2")
+						<td>${wfOrder.buyName}</td>
+						#end
+
+						<td>${wfOrder.wfpName}</td>
+						<td>${wfOrder.wfpTotal}&nbsp;吨</td>
+						#if(viewType != "2")
+						<td>${wfOrder.status != "09"? ("预付款" + @(java.lang.String).format("%.2f",wfOrder.yfPrice)): ("总额" + @(java.lang.String).format("%.2f",wfOrder.totalPrice))}元</td>
+						#end
+						<td>${@(com.ekfans.base.wfOrder.util.WfOrderHelper).orderStatusMap.get(wfOrder.status)}</td>
+						<td>${wfOrder.createTime}</td>
+						<td>
+							<input type="hidden" id="lineUrl" value="${@(com.ekfans.plugin.cache.base.Cache).getResource("monitor.url.prefx")}">
+
+							<a href="${webroot}/store/order/wfOrderView/${wfOrder.id}/${viewType}/0" class="eyeIco" title="详情">查看</a>
+							<input type="hidden" id="wfOrderId" value="${wfOrder.id}">
+							#if(wfOrder.status == @(com.ekfans.base.wfOrder.util.WfOrderHelper).WFORDER_STATUS_WAIT_SURE)
+							#if("1" == viewType)
+							<a href="${webroot}/store/order/wfOrderView/${wfOrder.id}/${viewType}/1" class="eyeIco" title="确认订单信息">确认订单信息</a>
+							#elseif("0" == viewType)
+							<a href="${webroot}/store/order/wfOrderEdit/${wfOrder.id}/${viewType}" class="eyeIco" title="编辑">编辑</a>
+							<a href="javascript:void(0)" onclick="wfOrderCancel()" class="eyeIco" title="取消订单">取消订单</a>
+							#end
+							#end
+
+							#if(wfOrder.status == @(com.ekfans.base.wfOrder.util.WfOrderHelper).WFORDER_STATUS_WAIT_TRANS_SURE)
+							#if("2" == viewType)
+							<a href="${webroot}/store/order/wfOrderView/${wfOrder.id}/${viewType}/2" class="eyeIco" title="确定车辆信息">确定车辆信息</a>
+							#end
+							#end
+
+							#if(wfOrder.status == @(com.ekfans.base.wfOrder.util.WfOrderHelper).WFORDER_STATUS_WAIT_PAY_YF)
+							#if((wfOrder.yfType && "1" == viewType) || (!wfOrder.yfType && "0" == viewType))
+							<a href="${webroot}/store/order/wfOrderView/${wfOrder.id}/${viewType}/3" class="eyeIco" title="支付预付款">支付预付款</a>
+							#end
+							#if("2" == viewType)
+							<a href="${webroot}/store/order/wfOrderView/${wfOrder.id}/${viewType}/2" class="eyeIco" title="修改车辆信息">修改车辆信息</a>
+							#end
+							#end
+
+							#if(wfOrder.status == @(com.ekfans.base.wfOrder.util.WfOrderHelper).WFORDER_STATUS_WAIT_FH)
+							#if("1" == viewType && wfOrder.saleId == storeId)
+							<a href="${webroot}/store/order/wfOrderView/${wfOrder.id}/${viewType}/4" class="eyeIco" title="订单发货">订单发货</a>
+							#end
+							#end
+
+							#if(wfOrder.status == @(com.ekfans.base.wfOrder.util.WfOrderHelper).WFORDER_STATUS_WAIT_SH)
+							#if("0" == viewType && wfOrder.buyId == storeId)
+							<a href="${webroot}/store/order/wfOrderView/${wfOrder.id}/${viewType}/5" class="eyeIco" title="确认收货">确认收货</a>
+							<a href="javascript:void(0)" onclick="taskLine('${wfOrder.id}')" class="eyeIco" title="详情">任务监控</a>
+							#end
+							#end
+
+							#if(wfOrder.status == @(com.ekfans.base.wfOrder.util.WfOrderHelper).WFORDER_STATUS_WAIT_PW)
+							#if("0" == viewType && wfOrder.buyId == storeId)
+							<a href="${webroot}/store/order/wfOrderView/${wfOrder.id}/${viewType}/6" class="eyeIco" title="提交最终品位">提交最终品位</a>
+							#end
+							#end
+
+							#if(wfOrder.status == @(com.ekfans.base.wfOrder.util.WfOrderHelper).WFORDER_STATUS_WAIT_SURE_PRICE)
+							#if("1" == viewType && wfOrder.saleId == storeId)
+							<a href="${webroot}/store/order/wfOrderView/${wfOrder.id}/${viewType}/7" class="eyeIco" title="确认品位及价格">确认品位及价格</a>
+							#end
+							#end
+
+
+							#if(wfOrder.status == @(com.ekfans.base.wfOrder.util.WfOrderHelper).WFORDER_STATUS_WAIT_PAY)
+
+							#if(((wfOrder.totalPrice.doubleValue() - wfOrder.payPrice.doubleValue())!=0) && ((wfOrder.buyId == storeId && !wfOrder.yfType && wfOrder.listStatus != "1"&& wfOrder.listStatus != "3")||(wfOrder.saleId == storeId && wfOrder.yfType && wfOrder.listStatus != "1"&& wfOrder.listStatus != "3")))
+							<a href="${webroot}/store/order/wfOrderView/${wfOrder.id}/${viewType}/8" class="eyeIco" title="结算">结算</a>
+							#end
+							#if(((wfOrder.totalPrice.doubleValue() - wfOrder.payPrice.doubleValue()) < 0) && (wfOrder.listStatus == "1" || wfOrder.listStatus == "3")&& ((wfOrder.saleId == storeId && !wfOrder.yfType)||(wfOrder.buyId == storeId && wfOrder.yfType)))
+							<a href="${webroot}/store/order/wfOrderView/${wfOrder.id}/${viewType}/9" class="eyeIco" title="退款">退款</a>
+							#end
+
+							#end
+							<!-- 连接到金融系统  -->
+							<a href="javaScript:choseMenu('${webroot}','LOAN_APP_ADD');" class="eyeIco"  title="金融服务">金融服务</a>
+
+						</td>
+					</tr>
+					#end
+					</tbody>
+				</table>
+				#if(orderList ==  null || orderList.size() <= 0 )
+				<div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+				#else
+				<div>
+
+					${include("../common/page.jetx")}
+					<div class="clear"></div>
+				</div>
+				#end
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	</div>
+	<!--右侧主体 end-->
+	<div class="clear"></div>
+	</div>
+	<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+	<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+
+	<script src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript">
+		//查询详情
+		function orderDetail(ctx,id){
+			window.location.href=ctx+"/store/order/wfpOrderDetail?orderId="+id;
+		}
+		//申请金融服务
+		function gaoBankService(ctx,id){
+			window.location.href=ctx+"/store/finance/jumpDaiPape/1?orderId="+id;
+		}
+		//分页跳转
+		function goPage(pageNum){
+			$("input[name='pageNum']").val(pageNum);
+			$("#searchWfpOrder").submit();
+		}
+		function reset(){
+			$("#orderId").val("");
+			$("#orderStatus").val("所有");
+			$("#startTime").val("");
+			$("#endTime").val("");
+			$("#wfName").val("");
+		}
+
+		function formSubmit(){
+			$(searchWfpOrder).submit();
+		}
+	</script>
+
+
+	<script type="text/javascript">
+
+		function wfOrderCancel(){
+			var wfOrderId=$("#wfOrderId").val();
+			$.post('${webroot}/store/order/wfOrderCancel/'+wfOrderId,function (data){
+				if(data==1 || data=="1"){
+					salertWithFunction("取消订单成功",reloadUrl,null);
+				}else{
+					falertWithFunction("取消订单失败",reloadUrl,null);
+				}
+			});
+		}
+
+		function reloadUrl(){
+			location.href="${webroot}/store/order/contractOrder/orderList/${viewType}";
+		}
+
+		function taskLine(orderId){
+			var orgId = $("#orgId").val();
+			var lineUrl = $("#lineUrl").val();
+			window.open( lineUrl + "/sources/monitor/monitors/"+ orderId + "/" + orgId);
+		}
+
+	</script>
+
+</body>
+</html>

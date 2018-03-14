@@ -1,0 +1,210 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>变更运输合同</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/commons/css/proAdd.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/commons/css/tools.css" rel="stylesheet" type="text/css">
+
+<style>
+.endNum{width:20%;}
+
+
+.tabContent h3{font-size:16px; line-height:30px; height:30px; color:#484848; font-weight:normal; border-bottom:solid 1px #e5e5e5; margin-bottom:16px;}
+.box80,.inputSplit{display:inline-block;}
+.box80{width:95px;}
+.editorForm dt{height:30px; line-height:30px;}
+.editorForm{padding-bottom:20px;}
+
+.htItem{display:inline-block; height:28px; border:solid 1px #E0E3EA; padding:0 30px 0 15px; position:relative; margin:0 12px 10px 0;}
+.htItem em{display:block; background:url(${webroot}/resources/userCenter/commons/images/close1.png) no-repeat; width:11px; height:11px; position:absolute; top:9px; right:9px; cursor:pointer;}
+.htItem:hover{background:#f5f5f5;}
+
+
+.danxuan{width:870px;}
+.danxuan input,.fuxuan input{float:left; display:block;}
+
+
+.company{padding-bottom:20px;}
+.company ul{float:left; width:890px;}
+.company li{height:30px; line-height:30px; padding-left:30px; position:relative; float:left; padding-right:30px;}
+.company li input{display:block; top:10px; left:10px; position:absolute;}
+.company h4{font-size:14px; line-height:30px; float:left; margin-right:20px; width:74px;}
+
+.alertBrand{max-height:440px;}
+.alertBrand .btn{padding-left:110px;}
+.classItem{width:30%; margin:0 1.5%; float:left; height:50px; line-height:50px; border-bottom:solid 1px #e4e4e4;}
+.classItem label{display:block;}
+.classItem input{display:block; float:left; margin:19px 10px 0 8px;}
+.alertBrand .pageSize{padding:20px 20px 0 0;}
+</style>
+</head>
+
+</head>
+<body>
+#define(com.ekfans.base.wfOrder.model.ScrapWfp scrapWfp)
+#define(List<com.ekfans.base.wfOrder.model.Contract> transContracts)
+
+
+#define(com.ekfans.base.store.model.Store store)
+<input type="hidden" id="ctxpath" value="${webroot}"/>
+<form action="${webroot}/store/wfpscrap/changeSave" method="post" id="formSub" >
+	<input type="hidden" name="viewType" value="${viewType}"/>
+	<input type="hidden" name="scrapId" value="${scrapWfp!=null?scrapWfp.id:""}"/>
+	<input type="hidden" name="contractId" id="contractId" value="${scrapWfp != null ? scrapWfp.contractId:""}"/>
+	<div class="rightContent">
+		<div class="contentTit budong borderColor">
+			<h3>变更运输合同</h3>
+			<a href="javascript:returnList();" class="btnBase btnCancel">取消</a>
+			<a href="javascript:subForm();" class="btnBase btnSave">保存</a>
+			<div class="clear"></div>
+		</div>
+		<div class="form borderColor">
+			<div class="tabContent">
+				<dl class="formItem formLine">
+					<dt style="width:88px;"><em class="mustIco"></em>运输合同信息</dt>
+					<dd class="danxuan">
+						<span id="showContracts">
+							#set(String conIds = "")
+							#for(com.ekfans.base.wfOrder.model.Contract contract:transContracts)
+								<span class="htItem" id="${contract.id}">${contract.name}<em onclick="removeTrans('${contract.id}_${contract.name}_${contract.secondId}')"></em></span>
+								#set(conIds = conIds +  contract.id + "_" + contract.name + "_" + contract.secondId + ";")
+							#end
+						</span>
+						<a href="javascript:void(0);" class="btnBase" style="height:30px;" id="addYsContract" title="选择合同">请选择</a>
+						
+						<input type="hidden" name="ysContracts" id="ysContracts" value="${conIds}"/>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<div class="clear"></div>
+				<div class="company">
+					<h4><em class="mustIco"></em>运输企业</h4>
+					<ul id="transDivDetails"></ul>
+					<div class="clear"></div>
+				</div>
+				<div id="transInfo"></div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+</form>
+<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+
+<div class="apLayerBg"></div>
+<div class="apLayer borderColor alertBrand" id="showLoads"></div>
+
+
+<script>
+String.prototype.replaceAll = function(reallyDo, replaceWith, ignoreCase) {  
+	if (!RegExp.prototype.isPrototypeOf(reallyDo)) {  
+      return this.replace(new RegExp(reallyDo, (ignoreCase ? "gi": "g")), replaceWith);  
+  }else{
+      return this.replace(reallyDo, replaceWith);  
+  }
+} 
+
+$("#addYsContract").live("click",function(){
+	$("#showLoads").load($("#ctxpath").val()+"/store/contract/ysContrants");
+	$(".apLayerBg").show();
+	$(".alertBrand").show();
+});
+
+function finishYsCon(){
+	var zizhiHtm = "";
+	var contentsHtm = "";
+	var value2 = $("#ysContracts").val();
+	if(value2 != null && value2.indexOf(";") != -1){
+		var value2s = value2.split(";");	
+		for(j=0;j<value2s.length;j++){
+			if(value2s[j] != "" && value2s[j] != " "){
+				var vs = value2s[j].split("_");
+				var vid = vs[0];
+				var vName = vs[1];
+				var vStoreId = vs[2];
+				zizhiHtm = zizhiHtm + "<span class=\"htItem\" id=\""+vid+"\">" + vName + "<em onclick=\"removeTrans('"+value2s[j]+"')\"></em></span>";
+				contentsHtm = contentsHtm + "<li id=\""+vid+"Li\"><label><input name=\"transContractId\" type=\"checkbox\" value=\"" + vid + ";" + vStoreId + "\" onclick=\"choseTransContract(this,'"+vid+"','"+vStoreId+"')\">"+vName+"</label></li>";
+				
+			}
+		}
+	}
+	$("#showContracts").html(zizhiHtm);
+	$("#addStores").html(contentsHtm);
+	
+	$(".apLayerBg").hide();
+	$(".alertBrand").hide();
+}
+function removeTrans(val2){
+	var vs = val2.split("_");
+	var vid = vs[0];
+	var vName = vs[1];
+	var vStoreId = vs[2]
+	var values = $("#ysContracts").val();
+	values = values.replaceAll(val2 + ";","");
+	$("#ysContracts").val(values);
+	$("#"+vid).remove();
+	$("#"+vid + "Li").remove();
+	
+	var transStoreIds = $("#transStoreIds").val();
+	var transContracts = $("#transContracts").val();
+	
+	transStoreIds = transStoreIds.replaceAll( vStoreId + ";","");
+	transContracts = transContracts.replaceAll( vid + ";","");
+	$("#transStoreIds").val(transStoreIds);
+	$("#transContracts").val(transContracts);
+	loadTransInfo();
+	
+}
+
+	
+function loadTransInfo(){
+	$("#transInfo").load("${webroot}/store/wfpscrap/loadTransStores",{transStoreIds:$("#transStoreIds").val(),wfpId:"${scrapWfp != null?scrapWfp.id:""}"});
+}
+
+loadTransInfo();
+var transContractWfpId = "${(scrapWfp!=null&&scrapWfp.id != "")?scrapWfp.id:(scrapWfp!=null?scrapWfp.parentId:"")}";
+$("#transDivDetails").load("${webroot}/store/wfpscrap/loadTransContracts/${scrapWfp.contractId}",{scrapWfpId:transContractWfpId});
+$("#transDivs").show();
+
+function returnList(){
+	location.href="${webroot}/store/wfpscrap/skipScrapList/${viewType}";
+}
+
+function subForm(){
+	//验证是否选择运输合同
+	var transStoreIds = $("#transStoreIds").val();
+	if(transStoreIds == ""){
+		falert("请选择运输单位！")
+		return;	
+	}
+	
+	//验证产生单位、运输单位、接收单位的信息
+	if(!checkTransInfoSub()){
+		return;	
+	}
+	
+	$("#formSub").ajaxSubmit(
+		function(data) {
+			if (data == true || data == "true") {
+				salertWithFunction('运输合同变更成功',returnList,null);
+			} else {
+				falert("运输合同变更失败");
+			}
+	});
+}
+
+</script>
+
+ </body>
+</html>   

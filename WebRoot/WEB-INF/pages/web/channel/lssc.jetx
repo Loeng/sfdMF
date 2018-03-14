@@ -1,0 +1,228 @@
+#define(com.ekfans.base.channel.model.Channel channel)
+#set(List<com.ekfans.base.product.model.ProductCategory> proCatgList = @(com.ekfans.plugin.cache.base.Cache).getProductCategorys())
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}-${channel.name}</title>
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<meta name="Keywords" content="${channel.keyWords}">
+<meta name="description" content="${channel.description}">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/web/js/base.js"></script>
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/commons/js/layer/layer.js"></script>
+<link href="${webroot}/resources/web/css/base.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/prodocut.css" rel="stylesheet" type="text/css">
+<style>
+.errorText{display:block;color:red;}
+#details{
+	float:left;
+	width:154px;height: 96px;
+	}
+	.hengAdv  ul{
+	width:1200px;
+	}
+	.hengAdv  img{
+	width:93px;
+	height:93px;
+	}
+</style>
+<script type="text/javascript">
+  $(function(){
+	  $(".advText").parent().remove();
+	
+  });
+</script>
+#if(configStatus == "true")
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/control.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/upload.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/control.js"></script>	
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+	
+#end
+
+</head>
+
+<body>
+<input type="hidden" name="ctxpath" id="ctxpath" value="${webroot}" />
+<input type="hidden" name="channelId" id="channelId" value="${channelId}" />
+<input type="hidden" name="channelType" id="channelType" value="${channel.type}" />
+
+#if(configStatus == "true")
+	<!-- 频道配置导航条 -->
+	#include("commons/config/config-top.jetx")
+	<!-- 频道配置导航条 end -->
+#end
+
+<!--头部及导航条展示-->
+<div id="channelTop"></div>
+
+<!--一极菜单-->
+<!--一极菜单 end-->
+
+<div class="wrapper main">
+	<div class="sgAd">
+<!-- 		<a href="javascript:void(0);" style="width:1200px;height:280px;display:block;"></a> -->
+	 	#include("commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"1"})
+		<div class="leftNav">
+			<h2>商品目录</h2>
+			#for(com.ekfans.base.product.model.ProductCategory catg:proCatgList)
+			#if(for.index<4)
+			<a href="${webroot}/web/wjbcProduct/jumpToListPage?curProCatgId=${catg.id}&channelId=${channel.id}" id="${catg.id}" #if(for.index==3) style="border:0px"#end>${catg.name}</a>
+			#end
+			#end
+		</div>
+		<div class="leftNavBg"></div>
+	</div>
+
+	<div class="yzsj">
+		<h2>优质商家</h2>
+		<div class="sjList">
+		#include("/WEB-INF/pages/web/channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"3"})
+		</div>
+		<div class="clear"></div>
+	</div>
+
+	<div id="proshow1"></div>
+	<div id="proshow2"></div>
+	<div id="proshow3"></div>
+	
+</div>
+
+
+<!--底部-->
+<div id="channelFoot"></div>
+<!--底部 end-->
+
+<div id="yijiaHtml" style="display:none;">
+</div>
+<script>
+function checkQuantity(){
+	var flag=true;
+	var preQuantity = $("#preQuantity").val();
+	var quantity = $("input[name='quantity']").val();
+	if(quantity == "" || quantity == null || quantity == " "){
+		$('#quantitySpan').show();
+		$('#quantitySpan').text("请输入数量");
+		flag = false;
+	}else if(parseFloat(quantity) > parseFloat(preQuantity)){
+		$('#quantitySpan').show();
+		$('#quantitySpan').text("输入数量不能大于库存");
+		flag = false;
+	}
+	return flag;
+}
+function checkPrice(){
+	var flag=true;
+	var price = $("input[name='price']").val();
+	if(price == "" || price == null || price == " "){
+		$('#priceSpan').show();
+		$('#priceSpan').text("请输入价格");
+		flag = false;
+	}
+	return flag;
+}
+
+function checkContactMan(){
+	var flag=true;
+	var contactMan = $("input[name='contactMan']").val();
+	if(contactMan == "" || contactMan == null || contactMan == " "){
+		$('#contactManSpan').show();
+		$('#contactManSpan').text("请输入联系人");
+		flag = false;
+	}
+	return flag;
+}
+
+function checkContactPhone(){
+	var flag=true;
+	var regexp = /^(1[0-9][0-9])\d{8}$/;
+	var contactPhone = $("input[name='contactPhone']").val();
+	if(contactPhone == "" || contactPhone == null || contactPhone == " "){
+		$('#contactPhoneSpan').show();
+		$('#contactPhoneSpan').text("请输入联系电话");
+		flag = false;
+	}
+	return flag;
+}
+function yijia(id){
+	var userId=$("#userId").val();
+	if(null!=userId&&""!=userId&&" "!=userId){
+		$("#yijiaHtml").load($("#ctxpath").val() + "/store/bargain/bargainDetail",{id:id},function(){
+			//议价弹层
+			layer.open({
+				type: 1,
+				title: '销售议价',
+				skin: 'layer-class',
+				area: '730px', //宽高
+				content: $("#yijiaHtml"),
+				btn:['确认','取消'],
+				yes:function(index){
+					//点击确定执行的语句
+					if(checkQuantity() && checkPrice() && checkContactMan() && checkContactPhone()){
+						$("#bargainForm").ajaxSubmit(function(data){
+				    		if(data == true || data=="true"){
+				    			layer.close(index);
+				    			layer.alert("议价成功")
+				    		}else if(data== false || data=="false"){
+				    			layer.close(index);
+				    			layer.alert("议价失败!");
+				    		}else if(data=="error"){
+				    			layer.close(index);
+				    			layer.alert("不能对自己的商品议价");
+				    		}
+				    	});
+					}else{
+				    	checkQuantity();
+				    	checkPrice(); 
+			    		checkContactMan();
+			    		checkContactPhone();
+		    		}
+				},
+				cancel:function(){
+					//点击取消执行的语句
+				}
+			});
+		});
+	}else{ //未登录跳转登录页面
+		location.href=$("#ctxpath").val()+"/web/login";
+	}
+}
+
+
+$(document).ready(function() {
+	$("#channelTop").load($("#ctxpath").val() + "/web/channel/commons/channel-top.jetx",{"channelId":$("#channelId").val(),"channelType":$("#channelType").val(),"returnUrl":window.location.href});
+	$("#channelFoot").load($("#ctxpath").val() + "/web/channel/commons/channel-footer.jetx");	
+	
+	// 中部
+	$("#proshow1").load($("#ctxpath").val() + "/web/wjbcProduct/proShowIndex",{catg:0,channelId:$("#channelId").val()});
+	$("#proshow2").load($("#ctxpath").val() + "/web/wjbcProduct/proShowIndex",{catg:1,channelId:$("#channelId").val()});
+	$("#proshow3").load($("#ctxpath").val() + "/web/wjbcProduct/proShowIndex",{catg:2,channelId:$("#channelId").val()});
+	
+	$("#gq").load($("#ctxpath").val() + "/web/gjsProduct/list",function(){
+		$(".nowData").live("hover",function(){
+			var qxt=$(this).next(".qxt");
+			qxt.css("left","-176px");
+			qxt.css("bottom","-161px");
+			$(this).next(".qxt").toggle();		
+		});
+	});
+	
+//	$(".sjList").load($("#ctxpath").val() + "/web/store/logoList");
+	
+});
+function toList(id){
+	window.location.href = $("#ctxpath").val() + "/web/wjbcProduct/list",{pageNum:"1",categoryId:id};
+}
+</script>
+<div style="display:none;">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255237573'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1255237573' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+#define(List<com.ekfans.base.order.model.SupplyBuy> supplys)
+<ul>
+	#for(com.ekfans.base.order.model.SupplyBuy sb:supplys)
+	<li class="up">${sb.title}<em>${sb.futurePrices}</em>元/${sb.unit}
+	</li>
+	#end
+</ul>
+<script>
+/*var rongqi=0;
+	for(i=0;i<$("#newPriceList").find("li").length;i++){
+		rongqi+=$("#newPriceList").find("li").eq(i).outerWidth();
+	}
+	if(rongqi>1084){
+		setInterval(first,1200);
+	}
+
+var box=0;
+$(".newInfo li").each(function() {
+	box+=$(this).outerWidth();
+});
+$(".newInfo ul").css("width",box+"px");
+function first(){
+	var str=$(".newInfo").find("li").eq(0);
+	var gao=str.outerWidth();
+	$(".newInfo ul").animate({"marginLeft" : -gao+"px" }, 600,function(){
+		$(this).css("marginLeft","0px").find("li:eq(0)").appendTo(".newInfo ul");
+	})
+}
+setInterval(first,1200);*/
+</script>

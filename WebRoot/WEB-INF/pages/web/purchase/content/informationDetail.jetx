@@ -1,0 +1,117 @@
+#define(com.ekfans.base.content.model.Content ctent)
+#define(com.ekfans.base.content.model.ContentCategory contentCategory)
+#define(List<com.ekfans.base.content.model.Content> contentList)
+#define(List<java.lang.Integer> Pages)
+<!doctype html>
+<html>
+<html xmlns:wb="http://open.weibo.com/wb">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta property="wb:webmaster" content="04d00fb9eddaeb6f" />
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")} - ${ctent != null ? ctent.contentName:"资讯详细页"}</title>
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/web/js/base.js"></script>
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/base.css" rel="stylesheet" type="text/css">
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=appkey" type="text/javascript" charset="utf-8"></script>
+<link href="${webroot}/resources/web/css/hyzx.css" rel="stylesheet" type="text/css">
+<style>
+.nav{position:relative;}
+.secondNav{position:absolute; top:48px; left:0; right:0; z-index:98;display:none}
+em{font-style: italic;}
+.pageLast{float:left;}
+.pageNext{float:right;}
+</style>
+</head>
+<body>
+	<input type="hidden" name="ctxpath" id="ctxpath" value="${webroot}" />
+	<input type="hidden" name="channelId" id="channelId" value="information" />
+	<input type="hidden" name="channelType" id="channelType" value="0" />
+	<input type="hidden" name="configStatus" id="configStatus" value="" />
+	<input type="hidden" id="ctentId" value="${ctent.id}" />
+	<!--头部Start-->
+	<div id="channelTop">
+	</div>
+	<!--头部END-->
+	
+	<div class="wrapper main">
+		<div class="zxxqTit">
+    	<h2>${ctent.contentName}</h2>
+        <div class="author">${ctent.author !=null ? ctent.author:""} ${ctent.createTime}</div>
+        <div class="clear"></div>
+        </div>
+	<div class="leftBox">
+        #set(String index="0")	 
+	      #for(com.ekfans.base.content.model.ContentModel contentModel :contentModels)
+
+		<div class="zxDetails">
+    		<div class="share">
+		       <div class="bdsharebuttonbox">
+		       		<a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+		       	</div>
+					<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+					</script>
+		    </div>
+		    <div class="zxzy">
+      【摘要】${ctent.navigationText}
+      	</div>
+
+	      ${contentModel.content}
+	  
+	  
+	  
+			
+	    	<div class="pages">
+		    #if(Pages.size() == 1)
+		    	
+			#elseif(contentModel.pageNo > 1 && contentModel.pageNo < Pages.size())
+			    <a href="${webroot}/web/information/details/${ctent.id}/${contentModel.pageNo-1}" class="pageLasts">上一页</a>
+		    	<a href="${webroot}/web/information/details/${ctent.id}/${contentModel.pageNo+1}" class="pageNexts">下一页</a>
+			#elseif(Pages.size() >1 && contentModel.pageNo == 1)
+				<a href="${webroot}/web/information/details/${ctent.id}/${contentModel.pageNo+1}" class="pageNexts">下一页</a>
+			#elseif(Pages.size() == contentModel.pageNo)
+				<a href="${webroot}/web/information/details/${ctent.id}/${contentModel.pageNo-1}" class="pageLasts">上一页</a>
+	   		#end
+	    	</div>
+    	</div>
+    #end 
+	</div>
+    <div class="rightBox">   
+    <!--单图广告-->
+    <div class="oneAdpic">
+        <a href="javascript:void(0);"><img src="${webroot}/resources/web/pic/ad331_150.jpg" width="331" height="150">
+    </div>
+
+    
+    	 <!--行业资讯-->
+   	<div class = "wlkx" style="margin-top:10px;">
+		<div class="boxTit"><h2>行业资讯</h2></div>
+		<ul class="wlList">
+			#for(com.ekfans.base.content.model.Content content : contentList)
+				#if(for.index<=5)
+			   		<li><em></em><a href="${webroot}/03-${content.id}-1.html">${content.contentName}</a><span>${content.createTime}</span></li>
+				#end
+			#end
+       </ul>
+	</div>
+    <!-- <div class="xlpl"><wb:comments url="auto" brandline="y" width="auto" ></wb:comments></div> -->
+    <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+	<!--页脚-->
+	<div id="channelFoot"></div>
+	
+</body>
+<script>
+$(document).ready(function() {
+	$("#channelTop").load($("#ctxpath").val() + "/web/channel/commons/channel-top.jetx",{"channelId":$("#channelId").val(),"channelType":$("#channelType").val(),"returnUrl":window.location.href});
+	$("#channelFoot").load($("#ctxpath").val() + "/web/channel/commons/channel-footer.jetx");
+});
+</script>
+<script src="${webroot}/resources/web/js/base.js"></script>
+
+</html>

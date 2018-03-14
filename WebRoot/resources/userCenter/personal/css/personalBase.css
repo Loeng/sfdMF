@@ -1,0 +1,78 @@
+/* CSS Document */
+
+@import url("../../../commons/css/commons.css");
+
+.orange{color:#f60;}
+.blue{color:#019bdf;}
+.red{color:#fc0707;}
+.wrapper{width:980px; margin:0 auto;}
+.btnBlue{display:block; text-align:center; color:#fff; background:#02AFED;}
+.btnBlue:hover{background:#003446; color:#fff;}
+.btnGreen{display:block; text-align:center; color:#fff; background:#9FD367;}
+.btnGreen:hover{background:#86C73F; color:#fff;}
+.btnOrange{display:block; text-align:center; color:#fff; background:#f50;}
+.btnOrange:hover{background:#d95c00; color:#fff;}
+body{background:#fff;}
+
+/*顶部*/
+.topArea{height:50px;}
+.topLeft{width:340px; float:left;}
+.topRight{width:465px; float:right; padding-top:9px; height:30px; line-height:30px; text-align:right;}
+.logo{display:block; float:left;}
+.topLeft span{padding:0 5px;}
+.topLeft a:hover{text-decoration:underline;}
+.topItem{padding:0 10px; position:relative; display:inline; border:none;}
+.topItem a,.downList dt a{color:#797979;}
+.topItem a:hover{color:#f60; cursor:pointer;}
+.topArea .storeHome{background:url(../images/icon_home.png) no-repeat 10px center; padding-left:32px;}
+.topArea .userName{background:url(../../../web/storeweb/images/icon_user.png) no-repeat 10px center; padding-left:30px;}
+
+
+/*导航栏*/
+.nav{height:58px; background:#FFC42B; position:relative; margin-bottom:22px; float:none;}
+.navList{color:#FFF; display:block; font-size:18px; text-align:center; padding:0 42px; height:58px; line-height:58px; float:left; position:relative; z-index:2;}
+.navList:hover{background:#FF6B00; color:#fff;}
+.navShoppingCart{display:block; width:72px; height:25px; line-height:25px; padding-left:35px; background:url(../images/icon_cart.png) no-repeat 14px center; background-color:#2C7DFC; border-radius:12px; color:#fff; position:absolute; right:14px; top:16px;}
+.navShoppingCart:hover{background-color:#0668FB; color:#fff;}
+
+
+/*模拟下拉菜单*/
+.header .mod_select{float:left; background:#fff;}
+.header .select_box{float:left; color:#444;position:relative;cursor:pointer;width:50px; height:28px; line-height:28px;}
+.header .selet_open{display:inline-block;position:absolute;right:2px;top:11px;width:10px;height:5px;background:url(../images/base.png) no-repeat -32px 0;}
+.header .select_txt{display:inline-block;width:50px; height:28px; text-indent:0.8em;cursor:pointer;overflow:hidden;}
+.header .option{width:50px;position:absolute;top:28px;left:0;z-index:2;overflow:hidden;display:none;}
+.header .option a{display:block;height:28px;line-height:28px;text-align:left;padding:0 10px;width:100%;background:#fff; color:#666; text-decoration:none;}
+.header .option a:hover{background:#efefef;}
+
+
+/*商品分类*/
+.header .proAll{width:98px; height:58px; float:left; position:relative; z-index:2;}
+.proAllLink{display:block; height:58px; background:#f50; text-align:center; color:#fff; font-size:14px; position:relative;}
+.proAllLink .itemIco{background:url(../images/base.png) no-repeat -42px 0; right:8px; top:26px;}
+.proAllShow .itemIco{background-position:-42px -5px;}
+.header .proList{width:976px; background:#fff; padding:16px 0 22px 0; position:absolute; right:0; top:58px; z-index:5; border:solid 2px #A9DFF3; display:none;}
+.proClass{width:306px; float:left; border-right:solid 1px #efefef; padding:0 9px 0 8px;}
+.classRight{border-right:none;}
+.proClass dt{height:20px; line-height:20px; margin-bottom:14px; padding-left:6px;}
+.proClass dd{line-height:27px;}
+.proClass dd a{display:inline-block; color:#939393; padding:0 6px;}
+.proClass dd a:hover{background:#ff6c00; color:#fff;}
+
+/*左侧菜单*/
+.leftNav{width:160px; padding:0 10px; float:left; overflow:hidden; background:#f5f5f5; margin-bottom:30px;}
+.rightContent{width:780px; min-height:290px; float:right; margin-bottom:30px;}
+.leftList{padding-top:4px; margin:-1px 0 1px; overflow:hidden;}
+.leftList dt{height:30px; line-height:30px; padding: 7px 0 5px 24px; background:none; color:#333; border-bottom:solid 1px #e5e6e6; font-size:16px; position:relative; cursor:pointer;}
+.leftList dt .itemIco{top:12px; right:12px; background:url(../images/base.png) -32px -5px;}
+.leftList .listShow .itemIco{background:url(../images/base.png) -32px 0;}
+.leftList dd{padding: 8px 0;}
+.leftList dd a{display:block; height:38px; line-height:38px; padding-left:24px; color:#888; font-size:14px;margin: 0;}
+.leftList dd a:hover,.leftList dd a.cur{background:#FFC42B; color:#333;}
+
+/*右内宽度限制*/
+.contentTit{width:745px;padding:10px 5px 10px 30px;}
+
+/*没有订单时*/
+.orderNone{height:50px; line-height:50px; font-size:24px; background:#FFFCD9; color:#FD6500; text-align:center; margin:10px 0px;}
+

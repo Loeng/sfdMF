@@ -1,0 +1,157 @@
+
+#set(List<com.ekfans.base.product.model.ProductCategory> proCatgList = @(com.ekfans.plugin.cache.base.Cache).getProductCategorys())
+#set(List<com.ekfans.base.channel.model.Channel> channelList = @(com.ekfans.plugin.cache.base.Cache).getChannels(parameter.channelType))
+#set(com.ekfans.base.channel.model.Channel channelSet = @(com.ekfans.plugin.cache.base.Cache).getChannelById(parameter.channelId))
+#define(com.ekfans.base.user.model.User User)
+#define(com.ekfans.base.store.model.Store Store)
+
+<input type="hidden" value="#if(null!=User)${User.id}#else #end" id="userId">
+<div class="header">
+	<div class="wrapper">
+		<h1 id="logo"><a href="${webroot}/" title="${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}"><img src="${webroot}/${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站Logo")}" alt="${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}"></a></h1>
+		<div class="headerRight">
+			<a href="${webroot}/" class="indexLink">首页</a> 
+			#if(null!=User&&null!=Store)
+			 	<span class="topItem">您好，${Store.storeName}</span>
+				
+				<span class="topItem"><a href="${webroot}/store/index">企业中心</a></span>
+				
+				<span class="topItem"><a href="${webroot}/web/help">帮助中心</a></span>
+				
+				<span class="topItem itemLast"><a href="${webroot}/web/logout/userLogout">安全退出</a></span>
+			#else
+				<a href="${webroot}/web/login">登录</a>
+				<a href="${webroot}/web/jumpRegPage">注册</a>
+			#end
+			<span class="split">|</span>
+			<span class="serviceTel">服务热线：${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("热线电话")}</span>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+
+<div class="nav">
+  <div class="firstNav">
+	<ul class="wrapper">
+	#for(com.ekfans.base.channel.model.Channel channel:channelList)
+		<!-- (channel.id == "index" || channel.id == "xhjy" || channel.id == "gqzx" || channel.id == "wfys") -->
+		#if(channel.id == "index" || channel.id == "xhjy" || channel.id == "gqzx"|| channel.id == "wfys")
+			<li><a href="#if("1"==channel.channelType)${channel.linkUrl}#else${webroot}/${channel.id}.html#end" class="navBtn">${channel.name}</a></li>
+		#else
+		<li class="#if(parameter.channelId == channel.id || null != channelSet && channelSet.parentId == channel.id) show#end">
+			<a href="#if("1"==channel.channelType)${webroot}${channel.linkUrl}#else${webroot}/${channel.id}.html#end" class="navBtn #if(null != channelSet && parameter.channelId == channel.id)cur#end #if(channel.id == 'lssc'  || channel.id == 'shops')wjbclssc#end " >${channel.name} <em></em></a>
+			<div class="navList">
+				<em></em>
+				<!-- 绿色商城显示商品分类 -->
+				#if(channel.id == "lssc" || channel.id == "shops")
+					#for(com.ekfans.base.product.model.ProductCategory catg:proCatgList)
+					<a href="${webroot}/web/wjbcProduct/jumpToListPage?curProCatgId=${catg.id}&channelId=${channel.id}" id="${catg.id}" >${catg.name}</a>
+					#end
+		 		#elseif(channel.childs != null && channel.childs.size()>0)
+					#for(com.ekfans.base.channel.model.Channel childChannel:channel.childs)
+					<a href="${webroot}/${childChannel.id}.html" #if((childChannel.id == parameter.channelId && childChannel.position <= 1) || (childChannel.position > 1 && childChannel.id == parameter.channelId)) class="cur" #end>${childChannel.name}</a>
+					#end
+				#end
+			</div>
+		</li>
+		#end
+	#end
+ 	</ul>
+  </div>
+  
+
+<input type="hidden" value="top${configStatus}">  
+#if(null!=User&&null!=Store)
+<input type="hidden"  id = "hidden1" value="${Store.storeName}">
+#end
+
+  <div class="secondNav"></div>
+</div>
+<!-- ${parameter.channelType} -->
+<!-- ${parameter.channelId} -->
+	<!-- nav底部填充，当有浮动菜单出现时显示 -->
+	<div id="fullNavBottom" style="display:none;height:38px;"></div>
+
+<script>
+	if(self.location == "http://sfdhb.com" || self.location == "http://sfdhb.com/"){
+	    top.location.href="http://www.sfdhb.com";
+	}
+    if(self.location == "http://sfdhb.cn" || self.location == "http://sfdhb.cn/" || self.location == "http://www.sfdhb.cn" || self.location == "http://www.sfdhb.cn/"){
+        top.location.href="http://www.sfdhb.com";
+    }
+    if(self.location == "http://sfdhb.net" || self.location == "http://sfdhb.net/" || self.location == "http://www.sfdhb.net" || self.location == "http://www.sfdhb.net/"){
+        top.location.href="http://www.sfdhb.com";
+    }
+    if(self.location == "http://sfdhb.com.cn" || self.location == "http://sfdhb.com.cn/" || self.location == "http://www.sfdhb.com.cn" || self.location == "http://www.sfdhb.com.cn/"){
+        top.location.href="http://www.sfdhb.com";
+    }
+	function setCookie(c_name, value, expiredays){
+		var exdate=new Date(); 
+		exdate.setDate(exdate.getDate() + expiredays); 
+		document.cookie=c_name+ "=" + escape(value) + ((expiredays==null) ? "" : ";expires="+exdate.toGMTString());
+	}
+	setCookie("gylReturnUrl",window.location.href,30);
+	
+	// JavaScript Document
+	$(document).ready(function() {
+		// 绿色商城处理
+		var curProCatgId = getQueryString("curProCatgId");
+		if(curProCatgId) {
+			$("#"+curProCatgId).addClass("cur");
+		}
+		
+		// 选中的父+子nav个数
+		var count=$(".firstNav .cur").length;
+		if(count==0){
+			$(".secondNav,.navList em").hide();
+		}
+		if(count>0){
+			$(".firstNav .cur").parents("li").addClass("show");
+			$(".secondNav,.navList em").show();
+			// 显示底部填充
+			$("#fullNavBottom").show();
+		}
+		/*一级菜单展开*/
+		$(".navBtn").live("click",function(){
+			$(this).parent("li").siblings("li").find("a").removeClass("cur");
+			$(this).addClass("cur");
+			$(this).parent().siblings().removeClass("show");
+			$(this).parent().addClass("show");
+		});	
+			
+		$(".navList a").live("click",function(){
+			$(this).siblings("a").removeClass("cur");
+			$(this).addClass("cur");
+		});
+	    $(".navBtn").live("mouseover",function(){
+			$(".firstNav li").removeClass("show");
+			$(this).parent().addClass("show");
+			if($(this).find("em").length > 0){
+				$(".secondNav,.navList em").show();
+			}
+		})
+		$(".nav").live("mouseleave",function(){
+			if(count==0){
+				$(".secondNav,.navList em").hide();
+			}
+			else{
+				$(".secondNav,.navList em").show();
+			}
+			$(".firstNav li").removeClass("show");
+			$(".firstNav .cur").parents("li").addClass("show");
+		})
+		
+		//获取url参数
+		function getQueryString(name) {
+			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+			var r = window.location.search.substr(1).match(reg);
+			if (r != null)
+				return unescape(r[2]);
+			return null;
+		}
+	});
+
+	function choseMenu(webroot,choseId){
+		location.href=webroot + "/store/manager/" + choseId;	
+	}
+</script>

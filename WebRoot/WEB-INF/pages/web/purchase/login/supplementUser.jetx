@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>三分地环保-完善资料</title>
+    <link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+    <script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+    <script src="${webroot}/resources/commons/js/Validform_v5.3.2_ncr_min.js"></script>
+    <script src="${webroot}/resources/web/js/supplementUser.js" type="text/javascript"></script>
+    <script src="${webroot}/resources/commons/js/tools.js" type="text/javascript"></script>
+    <script src="${webroot}/resources/web/js/base.js" type="text/javascript"></script>
+    <link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+    <link href="${webroot}/resources/web/css/base.css" rel="stylesheet" type="text/css">
+    <link href="${webroot}/resources/web/css/supplementUser.css" rel="stylesheet" type="text/css">
+    <link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+    <style>
+        .alertLayerBg {
+            filter: alpha(opacity=80);
+            -moz-opacity: 0.8;
+            -khtml-opacity: 0.8;
+            opacity: 0.8;
+            background: #000;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            display: none;
+        }
+
+        .termsBox {
+            width: 970px;
+            box-shadow: 0 1px 5px #d3d3d3;
+            height: 510px;
+            padding: 0 10px 30px 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 6;
+            margin: -180px 0 0 -490px;
+            background: #fff;
+            display: none;
+        }
+
+        .termsBox h2 {
+            height: 51px;
+            width: 945px;
+            line-height: 51px;
+            border-bottom: solid 1px #ccc;
+            padding-left: 35px;
+            font-size: 24px;
+            position: relative;
+        }
+
+        .layerClose {
+            display: block;
+            width: 18px;
+            height: 18px;
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: url(${webroot}/resources/commons/images/closeIco.png) no-repeat;
+        }
+
+        .termsContent {
+            padding: 24px 34px 30px 34px;
+            color: #636363;
+            height: 405px;
+            overflow-y: auto;
+        }
+
+        .termsContent p {
+            padding: 15px 0;
+        }
+
+        ::-webkit-scrollbar {
+            width: 9px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            width: 9px;
+            border-radius: 4px;
+            position: relative;
+            background: #d6d6d6;
+        }
+
+        ::-webkit-scrollbar-track-piece {
+            width: 2px;
+            background: url(${webroot}/resources/commons/images/scroll.png) repeat-y center;
+            box-shadow: none;
+            border: none;
+        }
+
+    </style>
+</head>
+
+<body>
+<!--头部-->
+${include("../../channel/commons/channel-top.jetx")}
+<!--头部end-->
+<div class="main">
+    <div class="regHeader">
+        <em>完善企业基本信息</em>
+    </div>
+    <input id="ctxpath" type="hidden" name="ctxpath" value="${webroot}">
+    <form class="regform" action="" method="post" id="supplementForm">
+        <div class="regBox">
+            <dl class="regItem regType">
+                <dt><em class="mustItem">*</em>注册类型：</dt>
+                <dd>
+                    <li class="Retype cur" value="3">处置企业</li>
+                    <li class="Retype" value="1">产生企业</li>
+                    <li class="Retype" value="4">运输企业</li>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <input type="hidden" id="type" name="type">
+            <div class="regItem companyName">
+                <dt><em class="mustItem">*</em>企业名称：</dt>
+                <dd><input class="textBox" id="userName" name="companyName" type="text" datatype="*4-20"
+                           nullmsg="名称不能为空！" errormsg="企业名称格式输入有误！" onblur="checkStoreName();"><span
+                        class="hint"></span>
+                    <div class="Validform_checktip"></div>
+                </dd>
+                <input type="hidden" id="boolName">
+                <div class="clear"></div>
+            </div>
+            <dl class="regItem">
+                <dt>邮箱地址：</dt>
+                <dd><input class="textBox" name="mail" ignore="ignore" datatype="e" type="text" errormsg="邮箱格式输入有误！">
+                    <div class="Validform_checktip"></div>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+            <div class="xieyi green"><input name="xyBox" id="xyBox" type="checkbox" value="" checked="true"><a
+                    href="javascript:void(0);" class="regxieyi">阅读并同意《三分地环保产业链用户服务协议》</a></div>
+    </form>
+    <input type="button" value="提交信息" class="btnGreen btnReg" onclick="supplementFormSubmit();">
+</div>
+<div class="clear"></div>
+</div>
+
+<div class="alertLayerBg"></div>
+<div class="termsBox">
+    <h2>服务条款<a href="javascript:void(0)" class="layerClose"></a></h2>
+    <div class="termsContent">
+        ${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("服务条款")}
+    </div>
+</div>
+
+
+<!--底部-->
+${include("../../channel/commons/channel-footer.jetx")}
+<!--底部 end-->
+<script>
+    $(".regxieyi").live("click", function () {
+        $(".alertLayerBg").show();
+        $(".termsBox").show();
+    });
+    $(".layerClose").live("click", function () {
+        $(".alertLayerBg").hide();
+        $(".termsBox").hide();
+    });
+</script>
+<div style="display:none;">
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan id='cnzz_stat_icon_1255237573'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1255237573' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>

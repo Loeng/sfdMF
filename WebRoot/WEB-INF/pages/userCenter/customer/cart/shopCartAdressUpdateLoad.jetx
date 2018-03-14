@@ -1,0 +1,96 @@
+
+        <span class="pointTop"></span>
+        <a href="javascript:void(0)" class="closeAddress" onclick="updateCannel();"></a>
+        <form action="${webroot}/user/shopCartAdress/modify" method="post" id="modifyUserAddressForm">
+        	#define(com.ekfans.base.user.model.UserAddress userAddress2)
+	        <dl class="formLine">
+        	<dt><em class="red">*</em>收货人姓名</dt>
+            <dd class="formRight errorBox">
+            	<input name="name" id="name2" type="text" value="${userAddress2.name}" class="siteBox" onfocus="checkNameFocus2();" onblur="checkNameBlur2();">
+            	<span class="formError" id="nameMsgSpan2">请您填写收货人姓名</span>
+            </dd>
+            <!--验证表单不通过则给一个errorBox的class-->
+            <dd class="clear"></dd>
+        	</dl>
+	        
+	        <dl class="formLine">
+        		<dt><em class="red">*</em>所在地区</dt>
+            <dd class="formRight">
+            		<input id="pca2" name="pca2" type="hidden" value="#if(null!=userAddress2.provincial && ""!=userAddress2.provincial)${userAddress2.provincial}#end#if(null!=userAddress2.city && ""!=userAddress2.city)${" "+userAddress2.city}#end#if(null!=userAddress2.area && ""!=userAddress2.area)${" "+userAddress2.area}#end" readOnly="true">
+            		#define(List<com.ekfans.base.system.model.SystemArea> areaList)
+            		<select onchange="findUtilsField(this)" class="kongNew">
+                	<option value="">请选择</option>
+                	#for(com.ekfans.base.system.model.SystemArea pr:areaList)
+                		#if(pr.areaName==userAddress2.provincial)
+                			<option value="${pr.areaName},${pr.id}" selected="selected">${pr.areaName}</option>
+                		#else
+                			<option value="${pr.areaName},${pr.id}">${pr.areaName}</option>
+                		#end
+                	#end
+                </select>
+                #define(List<com.ekfans.base.system.model.SystemArea> cityList)
+                <select onchange="findUtilsField(this)" class="kongNew">
+                	<option value="">请选择</option>
+                	#for(com.ekfans.base.system.model.SystemArea ci:cityList)
+                		#if(ci.areaName==userAddress2.city)
+                			<option value="${ci.areaName},${ci.id}" selected="selected">${ci.areaName}</option>
+                		#else
+                			<option value="${ci.areaName},${ci.id}">${ci.areaName}</option>
+                		#end
+                	#end
+                </select>
+                #define(List<com.ekfans.base.system.model.SystemArea> quarea)
+                <select onchange="findUtilsField(this)" class="kongNew">
+                	<option>请选择</option>
+                		#for(com.ekfans.base.system.model.SystemArea qa:quarea)
+                		#if(qa.areaName==userAddress2.area)
+                			<option value="${qa.areaName},${qa.id}" selected="selected">${qa.areaName}</option>
+                		#else
+                			<option value="${qa.areaName},${qa.id}">${qa.areaName}</option>
+                		#end
+                	#end
+                </select>
+            </dd>
+            <dd class="clear"></dd>
+        	</dl>
+	        <dl class="formLine">
+        	<dt><em class="red">*</em>街道地址</dt>
+            <dd class="formRight siteDetail">
+            	<span class="siteCheckText" id="tempInfoAddressField">${userAddress2.provincial+userAddress2.city+userAddress2.area}</span>
+            	<input name="address" id="address2" class="siteBox" value="${userAddress2.address }" onfocus="checkAddressFocus2();" onblur="checkAddressBlur2();"/>
+                <span class="formError" id="addressMsgSpan2">请您填写收货人详细地址</span>
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+	      <dl class="formLine">
+        	<dt><em class="red">*</em>手机号码</dt>
+            <dd class="formRight boxDouble">
+            	<input name="mobile" id="mobile2" type="text" value="${userAddress2.mobile }" class="siteBox" onfocus="checkMobileFocusTempNew2();" onblur="checkMobileBlurTempNew2();">
+                或 <span class="rightDt">固定电话</span>
+                <input name="phone" id="phone2" type="text" value="${userAddress2.phone }" class="siteBox" onfocus="checkMobileFocusTempNew2();" onblur="checkMobileBlurTempNew2();">
+                <span class="formError" id="UtilsError2">请您填写收货人手机号码或固定电话</span>
+            </dd>
+            <dd class="clear"></dd>
+        </dl>  
+	       <dl class="formLine">
+        	<dt>邮政编码</dt>
+            <dd class="formRight">
+            	<input name="zipcode" id="zipcode2" type="text" value="${userAddress2.zipcode }" class="siteBox" onfocus="checkZipcodeFocus2();">
+                <span class="formError" id="zipcodeMsgSpan2">请输入正确的邮政编码  如：100000</span>
+            </dd>
+            <dd class="clear"></dd>
+        </dl> 
+	      
+	        <!-- 未修改的信息、隐藏域保存 -->
+	        <input type="hidden" name="id" value="${userAddress2.id}"> 
+	        <input type="hidden" name="createTime" value="${userAddress2.createTime}"> 
+	        <input type="hidden" name="status" value="${userAddress2.status}"> 
+	        <input type="hidden" name="userId" value="${userAddress2.userId}"> 
+	      <div class="addressBtn">
+            <a href="javascript:void(0)" class="btnBlue" onclick="formSubmitUpdate();">保存</a>
+            <a href="javascript:void(0)" class="btnBlue" onclick="updateCannel();">取消</a>
+        </div>  
+	       
+	       
+	      </form> 
+	     

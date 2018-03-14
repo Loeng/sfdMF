@@ -1,0 +1,205 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>管理系统商品添加页面</title>
+		<link href="${ctxpath}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+		<link href="${ctxpath}/resources/system/css/list.css" rel="stylesheet" type="text/css" />
+		<!-- 上传文件的CSS -->
+		<link href="${ctxpath}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${ctxpath}/resources/system/js/tools.js"></script>
+		<script type="text/javascript" src="${ctxpath}/resources/system/js/product/productAdd.js"></script>
+		<!-- 上传文件控件  -->
+		<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.soChange.js"></script>
+		<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.json-2.2.min.js"></script>
+		<script type="text/javascript" src="${ctxpath}/resources/commons/js/ajaxupload.js"></script>
+		<script type="text/javascript" src="${ctxpath}/resources/commons/js/upload/upload.js"></script>
+	</head>
+	<body>
+		<input type="hidden" id="ok" value="${requestScope.addOk}" />
+		<input type="hidden" id="ctxpath" value="${ctxpath}" />
+		<input type="hidden" id="idCheck" value="false" />
+		<input type="hidden" id="nameCheck" value="false" />
+		
+		<form action="${ctxpath}/system/product/save" name="addOk" method="post"  id="addProductForm">
+		<div class="ht_btn">
+					<a href="#"  class="btn"  onclick="formSubmit();">保存</a>
+					<a href="#"  class="btn" onclick="goBack('${ctxpath}');">取消</a>
+		</div>
+			#define(com.ekfans.base.product.model.Product product)
+			
+			<div class="add_pro">
+				<dl class="afterHt" style="width:550px;">
+					<dt>商品编号<em class="mustIco"></em></dt>
+					<dd  id="idDd">
+						<input type="text" class="i_bg"  name="productNumber" onblur="checkIdBlur(this.value);" onkeyup="checkId(this.value);" onfocus="checkId(this.value);"/>
+						<span id="idSpan" class="ts_xx"></span>
+					</dd>
+				</dl>
+				
+				
+				<dl class="formBox" style="width:550px;">
+					<dt>商品名<em class="mustIco"></em></dt>
+					<dd id="nameDd">
+						<input type="text" class="i_bg"  name="name" onblur="javascript:checkNameBlur();" onkeyup="javascript:checkName();" onfocus="javascript:checkName();" />
+						<span id="nameSpan" class="ts_xx">商品名为1-20位字符组成</span>
+					</dd>
+				</dl>
+				
+				<div class="clear"></div>
+        		<div class="splitLine"></div>
+				
+				<dl class="formBox">
+					<dt>商品名缩写</dt>
+					<dd>
+						<input type="text" class="i_bg"  name="sortName" />
+					</dd>
+				</dl>
+				
+				
+				<dl class="formBox">
+					<dt>库存</dt>
+					<dd>
+						<input type="text" class="i_bg"  name="quantity"  value="0" maxlength="11" />
+					</dd>
+				</dl>
+				
+				<input type="text" id="pcId" name="pcId" value="${pcId}" />
+				<div class="clear"></div>
+				
+				<dl class="pro_pp formBox">
+					<dt>店铺<em class="mustIco"></em></dt>
+					<dd  id="storeIdDd">
+						<input id="storeName" class="i_bg" type="text" readOnly />
+						<input type="hidden" id="storeId" name="storeId" />
+						<!-- 点击触发事件 弹出一个层  关联店铺 -->
+						<span id="storeSpan" class="pp" title="关联店铺菜单" onclick="loadStore();" ></span>
+						<span id="storeIdSpan" class="ts_xx">商品名为1-20位字符组成</span>
+					</dd>
+				</dl>
+				
+				
+				
+				<dl class="pro_pp formBox">
+					<dt>品牌<em class="mustIco"></em></dt>
+					<dd id="brandDd">
+						<input id="brandName" class="i_bg" type="text" readOnly name="brand" onblur="javascript:checkBrandBlur();" onkeyup="javascript:checkBrand();" onfocus="javascript:checkBrand();" />
+						<span id="brandSpan" class="pp" title="关联品牌菜单" onclick="loadBrand();" ></span>
+						
+					</dd>
+				</dl>
+
+				 <div class="clear"></div>
+				
+				<dl class="formBox">
+					<dt>商城价</dt>
+					<dd>
+						<input type="text" class="i_bg"  name="unitPrice"  value="0" />
+					</dd>
+				</dl>
+				
+				<dl class="formBox">
+					<dt>市场价</dt>
+					<dd>
+						<input type="text" class="i_bg"  name="listPrice"  value="0" />
+					</dd>
+				</dl>
+				
+				<dl class="formBox">
+					<dt>批发参考价</dt>
+					<dd>
+						<input type="text" class="i_bg"  name="pfPrice"  value="0" />
+					</dd>
+				</dl>
+				
+				<div class="clear"></div>
+				
+				<dl class="formBox">
+					<dt>商品描述</dt>
+					<dd >
+						<textarea name="description"></textarea>
+					</dd>
+				</dl>
+				<dl class="formBox">
+					<dt>商品备注</dt>
+					<dd >
+						<textarea name="note"></textarea>
+					</dd>
+				</dl>
+				
+				<div class="clear"></div>
+				
+				<dl class="pro_pp formBox">
+					<dt>模板</dt>
+					<dd id="templateIdDd">
+						<input type="text" id="tempLate" class="i_bg" readOnly name="templateId"  onblur="javascript:checkTemplateBlur();" onkeyup="javascript:checkTemplate();" onfocus="javascript:checkTemplate();"/>
+						<span id="tempLateSpan" class="pp" title="关联模板菜单" onclick="loadTemplate();" ></span>
+					</dd>
+				</dl>
+				
+				
+				<dl class="formBox">
+					<dt>商品分类</dt>
+					<dd><input type="text" class="i_bg" name="mainCategory" value="${productCategoryName}" readOnly /></dd>
+				</dl>
+				<div class="clear"></div>
+				
+				<input type="hidden" name="checkStaus" value="1"/>
+				<input type="hidden" name="visitCount" value="0">
+				<input type="hidden" name="buyCount" value="0">
+				<input type="hidden" name="quantityWarning" value="0">
+				
+				
+				<dl class="formBox">
+					<dt>搜索关键字</dt>
+					<dd>
+						<textarea name="searchKey"></textarea>
+					</dd>
+				</dl>
+				
+				<dl class="formBox">
+					<dt>状态</dt>
+					<dd>
+						<span class="zt"><label><input type="radio" value="true" name="status" checked=true/>上架</label></span>
+						<span class="zt"><label><input type="radio" value="false" name="status"/>下架</label></span>
+					</dd>
+				</dl>
+
+				<div class="clear"></div>
+				
+				<dl class="formBox">
+					<dt>商品图片</dt>
+					<dd>
+						#tag picUpload("picture","1","300","300","") #end
+		  		</dd>
+				</dl>
+			</div>
+		</form>
+	<!-- 关联店铺模块 -->
+	<div class="del_tcBg" id="storeBg"></div>
+		<div class="del_tc shopListAlert"  id="storetc" >
+			
+	</div>
+	
+	
+	<!--  关联品牌分类 -->
+	
+	<div class="del_tcBg" id="brandBg" ></div>
+	<div class="del_tc shopListAlert"  id="brandtc">
+		
+	</div>
+	
+	<!--  关联模板分类 -->
+
+	<div class="del_tcBg" id="templateBg" style="display:none;"></div>
+	<div class="del_tc shopListAlert"  id="templatetc" style="display:none;">
+		
+	</div>
+	
+	
+	</body>
+</html>
+
+
+	

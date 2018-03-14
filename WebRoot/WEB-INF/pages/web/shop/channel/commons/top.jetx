@@ -1,0 +1,72 @@
+#set(List<com.ekfans.base.channel.model.Channel> channelList = @(com.ekfans.plugin.cache.base.Cache).getChannels(parameter.channelType))
+#set(String indexChannelId = "")
+
+<div class="leftNav">
+	#for(com.ekfans.base.channel.model.Channel channel:channelList)
+		#if(for.first)
+			#put(indexChannelId,channel.id)
+				<input type="hidden" id="firstChannelUrl" value="${webroot}/${channel.id}.html"/>
+				<input type="hidden" id="firstChannelName" value="${channel.name}"/>
+			<script>
+				changIndexs("${webroot}/${channel.id}.html","${channel.name}");
+				setCookie("gylReturnUrl","${parameter.returnUrl}",30);
+			</script>
+		#end
+		#if(for.index < 3)
+			#if(channel.channelType == "0")
+    		<a href="${webroot}/${channel.id}.html" class="navLink #if(channel.id == parameter.channelId) navCur #end">${channel.name}</a>
+    	#elseif(channel.channelType == "1")
+    		<a href="${channel.linkUrl}" target="_blank" class="navLink #if(channel.id == parameter.channelId) navCur #end">${channel.name}</a>
+    	#end
+    #end
+   #end
+</div>
+<div class="headerCenter">
+    <h1 class="logo"><a href="${webroot}/"><img src="${ctxpath}${yxLogo}" alt="${webName}" title="${webName}"></a></h1>
+    
+    #define(com.ekfans.base.user.model.User User)
+    #if(User == null)
+			<div class="loginReg">
+				<a href="${webroot}/web/login/zero">登录</a>
+				<a href="${webroot}/web/zero/jumpRegPage">注册</a>
+			</div>
+    #else
+    	#if(User.type == '0')
+				<dl class="afterLogin">
+					<dt>
+					<img src="${webroot}/resources/web/storeweb/images/icon_user.png" width="16" height="15" class="userIcon"/>
+					<a href="javascript:void(0);" class="oneLine">${User.nickName != '' ? User.nickName:User.name}</a></dt>
+					<dd>
+						<li><a href="${webroot}/user">个人中心</a></li>
+						<li><a href="${webroot}/user/alreadyBuy">我的订单</a></li>
+						<li><a href="${webroot}/user/cart/userShopCart">我的购物车</a></li>
+						<li><a href="${webroot}/web/logout/userLogout/zero">退出</a></li>
+					</dd>
+				</dl>    
+			#else
+			#define(com.ekfans.base.store.model.Store Store)
+				<dl class="afterLogin">
+					<dt>
+					<img src="${webroot}/resources/web/storeweb/images/icon_user.png" width="16" height="15" class="userIcon"/>
+					<a href="javascript:void(0);" class="oneLine">${Store != null && Store.storeName != '' ? Store.storeName:User.name}</a></dt>
+					<dd>
+						<li><a href="${webroot}/store">企业中心</a></li>
+						<li><a href="${webroot}/web/logout/userLogout/zero">退出</a></li>
+					</dd>
+				</dl>    
+			#end
+    #end
+</div>
+<div class="rightNav">
+   #for(com.ekfans.base.channel.model.Channel channel:channelList)
+    #if(for.index >=3)
+    	#if(channel.channelType == "0")
+    		<a href="${webroot}/${channel.id}.html" class="navLink #if(channel.id == parameter.channelId) navCur #end">${channel.name}</a>
+    	#elseif(channel.channelType == "1")
+    		<a href="${channel.linkUrl}" target="_blank" class="navLink #if(channel.id == parameter.channelId) navCur #end">${channel.name}</a>
+    	#end
+    #end
+   #end
+</div>
+<span class="navHoverCur"></span>
+<div class="clear"></div>

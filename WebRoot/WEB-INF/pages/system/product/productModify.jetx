@@ -1,0 +1,489 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>修改商品信息</title>
+		<link href="${ctxpath}/resources/system/css/product/issue.css" rel="stylesheet" type="text/css" />
+		<link href="${ctxpath}/resources/system/css/list.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.form.js"></script>
+		<script type="text/javascript" src="${ctxpath}/resources/system/js/tools.js"></script>
+		<script type="text/javascript" src="${ctxpath}/resources/system/js/product/productModify.js"></script>
+		<link href="${ctxpath}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.soChange.js"></script>
+		<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.json-2.2.min.js"></script>
+		<script type="text/javascript" src="${ctxpath}/resources/commons/js/ajaxupload.js"></script>
+		<script type="text/javascript" src="${ctxpath}/resources/commons/js/upload/upload.js"></script>
+		<script type="text/javascript" src="${ctxpath}/resources/plugin/ckeditor/ckeditor.js"></script>
+			<style>
+			.endNum{width:17%;}
+			</style>
+	</head>
+	<body>
+		<input type="hidden" id="modifyOk" value="${requestScope.modifyOk}" />
+		<input type="hidden" id="ctxpath" value="${webroot}" />
+		<input type="hidden" id="type" value="${type}" />
+		<form action="${ctxpath}/system/product/modify" name="modify" method="post"  id="modifyProductForm">
+			
+			<div class="ht_btn">
+				<a href="javaScript:void(0)" class="btn" onclick="formSubmit();">保存</a>
+				<!--<a href="javaScript:void(0)" class="btn"  onclick="reset();">重置</a>
+				-->
+				<a href="javaScript:void(0)" class="btn"  onclick="goList('${webroot}');">返回列表</a>
+			</div>
+			<div class="add_pro">
+				<div class="ts">
+		    	<a href="javascript:void(0);" id="fullName">${categoryName}</a>&nbsp;&nbsp;
+		    </div>
+		   <!-- <a href="javaScript:void(0)" class="btn"  onclick="showTemp();">编辑分类</a>-->
+				
+				<div id="modifyLoad">
+					#define(com.ekfans.base.product.model.Product product)
+					<input type="hidden" name="id" id="productId" value="${product.id}" />
+					<input type="hidden" class="i_bg" name="mainCategory" id="mainCategoryId"  value="${product.mainCategory}"/>
+					<dl class="afterHt">
+						<dt>商品编号<em class="mustIco"></em></dt>
+						<dd id="idDd">
+							<input type="text" class="i_bg"  name="productNumber" value="${product.productNumber }" onblur="checkIdBlur(this.value);" onkeyup="checkId(this.value,'${ctxpath}');" onfocus="checkId(this.value,'${ctxpath}');"/>
+							<span id="idSpan" class="ts_xx">商品编号6-20位字符组成</span>
+						</dd>
+					</dl>
+					<dl>
+						<dt>商品状态<em class="mustIco"></em></dt>
+						<dd>
+							<span class="zt #if(product.status) radioSel #end"><label><input type="radio" value="true" name="status" #if(product.status) checked=true #end/>上架</label></span>
+							<span class="zt #if(!product.status) radioSel #end"><label><input type="radio" value="false" name="status" #if(!product.status) checked=true #end/>下架</label></span>
+						</dd>
+					</dl>
+	    		<div class="clear"></div>
+	    	<dl>
+					<dt>是否可预定<em class="mustIco"></em></dt>
+					<dd>
+						<span class="zt radioSel" onclick="checkRadioD();"><label><input type="radio" name="isAdvance" value="0" #if(product.isAdvance == "0")checked#end>不支持</label></span>
+						<span class="zt" onclick="checkRadioD();"><label><input type="radio" name="isAdvance" value="1" #if(product.isAdvance == "1")checked#end>支持</label></span>
+					</dd>
+				</dl>
+					<dl>
+						<dt>商品名称<em class="mustIco"></em></dt>
+						<dd id="nameDd">
+							<input type="text" class="i_bg"  name="name" value="${product.name }" onblur="javascript:checkNameBlur();" onkeyup="javascript:checkName();" onfocus="javascript:checkName();" />
+							<span id="nameSpan" class="ts_xx">商品名1-20位字符组成</span>
+						</dd>
+					</dl>
+					<dl>
+						<dt>库存量<em class="mustIco"></em></dt>
+						<dd><input type="text" class="i_bg"  name="quantity" id="quantity" value="${product.quantity }"  maxlength="11" /><span></span></dd>
+					</dl>
+					<div class="clear"></div>
+					<dl>
+						<dt>数量单位<em class="mustIco"></em></dt>
+						<dd>
+							<input type="text" class="i_bg"  name="unit"  id="unit" value="${product.unit}"/>
+							<span style="color:#888;">商品的数量单位。如:吨</span>	
+						</dd>
+					</dl>
+					<dl>
+						<dt>库存预警<em class="mustIco"></em></dt>
+						<dd><input type="text" class="i_bg" name="quantityWarning" id="quantityWarning" value="${product.quantityWarning}"></dd>
+					</dl>
+					<dl>
+						<dt>商城价<em class="mustIco"></em></dt>
+						<dd><input type="text" class="i_bg"  name="unitPrice" id="unitPrice" value="${product.unitPrice}" /></dd>
+					</dl>
+					<div class="clear"></div>
+					
+					<dl>
+						<dt>市场价<em class="mustIco"></em></dt>
+						<dd><input type="text" class="i_bg"  name="listPrice"  value="${product.listPrice}" /></dd>
+					</dl>
+					<dl>
+						<dt>批发参考价</dt>
+						<dd><input type="text" class="i_bg"  name="pfPrice"  value="${product.pfPrice }" /></dd>
+					</dl>
+					<dl>
+					<dt>预定价格</dt>
+					<dd><input type="text" class="i_bg"  name="advancePrice"  value="${product.advancePrice}" onpaste="return false" onblur="javascript:if(this.value==''){this.value=0;}" onkeyup="javascript:clearNoNum(this)"/></dd>
+				</dl>
+				
+				<dl>
+					<dt>起订数量</dt>
+					<dd><input type="text" class="i_bg"  name="advanceNum"  id="quantity" value="${product.advanceNum}" onpaste="return false" onblur="javascript:if(this.value==''){this.value=0;}" onkeyup="javascript:clearNoNum(this)"/></dd>
+				</dl>
+					<dl>
+						<dt>运费</dt>
+						<dd><input type="text" class="i_bg"  name="fare"  value="${product.fare}" onpaste="return false" onblur="javascript:if(this.value==''){this.value=0;}" onkeyup="javascript:clearNoNum(this)"/></dd>
+					</dl>
+					<dl>
+						<dt>商品名缩写</dt>
+						<dd><input type="text" class="i_bg"  name="sortName" value="${product.sortName }" />
+						<span class="ts_xx">请输入商品名缩写</span></dd>
+					</dl>
+	    		<div class="clear"></div>
+				<dl>
+			<dt>质量等级<em class="mustIco"></em></dt>
+			<dd id="productModelDd">
+				<input type="text" name="productModel" class="i_bg" value="${product.productModel}" onblur="javascript:checkProductModelBlur();"/>
+				<span id="productModelSpan" class="ts_xx">请输入质量等级</span>
+			</dd>
+		</dl>
+		<dl>
+			<dt>检测机构名称</dt>
+			<dd><input type="text" name="jcjg" class="i_bg" value="${product.jcjg }"></dd>
+		</dl>
+		<div class="clear"></div>
+		<dl>
+			<dt>检测报告</dt>
+			<dd>  #tag fileUpload("jcFile","pdf",product.jcFile) #end </dd>
+		</dl>
+		<dl>
+			<dt>交货地址<em class="mustIco"></em></dt>
+			<dd id="deliceAddressDd">
+			<div style="width:500px;">#tag systemAreaSel("deliceAddress",product.deliceAddressId) #end</div>
+			<span id="deliceAddressSpan" class="ts_xx" style="float:left;"></span>
+			</dd>
+		</dl>
+		<div class="clear"></div>
+		<dl>
+			<dt>交货方式</dt>
+			<dd><input type="text" name="deliceType" class="i_bg" value="${product.deliceType }"></dd>
+		</dl>
+				<div class="clear"></div>
+		<dl>
+			<dt>交货日</dt>
+			<dd><input type="text" name="deliceData" class="i_bg" value="${product.deliceData }"></dd>
+		</dl>
+		
+		<div class="clear"></div>
+			<dl>
+			<dt>付款方式</dt>
+			<dd><input type="text" name="payType" class="i_bg" value="${product.payType }"></dd>
+		</dl>
+					<dl class="linkAlert">
+						<dt>店铺<em class="mustIco"></em></dt>
+						<dd  id="storeIdDd">
+							<input id="storeName" class="i_bg" type="text" readOnly  value="${storeName}"   onblur="javascript:checkStoreIdBlur();" onkeyup="javascript:checkStoreId();" onfocus="javascript:checkStoreId();" />
+							<input type="hidden" name="storeId" id="storeId" value="${product.storeId}" />
+							<!--<span id="storeSpan" class="pp" title="关联店铺菜单" onclick="loadStore();" ></span> -->
+						</dd>
+					</dl>
+					<dl>
+						<dt>商品产地<em class="mustIco"></em></dt>
+						<dd id="habitatDd">
+							<div style="width:500px;">#tag systemAreaSel("habitat",product.habitat) #end</div>
+							<span id="habitatSpan" class="ts_xx" style="float:left;"></span>
+						</dd>
+					</dl>
+					<div class="clear"></div>
+					<dl >					
+					
+							<dt>商品所在大区</dt>
+							<dd>
+									<select name="productAreaId" >
+			                      		 <option value = "" #if(product.productAreaId == "")selected #end >请选择</option>
+			                      		#for(com.ekfans.base.system.model.Area a :areaList)
+			                      	   <option value="${a.id}" #if(a.id == product.productAreaId )selected #end>${a.name}</option>
+			                      	  #end
+			            </select>
+								</dd>
+							<dd class="clear"></dd>
+						</dl>
+					<dl>
+						<dt>产地详细地址</dt>
+						<dd>
+							<input type="text" name="habitatAddress" class="i_bg" value="${product.habitatAddress }">
+						</dd>
+					</dl>
+					<dl class="linkAlert">
+						<dt>品牌<em class="mustIco"></em></dt>
+						<dd id="brandDd">
+							<input id="brandName" class="i_bg" type="text" readOnly  value="${brandName }"  onblur="javascript:checkBrandBlur();" onkeyup="javascript:checkBrand();" onfocus="javascript:checkBrand();" />
+							<input type="hidden" name="brand" id="brand" value="${product.brand }" />
+								<!--<span id="brandSpan" class="pp" title="关联品牌菜单" onclick="loadBrand();" ></span> -->
+						</dd>
+					</dl>
+					<dl>
+						<dt>创建时间</dt>
+						<dd><input type="text" name="createTime" class="i_bg" value="${product.createTime}"></dd>
+					</dl>
+					<div class="clear"></div>
+					<dl class="linkAlert">
+						  <div class="priceZone">
+                
+                <div class="pfPriceList" id="guigeList">
+                    <div class="listHeader">
+                        <div class="listTd startNum">规格</div>
+                        <div class="listTd endNum">数量</div>
+                        <div class="listTd endNum">价格</div>
+                        <div class="listTd endUnit">单位</div>
+                        <div class="listTd listSet">操作</div>
+                    </div>
+                    #define(List<com.ekfans.base.product.model.ProductValuation> pvList)
+								
+											#if(pvList == null || pvList.size()<=0)	
+												<div class="listItem" >
+			                      <div class="listTd startNum">
+			                      	<select name="valuationId" onchange="chekcedvalue(this)">
+			                      		 <option value = "">请选择</option>
+			                      		#for(com.ekfans.base.order.model.ValuationCategory vc :valuationCategotyList)
+			                      	   <option value="${vc.id}_${vc.specName}">${vc.specName}</option>
+			                      	  #end
+			                      	</select>
+			                      </div>
+			                      <div class="listTd endNum"><input name="valuationNumber" type="text" class="textBox box50" value="0.00" onpaste="return false" onblur="javascript:if(this.value==''){this.value=0;}" onkeyup="javascript:clearNoNum(this)"></div>
+			                      <div class="listTd endNum"><input name="valuationPrice" type="text" class="textBox box50" value="0.00" onpaste="return false" onblur="javascript:if(this.value==''){this.value=0;}" onkeyup="javascript:clearNoNum(this)"></div>
+			                      <div class="listTd endNum"><input name="valuationUnit" type="text" class="textBox box50" value="g"></div>
+			                      <div class="listTd listSet" style="display:none;"><a href="javascript:removeChild(this);" class="closeIco"></a></div>
+			                      <div class="clear"></div>
+			                    </div>
+											#else		
+												#for(com.ekfans.base.product.model.ProductValuation pv:pvList)							
+													<div class="listItem" >
+			                      <div class="listTd startNum">
+			                      	<select name="valuationId" onchange="chekcedvalue(this)">
+			                      		 <option value = "">请选择</option>
+			                      		#for(com.ekfans.base.order.model.ValuationCategory vc :valuationCategotyList)
+			                      	   <option value="${vc.id}_${vc.specName}" #if(vc.id == pv.valuationId) selected #end>${vc.specName}</option>
+			                      	  #end
+			                      	</select>
+			                      </div>
+			                      <div class="listTd endNum"><input name="valuationNumber" type="text" class="textBox box50" value="${pv.valuationNumber}" onpaste="return false" onblur="javascript:if(this.value==''){this.value=0;}" onkeyup="javascript:clearNoNum(this)"></div>
+			                      <div class="listTd endNum"><input name="valuationPrice" type="text" class="textBox box50" value="${pv.valuationPrice}" onpaste="return false" onblur="javascript:if(this.value==''){this.value=0;}" onkeyup="javascript:clearNoNum(this)"></div>
+			                      <div class="listTd endNum"><input name="valuationUnit" type="text" class="textBox box50" value="${pv.valuationUnit}"></div>
+			                      #if(for.index > 1)
+			                      <div class="listTd listSet" ><a href="javascript:removeChild(this);" class="closeIco"></a></div>
+			                      #end
+			                      <div class="clear"></div>
+			                    </div>
+	                    	#end
+	                    
+										#end
+                   	
+                    
+                </div>
+            </div>
+            </dl>
+					<!--
+					<dl class="linkAlert">
+					   	<a href="javascript:void(0);" class="btn btnAddLine">添加价格区间</a>
+					   	<span style="margin-top:15px; display:block; line-height:24px; color:#888;">设置批发的价格，如：0-100，单价50，则表示小于100数量的单价都是50。反之，如果100-0，单价30，则表示大于或等于100数量的单价为30</span>
+							
+						<div class="pfPriceList">
+							<div class="listHeader">
+							    <div class="listTd startNum">起始数量</div>
+							    <div class="listTd endNum">最大数量</div>
+							    <div class="listTd listPrice">单价</div>
+							    <div class="listTd listSet">操作</div>
+							</div>
+							#define(List<com.ekfans.base.product.model.ProductPrice> priceList)
+							#for(com.ekfans.base.product.model.ProductPrice price:priceList)
+								<div class="listItem">
+							      <div class="listTd startNum"><input name="startNum" type="text" class="i_bg box50" value="${price.startNum}"></div>
+							      <div class="listTd endNum"><input name="endNum" type="text" class="i_bg box50" value="${price.endNum}"></div>
+							      <div class="listTd listPrice"><input name="productListPrice" type="text" class="i_bg box80" value="${price.price}"></div>
+							      <div class="listTd listSet">
+							       #if(!for.first)
+							       <a href='javascript:void(0);' class='btnRemoveLine'><img src='${webroot}/resources/system/images/del2.jpg' width='16' height='16'></a>
+							       #end
+							      </div>
+								  <input type="hidden" name="productPrices" class="productPrices"/>
+						      	  <div class="clear"></div>
+								</div>
+							#else
+							<div class="listItem">
+						      <div class="listTd startNum"><input name="startNum" type="text" class="i_bg box50" value="0"></div>
+						      <div class="listTd endNum"><input name="endNum" type="text" class="i_bg box50" value="0"></div>
+						      <div class="listTd listPrice"><input name="productListPrice" type="text" class="i_bg box80" value="0.00"></div>
+						      <div class="listTd listSet"></div>
+							  <input type="hidden" name="productPrices" class="productPrices"/>
+					      	  <div class="clear"></div>
+							</div>
+							#end							
+						</div>
+				  </dl>
+	    		<div class="clear"></div>
+	 -->
+					#define(com.ekfans.base.product.model.ProductTemplate productTemplate)
+					#if(productTemplate!=null)
+					<dl>
+						<dt>模板<em class="mustIco"></em></dt>
+						<dd>
+							<select name="proTemplate" id="proTemplate" class="i_bg" onchange="loadTempfields(this.value);">
+								<option value="" #if(product.templateId == "") select #end>--请选择--</option>
+								<option value="${productTemplate.id}" #if(product.templateId.equals(productTemplate.id)) selected #end>${productTemplate.name}</option>
+								<option value="1" #if(product.templateId.equals("1")) selected="true" #end>系统默认</option>
+							</select>
+						</dd>
+					</dl>
+					#else
+					<dl>
+						<dt>模板<em class="mustIco"></em></dt>
+						<dd>
+							<select name="proTemplate" id="proTemplate" class="i_bg" onchange="loadTempfields(this.value);">
+								<option value="" #if(product.templateId == "") select #end>--请选择--</option>
+								<option value="1" #if(product.templateId.equals("1")) selected="true" #end>系统默认</option>
+							</select>
+						</dd>
+					</dl>
+					#end
+					<dl class="formBoxLine">
+						<dt>搜索关键字</dt>
+						<dd><textarea name="searchKey">${product.searchKey }</textarea></dd>
+						<dd class="clear"></dd>
+					</dl>
+	    		<div class="clear"></div>
+	    
+			    <!-- 遍历出可选字段的扩展字段和扩展字段的值 -->
+			    
+			    #-- <font id="tempFieldsFont"> </font>
+	    
+					<dl class="formBoxLine">
+						<dt>商品图片</dt>
+						<dd>#tag picUpload("picture","1","200","200",product.picture) #end</dd>
+						<dd class="clear"></dd>
+					</dl>
+					<dl class="formBoxLine">
+						<dt>多角度视图</dt>
+						
+						<dd>
+							<div id="picForClone" style="display:none;">
+								<div class="uploadItem">
+									#tag picUpload("picClone","1","200","200","") #end
+									<a href="javascript:void(0);" id="picClone" class="closeIco"><img src="${ctxpath}/resources/system/images/del2.jpg" width="16" height="16"></a>
+								</div>
+							</div>
+							#define(List<com.ekfans.base.product.model.ProductPicture> pictureList)
+							#set(String popPicIds = "")
+							#if(pictureList != null &&pictureList.size()>0)
+								#for(com.ekfans.base.product.model.ProductPicture pP : pictureList)							
+									<div class="uploadItem">
+										#set(popPicIds = popPicIds + "image"+for.index + ";")
+										#tag picUpload("image"+for.index,"1","200","200",pP.picture) #end
+										#if(for.index >1)<a href="javascript:void(0);" class="closeIco"><img src="${ctxpath}/resources/system/images/del2.jpg" width="16" height="16"></a>#end
+									</div>
+								#end	
+								#else
+								<div class="uploadItem">
+									#tag picUpload("popImage","1","220","220","") #end
+								</div>
+								#end
+							<a href="javascript:void(0);" class="btnAdd" >增加图片</a>
+							<input type="hidden" name="popPicProperties" id="popPicProperties" #if(popPicIds != "")value="${popPicIds}" #else value="popImage;" #end/>
+						</dd>
+						<dd class="clear"></dd>
+					</dl>
+					--#
+					
+				
+	    
+					<dl class="formBoxLine countBox">
+						<dt>商品备注</dt>
+						<dd><textarea name="note" cols="" rows="" class="bigBox">${product.note}</textarea></dd>
+						<dd class="clear"></dd>
+					</dl>
+	    
+					<dl class="formBoxLine">
+						<dt>商品描述</dt>
+						<dd>
+							<textarea name="description" id="description" class="ckeditor">${product.description}</textarea>
+						</dd>
+						<dd class="clear"></dd>
+					</dl>
+				</div>
+			</div>
+		</form>
+		<div id="addFieldsDemo" style="display:none;">
+			<div class="listItem">
+		      <div class="listTd startNum"><input name="startNum" type="text" class="i_bg box50" value="0"></div>
+		      <div class="listTd endNum"><input name="endNum" type="text" class="i_bg box50" value="0"></div>
+		      <div class="listTd listPrice"><input name="productListPrice" type="text" class="i_bg box80" value="0.00"></div>
+		      <div class="listTd listSet">
+		      	<a href='javascript:void(0);' class='btnRemoveLine'><img src='${webroot}/resources/system/images/del2.jpg' width='16' height='16'></a>
+			  </div>
+			  <input type="hidden" name="productPrices" class="productPrices"/>
+		      <div class="clear"></div>
+			</div>
+		</div>
+		<!-- 关联店铺模块 -->
+		<div class="del_tcBg" id="storeBg"></div>
+		<div class="del_tc shopListAlert"  id="storetc" ></div>
+	
+	
+		<!--  关联品牌分类 -->
+		<div class="del_tcBg" id="brandBg"></div>
+		<div class="del_tc shopListAlert" id="brandtc"></div>
+	
+		<!--  关联模板分类 -->
+		<div class="del_tcBg" id="templateBg" style="display:none;"></div>
+		<div class="del_tc autoTc"  id="templatetc" style="display:none;top:15%;left:10%;right:10%;padding:0px 10px;">
+			<div class="classReset">
+					<div class="sto_fl_ss" style="padding-top:20px;">
+					分类搜索<input name="name" id="categorySearch" type="text" class="i_bg" value="${name}"/>
+					<a href="javascript:void(0);" class="btn" onclick="searchSubmit();">搜索</a>
+					</div>
+						#define(List<com.ekfans.base.product.model.ProductCategory> pcs)
+					<font id="font2" style="display:none">
+					</font>	
+					<div class="select_fl">
+						<font id="font1"  >
+						<h3>商品分类选择</h3>
+							<ul>
+								<li style="height:150px;">
+										#if(pcs==null||pcs.size()<=0)
+										<div class="ht_list_k">暂时没有符合条件的数据</div>	
+										#end
+										#for(com.ekfans.base.product.model.ProductCategory pc : pcs)
+										<a href="javascript:void(0);" id="firstName${pc.id}" class="pp_right" onclick="searchFirstName('${pc.id}','${pc.name}');" >>${pc.name}</a>
+										#end
+								</li>
+								<li style="height:150px;">
+									<font id="jsonBox2" ></font>
+								</li>
+								<li style="height:150px;">
+									<font  id="jsonBox3" ></font>
+								</li>
+								<li style="height:150px;">
+									<font id="jsonBox4" ></font>
+								</li>
+								<li style="height:150px;">
+									<font  id="jsonBox5" ></font>
+								</li>
+						</ul>
+						</font>
+						<div class="ts" id="showName">
+								<a id="span1" class="one" ></a>
+								<a id="span2"></a>
+								<a id="span3"></a>
+								<a id="span4"></a>
+								<a id="span5"></a>
+							</div>
+							<div class="pro_glpp_btn">
+								<input type="hidden" id="id" value="" />
+								<a href="#" class="btn" onclick="changeTemp();">确认已选分类继续</a>
+								<a href="#" class="btn" onclick="closeTemp();">取消</a>
+							</div>
+					</div>	
+             </div>
+		</div>
+		<div class="loadingLayer" id="loadingLayer" style="display:none"></div>
+		<script>
+		$(function () {
+	    CKEDITOR.replace('description', { height: '540px'});
+		});
+		
+		//删除选择的列
+	$(document).ready(function() {
+		$(".closeIco").live("click",function(){
+			$(this).parent().parent().remove();
+		})
+	})
+	
+	
+	//点击添加
+	function addChild(){
+		var appends = $("#adchilds").children().clone();
+		$("#guigeList").append(appends);
+	}
+		</script>
+		
+	</body>
+</html>

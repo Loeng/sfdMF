@@ -1,0 +1,14 @@
+#define(List<com.ekfans.base.store.model.Store> stores)	
+
+   <!------------------------------------------------------------------------------->
+		#if(stores != null && stores.size()>0)
+			#for(com.ekfans.base.store.model.Store store : stores)
+				#if(store.storeLogo != null)
+					#if(for.index <= 6)
+						<a href="${webroot}/web/storedetail/${store.id}" target="_black"><img src="${webroot}/${store.storeLogo}" alt="${store.storeName}" width="93" height="93"></a>
+					#end
+				#end
+			#end
+		#end
+		
+   

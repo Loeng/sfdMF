@@ -1,0 +1,140 @@
+#define(List<com.ekfans.base.store.model.Store> storeList)
+#define(com.ekfans.pub.util.Pager pager)
+	<div class="apTit">
+		<span class="apClose" onclick="javascript:storeChoseCancel();"></span>
+	    选择企业
+	</div>
+	<div class="apContent" style="padding-top:20px;">
+		<div class="shopSearch">
+	        <dl class="formItem">
+	            <dt>企业名称</dt>
+	            <dd>
+	            	<input name="storeSearchName" id="storeSearchName" type="text" class="textBox box212" value="${storeName!=null?storeName:""}">
+	            </dd>
+	            <dd class="clear"></dd>
+	        </dl>
+	        <dl class="formItem" style="width:260px;">
+	            <dt>企业类型</dt>
+	            <dd>
+	            	<select name="storeSearchType" id="storeSearchType" style="width:125px;">
+									#set(Map<String,String> userTypeNamesMap = @(com.ekfans.base.user.util.UserConst).userTypeNamesMap)
+	            		<option value="">请选择</option>
+	            		#for (Map.Entry<String,Object> userTypeEntry : userTypeNamesMap.entrySet())
+										<option value="${userTypeEntry.key}" #if(userTypeEntry.key == storeType) selected #end>${userTypeEntry.value}</option>
+									#end
+	            	</select>
+	            </dd>
+	            <dd class="clear"></dd>
+	        </dl>
+	        <div class="btn">
+	            <a href="javascript:storeSearch();" class="btnBase">搜索</a>
+	            <a href="javascript:resetStoreSearch();" class="btnBase">重置</a>
+	        </div>
+	        <div class="clear"></div>
+	    </div>
+	    <ul class="checkList">
+	    	#for(com.ekfans.base.store.model.Store showStore:storeList)
+	    		<li><label><input name="companyCheck" type="radio" onclick="javascript:choseStore('${showStore.id}','${showStore.storeName}');" value="${showStore.id}"><span>${showStore.storeName}</span></label></li>
+	    	#end
+	    </ul>
+	    <div class="clear"></div>
+			<div class="pageSize">
+			
+				<a href="javascript:void(0);" onclick="storeSearchGoPage('1');" class="btn pageControl" value="1">&lt;&lt;</a>
+				#if(pager.currentPage == 1)
+					<a href="javascript:void(0);" class="btn pageControl">&lt;</a> 
+				#else
+					<a href="javascript:void(0);" class="btn pageControl" onclick="storeSearchGoPage('${pager.currentPage-1 }');"   value="${pager.currentPage-1 }" >&lt;</a>
+				#end
+				
+				#if(pager.totalPage>6)
+					#if(pager.currentPage-2>1 && pager.currentPage+3<pager.totalPage)
+						<a>..</a>
+						#for(int i : iterator(pager.currentPage-1,pager.currentPage+1))
+							#if(pager.currentPage==i)
+								<a href="javascript:void(0);" onclick="storeSearchGoPage('${i }');" value="${i }" class="btn cur" >${i }</a>
+							#else
+								<a href="javascript:void(0);" onclick="storeSearchGoPage('${i }');" value="${i }" class="btn" >${i }</a>
+							#end
+						#end
+						<a>..</a>
+						#for(int i : iterator(pager.totalPage-2,pager.totalPage))
+							<a href="javascript:void(0);" onclick="storeSearchGoPage('${i }');" value="${i }" class="btn" >${i }</a>
+						#end
+					#elseif(pager.currentPage-2<=1)
+						#for(int i : iterator(1,3))
+							#if(pager.currentPage==i)
+								<a href="javascript:void(0);" onclick="storeSearchGoPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+							#else
+								<a href="javascript:void(0);" onclick="storeSearchGoPage('${i }');"   value="${i }" class="btn" >${i }</a>
+							#end
+						#end
+						<a>..</a>
+						#for(int i : iterator(pager.totalPage-2,pager.totalPage))
+							<a href="javascript:void(0);" onclick="storeSearchGoPage('${i }');" value="${i }" class="btn" >${i }</a>
+						#end
+					#else
+						<a>..</a>
+						#for(int i : iterator(pager.totalPage-5,pager.totalPage))
+							#if(pager.currentPage==i)
+								<a href="javascript:void(0);" onclick="storeSearchGoPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+							#else
+								<a href="javascript:void(0);" onclick="storeSearchGoPage('${i }');"   value="${i }" class="btn" >${i }</a>
+							#end
+						#end
+					#end
+				#else
+					#for(int i : iterator(1,pager.totalPage))
+						#if(pager.currentPage==i)
+							<a href="javascript:void(0);" onclick="storeSearchGoPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+						#else
+							<a href="javascript:void(0);" onclick="storeSearchGoPage('${i }');"   value="${i }" class="btn" >${i }</a>
+						#end
+					#end
+				#end
+				
+				#if(pager.currentPage==pager.totalPage)
+					<a href="javascript:void(0);" class="btn pageControl">&gt;</a>
+				#else
+					<a href="javascript:void(0);" onclick="storeSearchGoPage('${pager.currentPage+1 }');"   value="${pager.currentPage+1 }" class="btn pageControl">&gt;</a>
+				#end
+				
+				<a  href="javascript:void(0);" onclick="storeSearchGoPage('${pager.totalPage }');"   value="${pager.totalPage }" class="btn pageControl" >&gt;&gt;</a>
+			
+			</div>
+
+	</div>
+	<div class="apBtns"><a class="btnBase" href="javascript:storeChoseOK();">确定</a><a class="btnBase btnCancel" href="javascript:storeChoseCancel();">取消</a></div>
+	<input type="hidden" id="chosedStoreId" value=""/>
+	<input type="hidden" id="chosedStoreName" value=""/>
+	
+	
+	<script>
+		function resetStoreSearch(){
+			$("#storeSearchName").val("");
+			$("#storeSearchType").val("");
+		}
+	
+		function storeSearch(){
+			$("#companyCheck").load("${webroot}/store/order/payorder/storelist",{storeName:$("#storeSearchName").val(),storeType:$("#storeSearchType").val()});
+		}
+		
+		function storeChoseCancel(){
+			$("#companyCheck,.apLayerBg").hide();	
+		}
+	
+		function choseStore(storeId,storeName){
+				$("#chosedStoreId").val(storeId);
+				$("#chosedStoreName").val(storeName);
+		}
+	
+		function storeChoseOK(){
+			$("#storeName").val($("#chosedStoreName").val());
+			$("#storeId").val($("#chosedStoreId").val());
+			$("#companyCheck,.apLayerBg").hide();	
+		}
+		
+		function storeSearchGoPage(pageNo){
+			$("#companyCheck").load("${webroot}/store/order/payorder/storelist",{storeName:$("#storeSearchName").val(),storeType:$("#storeSearchType").val(),pageNum:pageNo});
+		}
+	</script>

@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>推送管理</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/demand.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/list.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+</head>
+
+<body>
+#define(List<com.ekfans.base.ccwcc.model.CcwccPush> pushList)
+<input type="hidden" id="ctxpath" value="${webroot}" />
+
+<div class="apPreviewBg" ></div>
+<div class="apPreview" id="apPreview"></div>
+<form action="${webroot}/system/ccwccpush/list" method="post" id="searchForm">
+	<input type="hidden" name="pageNum" value="" />
+	
+	<dl class="pro_ss">
+		<dt><b>查询</b><span class="span_down"></span><span class="span_up"></span></dt>
+		<dd  class="pro_ss_item">
+			<span>状态</span>
+			<span class="zt"><label><input type="radio" value="" name="status" #if(status == null  || status == "" || status == " ") checked=true #end/>所有</label></span>
+			<span class="zt"><label><input type="radio" value="1" name="status" #if("1".equals(status)) checked=true #end/>待推送</label></span>
+			<span class="zt"><label><input type="radio" value="2" name="status" #if("2".equals(status)) checked=true #end/>已推送</label></span>
+			<span class="zt"><label><input type="radio" value="0" name="status" #if("0".equals(status)) checked=true #end/>禁用</label></dd></span>
+		</dd>
+		<dd class="clear"></dd>
+		<dd class="pro_ss_item">
+			<span>推送类型</span>
+			<span class="zt"><label><input type="radio" value="" name="type" #if(type == null  || type == "" || type == " ") checked=true #end/>所有</label></span>
+			<span class="zt"><label><input type="radio" value="0" name="type" #if("0".equals(type)) checked=true #end/>普通</label></span>
+			<span class="zt"><label><input type="radio" value="1" name="type" #if("1".equals(type)) checked=true #end/>资讯</label></span>
+			<span class="zt"><label><input type="radio" value="2" name="type" #if("2".equals(type)) checked=true #end/>供应</label></span>
+			<span class="zt"><label><input type="radio" value="3" name="type" #if("3".equals(type)) checked=true #end/>求购</label></dd></span>
+		</dd>
+		<dd class="clear"></dd>
+		<dd class="pro_ss_item">
+			<span>推送内容</span>
+			<input type="text" class="i_bg" name="content" id="content" value="${content}" />
+		</dd>
+	</dl>
+</form>
+<div class="pro_ss_btn">
+	<a href="javascript:void(0);" class="btn" onclick="searchSubmit()">搜索</a>
+	<a href="javascript:void(0);" class="btn" onclick="resetForm()">重置</a>
+</div>
+<div class="pro_ss_btn">
+	<a href="javascript:void(0);" class="btn" onclick="pushAdd()">新增</a>
+</div>
+
+
+	#if(pushList==null || pushList.size()<=0)
+	<!-- 没有数据的时候 -->
+	<div class="ht_list_k">暂时没有符合条件的数据</div>	
+#else
+	<div class="ht_list">
+		<table id="managerTab" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<th width="7%">全选</th>
+				<th width="14%">推送标题</th>
+				<th width="39%">推送内容</th>
+				<th width="11%">推送类型</th>
+				<th width="11%">状态</th>
+				<th width="10%">创建时间</th>
+				<th width="8%">操作<th>
+			</tr>
+			#for(com.ekfans.base.ccwcc.model.CcwccPush push: pushList)
+				<tr id="del${push.id}">
+					<td class="qx"><input type="checkbox" value="${push.id}"/></td>
+					<td>${push.title}</td>
+					<td>${push.content}</td>
+					<td>${@(com.ekfans.base.ccwcc.util.CcwccPushConst).pushStatusMap.get(push.status)}</td>
+					<td>${@(com.ekfans.base.ccwcc.util.CcwccPushConst).pushTypeMap.get(push.type)}</td>
+			        <td>${push.createTime}</td>
+					<td class="cz">
+						#if(push.status != "2")
+						<a href="javascript:void(0);" class="editIco" onclick="editPush('${push.id}')"></a>
+						#end
+						<a href="javascript:void(0);" class="del_list" onclick="econfirm('确定要删除此推送吗？', deleteAll, ['${push.id}'], null, null);" ></a>
+						
+					</td>
+				</tr>
+			#end
+		</table>
+		<div class="ht_pageBox">
+			<div class="ht_page_l">
+				<a href="javascript:void(0)" class="btn" onclick="selectAll()">全选</a>
+				<a href="javascript:void(0)" class="btn" onclick="checkSelect()">删除</a>
+			</div>
+			${include( "../common/page.jetx")}<!-- 加载分页 并覆盖它的 -->
+		</div>
+	</div>
+#end
+</body>
+<script type="text/javascript">
+	$(function(){
+		$(".ht_list tr").mouseover(function(){
+			$(this).addClass("tr_bg")
+		});
+		$(".ht_list tr").mouseout(function(){
+			$(this).removeClass("tr_bg")
+		});
+		
+		/*查询条件展开和收起*/
+		$(".pro_ss dt span.span_up").click(function(){
+			$(this).hide();
+			$(this).prev(".span_down").show();
+			$(this).parent().nextAll("dd").hide();
+			$(this).parent().parent().next(".pro_ss_btn").hide();
+		});
+		$(".pro_ss dt span.span_down").click(function(){
+			$(this).hide();
+			$(this).next(".span_up").show();
+			$(this).parent().nextAll("dd").show();
+			$(this).parent().parent().next(".pro_ss_btn").show();
+		});
+
+
+	});	
+	// 分页跳转
+	function goPage(pageNum){
+		$("input[name='pageNum']").val(pageNum);
+		document.getElementById("searchForm").submit();
+	}
+	function searchSubmit(){
+		$("#searchForm").submit();
+	}
+	function resetForm(){
+		$("input[name='status']:first").attr('checked', 'checked');
+		$("input[name='type']:first").attr('checked', 'checked');
+		$("#content").val("");
+	}
+	function pushAdd(){
+		location.href="${webroot}/system/ccwccpush/add";
+	}
+
+// 全选与全不选
+function selectAll(){
+	var index = 0;
+	$("input[type='checkbox']").each(function(i){
+		if(i == 0 && $(this).is(":checked")){
+			index = 1;
+		}
+		if(index == 1){
+			$(this).attr("checked", false);
+		}else{
+			$(this).attr("checked", true);
+		}
+	});
+}
+
+//删除前验证
+function checkSelect(){
+	var idstr = "";
+	$("input[type='checkbox']").each(function(i){
+		if($(this).is(":checked")){
+			idstr += "," + $(this).val();
+		}
+	});
+	
+	if(idstr == ""){
+		ealert("请至少选择一条数据！");
+	}else {
+		idstr = idstr.substring(1);
+		econfirm('是否确认删除？', deleteAll, [idstr], null, null);
+	}
+}
+
+//删除选择的记录
+function deleteAll(ids){
+	var ctx = $("#ctxpath").val();
+	$.post(ctx + "/system/ccwccpush/delete", {ids:ids}, function(data){
+		if(data == true || data == "true"){
+			ealert("删除成功！");
+			if(ids.indexOf(",") > 0){
+				var idArray = ids.split(",");
+				for(var i=0; i<idArray.length; i++){
+					var idstr = "#del" + idArray[i];
+					$(idstr).remove();
+				}
+			}else{
+				$("#del" + ids).remove();
+			}
+		}else{
+			ealert("删除失败！");
+		}
+	});
+}
+
+function editPush(id){
+	location.href="${webroot}/system/ccwccpush/edit/"+id;
+}
+
+
+</script>
+</html>

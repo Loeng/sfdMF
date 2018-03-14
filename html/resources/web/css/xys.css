@@ -1,0 +1,8 @@
+/* CSS Document */
+
+.main .wrapper{height:430px;}
+.bottomColor{height:190px;}
+
+.loginBox{position:absolute;top:93px;right:96px;}
+.bgPic{position:absolute; left:70px;top:93px;}
+.bottomPic{position:absolute; left:70px;bottom:-84px;}

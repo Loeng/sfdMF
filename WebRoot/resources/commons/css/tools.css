@@ -1,0 +1,28 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+/*弹窗提示*/
+.alertLayerBg{filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8; opacity:0.8; background:#000; position:fixed; left:0; top:0; width:100%; height:100%; z-index:100;}
+.alertLayer{border:8px solid #323a42; min-height:297px; width:480px; margin-left:-240px; border-radius:8px;position:fixed; top:18%; left:50%; z-index:101;background:#fff;overflow:hidden;}
+.alertContent{padding:0 20px 2% 20px; margin:0 auto; font-size:18px; font-family:MicroSoft YaHei; text-align:center; display:table-cell; vertical-align:middle; height:256px;}
+.sucFailLayer{padding:72px 30px; text-align:left; font-size:24px; height:84px; overflow:hidden;}
+.sucFailLayer .sucIco{display:block; background:url(../images/sucico.png) no-repeat; width:40px; height:84px; float:left; margin:0 20px 0 60px;background-size:40px 40px;}
+.sucFailLayer .failIco{display:block; background:url(../images/failico.png) no-repeat; width:40px; height:84px; float:left; margin:0 20px 0 60px;background-size:40px 40px;}
+.sucFailLayer .alertLayer .titName{float:left; white-space:nowrap; padding-right:40px; font-size:20px;}
+.sucFailLayer span{display:table-cell; width:290px; height:84px;  vertical-align:middle;float:left;  line-height: 30px;}
+.alertLayer .tit{border-top:12px solid #393; border-bottom:solid 1px #d4d4d4; height:40px; line-height:40px; padding:0 16px; font-size:20px;}
+.tit .apClose{float:right;cursor:pointer; background:url(../images/del3.jpg) no-repeat; width:20px; height:20px; display:block; margin-top:10px;}
+.sucFailLayer .btn{display:inline-block;padding:0 16px;height:28px;line-height:28px;background:#cfd7e8;}
+
+.alertLayer .btn{border-top:solid 1px #d4d4d4;height:40px; line-height:40px; text-align:right;}
+.alertLayer .btnSure{display:inline-block;padding:0 16px;height:28px;line-height:28px;border-radius:3px;background:#cfd7e8; margin-right:4px;}
+
+
+/*confirm弹窗*/
+.confirmBg{filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8; opacity:0.8; background:#000; position:fixed; left:0; top:0; width:100%; height:100%; z-index:100;}
+.confirm .tit{border-top:12px solid #393; height:40px; line-height:40px; border-bottom:solid 1px #d4d4d4; font-size:20px; padding:0 16px;}
+.confirm{border:8px solid #323a42;border-radius:8px; position:fixed; top:18%; left:50%; z-index:101;background:#fff;overflow:hidden; width:480px; margin-left:-240px; min-height:297px;}
+.confirmContent{line-height:40px; padding:0 20px 2% 20px; text-align:center; font-size:18px; font-family:MicroSoft YaHei; border-top:1px solid #565656; display:table-cell; vertical-align:middle; height:200px; width:440px;}
+.confirm .btns{padding:20px; text-align:center; border-top:solid 1px #e4e4e4; text-align:right;}
+.confirm .btn{display:inline-block;padding:0 16px;height:28px;line-height:28px;border-radius:3px;background:#cfd7e8;margin-right:5px;}
+.confirm .btn:hover{background:#008dff;color:#fff;}

@@ -1,0 +1,82 @@
+/* CSS Document */
+
+.main{margin:20px auto 20px auto;}
+.leftBox{width:850px; float:left;}
+.rightBox{width:331px; float:right;}
+
+.slideBox{height:320px; overflow:hidden; position:relative; margin-bottom:20px;}
+.slideBox .bd li{width:100%; height:320px; position:relative;}
+.slideBox .bd li img{position:absolute; left:50%; top:0; margin-left:-960px;}
+.slideBox .hd ul{height:36px; padding-top:26px;  position:absolute; bottom:0; width:100%; z-index:6; text-align:center;}
+.slideBox .hd ul li{width:10px; height:10px; border-radius:5px; background:#fff; display:inline-block; margin:0 6px;}
+.slideBox .hd ul li.on{background:#000;}
+
+.qydata{ text-align:center; height:60px; line-height:60px;}
+.qydata .qinum{font-size:24px; color:#91B121; display:inline-block;height:60px; }
+.qydata .qiyes{font-size:20px; color:#A1A1A1; display:inline-block; margin:0 10px;height:60px; }
+.qydata .qistates{font-size:20px; color:#353535; display:inline-block;height:60px; }
+.qydata em{display:inline-block; border-left:1px solid #99CB67; width:1px; height:60px; margin:0 64px;}
+
+.threeAd{ margin:30px 0;}
+.threeAd em{ width:103px; height:229px; display:block; float:left; background:url(../images/slh_icon.png) center center no-repeat;}
+
+.threeAd .autoAdv{width:283px; height:198px; overflow:hidden; border:solid 1px #EEEFEF; float:left; margin-right:8px; position:relative;}
+.threeAd .autoAdvImg{display:block;}
+.threeAd .autoAdvContent{max-height:100px; display:block; padding:10px 8px; line-height:20px; background:rgba(0,0,0,0.5); position:absolute; bottom:0; left:0; right:0; color:#fff; display:none;}
+.threeAd .autoAdvText em{display:block; width:120px; height:35px; line-height:35px; background:#339833; color:#fff; font-size:14px; text-align:center; position:absolute; top:0; left:0;}
+
+/*资讯列表*/
+.newsList{padding:20px 15px 20px 20px; border:1px solid #EFEFEF; margin-bottom:21px;}
+.newsList dt{float:left; width:160px; margin-right:20px;}
+.newsList dt a{ position:relative; display:block;}
+.newsList dt a em{position:absolute;top:0;left:0; display:block; width:80px; height:28px; line-height:28px; text-align:center; color:#fff; background-color:#98CB67;}
+.listRight{ float:left; width:633px;}
+.listRight h3{margin-bottom:15px;}
+.listRight h3 a{ font-size:16px; color:#333333; }
+.listRight p{font-size:12px; color:#656565; line-height:21px; height:84px; display:block; overflow:hidden;}
+
+
+/*右部*/
+.btnArea{margin:15px 0;}
+.fbBtns{display:block; width:164px; height:65px; line-height:65px; text-align:center; color:#fff; font-size:18px; background-color:#99CB67; float:left;}
+
+.jmBox{border:1px solid #EFEFEF;margin-bottom:25px;}
+.boxTit{position:relative;}
+.boxTit h2{ width:106px; height:35px; line-height:35px; background-color:#339933; color:#fff;text-align:center;}
+.boxTit .btnjr{position:absolute; top:18px; right:10px; font-size:14px; color:#333333;}
+
+.tjList{font-size:14px; color:#333333; padding:15px 0px; margin:0 14px;border-bottom:1px solid #999999;}
+.tjList li{ height:30px; line-height:30px;}
+.tjList li a{max-width:275px; overflow:hidden; display:inline-block;height:30px;}
+.tjList li em{ width:12px; height:15px; line-height:15px; text-align:center;background-color:#339933; color:#fff; margin-left:6px; padding:2px 4px; font-size:12px;vertical-align: middle;margin-top:-24px; display:inline-block;}
+.jmList{font-size:14px; color:#999999; padding:15px 0px; margin:0 14px;}
+.jmList li{height:30px; line-height:30px;}
+.jmList li a{max-width:275px; overflow:hidden; display:inline-block; height:22px;}
+
+
+.wlkx{border:1px solid #EFEFEF;margin-bottom:25px;}
+.wlList{border-left:1px solid #99CB67; margin-left:30px;}
+.wlList li{border-bottom:1px solid #F1F1F1; position:relative; line-height:29px; color:#333333; font-size:14px; padding:18px 10px 4px 0; margin-left:18px;}
+.wlList li a{display:block; margin-bottom:2px;}
+.wlList li span{color:#999999;}
+.wlList li em{position:absolute;left:-23px; top:27px; background:url(../images/list_point.png) 0 0 no-repeat; width:11px; height:11px; display:block;}
+
+/*分类筛选*/
+.listClass{background:#fff; border:1px solid #EFEFEF; padding:10px 8px;}
+.listClass .wrapper{width:1160px;}
+.listItem{padding:12px 0; border-top:dashed 1px #EFEFEF;}
+.listItem dt{width:80px; float:left; height:30px; line-height:30px; font-weight:700; overflow:hidden; font-size:14px; color:#333333;}
+.listLink{width:1022px; float:left; line-height:30px; height:30px; overflow:hidden;}
+.listLink a{display:inline-block; padding:0 12px; font-size:14px; color:#333333; margin:2px 0;}
+.listLink a:hover,.listLink a.cur{background:#339933; color:#fff;}
+.listMore{float:left; height:28px; width:56px;}
+.listMore a{display:inline-block; padding:0 20px 0 10px; height:28px; line-height:28px; background:url(../images/more_point.png) no-repeat center center; color:#fff; position:relative;}
+.listMore a.down{background:url(../images/more_point.png) no-repeat center center;}
+
+/*分页*/
+.pageSize{text-align:center; padding:18px 0;}
+.pageSize a{display:inline-block; height:21px; line-height:21px; padding:4px 10px; background:#fff; color:#333333; font-size:14px; margin:0 2px;}
+.pageSize a:hover,.pageSize .cur{background:#5FB01F; color:#fff;}
+.pageSize span{display:inline-block;font-size:14px; color:#333333; margin:0 10px;}
+.pageSize .surepage{display:inline-block;background-color:#136333; color:#fff;}
+.pageSize input{width:39px; height:22px; border:1px solid #999999; margin:0 5px; padding-left:5px;}

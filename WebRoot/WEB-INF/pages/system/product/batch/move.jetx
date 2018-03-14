@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>移动商品</title>
+<link href="${webroot}/resources/system/css/batch/pindao.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/system/js/product/batch/batch.js"></script>
+<script src="${webroot}/resources/system/js/tools.js"></script>
+</head>
+<body>
+	  <input type="hidden" id="_ctxpath" value="${webroot}"/>
+	  <!-- 商品树 -->
+		<div class="ht_fl">
+			#if(categories != null)
+				#for(com.ekfans.base.product.model.ProductCategory pc : categories)
+							<div class="fl_nav">
+							    <span class="fl_title" id="p${pc.id}" onclick="showChilds('${pc.id}')">
+							    	${pc.name}<label id="l${pc.id}" onclick="selectCategory('${pc.id}');">选择</label>
+							    	<em class="borderLine"></em>
+							   	</span>
+							   	<div id="${pc.id}" class="fl_in"></div>
+				      </div>
+				#end
+			#end
+	  </div>
+	  
+	  <!-- 右边查询 -->
+		<div class="ht_fl_bj">
+			   
+			   <div class="pro_ss_btn">
+			   	<div class="listHeader" id="products1_listHeader">共有<span id="countTop">0</span>条记录</div>
+			   	</div>
+            <div class="ht_list" id="products1">
+            	<table border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <th width="15%">序号</th>
+                    <th width="15%"><span onclick="selectAllTop();">全选</span></th>
+                    <th width="55%">商品名称</th>
+                    <th width="15%" class="cz">预览</th>
+                  </tr>
+                  <tbody >
+                  	<tr id="tempMsg">
+                  	    <td colspan="5">
+                  	        <div class="noneData">对不起，系统暂时没有符合条件的数据记录！</div>	
+                  	    </td>	
+                  	</tr>
+                  </tbody>
+                </table>
+            </div>
+            
+            <div class="moves">
+                <a href="javascript:moveDown();" class="moveDown"></a>
+                <a href="javascript:moveUp();" class="moveUp"></a>
+            </div>
+            
+        
+            
+           
+            <!-- 下方 -->
+  <form method="post" id="productsForm">
+  					<input type="hidden" id="downId" name="downId"/>
+  					<input type="hidden" id="categoryId" name="categoryId"/>
+            <dl class="pro_ss">
+                <dt><b>查询</b><span class="span_down"></span><span class="span_up"></span></dt>
+                <dd class="pro_ss_item">
+                    <span>商品名称</span>
+                    <input type="text" class="i_bg" name="searchName">
+                </dd>
+                <dd class="pro_ss_item">
+                    <span>所属分类</span>
+                    <select id="category1" class="i_bg" onchange="selectCategory1();" style="width:140px">
+                    	<option value="">请选择分类</option>  	
+                    	#for(com.ekfans.base.product.model.ProductCategory pc : generalCategoryChild)
+                    	<option value="${pc.id}">${pc.name}</option>
+                    	#end
+                    </select>
+                    <font id="select2Span">
+									  	
+										</font>
+										
+										<font id="select3Span">
+											
+										</font>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+          </form>
+            <div class="pro_ss_btn">
+                <a href="javascript:formSubmit();" class="btn">搜索</a>
+                <a href="javascript:formReset();" class="btn">重置</a>
+                <div class="listHeader" id="products2_listHeader">共有<span id="countBot">0</span>条记录</div>
+            </div>
+            <div class="ht_list"  id="products2">
+            	<table border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <th width="15%">序号</th>
+                    <th width="15%"><span onclick="selectAllBot();">全选</span></th>
+                    <th width="55%">商品名称</th>
+                    <th width="15%" class="cz">预览</th>
+                  </tr>
+                 <tbody></tbody>
+                </table>
+            </div>
+		</div>
+	</div>
+</body>
+</html>

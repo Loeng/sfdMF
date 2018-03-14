@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>修改会员积分</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/add.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/user/integral/userIntegralModify.js"></script>
+</head>
+    
+<body>
+<input type="hidden" id="retrunType" value="${requestScope.returnType}" />
+<input type="hidden" id="ctxpath" value="${webroot}" />
+
+<div class="ht_btn">
+	<a href="#" class="btn" onclick="formSubmit();">保存</a>
+	<a href="#" class="btn" onclick="reset();">重置</a>
+	<a href="#" class="btn" onclick="goBack();">返回列表</a>
+</div>			
+<form action="${webroot}/system/user/integral/saveInteral" method="post" id="addUserLeveIntegralForm">
+	<div class="add_pro">
+		<dl class="formBox">
+			<dt>用户名<em class="mustIco"></em></dt>
+			<dd id="nameDd" class="">
+				<input type="text" class="i_bg" name="orderId" id="userIntegralName" onfocus="checkUserNameFocus()" onblur="getIntegralByName();" />
+				<span id="nameSpan" class="ts_xx">请输入正确的用户名</span>
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt>目前积分数</dt>
+			<dd class="">
+				<input type="text" class="i_bg" name="integralNumberXXX" id="integration" readOnly="true" />
+			</dd>
+		</dl>
+		<div class="clear"></div>
+		<dl class="formBox"> 
+			<dt>操作类型</dt>
+			<dd>
+				<span class="zt">
+					<label><input type="radio" value="1" name="type" checked=true />增加</label>
+				</span>
+				<span class="zt">
+					<label><input type="radio" value="0" name="type" />减少</label>
+				</span>
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt>分数值<em class="mustIco"></em></dt>
+			<dd>
+				<dd class="">
+			    <input type="text" class="i_bg" id="integral" name="integral" onblur="checkIsNumber(this);" onkeyup="checkIsNumber(this);" maxlength="6"/>
+		      <span id="integralSpan" class="ts_xx">减少积分不能大于剩余积分</span>
+		    </dd>
+			</dd>
+		</dl>
+		<div class="clear"></div>
+		
+		<input type="hidden" class="i_bg" name="invalidTime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:new Date()})" />
+		
+		<div class="clear"></div>
+		<dl class="formBox">
+			<dt>备注</dt>
+			<dd class="">
+				<textarea name="note" maxlength="256"></textarea>
+			</dd>
+		</dl>
+	</div>
+</form>
+
+</body>
+</html>

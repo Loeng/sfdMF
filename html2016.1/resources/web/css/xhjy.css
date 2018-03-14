@@ -1,0 +1,136 @@
+/* CSS Document */
+
+.main{margin:20px auto 20px auto;}
+.leftBox{width:850px; float:left;}
+.rightBox{width:331px; float:right;}
+
+.newbjs{ width:1200px; height:38px; line-height:38px; margin-bottom:20px;}
+.newbjs h2{float:left; width:90px; color:#fff; background-color:#339933; text-align:center; font-size:14px;}
+.txtScroll-left{float:left; border:1px solid #EFEFEF; border-left:0; height:36px; line-height:36px; font-size:14px; width:1089px; padding:0 10px; overflow:hidden;}
+.infoList li{ color:#999999; float:left; cursor:pointer; padding:0 25px;}
+.infoList li span{ color:#333333;}
+.infoList .red{margin:0 4px;}
+.infoList .green{margin:0 4px; color:#339933;}
+.infoList .normal{margin:0 4px;}
+
+/*货源*/
+.huoyuan{ margin-top:30px; margin-bottom:8px;position:relative;}
+.huoyuan span{color:#136333; font-size:16px; display:inline-block; padding-right:38px;}
+.btnFb{ font-size:14px; color:#333333; display:inline-block;}
+.btnMore{ font-size:14px; color:#136333; position:absolute; right:10px; top:10px;}
+
+.hyList{ margin-bottom:20px;}
+.tabTit{ background-color:#339933; height:38px; line-height:38px; color:#fff; font-size:14px;}
+.tabTit li{float:left; text-align:left; padding:0 5px; margin-right:5px;}
+
+.hyTab hytabList{width:100%; font-size:12px; color:#333333;}
+.hytabList li{height:48px;border-bottom:solid 1px #CBCBCB;line-height:24px; padding:18px 10px 14px 10px;margin-right:5px; vertical-align:middle; text-align:left; overflow:hidden;}
+.listFloat{float:left; font-size:14px; color:#333333;}
+.listFloat div{max-height:26px; overflow:hidden; padding-right:8px;}
+.hytabList li .green{font-size:16px; height:26px; overflow:hidden;}
+.hyCom{color:#999999; font-size:14px; height:24px; overflow:hidden;}
+.hyzl{color:#999999;height:24px; overflow:hidden;}
+.listFloat a{color:#136333; font-size:14px; margin:0 3px;}
+
+.oneAdpic{margin-bottom:20px;}
+
+/**热门行情*/
+.hotHq{border:1px solid #EFEFEF;margin-bottom:25px; padding-bottom:5px;}
+.hotHq h2{width:106px; height:35px; line-height:35px;font-size:14px;background-color:#339933; color:#fff;text-align:center;}
+
+.classNav{height:35px;position:relative; border-bottom:1px solid #98CB67; color:#999999; font-size:14px; top:-35px; padding-left:106px;}
+.classNav li{ display:block; float:left; line-height:32px; padding:0 10px; margin:0 10px; cursor:pointer; min-width:20px; text-align:center;}
+.classNav li.cur,.classNav li:hover{ border-bottom:3px solid #98CB67; color:#136433;}
+.classContent{display:none; position:relative; top:-35px;}
+.chartPic{float:left; width:635px; height:315px; padding:15px 0 0 15px;}
+.dataright{float:left; width:197px; height:315px; background-color:#F5F5F5;}
+.dataright h3{ color:#000000; font-size:18px; margin:18px 0 20px 20px;}
+.btndata{width:160px; height:28px; line-height:28px; text-align:center; background-color:#339933; color:#fff; display:block; font-size:14px; margin-bottom:12px; border-radius:1px; margin-left:20px;}
+
+.selList{position:relative; z-index:2;width:158px; margin:0 0 20px 20px;}
+.selList .textBox{position:relative; z-index:3; display:block; height:30px;border:none;}
+.selList .textBox input{ width:100%; height:28px; border:solid 1px #E0E3EA; text-indent:0.6em; font-family:Arial,Microsoft YaHei; line-height:26px;cursor:pointer;}
+.iconDown{ position:absolute; top:0px; right:-2px;display:block; width:28px; height:28px; background:url(../images/down_ico.png) no-repeat center center; cursor:pointer;}
+.selList ul{ position:absolute; top:29px; left:0;*left:7px; z-index:4;display:none; width:100%; border:solid 1px #e2e2e2; background:#fff;}
+.selList li{height:36px; text-align:left;padding-left:15px;font-size:14px; line-height:36px; cursor:pointer;color:#303132;}
+.selList li:hover{background:#f0f0f0;}
+
+
+
+/*右部*/
+.btnArea{margin:15px 0;}
+.fbBtns{display:block; width:164px; height:65px; line-height:65px; text-align:center; color:#fff; font-size:18px; background-color:#99CB67; float:left;}
+
+/**当日 涨幅排名**/
+.jmBox{ border:1px solid #EFEFEF;margin-bottom:25px;}
+.boxTit{position:relative;}
+.boxTit h2{width:106px; height:35px; line-height:35px;font-size:14px;background-color:#339933; color:#fff;text-align:center;}
+.boxTit .btnjr{position:absolute; top:18px; right:10px; font-size:14px; color:#333333;}
+
+.zfBox{margin:0 4px; width:310px;}
+.zftab{width:100%; font-size:14px; }
+.zftab th{height:40px; border-bottom:solid 1px #999999; color:#999999;}
+.zftab td{height:20px; line-height:20px; padding:10px 10px; vertical-align:middle; text-align:center;color:#333333;border-bottom:solid 1px #E3E3E3;}
+.zftab .zup{color:#FF0000;}
+.zftab .zdown{color:#339933;}
+
+/**行业资讯**/
+.borderbottom{border-bottom:1px solid #339933; margin-bottom:10px;}
+.zxList{ border-bottom:1px solid #999999; padding-bottom:14px; margin-bottom:14px;}
+.zxleft{float:left; width:228px; font-size:14px; color:#595757;}
+.zxleft a{ line-height:30px;}
+.author{ font-size:14px; color:#212121; font-weight:bold;}
+.zxright{width:100px; float:right;}
+
+/**行业数据**/
+.hydata{ width:310px;margin:0 8px;}
+.hydata li{border-bottom:1px solid #F1F1F1;line-height:29px; color:#333333; font-size:14px; padding:14px 10px 4px 0;}
+.wlList li a{display:block;}
+
+/*分类筛选*/
+.listClass{background:#fff; border:1px solid #EFEFEF; padding:10px 8px; margin-bottom:20px;}
+.listClass .wrapper{width:1160px;}
+.listItem{padding:12px 0; border-top:dashed 1px #EFEFEF;}
+.listItem dt{width:80px; float:left; height:30px; line-height:30px; font-weight:700; overflow:hidden; font-size:14px; color:#333333;}
+.listLink{width:1022px; float:left; line-height:30px; height:30px; overflow:hidden;}
+.listLink a{display:inline-block; padding:0 12px; font-size:14px; color:#333333; margin:2px 0;}
+.listLink a:hover,.listLink a.cur{background:#339933; color:#fff;}
+.listMore{float:left; height:28px; width:56px;}
+.listMore a{display:inline-block; padding:0 20px 0 10px; height:28px; line-height:28px; background:url(../images/more_point.png) no-repeat center center; color:#fff; position:relative;}
+.listMore a.down{background:url(../images/more_point2.png) no-repeat center center;}
+.listLink input{width:160px; height:24px; line-height:24px; border:1px solid #E0E3EA; margin:0 5px; padding-left:5px;}
+.listLink .btnSearch{width:60px; height:26px; line-height:26px; text-align:center; color:#fff; background-color:#339933;}
+
+.listFloat .xhname{}
+.listFloat .xhyuansu{ color:#999999;}
+.listFloat .xhcomname{ font-size:12px;}
+.listFloat .xhsheng{font-size:12px;}
+.listFloat .xhcity{font-size:12px;}
+
+/*分页*/
+.pageSize{text-align:right; padding:18px 0;}
+.pageSize a{display:inline-block; height:21px; line-height:21px; padding:4px 10px; background:#fff; color:#333333; font-size:14px; margin:0 2px;}
+.pageSize a:hover,.pageSize .cur{background:#5FB01F; color:#fff;}
+.pageSize span{display:inline-block;font-size:14px; color:#333333; margin:0 10px;}
+.pageSize .surepage{display:inline-block;background-color:#136333; color:#fff;}
+.pageSize input{width:39px; height:22px; border:1px solid #999999; margin:0 5px; padding-left:5px;}
+
+/*报价弹层*/
+.baojiaLayer{padding:20px 20px 0 20px;}
+.dataInfo{padding-bottom:15px; border-bottom:solid 1px #e6e6e6;}
+.dataInfo span{display:inline-block; font-size:14px; margin:0 30px; line-height:32px;}
+.dataInfo span em{color:#999;}
+.dataInfo span .red{padding-right:5px; font-size:18px;}
+.dataInfo{padding-bottom:5px; border-bottom:solid 1px #e6e6e6;}
+.dataInfo li{font-size:14px; margin:0 1%; width:48%; line-height:22px; float:left; padding-bottom:18px;}
+.dataInfo li span{display:block; float:left; max-width:228px; height:22px; overflow:hidden; margin:0; line-height:22px;}
+.dataInfo li .red{font-size:18px; padding-right:5px;}
+.dataInfo li.line{width:98%;}
+.dataInfo li.line span{width:450px; max-width:none; height:auto;}
+.dataInfo li em{color:#999; display:block; width:80px; text-align:right; float:left;}
+.dataInfo li.clear{float:none; height:0; padding:0;}
+.baojiaLayer .apForm{margin-top:20px;}
+.baojiaLayer .formItem{width:440px; margin:0 0 20px 70px;}
+.baojiaLayer .formItem dt{width:60px; padding:0 10px; float:left; line-height:30px; text-align:right;}
+.baojiaLayer .formItem .formImport{width:360px; float:left;}
+.baojiaLayer .formBox{border:solid 1px #DFE2EA; width:258px; height:28px; text-indent:0.8em; margin-right:12px;}

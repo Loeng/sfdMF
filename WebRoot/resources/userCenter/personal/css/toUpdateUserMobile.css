@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url("personalBase.css");
+
+.rightContent h2 em{height:32px; line-height:32px; display:inline-block; border-bottom:solid 5px #ff8900; padding:0 30px 0 15px;}
+.rightContent h2{border-bottom:solid 1px #CBCFCF; font-size:14px; margin-bottom:30px;}
+
+.formLine{padding:15px 0;}
+.formLine dt{height:28px; line-height:28px; width:78px; float:left; position:relative; padding-left:8px;}
+.formLine dt .mustIco{background:url(../images/mustico.png) no-repeat right center; width:9px; height:7px; overflow:hidden; position:absolute; left:-4px; top:10px;}
+.formRight{float:left; position:relative; line-height:28px; color:#8c8c8c;}
+.dataBox{height:26px; width:202px; line-height:26px\9; border:solid 1px #d3d3d3; color:#333; padding:0 8px; display:block; float:left; margin-right:8px;}
+.rightContent .btnBlue{width:62px; height:28px; line-height:28px; font-size:14px; display:block; margin:22px 0 0 86px;}
+.errorText{display:block; height:25px; line-height:25px; float:left; min-width:200px; _width:200px;}
+.errorText *{display:block; height:25px; float:left;}
+.errorBoxL{width:9px; overflow:hidden; background:url(../images/site.png) no-repeat -13px 0;}
+.errorBoxR{width:4px; overflow:hidden;  background:url(../images/site.png) no-repeat -22px 0;}
+.errorMain{padding:0 5px; background:#ff8900; white-space:nowrap; color:#fff;}
+.errorRed .errorBoxL{background:url(../images/site.png) no-repeat 0 0;}
+.errorRed .errorBoxR{background:url(../images/site.png) no-repeat -9px 0;}
+.errorRed .errorMain{background:#f00;}
+.textBoxFocus{border-color:#ff8400; background:#FEEFDF; outline:none;}
+.split{height:1px; background:#e4e4e4; margin-top:15px;}
+
+.formLine .btnOrange{display:block; width:100px; height:28px; line-height:28px; text-align:center; background:#f50; color:#fff; float:left; margin-right:8px;}
+.formLine .btnGray,.formLine .btnGray:hover{background:#e5e5e5; color:#666; cursor:default;}

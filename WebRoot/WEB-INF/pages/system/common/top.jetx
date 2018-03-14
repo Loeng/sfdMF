@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>管理系统登录</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/top.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/top.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script src="${webroot}/resources/commons/js/layer/layer.js"></script>
+	<base target="main">
+	<script type="text/javascript">
+				var count=0;
+           	  //websocket代码
+	    	  var websocket = null;
+	    	       //判断当前浏览器是否支持WebSocket
+	    	       if ('WebSocket' in window) {
+	    	    	   var webroot1="${webroot}";
+	    	    	   var url="ws://"+webroot1+"/websocket";
+	    	    	   var urls=url.replace("http://", "");
+	    	    	   //"ws://localhost:8080/MetaFscm/websocket"
+	    	    	   websocket = new WebSocket(urls);
+	    	       }
+	    	       else {
+	    	           alert('当前浏览器 Not support websocket')
+	    	       }
+	    	   
+	    	       //连接发生错误的回调方法
+	    	       websocket.onerror = function () {
+	    	    	   console.log("WebSocket连接发生错误");
+	    	       };
+	    	   
+	    	       //连接成功建立的回调方法
+	    	       websocket.onopen = function () {
+	    	    	   console.log("WebSocket连接成功");
+	    	       }
+	    	   
+	    	       
+	    	       //接收到消息的回调方法
+	    	       websocket.onmessage = function (event) {
+	    	    	  count++;
+	    	          console.log(event.data);
+	    	          console.log(count);
+	    	          if(count==1){
+		    	         var obj = JSON.parse(event.data); 
+		    	         //提示层
+		    	         var test = obj.purview.fullPath;
+		    	         var test11 = test.split('/').join('%2F');
+		    	         var test1 = encodeURI(test);
+		    	         var a= "<a class=\'aaa\' href=\'javascript:void(0);\' onclick=\"javascript:self.parent.main.menuClick1(\'"+obj.purview.purviewName+"\',\'"+obj.purview.purviewID+"\',\'${webroot}"+test11+"\',\'${webroot}\')\">有一条"+obj.explain+"信息需要审核</a>";
+		    	         layer.msg(a,{icon:6, time: 20000});
+		    	         
+	    	          }else if(count>2){
+	    	        	 var b= "<a class=\'aaa\' href=\'javascript:void(0);\' onclick=\"javascript:self.parent.main.menuClick(\'后台消息管理\',\'SYSTEM_CONTENT_MANAGER_MSG\',\'${webroot}/system/todo/tododetails\',\'${webroot}\')\">多条审核信息需要审核</a>";
+		    	         layer.msg(b,{icon:6, time: 20000});
+		    	        
+	    	          }
+	    	         
+		    	      $(".aaa").click(function(){
+		    	    	  layer.closeAll();
+		    	      });
+	    	       }
+	    	    
+	    	       //连接关闭的回调方法
+	    	       websocket.onclose = function () {
+	    	    	   console.log("WebSocket连接关闭");
+	    	       }
+	    	   
+	    	       //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+	    	       window.onbeforeunload = function () {
+	    	           closeWebSocket();
+	    	       }
+	    	  
+	    	       //关闭WebSocket连接
+	    	       function closeWebSocket() {
+	    	           websocket.close();
+	    	       }
+	    	       //发送消息
+	    	      function send() {
+	    	           var message = document.getElementById('text').value;
+	    	           websocket.send(message);
+	    	       }
+	    	  
+	</script>
+	<!--  
+	<style type="text/css">
+		    .red-point{
+		      position: relative;
+		     }
+	        .red-point::before{
+	          content: "  ";
+	          border: 10px solid #8B0000;/*设置红色*/
+	          border-radius:10px;/*设置圆角*/
+	          position: absolute;
+	          z-index: 990;
+	          right: 0%;
+	          margin-right: -9px;
+	          margin-top: 15px;
+	        }
+	        #msgNum{
+	            font-size:9px;
+	            color:black;
+				position:absolute;
+				right:-5px;
+				top:-33px;
+				z-index: 999;
+	        }
+	</style>	
+	-->
+</head>
+
+<body>
+
+#define(List<com.ekfans.base.system.model.ShopPurview> topPurviewList)
+#define(com.ekfans.base.system.model.Manager Manager)
+
+#if(Manager == null)
+	<script>
+		window.parent.href="${ctxpath}/system/login";
+	</script>
+#end
+
+<input type="hidden" id="ctxpath" value="${webroot}" />
+<input type="hidden" id="roleId" value="${Manager.roleId}" />
+
+<div class="header">
+	<div class="logo2">
+		<img src="${webroot}/resources/system/images/logo2.jpg" style="margin:0;" />
+	</div>
+	<div class="headerNav">
+		#if(topPurviewList!=null && topPurviewList.size()>0)
+			#for(com.ekfans.base.system.model.ShopPurview shopPurview : topPurviewList)
+				#if(for.first)
+					<script>
+						showLeftPurview(null,'${shopPurview.id}');
+					</script>
+				#end
+				<a href="javascript:void(0);" onclick="javascript:showLeftPurview(this,'${shopPurview.id}');" #if(for.first) class="cur" #end>${shopPurview.className}</a>
+			#end
+		#end
+	</div>
+	<div class="other_xx">
+		<a href="#" title="设置" class="sz"></a>
+		<a href="javascript:qHc('${webroot}');">清空缓存</a>
+		<a href="javascript:logout();">退出系统</a>
+	</div>
+	<div class="user_xx">
+	    <span class="red-point" id="tankuang" onclick="javascript:self.parent.main.menuClick('后台消息管理', 'SYSTEM_CONTENT_MANAGER_MSG', '${webroot}/system/todo/tododetails','${webroot}')">待处理审核消息<!--<strong id="msgNum">新</strong>--></span>
+		<span id="topRoleName">角色 </span>
+		<span>账号 ${Manager.name}</span>
+		<span>姓名 ${Manager.realName}</span>
+	</div>
+</div>
+		
+</body>
+</html>

@@ -1,0 +1,723 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ekfans.base.store.model">
+
+	<!-- 企业基础信息 -->
+	<class name="Store" table="STORE" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="assigned" />
+		</id>
+		<property name="roleId" type="string" column="ROLE_ID" />
+		<property name="storeName" type="string" column="STORE_NAME" />
+		<property name="storeLogo" type="string" column="STORE_LOGO" />
+		<property name="businessLicense" type="string" column="BUSINESS_LICENSE" />
+		<property name="notes" type="string" column="NOTES" />
+		<property name="regTime" type="string" column="REG_TIME" />
+		<property name="mailingAddress" type="string" column="MAILLING_ADDRESS" />
+		<property name="unitType" type="int" column="UNIT_TYPE" />
+		<property name="zipCode" type="int" column="ZIP_CODE" />
+		<property name="areaNumber" type="double" column="AREA_NUMBER" />
+		<property name="contactName" type="string" column="CONTACT_NAME" />
+		<property name="contactPhone" type="string" column="CONTACT_PHONE" />
+		<property name="contactFax" type="string" column="CONTACT_FAX" />
+		<property name="regCapital" type="double" column="REG_CAPITAL" />
+		<property name="numberEmployees" type="int" column="NUMBER_EMPLOYEES" />
+		<property name="bureau" type="string" column="BUREAU" />
+		<property name="bureauTime" type="string" column="BUREAU_TIME" />
+		<property name="businessLicenseNumber" type="string"
+			column="BUSINESS_LICENSE_NUMBER" />
+		<property name="bank" type="string" column="BANK" />
+		<property name="openingTime" type="string" column="OPENING_TIME" />
+		<property name="reditCard" type="string" column="REDIT_CARD" />
+		<property name="orgId" type="string" column="ORG_ID" />
+		<property name="commonStatus" type="string" column="COMMON_STATUS" />
+		<property name="bankStatus" type="string" column="BANK_STATUS" />
+		<property name="buyerStatus" type="string" column="BUYER_STATUS" />
+		<property name="salerStatus" type="string" column="SALER_STATUS" />
+		<property name="transStatus" type="string" column="TRANS_STATUS" />
+		<property name="domain" type="string" column="DOMAIN" />
+		<property name="businessScope" type="string" column="BUSINESS_SCOPE" />
+		<property name="planning" type="string" column="PLANNING" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+		<property name="storeGroup" type="boolean" column="STORE_GROUP" />
+		<property name="areaId" type="string" column="AREA_ID" />
+		<property name="storeRefer" type="string" column="STORE_REFER" />
+		<property name="emergencyPlanId" type="string" column="EMERGENCY_PLAN_ID" />
+		<property name="emergencyPlanFile" type="string" column="EMERGENCY_PLAN_FILE" />
+		<property name="accountStatus" type="boolean" column="ACCOUNT_STATUS" />
+		<property name="accountNo" type="string" column="ACCOUNT_NO" />
+		<property name="payPassword" type="string" column="PAY_PASSWORD" />
+		<property name="accountSuccess" type="boolean" column="ACCOUNT_SUCCESS" />
+		<property name="account" type="big_decimal" column="ACCOUNT" />
+		<property name="accountDate" type="string" column="ACCOUNT_DATE" />
+		<property name="useData" type="boolean" column="USE_DATA"></property>
+		<property name="creditCodeCard" type="string" column="CREDIT_CODE_CARD" />
+		<property name="articles" type="string" column="ARTICLES" />
+		<property name="synopsis" type="string" column="SYNOPSIS" />
+		<property name="isDataSynchro" type="string" column="ISDATA_SYNCHRO" />
+	</class>
+
+	<!-- 企业法人信息 -->
+	<class name="StoreLegal" table="STORE_LEGAL" dynamic-update="false">
+		<id name="id" type="string" column="ID" unsaved-value="null">
+			<generator class="assigned" />
+		</id>
+		<property name="legalName" type="string" column="LEGAL_NAME"></property>
+		<property name="legalIdCard" type="string" column="LEGAL_ID_CARD"></property>
+		<property name="legalNation" type="string" column="LEGAL_NATION"></property>
+		<property name="legalBirth" type="string" column="LEGAL_BIRTH"></property>
+		<property name="legalSex" type="boolean" column="LEGAL_SEX"></property>
+		<property name="legalPan" type="string" column="LEGAL_PAN"></property>
+		<property name="legalEducation" type="string" column="LEGAL_EDUCATION"></property>
+		<property name="legalBplace" type="string" column="LEGAL_BPLACE"></property>
+		<property name="jobTitle" type="string" column="LEGAL_JOB_TITLE"></property>
+		<property name="hisCurrentTime" type="int" column="LEGAL_HIS_CURRENT_TIME"></property>
+	</class>
+
+	<!-- 企业法人简历信息 -->
+	<class name="StoreLegalResume" table="STORE_LEGAL_RESUME"
+		dynamic-update="false">
+		<id name="id" type="string" column="ID" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="storeId" type="string" column="STORE_ID"></property>
+		<property name="startTime" type="string" column="START_TIME"></property>
+		<property name="endTime" type="string" column="END_TIME"></property>
+		<property name="detailInfo" type="string" column="DETAIL_INFO"></property>
+		<property name="position" type="string" column="POSITION"></property>
+	</class>
+
+	<!-- 企业近期财务数据 -->
+	<class name="StoreFinancialData" table="store_financial_data"
+		dynamic-update="false">
+		<id name="id" type="string" column="ID" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="storeId" type="string" column="STORE_ID"></property>
+		<property name="dataTime" type="string" column="DATA_TIME"></property>
+		<property name="dataType" type="string" column="DATA_TYPE"></property>
+		<property name="money" type="double" column="MONEY"></property>
+	</class>
+
+	<!-- 资质 -->
+	<class name="Intel" table="INTEL" dynamic-update="false">
+		<id name="id" type="string" column="ID" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="name" type="string" column="NAME"></property>
+		<property name="status" type="boolean" column="STATUS"></property>
+		<property name="note" type="string" column="NOTE"></property>
+		<property name="createTime" type="string" column="CREATE_TIME"></property>
+		<property name="updateTime" type="string" column="UPDATE_TIME"></property>
+	</class>
+
+	<!-- 资质认证附件 -->
+	<class name="StoreIntelAppendix" table="STORE_INTEL_APPENDIX"
+		dynamic-update="false">
+		<id name="id" type="string" column="ID" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="storeIntelId" type="string" column="STORE_INTEL_ID"></property>
+		<property name="file" type="string" column="FILE"></property>
+	</class>
+
+	<!-- 资质认证 -->
+	<class name="StoreIntel" table="STORE_INTEL" dynamic-update="false">
+		<id name="id" type="string" column="ID" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="storeId" type="string" column="STORE_ID"></property>
+		<property name="type" type="string" column="TYPE"></property>
+		<property name="intelId" type="string" column="INTEL_ID"></property>
+		<property name="status" type="boolean" column="STATUS"></property>
+		<property name="checkStatus" type="string" column="CHECK_STATUS"></property>
+		<property name="checkTime" type="string" column="CHECK_TIME"></property>
+		<property name="checkMan" type="string" column="CHECK_MAN"></property>
+		<property name="createTime" type="string" column="CREATE_TIME"></property>
+		<property name="updateTime" type="string" column="UPDATE_TIME"></property>
+		<property name="note" type="string" column="NOTE"></property>
+		<property name="orgId" type="string" column="ORG_ID"></property>
+	</class>
+
+	<!-- 信用测算信息 -->
+	<class name="CreditEstimates" table="CREDIT_ESTIMATES"
+		dynamic-update="false">
+		<id name="id" type="string" column="ID" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="companyId" type="string" column="COMPANY_ID"></property>
+		<property name="currentAssets" type="double" column="CURRENT_ASSETS"></property>
+		<property name="currentLiabilities" type="double"
+			column="CURRENT_LIABILITIES"></property>
+		<property name="quickAssets" type="double" column="QUICK_ASSETS"></property>
+		<property name="totalAssetsLiabili" type="double"
+			column="TOTAL_ASSETS_LIABILI"></property>
+		<property name="totalAssets" type="double" column="TOTAL_ASSETS"></property>
+		<property name="totalEquity" type="double" column="TOTAL_EQUITY"></property>
+		<property name="turnover" type="double" column="TURNOVER"></property>
+		<property name="averageBalanceAssets" type="double"
+			column="AVERAGE_BALANCE_ASSETS"></property>
+		<property name="operatingPat" type="double" column="OPERATING_PAT"></property>
+		<property name="revenue" type="double" column="REVENUE"></property>
+		<property name="tppsInterest" type="double" column="TPPS_INTEREST"></property>
+		<property name="netProfit" type="double" column="NET_PROFIT"></property>
+		<property name="netAssets" type="double" column="NET_ASSETS"></property>
+		<property name="totalCost" type="double" column="TOTAL_COST"></property>
+		<property name="targty" type="double" column="TARGTY"></property>
+		<property name="revenueLastYear" type="double" column="REVENUE_LAST_YEAR"></property>
+		<property name="kegsytotal" type="double" column="KEGSYTOTAL"></property>
+		<property name="beginningTotal" type="double" column="BEGINNING_TOTAL"></property>
+		<property name="totalAmountAsset" type="double" column="TOTAL_AMOUNT_ASSET"></property>
+		<property name="operatingYear" type="double" column="OPERATING_YEAR"></property>
+		<property name="earlyTotalAssets" type="double" column="EARLY_TOTAL_ASSETS"></property>
+		<property name="operatingProfit" type="double" column="OPERATING_PROFIT"></property>
+		<property name="creditResult" type="string" column="CREDIT_RESULT"></property>
+		<property name="creditStatus" type="int" column="CREDIT_STATUS"></property>
+	</class>
+
+	<!-- 商户收藏管理 -->
+	<class name="StoreCollect" table="STORE_COLLECT" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="userId" type="string" column="USER_ID" />
+		<property name="storeId" type="string" column="STORE_ID" />
+		<property name="collectTime" type="string" column="COLLECT_TIME" />
+		<property name="collectNoteName" type="string" column="COLLECT_NOTE_NAME" />
+		<property name="collectDirections" type="string" column="COLLECT_DIRECTIONS" />
+	</class>
+
+	<!-- 店铺装修表 -->
+	<class name="StoreDecoration" table="STORE_DECORATION"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="storeId" type="string" column="STORE_ID" />
+		<property name="bgPhoto" type="string" column="BG_PHOTO" />
+		<property name="bgPhotoEffect" type="string" column="BG_PHOTO_EFFECT" />
+		<property name="bgColor" type="string" column="BG_COLOR" />
+		<property name="ptohoX" type="string" column="PTOHO_X" />
+		<property name="ptohoY" type="string" column="PTOHO_Y" />
+	</class>
+
+	<!-- 店铺等级 -->
+	<class name="StoreLevel" table="STORE_LEVEL" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="name" type="string" column="NAME" />
+		<property name="icon" type="string" column="ICON" />
+		<property name="lowestConditions" type="int" column="LOWEST_CONDITIONS" />
+		<property name="highestConditions" type="int" column="HIGHEST_CONDITIONS" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+	</class>
+
+	<!-- 店铺自定义页面 -->
+	<class name="StorePage" table="STORE_PAGE" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="storeId" type="string" column="STORE_ID" />
+		<property name="title" type="string" column="TITLE" />
+		<property name="content" type="string" column="CONTENT" />
+		<property name="status" type="boolean" column="STATUS" />
+		<property name="position" type="int" column="POSITION" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="checkStatus" type="boolean" column="CHECK_STATUS" />
+		<property name="checkMan" type="string" column="CHECK_MAN" />
+		<property name="checkTime" type="string" column="CHECK_TIME" />
+		<property name="checkNote" type="string" column="CHECK_NOTE" />
+	</class>
+
+	<!-- 店铺水印管理 -->
+	<class name="StoreWaterMark" table="STORE_WATER_MARK"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="storeId" type="string" column="STORE_ID" />
+		<property name="centerWater" type="string" column="CENTER_WATER" />
+		<property name="bigWater" type="string" column="BIG_WATER" />
+		<property name="XPosition" type="string" column="X_POSITION" />
+		<property name="YPosition" type="string" column="Y_POSITION" />
+	</class>
+
+	<!-- 店铺角色管理 -->
+	<class name="StoreRole" table="STORE_ROLE" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="name" type="string" column="NAME" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+		<property name="note" type="string" column="NOTE" />
+	</class>
+
+
+	<!-- 店铺角色权限管理 -->
+	<class name="StorePurview" table="STORE_PURVIEW" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="className" type="string" column="CLASS_NAME" />
+		<property name="fullPath" type="string" column="FULL_PATH" />
+		<property name="position" type="int" column="POSITION" />
+		<property name="parentId" type="string" column="PARENT_ID" />
+		<property name="status" type="boolean" column="STATUS" />
+		<property name="level" type="int" column="LEVEL" />
+		<property name="icon" type="string" column="icon" />
+		<property name="defaultOpen" type="string" column="DEFAULT_OPEN" />
+		<property name="topId" type="string" column="TOP_ID" />
+	</class>
+
+
+	<!-- 店铺角色权限管理 -->
+	<class name="StorePurviewRel" table="STORE_PURVIEW_REL"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="roleId" type="string" column="ROLE_ID" />
+		<property name="purviewId" type="string" column="PURVIEW_ID" />
+		<property name="type" type="boolean" column="TYPE" />
+	</class>
+
+	<!-- 商户申请 -->
+	<class name="StoreApply" table="STORE_APPLY" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="companyName" type="string" column="COMPANY_NAME" />
+		<property name="contacts" type="string" column="CONTACTS" />
+		<property name="mobile" type="string" column="MOBILE" />
+		<property name="email" type="string" column="EMAIL" />
+		<property name="address" type="string" column="ADDRESS" />
+		<property name="zipCode" type="string" column="ZIP_CODE" />
+		<property name="domain" type="string" column="DOMAIN" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="status" type="int" column="STATUS" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+		<property name="operation" type="string" column="OPERATION" />
+	</class>
+
+	<!-- 店铺咨询/留言表 -->
+	<class name="Consult" table="CONSULT" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex"></generator>
+		</id>
+		<property name="creator" type="string" column="CREATOR" />
+		<property name="questionAnswer" type="string" column="QUESTION_ANSWER" />
+		<property name="status" type="string" column="STATUS" />
+		<property name="replyStatus" type="boolean" column="REPLY_STATUS" />
+		<property name="type" type="string" column="TYPE" />
+		<property name="consultType" type="string" column="CONSULT_TYPE" />
+		<property name="productId" type="string" column="PRODUCT_ID" />
+		<property name="storeId" type="string" column="STORE_ID" />
+		<property name="parentId" type="string" column="PARENT_ID" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="checkMan" type="string" column="CHECK_MAN" />
+		<property name="checkTime" type="string" column="CHECK_TIME" />
+		<property name="checkStatus" type="integer" column="CHECK_STATUS" />
+		<property name="checkNote" type="string" column="CHECK_NOTE" />
+	</class>
+
+	<!-- 店铺频道表 -->
+	<class name="StoreChannel" table="STORE_CHANNEL" dynamic-update="false">
+		<composite-id>
+			<key-property name="id" column="ID" type="string"></key-property>
+			<key-property name="storeId" column="STORE_ID" type="string"></key-property>
+		</composite-id>
+		<property name="name" type="string" column="NAME" />
+		<property name="position" type="int" column="POSITION" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="status" type="boolean" column="STATUS" />
+		<property name="viewPath" type="string" column="VIEW_PATH" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+	</class>
+
+	<!-- 店铺频道配置表 -->
+	<class name="StoreChannelConfig" table="STORE_CHANNEL_CONFIG"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="channelId" type="string" column="CHANNEL_ID" />
+		<property name="storeId" type="string" column="STORE_ID" />
+		<property name="configType" type="string" column="CONFIG_TYPE" />
+		<property name="configPosition" type="int" column="CONFIG_POSITION" />
+		<property name="objectId" type="string" column="OBJECT_ID" />
+		<property name="objectType" type="string" column="OBJECT_TYPE" />
+		<property name="showNumber" type="int" column="SHOW_NUMBER" />
+		<property name="configName" type="string" column="CONFIG_NAME" />
+		<property name="configIcon" type="string" column="CONFIG_ICON" />
+	</class>
+
+	<!-- 仓储日志表 -->
+	<class name="WarehouseLog" table="WARE_HOUSE_LOG" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="productId" type="string" column="PRODUCT_ID" />
+		<property name="orderId" type="string" column="ORDER_ID" />
+		<property name="number" type="int" column="NUMBER" />
+		<property name="type" type="boolean" column="TYPE" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="creator" type="string" column="CREATOR" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="pic" type="string" column="PIC" />
+		<property name="wareHouse" type="string" column="WAREHOUSE_ID" />
+	</class>
+
+	<!-- 仓储表 -->
+	<class name="Warehouse" table="WARE_HOUSE" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="name" type="string" column="NAME" />
+		<property name="areaId" type="string" column="AREAID" />
+		<property name="address" type="string" column="ADDRESS" />
+		<property name="creator" type="string" column="CREATOR" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="status" type="boolean" column="STATUS" />
+		<property name="note" type="string" column="NOTE" />
+	</class>
+
+	<!-- 仓储提货单表 -->
+	<class name="WarehouseOrder" table="WARE_HOUSE_ORDER"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="assigned" />
+		</id>
+		<property name="productId" type="string" column="PRODUCT_ID" />
+		<property name="warehouseId" type="string" column="WAREHOUSE_ID" />
+		<property name="storeId" type="string" column="STORE_ID" />
+		<property name="number" type="string" column="NUMBER" />
+		<property name="unit" type="string" column="UNIT" />
+		<property name="orderId" type="string" column="ORDER_ID" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="status" type="boolean" column="STATUS" />
+		<property name="wuliuId" type="string" column="WULIU_ID" />
+		<property name="wuliuName" type="string" column="WULIU_NAME" />
+	</class>
+
+	<!-- 运输企业运输车辆信息表 -->
+	<class name="CarInfo" table="CAR_INFO" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="storeId" type="string" column="STORE_ID" />
+		<property name="carNo" type="string" column="CAR_NO" />
+		<property name="carType" type="string" column="CAR_TYPE" />
+		<property name="fullWeight" type="double" column="FULL_WEIGHT" />
+		<property name="startTime" type="string" column="START_TIME" />
+		<property name="endTime" type="string" column="END_TIME" />
+		<property name="ysNo" type="string" column="YS_NO" />
+		<property name="fullNum" type="int" column="FULL_NUM" />
+		<property name="xszFile" type="string" column="XSZ_FILE" />
+		<property name="yszFile" type="string" column="YSZ_FILE" />
+		<property name="checkStatus" type="string" column="CHECK_STATUS" />
+		<property name="checkTime" type="string" column="CHECK_TIME" />
+		<property name="checkMan" type="string" column="CHECK_MAN" />
+		<property name="checkNote" type="string" column="CHECK_NOTE" />
+		<property name="createTime" type="string" column="CREARE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+		<property name="deviceId" type="string" column="DEVICE_ID" />
+		<property name="useData" type="boolean" column="USE_DATA"></property>
+		
+		<property name="wfpysName" type="string" column="WFPYS_NAME" />
+		<property name="wfpysParentId" type="string" column="WFPYS_PARENT_ID" />
+		<property name="tankMaterialName" type="string" column="TANK_MATERIAL_NAME" />
+		<property name="linkMan" type="string" column="LINK_MAN" />
+		<property name="phone" type="string" column="PHONE" />
+		<property name="unit" type="string" column="UNIT" />
+		<property name="carLength" type="big_decimal" column="CAR_LENGTH"></property>
+		<property name="carWidth" type="big_decimal" column="CAR_WIDTH"></property>
+		<property name="carHeight" type="big_decimal" column="CAR_HEIGHT"></property>
+		<property name="sizeUnit" type="string" column="SIZE_UNIT"></property>
+	
+	</class>
+
+	<!-- 运输企业车辆人员信息(驾驶员、押运员) -->
+	<class name="CarUser" table="CAR_USER" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="assigned" />
+		</id>
+		<property name="storeId" type="string" column="STORE_ID" />
+		<property name="name" type="string" column="NAME" />
+		<property name="mobile" type="string" column="MOBILE" />
+		<property name="cardNo" type="string" column="CARD_NO" />
+		<property name="type" type="string" column="TYPE" />
+		<property name="driverFile" type="string" column="DRIVER_FILE" />
+		<property name="licenseFile" type="string" column="LICENSE_FILE" />
+		<property name="startTime" type="string" column="START_TIME" />
+		<property name="endTime" type="string" column="END_TIME" />
+		<property name="licenseNum" type="string" column="LICENSE_NUM" />
+		<property name="checkStatus" type="string" column="CHECK_STATUS" />
+		<property name="checkTime" type="string" column="CHECK_TIME" />
+		<property name="checkMan" type="string" column="CHECK_MAN" />
+		<property name="checkNote" type="string" column="CHECK_NOTE" />
+		<property name="createTime" type="string" column="CREARE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+		<property name="loginName" type="string" column="LOGIN_NAME" />
+		<property name="password" type="string" column="PASSWORD" />
+		<property name="headPortrait" type="string" column="HEAD_PORTRAIT" />
+		<property name="sex" type="string" column="SEX" />
+		<property name="useData" type="boolean" column="USE_DATA"></property>
+	</class>
+
+	<!-- 运输企业道路紧急预案日志表 -->
+	<class name="EmergencyPlan" table="EMERGENCY_PLAN"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="storeId" type="string" column="STORE_ID" />
+		<property name="file" type="string" column="FILE" />
+		<property name="type" type="string" column="TYPE" />
+		<property name="startTime" type="string" column="START_TIME" />
+		<property name="endTime" type="string" column="END_TIME" />
+		<property name="createTime" type="string" column="CREARE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+	</class>
+
+	<!-- 企业认证资料表 -->
+	<class name="Accredit" table="ACCREDIT" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="storeId" type="string" column="STORE_ID" />
+		<property name="rzType" type="string" column="RZ_TYPE" />
+		<property name="licenseType" type="string" column="LICENSE_TYPE" />
+		<property name="storeName" type="string" column="STORE_NAME" />
+		<property name="areaId" type="string" column="AREA_ID" />
+		<property name="address" type="string" column="ADDRESS" />
+		<property name="licenseNo" type="string" column="LICENSE_NO" />
+		<property name="licenseFile" type="string" column="LICENSE_FILE" />
+		<property name="licenseTwoFile" type="string" column="LICENSE_TWO_FILE" />
+		<property name="linceseAuthor" type="string" column="LICENSE_AUTHOR" />
+		<property name="startTime" type="string" column="START_TIME" />
+		<property name="endTime" type="string" column="END_TIME" />
+		<property name="scale" type="string" column="SCALE" />
+		<property name="detailModel" type="string" column="DETAIL_MODEL" />
+		<property name="checkStatus" type="boolean" column="CHECK_STATUS" />
+		<property name="checkTime" type="string" column="CHECK_TIME" />
+		<property name="checkMan" type="string" column="CHECK_MAN" />
+		<property name="checkNote" type="string" column="CHECK_NOTE" />
+		<property name="createTime" type="string" column="CREARE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+	</class>
+
+	<!-- 企业认证资料关系中间表 -->
+	<class name="AccreditRel" table="ACCREDIT_REL" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="accreditId" type="string" column="ACCREDIT_ID" />
+		<property name="detailId" type="string" column="DETAIL_ID" />
+		<property name="position" type="int" column="POSITION" />
+	</class>
+
+
+	<!-- 长沙银行虚拟账户绑定表 -->
+	<class name="AccountBank" table="ACCOUNT_BANK" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="userId" type="string" column="USER_ID" />
+		<property name="companyName" type="string" column="COMPANY_NAME" />
+		<property name="customerType" type="boolean" column="CUSTOMER_TYPE" />
+		<property name="accountName" type="string" column="ACCOUNT_NAME" />
+		<property name="accountNo" type="string" column="ACCOUNT_NO" />
+		<property name="bankNo" type="string" column="BANK_NO" />
+		<property name="bankName" type="string" column="BANK_NAME" />
+		<property name="mobile" type="string" column="MOBILE" />
+		<property name="telPhone" type="string" column="TELPHONE" />
+		<property name="address" type="string" column="ADDRESS" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="enableEcds" type="boolean" column="ENABLE_ECDS" />
+		<property name="status" type="string" column="STATUS" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+	    <property name="indentity" type="string" column="INDENTITY" />
+	</class>
+
+	<!-- 长沙银行虚拟账户日志表 -->
+	<class name="AccountBankLog" table="ACCOUNT_BANK_LOG"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="userId" type="string" column="USER_ID" />
+		<property name="companyName" type="string" column="COMPANY_NAME" />
+		<property name="accountName" type="string" column="ACCOUNT_NAME" />
+		<property name="accountNo" type="string" column="ACCOUNT_NO" />
+		<property name="bankNo" type="string" column="BANK_NO" />
+		<property name="bankName" type="string" column="BANK_NAME" />
+		<property name="mobile" type="string" column="MOBILE" />
+		<property name="telPhone" type="string" column="TELPHONE" />
+		<property name="address" type="string" column="ADDRESS" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="enableEcds" type="boolean" column="ENABLE_ECDS" />
+		<property name="type" type="string" column="TYPE" />
+		<property name="price" type="big_decimal" column="PRICE" />
+		<property name="message" type="string" column="MESSAGE" />
+		<property name="reMessage" type="string" column="RE_MESSAGE" />
+		<property name="mchTransNo" type="string" column="MCH_TRANS_NO" />
+		<property name="errorMessage" type="string" column="ERROR_MESSAGE" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+	</class>
+
+	<!-- 长沙银行虚拟账户资金日志表 -->
+	<class name="AccountLog" table="ACCOUNT_LOG" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="userId" type="string" column="USER_ID" />
+		<property name="receiveId" type="string" column="RECEIVE_ID" />
+		<property name="orderId" type="string" column="ORDER_ID" />
+		<property name="parentId" type="string" column="PARENT_ID" />
+		<property name="proRef" type="string" column="PRO_REF" />
+		<property name="fmsTransNo" type="string" column="FMS_TRANS_NO" />
+		<property name="oriMchTransNo" type="string" column="ORI_MCH_TRANS_NO" />
+		<property name="price" type="big_decimal" column="PRICE" />
+		<property name="type" type="string" column="TYPE" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="notes" type="string" column="NOTES" />
+		<property name="status" type="string" column="STATUS" />
+	</class>
+
+	
+	<class name="BankInf" table="BANK_INF"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="assigned" />
+		</id>
+		<property name="bankName" type="string" column="BANK_NAME" />
+	</class>
+	
+	<!-- 合作机构表 -->
+	<class name="Cooperation" table="COOPERATION"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="orgName" type="string" column="ORG_NAME" />
+		<property name="contactMan" type="string" column="CONTACT_MAN" />
+		<property name="contactPhone" type="string" column="CONTACT_PHONE" />
+		<property name="email" type="string" column="EMAIL" />
+		<property name="type" type="string" column="TYPE" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+	</class>
+	
+	<!-- 危废运输表 -->
+	<class name="Wftransport" table="WF_TRANSPORT"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="storeId" type="string" column="STORE_ID" />
+		<property name="startPlace" type="string" column="START_PLACE" />
+		<property name="endPlace" type="string" column="END_PLACE" />
+		<property name="habitatAddress" type="string" column="HABITAT_ADDRESS" />
+		<property name="price" type="big_decimal" column="PRICE" />
+		<property name="unit" type="string" column="UNIT" />
+		<property name="type" type="int" column="TYPE" />
+		<property name="name" type="string" column="NAME" />
+		<property name="carName" type="string" column="CAR_NAME" />
+		<property name="supplyName" type="string" column="SUPPLY_NAME" />
+		<property name="wfpTotal" type="big_decimal" column="WFP_TOTAL" />
+		<property name="status" type="int" column="STATUS" />
+		<property name="checkStatus" type="int" column="CHECK_STATUS" />
+		<property name="checkTime" type="string" column="CHECK_TIME" />
+		<property name="checkMan" type="string" column="CHECK_MAN" />
+		<property name="checkNote" type="string" column="CHECK_NOTE" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+		<property name="endTime" type="string" column="END_TIME" />
+		<property name="linkMan" type="string" column="LINK_MAN" />
+		<property name="phone" type="string" column="PHONE" />
+		<property name="content" type="string" column="CONTENT" />
+		<property name="startFullPath" type="string" column="START_FULLPATH" />
+		<property name="endFullPath" type="string" column="END_FULLPATH" />
+		<property name="storeName" type="string" column="STORE_NAME" />
+		<property name="code" type="string" column="CODE" />
+		<property name="wfmlId" type="string" column="WFMLID" />
+		<property name="categoryName" type="string" column="CATEGORY_NAME" />
+		<property name="tankMaterialName" type="string" column="TANK_MATERIAL_NAME" />
+		<property name="wfpysParentId" type="string" column="WFPYS_PARENT_ID" />
+		<property name="wfpysId" type="string" column="WFPYS_ID" />
+		<property name="wfpysName" type="string" column="WFPYS_NAME" />
+		<property name="hxUserName" type="string" column="HX_USER_NAME" />
+		<!-- 物流宝新增字段 -->
+		<property name="carLength" type="big_decimal" column="CAR_LENGTH" />
+		<property name="cargoVolume" type="big_decimal" column="CARGO_VOLUME" />
+		<property name="validTime" type="string" column="VALID_TIME" />
+		<property name="carNumber" type="string" column="CAR_NUMBER" />
+		<property name="startHabitatAddress" type="string" column="START_HABITATADDRESS" />
+		<property name="endHabitatAddress" type="string" column="END_HABITATADDRESS" />
+		<property name="barCount" type="integer" column="BAR_COUNT" />
+		<property name="volumeUnit" type="string" column="VOLUME_UNIT" />
+		<property name="carWidth" type="big_decimal" column="CAR_WIDTH" />
+		<property name="carHeight" type="big_decimal" column="CAR_HEIGHT" />
+	    <property name="sizeUnit" type="string" column="SIZE_UNIT"/>
+	    <property name="isAttention" type="string" column="IS_ATTENTION" />
+	</class>
+	
+	<!-- 合作机构表 -->
+	<class name="CategoryGoods" table="CATEGORY_GOODS"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="name" type="string" column="NAME" />
+	</class>
+	
+	<!-- 车辆类型表 -->
+	<class name="VehicleType" table="VEHICLE_TYPE"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="assigned" />
+		</id>
+		<property name="name" type="string" column="NAME" />
+	</class>
+	
+	
+	<!-- 危废品运输界定标准表 -->
+	<class name="Wfpys" table="wfpys" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex"></generator>
+		</id>
+		<property name="name" type="string" column="NAME" />
+		<property name="descr" type="string" column="DESCR" />
+		<property name="parentId" type="string" column="PARENT_ID" />
+		<property name="position" type="int" column="POSITION" />
+		<property name="fullPath" type="string" column="FULL_PATH" />
+	</class>
+	
+	<!-- 企业认证资料关系中间表 -->
+	<class name="WfpysRel" table="WFPYS_REL" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="accreditId" type="string" column="ACCREDIT_ID" />
+		<property name="wfpysId" type="string" column="WFPYS_ID" />
+		<property name="position" type="int" column="POSITION" />
+	</class>
+	
+	<!-- 罐体材质表 -->
+	<class name="TankMaterial" table="TANK_MATERIAL"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="assigned" />
+		</id>
+		<property name="name" type="string" column="NAME" />
+		<property name="vehicleTypeId" type="string" column="VEHICLE_TYPE_ID" />
+	</class>
+	
+</hibernate-mapping>

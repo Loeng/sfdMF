@@ -1,0 +1,79 @@
+#define(List<com.ekfans.base.order.model.SupplyBuy> supplyInfos)
+
+<input type="hidden" name="pageNum" id="pageNum" value="${pageNum}">
+<!--求购挂牌-->
+
+<div class="cyTable">
+    	<table border="0" cellspacing="0" cellpadding="0" class="cheyuanHeader">
+        <tbody>
+          <tr>
+              <td>标题</td>
+              <td>厂家</td>
+              <td>质量等级</td>
+              <td>交货地</td>
+              <td>交货方式</td>
+              <td>有效期</td>
+              <td  style="text-align:right;">数量</td>
+              <td  style="text-align:right;">价格</td>
+              <td>&nbsp;&nbsp;</td>
+          </tr>
+          </tbody>
+      </table>
+      <div class="cheyuanIn">
+      #if(supplyInfos == null || supplyInfos.size() == 0)
+		<div class="noneBox">
+	    	<span>抱歉，没找到相关的信息！</span>
+	    </div>
+	#else
+          <table border="0" cellspacing="0" cellpadding="0">
+              <tbody>
+              #for(com.ekfans.base.order.model.SupplyBuy s : supplyInfos)
+              <tr>
+                  <td style="width:15%;">${s.title}<span class="gray"></span></td>
+                  <td style="width:17%;">
+                  	#if(!@(com.ekfans.pub.util.StringUtil).isEmpty(s.storeName) && !@(com.ekfans.pub.util.StringUtil).isEmpty(s.storeId)) <em class="gyrz">证</em> ${s.storeName}
+					#else <em class="gyls">临</em> ${!@(com.ekfans.pub.util.StringUtil).isEmpty(s.storeName)?s.storeName:"游客"}
+					#end
+                  </td>
+                  <td style="width:10%;">#if(s.qualityLevel!=null)${s.qualityLevel}#else &nbsp;#end</td>
+                  <td style="width:10%;">#if(s.destination!=null)${s.destination}#else &nbsp;#end</td>
+                  <td style="width:9%;">#if(0==s.deliveryType)自提#elseif(1==s.deliveryType)送货上门#else &nbsp;#end</td>
+                  <td style="width:9%;">${s.endTime ? s.endTime.substring(0,10) : " "} </td>
+                  <td style="width:10%;text-align:right;white-space: nowrap;">#if(s.number!=null)${s.number}(${s.unit})#else &nbsp;#end</td>
+                  <td style="width:10%;text-align:right;white-space: nowrap;">#if(s.futurePrices!=null)${s.futurePrices}/${s.unit} #else &nbsp;#end</td>
+                  <td style="width:10%;text-align:right;"><!--<a href="javascript:void(0)"  class="opendetail" dataname="${s.title}">详情</a>-->
+				<a href="javascript:void(0)"  class="xunjiaLink" onclick="loadBaojia('${s.id}','${s.storeId}');" dataname="${s.title}">报价</a>
+					<div class="qalterContent">
+			<ul class="proDetailLi" style="width:275px;">												    
+				<li>发布企业：${s.storeName}</li>
+				<li>发布时间：${s.createTime}</li>
+				<li>截止时间：${s.endTime}</li>
+			</ul>
+			<ul class="contact" style="width:200px;">
+				<li>联系人：${s.contactName}</li>
+				<li>联系方式：${s.contactPhone}</li>
+			</ul>
+			<div class="clear"></div>
+			<div class="h6Detail">${s.content}</div>
+		</div>
+				</td>
+              </tr>
+              #end
+              </tbody>
+          </table>
+          #include("../commons/channelNew-page.jetx")
+	#end
+      </div>
+
+    </div>
+
+<script>
+$(".cyTable").each(function() {
+   	var objs=$(this).find(".cheyuanIn tr:eq(0) td");
+	var objHeader=$(this).find(".cheyuanHeader tr:eq(0) td");
+	for(i=0;i<objs.length;i++){
+		var kuan=objs.eq(i).width();
+		objHeader.eq(i).css("width",kuan+"px");
+	}
+});
+</script>

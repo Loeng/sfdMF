@@ -1,0 +1,239 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.ekfans.base.user.model">
+
+	<!-- 会员基础信息表 -->
+	<class name="User" table="CUSTOMER" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="assigned" />
+		</id>
+		<property name="nickName" type="string" column="NICK_NAME" />
+		<property name="name" type="string" column="NAME" />
+		<property name="password" type="string" column="PASSWORD" />
+		<property name="passwordStrong" type="string" column="PASSWORD_STRONG" />
+		<property name="type" type="string" column="TYPE" />
+		<property name="levelId" type="string" column="LEVEL_ID" />
+		<property name="status" type="int" column="STATUS" />
+		<property name="verificationStatus" type="boolean"
+			column="VERIFICATION_STATUS" />
+		<property name="verificationCode" type="string" column="VERIFICATION_CODE" />
+		<property name="headPortrait" type="string" column="HEAD_PORTRAIT" />
+		<property name="integration" type="double" column="INTEGRATION" />
+		<property name="mobile" type="string" column="MOBILE" />
+		<property name="email" type="string" column="EMAIL" />
+		<property name="safeMobile" type="string" column="SAFE_MOBILE" />
+		<property name="safePassword" type="string" column="SAFE_PASSWORD" />
+		<property name="viratual" type="big_decimal" column="VIRATUAL" />
+		<property name="lastLoginTime" type="string" column="LAST_LOGIN_TIME" />
+		<property name="loginNum" type="int" column="LOGIN_NUM" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+		<property name="cardNumber" type="string" column="CARD_NUMBER" />
+		<property name="emailValiDate" type="string" column="EMAIL_VALIDATE" />
+		<property name="isAssociatedBank" type="boolean" column="IS_ASSOCIATED_BANK"></property>
+		<property name="useData" type="boolean" column="USE_DATA"></property>
+		<property name="hxUserName" type="string" column="HX_USER_NAME" />
+		<property name="hxPassWord" type="string" column="HX_PASSWORD" />
+		<property name="allPhoneSwitch" type="boolean" column="ALL_PHONESWITCH" />
+		<property name="friendPhoneSwitch" type="boolean" column="FRI_PHONESWITCH" />
+		<property name="friendValidSwitch" type="boolean" column="FRIENDVALIDSWITCH" />
+		<property name="touristType" type="string" column="TOURIST_TYPE" />
+		<property name="wlbToken" type="string" column="WLB_TOKEN" />
+		<property name="registrationID" type="string" column="REGISTRATION_ID" />
+		<property name="ccbUserId" type="string" column="CCB_USER_ID" />
+	</class>
+
+	<!-- 账户信息表 -->
+	<class name="Account" table="ACCOUNT" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="assigned" />
+		</id>
+		<property name="storeId" type="string" column="STORE_ID" />
+		<property name="name" type="string" column="NAME" />
+		<property name="password" type="string" column="PASSWORD" />
+		<property name="type" type="string" column="TYPE" />
+		<property name="department" type="string" column="DEPARTMENT" />
+		<property name="contactName" type="string" column="CONTACT_NAME" />
+		<property name="contactPhone" type="string" column="CONTACT_PHONE" />
+		<property name="status" type="boolean" column="STATUS" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="orgId" type="string" column="ORG_ID" />
+		<property name="headPortrait" type="string" column="HEAD_PORTRAIT" />
+		<property name="useData" type="boolean" column="USE_DATA"></property>
+		<property name="hxUserName" type="string" column="HX_USER_NAME" />
+		<property name="hxPassWord" type="string" column="HX_PASSWORD" />
+		<property name="allPhoneSwitch" type="boolean" column="ALL_PHONESWITCH" />
+		<property name="friendPhoneSwitch" type="boolean" column="FRI_PHONESWITCH" />
+		<property name="friendValidSwitch" type="boolean" column="FRIENDVALIDSWITCH" />
+	</class>
+
+	<!-- 用户地址表 -->
+	<class name="UserAddress" table="USER_ADDRESS" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="userId" type="string" column="USER_ID" />
+		<property name="provincial" type="string" column="PROVINCIAL" />
+		<property name="city" type="string" column="CITY" />
+		<property name="area" type="string" column="AREA" />
+		<property name="address" type="string" column="ADDRESS" />
+		<property name="name" type="string" column="NAME" />
+		<property name="mobile" type="string" column="MOBILE" />
+		<property name="email" type="string" column="EMAIL" />
+		<property name="phone" type="string" column="PHONE" />
+		<property name="zipcode" type="string" column="ZIPCODE" />
+		<property name="status" type="boolean" column="STATUS" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+	</class>
+
+	<!-- 积分日志表 -->
+	<class name="IntegralLog" table="INTEGRAL_LOG" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="userId" type="string" column="USER_ID" />
+		<property name="orderId" type="string" column="ORDER_ID" />
+		<property name="integral" type="double" column="INTEGRAL" />
+		<property name="type" type="string" column="TYPE" />
+		<property name="source" type="string" column="SOURCE" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="status" type="boolean" column="STATUS" />
+		<property name="invalidTime" type="string" column="INVALID_TIME" />
+		<property name="operation" type="string" column="OPERATION" />
+	</class>
+
+	<!-- 会员详细信息表 -->
+	<class name="UserInfo" table="USER_INFO" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="userId" type="string" column="USER_ID" />
+		<property name="realName" type="string" column="REAL_NAME" />
+		<property name="sex" type="boolean" column="SEX" />
+		<property name="areaId" type="string" column="AREA_ID" />
+		<property name="address" type="string" column="ADDRESS" />
+		<property name="homePhone" type="string" column="HOME_PHONE" />
+		<property name="hobby" type="string" column="HOBBY" />
+		<property name="birthday" type="string" column="BIRTHDAY" />
+	</class>
+
+	<!-- 会员等级表 -->
+	<class name="UserLevel" table="USER_LEVEL" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="name" type="string" column="NAME" />
+		<property name="icon" type="string" column="ICON" />
+		<property name="loConditions" type="double" column="LO_CONDITIONS" />
+		<property name="demote" type="double" column="DEMOTE" />
+		<property name="type" type="boolean" column="TYPE" />
+		<property name="note" type="string" column="NOTE" />
+	</class>
+
+	<!-- 会员权限表 -->
+	<class name="UserPurview" table="USER_PURVIEW" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="className" type="string" column="CLASS_NAME" />
+		<property name="fullPath" type="string" column="FULL_PATH" />
+		<property name="position" type="int" column="POSITION" />
+		<property name="parentId" type="string" column="PARENT_ID" />
+		<property name="status" type="boolean" column="STATUS" />
+		<property name="level" type="int" column="LEVEL" />
+		<property name="icon" type="string" column="icon" />
+	</class>
+
+	<!-- 银行表 -->
+	<class name="Bank" table="BANK" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="bankName" type="string" column="BANK_NAME" />
+		<property name="areaId" type="string" column="AREA_ID" />
+		<property name="address" type="string" column="ADDRESS" />
+		<property name="fullName" type="string" column="FULL_NAME" />
+		<property name="logo" type="string" column="LOGO" />
+		<property name="status" type="string" column="STATUS" />
+		<property name="forenStatus" type="boolean" column="FOREN_STATUS" />
+		<property name="accountPay" type="boolean" column="ACCOUNT_PAY" />
+		<property name="onlinePay" type="boolean" column="ONLINE_PAY" />
+		<property name="companyPay" type="boolean" column="COMPANY_PAY" />
+		<property name="commonPay" type="boolean" column="COMMON_PAY" />
+		<property name="perch" type="string" column="PERCH"/>
+	</class>
+
+	<!--银行卡绑定表 -->
+	<class name="BankBinding" table="BANK_BINDING" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="storeId" type="string" column="STORE_ID" />
+		<property name="bankId" type="string" column="BANK_ID" />
+		<property name="fullName" type="string" column="FULL_NAME" />
+		<property name="phone" type="string" column="PHONE" />
+		<property name="cardNo" type="string" column="CARD_NO" />
+		<property name="address" type="string" column="ADDRESS" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="status" type="boolean" column="STATUS" />
+		<!-- <property name="isDefault" type="boolean" column="DEFAULT" /> -->
+	</class>
+	<!--银行卡日志表 -->
+	<class name="BankBindingLog" table="BANK_BINDING_LOG"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="storeId" type="string" column="STORE_ID" />
+		<property name="area" type="string" column="AREA" />
+		<property name="address" type="string" column="ADDRESS" />
+		<property name="fullName" type="string" column="FULL_NAME" />
+		<property name="idCardNo" type="string" column="ID_CARD_NO" />
+		<property name="cardNo" type="string" column="CARD_NO" />
+		<property name="cardPwd" type="string" column="CARD_PWD" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="status" type="string" column="STATUS" />
+	</class>
+	<!--用户虚拟账户日志表 -->
+	<class name="ViratualLog" table="VIRATUAL_LOG" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="userId" type="string" column="USER_ID" />
+		<property name="amount" type="big_decimal" column="AMOUNT" />
+		<property name="type" type="string" column="TYPE" />
+		<property name="source" type="string" column="SOURCE" />
+		<property name="status" type="boolean" column="STATUS" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="activationTime" type="string" column="ACTIVATION_TIME" />
+		<property name="operator" type="string" column="OPERATOR" />
+	</class>
+
+	<!-- 福利采购 -->
+	<class name="WelfarePurchase" table="WELFARE_PURCHASE"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="userId" type="string" column="USER_ID" />
+		<property name="productId" type="string" column="PRODUCT_ID" />
+		<property name="storeId" type="string" column="STORE_ID" />
+		<property name="productNo" type="string" column="PRODUCT_NO" />
+		<property name="reciveTime" type="string" column="RECIVE_TIME" />
+		<property name="quantity" type="int" column="QUANTITY" />
+		<property name="companyName" type="string" column="COMPANY_NAME" />
+		<property name="linkMan" type="string" column="LINK_MAN" />
+		<property name="mobile" type="string" column="MOBILE" />
+		<property name="linkTime" type="string" column="LINK_TIME" />
+		<property name="status" type="string" column="STATUS" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+		<property name="note" type="string" column="NOTE" />
+	</class>
+
+</hibernate-mapping>

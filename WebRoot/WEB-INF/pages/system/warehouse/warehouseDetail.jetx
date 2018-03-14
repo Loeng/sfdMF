@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+		<link href="${ctxpath}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+				<link href="${ctxpath}/resources/system/css/list.css" rel="stylesheet" type="text/css" />
+		<!-- 上传文件的CSS -->
+		<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<!-- 上传文件css,js -->
+		<script type="text/javascript" src="${webroot}/resources/plugin/fileupload/js/vendor/jquery.ui.widget.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/plugin/fileupload/js/jquery.fileupload.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/plugin/ckeditor/ckeditor.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/base.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/warehouse/warehouseDetail.js"></script>
+		<!-- 上传文件控件  -->
+		<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+</head>
+	
+<body>
+
+#define(com.ekfans.base.store.model.Warehouse wh)
+<input type="hidden" id="ctxpath" value="${webroot}" />
+
+<form action="${webroot}/system/activity/modify" name="modify" method="post"  id="modifyWarehouseForm">
+	<input type="hidden" name="id" value="${wh.id}" />
+	<input type="hidden" name="createTime" value="${wh.createTime}" />
+	<div class="ht_btn">
+		#if("1".equals(type))
+		<a href="javaScript:void(0)" class="btn" onclick="formSubmit()">保存</a>
+		<a href="javaScript:void(0)" class="btn"  onclick="reset()">重置</a>
+		#end
+		<a href="javaScript:void(0)" class="btn"  onclick="goList('${webroot}')">返回列表</a>
+	</div>
+	<div class="add_pro">
+
+
+		<dl>
+			<dt>仓库名<em class="mustIco"></em></dt>
+			<dd id="nameDd">
+				<input type="text" class="i_bg"  name="name" value="${wh.name}" onblur="javascript:checkNameBlur();" onkeyup="javascript:checkName();" onfocus="javascript:checkName();" />
+				<span id="nameSpan" class="ts_xx">1-32位字符组成</span>
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt>所在省市区</dt>
+			<dd class="formSite" id ="addressDd">
+					#tag systemAreaSel("areaId",wh.areaId) #end
+			</dd>
+		</dl>
+	  <div class="clear"></div>
+	  <dl class="formLine">
+					<dt>活动地址<em class="mustIco"></em></dt>
+					<dd id="addrDd" class="">
+						<input type="text" id="fulladdress" class="i_bg" maxlength="128" name="address" value="${wh.address}" onblur="checkAddressBlur();"/>
+						<span id="addressSpan" class="ts_xx">请输入活动地址</span>
+					</dd>
+	  </dl>
+	   
+	  
+				<dl class="formBox">
+					<dt>状态</dt>
+					<dd>
+						<span class="zt">
+							<label><input type="radio" value="true" name="status" #if(wh.status) checked=true #end/>启用</label></span>
+						<span class="zt">	
+							<label><input type="radio" value="false" name="status" #if(!wh.status) checked=true #end/>禁用</label></span>
+						</dd>
+				</dl>
+		<div class="clear"></div>
+		
+		<dl>
+			<dt>备注</dt>
+			<dd>
+				<textarea name="note" id="description" maxlength="256">${wh.note}</textarea>
+			</dd>
+			<dd class="clear"></dd>
+		</dl>
+	    
+
+		</div>
+	</div>
+</form>
+
+	
+	
+
+</body>
+</html>

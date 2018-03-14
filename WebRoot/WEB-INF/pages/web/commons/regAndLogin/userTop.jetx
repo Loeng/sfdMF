@@ -1,0 +1,14 @@
+<input type="hidden" id="ctxpath" value="${webroot}" />
+
+<div class="header">
+	<div class="wrapper">
+    <h1 class="logo" title="${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}">
+      <a href="${webroot}">
+      	<img src="${webroot}${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站Logo")}" alt="${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}" />
+      </a>
+      <span>个人用户#if(regLogin==1)登录#elseif(regLogin==2)注册#end</span>
+      <div class="clear"></div>
+    </h1>
+  </div>
+</div>
+<div class="nav"></div>

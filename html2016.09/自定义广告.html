@@ -1,0 +1,70 @@
+<div class="slideBox">
+    <div id="content">
+        <div class="hd">
+            <ul><li></li><li></li><li></li></ul>
+        </div>
+        <div class="bd">
+            <ul>
+                <li>
+                    <a href="javascript:void(0);" class="slideImg">
+                        <img src="http://www.sfdhb.com/resources/web/pic/index_banner_wfapp.jpg" width="1920" height="320">
+                        <img src="http://www.sfdhb.com/resources/web/pic/index_banner_wfapp1.png" class="slidePic" style="left:448px; top:102px;">
+                        <img src="http://www.sfdhb.com/resources/web/pic/index_banner_wfapp2.png" class="slidePic" style="left:1156px; top:50px;">
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="slideImg">
+                        <img src="http://www.sfdhb.com/resources/web/pic/index_banner2.jpg" width="1920" height="320">
+                        <img src="http://www.sfdhb.com/resources/web/pic/index_banner2_1.png" class="slidePic" style="left:447px; top:57px;">
+                        <img src="http://www.sfdhb.com/resources/web/pic/index_banner2_2.png" class="slidePic" style="left:1253px; top:103px;">
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="slideImg">
+                        <img src="http://www.sfdhb.com/resources/web/pic/index_banner_ywy.jpg" width="1920" height="320">
+                        <img src="http://www.sfdhb.com/resources/web/pic/index_banner_ywy1.png" class="slidePic" style="left:753px; top:115px;">
+                        <img src="http://www.sfdhb.com/resources/web/pic/index_banner_ywy2.png" class="slidePic" style="left:496px; top:160px;">
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+	window.onload=function(){
+	//焦点图切换
+    jQuery(".slideBox").slide({
+		mainCell:".bd ul",
+		autoPlay:true,
+		effect:"fold",
+		delayTime:800,
+		interTime:4000,
+		startFun:function(i){
+			var obj=$(".slideBox .bd li").eq(i);
+			var obj2=obj.siblings();
+			obj2.find(".slidePic").hide();
+			switch(i){
+				case 0:
+				obj.find(".slidePic").eq(0).delay(400).show('slide', {direction: 'up'}, 600,function(){
+					obj.find(".slidePic").eq(1).show("slide",{direction: 'down'},300);
+				});
+				
+				break; 
+				case 1:
+				obj.find(".slidePic").eq(0).delay(400).show('drop', {direction: 'down'}, 600);
+				obj.find(".slidePic").eq(1).delay(400).show("drop", {direction: 'up'},600);
+				break;
+
+				case 2:
+				obj.find(".slidePic").eq(0).delay(400).show("explode", {direction: '9'}, 600);
+				obj.find(".slidePic").eq(1).delay(400).show("explode", {direction: '9'},600);
+				break;
+			}
+		},
+		endFun:function(i){
+			
+		}
+	});
+}
+</script>

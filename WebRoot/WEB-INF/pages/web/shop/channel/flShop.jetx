@@ -1,0 +1,128 @@
+#define(com.ekfans.base.channel.model.Channel channel)
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>${channel.name}|${webName}</title>
+<link rel="icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/storeweb/css/base.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/storeweb/css/storeIndex.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/storeweb/css/flShop.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.form.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.lazyload.mini.js"></script>
+<script src="${webroot}/resources/web/storeweb/js/base.js"></script>
+<script src="${webroot}/resources/commons/js/tools.js"></script>
+<script src="${webroot}/resources/web/storeweb/js/storeIndex.js"></script>
+<script src="${webroot}/resources/web/webcommon/js/select.js"></script>
+<script src="${webroot}/resources/web/storeweb/js/jquery.JPlaceholder.js.js"></script>
+<script src="${webroot}/resources/web/storeweb/js/flShop.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+#if(configStatus == "true")
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/control.js"></script>	
+		<link href="${webroot}/resources/commons/css/control.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script
+		<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+	#end
+	<meta name="Keywords" content="${channel.keyWords}">
+	<meta name="description" content="${channel.description}">
+</head>
+<body>
+	<input type="hidden" name="ctxpath" id="ctxpath" value="${webroot}" />
+	<input type="hidden" name="channelId" id="channelId" value="${channelId}" />
+	<input type="hidden" name="channelType" id="channelType" value="${channel.type}" />
+	#if(configStatus == "true")
+		<!-- 频道配置导航条 -->
+		#include("../../channel/commons/config/config-top.jetx")
+		<!-- 频道配置导航条 end -->
+  #end
+<div class="wrapper">
+  <div class="header" id="channelTop" style="height:126px;"></div>
+  <div class="banner">#include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"1"})</div>
+</div>
+<div class="headerLine">
+	<div class="wrapper">
+      <a href="${webroot}/user/cart/userShopCart" title="购物车" class="shoppingCart"><em id="shopCartNumShow">99</em>购物车</a>
+		<!--	<span title="吃货热线：${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("热线电话")}" class="hotLine">吃货热线：${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("热线电话")}</span> -->
+    	<img src="${webroot}/resources/web/storeweb/images/bingtang.png" alt="冰冰糖糖" class="bingtangImg">
+    </div>
+   	<div class="orangeLine"></div>
+</div>
+
+<div class="middle">
+	<form action="${webroot}/web/flShop/apply"  method="post" id="addForm">
+		<div class="wrapper">
+	  	<div class="flForm">
+	    <div class="flIn">
+	    	<div class="txtBox box257 iconCode floatBox"><input id="productNo" name="productNo" type="text" class="box227" placeholder="商品编号" onblur="searchProduct();"></div>
+	      <div class="tips">请在商品详情页查看商品编号</div>
+	      <div class="clear"></div>
+	      
+	      <div class="txtBox box257 iconCart floatBox"><input id="quantity" name="quantity" type="text" class="box227" placeholder="采购数量" onpaste="return false" onblur="javascript:if(this.value==''){this.value=0;}" onkeyup="javascript:clearNoNum(this)"></div>
+	      <div class="tips" id="unit">单位：箱</div>
+	      <div class="clear"></div>
+	      <div class="txtBox box257 iconTime">
+					<input id="reciveTime" name="reciveTime" type="text" class="timeBox box227" value="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-#{%d}'})" placeholder="希望到货时间">
+	      </div>
+	      <div class="txtBox box257 iconCompany floatBox"><input id="companyName" name="companyName" type="text" class="box227" placeholder="企业/机构名全称"></div>
+	      <div class="tips">企业名称将作为发票信息请认真填写</div>
+	      <div class="clear"></div>
+	      
+	      <div class="txtBox box257 iconUser floatBox"><input id="linkMan" name="linkMan" type="text" class="box227" placeholder="联系人姓名"></div>
+	      <div class="selList" style="width:80px;">
+	          <span class="inputBox" style="width:80px;">
+	              <input name="sex" type="text" class="box80" placeholder="先生" readonly style="*height:34px;" value="先生">
+	              <em class="iconDown readOnly"></em>
+	          </span>
+	          <ul style="width:80px;margin-left:30px;left:0px;">
+	            <li>先生</li>
+	            <li>女士</li>
+	          </ul>
+	      </div>
+	      <div class="clear"></div>
+	      
+	      <div class="txtBox box257 iconTel floatBox"><input id="mobile" name="mobile" type="text" class="box227" placeholder="手机号码"></div>
+	      <div class="tips2">非中国大陆用户输入手机号码时请增加区域前缀，如：台湾：+8869*******，香港：+8526*******</div>
+	      <div class="clear"></div>
+	      
+	      <div class="txtBox box257 iconTime">
+	          <div class="selList" style="width:227px;">
+	            <span class="inputBox" style="width:227px;border:0;">
+	                <input name="linkTime" id="linkTime" type="text" class="box184" placeholder="希望何时联系" readonly>
+	                <em class="iconDown readOnly"></em>
+	            </span>
+	            <ul>
+	              <li>8:00-18:00</li>
+	              <li>任意时间</li>
+	            </ul>
+	          </div>
+	      </div>
+	      
+	      <div class="txtBox box256" style="height:60px;">
+         <textarea name="note" cols="" rows="" class="txtBox box256" placeholder="留言"></textarea>
+      	</div>
+      
+	      <input name="productId" id="productId" type="hidden" >
+	      <input name="storeId" id="storeId" type="hidden">
+	      
+	      <a href="javascript:void(0);" class="btnSubmit" onclick="formSubmit();">提交</a>
+	      <div class="lastTip">客服将按照您所要求的时间及时与您联系</div>
+			</div>
+	    </div>     
+	  </div>
+	</form>
+</div>
+
+<div id="buttomDiv"></div>
+<script src="${webroot}/resources/web/gylweb/js/backtop.js"></script>
+<div style="display:none">
+	<script src="http://s95.cnzz.com/z_stat.php?id=1253965659&web_id=1253965659" language="JavaScript"></script>
+</div>
+</body>
+</html>

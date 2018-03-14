@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}店铺分类设置</title>
+		<link href="${webroot}/resources/store/css/classSet.css" rel="stylesheet" type="text/css" />
+		<link href="${webroot}/resources/commons/css/upload/upload.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/store/js/base.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/store/js/storeConfig/classSet.js"></script>
+	</head>
+	<body>
+		<div class="sto_right">
+				<input type="hidden" id="ctxpath" value="${webroot}">
+				#define(List<com.ekfans.base.product.model.ProductCategory> categories)
+				<form action="${webroot}/store/set/category/save" method="post"  id="categoryForm">
+		    	<h2><em>分类设置</em></h2>
+		        <div class="classTable">
+		          <div class="classHeader">
+		            <div class="classTd className">分类名称</div>
+		            <div class="classTd classImg">添加图片</div>
+		            <div class="classTd showChildren">展开子分类</div>
+		            <div class="classTd readChildren">查看分类下的商品</div>
+		            <div class="classTd audit">审核状态</div>
+		            <div class="classTd make">操作</div>
+		            <div class="clear"></div>
+		          </div>
+		          #for(com.ekfans.base.product.model.ProductCategory category:categories)
+			          <div class="classItem">
+			              <ul class="classLine classNode1">
+			                <li class="classTd className"><span class="boxName"><em></em><input name="name" type="text" value="${category.name}"></span></li>
+			                <li class="classTd classImg"><a href="javascript:void(0)"><em></em>编辑图片</a></li>
+			                <li class="classTd showChildren">
+			                	<input type="checkbox" value="">
+			                	<input name="showSub" type="hidden" value="">
+			                </li>
+			                <li class="classTd readChildren"><a href="javascript:searchProduct('${category.id}');">搜索商品</a></li>
+			                <li class="classTd audit" title="${category.checkNote}">
+			                	#if(category.checkStatus==1)
+			                		审核通过
+			                	#elseif(category.checkStatus==-1)
+			                		审核不通过
+			                	#elseif(category.checkStatus==0)
+			                		未审核
+			                	#end
+			                </li>
+			                <li class="classTd make"><a href="javascript:deleteCategory('${category.id}');">删除</a></li>
+			                <input class="hiddenInput" type="hidden" name="id" value="${category.id}">
+			              </ul>
+			              #if(category.childList!=null && category.childList.size()>0)
+			              	#for(com.ekfans.base.product.model.ProductCategory childCategory:category.childList)
+					              <ul class="classLine classNode2">
+					                <li class="classTd className"><span class="boxName"><em></em><input name="childName" type="text" value="${childCategory.name}"></span></li>
+					                <li class="classTd classImg"><a href="javascript:void(0)"><em></em>上传图片</a></li>
+					                <li class="classTd showChildren">
+					                	<input type="checkbox" value="">
+					                	<input name="childShowSub" type="hidden" value="">
+					                </li>
+					                <li class="classTd readChildren"><a href="javascript:searchProduct('${childCategory.id}');">搜索商品</a></li>
+					                <li class="classTd audit">
+					                	#if(category.checkStatus==1)
+					                		审核通过
+					                	#elseif(category.checkStatus==-1)
+					                		审核不通过
+					                	#elseif(category.checkStatus==0)
+					                		未审核
+					                	#end
+					                </li>
+					                <li class="classTd make"><a href="javascript:deleteCategory('${childCategory.id}');">删除</a></li>
+					                <input type="hidden" name="childId" value="${childCategory.id}">
+					                <input type="hidden" name="parentId" value="${childCategory.parentId}">
+					              </ul>
+					            #end
+					          #end
+			              <div class="classLine classNodeAdd" id="add${category.id}"><a href="javascript:addChild('${category.id}');"><em></em>添加子分类</a></div>
+			          </div>
+		          #end
+		    	</div>
+	        <div class="listBottom" id="addParentDiv">
+	        	<a href="javascript:addParent();" class="btnBlue classAdd">添加分类</a>
+	            <a href="javascript:saveCategory();" class="btnBlue">保存</a>
+	            <div class="clear"></div>
+	        </div>
+        </form>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,484 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>后台</title>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/base.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/list.js"></script>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/demand.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/list.css" />
+	<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+<style>
+.ts{min-height:23px;margin:20px 20px 5px 20px; font-size:14px;border-bottom: 1px solid #000;}
+.ts b{display:inline-block;width:20px;height:13px; padding-right:10px;}
+.ts a{margin:0 8px;}
+
+.onelist{min-width:240px;/*max-height:600px; overflow-y:auto;height:100%; float:left; */background-color:#fff;}
+.twolist{min-width:240px;/*max-height:600px; overflow-y:auto;height:100%; float:left; */background-color:#fff; display:none;}
+.threelist{min-width:775px;width:100%;/*max-height:600px;overflow-y:auto;height:100%; float:left; background-color:#fff; */display:none;}
+.noEdit{border:0;background:none; display:block; cursor:pointer;}
+.baocunIco{display:inline-block; background:url(${webroot}/resources/system/images/duigou.png) no-repeat; width:16px; height:16px;}
+input{width:85%; height:28px; line-height:28px; border:solid 1px #F3F1F1; padding:0 10px;}
+textarea{width:85%;line-height:28px; border:solid 1px #F3F1F1; padding:0 10px;}
+.curTr{background-color:#ebf6ff; display:block;}
+.curTr input{background:none;}
+.curTr input:focus,.curBtn input:focus{background:#fff; cursor:text;}
+input[type="text"]:focus,textarea:focus{}
+.curBtn{background:#c7c7c7; cursor:pointer;}
+.onej table tr:hover td{background:none;}
+.twoj table tr:hover td{background:none;}
+.ht_list td{padding-left:0;}
+
+.identity{display:block; width:auto; float:left; margin-right:10px;}
+.identityItem{display:block; float:left; margin-right:18px; line-height:30px;}
+.pro_ss_btn{padding:5px 0 5px 10px;}
+</style>
+</head>
+<body>
+<div class="ts"><a href="javascript:void(0)" class="yiji" id="yiji"></a><b>&gt;&gt;</b><a href="javascript:void(0)" class="erji" id="erji"></a><b>&gt;&gt;</b>三级名录</div>
+
+
+<div class="onelist">
+	<div class="pro_ss_btn">
+	    <a href="javascript:void(0);" class="btn btnadd1">新增一级菜单</a>
+	</div>
+  <div class="ht_list onej">
+  <table cellpadding="0" cellspacing="0" border="0"  id="yijiTable">
+  	<tbody id="data1"></tbody>
+  </table>
+  </div>
+</div>
+<div class="twolist">
+	<div class="pro_ss_btn">
+		<a href="javascript:void(0);" class="btn btnadd2">新增二级菜单</a>
+	</div>
+  <div class="ht_list twoj">
+  <table cellpadding="0" cellspacing="0" border="0"  id="erjiTable">
+  	<tbody id="data2"></tbody>
+  </table>
+  </div>
+</div>
+<div class="threelist">
+	<div class="pro_ss_btn">
+		<a href="javascript:void(0);" class="btn btnadd3">新增三级菜单</a>
+	</div>
+	<div class="ht_list">
+		<table cellpadding="0" cellspacing="0" border="0"  id="orginTable">
+			<tr><th width="8%">序号</th><th width="13%">废物代码</th><th width="40%">危险废物</th><th width="13%">危险特性</th><th width="13%">状态</th><th width="13%"></th></tr>
+			<tbody id="data3"></tbody>
+		</table>
+	</div>
+</div>
+<div class="clear"></div>
+
+<!--1级克隆-->
+<table cellpadding="0" cellspacing="0" border="0"  id="oyijiTable" style="display:none;">
+  <tr class="newTr">
+    <td width="40%"><input type="text" name="name" id="name" class="noEdit" readonly  value=""></td>
+    <td width="40%" class="cz">
+      <a href="javascript:void(0);" class="baocunIco" style="display:none;"></a>
+      <a href="javascript:void(0);" class="editIco"></a>
+      <a href="javascript:void(0);" class="del_list"></a>
+    </td>
+  </tr>
+</table>
+<!--2级克隆-->
+<table cellpadding="0" cellspacing="0" border="0"  id="oerjiTable" style="display:none;">
+<tr class="newTr">
+  <td width="40%"><input type="text" name="name" id="name" class="noEdit" readonly value=""></td>
+  <td  width="40%" class="cz">
+    <a href="javascript:void(0);" class="baocunIco" style="display:none;"></a>
+    <a href="javascript:void(0);" class="editIco"></a>
+    <a href="javascript:void(0);" class="del_list"></a>
+  </td>
+</tr>
+</table>
+<!--3级克隆-->   
+<table cellpadding="0" cellspacing="0" border="0" style="display:none;" id="newTable">
+<tr class="newTr">
+  <td><input type="hidden" id="num"></td>
+  <td><textarea name="no" id="no" cols="" rows="" ></textarea></td>
+  <td><input type="text" name="name" id="name"></td>
+  <td><textarea name="no" id="no" cols="" rows="" ></textarea></td>
+  <td>
+  	<div class="identityItem"><input name="identity" class="identity" type="checkbox" value="T"><em>T </em></div>
+  	<div class="identityItem"><input name="identity" class="identity" type="checkbox" value="R"><em>R </em></div>
+  	<div class="identityItem"><input name="identity" class="identity" type="checkbox" value="I"><em>I </em></div>
+  	<div class="identityItem"><input name="identity" class="identity" type="checkbox" value="C"><em>C </em></div>
+  	<div class="identityItem"><input name="identity" class="identity" type="checkbox" value="In"><em>In</em></div></td>
+  <td><select id="status" name="status"><option value="1">可用</option><option value="0">禁用</option></select></td>
+  <td class="cz">
+    <a href="javascript:void(0);" class="baocunIco"></a>
+    <a href="javascript:void(0);" class="editIco"></a>
+    <a href="javascript:void(0);" class="del_list"></a>
+  </td>
+</tr>
+</table>
+ <input type="hidden" id="firstIdHidden">  
+ <input type="hidden" id="secondIdHidden"> 
+<script>
+	$(function(){
+		$("#yiji").html("一级名录");
+		$("#erji").html("二级名录");
+		 ajax1();
+	});
+	function ajax1(){
+		$.post('${webroot}/system/wfpScrap/getWfpmlList1',function (data){
+           var str="";
+           for(var i=0;i<data.length;i++){
+           		var obj = data[i];
+           		str+="<tr class='newTr'><td width='80%'>"+
+           		"<input type='hidden' name='id' id='id' value='"+obj.id+"'>"+
+           		"<input type='hidden' name='parentId' id='parentId' value='"+obj.parentId+"'>"+
+           		"<input type='hidden' name='show_sub' id='show_sub' value='"+obj.show_sub+"'>"+
+           		"<input type='hidden' name='status' id='status' value='"+obj.status+"'>"+
+           		"<input type='hidden' name='no' id='no' value='"+obj.no+"'>"+
+           		"<input type='hidden' name='identity' id='identity' value='"+obj.identity+"'>"+
+           		"<input type='hidden' name='note' id='note' value='"+obj.note+"'>"+
+           		"<input type='hidden' name='position' id='position' value='"+obj.position+"'>"+
+           		"<input type='hidden' name='fullPath' id='fullPath' value='"+obj.fullPath+"'>"+
+           		"<input type='text' name='name' id='name' class='noEdit' readonly  value='"+obj.name+"'></td>"+
+           		"<td width='15%' class='cz'>"+
+           			"<a href='javascript:void(0);' class='baocunIco' style='display:none;'></a>"+
+           			"<a href='javascript:void(0);' class='editIco'></a>"+
+           			"<a href='javascript:void(0);' class='del_list'></a>"+
+           		"</td></tr>";
+           	}
+           	$("#data1").html(str);
+        }
+    );
+	}
+	function ajax2(firstId){
+		$.post('${webroot}/system/wfpScrap/getWfpmlList2',{firstId:firstId},function (data){
+         var str="";
+         for(var i=0;i<data.length;i++){
+         		var obj=data[i];
+         		str+="<tr class='newTr'><td width='80%'>"+
+         		"<input type='hidden' name='parentId' id='parentId' value='"+obj.parentId+"'>"+
+         		"<input type='hidden' name='show_sub' id='show_sub' value='"+obj.show_sub+"'>"+
+         		"<input type='hidden' name='status' id='status' value='"+obj.status+"'>"+
+         		"<input type='hidden' name='no' id='no' value='"+obj.no+"'>"+
+         		"<input type='hidden' name='identity' id='identity' value='"+obj.identity+"'>"+
+         		"<input type='hidden' name='note' id='note' value='"+obj.note+"'>"+
+         		"<input type='hidden' name='position' id='position' value='"+obj.position+"'>"+
+         		"<input type='hidden' name='fullPath' id='fullPath' value='"+obj.fullPath+"'>"+
+         		"<input type='text' name='name' id='name' class='noEdit' readonly  value='"+obj.name+"'>"+
+         		"<input type='hidden' name='id' id='id' value='"+obj.id+"'></td>"+
+         		"<td width='15%' class='cz'>"+
+         			"<a href='javascript:void(0);' class='baocunIco' style='display:none;'></a>"+
+         			"<a href='javascript:void(0);' class='editIco'></a>"+
+         			"<a href='javascript:void(0);' class='del_list'></a>"+
+         		"</td></tr>";
+         	}
+       		$("#data2").html(str);
+        }
+    );	
+	}
+	function ajax3(secondId){
+		$.post('${webroot}/system/wfpScrap/getWfpmlList3',{secondId:secondId},function (data){
+             var str="";
+             for(var i=0;i<data.length;i++){
+             		var obj=data[i];
+             		var j=i+1;
+             		str+="<tr class='newTr'><td>"+j+"</td><td>"+obj.no+"</td>"+
+             		"<td><input type='hidden' name='id' id='id' value='"+obj.id+"'>"+
+             		"<input type='hidden' name='parentId' id='parentId' value='"+obj.parentId+"'>"+
+             		"<input type='hidden' name='show_sub' id='show_sub' value='"+obj.show_sub+"'>"+
+             		"<input type='hidden' name='no' id='no' value='"+obj.no+"'>"+
+             		"<input type='hidden' name='identity' id='identity' value='"+obj.identity+"'>"+
+             		"<input type='hidden' name='note' id='note' value='"+obj.note+"'>"+
+             		"<input type='hidden' name='position' id='position' value='"+obj.position+"'>"+
+             		"<input type='hidden' name='fullPath' id='fullPath' value='"+obj.fullPath+"'>"+
+             		"<textarea name='name' id='name' class='noEdit' readonly>" +obj.name+
+             		"</textarea></td><td>"+obj.identity+"</td>"+
+             		"<td><select name='status' id='status' disabled>"+
+             				"<option value='0' "+obj.status+"no>禁用</option>"+
+             				"<option value='1' "+obj.status+"yes>可用</option>"+
+             				"</select></td>"+
+         				"<td width='40%' class='cz'>"+
+             				"<a href='javascript:void(0);' class='baocunIco' style='display:none;'></a>"+
+             				"<a href='javascript:void(0);' class='editIco'></a>"+
+             				"<a href='javascript:void(0);' class='del_list'></a>"+
+             		"</td></tr>";
+             		if(obj.status == 0){
+             			str = str.replace(obj.status+"no","selected");
+             			str = str.replace(obj.status+"yes","");
+             		}else{
+             			str = str.replace(obj.status+"no","");
+             			str = str.replace(obj.status+"yes","selected");
+             		}	
+             	}
+             	$("#data3").html(str);
+          }
+      );
+	}
+$(document).ready(function() {
+	/*点1显2*/
+	$(".show2").live("click",function(){
+		$(this).parents(".onelist").next(".twolist").show();
+		$(this).parents(".onelist").hide();
+		});
+	$(".yiji").live("click",function(){
+		$("#secondIdHidden").val("");
+		$("#firstIdHidden").val("");
+		$("#erji").html("二级名录");
+		$(".onelist").show();
+		$(".twolist").hide();
+		$(".threelist").hide();
+		});
+		
+	/*点2显3*/
+	$(".show3").live("click",function(){
+		$(this).parents(".twolist").next(".threelist").show();
+		$(this).parents(".twolist").hide();
+		});
+	$(".erji").live("click",function(){
+		$("#secondIdHidden").val("");
+		$(".onelist").hide();
+		$(".twolist").show();
+		$(".threelist").hide();
+		})
+		
+	/*1级当前选择*/
+	$(".onej .noEdit").live("click",function(){
+			$(this).parents(".onej").find(".noEdit").removeClass("curBtn");
+			$(this).parents(".onej").find(".noEdit").css("background","none")
+			$(this).addClass("curBtn");
+			$(this).parents(".onelist").next(".twolist").show();
+			$(this).parents(".onelist").hide();
+			$(this).css("background","#c7c7c7")
+			var firstId = $(this).parents("tr").find("#id").val();
+			var yijiName = $(this).parents("tr").find("#name").val();
+			$("#firstIdHidden").val(firstId);
+			$("#yiji").html(yijiName);
+			ajax2(firstId);
+		});
+	
+	/*2级当前选择*/
+	$(".twoj .noEdit").live("click",function(){
+			$(this).parents(".twoj").find(".noEdit").removeClass("curBtn");
+			$(this).parents(".twoj").find(".noEdit").css("background","none")
+			$(this).addClass("curBtn");
+			$(this).parents(".twolist").next(".threelist").show();
+			$(this).parents(".twolist").hide();
+			$(this).css("background","#c7c7c7");
+		 
+			var secondId = $(this).parents("tr").find("#id").val();
+			var erjiName = $(this).parents("tr").find("#name").val();
+			$("#secondIdHidden").val(secondId);
+			$("#erji").html(erjiName);
+			ajax3(secondId);
+		 
+		});
+	var count=0;
+	var updateCount=0;
+	/*1级新增*/
+	$(".btnadd1").live("click",function(){
+		count=1;
+      var obj=$("#oyijiTable").children().find(".newTr").clone();
+			obj.find("tr").removeClass("curTr");
+			obj.find("input").val("");
+			obj.find(".baocunIco").css("display","inline-block");
+			obj.find("input").removeClass("noEdit");
+			obj.find("input").css("background-color","#fff")
+		  obj.find("input").removeAttr("readonly","readonly");
+			obj.find(".editIco").hide();
+			$("#yijiTable").append(obj);
+    });
+		
+		/*2级新增*/
+		$(".btnadd2").live("click",function(){
+			count=2;
+      var obj=$("#oerjiTable").children().find(".newTr").clone();
+			obj.find("tr").removeClass("curTr");
+			obj.find("input").val("");
+			obj.find(".baocunIco").css("display","inline-block");
+			obj.find("input").removeClass("noEdit");
+			obj.find("input").css("background-color","#fff")
+		  obj.find("input").removeAttr("readonly","readonly");
+			obj.find(".editIco").hide();
+			$("#erjiTable").append(obj);
+    });
+	
+	/*3级新增*/
+    $(".btnadd3").live("click",function(){
+    	count=3;
+      var obj=$("#newTable").children().find(".newTr").clone();
+			obj.find(".editIco").hide();
+			$("#orginTable").append(obj);
+    });
+	
+	/*删除*/
+	$(".del_list").live("click",function(){
+		if(count!=0){
+			$(this).parents("tr").remove();
+			count=0;
+			return;
+		}
+		//获取点击的那一行的id
+		var allId = $(this).parents("tr").find("#id").val();
+		
+		
+		//一下两个id用于判断当前页面是哪个
+		//获取二级名录的id
+		var secondId=$("#secondIdHidden").val();
+		//获取一级名录的id
+		var firstId=$("#firstIdHidden").val();
+		
+		if(firstId!=null && firstId!="" && (secondId==null || secondId=="")){//如果是在二级名录页面
+			$.post('${webroot}/system/wfpScrap/delWfpml2',{secondId:allId},function (data){
+           if(data!=null && data!=""){
+           		falert("删除成功");
+           	}else{
+           		falert("删除失败");
+           	}
+           	ajax2(firstId);
+          }
+      );
+		}else if(secondId!=null && secondId!="" && firstId!=null && firstId!="" ){//如果是在3级名录页面
+			$.post('${webroot}/system/wfpScrap/delWfpml3',{threeId:allId},function (data){
+           if(data!=null || data!=""){
+           		falert("删除成功");
+           	}else{
+           		falert("删除失败");
+           	}
+           	ajax3(secondId);
+          }
+      );
+		}else if((firstId==null || firstId=="") && (secondId==null || secondId=="")){//如果是在一级名录下
+			econfirm('确认删除此名录及其子名录？',deleteThis,[$("#ctxpath").val()],null,null);
+			function deleteThis(){
+	    	$.post('${webroot}/system/wfpScrap/delWfpml1',{firstId:allId},function (data){
+           if(data!=null || data!=""){
+           		salertWithFunction("删除成功!", ajax1, null);
+           	}else{
+           		salertWithFunction("失败成功!", ajax1, null);
+           	}
+          });
+	    }
+		}
+	})
+	
+	/*编辑*/
+	$(".editIco").live("click",function(){
+			updateCount=1;
+			
+			$(this).prev(".baocunIco").show();
+			$(this).hide();
+			$(this).parents("tr").find("input").removeClass("noEdit");
+			$(this).parents("tr").find("input").css("background-color","#fff")
+			$(this).parents("tr").find("input").removeAttr("readonly","readonly");
+			$(this).parents("tr").find("select").removeAttr("disabled","disabled");
+			$(this).parents("tr").find("textarea").removeClass("noEdit");
+			$(this).parents("tr").find("textarea").css("background-color","#fff")
+			$(this).parents("tr").find("textarea").removeAttr("readonly","readonly");
+	});
+	
+	/*保存*/
+	$(".baocunIco").live("click",function(){
+		var names = $(this).parents("tr").find("#name").val();
+		console.log($(this));
+		console.log(names);
+		//alert(names)
+		//如果点的是修改按钮就执行修改操作
+		if(updateCount!=0){
+			var myId = $(this).parents("tr").find("#id").val();
+			var note = $(this).parents("tr").find("#note").val();
+			var no = $(this).parents("tr").find("#no").val();
+			var position = $(this).parents("tr").find("#position").val();
+			var statuss = $(this).parents("tr").find("#status").val();
+			var identity = $(this).parents("tr").find("#identity").val();
+			var show_sub=$(this).parents("tr").find("#show_sub").val();
+			var fullPath=$(this).parents("tr").find("#fullPath").val();
+			var parentId=$(this).parents("tr").find("#parentId").val();
+			//alert(myId+"  "+note+"  "+no+"  "+position+"  "+statuss+"  "+identity+"  "+show_sub+"  "+fullPath+"  "+parentId);
+			$.post('${webroot}/system/wfpScrap/updateWfpml1',{parentId:parentId,fullPath:fullPath,show_sub:show_sub,names:names,myId:myId,note:note,no:no,position:position,identity:identity,statuss:statuss},function (data){
+           if(data!=null || data!=""){
+           		falert("修改成功");
+           	}else{
+           		falert("修改失败");
+           	}
+           	updateCount=0;
+           	ajax1();
+          }
+      );
+		}else{
+			//如果没有点修改按钮就执行添加操作
+			if(count==1){//在第一级目录页面下
+				$.post('${webroot}/system/wfpScrap/addWfpml1',{names:names},function (data){
+	           if(data!=null || data!=""){
+	           		falert("添加成功");
+	           	}else{
+	           		falert("添加失败");
+	           	}
+	           	count=0;
+	           	ajax1();
+	          }
+	      );
+			}else if(count==2){//在第二级目录页面下
+				var firstId=$("#firstIdHidden").val();
+				$.post('${webroot}/system/wfpScrap/addWfpml2',{names:names,firstId:firstId},function (data){
+	           if(data!=null || data!=""){
+	           		falert("添加成功");
+	           	}else{
+	           		falert("添加失败");
+	           	}
+	           	count=0;
+	           	ajax2(firstId);
+	          }
+	      );
+			}else if(count==3){//在第三级目录页面下
+				var str="";
+				$(".identity").each(function(){
+					if($(this).attr("checked")){
+						str+=$(this).attr("value")+",";
+					}
+				})
+				var identity = str.substring(0,str.length-1);
+				$(this).parents("tr").remove();
+				var firstId=$("#firstIdHidden").val();
+				var secondId=$("#secondIdHidden").val();
+				var statuss = $(this).parents("tr").find("#status").val();
+				
+				var no = $(this).parents("tr").find("#no").val();
+				$.post('${webroot}/system/wfpScrap/addWfpml3',{names:names,statuss:statuss,identity:identity,no:no,firstId:firstId,secondId:secondId},function (data){
+	           if(data!=null || data!=""){
+	           		falert("添加成功");
+	           	}else{
+	           		falert("添加失败");
+	           	}
+	           	count=0;
+	           	ajax3(secondId);
+	          }
+	      );
+				
+			}
+		}
+		$(this).next(".editIco").show();
+			$(this).hide();
+			$(this).parents("tr").find("input").css("background","none")
+		 $(this).parents("tr").find("input").addClass("noEdit");
+		 $(this).parents("tr").find("input").attr("readonly","readonly");
+		 $(this).parents("tr").find("select").attr("disabled","disabled");
+		 $(this).parents("tr").find("textarea").css("background","none")
+		 $(this).parents("tr").find("textarea").addClass("noEdit");
+		 $(this).parents("tr").find("textarea").attr("readonly","readonly");
+	});
+	
+		/*显示1级*/
+		$(".fanhui2").live("click",function(){
+		$(this).parents(".twolist").prev(".onelist").show();
+		$(this).parents(".twolist").hide();
+		});
+		/*显示2级*/
+	$(".fanhui3").live("click",function(){
+		$(this).parents(".threelist").prev(".twolist").show();
+		$(this).parents(".threelist").hide();
+		});
+});
+
+</script>
+</body>
+</html>

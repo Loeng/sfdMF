@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>编辑核价宝推送</title>
+	<link href="${webroot}/resources/system/css/product/issue.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/add.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/layer/layer.js"></script>
+</head>
+
+<body>
+<input type="hidden" id="ctxpath" value="${webroot}" />
+#define(com.ekfans.base.ccwcc.model.CcwccPush ccwccPush)
+<div class="ht_btn">
+	<a href="javascript:void(0);" class="btn" onclick="formSubmit('0')">仅保存</a>
+	<a href="javascript:void(0);" class="btn" onclick="formSubmit('1')">保存并推送</a>
+	<a href="javascript:void(0);" class="btn" onclick="goBack()">返回列表</a>
+</div>
+<form action="${webroot}/system/ccwccpush/save" method="post" id="addForm">
+	<input type="hidden" name="id" id="id" value="${ccwccPush.id}"/>
+	<input type="hidden" name="createTime" value="${ccwccPush.createTime}"/>
+	<input type="hidden" name="pushNow" id="pushNow" value="0"/>
+	<input type="hidden" name="linkUrl" id="linkUrl" value="${ccwccPush.linkUrl}"/>
+	<input type="hidden" name="sharUrl" id="sharUrl" value="${ccwccPush.sharUrl}"/>
+	<input type="hidden" name="sourceId" id="sourceId" value="${ccwccPush.sourceId}"/>
+	<input type="hidden" name="status" value="${ccwccPush.status}"/>
+	<div class="add_pro afterHt">
+		<dl class="formBox">
+			<dt>推送类型<em class="mustIco"></em></dt>
+			<dd>
+				<select name="type" onchange="choseType(this.value)" class="i_bg advStyleCheck">
+					<option value='0' #if(ccwccPush.type=="0") selected="true" #end>普通推送</option>
+					<option value='1' #if(ccwccPush.type=="1") selected="true" #end>资讯推送</option>
+					<option value='2' #if(ccwccPush.type=="2") selected="true" #end>供应推送</option>
+					<option value='3' #if(ccwccPush.type=="3") selected="true" #end>求购推送</option>
+				</select>
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt>推送标题<em class="mustIco"></em></dt>
+			<dd>
+				<input type="text" name="title" placeholder="请输入推送的正文" value="${ccwccPush.title}"  class="i_bg">
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt>推送正文<em class="mustIco"></em></dt>
+			<dd>
+				<textarea name="content" placeholder="请输入推送的正文" value="${ccwccPush.content}">${ccwccPush.content}</textarea>
+			</dd>
+		</dl>
+		#if(ccwccPush.type != "0")
+		<dl class="linkAlert" id="choseDl">
+			<dt><span id="choseNameSpan">关联${ccwccPush.type == "1"?"资讯":(ccwccPush.type == "2"?"供应":"求购")}</span><em class="mustIco"></em></dt>
+			<dd id="storeIdDd">
+				<input id="showName" name="sourceName" class="i_bg" type="text" readOnly value="${ccwccPush.sourceName}"/>
+				<span id="showSpan" class="pp" title="关联${ccwccPush.type == "1"?"资讯":(ccwccPush.type == "2"?"供应":"求购")}" onclick="loadStore();" ></span>
+				<span id="nameSpan" class="ts_xx">请选择${ccwccPush.type == "1"?"资讯":(ccwccPush.type == "2"?"供应":"求购")}</span>
+			</dd>
+		</dl>
+		#else
+		<dl class="linkAlert" id="choseDl" style="display: none;">
+			<dt><span id="choseNameSpan">关联资讯</span><em class="mustIco"></em></dt>
+			<dd id="storeIdDd">
+				<input id="showName" name="sourceName" class="i_bg" type="text" readOnly value="${ccwccPush.sourceName}"/>
+				<span id="showSpan" class="pp" title="关联资讯" onclick="loadStore();" ></span>
+				<span id="nameSpan" class="ts_xx">请选择资讯</span>
+			</dd>
+		</dl>
+		#end
+	</div>
+</form>
+
+<!-- 关联店铺模块 -->
+<div class="del_tcBg" id="showBg" style="display: none;"></div>
+<div class="del_tc shopListAlert"  id="showDiv" style="overflow-y:auto;display: none;"></div>
+<!--弹窗 css-->
+<div class="alertLayerBg" style="display:none"></div>
+<script>
+	function choseType(act){
+		$("#showName").val("");
+		$("#linkUrl").val("");
+        $("#sharUrl").val("");
+        $("#sourceId").val("");
+		if(act == "0"){
+		    $("#choseDl").hide();
+		}else if(act == "1"){
+            $("#choseDl").show();
+            $("#choseNameSpan").html("关联资讯");
+            $("#showSpan").attr("title","关联资讯菜单");
+            $("#showSpan").attr("onclick","loadContent()");
+            $("#nameSpan").html("请选择资讯");
+		}else if(act == "2"){
+            $("#choseDl").show();
+            $("#choseNameSpan").html("关联供应");
+            $("#showSpan").attr("title","关联供应菜单");
+            $("#showSpan").attr("onclick","loadSupply('0')");
+            $("#nameSpan").html("请选择供应");
+        }else if(act == "3"){
+            $("#choseDl").show();
+            $("#choseNameSpan").html("关联求购");
+            $("#showSpan").attr("title","关联求购菜单");
+            $("#showSpan").attr("onclick","loadSupply('1')");
+            $("#nameSpan").html("请选择求购");
+        }
+	}
+
+	function loadContent(){
+        $("#showDiv").load($("#ctxpath").val()+"/system/ccwcc/loadcontent",function(){
+        });
+        $("#showBg").show();
+        $("#showDiv").show();
+	}
+	function loadSupply(act){
+		$("#showDiv").load($("#ctxpath").val()+"/system/ccwcc/loadsupply/"+act,function(){
+        });
+        $("#showBg").show();
+        $("#showDiv").show();
+	}
+
+	function formSubmit(act){
+		$("#pushNow").val(act);
+		$("#addForm").ajaxSubmit(function(data){
+			if (data || data=="true") {
+				layer.confirm('保存成功，是否继续编辑？', {
+					btn: ['继续编辑','返回列表'] //按钮
+				}, function(){
+					window.location.reload();
+				}, function(){
+					location.href='${webroot}/system/ccwccpush/list';
+				});
+			}
+		});
+	}
+	function goBack(){
+		location.href='${webroot}/system/ccwccpush/list';
+	}
+</script>
+</body>
+</html>

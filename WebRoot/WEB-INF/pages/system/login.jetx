@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>后台管理系统</title>
+<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+<script type="text/javascript" src="${webroot}/resources/system/js/login.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/des.js"></script>
+<link href="${webroot}/resources/system/css/systemLogin.css" rel="stylesheet" type="text/css">
+</head>
+
+<body onkeydown="keyLogin();">
+<input type="hidden" id="ctxpath" value="${webroot}" />
+<div class="outer">
+    <div class="header">
+        <div class="wrapper">
+            <h1><a href="${webroot}/"><img src="${webroot}/resources/system/images/logo_system.png" alt="${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}" class="logo"></a><em>后台管理系统</em></h1>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="wrapper">
+            <dl class="left">
+                <dt>全国首家产业链为核心“互联网+环保”平台</dt>
+                <dd>行业咨询、全程危废、在线金融、大数据、一站式综合服务</dd>
+            </dl>
+            <div class="loginBox">
+           		<form action="${webroot}/system/loginCheck" method="post" id="loginSubmit">
+					<input type="hidden" id="key1" value="${key1}" />
+					<input type="hidden" id="key2" value="${key2}" />
+					<input type="hidden" id="key3" value="${key3}" />
+					<input type="hidden" name="currentDate" value="${currentDate}" />
+					<input type="hidden" name="name" value="" />
+					<input type="hidden" name="password" value="" />
+                	<div class="topBox"><div class="errorText" id="error"></div></div>
+                	<dl class="formItem">
+                    	<dt class="userName"></dt>
+                    	<dd>
+                    <!--  <input type="text" placeholder="用户名" id="name" value="${cookieName}" onblur="checkName()" class="textBox"/>-->	
+                    	 	<input type="text" placeholder="用户名" id="name" value="admin" onblur="checkName()" class="textBox"/>
+                    	</dd>
+                	</dl>
+                	<dl class="formItem">
+                    	<dt class="password"></dt>
+                    	<dd>
+                    	<!--  <input type="password" placeholder="密码" id="password" value="${cookiePsd}" class="textBox" onblur="checkPassword()" />-->
+                    	<input type="password" placeholder="密码" id="password" value="sfdhb20160701" class="textBox" onblur="checkPassword()" />
+                    	</dd>
+               		</dl>
+                	<div class="formItem">
+                		<input type="text" placeholder="验证码" name="verifyCode" value="" onblur="checkVerifyCode()" class="textBox boxCode"/>
+                    	<a href="javascript:void(0)" class="yanzhengma">
+                        	<img title="点击更换" id="vfc" onclick="javascript:refresh();" src="${webroot}/security/image" width="130" height="40" />
+                    	</a>
+                	</div>
+                	<input name="" value="登录" class="btnLogin" onclick="sysUserLogin();">
+               	</form>
+            </div>
+        </div>
+    </div>
+    <div class="footer">${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("底部版权信息")}</div>
+</div>
+</body>
+</html>

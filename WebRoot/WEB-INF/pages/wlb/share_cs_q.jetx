@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="${webroot}/resources/wlb/css/base.css" rel="stylesheet" type="text/css">
+    <script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+    <script src="${webroot}/resources/commons/js/layer/layer.js"></script>
+    <title>货源详情</title>
+</head>
+<body>
+#define(com.ekfans.plugin.wuliubao.yunshu.controller.model.HuoResponse huo)
+#define(com.ekfans.base.user.model.User user)
+	<div class="pageZone">
+		<ul class="firstItems">
+			<li>最迟发货时间：<span>${endTime}</span></li>
+			<li>车辆要求：
+			<span>#if(huo.carName!=null&&!huo.carName.equals(""))${huo.carName}/#end</span>
+			<span>#if(huo.carLength!=null&&!huo.carLength.equals(""))${huo.carLength}/#end</span>
+			<span>#if(huo.tankMaterialName!=null&&!huo.tankMaterialName.equals(""))${huo.tankMaterialName}#end</span>
+			</li>
+		</ul>
+	</div>
+	<div class="pageZone zhuangxie">
+		<div class="zhuang">
+		  <dl>
+			<dt>#for(String start : huo.startList)${start} #end</dt>
+			<dd>${huo.startHabitatAddress}</dd>
+		  </dl>
+		</div>
+		<div class="xie">
+		  <dl>
+			<dt>#for(String end : huo.endList)${end} #end</dt>
+			<dd>${huo.endHabitatAddress}</dd>
+		  </dl>
+		</div>
+		<span class="distance">距离：${distance} 公里</span>
+	</div>
+	<div class="pageZone">
+		<div class="tableBox">
+			<table border="0" cellspacing="0" cellpadding="0" class="cheInfo">
+				<tr>
+					<td width="30%">货物名称</td>
+					<td>${huo.supplyName}</td>
+				</tr>
+				<tr>
+					<td>经营范围</td>
+					<td>
+						#for(String wfpy : huo.wfpysList)
+						<dl class="tdItem">
+						#define(String[] wfpyType)
+		                #set(wfpyType = wfpy.split("："))
+		                    #for(String type : wfpyType)
+							 #if(for.index==1)
+							   <dt>${type}</dt>
+							 #end
+							 #if(for.index==2)
+							    <dd>${type}</dd>
+							 #end
+							#end
+						</dl>
+					#end
+					</td>
+				</tr>
+				<tr>
+					<td>货物类型</td>
+					<td>#if(huo.categoryName!=null)${huo.categoryName}#end</td>
+				</tr>
+				<tr>
+					<td>货物重量</td>
+					<td>#if(huo.wfpTotal!=null)${huo.wfpTotal} ${huo.unit}#end</td>
+				</tr>
+				<tr>
+					<td>货物体积</td>
+					<td>#if(huo.cargoVolume!=null)${huo.cargoVolume}立方米#end</td>
+				</tr>
+				<tr>
+					<td>有效时限</td>
+					<td>${validTime}</td>
+				</tr>
+			</table>
+		</div>
+		
+	</div>
+	<div class="pageZone bottomInfo">
+		<dl>
+			#if(huo.storeName!=null&&!huo.storeName.equals(""))
+			<dt>${huo.storeName}</dt>
+		   #end
+			<dd>
+				<li>
+					<em>许可证：</em>
+					<span class="mark blueMark">营</span>
+					<span class="mark greenMark">运</span>
+					<span class="mark redMark">危</span>
+				</li>
+				<li><em>联系人：</em><span>${huo.linkMan}</span></li>
+				<li><em>联系电话：</em><span>${huo.phone}</span></li>
+				<li><em>备注：</em><span>${huo.content}</span></li>
+			</dd>
+		</dl>
+	</div>
+	<a href="${webroot}/wlbapp/download/1" class="downLink chezhu"></a>
+	
+</body>
+</html>

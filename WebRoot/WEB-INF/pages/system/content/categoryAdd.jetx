@@ -1,0 +1,54 @@
+
+<form action="${webroot}/system/content/contentCategory/save" name="add" method="post"  id="addCategoryForm">
+	#define(com.ekfans.base.content.model.ContentCategory category)
+	<dl>
+		<dt>分类名<em class="mustIco"></em></dt>
+		<dd id="nameDd" class="">
+			<input type="text" class="i_bg"  name="name" value="" onblur="javascript:checkNameBlur();" onkeyup="javascript:checkName();" onfocus="javascript:checkName();" />
+			<span id="nameSpan" class="ts_xx">分类名为2-20位字符组成</span>
+		</dd>
+	</dl>
+	
+	<input type="hidden" id="parentId" name="parentId">
+	<dl>
+		<dt>分类描述</dt>
+		<dd>
+			<textarea name="description" maxlength="512"></textarea>
+		</dd>
+	</dl>
+	<input type="hidden" name="type" value="">
+	<dl>
+			<dt>排序位置<em class="mustIco"></em></dt>
+			<dd id="positionDd" class="">
+					<input type="text" class="i_bg"  name="position" onblur="javascript:checkPositionBlur();" onkeypress="return IsNum(event)" onkeyup="javascript:checkPosition();" maxlength="11"/>
+					<span id="positionSpan" class="ts_xx">请输入排序位置</span>
+			</dd>
+	</dl>
+	
+	<dl>
+		<dt>关键字</dt>
+		<dd>
+			<input type="text" class="i_bg"  name="keyword" maxlength="255"/>
+		</dd>
+	</dl>
+	
+	
+	   <dl class="formBox">
+			<dt>导航图片</dt>
+			<dd>
+				#tag picUpload("icon","1","200","200","") #end
+  		</dd>
+		</dl>
+		<dl class="formBox">
+			<dt>状态</dt>
+			<dd>
+				<span class="zt">
+					<input type="radio" value="true" name="status" checked=true/>显示
+				</span>
+				<span class="zt">
+					<input type="radio" value="false" name="status"/>不显示
+				</span>
+			</dd>
+		</dl>
+	
+</form>

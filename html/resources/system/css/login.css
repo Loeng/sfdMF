@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* CSS Document */
+
+html, body {margin:0px; color:#2c2c2c; font-size:12px; font-family:"微软雅黑"; text-align:left;}
+a {color:#2c2c2c; text-decoration:none;}
+a:hover {color:#0365b5; text-decoration:none;}
+ul, ol, dl {list-style:none;}
+h1, h2, h3, h4, h5, h6, p, form, ul, li, ol, dl, dt, dd, input, textarea {margin:0px; padding:0px; font-family:"微软雅黑";}
+img {border:none;}
+.clear {clear:both;}
+
+.ht_logo {height:85px; margin:100px 0 10px 0; text-align:center; text-indent:-178px;}
+.ht_login {width:100%; height:354px; background:url(../images/login_bg.jpg) no-repeat top center;}
+.ht_login .ht_loginIn {width:500px; margin:0 auto; padding-top:15px;}
+.ht_login li {width:100%; padding-top:30px; font-size:14px; overflow:hidden; float:left;}
+.ht_login .loginBox {display:block; border-top:1px solid #4489c1; height:33px; width:320px; float:left; margin-right:10px;}
+.ht_login .loginBox input {float:left; width:285px; padding-left:33px; height:33px; border:1px solid #7daed7; border-bottom:none; background:url(../images/login_tb.jpg) #99c1e2 no-repeat; _line-height:33px; line-height:33px\0; vertical-align:middle;}
+.ht_login span.user input {background-position:0 0;}
+.ht_login span.passw input {background-position:0 -35px;}
+.ht_login span.yzm input {background-position:0 -70px; width:207px;}
+.ht_login span.yzm img {float:left; width:78px; height:34px;}
+.ht_login li a.btn {display:block; width:320px; height:36px; background:url(../images/dl_btn.jpg)}
+.ht_login li a.btn:hover {filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8; opacity:0.8;}
+.formError {float:left; margin-top:5px;}
+.errorLeft {display:block; background:url(../images/login_r1_c1.png) no-repeat; width:10px; height:25px; float:left;}
+.errorText {display:block; background:#ff3600; float:left; height:25px; line-height:25px; color:#fff; padding:0 5px 0 8px;}
+.errorRight {display:block; background:url(../images/login_r1_c3.png) no-repeat; width:4px; height:25px; float:left;}

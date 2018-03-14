@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/demand.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/list.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/list.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/store/account/list.js"></script>
+</head>
+
+<body>
+#define(List<com.ekfans.base.user.model.Account> accountList)
+<input type="hidden" id="ctxpath" value="${webroot}" />
+
+<form action="${webroot}/system/store/account/list" method="post" id="searchStoreForm">
+	<input type="hidden" name="storeId" value="${storeId}" />
+	<input type="hidden" name="type" value="${type}" />
+	<input type="hidden" name="pageNum" value="" />	
+
+	<dl class="pro_ss">
+		<dt><b>查询</b><span class="span_down"></span><span class="span_up"></span></dt>
+		<dd class="pro_ss_item">
+			<span>邮箱</span>
+			<input type="text" class="i_bg" name="name" value="${name}" />
+		</dd>
+		<dd class="pro_ss_item">
+			<span>部门名称</span>
+			<input type="text" class="i_bg" name="department" value="${department}" />
+		</dd>
+		<dd class="pro_ss_item">
+			<span>管理员</span>
+			<input type="text" class="i_bg" name="contactName" value="${contactName}" />
+		</dd>
+		<dd class="clear"></dd>
+	</dl>
+</form>
+<div class="pro_ss_btn">
+	<a href="javascript:searchSubmit();" class="btn">搜索</a>
+	<a href="javascript:reset();" class="btn">重置</a>
+	<a href="javascript:fanhui();" class="btn">返回</a>
+</div>
+<div class="pro_ss_btn">
+	<a href="javascript:storeAdd();" class="btn">新增</a>
+</div>
+		
+<!--没有数据的时候-->
+#if(accountList==null||accountList.size()<=0)
+	<div class="ht_list_k">暂时没有符合条件的数据</div>	
+#else
+	<!--有数据的时候-->
+	<div class="ht_list">
+		<table id="storeTab" cellpadding="0" cellspacing="0" border="0" >
+			<tr>
+				<th width="4%">全选</th>
+        <th width="16%">邮箱</th>
+        <th width="12%">部门名称</th>              
+        <th width="10%">管理员</th>
+        <th width="13%">电话</th>
+        <th width="13%">创建时间</th>
+        <th width="12%">更新时间</th>
+        <th colspan="10%">操作</th>
+			</tr>
+			#for(com.ekfans.base.user.model.Account ac : accountList)
+				<tr id="del${ac.id}">
+					<td class="qx"><input type="checkbox" value="${ac.id}"/></td>
+			    <td>${ac.name}</td>
+			    <td>${ac.department}</td>
+          <td>${ac.contactName}</td>
+          <td>${ac.contactPhone}</td>
+					<td>${ac.createTime}</td>
+          <td>${ac.updateTime}</td>
+				  <td class="cz">
+				  	<a href="javascript:void(0);" class="eyeIco" onclick="queryId('${ac.id}');" title="详细" ></a>
+				   	<a href="javascript:void(0);" class="editIco" onclick="storeModify('${ac.id}');" title="修改"></a>
+				   	<a href="javascript:void(0);" class="del_list" title="删除" onclick="singleDetele('${ac.id}')"></a>
+				  </td>
+			  </tr>
+			#end
+		</table>
+		<div class="ht_pageBox">
+			<div class="ht_page_l">
+				<a href="javascript:selectAll();" class="btn">全选</a>
+				<a href="javascript:checkSelect();" class="btn">删除</a>
+			</div>
+			${include("../../common/page.jetx")}
+		</div>
+	</div>
+#end
+
+
+</body>
+</html>

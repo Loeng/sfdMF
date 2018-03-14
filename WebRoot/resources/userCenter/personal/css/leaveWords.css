@@ -1,0 +1,31 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url("personalBase.css");
+
+/*搜索表单*/
+.searchForm{border-bottom:solid 1px #dedede; padding-left:10px;}
+.formLine{height:28px; width:300px; float:left; margin-bottom:18px;}
+.formLine dt{width:70px; float:left; line-height:28px;}
+.formLine .formRight{width:230px; float:left;}
+.rightForm{float:right; padding-right:32px;}
+.searchForm .searchBox,.dateBox{height:26px; line-height:26px\9; border:solid 1px #DEDEDE;}
+.searchForm .searchBox{width:218px;}
+.dateBox{width:99px; background:url(../images/dateico.png) no-repeat 80px center;}
+.sortSplit{width:18px; text-align:center; color:#d3d3d3; display:inline-block; font-size:18px;}
+.searchBtn{padding:16px 0; border-bottom:solid 1px #dedede;}
+.searchBtn .btnBlue{width:62px; height:28px; line-height:28px; font-size:14px; display:inline-block; margin-right:16px;}
+span.zt{display:inline-block;border:1px solid #e0e3ea; height:28px; line-height:28px; position:relative; padding:0 19px 0 30px; background:#fcfdfe;margin-right:7px; cursor:pointer;}
+span.zt input{position:absolute; left:10px; top:7px;}
+
+.rightContent h2 em{height:32px; line-height:32px; display:inline-block; border-bottom:solid 5px #ff8900; padding:0 30px 0 15px; margin-top:20px;}
+.rightContent h2{border-bottom:solid 1px #CBCFCF; font-size:14px; font-size:14px;}
+
+.wordsList{border-collapse:collapse; width:100%;}
+.wordsList th{height:35px; line-height:35px;text-align:left; font-size:14px; color:#fff;}
+.wordsList td{padding:18px 22px 18px 0; line-height:20px; vertical-align:top;}
+.wordsList .wordsContent{width:284px; padding-left:20px; padding-right:130px;}
+td.wordsContent,td.leaveTime{color:#818181;}
+.shopName{width:190px;}
+.shopName a{color:#018FD5;}
+.inText{padding:10px; background:#f6f6f6; display:block; margin-top:12px;}

@@ -1,0 +1,125 @@
+
+#define(com.ekfans.base.order.model.Inquiry i)
+#define(String type)
+<input type="hidden" id="id" value="${i.id}"/>	
+				 <div class="proInfo proNoImg">
+            <div class="info">
+            	<strong class="apProTitle">${i.productName}</strong>
+                <div class="priceZone">
+                	#if(i.status =="0")
+                	<span class="singular">￥ ${i.price}/${i.unit}</span>
+                	#else
+                	<span class="singular">￥ ${i.FinalPrice}/${i.unit}</span>
+                	#end
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="apForm ratifyForm">
+        	<div class="readForm">
+                <dl class="formItem">
+                    <dt>采购数量</dt>
+                    <dd class="formImport"><input name="" type="text" disabled class="formBox" value="${i.number}"></dd>
+                    <dd class="clear"></dd>
+                </dl>
+                <dl class="formItem">
+                    <dt>商议价格</dt>
+                    <dd class="formImport"><input name="" type="text" disabled class="formBox" value="${i.price}"></dd>
+                    <dd class="clear"></dd>
+                </dl>
+            </div>
+            #if(!i.status)
+            <div class="writeForm">
+                <dl class="formItem">
+                    <dt>核定数量</dt>
+                    <dd class="formImport"><input name="" id="sellersNumber" type="text" disabled class="formBox"></dd>
+                    <dd class="formText">单位：${i.unit}</dd>
+                    <dd class="clear"></dd>
+                </dl>
+                <dl class="formItem">
+                    <dt>核定价格</dt>
+                    <dd class="formImport"><input name="" id="FinalPrice" type="text" disabled class="formBox"></dd>
+                    <dd class="formText">单位：元/${i.unit}</dd>
+                    <dd class="clear"></dd>
+                </dl>
+            </div>
+            
+            #else
+            	 <div class="writeForm">
+                <dl class="formItem">
+                    <dt>核定数量</dt>
+                    <dd class="formImport"><input name="" id="sellersNumber" type="text" disabled  class="formBox" value="${i.sellersNumber}"></dd>
+                    <dd class="formText">单位：${i.unit}</dd>
+                    <dd class="clear"></dd>
+                </dl>
+                <dl class="formItem">
+                    <dt>核定价格</dt>
+                    <dd class="formImport"><input name="" id="FinalPrice" type="text" disabled class="formBox" value="${i.FinalPrice}"></dd>
+                    <dd class="formText">单位：元/${i.unit}</dd>
+                    <dd class="clear"></dd>
+                </dl>
+               </div>
+               
+            #end
+            <div class="clear"></div>
+            <div class="apFormLeft">
+                <dl class="formItem">
+                    <dt>联系人</dt>
+                    <dd class="formImport"><input name="" type="text" disabled class="formBox" value="${i.linkPerson}"></dd>
+                    <dd class="clear"></dd>
+                </dl>
+                <dl class="formItem">
+                    <dt>联系电话</dt>
+                    <dd class="formImport"><input name="" type="text" disabled class="formBox" value="${i.linkTel}"></dd>
+                    <dd class="clear"></dd>
+                </dl>
+                <dl class="formItem">
+                    <dt>其他留言</dt>
+                    <dd class="formImport"><textarea cols="" rows="" disabled>${i.note}</textarea></dd>
+                    <dd class="clear"></dd>
+                </dl>
+                <div class="clear"></div>
+            </div>
+            <div class="stateForm">
+               	#if(i.status=="1") 
+	                <dl class="formItem">
+	                    <dt>议价状态</dt>
+	                    <dd class="formText" style="color:red;">已核价</dd>
+	                    <dd class="clear"></dd>
+	                </dl>
+                #else
+	                <dl class="formItem">
+	                    <dt>议价状态</dt>
+	                    <dd class="formText" style="color:red;">等待核价中</dd>
+	                    <dd class="clear"></dd>
+	                </dl>
+                #end
+                #if(i.status =="1")
+		                <dl class="formItem">
+		                    <dt>截止时间</dt>
+		                    <dd style="margin-left:5px;"><input id= "updateTime" disabled name="updateTime" type="text" class="timeBox textBox" value="${i.endTime}" style="width:145px;" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"></dd>
+		                    <dd class="clear"></dd>
+		                </dl>
+		              #elseif( userId == i.sellersId)
+		              	<dl class="formItem">
+		                    <dt>截止时间</dt>
+		                    <dd style="margin-left:5px;"><input id= "updateTime" name="updateTime" type="text" class="timeBox textBox" value="${i.endTime}" style="width:145px;" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"></dd>
+		                    <dd class="clear"></dd>
+		                </dl>
+		              #elseif(userId == i.buyersId)  
+		              	<dl class="formItem">
+		                    <dt>截止时间</dt>
+		                    <dd style="margin-left:5px;"><input id= "updateTime" disabled name="updateTime" type="text" class="timeBox textBox" value="${i.updateTime}" style="width:145px;" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"></dd>
+		                    <dd class="clear"></dd>
+		                </dl>
+		              #end
+            	</div>
+            	   
+            <div class="bargainBtn">
+            	#if(i.status=="1")
+              	<a href="${webroot}/purchase/inquirySupply/cart/${i.id}" class="btnBase" onclick="submit();">确认下单</a>
+              #end 
+              <a href="javascript:void(0)" class="btnBase btnOrange btnCancel" onClick="closeSupply('${webroot}','${i.id}');">关闭议价</a>
+            </div>
+            <div class="clear"></div>
+        </div>

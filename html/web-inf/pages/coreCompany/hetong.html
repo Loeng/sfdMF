@@ -1,0 +1,1042 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>合同订单编辑</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<link rel="shortcut icon" href="../../../resources/commons/images/favicon.ico" type="image/x-icon">
+<link href="../../../resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/userCenter/coreCompany/css/style.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/commons/css/upload.css" rel="stylesheet" type="text/css">
+
+<style>
+.rightContent .form h3{height:35px; border-bottom:solid 1px #e4e4e4; margin-bottom:20px;}
+.rightContent .form h3 em{display:inline-block; padding:0 30px; height:30px; line-height:30px; border-bottom-style:solid; border-bottom-width:5px;}
+.formItem{margin-bottom:20px;}
+.formItem .textBox{display:inline-block;}
+.formItem .hint{display:inline-block; padding-left:5px;}
+.formItem4{width:230px; margin-right:12px;}
+.formItem5{width:150px; margin-right:10px;}
+.formItem5 dt{width:36px; margin-right:10px;}
+div.formItem5{width:335px;}
+.shouzhan{display:block; float:right; line-height:30px; color:#027FAC; cursor:pointer; font-size:14px;}
+.formItem5 .fileUpload{width:348px;}
+.formItem5 .btnUploadNo,.formItem5 .btnUpload{width:74px;}
+.formItemJcbg{width:335px;}
+.formItemJcbg dd{background:#f0f0f0; padding-left:8px; height:30px; min-height:30px; width:223px; padding-right:10px; overflow:hidden;}
+.orderItemBtn{border-bottom:solid 1px #e4e4e4; padding:12px 0; text-align:right;}
+.orderItemBtn .btnBase{display:inline-block;}
+.orderItemHeader .formItem{margin-bottom:15px;}
+.orderItemHeader{padding:12px 0 0 0;}
+.btnOrange{background:#FF6B49;}
+.btnOrange:hover{background:#E12700; color:#fff;}
+.orderStyle2 .orderItemBtn{float:right; padding:0; border:none; margin-top:-10px;}
+.orderStyle2 div.formItem5{margin-left:10px;}
+.orderItem{border-bottom:solid 1px #e4e4e4;}
+
+
+.box120{width:118px;}
+.btnBase{padding:0 18px;}
+.infoTitle{height:28px; line-height:28px; padding-left:20px; font-size:14px;}
+.infoTitle em{padding-right:20px;}
+.lineSplit{height:1px; background:#e4e4e4; margin-bottom:20px;}
+
+
+
+.companyItem{margin-bottom:20px;}
+.truckList{width:100%;margin-bottom:10px;}
+.truckList th{padding:0px 10px; height:35px;line-height:35px;color:#292729; font-size:14px;}
+.truckList td{padding:8px 10px; line-height:22px; border-bottom:1px #DCDCDD solid;color:#7D7C7D; max-width:105px; overflow:hidden; text-align:center;}
+.truckList .tabRight{text-align:right;}
+.truckList .tabLeft{text-align:left;}
+.truckList tr:hover{background:#F3F3F3;}
+
+
+
+.infoTitle{height:28px; line-height:28px; padding-left:20px;}
+.infoTitle em{padding-right:20px;}
+.childItem{padding-top:20px;}
+.company{position:relative; padding-left:10px;}
+.company .itemCheck{position:absolute; top:28px; left:10px; display:block; z-index:2;}
+.itemControl{float:left;}
+.itemContent{display:none;}
+.removePerson{background:url(${webroot}/resources/userCenter/commons/images/close1.png) no-repeat center center; width:11px; height:11px; display:inline-block;}
+.lineSplit{height:1px; background:#e4e4e4; margin-bottom:20px;}
+.pointTop{border-top:solid 1px #e4e4e4; padding-top:20px; position:relative; margin-top:20px;}
+.pointIcon{display:block; background:url(${webroot}/resources/userCenter/commons/images/point_top.png) no-repeat; width:17px; height:10px; position:absolute; top:-10px; left:40px;}
+.grayBg{background:#f0f0f0; border-bottom:solid 1px #e4e4e4;}
+.grayBg .pointIcon{opacity:0.5;}
+.supercargo input,.driver input{float:left; display:block;}
+span.pp{cursor:pointer; display:block; float:left; width:27px; height:28px; border:1px solid #e0e3ea; margin-left:-1px; position:relative; background:url(${webroot}/resources/userCenter/commons/images/rightpoint2.png) no-repeat center center;}
+span.pp:hover{background:url(${webroot}/resources/userCenter/commons/images/rightpoint.png) #999 no-repeat center center; width:29px; height:30px; border:none;}
+
+
+.shopListAlert{top:20%; bottom:20%;}
+.shopListAlert .shopListContent{width:100%;}
+.shopListAlert .pageSize{padding-right:8px;}
+.apLayer .btn{padding: 0 0 20px 110px;}
+.shopSearch{padding:16px 10px 0 16px;}
+.shopSearch dl{width:320px; float:left;}
+.shopListAlert div.btn a{float:none;}
+.shopListAlert .ht_page{margin-bottom:20px; padding-right:20px;}
+.shopTable{width:96%; margin:0 2% 20px 2%; border-collapse:collapse; font-size:12px;}
+.shopTable th{text-align:center; border-top:solid 1px #333; border-bottom:solid 1px #333; height:20px; line-height:20px; padding:8px 0;}
+.shopTable td{text-align:center; border-top:solid 1px #dedede; border-bottom:solid 1px #dedede; height:30px; line-height:30px; padding:8px 0;}
+
+.alertBrand{max-height:440px;}
+.classItem{width:30%; margin:0 1.5%; float:left; height:50px; line-height:50px; border-bottom:solid 1px #e4e4e4;}
+.classItem label{display:block;}
+.classItem input{display:block; float:left; margin:19px 10px 0 8px;}
+.alertBrand .pageSize{padding:20px 20px 0 0;}
+
+.apLayer .btn{padding: 0 0 20px 95px;}
+.shopSearch{padding:16px 10px 0 0;}
+.shopSearch dl{width:320px; float:left;}
+.shopSearch dt{height:20px; line-height:20px;}
+
+
+
+
+.tabList{width:100%;margin-bottom:20px; background:#eeefef; border-top:solid 1px #e4e4e4;}
+.tabList th{padding:0px 10px; height:35px;line-height:35px;color:#292729; font-size:14px; border-bottom:solid 1px #e4e4e4;}
+.tabList td{padding:8px 7px; line-height:22px; color:#7D7C7D; max-width:105px; overflow:hidden; text-align:center;}
+.tabList .tabRight{text-align:right;}
+.tabList .tabLeft{text-align:left;}
+.tabList tr:hover{background:#F3F3F3;}
+.tabList input{display:inline-block; margin-right:6px;}
+.orderTotal{height:40px; line-height:40px; color:#777; font-size:14px; text-align:right; margin-bottom:20px;}
+.orderTotal em{font-size:24px; padding-right:6px;}
+input.orange,input.green{text-align:right; padding-right:6px;}
+
+.payApLayer{width:648px; margin-left:-324px; position:fixed; top:18%; left:50%; z-index:101;background:#fff;overflow:hidden; padding-bottom:30px;display:none;}
+.blueTit{width:100%; height:38px; background:#0085FC; position:relative;}
+.payApClose{background:url(${webroot}/resources/web/images/icon_close_white.png) no-repeat center center; display:block; width:28px; height:28px; position:absolute; top:5px; right:10px; cursor:pointer;}
+.payApContent{background:url(${webroot}/resources/web/images/icon_waring.png) no-repeat 53px 30px; padding:30px 0 0 216px;}
+.payApContent h4{height:30px; line-height:30px; font-size:24px; color:#636363; margin-bottom:24px;}
+.payText{line-height:28px; font-size:16px; color:#FF5400; margin-bottom:20px;}
+.payBtnBlue{background:#0085FC; padding:0 25px; height:35px; line-height:35px; font-size:16px; color:#fff; display:inline-block; margin-right:20px;}
+.payBtnBlue:hover{background:#00549F; color:#fff;}
+.backLink{display:block; margin-top:24px; font-size:14px; line-height:22px; height:22px; background:url(${webroot}/resources/web/images/icon_pointleft.png) no-repeat left center; padding-left:22px; color:#707070; float:left;}
+
+/*银行账户*/
+.bankList{margin-bottom:30px;}
+.bankList li{width:280px; background:#f5f5f5; border:solid 1px #d7d7d7; float:left; margin:0 30px 12px 0; cursor:pointer; padding:5px;}
+.bankList li.cur{border:solid 1px #FF6B49; background:#fff;}
+.bankList li span{padding-left:5px; display:block; line-height:22px;}
+.bankList li em{color:#999; width:50px; display:inline-block; text-align:right; padding-right:20px;}
+.bankList .fullBank{border-bottom:#e5e5e5 solid 1px; padding-bottom:5px; margin-bottom:5px;}
+.bankList .num{letter-spacing:2px;}
+.bankList .cardAdd{border:dashed 1px #72A8D7; background:url(${webroot}/resources/userCenter/commons/images/icon_add2.png) no-repeat center 20px; padding-top:50px; height:54px; line-height:30px; text-align:center; color:#0087CB; font-size:14px;}
+.apLayer .errorText{background:none;}
+</style>
+</head>
+<body>
+<!--头部-->
+<div class="wrapper topArea">
+  <h1 class="logo">
+    <a href="javascript:void(0)" title="鑫裕环保供应链平台">
+    	<img src="../../../resources/commons/images/logo.png" alt="鑫裕环保供应链平台">
+    </a>
+  </h1>
+  <div class="topRight">
+    <a href="javascript:void(0)" class="linkIndex">首页</a>
+    <span class="topItem">您好，云飞扬</span>
+    <span class="topItem"><a href="javascript:void(0)">消息(99)</a></span>
+    <span class="topItem"><a href="javascript:void(0)">帮助中心</a></span>
+    <span class="topItem itemLast"><a href="javascript:void(0)">安全退出</a></span>
+    <em class="split"></em>
+    <span class="telPhone">4000-888-1000</span>
+  </div>
+  <div class="clear"></div>
+</div>
+
+<div class="logoBar">
+  <div class="wrapper">
+  	<a href="javascript:void(0)" class="logoName">核心企业-企业中心</a>
+    <div class="nav">
+      <a href="javascript:void(0)" class="navItem">订单管理</a>
+      <a href="javascript:void(0)" class="navItem">金融管理</a>
+      <a href="javascript:void(0)" class="navItem">企业认证</a>
+      <a href="javascript:void(0)" class="navItem">账户管理</a>
+    </div>
+  </div>
+</div>
+<!--头部end-->
+
+<div class="main">
+  <div class="wrapper">
+    <!--左侧菜单-->
+    <div class="leftNav budong">
+      <h2><a href="javascript:void(0)">管理中心首页</a></h2>
+      <dl class="leftList">
+        <dt>采购管理<em class="itemIco"></em></dt>
+        <dd>
+          <a href="javascript:void(0)">商品管理</a>
+          <a href="javascript:void(0)">订单管理</a>
+          <a href="javascript:void(0)">议价管理</a>
+        </dd>
+      </dl>
+      <dl class="leftList">
+        <dt>供应管理<em class="itemIco"></em></dt>
+        <dd>
+          <a href="javascript:void(0)">商品管理</a>
+          <a href="javascript:void(0)">订单管理</a>
+          <a href="javascript:void(0)">议价管理</a>
+          <a href="javascript:void(0)">优选商城订单管理</a>
+        </dd>
+      </dl>
+      <dl class="leftList">
+        <dt>商品管理<em class="itemIco"></em></dt>
+        <dd>
+          <a href="javascript:void(0)">发布新商品</a>
+          <a href="javascript:void(0)">仓库中的商品</a>
+          <a href="javascript:void(0)">出售中的商品</a>
+        </dd>
+      </dl>
+      <dl class="leftList">
+        <dt>单据管理<em class="itemIco"></em></dt>
+        <dd>
+          <a href="javascript:void(0)">合同管理</a>
+          <a href="javascript:void(0)">仓单管理</a>
+        </dd>
+      </dl>
+      <dl class="leftList">
+        <dt>金融服务<em class="itemIco"></em></dt>
+        <dd>
+          <a href="javascript:void(0)">订单借贷申请</a>
+          <a href="javascript:void(0)">订单借贷管理</a>
+          <a href="javascript:void(0)">信用借贷申请</a>
+          <a href="javascript:void(0)">信用借贷管理</a>
+          <a href="javascript:void(0)">还款记录</a>
+        </dd>
+      </dl>
+      <dl class="leftList">
+        <dt>企业认证<em class="itemIco"></em></dt>
+        <dd>
+          <a href="javascript:void(0)">企业自助备案</a>
+          <a href="javascript:void(0)">企业信用测算</a>
+        </dd>
+      </dl>
+      <dl class="leftList">
+        <dt>账户管理<em class="itemIco"></em></dt>
+        <dd>
+          <a href="javascript:void(0)">基本资料管理</a>
+          <a href="javascript:void(0)">账户资金管理</a>
+          <a href="javascript:void(0)">安全设置</a>
+        </dd>
+      </dl>
+      <dl class="leftList">
+        <dt>银行卡管理<em class="itemIco"></em></dt>
+        <dd>
+          <a href="javascript:void(0)">绑定银行卡</a>
+          <a href="javascript:void(0)" class="cur">银行卡管理</a>
+        </dd>
+      </dl>
+    </div>
+    <!--左侧菜单 end--> 
+      
+    <!--右侧主体-->
+    <div class="rightContent">
+        <div class="contentTit  borderColor budong">
+            <h3>合同订单</h3>
+            <a href="javascript:void(0);" class="btnBase btnCancel">返回</a>
+            <a href="javascript:void(0);" class="btnBase btnSave">保存</a>
+            <div class="clear"></div>
+    	</div>
+        <div class="form borderColor">
+        	<h3><em class="borderBottomColor">订单基础信息</em></h3>
+            <dl class="formItem">
+                <dt>危废品名称</dt>
+                <dd>
+                    <input name="" type="text" value="那啥矿渣" class="textBox box212">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>所属合同</dt>
+                <dd>
+                    <input name="" type="text" value="废弃的矿渣合同BETA版" class="textBox box212"><!--输入错误的文本框-->
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>产生方</dt>
+                <dd>
+                    <input name="" type="text" value="废弃的矿渣合同BETA版" class="textBox box212">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>处置方</dt>
+                <dd>
+                    <input name="" type="text" class="textBox box212">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>检测报告</dt>
+                <dd>
+                    <div class="fileUpload">
+                        <a href="javascript:void(0);" class="btnUpload"><input name="" type="file">上传凭证</a>
+                        <span class="fileLoading"></span>
+                        <span class="fileName">
+                        用户体验交互视觉设计方法论.pdf
+                        <a href="javascript:void(0);" class="fileDelete"></a>
+                        </span>
+                    </div>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>五联单</dt>
+                <dd>
+                    <div class="fileUpload">
+                        <a href="javascript:void(0);" class="btnUpload"><input name="" type="file">上传凭证</a>
+                        <span class="fileLoading"></span>
+                        <span class="fileName">
+                        用户体验交互视觉设计方法论.pdf
+                        <a href="javascript:void(0);" class="fileDelete"></a>
+                        </span>
+                    </div>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+            <h3><em class="borderBottomColor">订单详细信息</em></h3>
+            
+            <!--第一种模式-->
+            <div class="orderStyle1">
+                <div class="orderItem">
+                    <div class="orderItemHeader">
+                        <dl class="formItem formItem5">
+                            <dt>重量</dt>
+                            <dd>
+                                <input name="" type="text" value="2000" class="textBox box80">
+                                <span class="hint">t</span>
+                            </dd>
+                            <dd class="clear"></dd>
+                        </dl>
+                        <dl class="formItem formItem5">
+                            <dt>水分</dt>
+                            <dd>
+                                <input name="" type="text" value="2000" class="textBox box80">
+                                <span class="hint">%</span>
+                            </dd>
+                            <dd class="clear"></dd>
+                        </dl>
+                        <dl class="formItem formItem5">
+                            <dt>干重</dt>
+                            <dd>
+                                <input name="" type="text" value="2000" class="textBox box80">
+                                <span class="hint">t</span>
+                            </dd>
+                            <dd class="clear"></dd>
+                        </dl>
+                        <div class="formItem formItem5">
+                            <div class="fileUpload">
+                                <a href="javascript:void(0);" class="btnUploadNo" style="width:74px;">上传检测报告</a>
+                                <span class="fileLoading"></span>
+                                <span class="fileName">
+                                用户体验交互视觉设计方法论.pdf
+                                <a href="javascript:void(0);" class="fileDelete"></a>
+                                </span>
+                            </div>
+                        </div>
+                        <span class="shouzhan">收起详情</span>
+                        <div class="clear"></div>
+                    </div>
+                    <table border="0" cellspacing="0" cellpadding="0" class="tabList">
+                      <tr>
+                        <th>元素</th>
+                        <th>品味</th>
+                        <th>金属量</th>
+                        <th>网上平均价</th>
+                        <th>计价系数</th>
+                        <th>单价</th>
+                        <th>小计金额</th>
+                      </tr>
+                      <tr>
+                        <td>金</td>
+                        <td><input name="" type="text" value="200.21" class="textBox box98">kg/t</td>
+                        <td><input name="" type="text" value="200.21" class="textBox box98" disabled>kg/t</td>
+                        <td><input name="" type="text" value="200.21" class="textBox box98">元</td>
+                        <td><input name="" type="text" value="200.21" class="textBox box98" disabled>%</td>
+                        <td><input name="" type="text" value="200.21" class="textBox box98" disabled>元</td>
+                        <td><input name="" type="text" value="200.21" class="textBox box98 orange" disabled>元</td>
+                      </tr>
+                      <tr>
+                        <td>汞</td>
+                        <td><input name="" type="text" value="200.21" class="textBox box98">kg/t</td>
+                        <td><input name="" type="text" value="200.21" class="textBox box98" disabled>kg/t</td>
+                        <td><input name="" type="text" value="200.21" class="textBox box98">元</td>
+                        <td><input name="" type="text" value="200.21" class="textBox box98" disabled>%</td>
+                        <td><input name="" type="text" value="200.21" class="textBox box98" disabled>元</td>
+                        <td><input name="" type="text" value="200.21" class="textBox box98 orange" disabled>元</td>
+                      </tr>
+                      <tr>
+                        <td>银</td>
+                        <td><input name="" type="text" value="200.21" class="textBox box98">kg/t</td>
+                        <td><input name="" type="text" value="200.21" class="textBox box98" disabled>kg/t</td>
+                        <td><input name="" type="text" value="200.21" class="textBox box98">元</td>
+                        <td><input name="" type="text" value="200.21" class="textBox box98" disabled>%</td>
+                        <td><input name="" type="text" value="200.21" class="textBox box98" disabled>元</td>
+                        <td><input name="" type="text" value="200.21" class="textBox box98 orange" disabled>元</td>
+                      </tr>
+                    </table>
+                    <div class="clear"></div>
+                    <div class="orderItemBtn">
+                        <a href="javascript:void(0)" class="btnBase btnAdd">添加一列</a>
+                    </div>
+                </div>
+            </div>
+            <!--第一种模式 end-->
+            
+            <!--第二种模式-->
+            <div class="orderStyle2">
+                <div class="orderItem">
+                    <div class="orderItemHeader">
+                        <dl class="formItem formItem5">
+                            <dt>重量</dt>
+                            <dd>
+                                <input name="" type="text" value="2000" class="textBox box80">
+                                <span class="hint">吨</span>
+                            </dd>
+                            <dd class="clear"></dd>
+                        </dl>
+                        <dl class="formItem formItem5">
+                            <dt>水分</dt>
+                            <dd>
+                                <input name="" type="text" value="2000" class="textBox box80">
+                                <span class="hint">%</span>
+                            </dd>
+                            <dd class="clear"></dd>
+                        </dl>
+                        <dl class="formItem formItem5">
+                            <dt>一口价</dt>
+                            <dd>
+                                <input name="" type="text" value="2000" class="textBox box80">
+                                <span class="hint">元</span>
+                            </dd>
+                            <dd class="clear"></dd>
+                        </dl>
+                        <dl class="formItem formItem5">
+                            <dt>水分</dt>
+                            <dd>
+                                <input name="" type="text" value="2000" class="textBox box80">
+                                <span class="hint">%</span>
+                            </dd>
+                            <dd class="clear"></dd>
+                        </dl>
+                        <dl class="formItem formItem5">
+                            <dt>一口价</dt>
+                            <dd>
+                                <input name="" type="text" value="2000" class="textBox box80">
+                                <span class="hint">元</span>
+                            </dd>
+                            <dd class="clear"></dd>
+                        </dl>
+                        <div class="clear"></div>
+                        <div class="formItem formItem5">
+                            <div class="fileUpload">
+                                <a href="javascript:void(0);" class="btnUploadNo" style="width:74px;">上传检测报告</a>
+                                <span class="fileLoading"></span>
+                                <span class="fileName">
+                                用户体验交互视觉设计方法论.pdf
+                                <a href="javascript:void(0);" class="fileDelete"></a>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="orderItemBtn">
+                            <a href="javascript:void(0)" class="btnBase btnAdd">添加一列</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="orderTotal">订单总额：<em class="orange">4444.00</em><span style="color:#333;">元</span></div>
+            <!--第二种模式 end-->
+            
+            <h3><em class="borderBottomColor">银行账户信息</em></h3>
+            <ul class="bankList">
+            	<li class="bankItem cur">
+                	<span class="bank"><em>开户行</em>中国工商银行</span>
+                    <span class="fullBank"><em>全称</em>姐儿堰支行</span>
+                    <span class="num"><em>帐号</em>6228480461000596</span>
+                    <span class="name"><em>户名</em>成都易科远见科技有限公司</span>
+                </li>
+                <li class="bankItem">
+                	<span class="bank"><em>开户行</em>中国工商银行</span>
+                    <span class="fullBank"><em>全称</em>姐儿堰支行</span>
+                    <span class="num"><em>帐号</em>6228480461000596</span>
+                    <span class="name"><em>户名</em>成都易科远见科技有限公司</span>
+                </li>
+                <li class="bankItem">
+                	<span class="bank"><em>开户行</em>中国工商银行</span>
+                    <span class="fullBank"><em>全称</em>姐儿堰支行</span>
+                    <span class="num"><em>帐号</em>6228480461000596</span>
+                    <span class="name"><em>户名</em>成都易科远见科技有限公司</span>
+                </li>
+                <li class="bankItem">
+                	<span class="bank"><em>开户行</em>中国工商银行</span>
+                    <span class="fullBank"><em>全称</em>姐儿堰支行</span>
+                    <span class="num"><em>帐号</em>6228480461000596</span>
+                    <span class="name"><em>户名</em>成都易科远见科技有限公司</span>
+                </li>
+                <li class="bankItem">
+                	<span class="bank"><em>开户行</em>中国工商银行</span>
+                    <span class="fullBank"><em>全称</em>姐儿堰支行</span>
+                    <span class="num"><em>帐号</em>6228480461000596</span>
+                    <span class="name"><em>户名</em>成都易科远见科技有限公司</span>
+                </li>
+                <li class="bankItem">
+                	<span class="bank"><em>开户行</em>中国工商银行</span>
+                    <span class="fullBank"><em>全称</em>姐儿堰支行</span>
+                    <span class="num"><em>帐号</em>6228480461000596</span>
+                    <span class="name"><em>户名</em>成都易科远见科技有限公司</span>
+                </li>
+                <li class="cardAdd">绑定银行卡</li>
+                <div class="clear"></div>
+            </ul>
+            <div class="clear"></div>
+            <h3><em class="borderBottomColor">运输信息</em></h3>
+            <div class="childItem company">
+            	<input name="" type="checkbox" value="" class="itemCheck">
+            	<dl class="formItem" style="width:400px; margin-right:20px;">
+                	<dt>运输企业</dt>
+                    <dd>
+                        <input name="" type="text" class="textBox box300">
+                    </dd>
+                    <dd class="clear"></dd>
+                </dl>
+                <div class="itemControl">
+                    <a href="javascript:void(0);" class="btnBase btnshoufang">展开</a>
+                </div>
+                <div class="clear"></div>
+                <div class="childItem pointTop itemContent">
+                    <div class="infoTitle"><em>车辆信息</em><a href="javascript:void(0);" class="btnBase addTruck">添加车辆</a></div>
+                    <div class="childItem pointTop grayBg">
+                        <dl class="formItem formItem4">
+                            <dt>车牌号</dt>
+                            <dd>
+                                川A54CD8
+                            </dd>
+                            <dd class="clear"></dd>
+                        </dl>
+                        <dl class="formItem formItem4">
+                            <dt>承载量</dt>
+                            <dd>
+                                180吨
+                            </dd>
+                            <dd class="clear"></dd>
+                        </dl>
+                        <dl class="formItem formItem4">
+                            <dt>载人数</dt>
+                            <dd>
+                                20人
+                            </dd>
+                            <dd class="clear"></dd>
+                        </dl>
+                        <div class="itemControl">
+                            <a href="javascript:void(0);" class="btnBase btnshoufang">展开</a>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="itemContent">
+                        	<dl class="formItem formItem4">
+                                <dt>结算方式</dt>
+                                <dd>
+                                    <select class="textBox box120">
+                                    	<option>包车</option>
+                                    </select>
+                                </dd>
+                                <dd class="clear"></dd>
+                            </dl>
+                            <dl class="formItem formItem4">
+                                <dt>实际载重</dt>
+                                <dd>
+                                    <input name="" type="text" class="textBox box120">
+                                    <span>吨</span>
+                                </dd>
+                                <dd class="clear"></dd>
+                            </dl>
+                            <div class="clear lineSplit"></div>
+                            <div class="infoTitle"><em>人员信息</em></div>
+                            <div class="childItem">
+                            	<dl class="formItem">
+                                    <dt>押运员</dt>
+                                    <dd class="supercargo">
+                                        <input name="" type="text" class="textBox box212">
+                                        <span class="pp" title="关联押运员"></span>
+                                    </dd>
+                                    <dd class="clear"></dd>
+                                </dl>
+                                <dl class="formItem">
+                                    <dt>驾驶员</dt>
+                                    <dd class="driver">
+                                        <input name="" type="text" class="textBox box212">
+                                        <span class="pp" title="关联驾驶员"></span>
+                                    </dd>
+                                    <dd class="clear"></dd>
+                                </dl>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--右侧主体 end-->
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<!--底部-->
+<div class="bottomMenu">
+  <div class="wrapper">
+    <dl class="footItem">
+      <dt>
+        <img src="../../../resources/commons/images/gyl_icon_r1_c4.png" width="49" height="48" />
+        <span>采购流程</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="下单流程">下单流程</a></li>
+        <li><a href="javascript:void(0);" title="订单跟踪">订单跟踪</a></li>
+        <li><a href="javascript:void(0);" title="安全支付">安全支付</a></li>
+        <li><a href="javascript:void(0);" title="企业认证">企业认证</a></li>
+        <li><a href="javascript:void(0);" title="常见问题">常见问题</a></li>
+      </dd>
+    </dl>
+    <dl class="footItem">
+      <dt>
+      	<img src="../../../resources/commons/images/gyl_icon_r1_c5.png" width="49" height="48" />
+        <span>服务与支持</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="物流配送">物流配送</a></li>
+        <li><a href="javascript:void(0);" title="经销商权益">经销商权益</a></li>
+        <li><a href="javascript:void(0);" title="不良品退货">不良品退货</a></li>
+        <li><a href="javascript:void(0);" title="在线咨询">在线咨询</a></li>
+        <li><a href="javascript:void(0);" title="融资操作手册">融资操作手册</a></li>
+      </dd>
+    </dl>
+    <dl class="footItem">
+      <dt>
+        <img src="../../../resources/commons/images/gyl_icon_r1_c6.png" width="49" height="48" />
+        <span>我的账户</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="子账户管理">子账户管理</a></li>
+        <li><a href="javascript:void(0);" title="密码重置">密码重置</a></li>
+        <li><a href="javascript:void(0);" title="在线打款">在线打款</a></li>
+      </dd>
+    </dl>
+    <dl class="lastItem">
+      <dt>
+        <img src="../../../resources/commons/images/gyl_icon_r1_c7.png" width="49" height="48" />
+        <span>关于我们</span>
+        <div class="clear"></div>
+      </dt>
+      <dd>
+        <li><a href="javascript:void(0);" title="公司简介">公司简介</a></li>
+        <li><a href="javascript:void(0);" title="联系我们">联系我们</a></li>
+        <li><a href="javascript:void(0);" title="网站声明">网站声明</a></li>
+      </dd>
+    </dl>
+    <div class="clear"></div>
+  </div>
+</div>
+<!--底部 end--> 
+
+<!--尾部-->
+<div class="footer">
+  <div class="wrapper">
+    <p class="footerLeft">© 2014 成都易科远见科技有限公司 版权所有 蜀ICP备 14005736号</p>
+    <p class="footerRight">成都市高新区吉泰路666号花样年·福年广场2号楼1309室<br>服务热线：028-83190368</p>
+    <div class="clear"></div>
+  </div>
+</div>
+<!--尾部 end--> 
+
+<div class="apLayerBg"></div>
+<div class="apLayer borderColor shopListAlert apConfirm">
+	<div class="apTit">
+    	<span class="apClose"></span>
+        车辆选择
+    </div>
+    <div class="apContent">
+        <div class="shopSearch">
+            <dl class="formItem">
+                <dt>车牌号</dt>
+                <dd>
+                <input name="" type="text" class="textBox box212" value="">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+        </div>
+        <div class="btn">
+            <a href="javascript:void(0);" class="btnBase">搜索</a>
+            <a href="javascript:void(0);" class="btnBase">重置</a>
+        </div>
+        <table border="0" cellspacing="0" cellpadding="0" class="shopTable">
+                <tr>
+                	<th><a href="javascript:void(0);" class="checkAll">全选</a></th>
+                    <th>车牌号</th>
+                    <th>核定载人数</th>
+                    <th>车辆类型</th>
+                    <th>核定载质量</th>
+                </tr>
+                <tr>
+                	<td><input name="" type="checkbox" value=""></td>
+                    <td>川A.75910</td>
+                    <td>3人</td>
+                    <td>重型厢式货车</td>
+                    <td>154268KG</td>
+                </tr>
+                <tr>
+                	<td><input name="" type="checkbox" value=""></td>
+                    <td>川A.75910</td>
+                    <td>3人</td>
+                    <td>重型厢式货车</td>
+                    <td>154268KG</td>
+                </tr>
+                <tr>
+                	<td><input name="" type="checkbox" value=""></td>
+                    <td>川A.75910</td>
+                    <td>3人</td>
+                    <td>重型厢式货车</td>
+                    <td>154268KG</td>
+                </tr>
+                <tr>
+                	<td><input name="" type="checkbox" value=""></td>
+                    <td>川A.75910</td>
+                    <td>3人</td>
+                    <td>重型厢式货车</td>
+                    <td>154268KG</td>
+                </tr>
+                <tr>
+                	<td><input name="" type="checkbox" value=""></td>
+                    <td>川A.75910</td>
+                    <td>3人</td>
+                    <td>重型厢式货车</td>
+                    <td>154268KG</td>
+                </tr>
+                <tr>
+                	<td><input name="" type="checkbox" value=""></td>
+                    <td>川A.75910</td>
+                    <td>3人</td>
+                    <td>重型厢式货车</td>
+                    <td>154268KG</td>
+                </tr>
+                <tr>
+                	<td><input name="" type="checkbox" value=""></td>
+                    <td>川A.75910</td>
+                    <td>3人</td>
+                    <td>重型厢式货车</td>
+                    <td>154268KG</td>
+                </tr>
+            </table>
+        <div class="pageSize">
+            <a href="javascript:void(0);" class="btn pageControl">&lt;&lt;</a>
+            <a href="javascript:void(0);" class="btn pageControl">&lt;</a>
+            <a href="javascript:void(0);" class="btn">1</a>
+            <a href="javascript:void(0);" class="btn">2</a>
+            <a href="javascript:void(0);" class="btn cur">3</a>
+            <a href="javascript:void(0);" class="btn">4</a>
+            <a href="javascript:void(0);" class="btn">5</a>
+            <a href="javascript:void(0);" class="btn">6</a>
+            <a href="javascript:void(0);" class="btn">...</a>
+            <a href="javascript:void(0);" class="btn pageControl">&gt;</a>
+            <a href="javascript:void(0);" class="btn pageControl">&gt;&gt;</a>
+        </div>
+    </div>
+    <div class="apBtns"><a class="btnBase" href="javascript:ok();">确定</a><a class="btnBase" href="javascript:cancel();">取消</a></div>
+</div>
+<div class="apLayer borderColor alertBrand apConfirm" id="supercargo">
+	<div class="apTit">
+    	<span class="apClose"></span>
+        押运员选择
+    </div>
+    <div class="apContent">
+        <div class="itemLayer">
+            <div class="classItem">
+            	<label>
+                    <input name="yayun" type="radio" value="">
+                    iphone5S
+                </label>
+            </div>
+            <div class="classItem">
+            	<label>
+                    <input name="yayun" type="radio" value="">
+                    iphone5S
+                </label>
+            </div>
+            <div class="classItem">
+            	<label>
+                    <input name="yayun" type="radio" value="">
+                    iphone5S
+                </label>
+            </div>
+            <div class="classItem">
+            	<label>
+                    <input name="yayun" type="radio" value="">
+                    iphone5S
+                </label>
+            </div>
+            <div class="classItem">
+            	<label>
+                    <input name="yayun" type="radio" value="">
+                    iphone5S
+                </label>
+            </div>
+            <div class="classItem">
+            	<label>
+                    <input name="yayun" type="radio" value="">
+                    iphone5S
+                </label>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="pageSize">
+            <a href="javascript:void(0);" class="btn pageControl">&lt;&lt;</a>
+            <a href="javascript:void(0);" class="btn pageControl">&lt;</a>
+            <a href="javascript:void(0);" class="btn">1</a>
+            <a href="javascript:void(0);" class="btn">2</a>
+            <a href="javascript:void(0);" class="btn cur">3</a>
+            <a href="javascript:void(0);" class="btn">4</a>
+            <a href="javascript:void(0);" class="btn">5</a>
+            <a href="javascript:void(0);" class="btn">6</a>
+            <a href="javascript:void(0);" class="btn">...</a>
+            <a href="javascript:void(0);" class="btn pageControl">&gt;</a>
+            <a href="javascript:void(0);" class="btn pageControl">&gt;&gt;</a>
+        </div>
+    </div>
+    <div class="apBtns"><a class="btnBase" href="javascript:ok();">确定</a><a class="btnBase" href="javascript:cancel();">取消</a></div>
+</div>
+<div class="apLayer borderColor alertBrand apConfirm" id="driver">
+	<div class="apTit">
+    	<span class="apClose"></span>
+        驾驶员选择
+    </div>
+    <div class="apContent">
+        <div class="itemLayer">
+            <div class="classItem">
+            	<label>
+                    <input name="" type="checkbox" value="">
+                    iphone5S
+                </label>
+            </div>
+            <div class="classItem">
+            	<label>
+                    <input name="" type="checkbox" value="">
+                    iphone5S
+                </label>
+            </div>
+            <div class="classItem">
+            	<label>
+                    <input name="" type="checkbox" value="">
+                    iphone5S
+                </label>
+            </div>
+            <div class="classItem">
+            	<label>
+                    <input name="" type="checkbox" value="">
+                    iphone5S
+                </label>
+            </div>
+            <div class="classItem">
+            	<label>
+                    <input name="" type="checkbox" value="">
+                    iphone5S
+                </label>
+            </div>
+            <div class="classItem">
+            	<label>
+                    <input name="" type="checkbox" value="">
+                    iphone5S
+                </label>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="pageSize">
+            <a href="javascript:void(0);" class="btn pageControl">&lt;&lt;</a>
+            <a href="javascript:void(0);" class="btn pageControl">&lt;</a>
+            <a href="javascript:void(0);" class="btn">1</a>
+            <a href="javascript:void(0);" class="btn">2</a>
+            <a href="javascript:void(0);" class="btn cur">3</a>
+            <a href="javascript:void(0);" class="btn">4</a>
+            <a href="javascript:void(0);" class="btn">5</a>
+            <a href="javascript:void(0);" class="btn">6</a>
+            <a href="javascript:void(0);" class="btn">...</a>
+            <a href="javascript:void(0);" class="btn pageControl">&gt;</a>
+            <a href="javascript:void(0);" class="btn pageControl">&gt;&gt;</a>
+        </div>
+    </div>
+    <div class="apBtns"><a class="btnBase" href="javascript:ok();">确定</a><a class="btnBase" href="javascript:cancel();">取消</a></div>
+</div>
+<div class="apLayer apConfirm borderColor" style="max-height:400px;" id="addBankCard">
+	<div class="apTit">
+    	<span class="apClose"></span>
+        绑定银行卡
+    </div>
+    <div class="apContent" style="padding-top:20px;">
+    	<dl class="formItem">
+            <dt>真实姓名</dt>
+            <dd>
+                <input name="" type="text" class="textBox box212"><!--输入错误的文本框-->
+                <span class="errorText">真实姓名不能为空</span>
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="formItem">
+            <dt>开户银行</dt>
+            <dd>
+                <input name="" type="text" class="textBox box212"><!--输入错误的文本框-->
+                <span class="errorText">开户银行不能为空</span>
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="formItem">
+            <dt>手机号码</dt>
+            <dd>
+                <input name="" type="text" class="textBox box212">
+                <span class="errorText" style="width:290px;">请填写手机号码！</span>
+                <div class="clear"></div>
+                <span class="hint">请填写您在银行预留的手机号码，以验证银行卡是否属于您本人</span>
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="formItem">
+            <dt>银行卡号</dt>
+            <dd>
+                <input name="" type="text" class="textBox box212">
+                <span class="errorText">请填写银行卡号</span>
+                <!--<span class="errorText">无法识别您的卡号，请填写正确的银行卡卡号。</span>-->
+                <div class="clear"></div>
+                <span class="hint">输入卡号后会智能识别银行和卡种，银行卡要求</span>
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="formItem">
+            <dt>身份证号</dt>
+            <dd>
+                <input name="" type="text" class="textBox box212">
+                <span class="errorText">身份证号格式不正确</span>
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+    </div>
+    <div class="apBtns"><a class="btnBase" href="javascript:ok();">确定</a><a class="btnBase" href="javascript:cancel();">取消</a></div>
+</div>
+<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="../../../resources/userCenter/commons/js/base.js"></script>
+<script>
+$(".pointTop").append("<span class='pointIcon'></span>");
+
+//展开收起
+$(".btnshoufang").live("click",function(){
+	var dom=$(this).parent().parent().children(".itemContent");
+	if(dom.css("display")=="none"){
+		$(this).text("收起");
+		dom.slideDown('fast');
+	}
+	else{
+		$(this).text("展开");
+		dom.slideUp('fast');
+	}
+})
+
+//添加信息
+$(".addDriver").live("click",function(){
+	var obj=$(this).parent().next(".childItem");
+	var dom=obj.children(".onlyThis:first").clone();
+	clear(dom);
+	dom.children("dd.driver").append('<a href="javascript:void(0);" class="removePerson"></a>');
+	obj.children(".onlyThis:last").after(dom);
+	function clear(canshu){
+		canshu.addClass("clone");
+		canshu.find(".clone").remove();
+		canshu.find("input[type='text']").val("");
+		canshu.find(".itemContent").hide();
+		canshu.find(".btnshoufang").text("展开");
+	}
+})
+
+$(".addTruck").click(function(){
+	$(".shopListAlert,.apLayerBg").show();
+})
+
+$(".driver .pp").click(function(){
+	$("#driver,.apLayerBg").show();
+})
+$(".supercargo .pp").click(function(){
+	$("#supercargo,.apLayerBg").show();
+})
+
+//全选
+$(".checkAll").live("click",function(){
+	var obj=$(this).parents("table").find("input");
+	if(obj.is(":checked")){
+		obj.attr("checked",false);
+	}
+	else{
+		obj.attr("checked",true);
+	}
+})
+
+//删除信息
+$(".btnRemove").live("click",function(){
+	var obj=$(this).parent().parent();
+	obj.remove();
+})
+$(".removePerson").live("click",function(){
+	$(this).parents(".formItem").remove();
+})
+
+//选择银行账户
+$(".bankList .bankItem").click(function(){
+	$(this).siblings().removeClass("cur");
+	$(this).addClass("cur");
+})
+
+$(".cardAdd").click(function(){
+	$("#addBankCard,.apLayerBg").show();
+})
+
+//添加详细信息
+$(".orderItemBtn .btnAdd").live("click",function(){
+	var obj=$(this).parents(".orderItem").clone();
+	obj.find("input[type='text']").val("");
+	obj.find(".orderItemBtn").html('<a href="javascript:void(0)" class="btnBase btnAdd">添加一列</a><a href="javascript:void(0)" class="btnBase btnOrange">删除</a>');
+	$(this).parents(".orderItem").after(obj);
+	$(this).remove();
+})
+//删除详细信息
+$(".orderItemBtn .btnOrange").live("click",function(){
+	var obj=$(this).parents(".orderItem").siblings();
+	//alert($(this).parents(".orderItem").siblings().length);
+	if($(this).parents(".orderItem").siblings().length==1){
+		obj.find(".orderItemBtn").html('<a href="javascript:void(0)" class="btnBase btnAdd">添加一列</a>');
+	}
+	else{
+		obj.last().find(".orderItemBtn").html('<a href="javascript:void(0)" class="btnBase btnAdd">添加一列</a><a href="javascript:void(0)" class="btnBase btnOrange">删除</a>');
+	}
+	$(this).parents(".orderItem").remove();
+})
+
+//收起展开详情
+$(".shouzhan").live("click",function(){
+	var obj=$(this).parents(".orderItemHeader").next(".tabList");
+	obj.toggle();
+	$(this).toggleClass("shouzhanDown");
+	$(".shouzhan").text("收起详情");
+	$(".shouzhanDown").text("展开详情");
+})
+</script>
+</body>
+</html>

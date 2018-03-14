@@ -1,0 +1,18 @@
+<!-- 广告展示 -->
+
+#define(Map<String, com.ekfans.base.channel.model.ChannelConfig> configMap)
+#define(String configType)
+#define(String position)
+#define(String channelId)
+
+
+
+#set(com.ekfans.base.channel.model.ChannelConfig config = configMap.get(configType + position))
+#if(configStatus == "true")
+	#include("../config/configTitle.jetx",{"channelId":channelId,"configType":configType,"position":position})
+#end
+
+#set(com.ekfans.base.system.model.ShopAd ad = (config != null)?config.details:null)
+
+${ad!=null?ad.html:""}
+	

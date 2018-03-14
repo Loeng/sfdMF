@@ -1,0 +1,7 @@
+@charset "utf-8";
+/* CSS Document */
+
+.scoreClass{width:14%;}
+.scoreCount{width:17%;}
+.scoreTime{width:21%;}
+.scoreInfo{color:#FF6B00; padding-left:3%; height:21px; line-height:21px; float:left;}

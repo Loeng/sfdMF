@@ -1,0 +1,52 @@
+	#define(List<com.ekfans.base.order.model.SupplyBuy> sbList)	
+<input type="hidden" name="pageNum" id="pageNum"/>
+<input type="hidden" name="type" id="type" value="${type}"/>
+<div #if(type == "0") class="leftLayer" #else class="rightLayer" #end>
+        <div class="info">
+            <div class="infoHeader">
+              <div class="headerItem" style="width:35%;">产品信息</div>
+                <div class="headerItem" style="width:35%;">发布企业</div>
+                <div class="headerItem">截止时间</div>
+            </div>
+            <div class="tableBox">
+                <table border="0" cellspacing="0" cellpadding="0" class="infoTable">
+                  #if(sbList!=null&&sbList.size()>0)
+                		#for(com.ekfans.base.order.model.SupplyBuy sb:sbList)
+		                  <tr>
+		                    <td width="35%"><em class="biaoti">${sb.title}</em><span class="neirong">${sb.content}</span></td>
+		                    <td width="35%"><br>${sb.storeName}</td>
+		                    <td ><br>${sb.endTime.substring(0,10)}</td>
+		                    <td><br><a href="javascript:void(0)" class="ckDetail" onclick="openAl('${sb.id}');">详情</a></td>
+		                  </tr>
+                   <div class="alertLayerBg" id="alert${sb.id}"></div>
+		                  <div class="alterBox" id="al${sb.id}">
+													<div class="layHeader">
+												    <h6>${sb.title}</h6>
+												    
+												    <a href="javascript:void(0);" class="layerClose" onclick="closeAl('${sb.id}');"></a>
+												  </div>
+												  <div class="alterContent">
+												  
+												  	<ul class="proDetailLi">												    
+															<li>发布企业：${sb.storeName}</li>
+															<li>发布时间：${sb.createTime}</li>
+															<li>截止时间：${sb.endTime}</li>
+												    </ul>
+												    <ul class="contact">
+												    	<li>联系人：${sb.contactName}</li>
+															<li>联系方式：${sb.contactPhone}</li>
+												    </ul>
+												    <div class="clear"></div>
+												    <div class="h6Detail">${sb.content}</div>
+												  </div>
+												</div>  
+												#end 
+	                 
+                  #end          
+                </table>
+            </div>
+          </div>
+      </div>
+     #if(sbList!=null&&sbList.size()>0)
+	      		#include("../commons/channel-page.jetx")
+	      	#end

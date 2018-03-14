@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+    	<title>修改店铺等级信息</title>
+    	<link href="${webroot}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+    	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/store/level/storeLevelModify.js"></script>
+    </head>
+    
+    <body>
+    	<input type="hidden" id="modifyOk" value="${requestScope.modifyOk}" />
+			<input type="hidden" id="ctxpath" value="${webroot}" />
+			<form action="${webroot}/system/store/storeLevel/modify" name="add" method="post"  id="modifyStoreLevelForm">
+				#define(com.ekfans.base.store.model.StoreLevel storeLevel)
+				<div class="ht_btn">
+					<a href="#" onclick="formSubmit();" class="btn">保存</a>
+					<a href="#" onclick="reset();" class="btn">重置</a>
+					<a href="#" onclick="goBack('${webroot}');" class="btn">返回列表</a>
+				</div>
+	 		<div class="add_pro">
+	 			<input type="hidden" name="id" value="${storeLevel.id }">
+	 			<input type="hidden" name="icon" value="${storeLevel.icon }">
+				<dl class="formBox">
+					<dt>店铺等级名<em class="mustIco"></em></dt>
+					<dd id="nameDd" class="">
+							<input type="text" class="i_bg" name="name" value="${storeLevel.name }" onblur="javascript:checkNameBlur();"
+						 onkeyup="javascript:checkName();" onfocus="javascript:checkName();" />
+						<span id="nameSpan" class="ts_xx">店铺等级名为3-20位字符组成</span>
+					</dd>
+				</dl>
+				<dl class="formBox">
+					<dt>最低升级条件</dt>
+					<dd class="">
+						<input type="text" class="i_bg"  name="lowestConditions" value="${storeLevel.lowestConditions }" onkeypress="return IsNum(event)"/>
+						<span id="" class="ts_xx">输入数字</span>
+					</dd>
+				</dl>
+				<dl class="formBox">
+					<dt>最高降级条件</dt>
+					<dd class="">
+						<input type="text" class="i_bg"  name="highestConditions" value="${storeLevel.highestConditions }" onkeypress="return IsNum(event)"/>
+						<span id="" class="ts_xx">输入数字</span>
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				<dl class="formBoxLine">
+					<dt>等级备注</dt>
+					<dd class="">
+						<textarea name="note">${storeLevel.note }</textarea>
+					</dd>
+				</dl>
+				
+				<input type="hidden" name="createTime" value="${storeLevel.createTime }">
+				
+			</div>
+		</form>
+	</body>
+</html>

@@ -1,0 +1,24 @@
+#define(List<com.ekfans.base.store.model.Store> storelist)
+
+<div class="companys">
+    <h3>认证企业</h3>
+    <dl>
+	    <dt>
+    	#for(com.ekfans.base.store.model.Store store:storelist)
+    		#if(for.index<3)
+        		<a href="${webroot}/web/storedetail/${store.id}" target="_black"><img src="${webroot}${store.storeLogo}"  alt="${store.storeName}" width="120" height="120"></a>
+        	#else
+         		#break;
+         	#end
+        #end
+	    </dt>
+	    <dd>
+		    #for(com.ekfans.base.store.model.Store store:storelist)
+	    		#if(for.index <3)
+	        	#elseif(for.index <7)
+	        		<a href="${webroot}/web/storedetail/${store.id}" target="_black"><li>${store.storeName}</li></a>
+	         	#end
+	        #end
+	    </dd>
+    </dl>
+</div>

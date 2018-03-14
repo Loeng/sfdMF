@@ -1,0 +1,52 @@
+#define(List<com.ekfans.base.product.model.Product> gjsProducts)	
+#define(String nowYear)
+#define(String nowMeah)
+#define(String nowDate)
+
+ <div class="date">${nowYear}.${nowMeah}<em>${nowDate}日</em></div>
+        <span class="split"></span>
+        <div style="float:left;">
+        	<a href="javascript:void(0);" style="text-align:right;width:500px;display:block;" onclick="goGjsPList('${gjsPc}');">更多...</a>
+          <div class="infoHeader">
+            <div class="headerItem" style="width:22%;">发布企业</div>
+            <div class="headerItem" style="width:11%;">产品</div>
+            <div class="headerItem" style="width:18%;">规格</div>
+            <div class="headerItem" style="width:19%;">价格</div>
+            <div class="headerItem" style="width:14%;">涨跌</div>
+            <div class="headerItem" style="width:15%">操作<em class="testData">测试</em></div>
+          </div>
+          <div class="tableBox">
+        <table border="0" cellspacing="0"  class="infoTable">
+         #if(gjsProducts!=null&&gjsProducts.size()>0)
+	   			 #for(com.ekfans.base.product.model.Product p:gjsProducts)
+	          <tr>
+	          		<td><div style="width:71px;height:22px;overflow:hidden;padding-left:10px;">${p.storeId}</div></td>
+	             	<td>${p.name}</td>
+                <td>${p.productModel}</td>
+                <td>${p.unitPrice}</td>
+                <td class="red">↑ 120</td>
+               
+	            <td class="red">#if(p.isAdvance == "1")<a href="${webroot}/web/dingGou/order/${p.id}">订购</a><br/>#end<a href="${webroot}/web/gouWu/order/${p.id}">购买</a></td>
+	          </tr>
+	         #end
+         #end
+        </table>
+        </div>
+        </div>
+        <span class="split"></span>
+        <!--<div class="zoushi">
+        	<iframe width="370" height="212" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" src="zst.html" charset=&quot;gbk&quot ></iframe>
+            <!--
+        	<div class="selList">
+              <span class="textBox">
+                  <input name="" type="text" class="box184" value="黄金" readonly>
+                  <em class="iconDown"></em>
+              </span>
+              <ul>
+                <li>黄金</li>
+                <li>铂金</li>
+              </ul>
+            </div>
+            <img src="${webroot}/resources/web/pic/zoushi.jpg" alt="走势图">
+        </div>-->
+        <div class="clear"></div>

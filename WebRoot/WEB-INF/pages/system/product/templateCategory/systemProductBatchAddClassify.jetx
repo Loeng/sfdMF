@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>商品模板</title>
+  <link href="${webroot}/resources/system/css/xiazai.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+	<link href="${webroot}/resources/system/css/demand.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/upload.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/xiazai.css" />
+	<link href="${webroot}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+	<link href="${webroot}/resources/system/css/demand.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/product/templateCategory/systemProductBatchAddClassify.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/plugin/fileupload/js/jquery.fileupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/product/systemProductBatchAdd.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+</head>
+<body>
+	<input type="hidden" id="ctxpath" value="${webroot}" />
+	#define(List<com.ekfans.base.product.model.ProductCategory> pcs)
+	#define(List<com.ekfans.base.product.model.ProductTemplate> tem)
+<div class="form borderColor">
+	<p class="tipName">模板下载</p>
+<div class="xiazai">
+	<form action="${webroot}/system/excel/download" method="post"  id="excelDownLoadForm">
+  <dl class="formItem">
+    <dt><em class="mustIco"></em>商品分类</dt>
+			  <dd>
+			 	     <select id="productCategoryNum" name="userId" class="i_bg" style="width:157px;float:left;" onchange="searchFirstName();">
+			 	  	  <option selected value ="" >请选择商品分类</option>
+	            #for(com.ekfans.base.product.model.ProductCategory p:pcs)
+	            	   <option value ="${p.id},${p.name}">${p.name}</option>
+	            #end	  
+            	</select>
+            	<div id ="selectOne" style="width:157px;float:left;"></div>
+            	<div id ="selectTwo" style="width:157px;float:left;"></div>
+            	<div id ="selectThree"  style="width:157px;float:left;"></div>
+            	<span id="userNameSpan" class="errorText" style="display:none;">请选择商品分类</span>
+			 	</dd>	
+    <dd class="clear"></dd>
+  </dl>
+  <dl class="formItem">
+    <dt><em class="mustIco"></em>模板分类</dt>
+			  <dd>
+			 	     <select id="CategoryNum" name="userId" class="i_bg" style="width:157px;float:left;" onchange="Category();">
+			 	  	  <option selected value ="" >请选择模板分类</option>
+	            #for(com.ekfans.base.product.model.ProductTemplate p:tem)
+	            	   <option value ="${p.id}">${p.name}</option>
+	            #end	  
+            	</select>
+            	<div id ="selectOne" style="width:157px;float:left;"></div>
+            	<div id ="selectTwo" style="width:157px;float:left;"></div>
+            	<div id ="selectThree"  style="width:157px;float:left;"></div>
+            	<span id="userNameSpan" class="errorText" style="display:none;">请选择商品分类</span>
+			 	</dd>	
+    <dd class="clear"></dd>
+  </dl>
+  <dl class="formItem">
+    <dt></dt>
+    <dd>
+    	<input type="hidden" id="productId" name="productId" value="" />
+			<input type="hidden" id="categoryId" name="categoryId" value="" />
+     <a href="javascript:void(0);" class="btnUpload" onclick="downLoad();" style="margin-left:30px;">确认已选分类，点击下载EXCEL</a>
+    </dd>
+    <dd class="clear"></dd>
+  </dl>
+  </form>
+</div>
+#define(List<com.ekfans.base.user.model.User> user)
+<form action="${webroot}/system/saveProductBtach" method="post"  id="saveProductBatchForm">
+		<p class="tipName">上传</p>
+<div class="shangchuan"  >
+  <dl class="formItem">
+    <dt><em class="mustIco"></em>核心企业</dt>
+			  <dd>
+			 	     <select id="storeId" name="storeId" class="i_bg" style="width:157px;float:left;" >
+			 	  	  <option selected value ="" >请选择核心企业</option>
+	            #for(com.ekfans.base.user.model.User u:user)
+	            <option value="${u.id}">#if(u.nickName =="" && u.nickName == null)${u.name}#else ${u.nickName}#end </option>
+	            #end	  
+            	</select>
+			 	</dd>	
+    <dd class="clear"></dd>
+  </dl>
+  <dl class="formItem">
+    <dt style="height:40px; line-height:40px;"><em class="mustIco"></em>商品信息</dt>
+    <dd>
+     #tag fileUpload("productexcel","excel","") #end
+    </dd>
+    <dd class="clear"></dd>
+  </dl>
+  <dl class="formItem">
+    <dt style="height:40px; line-height:40px;"><em class="mustIco"></em>商品图片</dt>
+    <dd>
+      	#tag fileUpload("picpath","zip","") #end
+    </dd>
+    <dd class="clear"></dd>
+  </dl>
+  <dl class="formItem">
+    <dt></dt>
+    <dd>
+     <a href="javascript:void(0);" onclick="submit();" class="btnUpload"  style="margin-left:30px;">提交</a>
+    </dd>
+    <dd class="clear"></dd>
+  </dl>
+</div>
+<div class="tishi"  id="errorDiv" style="display:none;">
+#define(String result)
+#define(String uploadStatus)
+<input type="hidden" id="errorResult" value="${result}"/>
+<input type="hidden" id="resultStatus" value="${uploadStatus}"/>
+
+<p class="tipName">错误信息</p>
+<span class="wrongText" id="errorSpan"></span>
+</div>
+
+</div>
+</form>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ekfans.plugin.wftong.base.friend.model">
+
+    <!-- 好友关系表 -->
+    <class name="FriendRelation" table="FRIEND_RELATION" dynamic-update="false">
+        <id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+        <property name="userId" type="string" column="USER_ID" />
+        <property name="friendId" type="string" column="FRIEND_ID" />
+        <property name="status" type="string" column="STATUS" />
+        <property name="createTime" type="string" column="CREATE_TIME" />
+    </class>
+    
+    <!-- 好友日志表 -->
+    <class name="FriendLog" table="FRIENDLOG" dynamic-update="false">
+        <id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+        <property name="userId" type="string" column="USER_ID" />
+        <property name="operate" type="string" column="OPERATE" />
+        <property name="note" type="string" column="NOTE" />
+        <property name="createTime" type="string" column="CREATE_TIME" />
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,199 @@
+#define(com.ekfans.base.channel.model.Channel channel)
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}-${channel.name}</title>
+	<meta name="Keywords" content="${channel.keyWords}">
+	<meta name="description" content="${channel.description}">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<link rel="icon" type="image/x-icon" href="${ctxpath}/resources/commons/images/favicon.ico" />
+	<link rel="shortcut" type="image/x-icon icon" href="${ctxpath}/resources/commons/images/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="${ctxpath}/resources/commons/css/commons.css" />
+	<link rel="stylesheet" type="text/css" href="${ctxpath}/resources/web/css/base.css" />
+	<style type="text/css">
+	.bread{height:38px; line-height:38px; background:#FCF4E5; font-size:14px; color:#A78749; margin-bottom:20px;}
+	.curPages{color:#000;}
+	.pageNav{height:60px; background:#C29B51; color:#fff;}
+	.pageNav h2{width:120px; line-height:60px; overflow:hidden; font-size:18px; text-align:center; background:#A78749; float:left; margin-right:10px;}
+	.pageNavList a{display:block; padding:0 16px; float:left; margin:18px 8px; height:24px; line-height:24px; font-size:14px;color:#fff;}
+	.pageNavList a:hover,.pageNavList a.cur{background:#fff; border-radius:12px; color:#A78749;}
+	.pageNav2{ margin-bottom:15px; background-color:#DAAF5C;min-height: 60px;height:auto;}
+	
+	.proItem{padding:20px 20px 20px 43px; background:#fff; margin-bottom:8px; position:relative;min-height:195px;}
+	.proImg{width:180px; height:180px;line-height:180px;text-align:center;float:left; margin-right:15px; position:relative;}
+	.proImg img{ max-width:170px; max-height:170px;vertical-align: middle;text-align: center; border:solid 5px #E4E4E4;}
+	.proImg em{display:block; width:53px; padding:10px 5px; text-align:center; line-height:22px; font-size:18px; background:#37A1FF; color:#fff; position:absolute; left:-43px; top:15px;}
+	.proText{float:left; width:550px; padding-right:64px;}
+	.proText dt{height:34px; line-height:34px; overflow:hidden; font-size:22px; margin-bottom:10px;}
+	.proText .price{display:inline-block; height:34px; background:#EF4D4D; padding:0 12px; margin-left:30px; color:#fff;}
+	.proInfo1{line-height:30px; min-height:60px; font-size:14px;}
+	.proInfo2 span{display:block; height:25px; line-height:25px; overflow:hidden; width:48%; padding-right:2%; float:left; font-size:14px;}
+	.detection{padding:0 42px; float:left; border-right:solid 1px #DCDCDD; border-left:solid 1px #DCDCDD; width:87px; text-align:center; position:relative;}
+	.detection dt{font-size:18px; height:34px; line-height:34px; overflow:hidden;}
+	.detectionImg{display:block; width:85px; height:80px;padding:10px 0 0 0;border:solid 1px #E5E6E6; margin-bottom:5px; border-radius:6px;}
+	.yijiance{display:block; font-size:20px; font-weight:bold; color:#4695F9;}
+	.weijiance{display:block; font-size:20px; font-weight:bold; color:#868686;}
+	.detectionName{font-size:14px; line-height:20px; text-align:left; width:87px;height:60px; overflow:hidden;padding-left:2px;}
+	.proRight{float:left; padding:48px 0 0 37px;}
+	.proRight a{display:block; width:100px; height:36px; line-height:36px; color:#fff; font-size:18px; text-align:center; border-radius:6px;}
+	.btnRed{background:#EF4D4D; margin-bottom:12px;}
+	.btnRed:hover{background:#EC2828; color:#fff;}
+	.btnBlue{background:#4595F9;}
+	.btnBlue:hover{background:#0A75F8; color:#fff;}
+	
+	/*无信息样式*/
+	.newNone{margin:10px auto; background-image:url(${ctxpath}/resources/web/images/none.png); background-repeat:no-repeat; background-position:left center; width:223px; height:71px;padding-left:136px;}
+	.noInfo{ font-size:24px; color:#221714; width:213px; height:71px; line-height:71px; }
+	
+	
+	/*页码*/
+	.pageSize{text-align:center; padding:10px 0; background:#D3D3D3; margin-top:20px;}
+	.pageSize a{display:inline-block; height:21px; line-height:21px; margin-right:8px; padding:0 8px; color:#12369b;}
+	.pageLast,.pageNext{font-family:SimSun;}
+	.pageSize a:hover,.pageSize .nowPage{background:#4594f9; color:#fff;}
+	
+	/*弹窗背景公共样式*/
+	.alertLayerBg{filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8; opacity:0.8; background:#000; position:fixed; left:0; top:0; width:100%; height:100%; z-index:100; display:none;}
+	.layerClose{display:block; width:20px; height:17px; position:absolute; top:0px; right:0px; background:url(${ctxpath}/resources/web/images/close_icon.png) no-repeat;}
+	
+	/*计价单弹窗*/
+	.jijiadan{cursor:pointer;}
+	.alterPoint{position:absolute;top:48px;left:-14px;width:13px;height:22px;z-index:103;background-image:url(${ctxpath}/resources/web/images/leftPoint.png); background-repeat:no-repeat; background-position:center center;}
+	.alterBox{position:absolute;top:-30px;left:618px;width:440px;min-height:95px;max-height:320px;z-index:103;background-color:#fff;border:1px solid #0085FC;border-top:10px #0085FD solid; border-radius:8px;display:none; padding:20px 0 10px 0;}
+	.alterContent{padding:0px 20px 15px 15px;min-height:95px;max-height:310px; overflow:auto;}
+	.jjTab{width:100%;}
+	.jjTab th{width:25%; padding:0 0 0 10px;height:30px;line-height:30px;color:#000000; font-size:16px; background-color:#B5DBFC; text-align:left;}
+	.jjTab td{width:25%; padding:0 0 0 10px;line-height:30px; border-bottom:1px #DCDCDD solid; max-width:135px; background-color:#fff;font-size:14px;overflow:hidden;text-align:left;}
+	.colorH{color:#717071;}
+	.colorB{color:#000;}
+	
+	.testData{display:block; width:35px; height:28px; line-height:20px; color:#fff; font-size:12px; background:url(${ctxpath}/resources/web/images/test_icon.png); position:absolute; right:38px; top:36px; text-indent:0; text-align:center;}
+	</style>	
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery-1.8.3.min.js"></script>
+#if(configStatus == "true")
+	<link rel="stylesheet" type="text/css" href="${ctxpath}/resources/commons/css/control.css" />
+	<link rel="stylesheet" type="text/css" href="${ctxpath}/resources/commons/css/upload.css" />
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.soChange.js"></script>
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/jquery.json-2.2.min.js"></script>
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/control.js"></script>	
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${ctxpath}/resources/commons/js/upload/upload.js"></script>
+#end
+<script type="text/javascript">
+window.onload=function(){
+	$("#channelTop").load("${ctxpath}/web/channel/commons/channel-top.jetx",{"channelId":$("#channelId").val(),"channelType":$("#channelType").val(),"returnUrl":window.location.href});
+	$("#channelFoot").load("${ctxpath}/web/channel/commons/channel-footer.jetx")
+	
+	$(".pageNavList:eq(0)").load("${ctxpath}/web/xhjy/ylcgone",function(){
+		$(this).parent().css("margin-bottom", "15px");
+	});
+	$("#projectlist").load("${ctxpath}/web/xhjy/ylcgthree?pageNum=1&storeId=&areaId=");
+}
+
+function goPage(num){
+	var storeId = $("#storeId").val();
+	var areaId = $("#areaId").val();
+	$("#projectlist").load("${ctxpath}/web/xhjy/ylcgthree?pageNum=" + num + "&storeId=" + storeId +"&areaId=" + areaId);
+}
+
+function loadareas(obj, id){
+	if(id == ""){
+		$(obj).parent().parent().css("margin-bottom", "15px");
+		$("#tempOne").hide();
+		$(".pageNavList:eq(0) a").removeAttr("class");
+		$(obj).attr("class", "cur");
+		$("#projectlist").load("${ctxpath}/web/xhjy/ylcgthree?pageNum=1&storeId=&areaId=");
+	}else{
+		$("#projectlist").load("${ctxpath}/web/xhjy/ylcgthree?pageNum=1&storeId=&areaId=" + id);// load项目
+		
+		$(".pageNavList:eq(1)").load("${ctxpath}/web/xhjy/ylcgtwo?areaId=" + id,function(){
+			var htmls = $.trim($(".pageNavList:eq(1)").html());
+			if(htmls == ""){
+				$(obj).parent().parent().css("margin-bottom", "15px");
+				$("#tempOne").hide();
+				var viewHtml = '<div style="height:100px;background:#fff; padding:50px 0;"><div class="newNone"><div class="noInfo">暂无信息记录！</div></div></div>';
+				$("#projectlist").html(viewHtml);
+			}else{
+				$(obj).parent().parent().css("margin-bottom", "0px");
+				$("#tempOne").show()
+			}
+			$(".pageNavList:eq(0) a").removeAttr("class");
+			$(obj).attr("class", "cur");
+		});
+	}
+}
+
+function getStoreByProject(obj, id){
+	$(".pageNavList:eq(1) a").removeAttr("class");
+	$(obj).attr("class", "cur");
+	$("#projectlist").load("${ctxpath}/web/xhjy/ylcgthree?pageNum=1&storeId=" + id);
+}
+</script>
+</head>
+
+<body>
+<input type="hidden" name="channelId" id="channelId" value="${channelId}" />
+<input type="hidden" name="channelType" id="channelType" value="${channel.type}" />
+#if(configStatus == "true")
+	<!-- 频道配置导航条 -->
+	#include("commons/config/config-top.jetx")
+	<!-- 频道配置导航条 end -->
+#end
+
+<div id="channelTop"></div>
+
+<div class="bread">
+	<div class="wrapper">
+		<a href="${ctxpath}">首页</a>&nbsp;&gt;&nbsp;<em class="curPages">${channel.name}</em>
+	</div>
+</div>
+<div class="wrapper">
+	<div class="pageNav">
+		<h2>交易专区</h2>
+		<!-- BEGIN 大区列表 -->
+    <div class="pageNavList"></div>	
+    <!-- END 大区列表 -->
+	</div>
+  <div id="tempOne" class="pageNav pageNav2" style="display:none;">
+  	<!-- BEGIN 大区对应企业列表 -->
+    <div class="pageNavList"></div>
+    <!-- END 大区对应企业列表 -->
+  </div>
+  <div class="clear"></div>
+  <!-- BEGIN 原料供应信息列表 -->
+  <div id="projectlist"></div>
+  <!-- END 原料供应信息列表 -->
+</div>
+
+<div id="channelFoot"></div>
+
+<div class="alertLayerBg"></div>
+
+<script type="text/javascript" src="${ctxpath}/resources/web/js/base.js"></script>
+<script type="text/javascript" src="${ctxpath}/resources/web/js/jquery-ui-1.10.3.min.js"></script> 
+<script type="text/javascript">
+$(document).ready(function() {
+	$(".alterBox").draggable({ cursor: "move"});
+    //计价单
+	$(".jijiadan").live("click",function(){
+		 $(this).parents(".proItem").css("z-index","102");
+		 $(".alertLayerBg").show();
+		 $(this).parents(".proItem").find(".alterBox").show();
+	});
+	
+	$(".layerClose").live("click",function(){
+		 $(this).parents(".proItem").css("z-index","1");
+		 $(".alertLayerBg").hide();
+		 $(this).parents(".proItem").find(".alterBox").hide();
+	});
+});
+</script>
+<div style="display:none;">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255237573'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1255237573' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>

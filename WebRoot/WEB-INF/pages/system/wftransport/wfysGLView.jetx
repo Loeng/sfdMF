@@ -1,0 +1,198 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>管理系统</title>
+		<link href="${webroot}/resources/system/css/product/issue.css" rel="stylesheet" type="text/css" />
+		<link href="${webroot}/resources/system/css/list.css" rel="stylesheet" type="text/css" />
+
+		<!-- 上传文件的CSS -->
+		<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+		<link href="${webroot}/resources/system/css/zizhi2.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/plugin/ckeditor/ckeditor.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/base.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/supplyBuy/wfysGL.js"></script>
+		<!-- 上传文件控件  -->
+		<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+	</head>
+	
+<body>
+#define(com.ekfans.base.store.model.Wftransport wftransport)
+<input type="hidden" id="ctxpath" value="${webroot}" />
+<form action="${webroot}/system/wftransport/checkWftransport" name="addOk" method="post"  id="checkForm">
+	<input type="hidden" name="type" id="type" value="${wftransport.type}">
+	<input type="hidden" name="id"  value="${wftransport.id}">
+	<input type="hidden" name="checkStatus" id="checkStatus" value="${wftransport.checkStatus}"/>
+	<input type="hidden" name="status" id="checkStatus" value="${wftransport.status}"/>
+	<input type="hidden" name="createTime" value="${wftransport.createTime}"/>
+	<input type="hidden" name="updateTime" value="${wftransport.updateTime}"/>
+	<input type="hidden" name="wfpysParentId" value="${wftransport.wfpysParentId}"/>
+	<input type="hidden" name="wfpysId" value="${wftransport.wfpysId}"/>
+	<input type="hidden" name="storeId" value="${wftransport.storeId}"/>
+	<input type="hidden" name="startFullPath"  id="startFullPath" value="${wftransport.startFullPath}"/>
+	<input type="hidden" name="endFullPath" id="endFullPath" value="${wftransport.endFullPath}"/>
+	<input type="hidden" name="wfmlId" value="${wftransport.wfmlId}"/>
+	<div class="ht_btn">
+		<a href="javascript:void(0);"  class="btn" onclick="goBack('${webroot}');">返回列表</a>
+	</div>
+		
+	<div class="add_pro">
+		<dl>
+			<dt>标题<em class=""></em></dt>
+			<dd id="titleDd">
+				<input type="text" class="i_bg"  name="name" readonly value="${wftransport.name}" readonly/>
+			</dd>
+		</dl>
+		<dl class="linkAlert">
+			<dt>发布企业<em class="mustIco"></em></dt>
+			<dd id="storeIdDd">
+				<input name="storeName" class="i_bg" type="text" value="${wftransport.storeName}" readOnly />
+			</dd>
+		</dl>
+    	
+    	<dl>
+			<dt>出发地<em class=""></em></dt>
+			<dd >
+				#tag systemAreaSel("startPlace",wftransport.startPlace) #end
+			</dd>
+		</dl>
+		<dl>
+			<dt>目的地<em class=""></em></dt>
+			<dd id="contactNameDd">
+				#tag systemAreaSel("endPlace",wftransport.endPlace) #end
+			</dd>
+		</dl>
+		<dl>
+			<dt>详细地址<em class=""></em></dt>
+			<dd id="contactNameDd">
+				<input type="text" class="i_bg"  name="habitatAddress" readonly value="${wftransport.habitatAddress}"/>
+			</dd>
+		</dl>
+		#if(wftransport.type==1)
+		  <dl>
+			<dt>装货地详细地址<em class=""></em></dt>
+			<dd id="contactNameDd">
+				<input type="text" class="i_bg"  name="habitatAddress" readonly value="${wftransport.startHabitatAddress}"/>
+			</dd>
+		</dl>
+		<dl>
+			<dt>卸货地详细地址<em class=""></em></dt>
+			<dd id="contactNameDd">
+				<input type="text" class="i_bg"  name="habitatAddress" readonly value="${wftransport.endHabitatAddress}"/>
+			</dd>
+		</dl>
+		#end
+		<dl>
+			<dt>单位<em class=""></em></dt>
+			<dd id="contactNameDd">
+				<input type="text" class="i_bg"  name="unit" readonly value="${wftransport.unit}"/>
+			</dd>
+		</dl>
+		<dl>
+			<dt>运价<em class=""></em></dt>
+			<dd id="contactNameDd">
+				<input type="text" class="i_bg"  name="price" readonly placeholder="#if(wftransport.price == null)待议#end" value="${wftransport.price}"/>
+			</dd>
+		</dl>
+		<dl>
+			<dt>车辆类型<em class=""></em></dt>
+			<dd id="contactNameDd">
+				<input type="text" class="i_bg"  name="carName" readonly value="${wftransport.carName}"/>
+			</dd>
+		</dl>
+		<dl>
+			<dt>货物类别<em class=""></em></dt>
+			<dd id="contactNameDd">
+				<input type="text" class="i_bg"  name="categoryName" readonly value="${wftransport.categoryName}"/>
+			</dd>
+		</dl>
+		<dl>
+			<dt>危废品标准<em class=""></em></dt>
+			<dd id="contactNameDd">
+				<input type="text" class="i_bg"  name="wfpysName" readonly value="${wftransport.wfpysName}"/>
+			</dd>
+		</dl>
+		#if(wftransport.type == 0)
+			<dl>
+				<dt>罐体材质<em class=""></em></dt>
+				<dd id="contactNameDd">
+					<input type="text" class="i_bg"  name="tankMaterialName" readonly value="${wftransport.tankMaterialName}"/>
+				</dd>
+			</dl>
+			<dl>
+				<dt>车载总量<em class=""></em></dt>
+				<dd id="contactNameDd">
+					<input type="text" class="i_bg"  name="wfpTotal" readonly value="${wftransport.wfpTotal}"/>
+				</dd>
+			</dl>
+		#else
+			<dl>
+				<dt>货源名称<em class=""></em></dt>
+				<dd id="contactNameDd">
+					<input type="text" class="i_bg"  name="supplyName" readonly value="${wftransport.supplyName}"/>
+				</dd>
+			</dl>
+			<dl>
+				<dt>货源总量<em class=""></em></dt>
+				<dd id="contactNameDd">
+					<input type="text" class="i_bg"  name="wfpTotal" readonly value="${wftransport.wfpTotal}"/>
+				</dd>
+			</dl>
+		#end
+		
+		
+    	<dl>
+			<dt>联系人<em class=""></em></dt>
+			<dd id="contactNameDd">
+				<input type="text" class="i_bg"  name="linkMan" readonly value="${wftransport.linkMan}"/>
+			</dd>
+		</dl>
+		<div class="clear"></div>
+		 <dl>
+			<dt>联系电话</em></dt>
+			<dd id="contactPhoneDd">
+				<input type="text" class="i_bg"  name="phone" readonly value="${wftransport.phone}"/>
+			</dd>
+		</dl>
+		
+    	<div class="clear"></div>
+		<dl>
+			<dt>截止时间</dt>
+			<dd>
+				<input type="text" class="i_bg"  name="endTime" placeholder="#if(wftransport.endTime == null)不限时#end" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" value="${wftransport.endTime}" readonly/>
+			</dd>
+		</dl>
+		<div class="clear"></div>
+		<dl class="formBoxLine countBox">
+			<dt>描述</dt>
+			<dd><textarea name="content" class="bigBox" >${wftransport.content}</textarea></dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formBoxLine countBox">
+			<dt>审核备注</dt>
+			<dd><textarea name="checkNote" class="bigBox" >${wftransport.checkNote}</textarea></dd>
+			<dd class="clear"></dd>
+		</dl>
+	</div>
+
+
+</form>
+	
+	
+	<div class="loadingLayer" id="loadingLayer" style="display:none"></div>
+	<script>
+		$(function () {
+	    	CKEDITOR.replace('description', { height: '540px'});
+		});
+		$(".startPlaceArea,.endPlaceArea").attr("readonly","radonly");
+		$(".startPlaceArea,.endPlaceArea").attr("disabled","disabled");
+	</script>
+</body>
+</html>

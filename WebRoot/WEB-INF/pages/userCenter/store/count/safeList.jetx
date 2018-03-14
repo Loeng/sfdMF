@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>跳转到安全中心</title>
+	<link href="${webroot}/resources/store/css/store.css" rel="stylesheet" type="text/css" />
+	
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/store/js/count/safeList.js"></script>
+</head>
+<body>
+
+    #define(com.ekfans.base.user.model.User user)
+
+   	<input type="hidden" id="bindMobile" value="${user.mobile}" />
+	<input type="hidden" id="bindEmail" value="${user.email}" />
+	<input type="hidden" id="passwordStrong" value="${user.passwordStrong}" />
+	
+	
+	<div class="sto_right">
+		<div class="zh_dj">
+			<b>账号安全等级</b>
+			<span class="cj"></span>
+			<span class="zj"></span>
+			<span class="gj"></span>
+		</div>
+		<div class="zh_ts">
+			您的账号当前安全级别为<span id="accountGrade">中级</span>，您可以通过以下方式提高等级<p />
+			<a href="${webroot}/store/pwd/toUpdate">1.修改密码</a>
+			<a href="${webroot}/store/count/email/toUpdateEmail">2.修改绑定邮箱</a>
+			<a href="${webroot}/store/count/mobile/toUpdateMobile">3.修改绑定手机</a>
+		</div>
+		<dl class="zh_mx">
+			<dt>账号登录信息</dt>
+			<dd class="zh_jbxx">
+				会 员 名：${user.name}<p />
+				<p >绑定邮箱：${user.email}</p>
+				<p >绑定手机：${user.mobile}</p>
+			</dd>
+		</dl>
+		<dl class="zh_mx">
+			<dt>账号安全信息</dt>
+			<dd>
+				登录密码
+				<p>安全性高的密码可以使账号更安全。建议您定期更换密码，且设置一个包含数字和字母，并长度超过6位以上的密码</p>
+				<div>
+					<a href="${webroot}/store/pwd/toUpdate">修改</a>
+					<label class="cj"></label><br />
+					强度：<span > #if(user.passwordStrong=="1") 弱  #elseif(user.passwordStrong=="2") 中 #else 强  #end </span>
+				</div>
+					
+				邮箱绑定
+				<p>邮箱绑定,当您选择“邮箱”找回密码时，填写正确的绑定邮箱后，我们会将修改新密码连接发到您的绑定邮箱</p>
+				<div>
+					<a href="${webroot}/store/count/email/toUpdateEmail">修改</a>
+					#if(user.email.length()>0)  <label class="gj"></label>  已开通     #else  <label class="zj"></label>  #end
+					<br />
+				</div>
+				
+				<a href="#">手机绑定</a>
+				<p>绑定手机后，您即可享受全网商城网丰富的手机服务，如手机登录、手机找回密码等 </p>
+				<div class="no_line">
+					<a href="${webroot}/store/count/mobile/toUpdateMobile">修改</a>
+					#if(user.mobile.length()>0)  <label class="gj"></label>  已开通     #else  <label class="zj"></label> 未开通  #end
+					<br />
+					
+				</div>
+			</dd>
+		</dl>
+	</div>
+</div>
+</body>
+</html>

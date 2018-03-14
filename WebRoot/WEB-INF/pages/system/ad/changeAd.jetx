@@ -1,0 +1,70 @@
+<!--切换-->
+<div class="advStyleList changeStyle">
+    <dl>
+        <dt><em class="mustIco"></em>广告风格</dt>
+        <dd>
+            <select name="showType" id="showSelect" class="i_bg">
+                <option>请选择</option>
+                <option value="tuwen1"  >图文切换</option>
+                <option value="shuzi"  >数字切换</option>
+                <option value="circlePoint">圆点切换</option>
+                <option value="daxiao"  >大小图切换</option>
+            </select>
+            <a href="javascript:void(0);" class="btnBlue">查看广告形式</a>
+        </dd>    
+    </dl>
+    <div class="tabStyle">
+        <em class="pointTop"></em>
+        <a href="javascript:void(0);" class="closeIco">关闭</a>
+        <ul class="tabs">
+            <li class="cur">图文切换</li>
+            <li>数字切换</li>
+            <li>圆点切换</li>
+            <li>大小图切换</li>
+        </ul>
+        <div class="advStyleContent">
+            <div class="styleContent cur"><img src="${ctxpath}/resources/system/images/imgchange1.jpg" width="713" height="268"></div>
+            <div class="styleContent"><img src="${ctxpath}/resources/system/images/imgcount.jpg" width="713" height="268"></div>
+            <div class="styleContent"><img src="${ctxpath}/resources/system/images/imgpoint.jpg" width="714" height="268" alt="圆点切换"></div>
+            <div class="styleContent"><img src="${ctxpath}/resources/system/images/imgdaxiao.jpg" width="713" height="268"></div>
+        </div>
+    </div>
+  <dl>
+      <dt><em class="mustIco"></em>广告名称</dt>
+      <dd id="nameDd"><input type="text" class="i_bg" name="name" 
+        	onkeyup="checkName();" onblur="checkNameBlur();">
+      		<span id="nameSpan" class="ts_xx">广告名为2-32位字符</span>
+      </dd>    
+  </dl>
+  <dl>
+      <dt><em class="mustIco"></em>广告数量</dt>
+      <dd id="numDd"><input type="text" class="i_bg countBox" id="number" value="1" onblur="numLoad(this.value,'${ctxpath}');"
+       onkeyup="javascript:clearNoNum(this);">
+       <span id="numSpan" class="ts_xx">请输入广告数量</span>
+       </dd>
+       <script>
+       		numLoad($("#number").val(),'${ctxpath}');
+       </script>
+  </dl>
+  <dl>
+      <dt>广告说明</dt>
+      <dd id="nameDd"><textarea name="note" cols="" rows="" class="bigBox"></textarea>
+      </dd>    
+  </dl>
+  <div class="advItem">
+      <dl class="formSort">
+          <dt>广告宽度</dt>
+          <dd><input type="text" class="i_bg" name="wid" onkeyup="javascript:clearNoNum(this);" 
+          	></dd>    
+      </dl>
+      <dl class="formSort">
+          <dt>广告高度</dt>
+          <dd><input type="text" class="i_bg" name="height" onkeyup="javascript:clearNoNum(this);"></dd>    
+      </dl>
+      <div class="clear"></div>
+      <div class="hint">如果广告高度，宽度不填写或填写0时，将使用图片原始宽高！</div>
+      
+      <!-- 选择数量的load用div -->
+    	<div id="numLoad"></div>
+  </div>
+</div>

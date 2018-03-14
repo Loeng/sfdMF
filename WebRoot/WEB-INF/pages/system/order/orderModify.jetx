@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+    	<title>修改订单</title>
+    	<link href="${webroot}/resources/system/css/base.css" rel="stylesheet" type="text/css" />
+    	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/order/orderModify.js"></script>
+    </head>
+    <body>
+    	<input type="hidden" id="modifyOk" value="${modifyOk}" />
+			<input type="hidden" id="ctxpath" value="${webroot}" />
+    	<form action="${webroot}/system/order/update" name="modify" method="post"  id="modifyOrderForm">
+				#define(com.ekfans.base.order.model.Order order)
+				<!-- 订单ID -->
+				<div class="add_pro">
+					<input type="hidden" name="id" value="${order.id }">
+				<dl>
+					<dt>*店铺名</dt>
+					<dd id="storeDd" class="">
+						<input readonly="readonly" type="text" class="i_bg" id="storeName" value="${order.storeId }" onblur="checkStoreNameBlur();" onkeyup="javascript:checkStoreName();" onfocus="checkStoreName();" />
+						<span id="storeSpan" class="ts_xx">店铺名为6-20位字符组</span>
+						<!-- 店铺ID -->
+						<input type="hidden" name="storeId" id="storeId" value="" />
+					</dd>
+				</dl>
+				<dl>
+					<dt>*用户名</dt>
+					<dd id="nameDd">
+						<input readonly="readonly" class="i_bg" id="userName" type="text" value="${order.userId }" onblur="checkUserNameBlur();" onkeyup="checkUserName();" onfocus="checkUserName();" />
+						<span class="ts_xx" id="nameSpan">用户名为6-20位字符组</span>
+						<!-- 用户ID -->
+						<input type="hidden" name="userId" id="userId" />
+					</dd>
+					<dt>&nbsp;</dt>
+					<dd><div class="" id="">&nbsp;</div></dd>
+				</dl>
+				<dl>
+					<dt>产品价格</dt>
+					<dd id="">
+						<input readonly="readonly" id="" class="i_bg" type="text" name="productPrice" value="${order.productPrice }" onblur="" onkeyup="" onfocus=""/>
+						 <span class="ts_xx" id="">请输入产品价格</span>
+					</dd>
+				</dl>
+				<dl>
+					<dt>配送费用</dt>
+					<dd class="">
+						<input readonly="readonly" type="text" class="i_bg"  name="fare" value="${order.fare }" />
+					</dd>
+				</dl>
+				<dl>
+					<dt>应付金额</dt>
+					<dd class="">
+						<input readonly="readonly" type="text" class="i_bg"  name="totalPrice" value="${order.totalPrice }" />
+					</dd>
+				</dl>
+				<dl>
+					<dt>发货状态</dt>
+					<dd>
+						<span class="zt">
+							<input type="radio" value="true" name="shippingStatus" #if(order.shippingStatus) checked=true #end/>已发货
+							<input type="radio" value="false" name="shippingStatus" #if(!order.shippingStatus) checked=true #end/>未发货
+						</span>
+					</dd>
+				</dl>
+				<dl>
+					<dt>订单状态</dt>
+					<dd>
+						<span class="zt">
+							<input type="radio" value="true" name="status" #if(order.status) checked=true #end/>有效订单
+							<input type="radio" value="false" name="status" #if(!order.status) checked=true #end/>无效订单
+						</span>
+					</dd>
+				</dl>
+			
+				
+				<!-- 隐藏区域 -->
+				<input type="hidden" value="" name=""/>
+				<input type="hidden" value="" name=""/>
+				<input type="hidden" value="" name=""/>
+			
+			<!-- 水平线 -->
+			<dl>
+					<dd><br /></dd>
+			</dl>
+			<div class="ht_btn">
+			    <a href="#" onclick="formSubmit();">保存</a>
+					<a href="#" onclick="reset();">重置</a>
+					<a href="#" onclick="goBack('${webroot}');">返回列表</a>
+			</div>
+			</div>
+		</form>
+    </body>
+</html>

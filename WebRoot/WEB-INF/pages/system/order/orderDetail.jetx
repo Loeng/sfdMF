@@ -1,0 +1,79 @@
+
+				#define(com.ekfans.base.order.model.Order order)
+				#define(com.ekfans.base.order.model.OrderAddress orderAddress)
+				#define(com.ekfans.base.order.model.OrderDetail orderDetail)
+		       	<dl class="infoLine">
+            	<dt>订单号</dt>
+                <dd class="infoRight">${order.Id }</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>商品名称</dt>
+                <dd class="infoRight">${orderDetail.productName }</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>单价</dt>
+                <dd class="infoRight">${orderDetail.price }</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>数量</dt>
+                <dd class="infoRight">${orderDetail.quantity }</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>总金额</dt>
+                <dd class="infoRight">${order.totalPrice }</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>交易时间</dt>
+                <dd class="infoRight">${order.createTime }</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>发货状态</dt>
+            	<dd class="infoRight">#if(order.shippingStatus) 已发货 #else 未发货 #end</dd>
+				      <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>买家</dt>
+            	  <dd class="infoRight">${userName }</dd>
+                <dd class="clear"></dd>
+            </dl>
+             <dl class="infoLine">
+            	<dt>收货人</dt>
+            	  <dd class="infoRight">${orderAddress.name }</dd>
+                <dd class="clear"></dd>
+            </dl>
+             <dl class="infoLine">
+            	<dt>卖家</dt>
+            	  <dd class="infoRight">${storeName }</dd>
+                <dd class="clear"></dd>
+            </dl>
+             <dl class="infoLine">
+            	<dt>电话</dt>
+            	  <dd class="infoRight">${orderAddress.phoneNum }</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>真实姓名</dt>
+            	  <dd class="infoRight">${orderAddress.name }</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>买家地址</dt>
+            	  <dd class="infoRight">${orderAddress.provincial+"/"+orderAddress.city+"/"+orderAddress.area+"/"+orderAddress.address }</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>买家邮箱</dt>
+            	  <dd class="infoRight">${orderAddress.email }</dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="infoLine">
+            	<dt>买家支付宝</dt>
+            	  <dd class="infoRight">无</dd>
+                <dd class="clear"></dd>
+            </dl>

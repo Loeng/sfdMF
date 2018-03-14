@@ -1,0 +1,100 @@
+#define(com.ekfans.pub.util.StringUtil StringUtil)
+#define(com.ekfans.base.user.model.User User)
+
+<div class="wrapper topArea">
+	<div class="topLeft">
+		<a href="${webroot}/web/index" class="logo"><img src="${webroot}/resources/customer/images/sh_logo2.jpg"></a>
+		<span class="blue">
+			#if(!StringUtil.isEmpty(User.nickName))
+				${User.nickName}
+			#else
+				${User.name}
+			#end
+		</span>
+		<span class="welCome">欢迎光临商城！</span>
+		<a href="${webroot}/user/logout" class="orange">退出</a>
+	</div>
+	<div class="topRight">
+		<div class="topItem"><a href="${webroot}/web/index">商城首页</a></div>
+		<div class="topItem"><a href="${webroot}/user/center/index">我的商城</a></div>
+		<div class="topItem shoppingCar"><a href="${webroot}/user/cart/userShopCart"><em class="buyIco"></em>购物车(<span id="shopCartSum"></span>)</a></div>
+		<dl class="downList topSave">
+			<dt><a href="${webroot}/user/collect/productCollect"><em class="saveIco"></em>收藏夹(<span id="productCollectSum"></span>)<em class="itemIco"></em></a></dt>
+			<dd>
+				<a href="${webroot}/user/collect/productCollect">收藏的商品</a>
+				<a href="${webroot}/user/collect/storeCollect">收藏的店铺</a>
+			</dd>
+		</dl>
+		<dl class="downList webNav">
+			<dt><a>网站导航<em class="itemIco"></em></a><span></span></dt>
+			<dd>
+				<li>
+					<em class="orange">商家</em>
+					<a href="${webroot}/web/login">商家中心</a>
+					<a href="${webroot}/web/storeApply/save">商家入驻</a>
+					<div class="clear"></div>
+				</li>
+				<li>
+					<em class="blue">个人会员</em>
+					<a href="${webroot}/user/">会员中心</a>
+					<a href="${webroot}/user/alreadyBuy">我的订单</a>
+					<a href="${webroot}/user/deliveryAddress">地址簿</a>
+					<div class="clear"></div>
+				</li>
+				<li class="">
+					<em class="red">帮助</em>
+					<a href="#">帮助中心</a>
+					<div class="clear"></div>
+				</li>
+			</dd>
+		</dl>
+	</div>
+</div>
+
+<div class="header">
+	<div class="wrapper">
+    	<div class="proAll">
+            <a href="javascript:void(0)" class="proAllLink">全部商品<em class="itemIco"></em></a>
+            <div class="proList">
+            #set (List<com.ekfans.base.product.model.ProductCategory> productCategories=sessionScope.productCategories)      
+        		#for(com.ekfans.base.product.model.ProductCategory pc : productCategories)
+        			#if(for.last)
+                <dl class="proClass" style="border-right:none;">
+                    <dt><a href="javascript:searchProductHuangrong('${webroot }','${pc.id }');">${pc.name}</a></dt>
+                    <dd>
+                    	#for(com.ekfans.base.product.model.ProductCategory childPc : pc.childList)
+                      	<a href="javascript:searchProductHuangrong('${webroot }','${childPc.id }');">${childPc.name}</a>
+                      #end
+                    </dd>
+                </dl>
+               #else
+                 <dl class="proClass">
+                    <dt><a href="javascript:searchProductHuangrong('${webroot }','${pc.id }');">${pc.name}</a></dt>
+                    <dd>
+                    	#for(com.ekfans.base.product.model.ProductCategory childPc : pc.childList)
+                      	<a href="javascript:searchProductHuangrong('${webroot }','${childPc.id }');">${childPc.name}</a>
+                      #end
+                    </dd>
+                </dl>
+               #end
+            #end  
+               
+            </div>
+        </div>
+        <div class="proSearch">
+            <div class="mod_select">
+                <div class="select_box">
+                    <span class="select_txt" id="searchType">商品</span><a class="selet_open"><b></b></a>
+                    <div class="option">
+                        <a href="javascript:void(0)">商品</a>
+                        <a href="javascript:void(0)">店铺</a>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <input name="" id="productFuzzyName" type="text" class="searchBox">
+            <a href="javascript:searchProduct('${webroot }');" class="btnBlue btnSerach">搜索</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>管理银行卡</title>
+<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+<!--导入自定义JS-->
+<script src="${webroot}/resources/userCenter/coreCompany/js/bankCardUpdate.js"></script>
+</head>
+<body>
+  	#define(List<com.ekfans.base.user.model.Bank> bank)
+  	#define(com.ekfans.base.user.model.BankBinding bankbing)
+
+    <!--右侧主体-->
+		<form action="${webroot}/store/account/bankupdate" name="addOk" method="post"  id="addBankCardForm">
+			<input type="hidden" id="ctxpath" value="${webroot}"/>
+			<input type="hidden" name="id" value="${bankbing.id}"/>
+			<input type="hidden" name="storeId" value="${bankbing.storeId}"/>
+      <div class="rightContent">
+        <div class="contentTit  borderColor budong">
+            <h3>管理银行卡</h3>
+            <a href="javascript:void(0);" class="btnBase btnCancel">取消</a>
+            <a href="javascript:void(0);" class="btnBase btnSave" onClick="formSubmit();">保存</a>
+            <div class="clear"></div>
+       	</div>
+        <div class="form borderColor">
+        	  <dl class="formItem formLine">
+        		   <dt>开户银行</dt>
+               <dd class="formRight">
+               	<select id="card"  class="textBox box300" disabled style="width:210px;">
+	            	 <option value ="">请选择银行 </option>
+	            	 #for(com.ekfans.base.user.model.Bank b:bank)
+	            		 #if(bankbing.area == b.id)
+	            	  	<option selected value ="${b.id}">${b.bankName}</option>
+	            	  #else
+	            	  	<option  value ="${b.id}">${b.bankName} </option>
+	            	  #end
+	            	 #end
+            	</select>
+            	<input type="hidden" name="area" value="${bankbing.area}"/>
+            </dd>
+             <dd class="clear"></dd>
+          </dl>
+        		</dl>
+        		<dl class="formItem formLine">
+           	<dt>真实姓名</dt>
+            <dd class="formRight">
+            	<input id="cardname" name="address" type="text" value="${bankbing.address}" class="textBox box300"/>
+            </dd>
+            <dd class="clear"></dd>
+            </dl>
+		        <dl class="formItem formLine">
+		        	<dt>手机号码</dt>
+		            <dd class="formRight" style="height:auto;">
+		            	<input id="cardphone" name="fullName" type="text" value="${bankbing.fullName}" class="textBox box300"/>
+		            	<span class="errorText" id="phoneSpan" style="display:none;width:290px;"></span>
+		            	<span class="hint">请填写您在银行预留的手机号码，以验证银行卡是否属于您本人</span>
+		              <div class="clear"></div>
+		            </dd>
+		        </dl>
+		        <dl class="formItem formLine">
+		        	<dt>身份证号</dt>
+		            <dd class="formRight">
+		            	<input id="cardsfz" name="idCardNo" type="text" value="${bankbing.idCardNo}" class="textBox box300"/>
+		              <div class="clear"></div>
+		            </dd>
+		        </dl>
+           
+		        <dl class="formItem formLine">
+		        	<dt>银行卡号</dt>
+		            <dd class="formRight">
+		            	<input id="carnumber" name="cardNo" type="text" value="${bankbing.cardNo}" class="textBox box300"/>
+		              <div class="clear"></div>
+		            </dd>
+		        </dl>
+      </div>  	
+    </form>  	
+</div>
+</body>
+</html>

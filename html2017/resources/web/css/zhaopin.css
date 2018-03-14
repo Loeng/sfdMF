@@ -1,0 +1,67 @@
+/* CSS Document */
+.main{margin-top:30px;}
+.zhaopinMain{background: #EBF0EF; padding: 24px 0 24px 48px; position: relative;}
+.zhaopinMain .titleUp{height: 20px;line-height: 20px;font-size: 14px; margin-bottom: 8px;}
+.zhaopinMain .title{height: 40px;line-height: 40px;font-size: 32px; margin-bottom: 6px;}
+.zhaopinMain .info{height: 30px;line-height: 30px;font-size: 18px;margin-bottom: 10px; color: #666;}
+.zhaopinMain .info strong{color: #DC4F24; font-weight: 700;}
+.mark{display: inline-block;padding: 0 16px; height: 24px;line-height: 24px; border-radius: 12px; text-align: center;background: #fff;font-size: 14px;color: #999; margin-right: 10px;}
+.zhaopinMain .time{margin-top: 10px;height: 20px;line-height: 20px;font-size: 14px;color: #999;}
+.zhaopinMain .btnGreen{display: block;width: 140px;height: 48px;line-height: 48px; text-align: center; background: #393; color: #fff;font-size: 18px; position: absolute;right: 60px; top: 50px; border-radius: 2px;}
+
+.zhopinLeft{width: 701px;border-right: solid 1px #e6e6e6; float: left; padding: 24px 50px 50px 48px;}
+.zhaopinRight{width: 363px; float: left; padding-left: 37px;}
+.zoneTitle{height: 30px;line-height: 30px;font-size: 16px;margin-bottom: 18px; font-weight: 700;}
+.zoneContent{line-height: 30px;font-size: 16px;}
+.zhaopinZone{margin-bottom: 18px;}
+.address{padding-right: 100px; position: relative;}
+.address .readMap{position: absolute; right: 0; top: 0; color: #393; font-weight: 700;}
+
+.companyLogo{width: 158px; height: 158px; border: solid 1px #e6e6e6;margin: 32px 0 25px 0; display:flex;justify-content:center;align-items:center;}
+.companyLogo img{max-width: 158px;max-height: 158px;}
+.companyInfo{width: 320px; padding-bottom: 24px; border-bottom: solid 1px #e6e6e6; margin-bottom: 32px;}
+.companyInfo dt{height: 30px;line-height: 30px;font-size: 16px;font-weight: 700;margin-bottom: 10px;}
+.companyInfo dd li{height: 34px;line-height: 34px;font-size: 14px;color: #666; padding-left: 51px;}
+.companyInfo .type{background: url(../images/zhaopin_icon1.png) no-repeat left center;}
+.companyInfo .lev{background: url(../images/zhaopin_icon2.png) no-repeat left center;}
+.companyInfo .person{background: url(../images/zhaopin_icon3.png) no-repeat left center;}
+.companyInfo .url{background: url(../images/zhaopin_icon4.png) no-repeat left center;}
+
+#container{width:900px; height:557px;}
+.layer-class .layui-layer-title{background: #67AF67; color: #fff; border-top: none;}
+
+/*list*/
+.searchBox{border:solid 1px #e6e6e6;background: #fafafa; height: 44px;padding-left: 19px;margin-bottom: 20px;}
+.serachItem{height: 24px;line-height: 24px; margin: 10px 118px 0 0; float: left;}
+.serachItem dt{float: left; white-space: nowrap; padding-right: 20px;font-weight: 700;}
+.serachItem dd{float: left; min-width: 96px; white-space: nowrap; color: #666;}
+.serachItem select{height: 24px; border-color: #e6e6e6;}
+.serachItem .checkItem{padding:0 10px;font-size: 14px;display: inline-block;margin-right: 6px;}
+.serachItem .checkItem:hover,.serachItem .checkItem.cur{background: #393; color: #fff;}
+.topPages{padding: 0 19px; float: right; border-left: solid 1px #e6e6e6;line-height: 44px;}
+.topPages .prev,.topPages .next{display: block; width: 11px; height: 18px; float: left; margin-top: 13px;}
+.topPages .prev{background: url(../images/pages_prev.png) no-repeat;}
+.topPages .next{background: url(../images/pages_next.png) no-repeat;}
+.topPages .pages{white-space: nowrap; float: left; margin: 0 26px;font-size: 14px;font-weight: 700;}
+.topPages .pages .cur{color: #393;font-weight: 700;}
+
+.positionItem{padding: 11px 190px 0 19px;border: solid 1px #e6e6e6; position: relative;height: 110px;margin-bottom: 20px;}
+.bottomColor{height: 39px;position: absolute;left: 0;right:0;bottom: 0;background: #fafafa;z-index: -1;}
+.positionInfo{float: left;}
+.companyAbout{float: right;}
+.positionItem dt{height: 30px;line-height: 30px;font-size: 16px;margin-bottom: 1px;color: #393;font-weight: 700;}
+.demand,.companyType{height: 30px;line-height: 30px;font-size: 14px;margin-bottom: 10px;color: #666;}
+.positionItem .red{color: #DC4F24;font-weight: 700; padding-right: 30px;}
+.bottomInfo{height: 39px;line-height: 39px;font-size: 14px;color: #999;}
+.bottomInfo .mark{display: block;padding: 0 8px;height: 22px;line-height: 22px;border:solid 1px #e6e6e6;border-radius: 0; float: left; margin:7px 10px 0 0;}
+
+/*pageSize*/
+.pageSize{margin:30px auto 40px auto;height:25px; min-width:100px; text-align:center;}
+.pageSize a.btn{ display:inline-block;margin:0px 2px; height:24px; min-width:20px; border:solid 1px #ddd; border-radius:2px;text-align:center; font-size:12px; line-height:24px; color:#666;}
+.pageSize a.btn:hover,.pageSize a.btn.cur{ border:solid 1px #393;background:#393; color:#fff;}
+.pageSize a.btn em{ padding:0 12px; font-size:12px;font-family:sim sun;}
+.pageSize a.pageControl{/*font-family:SimSun;*/ min-width:42px; text-align:center;}
+.pageSize .pageGolink{border:solid 1px #ddd; display:inline-block; width:30px; padding:0 4px; line-height:24px; height:24px;border-radius:4px;}
+.pageSize a.btnslh,.pageSize a.btnslh:hover{border:0; background-color:#fff; color:#666;}
+.pageSize a.pageGo{ width:46px;}
+.pageSize a.disable,.pageSize a.disable:hover{background-color:#f6f6f6;cursor: default;border: none;color: #ddd;}

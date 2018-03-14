@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>#if(type=="one")供应商注册#elseif(type=="two")采购商注册#elseif(type=="three")核心企业申请#elseif(type=="four")运输企业注册#end</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<link rel="icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+	<link rel="shortcut icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/web/css/zc.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/tools.css" />
+#if(type=="one")
+<style>
+.nav a:hover, .nav a.cur{color:#A78649;}
+.nav{background-color:#A78649;}
+.regTab li a.cur{border-bottom:9px #A78749 solid;}
+</style>
+#elseif(type=="two")
+<style>
+.nav a:hover, .nav a.cur{color:#0085FD;}
+.nav{background-color:#0085FD;}
+.regTab li a.cur{border-bottom:9px #0085FD solid;}
+</style>
+#elseif(type=="three")
+
+#elseif(type=="four")
+<style>
+.nav a:hover, .nav a.cur{color:#177F00;}
+.nav{background-color:#177F00;}
+.regTab li a.cur{border-bottom:9px #177F00 solid;}
+</style>
+#end
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/js/reg.js"></script>
+	
+	<script type="text/javascript" src="${webroot}/resources/web/js/ypxs.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/js/storeReg_one.js"></script>
+</head>
+
+<body>
+${include("../../commons/regAndLogin/regTop.jetx")}
+<input type="hidden" id="type" value="${type}" />
+
+<div class="main" style="display:block;">
+    <!--用手机注册-->
+    <div class="regContent">
+    	<div class="rg2Content">
+            <h2>您已成功注册！</h2>
+            <div class="userInfo">您的用户名是：${name}</div>
+            <div class="userInfo userInfo2">您的注册手机号：<em>${name}</em>，如果忘记密码或丢失帐户，<br>您可以通过此手机找回</div>
+            <div class="userInfo userInfo2">您的账号信息并不完整,为了更好的体验平台功能,请及时前往<a href="javaScript:choseMenu('${webroot}','ACCOUNT_SECURITY');">账户中心<a/>完善设置</div>
+            <a href="${webroot}/store/index" class="btnGo">进入企业中心</a>
+        </div>
+    </div>
+    <!--用手机注册 end-->
+</div>
+
+${include("../../commons/regAndLogin/bottom.jetx")}
+</body>
+</html>

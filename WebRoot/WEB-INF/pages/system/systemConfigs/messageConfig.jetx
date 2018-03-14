@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>管理系统商品添加页面</title>
+		<!--<script type="text/javascript" src="${webroot}/resources/commons/js/modernizr.custom.js"></script>-->
+		<link href="${webroot}/resources/system/css/systemConfigs/messageConfig.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/systemConfigs/messageConfig.js"></script>
+	</head>
+	<body>
+		<input type="hidden" name="message" id="message" value="${message}"/>
+		<form action="${webroot}/system/message/save" name="add" method="post"  id="messageConfigForm">
+			#define(com.ekfans.base.system.model.MessageConfig messageConfig)
+			
+			<div class="ht_btn">
+				<a href="#"  class="btn" onclick="formSubmit();">保存</a>
+			</div>
+			
+			<div class="add_pro">
+				<dl class="formBox">
+					<dt>发件服务器</dt>
+					<dd><input type="text" class="i_bg"  name="host" value="${messageConfig.host}" length="128"/></dd>
+				</dl>
+				
+				<dl class="formBox">
+					<dt>邮件帐号</dt>
+					<dd><input type="text" class="i_bg"  name="userName" value="${messageConfig.userName}" length="128"/></dd>
+				</dl>
+				
+				<div class="clear" ></div>
+				
+				<dl class="formBox">
+					<dt>邮件密码</dt>
+					<dd><input type="password" class="i_bg" id="password" name="password" value="${messageConfig.password}" length="64"/></dd>
+				</dl>
+				
+				<dl class="formBox">
+					<dt>重复邮件密码</dt>
+					<dd><input type="password" class="i_bg" id="rePassword" name="rePassword" value="${messageConfig.password}" length="64"/></dd>
+				</dl>
+				
+				<div class="clear" ></div>
+				
+				<dl class="formBox">
+					<dt>发信邮件地址</dt>
+					<dd><input type="text" class="i_bg"  name="mailAddress" value="${messageConfig.mailAddress}" length="128"/></dd>
+				</dl>
+				
+				<dl class="formBox">
+					<dt>发信人中文名</dt>
+					<dd><input type="text" class="i_bg"  name="mailName" value="${messageConfig.mailName}" length="64"/></dd>
+				</dl>
+				
+				<div class="clear" ></div>
+				
+				<dl class="formBox">
+					<dt>短信用户名</dt>
+					<dd><input type="text" class="i_bg"  name="mobileName" value="${messageConfig.mobileName}" length="64"/></dd>
+				</dl>
+				
+				<dl class="formBox">
+					<dt>短信密码</dt>
+					<dd><input type="password" class="i_bg" id="mobilePsw" name="mobilePsw" value="${messageConfig.mobilePsw}" length="64"/></dd>
+				</dl>
+				
+				<div class="clear" ></div>
+				
+				<dl class="formBox">
+					<dt>重复短信密码</dt>
+					<dd><input type="password" class="i_bg"  id="reMobilePsw" name="reMobilePsw" value="${messageConfig.mobilePsw}" length="64"/></dd>
+				</dl>
+				
+				<dl class="formBox">
+					<dt>短信服务路径</dt>
+					<dd><input type="text" class="i_bg"  name="mobileUrl" value="${messageConfig.mobileUrl}" length="128"/></dd>
+				</dl>
+				
+				<div class="clear" ></div>
+				
+			</div>
+		</form>
+	</body>
+</html>

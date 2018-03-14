@@ -1,0 +1,25 @@
+#define(List<com.ekfans.base.user.model.UserAddress> uas)
+#for(com.ekfans.base.user.model.UserAddress ua : uas)
+	#if(ua.status)
+		<li class="siteNow">
+	#else
+		<li>
+	#end
+	<label>
+  	<em class="locationIco"></em>
+  	<span onclick="optOrderAdress('${ua.provincial}','${ua.city}','${ua.area}','${ua.address}','${ua.zipcode}','${ua.mobile}','${ua.name}');">
+  		<em>${ua.provincial}#if(ua.city!=null && ua.city!="")&nbsp;${ua.city}#if(ua.area!=null && ua.area!="")&nbsp;${ua.area}#end#end</em>
+      <em>${ua.address}</em>
+      <em>邮编：${ua.zipcode}</em>
+      <em>电话：${ua.mobile}</em>
+      <em>(${ua.name}&nbsp;收)</em>
+  	</span>
+  </label>
+  #if(ua.status)  
+  	<a href="javascript:void(0)">默认</a>
+	#else
+		<a href="javascript:void(0)" onclick="econfirm('确定要设为默认地址吗?',setDefaultAddress,['${ua.id}','${webroot}','${ua.provincial}','${ua.city}','${ua.area}','${ua.address}','${ua.zipcode}','${ua.mobile}','${ua.name}'],null,null);">设为默认</a>
+	#end
+	<a href="javascript:void(0)" onclick="updateAdress('${ua.id}');">编辑本地址</a>
+</li>
+#end

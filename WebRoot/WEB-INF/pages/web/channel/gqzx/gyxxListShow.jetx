@@ -1,0 +1,144 @@
+#define(List<com.ekfans.base.order.model.SupplyBuy> supplyInfos)
+
+<input type="hidden" name="pageNumGyxx" id="pageNumGyxx" value="${pageNum}">
+
+<div class="gqList">
+	<a href="javascript:void(0)" class="fabuLink addGyxx">发布供应信息</a>
+	<ul class="tabTit">
+    	<li class="tdNum10">认证</li>
+        <li class="tdNum1">标题</li>
+        <li class="tdNum3">质量等级</li>
+        <li class="tdNum5">数量</li>
+        <li class="tdNum6">交货方式</li>
+        <li class="tdNum7">价格</li>
+        <li class="tdNum4">交货地</li>
+        <li class="tdNum2">厂家</li>
+        <li class="tdNum8">有效期</li>
+        <li class="tdNum9">操作</li>
+	</ul>
+	#if(supplyInfos != null && supplyInfos.size() > 0)
+	<div class="gqTab">
+		<ul class="gqtabList">
+			#for(com.ekfans.base.order.model.SupplyBuy s : supplyInfos)
+			<li>
+				<div class="listFloat tdNum10">
+					<div class="tdIn vertical">
+						#if(!@(com.ekfans.pub.util.StringUtil).isEmpty(s.storeName) && !@(com.ekfans.pub.util.StringUtil).isEmpty(s.storeId)) <em class="gyrz">证</em> 
+						#else <em class="gyls">临</em> 
+						#end
+					</div>
+				</div>
+				<div class="listFloat tdNum1"><div class="tdIn vertical inline">${s.title}</div></div>
+				<div class="listFloat tdNum3"><div class="tdIn vertical">#if(s.qualityLevel!=null)${s.qualityLevel}#else &nbsp;#end </div></div>
+				<div class="listFloat tdNum5">
+					<div class="tdIn vertical inline rightAlign">
+						#if(s.number!=null)
+						<span>${s.number}</span>
+						<span class="gray">${s.unit}</span>
+						#else &nbsp;#end
+					</div>
+				</div>
+				<div class="listFloat tdNum6"><div class="tdIn vertical">#if(0==s.deliveryType)自提#elseif(1==s.deliveryType)送货上门#else &nbsp;#end</div></div>
+				<div class="listFloat tdNum7">
+					<div class="tdIn vertical inline rightAlign">
+						#if(s.futurePrices!=null)
+						<span>${s.futurePrices}</span>
+						<span class="gray">元/${s.unit}</span>
+						#else <span>待议</span>#end
+					</div>
+				</div>
+				<div class="listFloat tdNum4">
+					<div class="tdIn vertical inline">
+						#if(s.destination!=null)
+							<span class="xhsheng">${s.destination.split(",")[0]}</span>
+							#if(s.destination.split(",").length > 1)
+							<span class="xhcity">${s.destination.split(",")[1]}</span>
+							#end
+						#else &nbsp;
+						#end
+					</div>
+				</div>
+				<div class="listFloat tdNum2">
+					<div class="tdIn vertical xhcomname">
+						#if(!@(com.ekfans.pub.util.StringUtil).isEmpty(s.storeName) && !@(com.ekfans.pub.util.StringUtil).isEmpty(s.storeId)) ${s.storeName}
+						#else ${!@(com.ekfans.pub.util.StringUtil).isEmpty(s.storeName)?s.storeName:"游客"}
+						#end
+					</div>
+				</div>
+				<div class="listFloat tdNum8"><div class="tdIn vertical">${s.endTime ? (s.endTime.length() > 10 ? s.endTime.substring(0,10) : s.endTime) : " "}</div></div>
+				<div class="listFloat tdNum9">
+					<div class="tdIn vertical">
+						<a href="javascript:void(0);" class="baojiaLink" onclick="loadXunjia('${s.id}','${s.storeId}');" dataname="${s.title}">询价</a>
+					</div>
+				</div>
+			</li>
+			#end
+		</ul>
+	</div>
+	<div class="clear"></div>
+	#include("../commons/channelNew-page.jetx")
+	#else
+	<div class="noneBox">
+	<span>抱歉，没找到相关的信息！</span>
+	</div>
+	#end
+</div>
+<script>
+//浏览器版本
+if($.browser.msie) { 
+	var count=parseInt($.browser.version);
+	if(count<=9){
+		$(".vertical").addClass("ieLow");
+	}
+}
+
+//一行居中多行居左
+function align(){
+	$(".tdIn").each(function() {
+		var h=$(this).height();
+		var lh=parseInt($(this).css("line-height"));
+		if(h>lh&&$(this).children().length==0){
+			$(this).css("text-align","left");
+		}
+	});
+}
+align();
+$(document).on("click",function(){
+	align();
+})
+
+//tips完全提示
+$("li .tdNum1,li .tdNum2,li .tdNum3").hover(function(){
+	var obj=$(this);
+	var str=obj.text();
+	layer.open({
+	  type: 4,
+	  skin:'tdTips',
+	  closeBtn:0,
+	  tips: [3, '#393'],
+	  content: [str,obj] //数组第二项即吸附元素选择器或者DOM
+	});
+},function(){
+	layer.closeAll();
+})
+
+//发布信息弹层
+$(".addGyxx").die().live("click",function(){
+	// 当前发布类型为0（供应）
+	$("#type").val("0");
+	
+	var userId = $("#userId").val();
+	if(userId!=null && userId!=" "){
+		choseMenu($("#ctxpath").val(),'SUPPLY_ADD');
+	}else{
+		layer.open({
+			type: 1,
+			title: '发布供应信息',
+			skin: 'layer-class',
+			area: '600px', //宽高
+			content: $("#updateHtml")
+		});
+	
+	}
+});
+</script>

@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>个人中心-收货地址</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/addGoods.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/personal/css/personalBase.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/personal/css/style.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/personal/css/site.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/tools.css" />
+<style type="text/css"> 
+<!-- 
+#areaid{margin-left:94px; width:179px;}
+--> 
+</style>
+	
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/base.js"></script> 
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<!-- private -->
+	<script type="text/javascript" src="${webroot}/resources/userCenter/personal/js/deliveryAddress.js"></script>
+</head>
+
+<body>
+#define(List<com.ekfans.base.user.model.UserAddress> udlist)
+<input type="hidden" id="ctxpath" value="${webroot}" />
+	
+<!-- 右侧主体 -->
+<div class="rightContent">
+  <div class="contentTit budong  borderColor">
+    <h3>我的地址薄</h3>
+    <div class="clear"></div>
+  </div>
+  <table border="0" cellspacing="0" cellpadding="0" class="siteTb">
+    <tr class="bgColor">
+      <th width="15%">收货人</th>
+      <th width="16%">所在地区</th>
+      <th width="28%">街道地址</th>
+      <th width="10%">邮政编码</th>
+      <th width="15%">手机/电话</th>
+      <th>&nbsp;</th>
+    </tr>
+    #if(udlist!=null && udlist.size()>0)
+    	#for(com.ekfans.base.user.model.UserAddress ud : udlist)
+    		#if(ud.status)
+    			<input type="hidden" id="udstatus" value="${ud.id}" /> 
+    		#end
+		    <tr>
+		      <td align="center">${ud.name}</td>
+		      <td>${ud.provincial}#if(ud.city!="")${"/" + ud.city}#end#if(ud.area!="")${"/" + ud.area}#end</td>
+		      <td>${ud.address}</td>
+		      <td align="center">${ud.zipcode}</td>
+		      <td align="center">#if(ud.mobile!=null && ud.mobile!="")${ud.mobile}#end#if(ud.phone!=null && ud.phone!="")<br />${ud.phone}#end</td>
+		      <td align="center" class="siteEdit">
+		      	<a href="${webroot}/user/detail/${ud.id}">修改</a>#if(!ud.status) | 
+		      	<a href="javascript:deleteUserAddress('${ud.id}')">删除</a> | 
+		      	<a href="javascript:setDefaultAddress('${ud.id}')">默认</a>#end
+		      </td>
+		    </tr>
+			#end
+		#else
+			<tr>
+				<td colspan="6">
+					<div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>	
+				</td>		
+			</tr>
+		#end
+  </table>
+  <h2 class="siteAppend"><em class="borderBottomColor">填写收货地址</em></h2>
+ 	<form action="${webroot}/user/addressSave" method="post" id="addUserAddressForm">
+		<dl class="formItem formLine">
+		  <dt>收货人姓名</dt>
+		  <dd>
+		    <input name="name" type="text" class="siteBox" onfocus="checkFocusUtil(this)" onblur="checknameBlur()" />
+		    <span class="errorText" id="name" style="display:none;"></span> 
+		  </dd>
+		  <dd class="clear"></dd>
+		</dl>
+		<dl class="formItem formLine">
+		  <dt>所在地区</dt>
+		  <dd class="select4">
+		    #tag systemAreaSel("area","") #end
+		  </dd>
+		  <dd class="clear" style="height:0px;"></dd>
+			<span class="errorText" id="areaid" style="display:none;"></span>	
+		</dl>
+		<dl class="formItem">
+		  <dt>邮政编码</dt>
+		  <dd>
+		    <input name="zipcode" type="text" class="siteBox" onfocus="checkFocusUtil(this)" onblur="checkzipcodeBlur()" />
+		    <span class="errorText" id="zipcode" style="display:none;"></span>  
+		  </dd>
+		  <dd class="clear"></dd>
+		</dl>
+		<dl class="formItem">
+		  <dt>电话</dt>
+		  <dd>
+		    <input name="phone1" type="text" class="siteBox1" />
+		    <input name="phone2" type="text" class="siteBox2" />
+		    <input name="phone3" type="text" class="siteBox3" />
+		  </dd>
+		  <dd class="clear"></dd>
+		</dl>
+		<dl class="formItem formLine">
+		  <dt>手机</dt>
+		  <dd>
+		    <input name="mobile" type="text" class="siteBox" onfocus="checkFocusUtil(this)" onblur="checkmobileBlur()" />
+		    <span class="errorText" id="mobile" style="display:none;">手机号码和电话至少填写一项！</span>
+		  </dd>
+		  <dd class="clear"></dd>
+		</dl>
+		<dl class="formItem formLine">
+		  <dt>街道地址</dt>
+		  <dd class="formRight">
+		    <textarea name="address" onfocus="checkFocusUtil(this)" onblur="checkaddressBlur()"></textarea>
+		    <span class="errorText" id="address" style="display:none;"></span> 
+		    <a href="javascript:addUserAddress();" class="btnBlue">保存</a> <a href="javascript:myreset();" class="btnBlue">重置</a> 
+		  </dd>
+		  <dd class="clear"></dd>
+		</dl>
+	</form>
+  <div class="clear"></div>
+</div>
+<!-- 右侧主体 -->
+
+</body>
+</html>

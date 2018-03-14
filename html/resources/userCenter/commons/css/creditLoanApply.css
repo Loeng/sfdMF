@@ -1,0 +1,11 @@
+/* CSS Document */
+
+.forms{padding-bottom:5px;padding-top:20px;border-top:solid 1px #E6E6E6;}
+.forms h3{font-size:16px;color:#595757;margin:10px 0px 20px 70px;}
+.formsLeft{float:left;width: 370px;margin-right: 20px;}
+.formsRight{float:left; width: 370px;}
+.formsLeft .formItem,.formsRight .formItem{width:370px;}
+.formItemFirst{margin:20px 0 0 0; width:100%;}
+.formsLeft dt,.formsRight dt{line-height:30px; width:128px;}
+.box140{width:140px; float:left; margin-right:10px;}
+.selList{float:left;}

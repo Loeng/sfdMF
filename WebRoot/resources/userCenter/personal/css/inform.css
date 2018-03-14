@@ -1,0 +1,18 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url("personalBase.css");
+
+.rightContent h2 em{height:32px; line-height:32px; display:inline-block; border-bottom:solid 5px #ff8900; padding:0 46px 0 6px;}
+.rightContent h2{border-bottom:solid 1px #CBCFCF; font-size:14px; margin-bottom:12px; font-size:14px;}
+
+.rightContent table{width:100%;}
+.rightContent tr:hover,.reading{background:#E7F5FA;}
+.unread .informTitle{background:url(../images/unread.png) no-repeat 10px 15px;}
+.rightContent td{line-height:22px; padding:9px 3%; vertical-align:top;}
+.informTitle{width:44%;}
+.addresser{width:22%;}
+.informTime{width:22%;}
+.readLink{}
+.informText{width:305px; height:22px; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.reading .informText{height:auto; white-space:normal;}

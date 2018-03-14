@@ -1,0 +1,94 @@
+/* CSS Document */
+@import url("base.css");
+
+.linkIndex{background-image:url(../images/icon_index2.png); background-repeat:no-repeat; background-position:11px center; margin-right:0;}
+.nav{height:80px; padding-left:100px; margin-bottom:0;}
+.nav a{display:block; width:120px; height:36px; line-height:36px; font-size:18px; color:#fff; text-align:center; float:left; margin:22px 40px 0 0; border-radius:14px;}
+.nav a:hover,.nav a.cur{background:#fff; color:#0085FD;}
+
+/*中部*/
+.main{position:relative; width:980px; padding:40px 110px 0 110px; background:#fff; margin:0 auto;}
+.hide{display:none;}
+.regTab{padding-left:160px;height:33px;line-height:33px;border-bottom:1px solid #DCDCDD; padding-bottom:5px;}
+.regTab li{float:left;text-align:center;width:170px; display:block;margin:0 50px;}
+.regTab li a{font-size:24px;color:#4B4848;display:block;}
+.regTab li a.cur{border-bottom:9px #A78749 solid;}
+
+/*注册*/
+.regContent{width:714px;min-height:352px;margin:0 auto;padding:26px 20px 26px 50px; display:none; border-bottom-left-radius:10px;border-bottom-right-radius:10px;border-top:0;}
+.words{display:block; float:left;font-size:12px;color:#C9C9CA;width:284px;}
+.words2{display:block; float:left;font-size:14px;color:#9f9fa0;line-height:36px;margin-left:10px;margin-right:10px;}
+.words3{font-size:14px;color:#4B4848;display:block; float:left;line-height:36px;margin-right:10px;}
+.words4{font-size:14px;color:#4B4848;display:block; float:left;line-height:36px;margin-right:10px;}
+.words5{display:block; float:left;font-size:12px;color:#C9C9CA;width:264px;margin-left:10px;}
+.reLogin{margin-top:10px;}
+
+
+
+.regIn{width:394px;margin:0 auto;}
+.key{float:left;}
+.user{float:left;}
+.phone{float:left;}
+.errorBox{background:#F9D1D3; text-align:center;font-size:14px;color:#FF0000;width:259px;height:20px;line-height:20px;margin-bottom:2px;visibility:hidden;}
+
+.tips{color:#009FE9;font-size:12px;line-height:36px;margin-left:9px;float:left;}
+.boxHeight{min-height:21px;}
+.btnLogin{border:solid 1px #DCDCDD; display:block;width:80px;height:28px;line-height:28px;text-align:center;margin:0 auto;font-size:14px;float:left;margin-top:2px;}
+.btnLogin:hover{color:#999;}
+.btnSend{background:#EF4D4D;color:#FFF;display:inline-block;width:150px;height:36px;line-height:36px;text-align:center;margin:0 auto;font-size:16px;float:left;margin-left:10px;margin-right:10px;border:0; cursor:pointer;}
+.btnSend:hover{background:#EB1D1D;color:#FFF;}
+.btnForbid{background:#D1D1D1;font-size:16px;color:#858484;line-height:36px;}
+.btnForbid:hover{ background:#D1D1D1;color:#858484;}
+.regBox{height:28px;padding-left:39px;font-size:14px;color:#7D7C7D;margin-top:9px;width:259px;}
+.btnReg{background:#2BB2FB;color:#FFF;display:block;width:259px;height:38px;line-height:38px;text-align:center;font-size:20px;margin-right:10px;}
+.btnReg:hover{background:#006FD2; color:#fff;}
+.btnFloat{float:left;}
+.btnReg:hover{}
+
+/*表单*/
+.code{float:left;}
+.codePic{float:left;margin-left:8px;}
+.textBox{display:block; border:solid 1px #EFEFEF; height:36px;}
+.textBox input{height:36px;line-height:36px\9;border:none;display:block;font-size:18px;margin-left:30px; text-indent:0.5em;*height:34px;*width:85%;}
+.box258{width:257px;}
+.box228{width:227px;}
+.box124{width:124px;}
+.box94{width:94px;}
+.box20{width:20px; margin-left:0px;}
+
+.telBox{background:url(../images/tel_icon.jpg) no-repeat; background-position:0px 0px;}
+.companyBox{background:url(../images/company_icon.jpg) no-repeat; background-position:0px 0px;}
+.timeBox{background:url(../images/time_icon.jpg) no-repeat; background-position:0px 0px; margin-bottom:20px;}
+.mailBox{background:url(../images/mail_icon.jpg) no-repeat; background-position:0px 0px;}
+.phoneBox{background:url(../images/phone_icon.jpg) no-repeat; background-position:0px 0px;}
+.userBox{background:url(../images/user_icon.jpg) no-repeat; background-position:0px 0px;}
+.keyBox{background:url(../images/key_icon.jpg) no-repeat; background-position:0px 0px;}
+.codeBox{background:url(../images/code_icon.jpg) no-repeat; background-position:0px 0px;}
+
+/*注册第二步*/
+.rg2Content{width:630px; border-radius:14px; min-height:278px;padding:35px 70px;}
+.rg2Content h2{font-size:24px;color:#000;margin-bottom:30px;}
+.userInfo{font-size:18px;color:#313131;margin-bottom:10px;line-height:28px;}
+.userInfo em{color:#FB752C;}
+.userInfo2{margin-bottom:40px;}
+.userTips{font-size:14px;color:#B4B5B5;margin-bottom:10px;}
+.btnGo{background:#0085FD;width:244px; height:36px; line-height:36px;color:#FFF; display:inline-block;font-size:18px;text-align:center; border-radius:4px;}
+.btnGo:hover{background:#006FD2; color:#fff;}
+
+.checkLayer{display:none;}
+/*注册第三步*/
+.userTips2{font-size:14px;color:#282828;margin-bottom:10px;}
+.tip2{color:#8C8C8C;font-size:14px;margin-bottom:10px;}
+
+.errorBorder{border: 1px solid #F9D1D3;}
+.error{visibility:visible;}
+
+/*倒计时*/
+.delays{display:inline-block; margin-left:60px; font-size:16px;}
+.delays em{color:#FB752C;}
+
+
+/*注册提醒*/
+.tixing{background:#FFE4E4; width:452px; height:60px; line-height:60px; padding-left:64px; margin-bottom:20px; font-size:24px; background-image:url(../images/icon_waring2.png); background-repeat:no-repeat; background-position:20px center; background-color:#FFE4E4;}
+.btnOrange{background:#Fc7100; color:#fff; display:inline-block; width:244px; height:36px; font-size:18px; line-height:36px;text-align:center;border-radius:4px; margin-right:10px;}
+.btnOrange:hover{background:#d56000; color:#fff;}

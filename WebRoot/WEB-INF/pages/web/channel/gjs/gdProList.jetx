@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>贵金属列表</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/base.css" rel="stylesheet" type="text/css">
+<style>
+.bread{height:38px; line-height:38px; background:#FCF4E5; font-size:14px; color:#A78749; margin-bottom:20px;}
+.curPages{color:#000;}
+.proList{}
+.proHeader{height:28px; line-height:28px; margin-bottom:2px; font-size:18px;}
+.proHeader h2{display:inline-block; border-bottom:solid 4px #A78749; height:24px; line-height:24px; float:left; font-size:18px;}
+.proHeader .danwei{font-size:14px; color:#A78749; padding-left:26px;}
+.proHeader .date{display:block; float:right; padding:0 16px; background:#BF9953; color:#fff;}
+.tableBox{min-height:90px;max-height:390px;background:#fff;}
+.proTable{width:100%; color:#856933; border-collapse:collapse; position:relative;}
+.proTable th{height:38px; line-height:38px; background:#FCE7BF; font-size:14px; color:#333; border:solid 1px #FBCB71;}
+.proTable td{text-align:center; height:34px; line-height:34px; font-size:14px; border:solid 1px #FBCB71;}
+.proTable td a{display:inline-block; margin:0 5px;}
+.nowData{display:block; position:relative;}
+.qxt{position:absolute;display:none;width:380px; height:167px; background-image:url(${webroot}/resources/web/images/icon_pointBg.png); background-repeat:no-repeat; z-index:10;}
+.qxt img{padding:17px 10px 10px 8px;}
+.proTable td span{color:#717171;}
+.proTable tr:hover td{background:#F2F2F2;}
+
+
+/*页码*/
+.pageSize{text-align:center; padding:10px 0; background:#D3D3D3; margin-top:20px;}
+.pageSize a{display:inline-block; height:21px; line-height:21px; margin-right:8px; padding:0 8px; color:#12369b;}
+.pageLast,.pageNext{font-family:SimSun;}
+.pageSize a:hover,.pageSize .nowPage{background:#4594f9; color:#fff;}
+
+</style>
+</head>
+
+<body>
+<input type="hidden" name="ctxpath" id="ctxpath" value="${ctxpath}" />
+<input type="hidden" name="pcId" id="pcId" value="${pcId}" />
+<div id="channelTop"></div>
+#define(List<com.ekfans.base.product.model.Product> products)	
+<div class="bread">
+	<div class="wrapper"><a href="${webroot}">首页</a>&nbsp;&gt;&nbsp;<em class="curPages">${pcName}</em></div>
+</div>
+<div class="wrapper">
+	<div class="proList">
+    	<div class="proHeader">
+        <h2>${pcName}</h2>
+          <span class="danwei">单位：元/克</span>
+          <span class="date">${nowDate}</span>
+          <div class="clear"></div>
+      </div>
+      <div class="tableBox">
+          <table border="0" cellspacing="0" cellpadding="0" class="proTable">
+            <tr>
+            		<th>发布企业</th>
+                <th>产品</th>
+                <th>规格</th>
+                <th>价格</th>
+                <th>涨跌</th>               
+                <th>行情</th>
+                <th>操作<em class="testData">测试</em></th>
+              </tr>
+             #if(products!=null&&products.size()>0)
+   			 			#for(com.ekfans.base.product.model.Product p:products) 
+			          <tr>
+			          			<td>${p.storeId}</td>
+			                <td>${p.name}</td>
+			                <td>${p.productModel}</td>
+			                <td>${p.unitPrice}</td>
+			                <td class="red">↑ 120</td>
+			                <td>
+			                	<div style="position:relative;">
+			                    <a href="javascript:void(0);" class="nowData">行情</a>
+			                    <div class="qxt"><img src="${webroot}/resources/web/pic/zoushi.jpg" width="364" height="143"/></div>
+			                  </div>
+			                </td>
+			                <td class="red">#if(p.isAdvance == "1")<a href="${webroot}/web/dingGou/order/${p.id}">订购</a>#end<a href="${webroot}/web/gouWu/order/${p.id}">下单</a></td>
+			              </tr>
+			          #end
+			          #end   
+          </table>
+      </div>
+  </div>
+   #if(products!=null&&products.size()>0)
+	      		#include("../commons/channel-page.jetx")
+	 #end
+</div>
+<!--底部-->
+<div id="channelFoot"></div>
+<script src="${webroot}/resources/web/js/base.js"></script>
+<script>
+$(document).ready(function() {
+	/*曲线图*/
+		$(".nowData").live("hover",function(){
+			var qxt=$(this).next(".qxt");
+			qxt.css("right","-101px");
+			qxt.css("bottom","-161px");
+			$(this).next(".qxt").toggle();		
+			});
+			
+	$("#channelTop").load($("#ctxpath").val() + "/web/channel/commons/channel-top.jetx",{"channelId":null,"channelType":null,"returnUrl":window.location.href});
+	$("#channelFoot").load($("#ctxpath").val() + "/web/channel/commons/channel-footer.jetx")
+});
+
+	function goPage(pageNum){
+		var pcId = $("#pcId").val();
+		window.location.href=$("#ctxpath").val() + "/web/gjsGdProduct/list/"+pcId+"/"+pageNum;
+	}	
+</script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>议价详细信息</title>
+		<link href="${webroot}/resources/system/css/product/issue.css" rel="stylesheet" type="text/css" />
+		<link href="${webroot}/resources/system/css/list.css" rel="stylesheet" type="text/css" />
+
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/base.js"></script>
+	</head>
+	
+<body>
+#define(com.ekfans.base.order.model.Bargain ba)
+<input type="hidden" id="ctxpath" value="${webroot}" />
+<form  name="addOk" method="post"  id="addSupplyBuyForm">
+	<input type="hidden" name="storeId" id="storeId" value="">
+	<div class="ht_btn">
+		<a href="${webroot}/system/bargain/list/wfcy"  class="btn" ">返回列表</a>
+	</div>
+		
+	<div class="add_pro">
+   
+		<dl>
+			<dt><em class="mustIco"></em>车源标题</dt>
+			<dd id="titleDd">
+				<input type="text" class="i_bg" readonly value="${ba.productName}" name="productName"  />
+			</dd>
+		</dl>
+		
+		<dl>
+			<dt><em class="mustIco"></em>商家报价</dt>
+			<dd id="unitDd">
+				<input type="text" class="i_bg" readonly value="#if(ba.unitPrice != null && ba.unitPrice != 0)${ba.unitPrice}元/${ba.unit}#else待议#end" name="unitPrice"  />
+			</dd>						
+		</dl>
+		<dl >
+			<dt><em class="mustIco"></em>车源总量</dt>
+			<dd id="futurePricesDd">
+				<input type="text" class="i_bg" readonly value="${ba.wfpTotal}" name="storeName"   />${ba.unit}
+			</dd>						
+		</dl>
+	    <dl >
+			<dt><em class="mustIco"></em>起始地</dt>
+			<dd id="numberDd">
+					<input type="text" class="i_bg" readonly value="${ba.start.replace(",","")}"  name="quantity"  />
+			</dd>
+		</dl>
+	    <dl >
+			<dt><em class="mustIco"></em>目的地</dt>
+			<dd id="numberDd">
+					<input type="text" class="i_bg" readonly value="${ba.end.replace(",","")}"  name="price"  />
+			</dd>
+		</dl>
+		
+		<dl class="formItem">
+            <dt>采购数量</dt>
+            <dd class="formImport"><input name="quantity" type="text" class="i_bg #if(ba.status=="1")box150#end" value="${ba.quantity}" readonly></dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="formItem">
+            <dt>商议价格</dt>
+            <dd class="formImport"><input name="price" type="text" class="i_bg #if(ba.status=="1") box150 #end" value="${ba.price}" readonly></dd>
+            <dd class="clear"></dd>
+        </dl>
+        
+        <dl class="formItem">
+            <dt>买家名称</dt>
+            <dd class="formImport"><input name="buyerName" type="text" class="i_bg" value="${ba.buyerName}" readonly></dd>
+            <dd class="clear"></dd>
+        </dl>
+		
+		#if(ba.status == "1")
+	    <dl >
+			<dt><em class="mustIco"></em>核定数量</dt>
+			<dd id="numberDd">
+					<input type="text" class="i_bg" readonly value="${ba.finalQuantity}"  name="finalQuantity"  />
+			</dd>
+		</dl>
+	    <dl >
+			<dt><em class="mustIco"></em>核定价格</dt>
+			<dd id="numberDd">
+					<input type="text" class="i_bg" readonly value="${ba.finalPrice}"  name="finalPrice"  />
+			</dd>
+		</dl>
+		#end
+    	<dl>
+			<dt><em class="mustIco"></em>联系人</dt>
+			<dd id="contactNameDd">
+				<input type="text" class="i_bg" readonly value="${ba.contactMan}" name="contactMan"  />
+			</dd>
+		</dl>
+		
+		 <dl>
+			<dt><em class="mustIco"></em>联系电话</dt>
+			<dd id="contactPhoneDd">
+				<input type="text" class="i_bg" readonly value="${ba.contactPhone}" name="contactPhone"  />
+			</dd>
+		</dl>
+
+	</div>
+
+
+
+</form>
+	
+</body>
+</html>

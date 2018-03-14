@@ -1,0 +1,52 @@
+#define(List<com.ekfans.base.user.model.BankBinding> banks)
+
+<div class="clear"></div>
+<h2 class="rightTitle">
+	<em class="borderBottomColor">收款账户信息</em>
+</h2>
+
+
+<ul class="bankList" #if(banks != null && banks.size()<3)style="margin-left:50px;" #end>
+	#for(com.ekfans.base.user.model.BankBinding bank:banks)
+	<li #if((payBankId != null && payBankId != "" && payBankId==bank.id) || ((payBankId == null || payBankId == "") && for.first))class="cur"#end onclick="chosePayBank('${bank.id}',this);">
+		<span class="bank"><em>开户行</em>${bank.bankName}</span>
+    <span class="fullBank"><em>全称</em>${bank.address}</span>
+    <span class="num"><em>帐号</em>${bank.cardNo}</span>
+    <span class="name"><em>户名</em>${bank.fullName}</span>
+	</li>
+	#if((payBankId == null || payBankId == "") && for.first)
+		<script>
+			if($("#payBankId")){
+				$("#payBankId").val("${bank.id}");
+			}
+			if($("#returnPayId")){
+				$("#returnPayId").val("${bank.id}");
+			}
+		</script>
+	#end
+	#else
+		<li class="cardAdd">绑定银行卡</li>
+	#end
+</ul>
+
+
+<script>
+	function chosePayBank(bankId,obj){
+		if($("#payBankId")){
+			$("#payBankId").val(bankId);
+		}
+		if($("#returnPayId")){
+			$("#returnPayId").val(bankId);
+		}
+		$(obj).parent(".bankList").children("li").each(function (){
+			$(this).removeClass("cur");
+		});
+		$(obj).addClass("cur");
+	}
+	
+	$(".cardAdd").live("click",function(){
+		$(".apLayerBg").show();
+		$("#addBankCard").load("${webroot}/store/account/bank/ajaxadd");
+		$("#addBankCard").show();
+	});
+</script>

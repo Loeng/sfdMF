@@ -1,0 +1,53 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>银行卡列表</title>
+<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/commons/css/bankCardList.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/commons/css/tools.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+<!-- 导入自定义的JS文件 -->
+<script type="text/javascript" src="${webroot}/resources/userCenter/coreCompany/js/bankCardList.js"></script>
+</head>
+<body>
+#define(List<com.ekfans.base.user.model.BankBinding> banklist)
+	#define(int count)
+<!--右侧主体-->
+    <div class="rightContent">
+        <div class="contentTit  borderColor budong">
+            <h3>银行卡列表</h3>
+            <div class="clear"></div>
+    	  </div>
+      	 <div class="cardList">
+      	 #for(com.ekfans.base.user.model.BankBinding b:banklist)
+      	 			 <div class="cardItem">
+                <div class="cardTitle">
+                    <span class="bankName">${b.bankName}</span>
+                    <span class="lastNumber">尾号${b.cardNo}</span>
+                    <span class="cardType">储蓄卡</span>
+                </div>
+                <div class="cardState">
+                		#if(b.status ==true)
+                    	<span class="green">已开通</span>
+                    	<a href="javascript:void(0);" onClick="deleteCard('${webroot}','${b.id}','true')">删除</a> 
+                    #else
+                   	  <span class="red">未开通</span>
+                   	  <a href="javascript:void(0);" onClick="deleteCard('${webroot}','${b.id}','false')">删除</a>
+                   	  <a href="javascript:void(0);" class="cardManage space" onClick="update('${webroot}','${b.id}')">管理</a> 
+                    #end
+                </div>
+            </div>
+      	  #end
+      	  <input type="hidden"  id="bankcount" value="${count}"/>
+      	  <a href="javascript:void(0);" class="cardAdd" onClick="add('${webroot}');">添加银行卡</a>
+      	 </div>
+  </div>
+    <!--右侧主体 end-->
+    <div class="clear"></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+#define(Map<String, com.ekfans.base.channel.model.ChannelConfig> configMap)
+#define(String configType)
+#define(String position)
+#define(String channelId)
+
+#set(com.ekfans.base.channel.model.ChannelConfig config = configMap.get(configType + position))
+
+
+<div class="tabContent gongying" style="display:block;">
+
+	#if(configStatus == "true")
+		<div >#include("../commons/config/configTitle.jetx",{"channelId":channelId,"configType":configType,"position":position})</div>
+	#end
+
+	#if(config != null)
+		#for(com.ekfans.base.product.model.Product p : config.details)	
+	        <div class="metalItem">
+	            <div class="dt">
+	            	<span>${p.name}</span>
+	                <em class="iconHangqing"></em>
+	                <div class="itemLayer">
+	                	<!--此容器放置行情曲线图插件内容，下列图片去掉-->
+	                	<div class="zoushi" name="${p.id}" style="width:350px;height:350px;"></div>
+	                </div>
+	            </div>
+	            <ul class="itemInfo">
+	                <li><span class="size16">${p.sortName}</span><span class="size14">${p.productModel}</span></li>
+	                <li class="size18"><em class="red">↑ ¥${p.unitPrice}</em> /${p.unit}</li>
+	                <li>${p.quantity}${p.unit} ${p.habitatAddress}</li>
+	                <li>${p.storeName}</li>
+	            </ul>
+	            <div class="itemBtns">
+	                <!-- <a href="javascript:void(0);" onclick="validUser('${p.id}','0','index');" class="btnGreen">购买</a> -->
+	                <a href="javascript:void(0);" style="width:100%" class="btnGreen" onclick="yijia('${p.id}','${p.storeId}')">议价</a>
+	            </div>
+	        </div>
+		#end
+	#end
+</div>
+
+

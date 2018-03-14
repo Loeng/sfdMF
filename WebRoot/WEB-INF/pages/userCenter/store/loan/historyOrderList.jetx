@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>历史业务数据</title>
+<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css" />
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/layer/layer.js"></script>
+<!-- 导入自定义的JS文件 -->
+
+</head>
+<body>
+	#define(List
+	<Object[]>
+		orderList) #define(com.ekfans.pub.util.Pager pager)
+		<input type="hidden" value="${webroot}" id="ctxpath" />
+
+		<form action="${webroot}/store/loan/viewHistoreOrders" method="post" id="searchForm">
+			<input type="hidden" name="pageNo" id="pageNo" value="" />
+			<input type="hidden" name="storeId" id="storeId" value="${storeId }" />
+			<div class="formSearch borderColor">
+
+				<dl class="formItem">
+					<dt>订单编号</dt>
+					<dd>
+						<input name="orderId" id="orderId" type="text" class="textBox box160" value="${orderId}">
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt>下单时间</dt>
+					<dd>
+						<input name="startTime" id="startTime" type="text" class="textBox box98" value="${startTime}" style="display: inline;" readonly
+							onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:ss:mm',maxDate:'#F{$dp.$D(\'endTime\')}'})">
+					</dd>
+					<dd class="lineColor">&nbsp;—&nbsp;</dd>
+					<dd>
+						<input name="endTime" id="endTime" type="text" class="textBox box98" value="${endTime}" style="display: inline;" readonly
+							onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:ss:mm',minDate:'#F{$dp.$D(\'startTime\')}'})">
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<div class="clear"></div>
+				<dl class="formItem">
+					<dt>订单类型</dt>
+					<select name="orderType" id="orderType" style="width: 150px">
+						<option value="" #if("" == orderType) selected #end>全部订单</option>
+						<option value="0" #if("0" == orderType) selected #end>普通订单</option>
+						<option value="1" #if("1" == orderType) selected #end>直付订单</option>
+						<option value="2" #if("2" == orderType) selected #end>绿色商城订单</option>
+						<option value="3" #if("3" == orderType) selected #end>危废处置订单</option>
+					</select>
+					<dd class="clear"></dd>
+				</dl>
+
+				<div class="clear"></div>
+			</div>
+			<div class="btnArea">
+				<a href="javascript:void(0);" class="btnBase btnSearch" onclick="searchForm();">搜索</a>
+				<a href="javascript:void(0);" class="btnBase btnReset" onclick="clearSearchForm();">重置</a>
+				<a href="javascript:void(0);" class="btnBase" onclick="exportExcelHistory()">导出订单</a>
+				<div class="clear"></div>
+			</div>
+		</form>
+
+		<div class="formTable borderColor">
+			<div class="clear"></div>
+			<!--没有订单时-->
+			<div style="position: relative;" class="tableBox">
+
+				<table border="0" cellspacing="0" cellpadding="0" class="tabList">
+					<thead>
+						<tr class="bgColor">
+							<th>订单类型</th>
+							<th>订单号</th>
+							<th>甲方</th>
+							<th>乙方</th>
+							<th>订单金额</th>
+							<th>下单时间</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						#for(Object[] obj:orderList)
+						<tr>
+							<td>#if(obj[0] == 0) 普通订单 #elseif(obj[0] == 1) 直付订单 #elseif(obj[0] == 2) 绿色商城订单 #elseif(obj[0] == 3) 危废处置订单 #end</td>
+							<td>${obj[1]}</td>
+							<td>${obj[2]}</td>
+							<td>${obj[3]}</td>
+							<td>${obj[4]}</td>
+							<td>${obj[5]}</td>
+							<td><a href="${webroot}/store/order/orderById/${obj[1]}" class="fileLook" target="_blank">查看</a></td>
+						</tr>
+						#end
+					</tbody>
+				</table>
+			</div>
+			#if(orderList != null && orderList.size() > 0)
+			<div class="listBottom">
+				<!-- 分页 -->
+				${include("../common/page.jetx")}
+				<div class="clear"></div>
+			</div>
+			#else
+			<div class="alterbox">
+				<span class="warn"><span>暂无信息记录</span></span>
+			</div>
+			#end
+			<div class="clear"></div>
+		</div>
+
+		<script type="text/javascript">
+			function clearSearchForm() {
+				$("#orderId").val("");
+				$("#startTime").val("");
+				$("#endTime").val("");
+				$("#orderType").val("0");
+			}
+			function searchForm() {
+				$("#searchForm").submit();
+			}
+
+			//分页跳转
+			function goPage(pageNum) {
+				$("#pageNo").val(pageNum);
+				$("#searchForm").submit();
+			}
+			
+			// 导出历史订单
+			function exportExcelHistory() {
+		        var storeId = $("#storeId").val();
+		        var orderId = $("#orderId").val();
+		        var startTime = $("#startTime").val();
+		        var endTime = $("#endTime").val();
+		        var orderType = $("#orderType").val();
+		        window.open($("#ctxpath").val() + '/store/loan/historyOrder/exportExcel' + "?storeId=" + storeId + "&orderId=" + orderId + "&startTime=" + startTime + "&endTime=" + endTime + "&orderType=" + orderType);
+			}
+		</script>
+</body>
+</html>

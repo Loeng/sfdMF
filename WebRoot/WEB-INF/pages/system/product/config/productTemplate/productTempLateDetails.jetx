@@ -1,0 +1,51 @@
+
+
+			#define(com.ekfans.base.product.model.ProductTemplate productTemplate)
+			#define(List<com.ekfans.base.product.model.TemplateFields> tempList)
+			<div class="tit" id="divLoad">
+				<em class="apNum">模板详情</em>
+				<span class="apClose"><img src="${webroot}/resources/system/images/del3.jpg" onclick="apClose();"></span>
+			</div>
+				
+				<input type="hidden" name="id" value="${productTemplate.id }"/>
+			<div class="previewContent">
+			
+					
+				<dl class="infoLine">
+					<dt>模板名：</dt>
+					<dd class="infoRight">${productTemplate.name }</dd>
+					<dd class="clear"></dd>
+				</dl>
+				
+				<dl class="infoLine">
+					<dt>模板类型：</dt>
+					<dd class="infoRight">#if(!productTemplate.type)自定义#else系统默认#end</dd>
+					<dd class="clear"></dd>
+				</dl>
+				
+				<dl class="infoLine">
+					<dt>创建时间：</dt>
+					<dd class="infoRight">${productTemplate.createTime }</dd>
+					<dd class="clear"></dd>
+				</dl>
+				
+				
+				#for(com.ekfans.base.product.model.TemplateFields temp :tempList)
+				<dl class="infoLine">
+					<dt>是否可搜索：</dt>
+					<dd class="infoRight">#if(temp.search )是#else否#end</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="infoLine">
+					<dt>字段名称：</dt>
+					<dd class="infoRight">${temp.fieldName }</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="infoLine">
+					<dt>字段值：</dt>
+					<dd class="infoRight">${temp.fieldValue }</dd>
+					<dd class="clear"></dd>
+				</dl>
+				
+				#end
+			</div>

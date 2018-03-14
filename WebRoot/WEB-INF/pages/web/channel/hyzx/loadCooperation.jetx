@@ -1,0 +1,24 @@
+<div class="hezuoIn">
+	<form action="/store/cooperation/add" method="post" id="cooperationForm">
+        <dl class="formItem">
+            <dt>机构名称</dt>
+            <dd class="formImport"><input name="orgName" type="text" class="formBox"></dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="formItem">
+            <dt>联系人</dt>
+            <dd class="formImport"><input name="contactMan" type="text" class="formBox"></dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="formItem">
+            <dt>联系电话</dt>
+            <dd class="formImport"><input name="contactPhone" type="text" class="formBox"></dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="formItem">
+            <dt>E-mail</dt>
+            <dd class="formImport"><input name="email" type="text" class="formBox"></dd>
+            <dd class="clear"></dd>
+        </dl>
+    </form>
+</div>

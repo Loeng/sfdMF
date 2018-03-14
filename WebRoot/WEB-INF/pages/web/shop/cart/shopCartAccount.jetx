@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>${webName}-订单确认</title>
+	<link rel="icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+	<link rel="shortcut icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+	<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/web/storeweb/css/base.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/web/webcommon/css/cart02.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/tools.css" />
+
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/storeweb/js/cart/shopCartAccount.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/storeweb/js/base.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/storeweb/js/cart02.js"></script>
+</head>
+
+<body>
+	<input type="hidden" id="ctxpath" value="${webroot}" />
+	<input type="hidden" name="ctxpath" id="ctxpath" value="${webroot}" />
+	<input type="hidden" name="channelType" id="channelType" value="0" />
+		
+	<div class="wrapper">
+		<!--购物车顶部-->
+		<div class="header" id="channelTop"></div>
+		
+		<!--购物车订单确认页中部-->
+		<div class="main" id="inMain"></div>
+	</div>
+	
+	<div class="bottomSplit"></div>	
+
+
+	<!--购物车底部-->
+	#include("../channel/commons/buttom.jetx")
+</body>
+</html>

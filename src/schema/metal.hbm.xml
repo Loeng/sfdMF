@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ekfans.base.metal.model">
+
+	<!-- 品类表 -->
+	<class name="PreciousMetalCategory" table="PRECIOUS_METAL_CATEGORY" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="name" type="string" column="NAME" />
+		<property name="createTime" type="string" column="CREATE_TIME"/>
+	</class>
+
+	<!-- 品目表 -->
+	<class name="PreciousMetal" table="PRECIOUS_METAL" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="categoryId" type="string" column="CATEGORY_ID" />
+		<property name="name" type="string" column="NAME" />
+		<property name="spec" type="string" column="SPEC" />
+		<property name="unit" type="string" column="UNIT" />
+		<property name="createTime" type="string" column="CREATE_TIME"/>
+		<property name="smmId" type="string" column="SMM_ID" />
+	</class>
+	
+	<!-- 品价明细表 -->
+	<class name="PreciousMetalDetail" table="PRECIOUS_METAL_DETAIL" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="metalId" type="string" column="METAL_ID" />
+		<property name="priceType" type="boolean" column="PRICE_TYPE" />
+		<property name="price" type="big_decimal" column="PRICE" />
+		<property name="startPrice" type="big_decimal" column="START_PRICE" />
+		<property name="endPrice" type="big_decimal" column="END_PRICE" />
+		<property name="smmId" type="string" column="SMM_ID" />
+		<property name="dateTime" type="string" column="DATE_TIME" />
+		<property name="riseAndDrop" type="double" column="RISE_AND_DROP"/>
+		<property name="createTime" type="string" column="CREATE_TIME"/>
+	</class>
+	
+	
+
+</hibernate-mapping>

@@ -1,0 +1,8 @@
+#define(List<com.ekfans.base.user.model.Bank> bankList)
+
+#for(com.ekfans.base.user.model.Bank bank:bankList)
+<div class="bankItem" style="margin-right:${((for.index % 3) != 0)? "80":"0"}px;">
+	<img src="${webroot}/${bank.logo}"/>
+</div>
+#end
+<div class="clear"></div>

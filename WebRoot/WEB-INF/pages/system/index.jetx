@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>管理系统</title>
+	<link rel="icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+	<link rel="shortcut icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+</head>
+	
+<frameset border=0 framespacing=0 rows="65,*" frameborder=0>
+	<frame name="header" src="${webroot}/system/top" frameborder=0 noresize scrolling=no />
+	<frameset cols="215, *">
+		<frame name="menu" id="indexMenu" src="${webroot}/system/left/null" frameborder=0 noresize />
+		<frame name="main" src="${webroot}/system/right" frameborder=0 noresize scrolling=no />
+	</frameset>
+</frameset>
+<noframes>
+	<body leftmargin="2" topmargin="0" marginwidth="0" marginheight="0" scrolling="auto">
+		<p>你的浏览器版本过低！！！本系统要求IE5及以上版本才能使用本系统。</p>
+	</body>
+</noframes>
+</html>

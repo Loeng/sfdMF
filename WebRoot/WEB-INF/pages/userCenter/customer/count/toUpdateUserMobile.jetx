@@ -1,0 +1,74 @@
+<html><head>
+		<meta charset="UTF-8">
+		<title>会员中心</title>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/customer/js/tools.js"></script>	
+		<link href="${webroot}/resources/customer/css/count/toUpdateUserMobile.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="${webroot}/resources/customer/js/commons/userCount/updateMobile.js"></script>
+	</head>
+	<body>
+    	
+		<input type="hidden" id="ok" value="${updateOk}" />
+		<input type="hidden" id="ctxpath" value="${webroot}" />
+<form action="${webroot}/user/count/mobile/updateUserMobile" name="update" method="post"  id="updateStoreForm">
+
+    
+    
+  	<input type="hidden" id="lastMobile" value="${mobile}" />
+    <div class="rightContent">
+        <h2><em>绑定手机</em></h2>
+        <dl class="formLine">
+            <dt>我的手机<em class="mustIco"></em></dt>
+            <dd class="formRight">
+                <input  type="text" class="dataBox" name="" id="oldMobile" onblur="checkLastMobile();">
+                <span class="errorText errorRed" style="display:none" id="oldMobileSpan2">
+                    <em class="errorBoxL"></em>
+                    <em class="errorMain" id="oldMobileError"></em>
+                    <em class="errorBoxR"></em>
+                </span>
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="formLine">
+            <dt>新的手机<em class="mustIco"></em></dt>
+            <dd class="formRight">
+                <input  type="text" class="dataBox" name="mobile" id="newMobile" onblur="checkNewMobile();">
+                <a href="#" class="btnOrange">发送验证码</a>
+                <span class="errorText errorRed" style="display:none" id="mobileSpan">
+                    <em class="errorBoxL"></em>
+                    <em class="errorMain" id="mobileError">请输入正确的手机！</em>
+                    <em class="errorBoxR"></em>
+                </span>
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="formLine">
+            <dt>验&nbsp;&nbsp;证&nbsp;&nbsp;码<em class="mustIco"></em></dt>
+            <dd class="formRight">
+                <input id="cade" name="cade" type="text" class="dataBox" onblur="checkCode();">
+                <input id="randomNo" type="hidden" value="">
+               
+                 <span class="errorText errorRed" id="cadeSpan" style="display:none">
+                    <em class="errorBoxL"></em>
+                    <em class="errorMain" id="cadeError">验证码错误！</em>
+                    <em class="errorBoxR"></em>
+                </span>
+               
+                
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+        <div class="split"></div>
+        <a href="javascript:void(0)" class="btnBlue" onclick = "formSubmit();">保存</a>
+    </div>
+    <div class="clear"></div>
+
+		</form>
+		
+		
+	
+
+</body></html>
+
+
+

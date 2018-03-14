@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ekfans.base.channel.model">
+
+	<!-- 频道表 -->
+	<class name="Channel" table="CHANNEL" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="assigned" />
+		</id>
+		<property name="name" type="string" column="NAME" />
+		<property name="position" type="int" column="POSITION" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="status" type="boolean" column="STATUS" />
+		<property name="viewPath" type="string" column="VIEW_PATH" />
+		<property name="channelType" type="string" column="CHANNEL_TYPE" />
+		<property name="type" type="string" column="TYPE" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+		<property name="des" type="string" column="DES"/>
+		<property name="linkUrl" type="string" column="LINK_URL"/>
+		<property name="loginStatus" type="boolean" column="LOGIN_STATUS"/>
+		<property name="keyWords" type="string" column="KEY_WORDS"/>
+		<property name="description" type="string" column="DESCRIPTION"/>
+		<property name="parentId" type="string" column="PARENT_ID"/>
+	</class>
+
+	<!-- 频道配置表 -->
+	<class name="ChannelConfig" table="CHANNEL_CONFIG" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="channelId" type="string" column="CHANNEL_ID" />
+		<property name="configType" type="string" column="CONFIG_TYPE" />
+		<property name="configPosition" type="int" column="CONFIG_POSITION" />
+		<property name="objectId" type="string" column="OBJECT_ID" />
+		<property name="objectType" type="string" column="OBJECT_TYPE" />
+		<property name="showNumber" type="int" column="SHOW_NUMBER" />
+		<property name="configName" type="string" column="CONFIG_NAME" />
+		<property name="configIcon" type="string" column="CONFIG_ICON" />
+	</class>
+
+</hibernate-mapping>

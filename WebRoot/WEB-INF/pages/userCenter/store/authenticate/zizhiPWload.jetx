@@ -1,0 +1,116 @@
+#define(com.ekfans.base.store.model.Store Store)
+#define(com.ekfans.base.store.model.Accredit pwAccredit)
+<!--排放污染物许可认证START-->
+<h2>排放污染物许可</h2>
+<div class="rzTtem">
+	<span class="biaoti">认证状态</span>
+	<div class="rzDiv">
+		<span class="zizhi3name">排放污染物许可认证</span>
+		<span class="#if(pwAccredit == null) failstate #elseif(pwAccredit.checkStatus) rzstate #else warnstate #end"></span>
+		<a href="javascript:void(0);" class="btnBase btnzk">展开</a>
+		<div class="clear"></div>
+		<input type="hidden" name="pwId" value="${pwAccredit!=null?pwAccredit.id:""}"/>
+		<dl class="formItem">
+			<dt>许可证号</dt>
+			<dd>
+				<input name="pwlicenseNo" id="pwlicenseNo" type="text" class="textBox box212" value="${pwAccredit!=null?pwAccredit.licenseNo:""}" placeholder="请输入证书编号"  >
+			</dd>
+		</dl>
+		<dl class="formItem">
+      <dt>发证机关</dt>
+      <dd>
+        <input name="pwlinceseAuthor" id="pwlinceseAuthor" type="text" class="textBox box212" value="${pwAccredit!=null?pwAccredit.linceseAuthor:""}" placeholder="请输入证书发证机关"  >
+      </dd>
+      <dd class="clear"></dd>
+    </dl>
+		<dl class="formItem">
+			<dt>证件有效期限</dt>
+			<dd><input name="pwstartTime" id="pwstartTime" type="text" class="timeBox box98 textBox" value="${pwAccredit!=null?pwAccredit.startTime:""}" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'pwendTime\',{d:-3});}'})"></dd>
+			<dd class="lineColor">&nbsp;—&nbsp;</dd>
+			<dd><input name="pwendTime" id="pwendTime" type="text" class="timeBox box98 textBox" value="${pwAccredit!=null?pwAccredit.endTime:""}" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'pwstartTime\',{d:+3});}'})"></dd>
+			<dd class="clear"></dd>
+		</dl>
+		<div class="clear"></div>
+		<dl class="formItem">
+      <dt>地址所在区域</dt>
+      <dd>
+        #tag systemAreaSel("pwareaId",pwAccredit!=null?pwAccredit.areaId:"") #end
+      </dd>
+      <dd class="clear"></dd>
+    </dl>
+		<div class="clear"></div>
+		<dl class="formItem">
+      <dt>地址</dt>
+      <dd>
+        <input name="pwaddress" id="pwaddress" type="text" class="textBox box212" value="${pwAccredit!=null?pwAccredit.address:""}" placeholder="如：永兴县柏林镇柏林某某村"  >
+      </dd>
+      <dd class="clear"></dd>
+    </dl>
+		<div class="clear"></div>
+    <dl class="formItem">
+			<dt>排放污染物许可证</dt>
+			<dd>
+				#tag picUpload("pwlicenseFile","3","150","150",pwAccredit!=null?pwAccredit.licenseFile:"") #end
+			</dd>
+		</dl>
+		<dl class="formItem">
+			<dt>排放污染物许可证附件</dt>
+			<dd>
+				#tag picUpload("pwlicenseTwoFile","3","150","150",pwAccredit!=null?pwAccredit.licenseTwoFile:"") #end
+			</dd>
+		</dl>
+	</div>
+  <div class="clear"></div>
+</div>
+<!--排放污染物许可认证END-->
+
+<script>
+
+function checkPw(){
+	
+
+
+	var pwlicenseNo = $("#pwlicenseNo").val();
+	if(trim(pwlicenseNo) == "" || trim(pwlicenseNo) == "null"){
+		falert("请输入排放污染物许可证号");
+		return false;	
+	}
+	
+	var pwlinceseAuthor = $("#pwlinceseAuthor").val();
+	if(trim(pwlinceseAuthor) == "" || trim(pwlinceseAuthor) == "null"){
+		falert("请输入排放污染物许可证发证机关");
+		return false;	
+	}
+	
+	var pwstartTime = $("#pwstartTime").val();
+	var pwendTime = $("#pwendTime").val();
+	if(trim(pwstartTime) == "" || trim(pwstartTime) == "null" || trim(pwendTime) == "" || trim(pwendTime) == "null"){
+		falert("请选择排放污染物许可证有效期");
+		return false;	
+	}
+	
+
+	var pwareaId = $("#pwareaId").val();
+	if(trim(pwareaId) == "" || trim(pwareaId) == "null"){
+		falert("请选择排放污染物许可地址所在区域");
+		return false;	
+	}
+	
+	var pwaddress = $("#pwaddress").val();
+	if(trim(pwaddress) == "" || trim(pwaddress) == "null"){
+		falert("请选择排放污染物许可地址");
+		return false;	
+	}
+	if(!hasChoseFile("pwlicenseFile")){
+		falert("请上传排放污染物许可证扫描件");
+		return false;	
+	}
+	if(!hasChoseFile("pwlicenseTwoFile")){
+		falert("请上传排放污染物许可证附件扫描件");
+		return false;	
+	}
+	
+	return true;
+}
+
+</script>

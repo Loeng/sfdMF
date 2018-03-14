@@ -1,0 +1,187 @@
+	#define(com.ekfans.base.order.model.Bargain b)	
+	#define(com.ekfans.base.product.model.Product p)	
+	#define(List<com.ekfans.base.user.model.UserAddress> uas)
+	#define(com.ekfans.base.user.model.UserAddress userAddress)
+	#define(List<com.ekfans.base.system.model.SystemArea> systemAreaList)
+	<div class="wrapper">
+		<div class="main">
+		<div class="product">
+	        <div class="proImg">
+	        #if(p.recommendPicture4 == "")
+	        	<img src="${webroot}/resources/web/images/noPro.png">
+	        #else
+	       	 <img src="${webroot}${p.recommendPicture4}">
+	        #end
+	        </div>
+	        <div class="proInfo">
+	        	<dl class="proName">
+	            	<dt><span class="productName">${b.productName}</span><em class="price">${b.finalPrice}元/${p.unit}</em><div class="clear"></div></dt>
+	                <dd>${b.productModel}；产地${p.habitatAddress}；${p.note}</dd>
+	            </dl>
+	             #if(p.jcFile=="")
+	            <dl class="detection">
+	            	<dt style="height:0;"></dt>
+	              <dd class="detectionImg">
+	                <img src="${webroot}/resources/web/images/weijiance.png" alt="未检测">
+	                <span class="weijiance">未检测</span>
+	              </dd>
+	              <dd class="detectionName"  style="height:0;"></dd>
+	            </dl>
+	             #else
+	             	<dl class="detection">
+	                <dt>检测机构</dt>
+	                <dd class="detectionImg">
+	                  <img src="${webroot}/resources/web/images/yijiance.png" alt="已检测">
+	                  <a href="${webroot}${p.jcFile}" target="_blank" class="yijiance" title="已检测">已检测</a>
+	                </dd>
+	                <dd class="detectionName">${p.jcjg}</dd>
+	            </dl>
+	             #end 
+	            <div class="clear"></div>
+	            <div class="productSplit"></div>
+	            <dl class="count">
+	                <dt>数量</dt>
+	                <dd>
+	                    <div class="buyCount">
+	                        <input name="buyCount" readonly id="buyCount" type="text" value="${b.finalQuantity}" >
+	                    </div>
+	                    <span class="danwei">${b.unit}</span>
+	                    <span class="inventory">库存 ${p.quantity} ${p.unit}</span>
+	                    #if(errorMsg != "" && errorMsg != null)
+                    	<span class="errorText"><em></em>${errorMsg}</span>
+                    #end
+	                </dd>
+	                <dd class="clear"></dd>
+	            </dl>
+	           
+	        </div>
+	        <div class="clear"></div>
+	    </div>
+	    <ul class="siteList" id="adressUl">
+				#for(com.ekfans.base.user.model.UserAddress ua : uas)
+					#if(ua.status) <li class="siteNow"> #else <li> #end
+						<label>
+			      	#if(ua.status) <em class="locationIco"></em>  #end
+			      	<em class="locationIco" onclick="optOrderAdress('${ua.provincial}','${ua.city}','${ua.area}','${ua.address}','${ua.zipcode}','${ua.mobile}','${ua.name}');"></em>
+			      	<span onclick="optOrderAdress('${ua.provincial}','${ua.city}','${ua.area}','${ua.address}','${ua.zipcode}','${ua.mobile}','${ua.name}');">
+			        	<em><font id="uaProvincialSpan">${ua.provincial}</font><font id="uaCitySpan"> ${ua.city}</font><font id="uaAreaSpan"> ${ua.area}</font></em>
+			        	<em class="userAdress"><font id="uaAddressSpan">${ua.address}</font></em>
+			        	<em>邮编：<font id="uaZipcouaProvincialSpandeSpan">${ua.zipcode}</font></em>
+			        	<em>电话：<font id="uaMobileSpan">${ua.mobile}</font> </em>
+			        	<em>(<font id="uaNameSpan">${ua.name}</font> 收)</em>
+			        </span>
+			      </label>
+			      #if(ua.status)  
+			      	<a href="javascript:void(0)">默认</a>
+			    	#else
+			      	<a href="javascript:void(0)" onclick="econfirm('确定要设为默认地址吗?',setDefaultAddress,['${ua.id}','${webroot}','${ua.provincial}','${ua.city}','${ua.area}','${ua.address}','${ua.zipcode}','${ua.mobile}','${ua.name}'],null,null);">设为默认</a>
+			    	#end
+			    	<a href="javascript:void(0)" onclick="updateAdress('${ua.id}');">编辑本地址</a>
+			    </li>
+				#end
+			</ul>
+	    <div class="siteBottom">
+	    	<a href="javascript:void(0)" class="btnNew">使用新地址</a>
+	    	<a href="${webroot}/store/manager/ACCOUNT_CENTER_ADDRESS" class="blue">管理收货地址</a>
+	    </div>
+	    
+	    <!--收货地址表单-->
+	    <div class="address" id="addressAddDiv">
+		<span class="pointTop"></span>
+		<a href="javascript:void(0)" class="closeAddress" onclick="canelNewAddress();">关闭</a>
+		<form action="${ctxpath }/purchase/adress/load" name="modifyOk" method="post"  id="addUserAddressForm">
+			<dl class="formLine">
+				<dt><em class="red">*</em>收货人姓名</dt>
+	     	<dd class="formRight">
+	     		<input type="text" name="name" id="name"  class="siteBox" onfocus="checkNameFocus();" onblur="checkNameBlur();" />
+	     		<span class="formError" id="nameMsgSpan">请您填写收货人姓名</span>
+	     	</dd>
+	      <!--验证表单不通过则给一个errorBox的class-->
+	      <dd class="clear"></dd>
+			</dl>
+	  	<dl class="formLine">
+	    	<dt><em class="red">*</em>所在地区</dt>
+	      <dd class="formRight">
+	      	<input type="hidden" name="pca" id="pca" readOnly="true" />
+	        <select onchange="findUtils(this)" class="selectFindHome">
+	        	<option value="">请选择</option>
+	          #for(com.ekfans.base.system.model.SystemArea sa:systemAreaList)
+	          	<option value="${sa.areaName},${sa.id}">${sa.areaName}</option>
+	          #end
+	        </select>
+	      </dd>
+	      <dd class="clear"></dd>
+	    </dl>
+	    <dl class="formLine">
+	    	<dt><em class="red">*</em>街道地址</dt>
+	      <dd class="formRight siteDetail">
+	      	<span class="siteCheckText" id="tempInfoAddress"></span>
+	      	<input name="address3" id="address" class="siteBox" onfocus="checkAddressFocus();" onblur="checkAddressBlur();" />
+	        <span class="formError" id="addressMsgSpan">请您填写收货人详细地址</span>
+	      </dd>
+	      <dd class="clear"></dd>
+	    </dl>
+			<dl class="formLine">
+	    	<dt><em class="red">*</em>手机号码</dt>
+	      <dd class="formRight boxDouble">
+		      <input name="mobile" type="text" id="mobile" class="siteBox" onfocus="checkMobileFocusTempNew();" onblur="checkMobileBlurTempNew();" />
+		      	或 <span class="rightDt">固定电话</span>
+		      <input name="phone" type="text" id="phone" class="siteBox" onfocus="checkMobileFocusTempNew();" onblur="checkMobileBlurTempNew();" />
+		      <span class="formError" id="UtilsError">请您填写收货人手机号码或固定电话号码</span>
+	   		</dd>
+	    	<dd class="clear"></dd>
+	    </dl>
+			<dl class="formLine">
+				<dt>邮政编码</dt>
+	      <dd class="formRight">
+	      	<input name="zipcode" type="text" id="zipcode"  class="siteBox" onfocus="checkZipcodeFocus();" />
+	      	<span class="formError" id="zipcodeMsg">请输入正确的邮政编码  如：100000</span>
+	      </dd>
+	      <dd class="clear"></dd>
+	    </dl>
+			<div class="addressBtn">
+	    	<a href="javascript:void(0)" class="btnBlue" onclick="formSubmit();">保存</a>
+	    	<a href="javascript:void(0)" class="btnBlue cancel" onclick="canelNewAddress();">取消</a>	
+	    </div>
+	  </form>
+	</div>
+	<div class="address" id="addressUpdateDiv" style="display:none"></div>
+	#define(com.ekfans.base.user.model.UserAddress ua)
+	<form action="${ctxpath }/purchase/bargainCart/pay" name="modifyOk" method="post" id="addshopCartPayForm">
+		<input type="hidden"  name="bargainId" value="${b.id}" />
+		<input type="hidden"  name="productId" value="${p.id}" />
+		<input type="hidden"  name="count" value="${count}" />
+		<input type="hidden"  name="finalPrice" value="${b.finalPrice}" />
+		<input type="hidden"  name="finalQuantity" value="${b.finalQuantity}" />
+		<input type="hidden"  name="totalPrice" value="${totalPrice}" />
+		
+	#if(null!=ua)
+		<input type="hidden" id="uaProvincial" name="uaProvincial" value="${ua.provincial}" />
+		<input type="hidden" id="uaCity" name="uaCity" value="${ua.city}" />
+		<input type="hidden" id="uaArea" name="uaArea" value="${ua.area}" />
+		<input type="hidden" id="uaAddress" name="uaAddress" value="${ua.address}" />
+		<input type="hidden" id="uaZipcode" name="uaZipcode" value="${ua.zipcode}" />
+		<input type="hidden" id="uaMobile" name="uaMobile" value="${ua.mobile}" />
+		<input type="hidden" id="uaName" name="uaName" value="${ua.name}"/>
+	#else
+		<input type="hidden" id="uaProvincial" name="uaProvincial" />
+		<input type="hidden" id="uaCity" name="uaCity" />
+		<input type="hidden" id="uaArea" name="uaArea" />
+		<input type="hidden" id="uaAddress" name="uaAddress" />
+		<input type="hidden" id="uaZipcode" name="uaZipcode" />
+		<input type="hidden" id="uaMobile" name="uaMobile" />
+		<input type="hidden" id="uaName" name="uaName" />
+	#end
+		<dl class="orderBeizhu">
+	    	<dt>订单<br/>备注</dt>
+	    	<dd><textarea name="note" cols="" rows="" class="orederbz" maxlength="200" onkeyup="checkLength(this);"></textarea><dd>
+	    	<div class="clear"></div>
+	    	<div><span id="lengthMsg" class="lengthMsg"></span></div>
+	    </dl>
+</form>	
+	    <!--收货地址表单 end-->
+	    
+	    <div class="goBuy">商品金额总计：<em>￥${totalPrice}</em>#if(p.quantity > 0)<a href="javascript:void(0);" class="btnBlue" onclick="submitNewOrders()">提交订单</a>#end</div>
+	    <div class="clear"></div>
+	</div>
+	</div>

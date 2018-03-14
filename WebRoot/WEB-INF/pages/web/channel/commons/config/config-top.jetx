@@ -1,0 +1,39 @@
+<div class="homeDiy">
+	<div class="wrapper">
+		<ul class="upTab">
+			<li>DIY</li>
+			<li class="cur">频道</li>
+		</ul>
+		<div class="upTabContent diyCheck" style="display:none;">
+			<span class="diyWait">敬请期待...</span>
+		</div>
+		<div class="upTabContent channel">
+			#define(List<com.ekfans.base.channel.model.Channel> channelList)
+			#for(com.ekfans.base.channel.model.Channel childChannel:channelList)
+				#if(childChannel.channelType != "1")
+					#if(childChannel.id == channelId)
+						<a href="#" style="background:#e1e1e1;">${childChannel.name}</a>
+					#elseif(childChannel.viewPath != null && childChannel.viewPath != "")
+						<a href="${webroot}/system/channel/config/${childChannel.id}">${childChannel.name}</a>
+					#else
+						<span style="width:40px;">${childChannel.name}</span>
+					#end
+				#end
+				
+				#for(com.ekfans.base.channel.model.Channel childChannel2:childChannel.childs)
+					#if(childChannel2.id == channelId)
+						<a href="#" style="background:#e1e1e1;">${childChannel2.name}</a>
+					#else
+						<a href="${webroot}/system/channel/config/${childChannel2.id}">${childChannel2.name}</a>
+					#end
+				#end
+				
+				
+			#end
+		</div>
+		<div class="btns">
+			<a href="javascript:saveConfig('${channelId}','${webroot}')" class="btnBlue">保存</a>
+			<a href="javascript:cancelConfig();" class="btnBlue canselBtn">取消</a>
+		</div>
+	</div>
+</div>

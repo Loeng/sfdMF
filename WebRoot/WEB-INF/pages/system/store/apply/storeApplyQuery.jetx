@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+    	<title>店铺申请详情</title>
+    	<link href="${webroot}/resources/system/css/demand.css" rel="stylesheet" type="text/css" />
+    	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/store/storeApplyCheck.js"></script>
+    </head>
+    <body>
+    	<input type="hidden" id="modifyOk" value="${modifyOk}" />
+			<input type="hidden" id="ctxpath" value="${webroot}" />
+			#define(com.ekfans.base.store.model.StoreApply sa)
+    	
+				<div class="ht_btn sh_btn">
+					#if((sa.status)== 1) <a href="javaScript:void(0);"  class="btn">通过</a>
+					#else
+				    <a href="javaScript:void(0);" onclick="formSubmit('${sa.id}','${webroot}');" class="btn">通过</a>
+				  #end  
+					<a href="${webroot}/system/store/storeApplyList"  class="btn">返回列表</a>
+				</div>
+				<div class="add_pro">
+				
+				
+				
+				
+				<dl class="pro_sh">
+					<dt>企&nbsp;&nbsp;&nbsp;业&nbsp;&nbsp;&nbsp;名：&nbsp;&nbsp; ${sa.companyName }</dt>
+				</dl>
+			
+				
+			  <dl class="pro_sh">
+					<dt>联系人：&nbsp;&nbsp; ${sa.contacts }</dt>
+				</dl>
+				
+				
+				<dl class="pro_sh">
+					<dt>手机：&nbsp;&nbsp; ${sa.mobile }</dt>
+				</dl>
+				
+				
+				<dl class="pro_sh">
+					<dt>邮箱：&nbsp;&nbsp; ${sa.email }</dt>
+				</dl>
+				
+					
+				<dl class="pro_sh">
+					<dt>邮编：&nbsp;&nbsp; ${sa.zipCode }</dt>
+				</dl>
+				
+					
+				<dl class="pro_sh">
+					<dt>企业网站：&nbsp;&nbsp; ${sa.domain }</dt>
+				</dl>
+					
+				<dl class="pro_sh">
+					<dt>详细地址：&nbsp;&nbsp; ${sa.address }</dt>
+				</dl>
+					
+				<dl class="pro_sh">
+					<dt>备注：&nbsp;&nbsp; ${sa.note }</dt>
+				</dl>
+					
+				<dl class="pro_sh">
+					<dt>申请时间：&nbsp;&nbsp; ${sa.createTime }</dt>
+				</dl>
+				<dl class="pro_sh">
+					<dt>修改时间：&nbsp;&nbsp; ${sa.updateTime }</dt>
+				</dl>
+			  
+								
+								 				
+				
+				
+			</div>
+		
+    </body>
+</html>

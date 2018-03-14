@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ekfans.plugin.wuliubao.yunshu.base.model">
+
+    <!--  资质认证 -->
+    <class name="Aptitude" table="APTITUDE" dynamic-update="false">
+        <id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="type" type="string" column="TYPE" />
+		<property name="state" type="string" column="STATE" />
+		<property name="authenticatorId" type="string" column="AUTHENTICATOR_ID" />
+		<property name="management" type="string" column="MANAGEMENT" />
+		<property name="managementNumber" type="string" column="MANAGEMENT_NUMBER" />
+		<property name="managementPath" type="string" column="MANAGEMENT_PATH" />
+		<property name="transportNumber" type="string" column="TRANSPORT_NUMBER" />
+		<property name="transportPath" type="string" column="TRANSPORT_PATH" />
+		<property name="dangerTransportNumber" type="string" column="DANGER_TRANSPORT_NUMBER" />
+		<property name="dangerTransportPath" type="string" column="DANGER_TRANSPORT_PATH" />
+		<property name="auditorId" type="string" column="AUDITOR_ID" />
+		<property name="auditTime" type="string" column="AUDIT_TIME" />
+		<property name="remarks" type="string" column="REMARKS" />
+		<property name="sewagePermitNumber" type="string" column="SEWAGE_PERMIT_NUMBER" />
+		<property name="sewagePermitPath" type="string" column="SEWAGE_PERMIT_PATH" />
+		<property name="sewagePermitEnclosurePath" type="string" column="SEWAGE_PERMIT_ENCLOSURE_PATH" />
+		<property name="name" type="string" column="NAME" />
+		<property name="nickName" type="string" column="NICK_NAME" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+     </class>
+    <!-- 车长宽高实体 -->
+   <class name="CarCKG" table="CARCKG" dynamic-update="false">
+       <id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+        <property name="carLength" type="java.lang.String">
+            <column name="CARLENGTH" />
+        </property>
+        <property name="carWidth" type="java.lang.String">
+            <column name="CARWIDTH" />
+        </property>
+        <property name="carHight" type="java.lang.String">
+            <column name="CARHIGHT" />
+        </property>
+    </class>
+    
+    <!-- 用户留言反馈实体-->
+   <class name="MessageBack" table="MESSAGEBACK" dynamic-update="false">
+       <id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+        <property name="content" type="java.lang.String">
+            <column name="CONTENT" />
+        </property>
+        <property name="userId" type="java.lang.String">
+            <column name="USERID" />
+        </property>
+        <property name="createTime" type="java.lang.String">
+            <column name="CREATETIME" />
+        </property>
+        <property name="type" type="java.lang.String">
+            <column name="TYPE" />
+        </property>
+        <property name="feedbackContent" type="java.lang.String">
+            <column name="FEEDBACK_CONTENT" />
+        </property>
+        <property name="feedbackID" type="java.lang.String">
+            <column name="FEEDBACK_ID" />
+        </property>
+        <property name="feedbackMan" type="java.lang.String">
+            <column name="FEEDBACK_MAN" />
+        </property>
+        <property name="feedbackTime" type="java.lang.String">
+            <column name="FEEDBACK_TIME" />
+        </property>
+        <property name="userName" type="java.lang.String">
+            <column name="USER_NAME" />
+        </property>
+        <property name="nickName" type="java.lang.String">
+            <column name="NICK_NAME" />
+        </property>
+    </class>
+    
+    <!-- 版本实体 -->
+   <class name="Version" table="version" dynamic-update="false">
+       <id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+        <property name="type" type="java.lang.String">
+            <column name="TYPE" />
+        </property>
+        <property name="num" type="java.lang.String">
+            <column name="NUM" />
+        </property>
+        <property name="description" type="java.lang.String">
+            <column name="DESCRIPTION" />
+        </property>
+        <property name="url" type="java.lang.String">
+            <column name="URL" />
+        </property>
+        <property name="updateTime" type="java.lang.String">
+            <column name="UPDATETIME" />
+        </property>
+        <property name="newVersion" type="java.lang.String">
+            <column name="NEWVERSION" />
+        </property>
+    </class>
+    
+       <!-- 车辆载重量实体类 -->
+   <class name="Capacity" table="CAPACITY" dynamic-update="false">
+       <id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+        <property name="wfpTotal" type="java.lang.String">
+            <column name="WFPTOTAL" />
+        </property>
+    </class>
+    
+           <!-- 用户地址信息实体-->
+   <class name="Address" table="ADDRESS" dynamic-update="false">
+       <id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+        <property name="userId" type="java.lang.String">
+            <column name="USERID" />
+        </property>
+        <property name="provinceId" type="java.lang.String">
+            <column name="PROVINCEID"/>
+        </property>
+        <property name="cityId" type="java.lang.String">
+            <column name="CITYID" />
+        </property>
+        <property name="areaId" type="java.lang.String">
+            <column name="AREAID" />
+        </property>
+        <property name="provinceName" type="java.lang.String">
+            <column name="PROVINCENAME" />
+        </property>
+        <property name="cityName" type="java.lang.String">
+            <column name="CITYNAME" />
+        </property>
+            <property name="areaName" type="java.lang.String">
+            <column name="AREANAME" />
+        </property>
+          <property name="habitatAddress" type="java.lang.String">
+           <column name="HABITATADDRESS" />
+         </property>
+    </class>
+    
+    
+               <!-- 用户关注信息实体-->
+   <class name="Attention" table="ATTENTION" dynamic-update="false">
+       <id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+        <property name="userId" type="java.lang.String">
+            <column name="USERID" />
+        </property>
+        <property name="friendId" type="java.lang.String">
+            <column name="FRIENDID"/>
+        </property>
+        <property name="createTime" type="java.lang.String">
+            <column name="CREATE_TIME" />
+        </property>
+  
+    </class>
+</hibernate-mapping>

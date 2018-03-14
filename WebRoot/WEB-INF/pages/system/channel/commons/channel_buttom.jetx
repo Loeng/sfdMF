@@ -1,0 +1,30 @@
+<div class="wrapper footer">
+	<dl class="footerLinks">
+		<dt>购物指南</dt>
+		<dd><a href="javascript:void(0)" >会员介绍</a></dd>
+		<dd><a href="javascript:void(0)" >常见问题</a></dd>
+		<dd><a href="javascript:void(0)" >联系客服</a></dd>
+		<dd><a href="javascript:void(0)" >购物流程</a></dd>
+	</dl>
+	<dl class="footerLinks">
+		<dt>配送方式</dt>
+		<dd><a href="javascript:void(0)" >上门自提</a></dd>
+		<dd><a href="javascript:void(0)" >如何运输</a></dd>
+		<dd><a href="javascript:void(0)" >如何送礼</a></dd>
+	</dl>
+	<dl class="footerLinks">
+		<dt>支付方式</dt>
+		<dd><a href="javascript:void(0)" >货到付款</a></dd>
+		<dd><a href="javascript:void(0)" >邮局汇款</a></dd>
+		<dd><a href="javascript:void(0)" >分期付款</a></dd>
+	</dl>
+	<dl class="footerLinks" id="text">
+		<dt>售后服务</dt>
+		<dd><a href="javascript:void(0)" >售后服务流程</a></dd>
+		<dd><a href="javascript:void(0)" >售后服务政策</a></dd>
+		<dd><a href="javascript:void(0)" >退款说明</a></dd>
+		<dd><a href="javascript:void(0)" >返修退换货</a></dd>
+	</dl>
+	<div class="clear"></div>
+	<div class="footerText">京ICP备11047843号-1 版权所有 2005-2012 成易科远见科技有限公司<br />技术支持：易科远见</div>
+</div>

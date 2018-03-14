@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/store/storeCheck.css">
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/base.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/store/auth/store_bank.js"></script>
+</head>
+
+<body>
+#define(com.ekfans.base.store.model.Store store)
+#define(List<com.ekfans.base.store.model.StoreFinancialData> sfdlist)
+<input type="hidden" id="ctxpath" value="${webroot}" />
+
+<div class="ht_btn sh_btn">
+	<a href="${webroot}/system/store/bank/jumplist" class="btn">返回列表</a>
+</div>
+<div class="step">
+	<div class="stepItem">
+	  <a href="${webroot}/system/store/bank/checkone/${store.id}" onmouseout="tempOut(this,1)" onmouseover="tempOver(this)">
+	  	<em class="stepIcon">2</em>
+	  </a>
+	  <span class="stepText">法人信息认证</span>
+	  #if(store.bankStatus=="1")
+    	<em class="stateIcon ingIcon"></em>
+    #elseif(store.bankStatus=="2")
+    	<em class="stateIcon failIcon"></em>
+    #elseif(store.bankStatus=="3")
+    	<em class="stateIcon sucIcon"></em>
+    #end
+	</div>
+	<div class="stepItem alreadyItem">
+	  <a href="${webroot}/system/store/bank/checktwo/${store.id}" onmouseout="tempOut(this,2)" onmouseover="tempOver(this)">
+	  	<em class="stepIcon">2</em>
+	  </a>
+	  <span class="stepText">近期财务数据</span>
+	  #if(store.bankStatus=="1")
+    	<em class="stateIcon ingIcon"></em>
+    #elseif(store.bankStatus=="2")
+    	<em class="stateIcon failIcon"></em>
+    #elseif(store.bankStatus=="3")
+    	<em class="stateIcon sucIcon"></em>
+    #end
+	</div>
+	<div class="clear"></div>
+</div>
+<div class="forms">
+	<div class="formSection">
+		<h3 class="borderBottom">近期财务数据</h3>
+		<div class="formIn">
+	    <ul class="financeHeader">
+	      <li>
+	        <span>上年末（<em>单位：万元</em>）</span>
+	        <span>本年上月末（<em>单位：万元</em>）</span>
+	      </li>
+	      <li>
+	        <span>上年末（<em>单位：万元</em>）</span>
+	        <span>本年上月末（<em>单位：万元</em>）</span>
+	      </li>
+	      <li>
+	        <span>上年末（<em>单位：万元</em>）</span>
+	        <span>本年上月末（<em>单位：万元</em>）</span>
+	      </li>
+	      <li>
+	        <span>上年末（<em>单位：万元</em>）</span>
+	        <span>本年上月末（<em>单位：万元</em>）</span>
+	      </li>
+	    </ul>
+    	<div class="clear"></div>
+    	#if(sfdlist!=null && sfdlist.size()>0)
+    		#for(com.ekfans.base.store.model.StoreFinancialData fd : sfdlist)
+    			#set(String types = fd.dataType)
+    			#if(fd.dataTime.length()==4)
+    				<div class="financeItem">
+    					<span class="formName">${types}</span>
+              <span class="formText">${fd.money}</span>
+            #for(com.ekfans.base.store.model.StoreFinancialData fds : sfdlist)
+            	#if(fds.dataTime.length()!=4 && types==fds.dataType)
+	            	<span class="formText">${fds.money}</span>
+	            	</div>
+            	#end
+            #end
+    			#end
+    		#end
+      #end      
+			<div class="clear"></div>
+		</div>
+	</div>
+  <div class="clear"></div>
+  #if(store.bankStatus=="1")
+		<div id="dis${store.id}">
+			<a href="javascript:checkPass('${store.id}', 2, 3);" class="btnBottom">通过</a>
+			<a href="javascript:checkPass('${store.id}', 2, 2);" class="btnBottom">拒绝</a>
+			<div class="decline">
+			  <em class="textPoint"></em>
+			  <textarea name="checkNote" placeholder="请输入拒绝理由"></textarea>
+			</div>
+		</div>
+	#end
+</div>
+</body>
+</html>

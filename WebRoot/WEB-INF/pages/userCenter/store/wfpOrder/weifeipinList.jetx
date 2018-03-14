@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>危废订单管理</title>
+	<meta name="keywords" content="鑫裕环保" />
+	<meta name="description" content="鑫裕环保" />
+	<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+	<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+	
+#define(List<com.ekfans.base.wfOrder.model.ContractOrder> orderList)
+#define(String storeId)
+<!--右侧主体-->
+<input id="ctxPath" type="hidden" value="${webroot}" />
+  
+<div class="rightContent">
+	<form action="${webroot}/store/order/contractOrder/orderList" method="post" id="searchWfpOrder">
+		<input type="hidden" name="pageNum" />
+  	
+		<div class="formSearch borderColor">
+	  	<dl class="formItem">
+	    	<dt>订单名称</dt>
+        <dd>
+        	<input id="orderNumber" name="orderName" type="text" class="textBox box212" value="${orderName}">
+        </dd>
+        <dd class="clear"></dd>
+	    </dl>
+      <dl class="formItem">
+      	<dt>开始时间</dt>
+        <dd>
+          <input id="wfpName" name="wfpName" type="text" class="textBox box212" value="${contractStartTime}">
+        </dd>
+        <dd class="clear"></dd>
+      </dl>
+      <dl class="formItem">
+      	<dt>结束时间</dt>
+        <dd>
+          <input id="wfpName" name="wfpName" type="text" class="textBox box212" value="${contractEndTime}">
+        </dd>
+        <dd class="clear"></dd>
+      </dl>
+        
+			<div class="clear"></div>
+		</div>
+    <div class="btnArea">
+	  	<a href="javascript:formSubmit();" class="btnBase btnSearch">搜索</a>
+	    <a href="javascript:reset();" class="btnBase btnReset">重置</a>
+	    <div class="clear"></div>
+    </div>
+  </form>    
+
+	<div class="formTable borderColor">
+		<ul class="secNav">
+			<li class="li1">#if(pageType == "sale") 合同订单信息 #else 处置订单信息 #end</li>
+		</ul>
+		<div class="clear"></div>
+      
+    <div style="position:relative;" class="tableBox">
+    	<table border="0" cellspacing="0" cellpadding="0" class="tabList">
+        <thead>
+          <tr class="tabTit bgColor">
+            <th class="accept">订单名称</th>
+            <th class="accept">产生企业</th>
+            <th class="accept">处置企业</th>
+            <th class="accept">订单状态</th>
+            <th class="accept">开始时间</th>
+            <th class="accept">截止时间</th>
+            <th class="accept">下单时间</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        	#for(com.ekfans.base.wfOrder.model.ContractOrder order : orderList)
+          	<tr>
+            	<td>${order.orderName}</td>
+            	<td>${order.saleName}</td>
+            	<td>${order.buyName}</td>               
+             	<td>#if(order.approveStatus=="0")环保未审核#else环保已审核 #end</td>
+             	<td>${order.contractStartTime}</td><!--三种状态分别为订单状态，物流状态，财务状态-->
+             	<td>${order.contractEndTime}</td>
+             	<td>${order.createTime}</td>
+            	<td>
+            		<a href="javascript:orderDetail('${webroot}','${order.id}','1');" class="eyeIco" title="详情">查看</a>
+            		#if(order.approveStatus!="0" && pageType == "sale")
+               		<a href="javascript:addChildOrder('${webroot}','${order.id}');"  class="eyeIco"  title="添加子订单">添加子订单</a>
+              	#end
+            	</td>
+          	</tr>                        
+          #end
+        </tbody>
+      </table>
+		</div>
+		#if(orderList ==  null || orderList.size() == 0)
+			<div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+		#else
+			<div>
+	    	<input type="hidden" name="pageNum" value="${currentpageStr}" />
+	    	${include("../common/page.jetx")}
+	    	<div class="clear"></div>
+			</div>
+		#end
+	</div>
+</div>
+     
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+
+<script type="text/javascript">
+//查询详情
+function orderDetail(ctx,id,type){
+	window.location.href=ctx+"/store/order/wfpOrderDetail?orderId="+id+"&type="+type;
+}
+//申请金融服务
+function gaoBankService(ctx,id){
+   window.location.href=ctx+"/store/finance/jumpDaiPape/4?orderId="+id;
+}
+//添加子订单
+function addChildOrder(ctx,id){
+	window.location.href=ctx+"/store/childOrder/getContractOrder?contractOrderId="+id;
+}
+
+//分页跳转
+function goPage(pageNum){
+	$("input[name='pageNum']").val(pageNum);
+	$("#searchWfpOrder").submit();
+}
+	function reset(){
+		$("#orderNumber").val("");
+		$("#orderStatus").val("");
+		$("#startTime").val("");
+		$("#endTime").val("");
+		$("#wfpName").val("");
+	}
+
+function formSubmit(){
+	$(searchWfpOrder).submit();	
+}
+</script>
+</body>
+</html>

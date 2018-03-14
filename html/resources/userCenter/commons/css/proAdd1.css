@@ -1,0 +1,45 @@
+/* CSS Document */
+
+.sto_fl_ss{overflow:hidden;padding:10px 14px;margin-bottom:18px;border-bottom:1px solid #f6f6f6; background:#fff;}
+.sto_fl_ss input{height:26px;border:1px solid #d3d3d3;width:220px;padding-left:2px;*line-height:26px\9;vertical-align:middle;color:#7d7d7d;outline:none;margin:0 15px 0 10px;}
+.sto_fl_ss a{display:inline-block;height:28px;line-height:28px;vertical-align:middle;}
+
+.select_fl{background:#fff; padding:10px 14px;}
+.select_fl h3{font-weight:lighter;font-size:14px;margin:-4px 0 12px;}
+.select_fl ul{width:100%;overflow:hidden;margin-bottom:14px;}
+.select_fl li{float:left;width:150px;height:250px;overflow-x:hidden; _overflow-y:scroll;border:1px solid #f6f6f6;margin-right:13px;}
+.select_fl li a{display:block;height:25px;line-height:25px;padding-left:13px;overflow:hidden;}
+.select_fl li a.cur,.select_fl li a:hover{background:#ffedd7}
+.select_fl .ts{width:646px;height:23px;background:#ff8a00;margin-bottom:14px;color:#fff;padding-top:5px;}
+.select_fl .ts b{display:inline-block;width:12px;height:13px;overflow:hidden;background:url(../images/sto_bg.gif) no-repeat -170px -79px;vertical-align:middle;}
+.select_fl .ts a{color:#fff;margin:0 8px;}
+.select_fl2 {width:100%;overflow:hidden;padding:5px 0 10px;}
+.select_fl2 .ts{width:325px;float:left;margin:0 15px 0 0;}
+
+/*第二步*/
+.xz_sto_fl{width:212px;height:200px;padding:5px 0;border:1px solid #f6f6f6;overflow-x:hidden;_overflow-y:scroll;}
+.xz_sto_fl span{display:block;padding:3px 10px;cursor:pointer;color:#2f2f2f}
+.xz_sto_fl span b{display:inline-block;width:12px;height:13px;overflow:hidden;background:url(../images/sto_bg.gif) no-repeat -24px -80px;vertical-align:middle;margin-right:5px;}
+.xz_sto_fl p{padding-left:28px;line-height:22px;color:#a3a3a3;}
+.xz_sto_fl p input{vertical-align:middle;_margin-top:-2px;}
+.xz_sto_fl span.p_hide b{background-position:-70px -80px;}
+
+.itemLayer{margin:0 12px; margin-bottom:20px;  border-top:solid 1px #333;} 
+.classItem{width:300px; margin:0 14px; float:left; height:50px; line-height:50px; border-bottom:solid 1px #e4e4e4;}
+.classItem label{display:block;}
+.classItem input{display:block; float:left; margin:19px 20px 0 0;}
+
+/*店铺品牌单选列表*/
+.shopListAlert{display:none;}
+.shopListAlert .shopListContent{width:100%;}
+.shopListContent .btn{padding: 0 0 20px 72px;}
+.shopSearch{padding:16px 10px 0 16px;}
+.shopSearch dl{width:320px; float:left;}
+.shopSearch dt{height:20px; line-height:20px;}
+.shopListAlert div.btn a{float:none;}
+.shopListAlert .ht_page{margin-bottom:20px; padding-right:20px;}
+.shopTable{width:96%; margin:0 2% 20px 2%; border-collapse:collapse; font-size:12px;}
+.shopTable th{text-align:center; border-top:solid 1px #333; border-bottom:solid 1px #333; height:20px; line-height:20px; padding:8px 0;}
+.shopTable td{text-align:center; border-top:solid 1px #dedede; border-bottom:solid 1px #dedede; height:30px; line-height:30px; padding:8px 0;}
+#storeBg{display:none;}
+#brandBg{display:none;}

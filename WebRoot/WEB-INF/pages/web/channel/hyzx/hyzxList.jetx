@@ -1,0 +1,16 @@
+#define(List<com.ekfans.base.content.model.Content> contents)
+#define(com.ekfans.pub.util.Pager pager)
+#if(contents!=null && contents.size()>0)
+	#for(com.ekfans.base.content.model.Content c : contents)
+    <dl class="newsList">
+       <dt><a href="${webroot}/03-${c.id}-1.html"></a></dt>
+       <dd class="listRight">
+       	<h3><a href="${webroot}/03-${c.id}-1.html">${c.contentName}</a></h3>
+        <a href="${webroot}/03-${c.id}-1.html" class="zxzys"><p>${c.navigationText}</p></a>
+       </dd>
+       <dd class="clear"></dd>
+    </dl>
+	#end
+    ${include( "../commons/channelNew-page.jetx")}
+    
+#end

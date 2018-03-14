@@ -1,0 +1,14 @@
+#define(List<java.lang.String> categories)
+<dt>分类</dt>
+<dd class="listLink">
+	<a href="#" class="cur">全部</a>
+	#if(categories.size()>0)
+		#for(java.lang.String name: categories)
+		<a href="#">${name}</a>
+		#end
+	#end
+</dd>
+<dd class="listMore" style="visibility:visible;">
+	<a href="#" title="更多" ></a>
+</dd>
+<dd class="clear"></dd>

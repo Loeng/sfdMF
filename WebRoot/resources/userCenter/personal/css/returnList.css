@@ -1,0 +1,46 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url("personalBase.css");
+
+/*搜索表单*/
+.searchForm{border-bottom:solid 1px #dedede; padding-left:10px;}
+.formLine{height:28px; width:300px; float:left; margin-bottom:18px;}
+.formLine dt{width:70px; float:left; line-height:28px;}
+.formLine .formRight{width:230px; float:left;}
+.rightForm{float:right; padding-right:32px;}
+.rightContent .searchBox,.dateBox{height:26px; line-height:26px\9; border:solid 1px #DEDEDE;}
+.rightContent .searchBox{width:218px;}
+.dateBox{width:99px; background:url(../images/dateico.png) no-repeat 80px center;}
+.sortSplit{width:18px; text-align:center; color:#d3d3d3; display:inline-block; font-size:18px;}
+.searchBtn{padding:16px 0; border-bottom:solid 1px #dedede;}
+.searchBtn .btnBlue{width:62px; height:28px; line-height:28px; font-size:14px; display:inline-block; margin-right:16px;}
+span.zt{display:inline-block;border:1px solid #e0e3ea; height:28px; line-height:28px; position:relative; padding:0 10px 0 27px; background:#fcfdfe;margin-right:7px; cursor:pointer;}
+span.zt input{position:absolute; left:8px; top:7px;}
+
+/*订单列表*/
+.rightContent h2 em{height:36px; line-height:36px; display:inline-block; border-bottom:solid 5px #ff8900; padding:0 30px 0 20px; font-style:normal;}
+.rightContent h2{font-weight:normal; font-size:14px; margin-top:16px;}
+.orderList table{width:100%; border-collapse:collapse;}
+.orderList table th{height:35px; line-height:35px; background:#FFEFDD; border-top:solid 1px #e4e4e4; padding:0 8px; font-weight:normal; text-align:left;}
+.orderList table td{line-height:22px; color:#818181; border-top:solid 1px #e4e4e4; border-bottom:solid 1px #e4e4e4; padding:16px 8px;}
+.orderList table input{display:block;}
+.orderList tr:hover{background:#F0FAFE;}
+.orderList tr:hover th{background:#FFEFDD;}
+.orderList table .tdName{width:260px; padding-right:20px;}
+
+.listBottom{padding-top:20px;}
+.checkAll{height:28px; line-height:28px; position:relative; padding-left:28px; display:block; float:left; margin-right:20px;}
+.checkAll input{position:absolute; left:10px; top:8px;}
+.listBottom .btnBlue{width:68px; height:28px; line-height:28px; display:inline-block; float:left;}
+
+
+/*页码*/
+.pageSize{text-align:right;}
+.pageSize a{display:inline-block; height:21px; line-height:21px; margin-right:8px; padding:0 8px; background:#f6f6f6; color:#12369b;}
+.pageLast,.pageNext{font-family:SimSun;}
+.pageSize a:hover,.pageSize .nowPage{background:#4594f9; color:#fff;}
+
+/*没有订单时*/
+.orderNone{height:50px; line-height:50px; font-size:24px; background:#FFFCD9; color:#FD6500; text-align:center; margin-top:20px;}
+

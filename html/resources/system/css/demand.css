@@ -1,0 +1,72 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url("base.css");
+
+/*柱形图*/
+.ht_tjt{padding:20px 0 0 0;overflow:hidden;}
+.ht_tjt img{width:100%;}
+
+/*审核商品信息*/
+.pro_sh_pic{padding-right:10px;padding-bottom:6px;margin:30px 20px 10px;border-bottom:1px solid #a0a0a0;overflow:hidden;}
+.pro_sh_pic div{float:left;margin-left:20px;display:inline;border:1px solid #dbd8d8;width:100px;height:100px;}
+.pro_sh_pic span{float:right;margin-top:98px;}
+.pro_sh{padding:0 10px 0 0;border-bottom:1px solid #dbd8d8;margin:0px 20px;overflow:hidden;color:#323232;}
+.pro_sh dt{float:left;padding-left:20px; line-height:38px; white-space:nowrap; width:75px;}
+.pro_sh dd{float:left; line-height:38px; padding-left:20px; color:#666;}
+.pro_sh .edit{float:right;padding-top:15px; padding-left:0;}
+.pro_sh .editIco{display:block; background:url(../images/xg2.jpg) no-repeat; width:16px; height:16px;}
+.pro_sh .editIco:hover{background:url(../images/xg3.jpg) no-repeat;}
+.pro_sh_noLine{border:none;}
+.sh_btn{margin-left:20px;padding-left:20px;}
+.sh_sm{width:610px;padding:20px 30px 0 20px;overflow:hidden;margin:0 20px}
+.sh_sm textarea{border:1px solid #e0e3ea;border-left-width:2px;border-top-width:2px;width:608px;padding:2px 0 0 2px;height:50px;background:#fcfdfe;color:#7d7d7d;margin-top:5px;}
+.sh_sm span{float:right;color:red;}
+.imgList td{border:solid 1px #e4e4e4; width:198px; height:198px;}
+.imgList td img{max-width:198px; max-height:198px;}
+.imgContent{padding:30px; width:500px; text-align:center;}
+
+
+/*查询条件*/
+.pro_ss{margin:20px 20px 0;overflow:hidden; border-bottom:1px solid #dbd8d8;}
+.pro_ss dt{padding-left:10px;border-bottom:1px solid #dbd8d8;padding-top:10px;font-size:14px;height:35px;overflow:hidden;}
+.pro_ss dt b{float:left;font-weight:lighter;}
+.pro_ss dt span{float:left;width:21px;height:15px;background:url(../images/zd.jpg) no-repeat 0 -12px;cursor:pointer;margin-left:5px; display:none;}
+.pro_ss dt span.span_up{float:left;width:21px;height:15px;background:url(../images/zd.jpg) no-repeat 0 3px;cursor:pointer;margin-left:5px;display:block;}
+.pro_ss .pro_ss_item{float:left; width:500px; padding:12px 0 0px 10px;height:42px;line-height:30px;}
+.pro_ss dd span{float:left; white-space:nowrap; padding-right:10px;width:47px; text-align:right;}
+span.zt{display:inline-block;border:1px solid #e0e3ea; height:28px; line-height:28px; position:relative; padding:0 16px 0 30px; background:#fcfdfe;margin-right:20px;}
+span.zt input{position:absolute; left:10px; top:7px;}
+span.radioSel{background:#6ABFFD; color:#333;}
+.pro_ss dd span.zt{width:auto;}
+.i_bg{height:25px;border:1px solid #e0e3ea;border-left-width:2px;border-top-width:2px;width:290px;padding-left:2px;line-height:25px;line-height:23px\0;vertical-align:middle;margin-right:5px;background:#fcfdfe;color:#7d7d7d;outline:none;}
+
+/*查询条件按钮*/
+.pro_ss_btn{zoom:1;padding:25px 0 25px 10px;overflow:hidden;margin:0 20px;border-bottom:1px solid #dbd8d8;}
+.pro_ss_btn a{float:left; margin-right:2px;}
+.pro_ss_btn a:hover{background:#008dff;color:#fff;}
+
+/*浮动按钮*/
+.ht_btn{border-bottom:1px solid #dbd8d8; overflow:hidden; position:fixed; top:0; left:0; padding:8px 0 0 20px; height:36px; width:100%; background:#fff; background:rgba(255,255,255,0.9); z-index:2;}
+.ht_btn a{float:left; margin-right:2px;}
+.afterHt{margin-top:56px!important;}
+
+/*数据表格列表*/
+.ht_list{margin:0 20px;zoom:1;}
+.ht_list table{width:100%;}
+.ht_list th{border-bottom:1px solid #dbd8d8;color:#7e7e7e;line-height:40px;text-align:center;padding-left:5px;}
+.ht_list td{border-bottom:1px solid #dbd8d8;padding:15px 0;text-align:center;padding-left:5px;color:#000;}
+.ht_list td.qx{padding-left:10px;}
+.ht_list td.cz{text-align:center;}
+.ht_list td.cz a{padding:0 3px;filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity:0.5;opacity:0.5;}
+.ht_list tr.tr_bg td,.ht_list tr:hover td{background:#ebf6ff;cursor:pointer;}
+.ht_list tr.tr_bg td.cz a,.ht_list tr:hover td.cz a{filter:alpha(opacity=100);-moz-opacity:1;-khtml-opacity:1;opacity:1;}
+.eyeIco{display:inline-block; background:url(../images/eye.png) no-repeat; width:16px; height:16px;}
+.editIco{display:inline-block; background:url(../images/xg3.jpg) no-repeat; width:16px; height:16px;}
+.configIco{display:inline-block; background:url(../images/config.png) no-repeat; width:16px; height:16px;}
+.del_list{display:inline-block; background:url(../images/del2.jpg) no-repeat; width:16px; height:16px;}
+.auditIco{display:inline-block; background:url(../images/check.png) no-repeat; width:16px; height:16px;}
+
+
+/*暂无数据*/
+.ht_list_k{margin:0 20px;background:#fffdda;font:lighter 24px/24px "微软雅黑";color:#fd6500;padding:25px 0;text-align:center;}

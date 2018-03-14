@@ -1,0 +1,30 @@
+@charset "utf-8";
+/* CSS Document */
+
+* {SCROLLBAR-FACE-COLOR:#e2eeff; SCROLLBAR-HIGHLIGHT-COLOR:#6aaafb; SCROLLBAR-SHADOW-COLOR:#6593cf; SCROLLBAR-3DLIGHT-COLOR:#fff;
+   SCROLLBAR-ARROW-COLOR:#240024; SCROLLBAR-TRACK-COLOR:#e2eeff; SCROLLBAR-DARKSHADOW-COLOR:#fff; SCROLLBAR-BASE-COLOR:#bedafe; outline:none;}
+html,body {margin:0px; color:#2c2c2c; font-size:12px; font-family:"微软雅黑"; text-align:left;}
+a {color:#2c2c2c; text-decoration:none;}
+a:hover {color:#0365b5; text-decoration:none;}
+ul,ol,dl{list-style:none;}
+h1,h2,h3,h4,h5,h6,p,form,ul,li,ol,dl,dt,dd,input,textarea {margin:0px; padding:0px; font-family:"微软雅黑";}
+img {border:none;}
+em {font-style:normal;}
+.clear {clear:both;}
+label {cursor:pointer;}
+
+.menu_body {background:url(../images/menu_body.jpg) repeat-y}
+.ht_menu {width:215px;}
+.ht_menu li {width:100%; text-align:center; height:55px; padding-top:10px;}
+.ht_menu span {float:left; width:63px; padding:10px 0 0 2px; height:40px; color:#a4d2f6; overflow:hidden;}
+.ht_menu span a {color:#d1dae2; display:block; height:40px; filter:alpha(opacity=60); -moz-opacity:0.6; -khtml-opacity:0.6; opacity:0.6;}
+.ht_menu li.li_show span {border-left:2px solid #027bdd; padding-left:0;}
+.ht_menu li.li_show span a {filter:alpha(opacity=100); -moz-opacity:1; -khtml-opacity:1; opacity:1;}
+.ht_menu div {width:150px; position:absolute; left:65px; top:0; z-index:99; overflow:hidden; background:#6abffd; display:none;}
+.ht_menu div dt {height:55px; background:url(../images/menu_line.jpg) #1568ab repeat-x 0 bottom; font:lighter 16px/55px Microsoft YaHei; color:#fff; cursor:pointer;}
+.ht_menu li.li_show div {display:block;}
+.ht_menu div dl.dl_show dt {background:#027bdd;}
+.ht_menu div dd {display:none; padding:5px 0 5px; _padding:10px 0 5px;}
+.ht_menu div dd a {display:block; width:146px; height:32px; line-height:32px; margin:5px auto; color:#1568ab; border-radius:3px}
+.ht_menu div dd a:hover,.ht_menu div dd a.cur {background:#fff;}
+.ht_menu div dl.dl_first dd {display:block;}

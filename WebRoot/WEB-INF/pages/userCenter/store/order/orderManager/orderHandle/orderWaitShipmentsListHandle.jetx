@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge">
+	<title>待发货订单详情</title>
+	<link href="${webroot}/resources/userCenter/commons/css/goodsDetail.css" rel="stylesheet" type="text/css" />
+	<link href="${webroot}/resources/userCenter/commons/css/tools.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+	<script src="${webroot}/resources/userCenter/commons/js/goodsDetail.js"></script>
+		<script src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+	<script src="${webroot}/resources/userCenter/commons/js/ckeditor/ckeditor.js"></script>
+	<!-- 引入私有js -->
+	<script type="text/javascript" src="${webroot}/resources/userCenter/core/js/order/orderManager/orderHandle/StoreOrderWaitShipments.js"></script>
+</head>
+<body>
+	<!-- 订单信息 -->
+#define(com.ekfans.base.order.model.Order order)
+<input type="hidden" id="ctxpath" value="${webroot}">
+<input type="hidden" id="ps" value="${order.type}">
+<div class="rightContent">
+	<div class="contentTit borderColor budong">
+      	<h3>订单详情</h3>
+        <a href="javascript:void(0);" class="btnBase btnBack" onclick="goBack();">返回列表</a>
+      	<a href="javascript:void(0);" class="btnBase btnBack" onclick="confirmSh('${order.id}');">确认收货</a>
+        <div class="clear"></div>
+      </div>	
+	<div class="form borderColor">
+	<table border="0" cellspacing="0" cellpadding="0" class="orderTable">
+		<tr>
+			<th class="tdProInfo bgColor">商品信息</th>
+			<th class="tdProNum bgColor">商品编号</th>
+			<th class="tdProCount bgColor">数量</th>
+			<th class="tdSubtotal bgColor">小计</th>
+		</tr>
+		<!-- 循环订单商品详情信息 -->
+		 #for(com.ekfans.base.order.model.OrderDetail orderDetail : orderDetails)
+			<tr>
+				<td class="tdProInfo">
+					<a href="${webroot}/web/proDetail/${orderDetail.productId}" title="${orderDetail.productName}" class="orderImg">
+						#if(orderDetail.smallPicture=="" || orderDetail.smallPicture==" " || orderDetail.smallPicture==null)
+							<img src="${webroot}/resources/store/images/imgdefault.jpg" width="78" height="78" alt="${orderDetail.productName}" />
+						#else
+							<img src="${webroot}${orderDetail.smallPicture}" alt="${orderDetail.productName}" />
+						#end
+					</a>
+					<div class="proRight">
+          	<span class="orderText"><a href="${webroot}/web/proDetail/${orderDetail.productId}" title="${orderDetail.productName}">${orderDetail.productName}</a></span>
+          	<span class="nowPrice">￥${orderDetail.price}</span>
+          	<div class="clear"></div>
+          	<div class="colorSize"><span>${orderDetail.infoName1}#if(orderDetail.infoName1!=null && orderDetail.infoName1!="")：#end</span><em>${orderDetail.infoValue1}</em></div>
+          	<div class="colorSize"><span>${orderDetail.infoName2}#if(orderDetail.infoName2!=null && orderDetail.infoName2!="")：#end</span><em>${orderDetail.infoValue2}</em></div>
+          	<div class="clear"></div>
+          	<div class="colorSize"><span>${orderDetail.infoName3}#if(orderDetail.infoName3!=null && orderDetail.infoName3!="")：#end</span><em>${orderDetail.infoValue3}</em></div>
+          	<div class="colorSize"><span>${orderDetail.infoName4}#if(orderDetail.infoName4!=null && orderDetail.infoName4!="")：#end</span><em>${orderDetail.infoValue4}</em></div>
+          	<div class="clear"></div>
+          </div>
+        	<div class="clear"></div>
+        </td>
+        <td class="tdProNum">${orderDetail.productNumber}</td>
+        <td class="tdProCount">${orderDetail.quantity}</td>
+        <td class="tdSubtotal">￥${orderDetail.totalPrice}</td>
+      </tr>
+		#end 
+  </table>  
+  
+  <!-- 订单地址 -->
+	#define(com.ekfans.base.order.model.OrderAddress address)
+  <div class="tit">
+		<h2 class="orderInfoTab cur borderBottomColor">订单信息</h2>
+    <h2 class="orderLogTab">订单跟踪</h2>
+    <a href="javascript:void(0)" class="layerToggle">收起</a>
+  </div>
+  <div class="toggles orderInfo">
+  	<dl class="consignee paddingtop">
+    	<dt>收货人信息</dt>
+      <dd>
+      	<li><span class="biaotiL">收货人：</span>${address.name}</li>
+      	<li><span class="biaotiL">收货地址址：</span>${address.provincial}#if(address.city!=null && address.city!="")&nbsp;${address.city}#if(address.area!=null && address.area!="")&nbsp;${address.area}#end#end&nbsp;${address.address}</li>
+        <li><span class="biaotiL">固定电话：</span>${address.phoneNum}</li>
+        <li><span class="biaotiL">手机号码：</span>${address.mobile}</li>
+        <li><span class="biaotiL">电子邮件：</span>${address.email}</li>
+      </dd>
+    </dl>
+    <dl class="payStyle">
+    	<dt>支付及配送方式</dt>
+      <dd>
+      	<li><span class="biaotiL">支付方式：</span>#if(order.paymentId=="1")财付通#elseif(order.paymentId=="2")支付宝#elseif(order.paymentId=="3")网银支付#end</li>
+        <li><span class="biaotiL">运费：</span>￥${order.fare}</li>
+      </dd>
+    </dl>
+   	#if(order.invoice)
+    	<dl class="invoiceInfo">
+      	<dt>发票信息</dt>
+      	<dd>
+	      	<li>发票类型：#if(order.invoiceType)普通发票#else增值税发票#end</li>
+	        <li>发票抬头：${order.invoiceTitle}</li>
+	        <li>发票内容：${order.invoiceContent}</li>
+       	</dd>	
+      </dl>
+  	#else
+    	<div class="invoiceNone" style="margin-top:24px;">无发票信息</div>
+    #end
+      <!--
+      <dl class="invoiceInfo" style="display:none;">
+      	<dt>发票信息</dt>
+      	<dd>
+        	<li>发票类型：普通发票</li>
+          <li>发票抬头：个人</li>
+          <li>发票内容：明细</li>
+        </dd>
+      </dl>
+      -->
+      <!-- 无发票信息-->
+      <!-- <div class="invoiceNone" style="margin-top:24px;">无发票信息</div> -->
+      <!-- 无发票信息 end-->
+      <div class="clear"></div>
+	</div>
+ 	<!-- 订单日志记录 -->
+  <div class="orderLog">
+  	<ul>
+    <!-- 订单操作信息 -->
+  	#define(List<com.ekfans.base.order.model.OrderTreatDetail> treatDetails)
+  	#if(treatDetails!=null && treatDetails.size()>0)
+				#for(com.ekfans.base.order.model.OrderTreatDetail otd:treatDetails)
+					<li>${otd.createTime}&nbsp;&nbsp;${otd.creater}&nbsp;&nbsp;${otd.note}</li>
+				#end
+			#end         
+  	</ul>
+    <div class="freightText"><span>送货方式：${order.shipment}</span><span>承运人：${order.logisticsName}</span><span>货运单号：${order.logisticsNo}</span></div>
+  </div>     
+	<h2 class="rightTitle"><em class=" borderBottomColor">付款信息</em><a href="javascript:void(0)" class="layerToggle">收起</a></h2>
+	<div class="toggles payInfo">
+		<ul class="payInfoLeft">
+    	<li>付款方式：#if(order.paymentId=="1")财付通#elseif(order.paymentId=="2")支付宝#elseif(order.paymentId=="3")网银支付#end</li> 
+      <li>商品金额：￥${order.productPrice}</li> 
+      <li>优惠金额：￥0.00</li> 
+      <li>支付金额：￥${paymentPrice}</li>
+    </ul>
+		<ul>
+			<li>运费金额：￥${order.fare}</li>
+      <li>实际运费：￥0.00</li>
+      <!-- <li>交易余额：￥0.00</li> -->
+      #define(com.ekfans.base.order.model.OrderTreatDetail treatDetail)
+      <li>付款时间：${treatDetail.createTime}</li>
+		</ul>
+		<div class="split"></div>
+		<div class="money">
+			<span class="moneyTotal">金额总计：<em class="price">￥${order.paid}</em></span>
+			<span style="color:rgb(133, 133, 133); font-family:arial,microsoft yahei,simsun; font-size:12px">&nbsp;运费：${order.fare}</span>
+		</div>
+	</div>
+	<h2 class="rightTitle"><em>物流信息</em></h2>
+	<ul class="logistics">
+  	<li>
+  		<em class="logisticsTitle">物流公司:</em>
+  		<span class="logisticsTitle">${order.logisticsName}</span>
+  	</li>
+    <li>
+    	<em class="logisticsTitle">运单号码:</em>
+    	<span class="logisticsTitle" style="width:100px;">${order.logisticsNo}</span>
+    </li>
+    <li>
+    	<em class="logisticsTitle">实际运费:</em>
+     	<span class="logisticsTitle">￥${order.actualPrice}</span>
+    </li>
+    <li class="clear"></li>
+  </ul>
+  <div class="clear"></div>
+ <div class="clear"></div>
+ </div>
+ </div>
+ <script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+ 
+</body>
+</html>

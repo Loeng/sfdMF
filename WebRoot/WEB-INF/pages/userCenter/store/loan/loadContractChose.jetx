@@ -1,0 +1,95 @@
+#define(com.ekfans.base.store.model.Store Store)
+  <div class="apTit">
+    <span class="apClose"></span>选择合同
+  </div>
+  <div class="apContent">
+    <div class="shopSearch">
+      <form action="${webroot}/store/loan/loadcontract" method="post" id="searchContractForm">
+        <input type="hidden" name="pageNum" id="pageNum" value="" />
+        <dl class="formItem">
+          <dt>企业名称</dt>
+          <dd><input name="storeName" id="storeName" type="text" class="textBox box160" value="${storeName}"></dd>
+          <dd class="clear"></dd>
+        </dl>
+        <dl class="formItem">
+          <dt>合同名称</dt>
+          <dd><input name="contractName" id="contractName" type="text" class="textBox box160" value="${contractName}"></dd>
+          <dd class="clear"></dd>
+        </dl>
+        <dl class="formItem">
+          <dt>合同编号</dt>
+          <dd><input name="contractNo" id="contractNo" type="text" class="textBox box160" value="${contractNo}"></dd>
+          <dd class="clear"></dd>
+        </dl>
+      </form>
+      <div class="clear"></div>
+    </div>
+    <div class="btn">
+    <a href="javascript:void(0);" class="btnBase" onclick="searchContractForm();">搜索</a>
+    <a href="javascript:void(0);" class="btnBase" onclick="clearSearchContractForm();">重置</a>
+    </div>
+
+
+    <div style="margin-top:10px;" class="tableBox">
+      <table border="0" cellspacing="0" cellpadding="0" class="tabList">
+        <thead>
+          <tr class="bgColor">
+            <th>合同名称</th>
+            <th>合同编号</th>
+            <th>产生方</th>
+            <th>处置方</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          #for(com.ekfans.base.wfOrder.model.Contract contract:contractList)
+          <tr>
+            <td>${contract.name}</td>
+            <td>${contract.contractNo}</td>
+            <td>${contract.firstName}</td>
+            <td>${contract.secondName}</td>
+            <td><a href="javascript:void(0);" onclick="choseContractOk('${contract.id}','${contract.name}','${contract.firstId == Store.id?contract.secondId:contract.firstId }');">选择</a></td>
+          </tr>
+          #end
+        </tbody>
+      </table>
+    </div>
+    ${include("../common/page.jetx")}
+  </div>
+
+  <script type="text/javascript">
+    function clearSearchContractForm(){
+      $("#storeName").val("");
+      $("#contractName").val("");
+      $("#contractNo").val("");
+    }
+    function searchContractForm(){
+      $("#showOrderChoseDiv").load("${webroot}/store/loan/loadcontract?nowTime="+Math.random(),$("#searchContractForm").serialize());
+    }
+
+    //分页跳转
+    function goPage(pageNum){
+      $("#pageNum").val(pageNum);
+      $("#showOrderChoseDiv").load("${webroot}/store/loan/loadcontract?nowTime="+Math.random(),$("#searchContractForm").serialize());
+    }
+
+    function choseContractOk(contractId,contractName,otherStoreId){
+      var oldOtherStoreId = $("#orderStoreId").val();
+      if(oldOtherStoreId != "" && otherStoreId != oldOtherStoreId){
+        layer.alert('您所选的合同上/下游企业与之前所选不一致,请重新选择', function(index){
+          layer.close(index);
+        });
+      }else{
+        var chosedId = $("#choseShowId").val();
+        $("#"+chosedId).val(contractId);
+        $("#"+chosedId+"Name").val(contractName);
+        $("#"+chosedId+"ValueType").val("4");
+        
+        $("#contractStoreId").val(otherStoreId);
+        $("#"+chosedId+"View").attr("href","${webroot}/store/contract/contractById/1/"+contractId+"/1");
+        $(".apLayerBg").hide();
+        $("#showOrderChoseDiv").hide();
+      }
+    }
+
+  </script>

@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ekfans.base.order.model">
+
+	<!-- 订单表 -->
+	<class name="Order" table="ORDER_FORM" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="assigned" />
+		</id>
+		<property name="storeId" type="string" column="STORE_ID" />
+		<property name="userId" type="string" column="USER_ID" />
+		<property name="shipmentId" type="string" column="SHIPMENT_ID" />
+		<property name="paymentId" type="string" column="PAYMENT_ID" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="productPrice" type="big_decimal" column="PRODUCT_PRICE"
+			scale="2" />
+		<property name="fare" type="big_decimal" column="FARE" scale="2" />
+		<property name="totalPrice" type="big_decimal" column="TOTAL_PRICE"
+			scale="2" />
+		<property name="paid" type="big_decimal" column="PAID" scale="2" />
+		<property name="shippingStatus" type="boolean" column="SHIPPING_STATUS" />
+		<property name="status" type="string" column="STATUS" />
+		<property name="serviceStatus" type="string" column="SERVICE_STATUS" />
+		<property name="invoice" type="boolean" column="INVOICE" />
+		<property name="invoiceType" type="boolean" column="INVOICE_TYPE" />
+		<property name="invoiceTitle" type="string" column="INVOICE_TITLE" />
+		<property name="invoiceContent" type="string" column="INVOICE_CONTENT" />
+		<property name="logisticsName" type="string" column="LOGISTICS_NAME" />
+		<property name="logisticsNo" type="string" column="LOGISTICS_NO" />
+		<property name="integral" type="int" column="INTEGRAL" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="shipment" type="string" column="SHIPMENT" />
+		<property name="payment" type="string" column="PAYMENT" />
+		<property name="userApp" type="boolean" column="USER_APP" />
+		<property name="storeApp" type="boolean" column="STORE_APP" />
+		<property name="payId" type="string" column="PAY_ID" />
+		<property name="actualPrice" type="big_decimal" column="ACTUAL_PRICE"
+			scale="2" />
+		<property name="type" type="int" column="TYPE" />
+		<property name="contractType" type="boolean" column="CONTRACT_TYPE" />
+		<property name="contract" type="string" column="CONTRACT" />
+		<property name="contractId" type="string" column="CONTRACT_ID" />
+		<property name="payType" type="string" column="PAY_TYPE" />
+		<property name="payCert" type="string" column="PAY_CERT" />
+		<property name="bankOrderId" type="string" column="BANK_ORDER_ID" />
+	</class>
+
+	<!-- 订单发货地址 -->
+	<class name="OrderAddress" table="ORDER_ADDRESS" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="orderId" type="string" column="ORDER_ID" />
+		<property name="name" type="string" column="NAME" />
+		<property name="provincial" type="string" column="PROVINCIAL" />
+		<property name="city" type="string" column="CITY" />
+		<property name="area" type="string" column="AREA" />
+		<property name="address" type="string" column="ADDRESS" />
+		<property name="phoneNum" type="string" column="PHONE_NUM" />
+		<property name="mobile" type="string" column="MOBILE" />
+		<property name="email" type="string" column="EMAIL" />
+		<property name="zipCode" type="string" column="ZIP_CODE" />
+		<property name="receiptTimeId" type="string" column="RECEIPT_TIME_ID" />
+		<property name="receiptTime" type="string" column="RECEIPT_TIME" />
+	</class>
+
+	<!-- 订单明细表 -->
+	<class name="OrderDetail" table="ORDER_DETAIL">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="orderId" type="string" column="ORDER_ID" />
+		<property name="storeId" type="string" column="STORE_ID" />
+		<property name="userId" type="string" column="USER_ID" />
+		<property name="productId" type="string" column="PRODUCT_ID" />
+		<property name="productInfoDetailId" type="string"
+			column="PRODUCT_INFO_DETAIL_ID" />
+		<property name="productName" type="string" column="PRODUCT_NAME" />
+		<property name="quantity" type="int" column="QUANTITY" />
+		<property name="price" type="big_decimal" column="PRICE"
+			scale="2" />
+		<property name="totalPrice" type="big_decimal" column="TOTAL_PRICE"
+			scale="2" />
+		<property name="tempId" type="string" column="TEMP_ID" />
+		<property name="tempName" type="string" column="TEMP_NAME" />
+		<property name="tempValue" type="string" column="TEMP_VALUE" />
+		<property name="integral" type="int" column="INTEGRAL" />
+		<property name="productImage" type="string" column="PRODUCT_IMAGE" />
+		<property name="infoName1" type="string" column="INFO_NAME1" />
+		<property name="infoValue1" type="string" column="INFO_VALUE1" />
+		<property name="infoName2" type="string" column="INFO_NAME2" />
+		<property name="infoValue2" type="string" column="INFO_VALUE2" />
+		<property name="infoName3" type="string" column="INFO_NAME3" />
+		<property name="infoValue3" type="string" column="INFO_VALUE3" />
+		<property name="infoName4" type="string" column="INFO_NAME4" />
+		<property name="infoValue4" type="string" column="INFO_VALUE4" />
+		<property name="productNo" type="string" column="PRODUCT_NO" />
+	</class>
+	<!-- 订单日志表 -->
+	<class name="OrderLog" table="ORDER_LOG" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="orderId" type="string" column="ORDER_ID" />
+		<property name="creator" type="string" column="CREATOR" />
+		<property name="creatorName" type="string" column="CREATOR_NAME" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+	</class>
+	<!-- 订单处理日志表 -->
+	<class name="OrderTreatDetail" table="ORDER_TREAT_DETAIL"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="orderId" type="string" column="ORDER_ID" />
+		<property name="type" type="string" column="TYPE" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="creater" type="string" column="CREATER" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="originalPrice" type="big_decimal" column="ORIGINAL_PRICE"
+			scale="2" />
+		<property name="nowPrice" type="big_decimal" column="NOW_PRICE"
+			scale="2" />
+	</class>
+
+	<!-- 收货时间区间表 -->
+	<class name="ReceiptTime" table="RECEIPT_TIME" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="name" type="string" column="NAME" />
+		<property name="note" type="string" column="NOTE" />
+	</class>
+
+	<!-- 评价表 -->
+	<class name="Appraise" table="APPRAISE" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex"></generator>
+		</id>
+		<property name="orderId" type="string" column="ORDER_ID" />
+		<property name="productId" type="string" column="PRODUCT_ID" />
+		<property name="source" type="string" column="SOURCE" />
+		<property name="target" type="string" column="TARGET" />
+		<property name="type" type="string" column="TYPE" />
+		<property name="replyStatus" type="boolean" column="REPLY_STATUS" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="parentId" type="string" column="PARENT_ID" />
+		<property name="checkMan" type="string" column="CHECK_MAN" />
+		<property name="checkTime" type="string" column="CHECK_TIME" />
+		<property name="checkStatus" type="integer" column="CHECK_STATUS" />
+		<property name="checkNote" type="string" column="CHECK_NOTE" />
+		<property name="orderDetailId" type="string" column="ORDER_DETAIL_ID" />
+	</class>
+
+	<!-- 退换货处理表 -->
+	<class name="Refund" table="REFUND" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="userId" type="string" column="USER_ID" />
+		<property name="orderId" type="string" column="ORDER_ID" />
+		<property name="productId" type="string" column="PRODUCT_ID" />
+		<property name="type" type="string" column="TYPE" />
+		<property name="refundType" type="string" column="REFUND_TYPE" />
+		<property name="status" type="string" column="STATUS" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="imageOne" type="string" column="IMAGE_ONE" />
+		<property name="imageTwo" type="string" column="IMAGE_TWO" />
+		<property name="imageThree" type="string" column="IMAGE_THREE" />
+		<property name="imageFour" type="string" column="IMAGE_FOUR" />
+	</class>
+
+
+	<!-- 议价表 -->
+	<class name="Bargain" table="bargain" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="assigned" />
+		</id>
+		<property name="buyerId" type="string" column="BUYER_ID" />
+		<property name="sellerId" type="string" column="SELLER_ID" />
+		<property name="sourceId" type="string" column="SOURCE_ID" />
+		<property name="buyerRemarks" type="string" column="BUYER_REMARKS" />
+		<property name="sellerRemarks" type="string" column="SELLER_REMARKS" />
+		<property name="quantity" type="big_decimal" column="QUANTITY" />
+		<property name="price" type="big_decimal" column="PRICE" />
+		<property name="finalQuantity" type="big_decimal" column="FINAL_QUANTITY" />
+		<property name="FinalPrice" type="big_decimal" column="FINAL_PRICE" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="status" type="string" column="STATUS" />
+		<property name="contactMan" type="string" column="CONTACT_MAN" />
+		<property name="contactPhone" type="string" column="CONTACT_PHONE" />
+		<property name="orderStatus" type="string" column="ORDER_STATUS" />
+		<property name="endTime" type="string" column="END_TIME" />
+		<property name="type" type="string" column="TYPE" />
+		<property name="productName" type="string" column="PRODUCT_NAME" />
+	    <property name="updateTime" type="string" column="UPDATE_TIME" />
+	    <property name="startFullPath" type="string" column="START_PULL_PATH" />
+	    <property name="endFullPath" type="string" column="END_FULL_PATH" />
+	    <property name="sellerContactState" type="string" column="SELLER_CONTACT_STATE" />
+	    <property name="ifAccept" type="string" column="IF_ACCEPT" />
+	</class>
+
+	<!-- 询价表 -->
+	<class name="Inquiry" table="INQUIRY" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="buyersId" type="string" column="BUYERS_ID" />
+		<property name="sellersId" type="string" column="SELLERS_ID" />
+		<property name="productId" type="string" column="PRODUCT_ID" />
+		<property name="number" type="int" column="NUMBER" />
+		<property name="sellersNumber" type="int" column="SELLERS_NUMBER" />
+		<property name="price" type="big_decimal" column="PRICE" />
+		<property name="FinalPrice" type="big_decimal" column="FINAL_PRICE" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="status" type="string" column="STATUS" />
+		<property name="linkPerson" type="string" column="LINK_PERSON" />
+		<property name="linkTel" type="string" column="LINK_TEL" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+		<property name="inquiryStatus" type="string" column="INQUIRY_STATUS" />
+		<property name="endTime" type="string" column="END_TIME" />
+		<property name="type" type="int" column="TYPE" />
+		<property name="storeName" type="string" column="STORE_NAME" />
+		<property name="sourceType" type="int" column="SOURCE_TYPE" />
+	    <property name="buyerRemarks" type="string" column="BUYER_REMARKS" />
+		<property name="sellerRemarks" type="string" column="SELLER_REMARKS" />
+	    <property name="sellerContactState" type="string" column="SELLER_CONTACT_STATE" />
+	    <property name="unit" type="string" column="UNIT" />
+	    <property name="ifAccept" type="string" column="IF_ACCEPT" />
+	</class>
+
+	<!-- 询价明细表 -->
+	<class name="InquiryDetail" table="INQUIRY_DETAIL"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="inquiryId" type="string" column="INQUIRY_ID" />
+		<property name="buyersId" type="string" column="BUYERS_ID" />
+		<property name="sellersId" type="string" column="SELLERS_ID" />
+		<property name="sellersNote" type="string" column="SELLERS_NOTE" />
+		<property name="buyersNote" type="string" column="BUYERS_NOTE" />
+	</class>
+
+	<!-- 订单快照表 -->
+	<class name="OrderPhoto" table="ORDER_PHOTO" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="orderId" type="string" column="ORDER_ID" />
+		<property name="orderDetailId" type="string" column="ORDER_DETAIL_ID" />
+		<property name="productId" type="string" column="PRODUCT_ID" />
+		<property name="storeId" type="string" column="STORE_ID" />
+		<property name="productName" type="string" column="PRODUCT_NAME" />
+		<property name="unitPrice" type="big_decimal" column="UNIT_PRICE" />
+		<property name="listPrice" type="big_decimal" column="LIST_ORICE" />
+		<property name="lastPrice" type="big_decimal" column="LAST_PRICE" />
+		<property name="unit" type="string" column="UNIT" />
+		<property name="brand" type="string" column="BRAND" />
+		<property name="picture" type="string" column="PICTURE" />
+		<property name="bigPicture" type="string" column="BIG_PICTURE" />
+		<property name="centerPicture" type="string" column="CENTER_PICTURE" />
+		<property name="smallPicture" type="string" column="SMALL_PICTURE" />
+		<property name="description" type="string" column="DESCRIPTION" />
+		<property name="type" type="string" column="TYPE" />
+		<property name="templateId" type="string" column="TEMPLATE_ID" />
+		<property name="mainCategory" type="string" column="MAIN_CATEGORY" />
+		<property name="habitat" type="string" column="HABITAT" />
+		<property name="habitatAddress" type="string" column="HABITAT_ADDRESS" />
+		<property name="productNumber" type="string" column="PRODUCT_NUMBER" />
+		<property name="wareHouseId" type="string" column="WARE_HOUSE_ID" />
+		<property name="fare" type="big_decimal" column="FARE" />
+	</class>
+	<!-- 订单商品快照扩展信息表 -->
+	<class name="OrderPhotoInfo" table="ORDER_PHOTO_INFO"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="photoId" type="string" column="PHOTO_ID" />
+		<property name="templateFieldId" type="string" column="TEMPLATE_FIELD_ID" />
+		<property name="infoName" type="string" column="INFO_NAME" />
+		<property name="infoValue" type="string" column="INFO_VALUE" />
+		<property name="infoType" type="string" column="INFO_TYPE" />
+		<property name="categoryId" type="string" column="CATEGORY_ID" />
+		<property name="categoryName" type="string" column="CATEGORY_NAME" />
+		<property name="position" type="int" column="POSITION" />
+	</class>
+
+	<!-- 供需关系 -->
+	<class name="SupplyBuy" table="SUPPLY_BUY" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="storeId" type="string" column="STORE_ID" />
+		<property name="title" type="string" column="TITLE" />
+		<property name="content" type="string" column="CONTENT" />
+		<property name="contactName" type="string" column="CONTACT_NAME" />
+		<property name="contactPhone" type="string" column="CONTACT_PHONE" />
+		<property name="type" type="string" column="TYPE" />
+		<property name="status" type="string" column="STATUS" />
+		<property name="productType" type="string" column="PRODUCT_TYPE" />
+		<property name="endTime" type="string" column="END_TIME" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+		<property name="intelligenceIds" type="string" column="INTELLIGENCE_IDS" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="orgId" type="string" column="ORG_ID" />
+		<property name="checkStatus" type="int" column="CHECK_STATUS" />
+		<property name="checkMan" type="string" column="CHECK_MAN" />
+		<property name="checkTime" type="string" column="CHECK_TIME" />
+		<property name="checkNote" type="string" column="CHECK_NOTE" />
+		<property name="futurePrices" type="big_decimal" column="future_Prices" />
+		<property name="categoryId" type="string" column="CATEGORY_ID" />
+		<property name="areaId" type="string" column="AREA_ID" />
+		<property name="address" type="string" column="ADDRESS" />
+		<property name="destination" type="string" column="DESTINATION" />
+		<property name="deliveryType" type="int" column="DELIVERY_TYPE" />
+		<property name="number" type="big_decimal" column="NUMBER" />
+		<property name="viewCount" type="int" column="VIEW_COUNT" />
+		<property name="qualityLevel" type="string" column="QUALITY_LEVEL" />
+		<property name="unit" type="string" column="UNIT" />
+		<property name="storeName" type="string" column="STORE_NAME" />
+	</class>
+
+	<!-- app收藏表 -->
+	<class name="AppCollect" table="APP_COLLECT" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="contentId" type="string" column="CONTENT_ID" />
+		<property name="contentType" type="string" column="CONTENT_TYPE" />
+		<property name="userId" type="string" column="USER_ID" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+	</class>
+
+	<!-- app举报表 -->
+	<class name="AppReport" table="APP_REPORT" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="contentId" type="string" column="CONTENT_ID" />
+		<property name="contentType" type="string" column="CONTENT_TYPE" />
+		<property name="userId" type="string" column="USER_ID" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+	</class>
+
+	<!-- app转发表 -->
+	<class name="AppForwarding" table="APP_FORWARDING"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="contentId" type="string" column="CONTENT_ID" />
+		<property name="contentType" type="string" column="CONTENT_TYPE" />
+		<property name="userId" type="string" column="USER_ID" />
+		<property name="recipientId" type="string" column="RECIPIENT_ID" />
+		<property name="recipientType" type="string" column="RECIPIENT_TYPE" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+	</class>
+
+	<!-- 危废品订单表 -->
+	<class name="OrderWfp" table="order_wfp" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="storeId" type="string" column="STORE_ID" />
+		<property name="ysStoreId" type="string" column="YS_STORE_ID" />
+		<property name="buyStoreId" type="string" column="BUY_STOREID" />
+		<property name="scrapId" type="string" column="SCRAP_ID" />
+		<property name="orgId" type="string" column="ORG_ID" />
+		<property name="contractId" type="string" column="CONREACT_ID" />
+		<property name="wfpName" type="string" column="WFP_NAME" />
+		<property name="totalPrice" type="string" column="TOTAL_PRICE" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="price" type="string" column="PRICE" />
+		<property name="unit" type="string" column="UNIT" />
+		<property name="deliveAddress" type="string" column="DELIVE_ADDRESS" />
+		<property name="deliveType" type="string" column="DELIVE_TYPE" />
+		<property name="deliveData" type="string" column="DELIVE_DATA" />
+		<property name="shoppingStatus" type="string" column="SHOPPING_STATUS" />
+		<property name="status" type="string" column="STATUS" />
+		<property name="serviceStatus" type="string" column="SERVICE_STATUS" />
+		<property name="invoice" type="string" column="INVOICE" />
+		<property name="invoiceType" type="string" column="INVOICE_TYPE" />
+		<property name="invoiceContent" type="string" column="INVOICE_CONTENT" />
+		<property name="invoiceTitle" type="string" column="INVOICE_TITLE" />
+		<property name="logisticsNo" type="string" column="LOGISTICS_NO" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="payMent" type="string" column="PAYMENT" />
+		<property name="wfpNumber" type="string" column="WFP_NUMBER" />
+		<property name="orderNumber" type="string" column="ORDER_NUMBER" />
+		<property name="actualPrice" type="string" column="ACTUAL_PRICE" />
+		<property name="receiver" type="string" column="RECEIVER" />
+		<property name="receiverTel" type="string" column="RECEIVER_TEL" />
+		<property name="receiverAddress" type="string" column="RECEIVER_ADDRESS" />
+		<property name="oneCouplet" type="string" column="ONE_COUPLET" />
+		<property name="twoCouplet" type="string" column="TWO_COUPLET" />
+		<property name="threeCouplet" type="string" column="THREE_COUPLET" />
+		<property name="fourCouplet" type="string" column="FOUR_COUPLET" />
+		<property name="fiveCouplet" type="string" column="FIVE_COUPLET" />
+		<property name="habitat" type="string" column="HABITAT" />
+	</class>
+
+	<!-- 含量分类表 -->
+	<class name="ValuationCategory" table="valuation_category"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="specName" type="string" column="SPEC_NAME" />
+		<property name="status" type="string" column="STATUS" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+
+	</class>
+	<!-- 危废品订单计价表 -->
+	<class name="OrderValuation" table="ORDER_VALUATION"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex"></generator>
+		</id>
+		<property name="orderId" type="string" column="ORDER_ID" />
+		<property name="valuationId" type="string" column="VALUATION_ID" />
+		<property name="valuationPrice" type="big_decimal" column="VALUATION_PRICE" />
+		<property name="valuationUnit" type="string" column="VALUATION_UNIT" />
+		<property name="specName" type="string" column="SPEC_NAME" />
+		<property name="valuationNumber" type="big_decimal" column="VALUATION_NUMBER" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+	</class>
+
+	<!-- 危废品名录表 -->
+	<class name="Wfpml" table="wfpml" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex"></generator>
+		</id>
+		<property name="name" type="string" column="NAME" />
+		<property name="no" type="string" column="NO" />
+		<property name="parentId" type="string" column="PARENT_ID" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="position" type="int" column="POSITION" />
+		<property name="fullPath" type="string" column="FULL_PATH" />
+		<property name="status" type="string" column="STATUS" />
+		<property name="show_sub" type="string" column="SHOW_SUB" />
+		<property name="identity" type="string" column="IDENTITY" />
+	</class>
+</hibernate-mapping>

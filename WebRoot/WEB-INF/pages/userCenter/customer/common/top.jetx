@@ -1,0 +1,24 @@
+#define(com.ekfans.base.user.model.User User)
+<input type="hidden" id="ctxpath" value="${webroot}"/>
+<div class="topArea">
+	<div class="topLeft">
+	  <a href="${webroot}" class="logo">
+	  	<img src="${webroot}${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站Logo")}" alt="${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}" title="${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}">
+	  </a>
+	</div>
+	<div class="topRight">
+	  <div class="topItem storeHome"><a href="${webroot}/yx_index.html">商城首页</a></div>
+	  <div class="topItem userName"><a href="${webroot}/user/center/index">#if(User.nickName!=null && User.nickName!="")${User.nickName}#else${User.name}#end</a></div>
+	  <div class="topItem"><a href="${webroot}/web/logout/userLogout/zero">退出</a></div>
+	  <div class="clear"></div>
+	</div>
+	<div class="clear"></div>
+</div>
+<div class="nav">
+	<a href="${webroot}/user/center/index" class="navList">首页</a>
+	<a href="${webroot}/user/alreadyBuy" class="navList">交易</a>
+	<a href="${webroot}/user/security/setting" class="navList">账户管理</a>
+		<!--<a href="${webroot}/user/services/scores/getMyScores" class="navList">服务</a>-->
+	<div class="clear"></div>
+	<a href="${webroot}/user/cart/userShopCart" class="navShoppingCart" id="shopCartSum"></a>
+</div>

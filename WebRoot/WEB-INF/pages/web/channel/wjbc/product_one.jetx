@@ -1,0 +1,8 @@
+#define(List<com.ekfans.base.product.model.Product> productList)
+#for(com.ekfans.base.product.model.Product p : productList)
+	<div class="proTjList">
+		<a href="#tag shortLink("01",p.id) #end" class="proUrl"><img src="${webroot}${p.centerPicture}" width="260" height="260"></a>	
+		<div class="proTjTitleBg"></div>
+		<div class="proTjTitle"><span class="proTjName">${p.name}</span><span class="proTjPrice">¥${p.unitPrice}元/${p.unit}</span></div>
+	</div>
+#end

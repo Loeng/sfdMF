@@ -1,0 +1,64 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>三分地环保-找回密码</title>
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.form.js"></script>
+<script src="${webroot}/resources/commons/js/Validform_v5.3.2_min.js"></script>
+<script src="${webroot}/resources/web/js/base.js"></script>
+<script src="${webroot}/resources/web/js/findPassword.js"></script>
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/base.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/reg.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<input type="hidden" id="ctxpath" value="${webroot}" />
+<div id="channelTop"></div>
+<!--一极菜单-->
+<!--一极菜单 end-->
+<div class="main">
+	<div class="regHeader">
+    	<em>找回密码</em>
+        <a href="${webroot}/web/login" class="loginLink green">返回登录</a>
+    </div>
+    <form class="regform"  action="${webroot}/web/findpassword/checkIsName/phone" method="post" id="phoneSubmitOne">
+    <div class="regBox">
+        <dl class="regItem">
+        	<dt><em class="mustItem">*</em>手机号码：</dt>
+            <dd>
+                <input class="textBox" name="mobile" type="text" datatype="m" nullmsg="手机号码不能为空！" errormsg="手机号码格式输入有误！">
+                <span class="hint" style="line-height:20px;">非中国大陆用户输入手机号码时请增加区域前缀，<br>如：台湾：+8869*******，香港：+8526*******</span>
+                <div class="Validform_checktip"></div>
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="regItem">
+            <dt><em class="mustItem">*</em>短信验证码：</dt>
+            <dd>
+            	<input class="textBox" name="verifyCode" type="text" datatype="*" nullmsg="验证码不能为空！" errormsg="验证码输入有误！">
+            	<input name="" type="button" value="免费获取短信验证码" class="btnGreen" id="btnSend">
+            	<div class="Validform_checktip"></div>
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+      <div class="clear"></div>
+      <input type="submit" value="提交验证" class="btnGreen btnReg">
+    </div>
+    </form>
+    <div class="clear"></div>
+</div>
+
+<!--底部-->
+<div id="channelFoot"></div>
+<!--底部 end-->
+
+<script>
+</script>
+
+</body>
+</html>

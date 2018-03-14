@@ -1,0 +1,23 @@
+<!--左侧菜单-->
+#define(com.ekfans.base.store.model.StorePurview storePurview)
+#define(com.ekfans.base.user.model.User User)
+#define(String purviewId)
+<h2><a href="${webroot}/store/index"><!--${@(com.ekfans.base.user.util.UserConst).userTypeNamesMap.get(User.type)}-->管理中心首页</a></h2>
+#if(storePurview != null)
+#for(com.ekfans.base.store.model.StorePurview purview:storePurview.childList)
+<dl class="leftList">
+	<dt><b></b>${purview.className}</dt>
+	<dd>
+	#for(com.ekfans.base.store.model.StorePurview childPurview:purview.childList)
+		#if(purviewId.equals(childPurview.id))
+		<input type="hidden" value="${purviewId}" id="chooseChild">
+			<a class="cur" href="javaScript:choseMenu('${webroot}','${childPurview.id}');" >${childPurview.className}</a>
+		#else
+			<a href="javaScript:choseMenu('${webroot}','${childPurview.id}');" >${childPurview.className}</a>
+		#end
+	#end
+	</dd>
+</dl>
+#end
+#end
+<!--左侧菜单 end-->

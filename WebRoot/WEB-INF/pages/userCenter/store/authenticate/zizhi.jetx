@@ -1,0 +1,323 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>资质认证</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/addGoods.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/zizhi.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/upload.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/tools.css" />
+	
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/plugin/fileupload/js/vendor/jquery.ui.widget.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/plugin/fileupload/js/jquery.fileupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+<style>
+/* 选项切换 */
+.tab{overflow:hidden;position:relative;}
+.tabNav{height:52px; line-height:52px; font-size:14px;overflow:hidden;border-bottom:1px solid #e5e5e5;}
+.btnBox{ position:absolute ;right:0; top:10px;}
+.tabNav li{cursor:pointer;display:block; min-width:134px; padding:0 12px;text-align:center;float:left;}
+.tabNav .cur{display:block;color:#fff;}
+.tabContent{ display:none;padding:20px 0px; min-height:80px;}
+.boxchecked{margin-right:10px; display:inline-block;vertical-align: middle; width:15px; height:15px;}
+.tabContent h2{border-bottom:1px solid #CCC; margin-left:40px; margin-right:20px; height:35px; line-height:35px;}
+.rzTtem{margin:10px 0 10px 75px;}
+.biaoti{display:inline-block; width:100px; height:28px; line-height:28px; float:left;}
+.rzDiv{float:left; height:28px; overflow:hidden; width:815px;}
+.rzDiv span{display:inline-block; height:28px; line-height:28px; float:left; margin-right:20px;}
+.rzDiv .formItem{ min-width:330px; width:auto; max-width:810px; margin-top:15px; margin-left:-30px;}
+.rzstate{background:url(${webroot}/resources/userCenter/commons/images/icon_suc.png) no-repeat left center; width:46px; height:31px;background-size:28px 15px;}
+.failstate{background:url(${webroot}/resources/userCenter/commons/images/icon_fail.png) no-repeat left center; width:46px; height:31px;background-size:18px 18px;}
+.warnstate{background:url(${webroot}/resources/userCenter/commons/images/icon_un.png) no-repeat left center; width:46px; height:31px;background-size:18px 18px;}
+
+.btnDiv{margin-left:20px;}
+.zhengming{margin-left:-30px;}
+.box280{margin-right: 10px;}
+.fixed2{width:1015px;position:fixed;top:0px; background-color:#fff; z-index:90;}
+.formItem{margin-right:10px;}
+.formItem dd{height:auto;min-height:28px;}
+
+.bgColor{background:#393;color:#fff;}
+#mlDiv th{padding:0px 0px; height:35px;font-size:14px;color:#fff; border:1px #DCDCDD solid;}
+#mlDiv td{padding:8px 10px; line-height:22px; border:1px #DCDCDD solid;color:#7D7C7D; max-width:105px; overflow:hidden; text-align:center;}
+#mlDiv .tabRight{text-align:right;}
+#mlDiv .tabLeft{text-align:left;}
+.zizhi3name{width:150px;}
+
+.pwareaIdArea{width:120px;}
+.wfareaIdArea{width:120px;}
+.ysareaIdArea{width:120px;}
+
+.alertLayerBg{display:block;}
+.alertContent span{  display: block;float: left;width: 255px;line-height:30px;}
+</style>
+</head>
+
+<body>
+#define(com.ekfans.base.store.model.Store Store)
+#define(com.ekfans.base.user.model.User User)
+
+<input type="hidden" id="ctxpath" value="${webroot}" />
+
+<!--右侧主体-->
+<div class="rightContent"  style="background-color:#fff;">
+	<!--选项卡-->
+	<div class="tab">
+		<ul class="tabNav borderBottomColor budongBar ">
+			#if(User.type == "3")
+				<li class="cur bgColor" id="cz">危废处置资质认证</li>
+			#end
+			#if(User.type == "1" || User.type == "3")
+				<li #if(User.type=="1") class="cur bgColor" #end  id="cs">危废产生资质认证</li>
+			#end
+			<li #if(User.type=="4") class="cur bgColor" #end  id="ys">危废运输资质认证</li>
+			
+			<div class="btnBox">
+				<a href="javascript:formSub();" id="saveButton"  class="btnBase btnSave">保存</a>
+			</div>
+		</ul>
+		
+		<form action="${webroot}/store/auth/accredit/save" method="post" id="accSave">
+			<input type="hidden" name="rzType" id="rzType" value="${User.type == "3" ? "cz":(User.type=="1"?"cs":"ys")}"/>
+			<div class="tabContent">
+				<div id="czStatus" class="stateLayer #if(Store.buyerStatus == "3") sucState #else ingState #end" #if(User.type != "3") style="display:none;" #end><!--sucState是成功-->
+					${@(com.ekfans.base.store.util.StoreConst).rzStatusMap.get(Store.buyerStatus)}
+				</div>
+				<div id="csStatus" class="stateLayer #if(Store.salerStatus == "3") sucState #else ingState #end" #if(User.type != "1") style="display:none;" #end><!--sucState是成功-->
+					${@(com.ekfans.base.store.util.StoreConst).rzStatusMap.get(Store.salerStatus)}
+				</div>
+				<div id="ysStatus" class="stateLayer #if(Store.transStatus == "3") sucState #else ingState #end" #if(User.type != "4") style="display:none;" #end><!--sucState是成功-->
+					${@(com.ekfans.base.store.util.StoreConst).rzStatusMap.get(Store.transStatus)}
+				</div>
+				
+				<!--营业执照START-->
+				<h2>营业执照</h2>
+				<div class="rzTtem">
+					<span class="biaoti">认证状态</span>
+					<div class="rzDiv">
+						<span class="zizhi3name">营业执照信息认证</span>
+						<span class="rzstate"></span>
+						<a href="javascript:void(0);" class="btnBase btnzk">展开</a>
+						<div class="clear"></div>
+						
+						<dl class="formItem">
+							<dt>营业资格证</dt>
+							<dd>
+								#tag picUpload("businessLicense","1","150","150",Store.businessLicense) #end
+							</dd>
+						</dl>
+						<dl class="formItem">
+				      <dt>注册号</dt>
+				      <dd>
+				        <input name="businessLicenseNumber" type="text" disabled class="textBox box212" value="${Store.businessLicenseNumber}">
+				      </dd>
+				      <dd class="clear"></dd>
+				    </dl>
+						<dl class="formItem">
+				      <dt>注册资本</dt>
+				      <dd>
+				        <input name="regCapital" type="text" disabled class="textBox box212" value="${Store.regCapital}万元">
+				      </dd>
+				      <dd class="clear"></dd>
+				    </dl>
+						<dl class="formItem">
+				      <dt>发证机关</dt>
+				      <dd>
+				        <input name="bureau" type="text" disabled class="textBox box212" value="${Store.bureau}">
+				      </dd>
+				      <dd class="clear"></dd>
+				    </dl>
+					</div>
+				  <div class="clear"></div>
+				</div>
+				<!--营业执照END-->
+				
+				<!--危险废物经营许可证-->
+				<div id="WFJYDIV"></div>
+				
+				<!--排放污染物许可证-->
+				<div id="PWDIV"></div>
+				
+				<!--道路运输经营许可证-->
+				<div id="DLYSDIV"></div>
+				
+			</div>
+		</form>
+	</div>
+</div>
+<!--右侧主体 end-->
+
+<div class="apLayerBg"></div>
+<div id="Directory" class="apLayer borderColor alertBrand"></div>
+
+<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/auth/zizhi.js"></script>
+<script>
+	String.prototype.replaceAll = function(reallyDo, replaceWith, ignoreCase) {  
+	  if (!RegExp.prototype.isPrototypeOf(reallyDo)) {  
+	      return this.replace(new RegExp(reallyDo, (ignoreCase ? "gi": "g")), replaceWith);  
+	  } else {  
+	      return this.replace(reallyDo, replaceWith);  
+	  }  
+	} 
+	function trim(str){
+		return str.replace(/(^\s*)|(\s*$)/g,"");
+		
+	}
+	#if(User.type == "3")
+		$("#WFJYDIV").load("${webroot}/store/auth/jumpIntelPage/wfzz/load");
+		$("#PWDIV").load("${webroot}/store/auth/jumpIntelPage/pwzz/load");
+		#if(Store.buyerStatus == "3") 
+			$("#saveButton").hide();	
+		#end
+	#end
+	#if(User.type == "1")
+		$("#PWDIV").load("${webroot}/store/auth/jumpIntelPage/pwzz/load");
+		#if(Store.salerStatus == "3") 
+			$("#saveButton").hide();	
+		#end
+	#end
+	#if(User.type == "4")
+		$("#DLYSDIV").load("${webroot}/store/auth/jumpIntelPage/yszz/load");
+		#if(Store.transStatus == "3") 
+			$("#saveButton").hide();	
+		#end
+	#end
+		
+	$(document).ready(function(){
+		/*选项卡切换*/
+		$(".tabContent").eq(0).show();
+		$(".tabNav li").click(
+			function(){
+				$(this).siblings().removeClass("cur");
+				$(this).siblings().removeClass("bgColor");
+				$(this).addClass("cur");
+				$(this).addClass("bgColor");
+				var idStr = $(this).attr("id");
+				$("#rzType").val(idStr);
+				showChecks(idStr);
+				slideby();
+			}
+		)
+		
+		$(".btnzk").live("click",function(){
+			$(this).parent(".rzDiv").css("height","auto");
+			$(this).parent(".rzDiv").css("overflow","visible");
+			$(this).text("收起");
+			$(this).addClass("btnsq");
+			slideby();
+		});
+		
+		$(".btnsq").live("click",function(){
+			$(this).parent(".rzDiv").css("height","28px");
+			$(this).parent(".rzDiv").css("overflow","hidden");
+			$(this).text("展开");
+			$(this).removeClass("btnsq");
+			
+		});
+		
+		//随屏滚动js
+		var scrollH2;
+		$(window).scroll(function(){
+			scrollH2 = $(document).scrollTop();
+			if(scrollH2 >= 147){
+				$(".budongBar").addClass("fixed2");
+			}
+			else{
+				$(".budongBar").removeClass("fixed2");
+			}
+		});
+	});
+	
+	function showChecks(choseId){
+		$("#czStatus").hide();
+		$("#csStatus").hide();
+		$("#ysStatus").hide();
+		$("#" + choseId + "Status").show();
+		
+		if(choseId == "cz"){
+			$("#WFJYDIV").load("${webroot}/store/auth/jumpIntelPage/wfzz/load");
+			$("#PWDIV").load("${webroot}/store/auth/jumpIntelPage/pwzz/load");
+			$("#DLYSDIV").empty();
+			#if(Store.buyerStatus == "3") 
+				$("#saveButton").hide();	
+			#else
+				$("#saveButton").show();	
+			#end
+		}else if(choseId == "cs"){
+			$("#WFJYDIV").empty();
+			$("#PWDIV").load("${webroot}/store/auth/jumpIntelPage/pwzz/load");
+			$("#DLYSDIV").empty();
+			#if(Store.salerStatus == "3") 
+				$("#saveButton").hide();	
+			#else
+				$("#saveButton").show();	
+			#end
+		}else{
+			$("#WFJYDIV").empty();
+			$("#PWDIV").empty();
+			$("#DLYSDIV").load("${webroot}/store/auth/jumpIntelPage/yszz/load");
+			#if(Store.transStatus == "3") 
+				$("#saveButton").hide();	
+			#else
+				$("#saveButton").show();	
+			#end
+		}
+	}
+	
+	function formSub(){
+		var rzType = $("#rzType").val();
+		if(rzType == "cz"){
+			if(!checkWf() || !checkPw()){
+				return;
+			}
+		}else if(rzType == "cs"){
+			if(!checkPw()){
+				return;
+			}
+		}else{
+			if(!checkYs()){
+				return;
+			}
+		}
+		
+		$("#accSave").ajaxSubmit(
+			function(data) {
+				if (data == true) {
+					salertWithFunction('认证提交成功，请耐心等待审核',returnReload,null);
+				} else {
+					falert("认证提交失败，请稍后提交");
+				}
+		});
+	}
+	
+	
+	
+	#if(Store.commonStatus != "3")
+		falertWithFunction("请先认证基础信息！",returnToCommonStatus,null)
+	#end
+	#if(Store.bankStatus != "3")
+		falertWithFunction("请先认证银行信息！",returnToBankStatus,null)
+	#end
+	function returnToCommonStatus(){
+		choseMenu("${webroot}","STORE_RENZHENG_BEIAN");
+	}
+	function returnToBankStatus(){
+		choseMenu("${webroot}","STORE_RENZHENG_YINHANG");
+	}
+	
+	function returnReload(){
+		location.href="${webroot}/store/auth/jumpIntelPage";
+	}
+	
+</script>
+<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+</body>
+</html>

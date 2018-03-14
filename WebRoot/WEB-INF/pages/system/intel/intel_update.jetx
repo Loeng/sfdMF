@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/add.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/intel/intel_add.js"></script>
+</head>
+
+<body>
+#define(com.ekfans.base.store.model.Intel intel)
+<input type="hidden" id="ctxpath" value="${webroot}" />
+
+#if(mark=='1')
+<div class="ht_btn">
+	<a href="javascript:void(0);" class="btn" onclick="formSubmit();">保存</a>
+	<a href="javascript:void(0);" class="btn" onclick="reset();">重置</a>
+	<a href="javascript:void(0);" class="btn" onclick="goBack();">返回列表</a>
+</div>
+<form action="${webroot}/system/intel/update" method="post" id="intelAddFrom">
+	<input type="hidden" name="id" value="${intel.id}" />
+	<input type="hidden" name="createTime" value="${intel.createTime}" />
+#elseif(mark=='2')
+<div class="ht_btn">
+	<a href="javascript:void(0);" class="btn" onclick="goBack();">返回列表</a>
+</div>
+#end	
+	<div class="add_pro">
+		<dl class="formBox">
+			<dt>资质名称<em class="mustIco"></em></dt>	
+			<dd>
+				<input type="text" class="i_bg" name="name" value="${intel.name}" onfocus="checkNameFocus()" onblur="checkNameBlur()" />
+				<span class="ts_xx"></span>
+			</dd>
+		</dl>
+		<dl class="formBox">
+			<dt>状态</dt>
+			<dd>
+				<span class="zt"><label><input type="radio" value="true" name="status" #if(intel.status) checked="true" #end />启用</label></span>
+				<span class="zt"><label><input type="radio" value="false" name="status" #if(!intel.status) checked="true" #end />禁用</label></span>
+			</dd>
+		</dl>
+		<div class="clear"></div>
+		<dl class="formBox">
+			<dt>备注</dt>
+			<dd>
+				<textarea name="note" maxlength="100">${intel.note}</textarea>
+			</dd>
+		</dl>
+	</div>
+#if(mark==1)
+</form>
+#end
+</body>
+</html>

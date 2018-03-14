@@ -1,0 +1,59 @@
+/* CSS Document */
+
+.wrapper{width:1200px; margin:0 auto;}
+.header{height:60px;}
+#logo{width:330px; float:left;}
+#logo img{display:block; margin-top:8px;}
+.headerRight{float:right; width:800px; line-height:60px; text-align:right; color:#A78749;}
+.headerRight span,.headerRight a{margin:0 5px;}
+.nav{min-width:1200px; position:relative;}
+.topItem{ padding-right:10px;height:18px; border-right:solid 1px #595757; color:#595757;}
+.itemLast{border-right:none;}
+.indexLink{color: #A78749; background:url(../images/icon_index2.png) no-repeat left center; padding-left:30px;}
+.indexLink:hover{color: #A78749;}
+.firstNav{height:48px; line-height:48px;background:#339833;}
+.firstNav li{display:inline-block;margin:0 30px 0 30px; position:relative;}
+.navBtn{ color:#fff; font-size:16px; padding: 0px 0 14px 0;}
+.navBtn em{ background:url(../images/down_point.png) 8px center no-repeat;display:inline-block; width:16px; height:6px;}
+.navBtn.cur{}
+.navList{position:absolute; top:48px; left:-184px; width:450px; height:38px; line-height:38px; display:none; z-index:99;text-align: center;}
+.navList em{display:block; background:url(../images/up_point.png) no-repeat; width:20px; height:9px; position:absolute; top:-9px; left:205px;}
+.navList a{color:#136333;text-align:center; font-size:14px; margin:0 10px 0 0;padding:4px 10px;}
+.navList a.cur,.navList a:hover{ background-color:#393; color:#fff;}
+
+.secondNav{height:38px; line-height:38px; background:#98CB67; width:100%;}
+.secondNav{position:absolute; top:48px; left:0; right:0; z-index:98;}
+
+.show .navList,.show .navList em{display:block;}
+
+/*none*/
+.noneBox{ margin:50px auto; width:800px; text-align:center;}
+.noneBox span{ color:#1B1B1B; font-size:14px; height:58px; line-height:58px;padding-left:68px;display:inline-block;background:url(../images/none.png) no-repeat left center;}
+
+/*vertical-align*/
+.vertical{position: absolute; top:50%; left:50%; transform: translate(-50%, -50%);}
+img.vertical{max-height:100%; max-width:100%;}
+.ieLow{position:static; transform:none;}
+
+/*底部*/
+.footer{background:#339833; padding-top:10px; min-width:1200px;}
+.footerItem{width:240px; float:left; color:#fff;}
+.footerItem dt{height:30px; line-height:30px; font-size:14px;}
+.footerItem dd li{line-height:25px;}
+.footerBottom{margin-top:10px; background:#006500; color:#67AF67; padding:10px 0;}
+.footerBottomLeft{float:left; white-space:nowrap;}
+.footerBottomRight{float:right; white-space:nowrap;}
+
+.btnGreen{background:#393; color:#fff; display:inline-block; text-align:center; font-size:14px; border:none; cursor:pointer;}
+.btnGreen:hover{background:#5FB01F; color:#fff;}
+
+/*弹层风格*/
+.layer-class .layui-layer-title{color:#393; font-size:20px; border-top:solid 5px #393;}
+.layer-class .layui-layer-btn{text-align:center; padding-bottom:16px;}
+.layer-class .layui-layer-btn0,.layer-class .layui-layer-btn1{width:60px; height:26px; text-align:center; font-size:14px; background:#393!important; border:none; color:#fff;}
+.layer-class .layui-layer-btn0:hover,.layer-class .layui-layer-btn1:hover{background:#136333; color:#fff;}
+
+/*==========Validform===========*/
+.Validform_right{display:none;}
+.Validform_wrong{display:block; height:16px; color:#f00; line-height:16px;font-size:12px;}
+.errorText{display:block;color:red; line-height:16px;}

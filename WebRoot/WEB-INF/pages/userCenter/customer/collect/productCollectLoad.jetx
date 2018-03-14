@@ -1,0 +1,50 @@
+<!--商品收藏-->
+        #define(List<com.ekfans.base.product.model.ProductCollect> pcs)
+        <div id="userSave">
+        <div class="saveList userSave" >
+               
+            <div class="shopUnit">
+            	#if(pcs == null || pcs.size() == 0)
+            	<div class="orderNone">暂时没有符合条件的数据</div>
+            	#else
+            	#for(com.ekfans.base.product.model.ProductCollect pc : pcs)
+                <dl class="proItem">
+                    <dt><a href="#tag shortLink("01",pc.productId) #end" target="_blank" title="${pc.name}" class="scImg"><img alt="${pc.name}" src="${webroot}${pc.picture}" width="230" height="230"></a></dt>
+
+                    <dd>
+                        <span class="nPrice">¥${pc.unitPrice}</span>
+                        <span class="proCheck"><label><input name="checkbox" type="checkbox" value="${pc.id}"></label></span>
+                        <div class="clear"></div>
+                    </dd>
+                    <dd class="proName"><a href="#tag shortLink("01",pc.productId) #end" title="${pc.name}" target="_blank">${pc.productName}</a></dd>
+                    
+                    <dd class="proBttomInfo">
+                        <a href="javascript:void(0)" class="btnBlue" onclick="econfirm('确定要购买此商品吗？',productPay,['${pc.productId}','${webroot}'],null,null);">立即购买</a>
+                        <a href="javascript:void(0)" class="deleteLink" id="del${pc.id}" onclick="econfirm('确定要删除此商品吗？',productCollectDelete,['${pc.id}','${webroot}'],null,null);">删除</a>
+                        <div class="clear"></div>
+                    </dd>
+                </dl>
+                 #end
+                
+                <div class="clear"></div>
+            </div>
+           
+            <div class="listBottom">
+                
+                 ${include("../common/page.jetx")}
+            </div>    
+            
+			 #end
+              
+						</div>	
+					</div>
+			
+                <div class="clear"></div>
+            </div>
+        </div>
+        <!--商品收藏 end-->
+        
+         
+    </div>
+    <div class="clear"></div>
+</div>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/demand.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/list.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/cooperation/cooperationList.js"></script>
+</head>
+
+<body>
+<input type="hidden" id="ctxpath" value="${webroot}" />
+
+<form action="${webroot}/system/cooperation/list" method="post" id="searchForm">
+	<input type="hidden" name="pageNum" value="" />
+	
+	<dl class="pro_ss">
+		<dt><b>查询</b><span class="span_down"></span><span class="span_up"></span></dt>
+		<dd class="pro_ss_item">
+			<span style="width:70px">机构类型</span>
+			<span class="zt">
+				<label>
+					<input type="radio" name="type" value="" #if(type==null || type=="" || type==" ") checked=true #end />所有
+				</label>
+			</span>
+			<span class="zt">
+				<label>
+					<input type="radio" name="type" value="0" #if("0".equals(type)) checked=true #end />环保合作机构
+				</label>
+			</span>
+			<span class="zt">
+				<label>
+					<input type="radio" name="type" value="1" #if("1".equals(type)) checked=true #end />金融合作机构
+				</label>
+			</span>
+		</dd>
+		<div class="clear"></div>
+		<dd class="pro_ss_item">
+			<span style="width:70px">机构名称</span>
+			<input type="text" class="i_bg" name="orgName" value="${orgName}" />
+		</dd>
+		<dd class="pro_ss_item">
+			<span style="width:70px">联系人</span>
+			<input type="text" class="i_bg" name="contactMan" value="${contactMan}" />
+		</dd>
+		<dd class="pro_ss_item">
+			<span style="width:70px">联系人电话</span>
+			<input type="text" class="i_bg" name="contactPhone" value="${contactPhone}" />
+		</dd>
+	</dl>
+</form>		
+<div class="pro_ss_btn">
+	<a href="javascript:void(0);" class="btn" onclick="searchSubmit();">搜索</a>
+	<a href="javascript:void(0);" class="btn" onclick="resetForm();">重置</a>
+</div>
+<div class="pro_ss_btn">
+	<a href="javascript:void(0);" class="btn" onclick="coAdd();">新增</a>
+</div>
+
+#define(List<com.ekfans.base.store.model.Cooperation> cps)
+		
+#if(cps==null||cps.size()<=0)
+	<!-- 没有数据的时候 -->
+	<div class="ht_list_k">暂时没有符合条件的数据</div>	
+#else
+	<!-- 有数据的时候 -->
+	<div class="ht_list">
+		<table id="roleTab" cellpadding="0" cellspacing="0" border="0" >
+			<tr>
+				<th width="8%">全选</th>
+				<th width="8%">序号</th>
+				<th width="15%">机构名称</th>
+				<th width="10%">联系人</th>
+				<th width="10%">联系电话</th>
+				<th width="15%">机构类型</th>
+				<th width="15%">创建时间</th>
+				<th width="15%">操作</th>
+			</tr>
+			#for(com.ekfans.base.store.model.Cooperation c : cps)
+			<tr id="del${c.id}">
+				<td class="qx"><input type="checkbox" value="${c.id}" /></td>
+				<td>${for.index}</td>
+			    <td>${c.orgName}</td>
+			    <td>${c.contactMan}</td>
+		        <td>${c.contactPhone}</td>
+		        <td>#if(c.type=="0")环保合作机构 #elseif(c.type=="1")金融合作机构#end</td>
+		        <td>${c.createTime}</td>
+				  <td class="cz">
+				  	<a href="javascript:void(0);" class="eyeIco" onclick="queryId('${c.id}');" title="详细"></a>
+						<a href="javascript:void(0);" class="editIco" onclick="coModify('${c.id}');" title="修改" ></a>
+						<a href="javascript:void(0);" class="del_list" onclick="deleteEconfirm('${c.id}');" title="删除"></a>
+					</td>
+				</tr>
+			#end
+		</table>
+		<div class="ht_pageBox">
+			<div class="ht_page_l">
+				<a href="javascript:void(0)" class="btn" onclick="selectAll();">全选</a>
+				<a href="javascript:void(0)" class="btn" onclick="checkSelect();">删除</a>
+			</div>
+			${include( "../common/page.jetx")}
+		</div>
+  </div>
+#end
+</body>
+</html>

@@ -1,0 +1,54 @@
+#define(List<com.ekfans.base.order.model.SupplyBuy> demandInfos)
+<!--现货-求购-->
+
+<div class="cyTable">
+    	<table border="0" cellspacing="0" cellpadding="0" class="cheyuanHeader">
+        <tbody>
+          <tr>
+              <td>品名</td>
+              <td>厂家</td>
+              <td>质量等级</td>
+              <td>交货地</td>
+              <td>交货方式</td>
+              <td style="text-align:right;">数量</td>
+              <td>&nbsp;&nbsp;</td>
+          </tr>
+          </tbody>
+      </table>
+      <div class="cheyuanIn">
+      #if(demandInfos == null || demandInfos.size() == 0)
+<div class="listNone"><span class="warn"><span></span></span></div>
+#else
+          <table border="0" cellspacing="0" cellpadding="0">
+              <tbody>
+              #for(com.ekfans.base.order.model.SupplyBuy s : demandInfos)
+              <tr>
+                  <td style="width:12%;"><div class="xhname">${s.title}</div></td>
+                  <td style="width:26%;"> <div class="xhcomname">
+                  	#if(!@(com.ekfans.pub.util.StringUtil).isEmpty(s.storeName) && !@(com.ekfans.pub.util.StringUtil).isEmpty(s.storeId)) <em class="gyrz">证</em> ${s.storeName}
+					#else <em class="gyls">临</em> ${!@(com.ekfans.pub.util.StringUtil).isEmpty(s.storeName)?s.storeName:"游客"}
+					#end</div></td>
+                  <td style="width:10%;"> <div class="xhcomname">#if(s.qualityLevel!=null)${s.qualityLevel}#else &nbsp;#end</div></td>
+                  <td style="width:14%;"><div class="xhsheng">#if(s.destination!=null)${s.destination.replace(" ","")}#else &nbsp;#end</div></td>
+                  <td style="width:14%;"> <div>#if(0==s.deliveryType)自提#elseif(1==s.deliveryType)送货上门#else &nbsp;#end</div></td>
+                  <td style="width:14%;text-align:right; white-space:nowrap;"><div>#if(s.number!=null)${s.number}(${s.unit})#else &nbsp;#end</div></td> 
+                  <td style="width:10%;text-align:right;"> <a href="javascript:void(0)"  class="xunjiaLink" onclick="loadXunjia('${s.id}','${s.storeId}');" dataname="${s.title}">询价</a></td>
+                  <!--<td> <a href="javascript:void(0);" class="opendetail" dataname="${s.title}">详情</a></td>-->
+              </tr>
+              #end
+              </tbody>
+          </table>
+          #end
+      </div>
+
+    </div>
+<script>
+$(".cyTable").each(function() {
+   	var objs=$(this).find(".cheyuanIn tr:eq(0) td");
+	var objHeader=$(this).find(".cheyuanHeader tr:eq(0) td");
+	for(i=0;i<objs.length;i++){
+		var kuan=objs.eq(i).width();
+		objHeader.eq(i).css("width",kuan+"px");
+	}
+});
+</script>

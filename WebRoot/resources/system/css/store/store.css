@@ -1,0 +1,36 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url("../add.css");
+
+.formSection{padding:20px 0 30px;}
+.borderBox{border:solid 1px #EFEFEF; padding:16px 16px 0 16px;}
+.formSection h3{font-size:16px; line-height:30px; height:30px; color:#484848; font-weight:normal;}
+.formIn .formName{display:block; height:28px; line-height:28px; padding-right:14px; float:left; color:#888; min-width:66px; text-align:right;}
+.formIn .i_bg{display:block; height:25px; line-height:25px; margin-right:14px; float:left;}
+.formIn .radioBox{height:28px; line-height:28px;}
+.radioBox label,.radioBox input{display:block; float:left;}
+.radioBox label{padding-right:16px; color:#888;}
+.radioBox input{margin:8px 8px 0 0;}
+.formIn .formLine{display:block; height:28px; line-height:28px; padding:0 10px; float:left; color:#888;}
+.formIn .formItem{float:left; display:block; height:28px; margin-bottom:24px; padding-right:16px;}
+.formItem .i_bg{margin-right:0;}
+.formIn textarea.i_bg{height:107px;}
+.formIn div.formItem{height:auto;}
+.box280{width:277px;}
+.box100{width:97px;}
+.box80{width:77px;}
+.box250{width:247px;}
+.financeHeader{padding-left:106px; height:14px; line-height:14px; margin-bottom:10px; overflow:hidden;}
+.financeHeader li{width:376px; float:left; height:14px;}
+.financeHeader li span{color:#888;}
+.financeHeader li span em{color:#484848;}
+.financeItem{width:387px; height:28px; float:left; margin-bottom:24px;}
+.financeItem .formName{width:106px;}
+.btnBlue{display:inline-block; height:28px; line-height:28px; background:#008DFF; color:#fff; border-radius:6px; padding:0 20px; margin-right:20px;}
+.btnBlue:hover{color:#fff; opacity:0.8;}
+.resumeBtn{padding:24px 0 12px 86px; margin-bottom:16px; border-bottom:dashed 1px #484848;}
+.borderBottom{border-bottom:solid 1px #484848; margin-bottom:16px;}
+.mustIco{margin-right:6px;}
+
+.imgUpload,.fileUpload{float:left;}

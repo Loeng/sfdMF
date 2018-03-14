@@ -1,0 +1,59 @@
+#define(List<com.ekfans.base.store.model.CarUser> userList)
+
+
+<div class="apTit">
+	<span class="apClose"></span>
+	押运员选择
+</div>
+<div class="apContent">
+	<div class="itemLayer">
+		#for(com.ekfans.base.store.model.CarUser carUser:userList)
+			<div class="classItem">
+				<label>
+          <input name="driverChose" type="checkbox" value="${carUser.id}" onclick="clickChose(this,'${carUser.id}','${carUser.name}')">
+					${carUser.name}
+				</label>
+			</div>
+		#end
+		<div class="clear"></div>
+	</div>
+</div>
+<div class="apBtns">
+	<a class="btnBase" href="javascript:okChoseDriver();">确定</a>
+	<a class="btnBase" href="javascript:cancelChoseDriver();">取消</a>
+</div>
+
+<input type="hidden" id="thisDriverIds" value=""/>
+<input type="hidden" id="thisDriverNames" value=""/>
+
+<script>
+
+	function cancelChoseDriver(){
+		$("#supercargo").html("");
+		$("#supercargo,.apLayerBg").hide();
+	}
+	function okChoseDriver(){
+		var thisDriverIds = $("#thisDriverIds").val();
+		var thisDriverNames = $("#thisDriverNames").val();
+		
+		$("#${carInfoId}driverName").val(thisDriverNames);
+		$("#${carInfoId}driverId").val(thisDriverIds);
+		
+		$("#supercargo").html("");
+		$("#supercargo,.apLayerBg").hide();
+		
+	}
+	function clickChose(obj,driverId,driverName){
+		var thisDriverIds = $("#thisDriverIds").val();
+		var thisDriverNames = $("#thisDriverNames").val();
+		if($(obj).attr("checked")){
+			thisDriverIds = thisDriverIds + driverId + ";";
+			thisDriverNames = thisDriverNames + driverName + "  ";
+		}else{
+			thisDriverIds = thisDriverIds.replaceAll(driverId+";","");
+			thisDriverNames = thisDriverNames.replaceAll(driverName+"  ","");
+		}
+		$("#thisDriverIds").val(thisDriverIds);
+		$("#thisDriverNames").val(thisDriverNames);
+	}
+</script>

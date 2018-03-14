@@ -1,0 +1,157 @@
+#define(com.ekfans.base.channel.model.Channel channel)
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}-${channel.name}</title>
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<meta name="Keywords" content="${channel.keyWords}">
+<meta name="description" content="${channel.description}">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/commons/js/jquery.superslide.2.1.1.js"></script>
+<script src="${webroot}/resources/web/js/base.js"></script>
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/base.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/web/css/qyrz.css" rel="stylesheet" type="text/css">
+#if(configStatus == "true")
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/control.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/upload.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/control.js"></script>	
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+#end
+</head>
+<body>
+<input type="hidden" name="ctxpath" id="ctxpath" value="${webroot}" />
+<input type="hidden" name="channelId" id="channelId" value="${channelId}" />
+<input type="hidden" name="channelType" id="channelType" value="${channel.type}" />
+#if(configStatus == "true")
+	<!-- 频道配置导航条 -->
+	#include("commons/config/config-top.jetx")
+	<!-- 频道配置导航条 -->
+#end
+<!--一极菜单-->
+<!-- 导航 -->
+<div id="channelTop"></div>
+
+<!--一极菜单 end-->
+<div class="slideBox">
+        #include("commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"1"})
+</div>
+<div class="wrapper">
+<div class="qydata">
+	<!-- 登陆注册连接和显示注册总数 -->
+	<div class="wrapper regSide" >
+	</div>
+	
+</div>
+<div class="clear splitLine" style="height:1px;background: #f1f1f1;"></div>
+
+<div class="threeAd">
+	
+  	<div class ="autoAdv">
+        #include("commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"2"})
+    </div>
+    <em></em>
+    <div class ="autoAdv">
+        #include("commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"3"})
+    </div>
+    <em></em>
+    <div class ="autoAdv">
+        #include("commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"4"})
+    </div>
+    <div class="clear"></div>
+ 
+</div>
+
+<div class="wrapper main">
+	<div class="leftBox companyList">
+	
+	</div>
+  
+  
+  <div class="rightBox">   
+     <!--最新加盟-->
+    <div class="jmBox">
+    	<div class="boxTit"><h2>最新加盟</h2><a href="${webroot}/web/jumpRegPage" class="btnjr">我要加入...</a></div>
+    	<div id="hx"></div>
+		<div id="ysqy"></div>
+    </div>
+    
+    <!--物流快讯-->
+    <div class="wlkx">
+       #include("qyrz/content_four.jetx",{"channelId":channelId,"configType":"c","position":"5"})
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>
+</div>
+<!-- 底部 -->
+<div id="channelFoot"></div>
+
+<!--底部 end-->
+<script>
+	$(document).ready(function() {
+	
+		//焦点图切换
+	    jQuery(".slideBox").slide({mainCell:".bd ul",autoPlay:true});
+			
+			//企业认证
+		$(".threeAd .autoAdv").hover(function(){
+			$(this).find(".autoAdvContent").stop(true,true).slideToggle();
+		})
+		
+		$("#channelTop").load($("#ctxpath").val() + "/web/channel/commons/channel-top.jetx",{"channelId":$("#channelId").val(),"channelType":$("#channelType").val(),"returnUrl":window.location.href});
+		$("#channelFoot").load($("#ctxpath").val() + "/web/channel/commons/channel-footer.jetx");
+		$(".companyList").load($("#ctxpath").val() + "/web/wlrz/qyrz/store?pageNum=1", function () {
+            //浏览器版本
+            if($.browser.msie) {
+                var count=parseInt($.browser.version);
+                if(count<=9){
+                    $(".vertical").addClass("ieLow");
+                }
+            }
+        });
+		$(".regSide").load($("#ctxpath").val() + "/web/wlrz/qyrz/islogin");
+		
+		//分页跳转
+		$(".surepage").live("click",function(){
+			var pageNum = $("input[name='gopage']").val();
+			$(".companyList").load($("#ctxpath").val() + "/web/wlrz/qyrz/store?pageNum=" + pageNum, function () {
+                //浏览器版本
+                if($.browser.msie) {
+                    var count=parseInt($.browser.version);
+                    if(count<=9){
+                        $(".vertical").addClass("ieLow");
+                    }
+                }
+            });
+		});
+			
+	});
+	
+	function goPage(num){
+		$(".companyList").load($("#ctxpath").val() + "/web/wlrz/qyrz/store?pageNum=" + num ,function () {
+            //浏览器版本
+            if($.browser.msie) {
+                var count=parseInt($.browser.version);
+                if(count<=9){
+                    $(".vertical").addClass("ieLow");
+                }
+            }
+        });
+	}
+	
+	$("#hx").load($("#ctxpath").val()+"/web/storeType/getHxInfo/qyrz/3");
+	$("#ysqy").load($("#ctxpath").val()+"/web/storeType/getHxInfo/qyrz/4");
+	
+</script>
+<div style="display:none;">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255237573'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1255237573' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>

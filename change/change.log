@@ -1,0 +1,2070 @@
+--- 2015-01-12 lgy 店铺角色权限表新增类型字段
+alter table store_purview_rel add column type char(1) default '0';
+
+--- 2015-01-16 lgy 频道表新增父ID
+alter table channel add column parent_id varchar(32) default null;
+
+
+--- 2015-01-20 删除平台不需要的系统字段
+delete from system_content_config where id in ('5','6');
+
+--2015-01-20删除conten表中的字段
+ALTER TABLE content DROP column  INTRODUCTION;
+ALTER TABLE content ADD column   KEY_WORDS varchar(32);
+ALTER TABLE content ADD column   DESCRIPTION varchar(32);
+ALTER TABLE content ADD column   AUTHOR varchar(32);
+--2015-01-20添加store字段
+ALTER TABLE content ADD column   KEY_WORDS varchar(32);
+ALTER TABLE content ADD column   DESCRIPTION varchar(32);
+ALTER TABLE content ADD column   AUTHOR varchar(32);
+
+-- 2015-01-22 lgy 隐藏两个字段
+update shop_purview set status=0 where id in ('SYSTEM_MANAGER_CHANNEL_CAT_ADD','SYSTEM_MANAGER_CHANNEL_CAT_LIST');
+
+-- 2015-01-27 store表中添加store_refer(企业简称)
+ALTER TABLE `store` 
+   ADD COLUMN `STORE_REFER` VARCHAR(128) NULL COMMENT '企业简称';
+--2015-01-30 store_purview表菜单
+UPDATE `store_purview` SET `FULL_PATH`='/store/order/wfpOrderList?type=2' WHERE (`ID`='ORDER_WFORDER_LIST');
+UPDATE `store_purview` SET `FULL_PATH`='/store/order/wfpOrderList?type=1' WHERE (`ID`='ORDER_MANAGER_SUPPLEIER_PRICE');
+
+
+--2015-02-05 11:09:23 修改store_legal表LEGAL_HIS_CURRENT_TIME字段类型
+ALTER TABLE `store_legal` CHANGE `LEGAL_HIS_CURRENT_TIME` `LEGAL_HIS_CURRENT_TIME` INT(11) NULL  COMMENT '任现职时间';
+   
+   
+   
+   
+---------------------三分地修改   
+   
+-- 刘国羽 车辆信息   
+create table CAR_INFO(
+	ID VARCHAR(32) PRIMARY KEY,
+	STORE_ID VARCHAR(32) DEFAULT NULL  COMMENT'运输企业ID',
+	CAR_NO VARCHAR(16) DEFAULT NULL  COMMENT'车牌号',
+	CAR_TYPE VARCHAR(32) DEFAULT NULL  COMMENT'车辆类型',
+	FULL_WEIGHT DOUBLE(13,4) DEFAULT 0.00 COMMENT'核定载质量',
+	START_TIME VARCHAR(19) DEFAULT NULL  COMMENT'行驶证有效期开始时间',
+	END_TIME VARCHAR(19) DEFAULT NULL  COMMENT'行驶证有效期结束时间',
+	YS_NO VARCHAR(32) DEFAULT NULL  COMMENT'道路运输证号',
+	FULL_NUM INTEGER DEFAULT 0 COMMENT'核定载人数',
+	XSZ_FILE VARCHAR(128) DEFAULT NULL COMMENT'行驶证附件',
+	YSZ_FILE VARCHAR(128) DEFAULT NULL COMMENT'道路运输证附件',
+	CHECK_STATUS CHAR(1) DEFAULT '0' COMMENT'审核状态',
+	CHECK_TIME VARCHAR(19) DEFAULT NULL COMMENT'审核时间',
+	CHECK_MAN varchar(32) DEFAULT NULL COMMENT'审核人',
+	CHECK_NOTE varchar(512) DEFAULT NULL COMMENT'审核备注',
+	CREARE_TIME VARCHAR(19) DEFAULT NULL  COMMENT'创建时间',
+	UPDATE_TIME VARCHAR(19) DEFAULT NULL COMMENT '更新时间'
+)default charset=utf8;
+  
+-- 刘国羽 车辆人员信息(驾驶员、押运员)
+create table CAR_USER(
+	ID VARCHAR(32) PRIMARY KEY,
+	STORE_ID VARCHAR(32) DEFAULT NULL COMMENT'运输企业ID',
+	NAME VARCHAR(64) DEFAULT NULL COMMENT'姓名',
+	MOBILE VARCHAR(16) DEFAULT NULL COMMENT'手机号',
+	CARD_NO VARCHAR(32) DEFAULT NULL COMMENT'身份证号',
+	TYPE CHAR(1) DEFAULT '0' COMMENT'人员类别：0-司机，1-押运人',
+	DRIVER_FILE VARCHAR(128) DEFAULT NULL COMMENT'驾驶证扫描件',
+	LICENSE_FILE VARCHAR(128) DEFAULT NULL COMMENT'从业资格证扫描件',
+	START_TIME VARCHAR(19)COMMENT'从业资格证有效期开始时间',
+	END_TIME VARCHAR(19)COMMENT'从业资格证有效期结束时间',
+	LICENSE_NUM VARCHAR(32)COMMENT'从业资格证号',
+	CHECK_STATUS CHAR(1) DEFAULT '0' COMMENT'审核状态',
+	CHECK_TIME VARCHAR(19) COMMENT'审核时间',
+	CHECK_MAN varchar(32) COMMENT'审核人',
+	CHECK_NOTE varchar(512) COMMENT'审核备注',
+	CREARE_TIME VARCHAR(19) DEFAULT NULL  COMMENT'创建时间',
+	UPDATE_TIME VARCHAR(19) DEFAULT NULL COMMENT '更新时间'
+)default charset=utf8;
+   
+-- 刘国羽 道路紧急预案日志表
+create table EMERGENCY_PLAN(
+	ID VARCHAR(32) PRIMARY KEY,
+	STORE_ID VARCHAR(32) DEFAULT NULL COMMENT'运输企业ID',
+	FILE VARCHAR(128) DEFAULT NULL COMMENT'道路紧急预案附件',
+	START_TIME VARCHAR(19)COMMENT'从业资格证有效期开始时间',
+	END_TIME VARCHAR(19)COMMENT'从业资格证有效期结束时间',
+	CREARE_TIME VARCHAR(19) DEFAULT NULL  COMMENT'创建时间',
+	UPDATE_TIME VARCHAR(19) DEFAULT NULL COMMENT '更新时间'
+)default charset=utf8;   
+ALTER TABLE STORE ADD COLUMN EMERGENCY_PLAN_ID VARCHAR(32) DEFAULT NULL;
+ALTER TABLE STORE ADD COLUMN EMERGENCY_PLAN_FILE VARCHAR(128) DEFAULT NULL;
+insert into store_purview values('ACCOUNT_YSINFO','ACCOUNT','运输信息管理','',1,5,'2','','','ACCOUNT');
+insert into store_purview values('ACCOUNT_YSINFO_CAR_ADD','ACCOUNT_YSINFO','车辆报备','/store/transport/car/add',1,1,'3','','','ACCOUNT');
+insert into store_purview values('ACCOUNT_YSINFO_CAR_LIST','ACCOUNT_YSINFO','车辆管理','/store/transport/car/list',1,2,'3','','','ACCOUNT');
+insert into store_purview values('ACCOUNT_YSINFO_DRIVER_ADD','ACCOUNT_YSINFO','驾驶员报备','/store/transport/caruser/add/1',1,3,'3','','','ACCOUNT');
+insert into store_purview values('ACCOUNT_YSINFO_DRIVER_LIST','ACCOUNT_YSINFO','驾驶员管理','/store/transport/caruser/list/0',1,4,'3','','','ACCOUNT');
+insert into store_purview values('ACCOUNT_YSINFO_YYY_ADD','ACCOUNT_YSINFO','押运员报备','/store/transport/caruser/add/1',1,5,'3','','','ACCOUNT');
+insert into store_purview values('ACCOUNT_YSINFO_YYY_LIST','ACCOUNT_YSINFO','押运员管理','/store/transport/caruser/list/1',1,6,'3','','','ACCOUNT');
+insert into store_purview values('ACCOUNT_YSINFO_JJYA_ADD','ACCOUNT_YSINFO','发布道路紧急预案','/store/qualification/add',1,7,'3','','','ACCOUNT');
+insert into store_purview values('ACCOUNT_YSINFO_JJYA_LIST','ACCOUNT_YSINFO','道路紧急预案管理','/store/qualification/getQuaList',1,8,'3','','','ACCOUNT');
+-- 刘国羽 认证资料表
+create table ACCREDIT(
+	ID VARCHAR(32) PRIMARY KEY,
+	STORE_ID VARCHAR(32) DEFAULT NULL COMMENT'企业ID',
+	RZ_TYPE CHAR(1) DEFAULT '0' COMMENT'认证类型',
+	LICENSE_TYPE CHAR(1) DEFAULT '0' COMMENT'文件类型',
+	STORE_NAME VARCHAR(128) DEFAULT NULL COMMENT'业户名称',
+	AREA_ID VARCHAR(32) DEFAULT NULL COMMENT'业户地区',
+	ADDRESS VARCHAR(256) DEFAULT NULL COMMENT'业户详细地址',
+	LICENSE_NO VARCHAR(128) DEFAULT NULL COMMENT'许可证号',
+	LICENSE_FILE VARCHAR(128) DEFAULT NULL COMMENT'证件附件',
+	LICENSE_TWO_FILE VARCHAR(128) DEFAULT NULL COMMENT'证件副本附件',
+	LICENSE_AUTHOR VARCHAR(128) DEFAULT NULL COMMENT'发证机关',
+	START_TIME VARCHAR(19) DEFAULT NULL COMMENT'有效期开始时间',
+	END_TIME VARCHAR(19) DEFAULT NULL COMMENT'有效期结束时间',
+	SCALE VARCHAR(64) DEFAULT NULL COMMENT'核准经营规模',
+	DETAIL_MODEL VARCHAR(128) DEFAULT NULL COMMENT '明细MODEL',
+	CHECK_STATUS CHAR(1) DEFAULT '0' COMMENT'审核状态',
+	CHECK_TIME VARCHAR(19) COMMENT'审核时间',
+	CHECK_MAN varchar(32) COMMENT'审核人',
+	CHECK_NOTE varchar(512) COMMENT'审核备注',
+	CREARE_TIME VARCHAR(19) DEFAULT NULL  COMMENT'创建时间',
+	UPDATE_TIME VARCHAR(19) DEFAULT NULL COMMENT '更新时间'
+	)default charset=utf8;   
+-- 刘国羽 认证资料明细中间表	
+create table ACCREDIT_REL(
+	ID VARCHAR(32) PRIMARY KEY,
+	ACCREDIT_ID VARCHAR(32) DEFAULT NULL COMMENT'认证资料ID',
+	DETAIL_ID VARCHAR(32) DEFAULT NULL  COMMENT'明细ID',
+	POSITION INTEGER DEFAULT 0 COMMENT'排序'
+	)default charset=utf8;   
+	
+	
+	
+
+ALTER TABLE STORE DROP COLUMN CHECK_ONE_STATUS; 
+ALTER TABLE STORE DROP COLUMN CHECK_TWO_STATUS; 
+ALTER TABLE STORE DROP COLUMN CHECK_THREE_STATUS; 
+ALTER TABLE STORE DROP COLUMN CHECK_FOUR_STATUS; 
+ALTER TABLE STORE ADD COLUMN COMMON_STATUS CHAR(1) DEFAULT '0';
+ALTER TABLE STORE ADD COLUMN BANK_STATUS CHAR(1) DEFAULT '0';
+ALTER TABLE STORE ADD COLUMN BUYER_STATUS CHAR(1) DEFAULT '0';
+ALTER TABLE STORE ADD COLUMN SALER_STATUS CHAR(1) DEFAULT '0';
+ALTER TABLE STORE ADD COLUMN TRANS_STATUS CHAR(1) DEFAULT '0';
+
+insert into shop_purview values('STORE_RZ_YS','STORE_RZ','运输信息审核',3,3,'1','','','STORE');
+insert into shop_purview values('STORE_RZ_YS_LIST','STORE_RZ_YS','运输车辆审核',1,4,'1','/system/store/transport/car/listSytem','','STORE');
+insert into shop_purview values('STORE_RZ_DRIVER_LIST','STORE_RZ_YS','驾驶员审核',2,4,'1','/system/store/driver/listSytem/0','','STORE');
+insert into shop_purview values('STORE_RZ_YY_LIST','STORE_RZ_YS','押运员审核',3,4,'1','/system/store/driver/listSytem/1','','STORE');
+
+update store_purview set class_name='银行账户管理' where id='ACCOUNT_BANK';
+update store_purview set class_name='新增银行账户' where id='ACCOUNT_BANK_ADD';
+update store_purview set class_name='银行账户列表' where id='ACCOUNT_BANK_LIST';
+-- 2015/4/24 沈燕 添加carUser表字段
+alter table car_user add column sex varchar(5);
+
+update shop_purview set class_name = '处置资质认证',full_path='/system/store/zizhi/jumplist/cz' where id='STORE_RZ_QY_CG';
+update shop_purview set full_path='/system/store/zizhi/jumplist/ys' where id='STORE_RZ_QY_YS';
+insert into shop_purview values('STORE_RZ_QY_CS','STORE_RZ_QY','产生资质认证','4','4','1','/system/store/zizhi/jumplist/cs','','STORE');
+
+-- 刘国羽 合同表重建
+DROP TABLE IF EXISTS `contract`;
+CREATE TABLE `contract` (
+  `Id` varchar(32) NOT NULL COMMENT '主键',
+  `CONTRACT_NAME` varchar(32) DEFAULT NULL COMMENT '契约名称',
+  `CONTRACT_NO` varchar(64) DEFAULT NULL COMMENT '契约编号',
+  `TYPE` char(1) DEFAULT '0' COMMENT '契约类型0销售契约 1 运输契约',
+  `FIRST_ID` varchar(32) DEFAULT NULL COMMENT '契约甲方',
+  `SECOND_ID` varchar(32) DEFAULT NULL COMMENT '契约已方',
+  `START_TIME` varchar(19) DEFAULT NULL COMMENT '开始时间',
+  `END_TIME` varchar(19) DEFAULT NULL COMMENT '结束时间',
+  `QUANTITY` double(13,4) DEFAULT 0.00 COMMENT '处理总量',
+  `CREATOR` varchar(32) DEFAULT NULL COMMENT '创建人',
+  `FILE` varchar(128) DEFAULT NULL COMMENT '契约附件',
+  `CREATE_TIME` varchar(19) DEFAULT NULL COMMENT '创建时间',
+  `UPDATE_TIME` varchar(19) DEFAULT NULL COMMENT '修改时间',
+  `NOTE` varchar(512) DEFAULT NULL COMMENT '备注',
+  `ORG_ID` varchar(128) DEFAULT NULL COMMENT '组织结构',
+  `IS_DEL` char(1) DEFAULT NULL,
+  `CONTRACT_CHECK_STATUS` char(1) DEFAULT '0' COMMENT '契约审核状态',
+  `PARTYAORPARTYB` char(1) DEFAULT '0' COMMENT '甲方or乙方选择运输企业  0甲方  1乙方',
+  `CONTRACT_STATUS` char(1) DEFAULT NULL COMMENT '契约状态 0启用1不启用',
+  `FREIGHT_TYPE` char(1) DEFAULT '0' COMMENT '运费由哪方承担 0甲方  1乙方',
+  `WF_TYPE` char(1) DEFAULT '0' COMMENT '危废类型 0固态  1液态  2 半固态 3其他',
+  `MARGIN_SCALE` double(11,4) DEFAULT 0.00 COMMENT '保证金比例',
+  `PAYTYPE` varchar(1) DEFAULT NULL COMMENT '付费方式（一口价、含量计算）',
+  `YKJPRICE` varchar(8) DEFAULT NULL COMMENT '一口价',
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `CONTRACT_INDEX` (`CONTRACT_NO`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='契约表（合同表）';
+
+
+-- 刘国羽 合同品味明细表重写
+DROP TABLE IF EXISTS `CONTRACT_CONTENT`;
+CREATE TABLE `CONTRACT_CONTENT` (
+  `ID` varchar(32) NOT NULL DEFAULT '',
+  `CONTRACT_ID` varchar(32) DEFAULT NULL,
+  `NAME` varchar(128) DEFAULT NULL,
+  `TYPE` char(1) DEFAULT '0',
+  `CHARGING_TYPE` char(1) DEFAULT '0' COMMENT '计价方式 0百分比 1重量',
+  `CHARGING_UNIT` VARCHAR(8) DEFAULT NULL COMMENT '计价单位',
+  `CREATE_TIME` varchar(19) DEFAULT NULL,
+  `UPDATE_TIME` varchar(19) DEFAULT NULL,
+  PRIMARY KEY (`ID`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 刘国羽 合同品味含量明细表重写
+DROP TABLE IF EXISTS `contract_detials`;
+CREATE TABLE `contract_detials` (
+  `ID` varchar(32) NOT NULL,
+  `CONTENT_NAME` varchar(32) DEFAULT NULL COMMENT '含量名称',
+  `START_REGION` double(13,4) DEFAULT '0.0000',
+  `END_REGION` double(13,4) DEFAULT '0.0000',
+  `PRICE` decimal(10,2) DEFAULT '0.00',
+  `CONTRACT_ID` varchar(32) DEFAULT NULL COMMENT '合同ID',
+  `TYPE` char(1) DEFAULT '0' COMMENT '标识水份还是含量（0含量、1水份）',
+  `CONTRACT_CONTENT_ID` varchar(32) DEFAULT NULL COMMENT '合同含量ID',
+  `CONTRACT_CONTENT_NAME` varchar(32) DEFAULT NULL COMMENT '合同含量名称',
+  `CREATE_TIME` varchar(19) DEFAULT NULL COMMENT '创建时间',
+  `UPDATE_TIME` varchar(19) DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- 刘国羽 合同品味含量明细表重写
+DROP TABLE IF EXISTS `contract_cars`;
+CREATE TABLE `contract_cars` (
+  `ID` varchar(32) NOT NULL,
+  `CAR_INFO_ID` varchar(32) DEFAULT NULL COMMENT '车辆信息表ID',
+  `PRICE` decimal(10,2) DEFAULT '0.00',
+  `CONTRACT_ID` varchar(32) DEFAULT NULL COMMENT '合同ID',
+  `CREATE_TIME` varchar(19) DEFAULT NULL COMMENT '创建时间',
+  `UPDATE_TIME` varchar(19) DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+   
+-- 2015/4/27  沈燕 添加 道路紧急预案日志表字段
+alter table Emergency_Plan add column type varchar(5);   
+     
+-- 刘国羽 隐藏后台的新增合同
+update shop_purview set status = '0' where id='STORE_QY_MANAGER_ADD';
+alter table store_purview modify `DEFAULT_OPEN` VARCHAR(128) DEFAULT NULL;
+update store_purview set full_path='',default_open='ORDER_WFCZ_CONTRACT_LIST;ORDER_WFCS_CONTRACT_LIST;ORDER_WFYS_CONTRACT_LIST' where id='SUPPLY_ORDER';
+delete from store_purview where top_id='SUPPLY_ORDER';
+INSERT INTO `store_purview` (`ID`, `PARENT_ID`, `CLASS_NAME`, `FULL_PATH`, `STATUS`, `POSITION`, `LEVEL`, `icon`, `DEFAULT_OPEN`, `TOP_ID`)
+VALUES
+	('ORDER_WFCZ', 'SUPPLY_ORDER', '危废处置', '', '1', 1, 2, '', '', 'SUPPLY_ORDER'),
+	('ORDER_WFCZ_CONTRACT_ADD', 'ORDER_WFCZ', '上传合同', '/store/skipAddContract/0', '1', 1, 3, NULL, NULL, 'SUPPLY_ORDER'),
+	('ORDER_WFCZ_CONTRACT_LIST', 'ORDER_WFCZ', '合同管理', '/store/contractList/0', '1', 2, 3, NULL, NULL, 'SUPPLY_ORDER'),
+	('ORDER_WFCZ_SB_ADD', 'ORDER_WFCZ', '在线申报', '/store/wfpscrap/skipAdd/0/null', '1', 3, 3, NULL, NULL, 'SUPPLY_ORDER'),
+	('ORDER_WFCZ_SB_LIST', 'ORDER_WFCZ', '申报管理', '/store/wfpscrap/skipScrapList/0', '1', 4, 3, NULL, NULL, 'SUPPLY_ORDER'),
+	('ORDER_WFCZ_ORDERS', 'ORDER_WFCZ', '订单管理', '/store/order/contractOrder/orderList/0', '1', 5, 3, NULL, NULL, 'SUPPLY_ORDER'),
+	('ORDER_WFCS', 'SUPPLY_ORDER', '危废再循环', '', '1', 2, 2, '', '', 'SUPPLY_ORDER'),
+	('ORDER_WFCS_CONTRACT_ADD', 'ORDER_WFCS', '上传合同', '/store/skipAddContract/1', '1', 1, 3, NULL, NULL, 'SUPPLY_ORDER'),
+	('ORDER_WFCS_CONTRACT_LIST', 'ORDER_WFCS', '合同管理', '/store/contractList/1', '1', 2, 3, NULL, NULL, 'SUPPLY_ORDER'),
+	('ORDER_WFCS_SB_ADD', 'ORDER_WFCS', '在线申报', '/store/wfpscrap/skipAdd/1/null', '0', 3, 3, NULL, NULL, 'SUPPLY_ORDER'),
+	('ORDER_WFCS_SB_LIST', 'ORDER_WFCS', '申报管理', '/store/wfpscrap/skipScrapList/1', '1', 4, 3, NULL, NULL, 'SUPPLY_ORDER'),
+	('ORDER_WFCS_ORDERS', 'ORDER_WFCS', '订单管理', '/store/order/contractOrder/orderList/1', '1', 5, 3, NULL, NULL, 'SUPPLY_ORDER'),
+	('ORDER_WFYS', 'SUPPLY_ORDER', '危废运输', '', '1', 3, 2, '', '', 'SUPPLY_ORDER'),
+	('ORDER_WFYS_CONTRACT_ADD', 'ORDER_WFYS', '上传合同', '/store/skipAddContract/2', '1', 1, 3, NULL, NULL, 'SUPPLY_ORDER'),
+	('ORDER_WFYS_CONTRACT_LIST', 'ORDER_WFYS', '合同管理', '/store/contractList/2', '1', 2, 3, NULL, NULL, 'SUPPLY_ORDER'),
+	('ORDER_WFYS_ORDERS', 'ORDER_WFYS', '订单管理', '/store/order/contractOrder/orderList/2', '1', 3, 3, NULL, NULL, 'SUPPLY_ORDER'),
+	('ORDER_XIAOSHOU', 'SUPPLY_ORDER', '销售管理', '', '1', 4, 2, '', '', 'SUPPLY_ORDER'),
+	('ORDER_DDALL', 'ORDER_XIAOSHOU', '预订单管理', '/store/order/list', '1', 1, 3, '', '', 'SUPPLY_ORDER'),
+	('ORDER_YDGYL', 'ORDER_XIAOSHOU', '订单管理', '/store/order/gylList', '1', 2, 3, '', '', 'SUPPLY_ORDER');
+
+
+
+DROP TABLE IF EXISTS `CONTRACT_REL`;
+create table CONTRACT_REL(
+	`ID` varchar(32) NOT NULL,
+	`CONTRACT_ID` varchar(32) DEFAULT NULL,
+	`YS_CONTRACT_ID` varchar(32) DEFAULT NULL,
+	`YS_STORE_ID` varchar(32) DEFAULT NULL,
+	PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS `scrap_wfp`;
+CREATE TABLE `scrap_wfp` (
+  `ID` varchar(32) NOT NULL,
+  `TYPE` char(1) DEFAULT NULL COMMENT '报批类型 0 移出   1移入',
+  `CREATOR` varchar(32) DEFAULT NULL COMMENT '创建人ID',
+  `PARENT_ID` varchar(32) DEFAULT NULL COMMENT '甲方申报信息ID',
+  `CONTRACT_ID` varchar(32) DEFAULT NULL COMMENT '处置合同ID',
+  `CONTRACT_NAME` varchar(32) DEFAULT NULL COMMENT '处置合同名称',
+  `CONTRACT_NO` varchar(64) DEFAULT NULL COMMENT '处置合同编号',
+  `SAL_ID` varchar(32) DEFAULT NULL COMMENT '产生单位ID',
+  `SAL_ADDRESS` varchar(128) DEFAULT NULL COMMENT '产生单位地址',
+  `SAL_MAN` varchar(128) DEFAULT NULL COMMENT '产生单位联系人',
+  `SAL_PHONE` varchar(64) DEFAULT NULL COMMENT '产生单位联系电话',
+  `SAL_ZIP_CODE` varchar(16) DEFAULT NULL COMMENT '产生单位邮编',
+  `BUY_ID` varchar(32) DEFAULT NULL COMMENT '处置单位ID',
+  `BUY_ADDRESS` varchar(128) DEFAULT NULL COMMENT '处置单位地址',
+  `BUY_MAN` varchar(128) DEFAULT NULL COMMENT '处置单位联系人',
+  `BUY_PHONE` varchar(64) DEFAULT NULL COMMENT '处置单位联系电话', 
+  `BUY_ZIP_CODE` varchar(16) DEFAULT NULL COMMENT '处置单位邮编',
+  `WF_NAME` varchar(128) DEFAULT NULL COMMENT '废物名称',    
+  `CODE` varchar(128) DEFAULT NULL COMMENT '废物代码全称',
+  `WFML_ID` varchar(128) DEFAULT NULL COMMENT '废物代码ID',
+  `INGREDIENTS` varchar(128) DEFAULT NULL COMMENT '主要成分及比例',
+  `CHARACTERS` CHAR(1) DEFAULT '0' COMMENT '危险特性 0毒性 1易燃性 2爆炸性 3腐蚀性 4传染性 5其他',  
+  `SHAPE` CHAR(1) DEFAULT '0' COMMENT '形态 0固态 1液态 2半固态 3其他',    
+  `QUANTITY` DOUBLE(13,2) DEFAULT 0.00 COMMENT '此次转移数量', 
+  `BATCH` INTEGER DEFAULT 0 COMMENT '拟定转移批次', 
+  `START_TIME` varchar(19) DEFAULT NULL COMMENT '转移开始时间',  
+  `END_TIME` varchar(19) DEFAULT NULL COMMENT '转移结束时间',
+  `PRODUCTION` LONGTEXT DEFAULT NULL COMMENT '废物产生环节及生产工艺流程', 
+  `HANDLE` CHAR(1) DEFAULT '0' COMMENT '废物处置方式 0 利用  1贮存 2焚烧  3安全填埋', 
+  `HANDLE_NOTE` LONGTEXT DEFAULT NULL COMMENT '废物处置说明', 
+  `PACKS` VARCHAR(128) DEFAULT NULL COMMENT '废物包装方式', 
+  `TRANS_TYPE` VARCHAR(128) DEFAULT NULL COMMENT '废物运输方式',
+  `TRANS_TOOL` VARCHAR(128) DEFAULT NULL COMMENT '运输工具',   
+  `TRANS_LINE` LONGTEXT DEFAULT NULL COMMENT '运输路线',    
+  `REPORTS` VARCHAR(128) DEFAULT NULL COMMENT '检测报告',      
+  `APPLICATION` VARCHAR(128) DEFAULT NULL COMMENT '申请报告',
+  `CHECK_STATUS` CHAR(1) DEFAULT '0' COMMENT '审核状态 0:待审核 1:审核通过  2:审核未通过',
+  `CHECK_NOTE` VARCHAR(512) DEFAULT NULL COMMENT '审核备注',
+  `CHECK_TIME` VARCHAR(19) DEFAULT NULL COMMENT '审核时间',
+  `CREATE_TIME` varchar(19) DEFAULT NULL COMMENT '创建时间',
+  `UPDATE_TIME` varchar(19) DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `scrap_wfp_trans`;
+CREATE TABLE `scrap_wfp_trans` (
+  `ID` varchar(32) NOT NULL,
+  `CONTRACT_ID` varchar(32) DEFAULT NULL COMMENT '处置合同ID',
+  `TRANS_CONTRACT_ID` varchar(32) DEFAULT NULL COMMENT '运输合同ID',
+  `SCRAP_WFP_ID` varchar(32) DEFAULT NULL COMMENT '申报单ID',
+  `TRANS_ID` varchar(128) DEFAULT NULL COMMENT '运输单位ID',
+  `TRANS_ADDRESS` varchar(128) DEFAULT NULL COMMENT '运输单位地址',
+  `TRANS_MAN` varchar(128) DEFAULT NULL COMMENT '运输单位联系人',
+  `TRANS_PHONE` varchar(64) DEFAULT NULL COMMENT '运输单位联系电话',
+  `TRANS_ZIP_CODE` varchar(16) DEFAULT NULL COMMENT '运输单位邮编',
+  `START_TIME` varchar(19) DEFAULT NULL COMMENT '申报单有效开始时间',  
+  `END_TIME` varchar(19) DEFAULT NULL COMMENT '申报单有效结束时间',
+  `EMERGENCY_PLAN` varchar(128) DEFAULT NULL COMMENT '道路紧急预案',    
+  `CREATE_TIME` varchar(19) DEFAULT NULL COMMENT '创建时间',
+  `UPDATE_TIME` varchar(19) DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- 2015.4.8 添加数据 
+insert into shop_purview values('ORDER_WFP_JC','ORDER_WFP','基础管理',2,3,'1','','','ORDER');
+insert into shop_purview values('ORDER_WFP_JC_HL','ORDER_WFP_JC','含量管理',1,4,'1','/system/store/order/wfpOrder/getVCList','','ORDER');
+insert into shop_purview values('ORDER_WFP_JC_ML','ORDER_WFP_JC','名录管理',2,4,'1','/system/order/wfpBase/wfpmlList.jetx','','ORDER');
+
+-------------------------------------------
+
+
+
+DROP TABLE IF EXISTS `STORE_INTEL`;
+   
+   
+   
+  
+-- 2015-03-24  添加表
+DROP TABLE IF EXISTS `contract_order`;
+DROP TABLE IF EXISTS `contract_orderChild`;
+DROP TABLE IF EXISTS `orderChild_detials`;
+DROP TABLE IF EXISTS `content_price`;
+DROP TABLE IF EXISTS `CHILD_ORDER_LOG`;
+
+
+DROP TABLE IF EXISTS `WF_ORDER`;
+create table WF_ORDER(
+	ID VARCHAR(32) PRIMARY KEY,
+	SCRAP_ID VARCHAR(32) DEFAULT NULL COMMENT'危废申报ID',
+	CONTRACT_ID VARCHAR(32) DEFAULT NULL COMMENT'合同ID',
+	CONTRACT_NAME VARCHAR(128) DEFAULT NULL COMMENT'合同名称',
+	CREATOR VARCHAR(32) DEFAULT NULL COMMENT'创建企业ID',
+	SALE_ID VARCHAR(32) DEFAULT NULL COMMENT'卖家ID',
+	SALE_NAME VARCHAR(128) DEFAULT NULL COMMENT'卖家名称',
+	BUY_ID VARCHAR(32) DEFAULT NULL COMMENT'买家ID',
+	BUY_NAME VARCHAR(128) DEFAULT NULL COMMENT'买家名称',
+	WFP_NAME VARCHAR(128) DEFAULT NULL COMMENT'危废品名称',
+	WFP_TOTAL decimal(18,4) DEFAULT 0.00 COMMENT'危废品总量',
+	MILEAGE decimal(18,4) DEFAULT 0.00 COMMENT '总里程数',
+	FREIGHT_BUYER char(1) DEFAULT '0' COMMENT '是否买家支付运费',
+	FREIGHT decimal(18,4) DEFAULT 0.00 COMMENT '总运费',
+	COUNT_TYPE CHAR(1) DEFAULT '0' COMMENT'计价类型(是否一口价) 0不是一口价 1一口价', 
+	CONTRACT_ORIGINAL decimal(18,4) DEFAULT 0.00 COMMENT'合同单价', 
+	ACTUAL_PRICE decimal(18,4) DEFAULT 0.00 COMMENT'初步单价（如果是一口价，合同原价+微量元素；如果非一口价，则是微量元素的总和）', 
+	TOTAL_PRICE  decimal(18,4) DEFAULT 0.00 COMMENT'订单总价',
+	REAL_PRICE decimal(18,4) DEFAULT 0.00 COMMENT'最终单价（如果是一口价，合同原价+微量元素；如果非一口价，则是微量元素的总和）', 
+	REAL_TOTAL_PRICE decimal(18,4) DEFAULT 0.00 COMMENT '订单最终总价',
+	YF_PRICE decimal(18,4) DEFAULT 0.00 COMMENT'预付金额', 
+	PAY_PRICE decimal(18,4) DEFAULT 0.00 COMMENT'已付金额', 
+	PAY_STATUS CHAR(1) DEFAULT '0'COMMENT '支付状态 0:待支付 1:已支付预付金 2:已全额支付',
+	STATUS CHAR(2) DEFAULT '00' COMMENT '订单状态 00新下单待确认运输企业 01已确认运输企业待处置企业确认订单 02已确认订单待运输企业确认运输车辆信息 03待支付预付金 04已支付待发货 05已发货待收货 06已收货 07待卖家确认品位单以及品味含量 08已确认品味信息待双方确认金额 09待最终支付 10订单完成',
+	BUY_SURE_STATUS CHAR(1) default '0' COMMENT '买家确认品味状态',
+	SALE_SURE_STATUS CHAR(1) default '0' COMMENT '卖家确认品味状态',
+	SEND_ADDRESS  VARCHAR(320) DEFAULT NULL COMMENT'发货地址',
+	SEND_LINK_MAN VARCHAR(32) DEFAULT NULL COMMENT'发货联系人',
+	SEND_LINK_PHONE VARCHAR(32) DEFAULT NULL COMMENT'发货联系方式',
+	TAKE_ADDRESS  VARCHAR(320) DEFAULT NULL COMMENT'收货地址',
+	TAKE_LINK_MAN VARCHAR(32) DEFAULT NULL COMMENT'收货联系人',
+	TAKE_LINK_PHONE VARCHAR(32) DEFAULT NULL COMMENT'收货联系方式',
+	TEST_REPORT varchar(128) default NULL COMMENT '检测报告',
+	LABORATORY varchar(320) default null COMMENT '最终化验单',
+	CREATE_TIME VARCHAR(32) DEFAULT NULL COMMENT'创建时间',
+	UPDATE_TIME VARCHAR(32) DEFAULT NULL COMMENT'创建时间'
+)default charset=utf8;
+
+DROP TABLE IF EXISTS `WF_ORDER_TRANS`;
+create table WF_ORDER_TRANS(
+	ID VARCHAR(32) PRIMARY KEY,
+	WF_ORDER_ID VARCHAR(32) DEFAULT NULL COMMENT'合同订单ID',
+	PAY_STORE_ID VARCHAR(32) DEFAULT NULL COMMENT'支付企业ID',
+	TRANS_STORE_ID VARCHAR(32) DEFAULT NULL COMMENT'运输企业ID',
+	TRANS_STORE_NAME VARCHAR(128) DEFAULT NULL COMMENT'运输企业名称',
+	CAR_INFO_ID VARCHAR(32) DEFAULT NULL COMMENT'车辆信息ID',
+	CARNUM VARCHAR(32) DEFAULT NULL COMMENT'车牌',
+	NUM  decimal(12,4) DEFAULT 0.00 COMMENT'数量',
+	FIVESINGLE VARCHAR(128) DEFAULT NULL COMMENT'五联单', 
+	SUPERCARGO VARCHAR(32) DEFAULT NULL COMMENT'押运员ID', 
+	SUPERCARGO_NAME VARCHAR(32) DEFAULT NULL COMMENT'押运员名称', 
+	SUPERCARGO_PHONE VARCHAR(32) DEFAULT NULL COMMENT'押运员手机号', 
+	SUPERCARGO_CARNO VARCHAR(32) DEFAULT NULL COMMENT'押运员身份证号', 
+	SUPERCARGO_LICENSE_NUM VARCHAR(32) DEFAULT NULL COMMENT'押运员从业资格证号', 
+	FREIGHT decimal(12,4) DEFAULT 0.00 COMMENT '总运费',
+	CREATE_TIME VARCHAR(32) DEFAULT NULL COMMENT'创建时间',
+	CREATOR VARCHAR(32)COMMENT'创建企业ID'
+)default charset=utf8;
+
+DROP TABLE IF EXISTS `WF_ORDER_TRANS_DRIVER`;
+create table WF_ORDER_TRANS_DRIVER(
+	ID VARCHAR(32) PRIMARY KEY,
+	WF_ORDER_ID VARCHAR(32) DEFAULT NULL COMMENT'合同订单ID',
+	TRANS_STORE_TRANS_ID VARCHAR(32) DEFAULT NULL COMMENT'合同订单车辆信息表ID',
+	TRANS_STORE_ID VARCHAR(32) DEFAULT NULL COMMENT'运输企业ID',
+	DRIVER VARCHAR(32) DEFAULT NULL COMMENT'驾驶员ID', 
+	DRIVER_NAME VARCHAR(128) DEFAULT NULL COMMENT'驾驶员名称', 
+	DRIVER_PHONE VARCHAR(32) DEFAULT NULL COMMENT'驾驶员手机号', 
+	DRIVER_CARNO VARCHAR(128) DEFAULT NULL COMMENT'驾驶员身份证号', 
+	DRIVER_LICENSE_NUM VARCHAR(128) DEFAULT NULL COMMENT'驾驶员从业资格证号',
+	CREATE_TIME VARCHAR(19) DEFAULT NULL COMMENT '创建时间'
+)default charset=utf8;
+
+
+DROP TABLE IF EXISTS `WF_ORDER_PRICE`;
+create table WF_ORDER_PRICE(
+	ID VARCHAR(32) PRIMARY KEY,
+	WF_ORDER_ID VARCHAR(32) DEFAULT NULL COMMENT'危废订单ID',
+	CONTRACT_CONTENT_ID VARCHAR(32) DEFAULT NULL COMMENT'合同含量ID',
+	CONTENT_NAME VARCHAR(32) DEFAULT NULL COMMENT'品味名称',
+	CONTENT decimal(12,5) DEFAULT 0.00 COMMENT'含量',
+	REL_CONTENT decimal(12,4) DEFAULT 0.00 COMMENT'最终含量',
+	CONTENT_QUANTITY decimal(18,5) DEFAULT 0.00 COMMENT'金属量',
+	CONTENT_PRICE decimal(18,4) DEFAULT 0.00 COMMENT'含量价格',
+	CONTENT_TOTAL_PRICE decimal(18,4) DEFAULT 0.00 COMMENT'含量总价格',
+	CON_TYPE CHAR(1) DEFAULT '0' COMMENT'是否水分 0非水分 1水分',
+	CHARGING_TYPE char(1) DEFAULT '0' COMMENT '计价方式 0百分比 1重量',
+  CHARGING_UNIT VARCHAR(8) DEFAULT NULL COMMENT '计价单位',
+	CREATE_TIME VARCHAR(19) DEFAULT NULL COMMENT '创建时间'
+)default charset=utf8;
+
+
+-- 2015.4.13 合同子订单部分
+
+DROP TABLE IF EXISTS `WF_ORDER_LOG`;
+CREATE TABLE `WF_ORDER_LOG` (
+  `ID` varchar(32) NOT NULL,
+  `WF_ORDER_ID` varchar(32) DEFAULT NULL,
+  `CREATOR` varchar(32)  DEFAULT '',
+  `CREATOR_NAME` varchar(128) DEFAULT NULL,
+  `NOTE` varchar(512) DEFAULT NULL,
+  `CREATE_TIME` varchar(19) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+-- 2015.5.9 后台申报管理
+
+insert into shop_purview values
+('ORDER_WFP_SB','ORDER_WFP','申报管理',4,3,'1','','','ORDER');
+insert into shop_purview values
+('ORDER_WFP_SB_LIST','ORDER_WFP_SB','申报列表',1,4,'1','/system/order/shenBao/listSytem','','ORDER');
+
+-- 添加列 预估价
+alter table supply_buy add column future_Prices Decimal(13,2) DEFAULT 0.00;
+update shop_purview set  full_path='/system/wfpOrder/getWfpOrderList' where id='ORDER_WFP_DD_LIST';
+
+-- 2015/5/13
+update store_purview set full_path='/store/transport/caruser/add/0' where id='ACCOUNT_YSINFO_DRIVER_ADD';
+update store_purview set full_path='/store/driver/carUser/list/0' where id='ACCOUNT_YSINFO_DRIVER_LIST';
+update store_purview set full_path='/store/transport/caruser/add/1' where id='ACCOUNT_YSINFO_YYY_ADD';
+update store_purview set full_path='/store/driver/carUser/list/1' where id='ACCOUNT_YSINFO_YYY_LIST';
+
+-- 2015/5/18  道路紧急预案表  添加列
+alter table emergency_plan add type varchar(10) default '1';
+
+-- 2015/5/18 下午
+insert into shop_purview values('VALUATION_SET_CATEGORY','PRODUCT_SET','微量元素',3,3,'1','','','PRODUCT');
+insert into shop_purview values('VALUATION_CATEGORY_ADD','VALUATION_SET_CATEGORY','添加微量元素',1,4,'1','/system/vc/add','','PRODUCT');
+insert into shop_purview values('VALUATION_CATEGORY_LIST','VALUATION_SET_CATEGORY','微量元素管理',2,4,'1','/system/vc/getVCList','','PRODUCT');
+
+-- 2015/5/19 商品表添加列
+alter table product add createTime varchar(19);
+alter table product add updateTime varchar(19);
+
+-- 2015.6.30 招标报名表
+DROP TABLE IF EXISTS `TENDER`;
+CREATE TABLE `TENDER` (
+  `ID` varchar(32) NOT NULL,
+  `STORE_ID` varchar(32) DEFAULT NULL,
+  `NAME` varchar(128)  DEFAULT '',
+  `NO` varchar(128) DEFAULT NULL,
+  `CONTENT_MAN` varchar(128) DEFAULT NULL,
+  `CONTENT_PHONE` varchar(18) DEFAULT NULL,
+  `CONTENT_MAIL` varchar(128) DEFAULT NULL,
+  `ADDRESS` varchar(32) DEFAULT NULL,
+  `AREA` varchar(128) DEFAULT NULL,
+  `ZIP_CODE` varchar(32) DEFAULT NULL,
+  `START_TIME` varchar(19) DEFAULT NULL,
+  `END_TIME` varchar(19) DEFAULT NULL,
+  `PROJECT_NAME` varchar(512) DEFAULT NULL,
+  `PROJECT_NUMBER` varchar(32) DEFAULT NULL,
+  `PROJECT_START_TIME` varchar(19) DEFAULT NULL,
+  `PROJECT_END_TIME` varchar(19) DEFAULT NULL,
+  `PROJECT_START_ADDRESS` varchar(32) DEFAULT NULL,
+  `PROJECT_START_AREA` varchar(128) DEFAULT NULL,
+  `PROJECT_END_ADDRESS` varchar(32) DEFAULT NULL,
+  `PROJECT_END_AREA` varchar(128) DEFAULT NULL,
+  `PROJECT_ZIZHI` LONGTEXT DEFAULT NULL,
+  `NOTE` varchar(128) DEFAULT NULL,
+  `CREATE_TIME` varchar(19) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `TENDER_LOG`;
+CREATE TABLE `TENDER_LOG` (
+  `ID` varchar(32) NOT NULL,
+  `TENDER_ID` varchar(32) DEFAULT NULL,
+  `CREATOR` varchar(32)  DEFAULT '',
+  `CREATOR_NAME` varchar(128) DEFAULT NULL,
+  `NAME` varchar(128) DEFAULT NULL,
+  `PHONE` varchar(18) DEFAULT NULL,
+  `MAIL` varchar(128) DEFAULT NULL,
+  `CREATE_TIME` varchar(19) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-------------
+-- 刘国羽 
+alter table ACCOUNT add column HEAD_PORTRAIT varchar(128) default null;
+alter table CAR_USER add column LOGIN_NAME varchar(128) default null;
+alter table CAR_USER add column PASSWORD varchar(128) default null;
+alter table CAR_USER add column HEAD_PORTRAIT varchar(128) default null;
+
+-- 刘国羽 2015-07-16
+DROP TABLE IF EXISTS `ORDER_PAY_LOG`;
+CREATE TABLE `ORDER_PAY_LOG` (
+  `ID` varchar(32) NOT NULL,
+  `ORDER_ID` varchar(32) DEFAULT NULL,
+  `USER_ID` varchar(32)  DEFAULT '',
+  `STORE_ID` varchar(32) DEFAULT NULL,
+  `PRICE` Decimal(13,2) DEFAULT 0.00,
+  `ORDER_TYPE` char(1) DEFAULT '0',
+  `PAY_TYPE` char(1) DEFAULT '0',
+  `STATUS` char(1) DEFAULT '0',
+  `QUERY_ID` varchar(128) DEFAULT NULL,
+  `CREATE_TIME` varchar(19) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+alter table contract_detials modify PRICE Decimal(12,4) default 0.00;
+alter table contract add column WEIGHT_TYPE char(1) default '0' ;
+
+alter table wf_order add column yf_type char(1) default '0';
+alter table wf_order add column pay_bank_id varchar(32) default null;
+
+DROP TABLE IF EXISTS `BANK_BINDING`;
+CREATE TABLE `BANK_BINDING` (
+  `ID` varchar(32) NOT NULL,
+  `STORE_ID` varchar(32) DEFAULT NULL,
+  `BANK_ID` varchar(32)  DEFAULT '',
+  `FULL_NAME` varchar(256) DEFAULT NULL,
+  `PHONE` varchar(32) DEFAULT NULL,
+  `CARD_NO` varchar(18) DEFAULT NULL,
+  `ADDRESS` varchar(256) DEFAULT NULL,
+  `CREATE_TIME` varchar(19) DEFAULT NULL,
+  `STATUS` char(1) DEFAULT '0',
+  `DEFAULT` char(1) DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DELETE FROM BANK_BINDING_LOG;
+alter table CONTRACT add column ykj_type char(1) default '0';
+alter table wf_order add column ykj_type char(1) default '0';
+alter table wf_order drop column TEST_REPORT;
+alter table wf_order drop column LABORATORY;
+alter table wf_order_price add column order_detail_id varchar(32) default NULL;
+alter table wf_order_price add column POSITION int(3) default 0;
+DROP TABLE IF EXISTS `WF_ORDER_DETAIL`;
+CREATE TABLE `WF_ORDER_DETAIL` (
+  `ID` varchar(32) NOT NULL,
+  `WF_ORDER_ID` varchar(32) DEFAULT NULL,
+  `WEIGHT` DECIMAL(13,4)  DEFAULT 0.00,
+  `MOISTURE_CONTENT` DECIMAL(13,4)  DEFAULT 0.00,
+  `DRY_WEIGHT` DECIMAL(13,4)  DEFAULT 0.00,
+  `TEST_REPORT` varchar(128)  DEFAULT NULL,
+  `PRICE` DECIMAL(13,4)  DEFAULT 0.00,
+  `TOTAL_PRICE` DECIMAL(13,4)  DEFAULT 0.00,
+  `POSITION` int(3) DEFAULT 0,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+alter table wf_order_price drop column REL_CONTENT;
+alter table wf_order_price drop column CON_TYPE;
+alter table WF_ORDER_PRICE add column COEFFICIENT DOUBLE(13,4) default 0.00;
+alter table WF_ORDER_PRICE add column FINAL_PRICE DECIMAL(13,4) default 0.00;
+
+alter table WF_ORDER add column LIST_PRICE decimal(13,4) default 0.00;
+alter table WF_ORDER add column LIST_STATUS char(1) default '0';
+alter table WF_ORDER add column RETURN_PAY_ID varchar(32) default null;
+
+DROP TABLE IF EXISTS `SCRAP_PRICES`;
+CREATE TABLE `SCRAP_PRICES` (
+  `ID` varchar(32) NOT NULL,
+  `SCRAP_ID` varchar(32) DEFAULT NULL,
+  `ORDER_ID` varchar(32) DEFAULT NULL,
+  `PRICE` DECIMAL(13,4)  DEFAULT 0.00,
+  `LIST_PRICE` DECIMAL(13,4)  DEFAULT 0.00,
+  `STATUS` CHAR(1)  DEFAULT '0',
+  `PAY_STORE_ID` VARCHAR(32)  DEFAULT NULL,
+  `SAL_STORE_ID` VARCHAR(32)  DEFAULT NULL,
+  `CREATE_TIME` varchar(19) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `SCRAP_PRICES_LOG`;
+CREATE TABLE `SCRAP_PRICES_LOG` (
+  `ID` varchar(32) NOT NULL,
+  `SCRAP_PRICES_ID` varchar(32) DEFAULT NULL,
+  `PAY_ORDER_ID` varchar(32) DEFAULT NULL,
+  `PRICE` DECIMAL(13,4)  DEFAULT 0.00,
+  `PAY_STORE_ID` VARCHAR(32)  DEFAULT NULL,
+  `SAL_STORE_ID` VARCHAR(32)  DEFAULT NULL,
+  `CREATE_TIME` varchar(19) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+alter table ORDER_PAY_LOG modify PRICE Decimal(15,6) default 0.00;
+
+
+---20151026 lgy
+UPDATE STORE_PURVIEW set CLASS_NAME='账户管理' where id='ACCOUNT_BANK';
+INSERT INTO STORE_PURVIEW VALUES('ACCOUNT_BANK_VIEW','ACCOUNT_BANK','银行账户','/store/account/bank/view','1',3,3,NULL,NULL,'ACCOUNT');
+INSERT INTO STORE_PURVIEW VALUES('ACCOUNT_BANK_PAY_PASSWORD','ACCOUNT_BANK','支付密码','/store/account/bank/password','1',4,3,NULL,NULL,'ACCOUNT');
+INSERT INTO STORE_PURVIEW VALUES('ACCOUNT_BANK_ACCOUNT','ACCOUNT_BANK','资金管理','/store/account/bank/account','1',5,3,NULL,NULL,'ACCOUNT');
+ALTER TABLE STORE ADD COLUMN ACCOUNT_STATUS CHAR(1) DEFAULT '0';
+ALTER TABLE STORE ADD COLUMN ACCOUNT_NO VARCHAR(32) DEFAULT NULL;
+ALTER TABLE STORE ADD COLUMN PAY_PASSWORD VARCHAR(128) DEFAULT NULL;
+ALTER TABLE STORE ADD COLUMN ACCOUNT_SUCCESS CHAR(1) DEFAULT '0';
+ALTER TABLE STORE ADD COLUMN ACCOUNT DECIMAL(13,4) DEFAULT 0.00;
+ALTER TABLE STORE ADD COLUMN ACCOUNT_DATE VARCHAR(19) DEFAULT NULL;
+insert into shop_purview values('FINANCE_ACCOUNT','FINANCE','账户',2,2,'1','','','FINANCE');
+insert into shop_purview values('FINANCE_ACCOUNT_XN','FINANCE_ACCOUNT','虚拟账户',1,3,'1','','','FINANCE');
+insert into shop_purview values('FINANCE_ACCOUNT_XN_BD','FINANCE_ACCOUNT_XN','账户绑定审核',1,4,'1','/system/account/checklist','','FINANCE');
+
+DROP TABLE IF EXISTS `ACCOUNT_BANK_LOG`;
+CREATE TABLE `ACCOUNT_BANK_LOG` (
+  `ID` varchar(32) NOT NULL,
+  `USER_ID` varchar(32) DEFAULT NULL,
+  `COMPANY_NAME` varchar(128) DEFAULT NULL,
+  `ACCOUNT_NAME` varchar(128) DEFAULT NULL,
+  `ACCOUNT_NO` varchar(128) DEFAULT NULL,
+  `BANK_NO` varchar(64) DEFAULT '0',
+  `BANK_NAME` varchar(128) DEFAULT NULL,
+  `MOBILE` varchar(12) DEFAULT NULL,
+  `TELPHONE` VARCHAR(32)  DEFAULT NULL,
+  `ADDRESS` varchar(128) DEFAULT NULL,
+  `NOTE` varchar(512) DEFAULT NULL,
+  `ENABLE_ECDS` char(1) DEFAULT '0',
+  `TYPE` varchar(18) DEFAULT NULL,
+  `PRICE` decimal(13,4) DEFAULT 0.00,
+  `CREATE_TIME` varchar(19) DEFAULT NULL,
+  `MCH_TRANS_NO` varchar(20) DEFAULT NULL,
+  `MESSAGE` LONGTEXT DEFAULT NULL,
+  `RE_MESSAGE` LONGTEXT DEFAULT NULL,
+  `ERROR_MESSAGE` VARCHAR(128) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `ACCOUNT_BANK`;
+CREATE TABLE `ACCOUNT_BANK` (
+  `ID` varchar(32) NOT NULL,
+  `USER_ID` varchar(32) DEFAULT NULL,
+  `COMPANY_NAME` varchar(128) DEFAULT NULL,
+  `ACCOUNT_NAME` varchar(128) DEFAULT NULL,
+  `ACCOUNT_NO` varchar(128) DEFAULT NULL,
+  `BANK_NO` varchar(64) DEFAULT '0',
+  `BANK_NAME` varchar(128) DEFAULT NULL,
+  `MOBILE` varchar(12) DEFAULT NULL,
+  `TELPHONE` VARCHAR(32)  DEFAULT NULL,
+  `ADDRESS` varchar(128) DEFAULT NULL,
+  `NOTE` varchar(512) DEFAULT NULL,
+  `ENABLE_ECDS` char(1) DEFAULT '0',
+  `STATUS` char(1) DEFAULT '0',
+  `CREATE_TIME` varchar(19) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+DROP TABLE IF EXISTS `ACCOUNT_LOG`;
+CREATE TABLE `ACCOUNT_LOG` (
+  `ID` varchar(32) NOT NULL,
+  `USER_ID` varchar(32) DEFAULT NULL,
+  `RECEIVE_ID` varchar(32) DEFAULT NULL,
+  `ORDER_ID` varchar(32) DEFAULT NULL,
+  `PARENT_ID` varchar(32) DEFAULT NULL,
+  `PRO_REF` varchar(36) DEFAULT NULL,
+  `FMS_TRANS_NO` varchar(36) DEFAULT NULL,
+  `ORI_MCH_TRANS_NO` varchar(36) DEFAULT NULL,
+  `PRICE` decimal(13,4) DEFAULT 0.00,
+  `TYPE` VARCHAR(18) DEFAULT NULL,
+  `CREATE_TIME` VARCHAR(19) DEFAULT NULL,
+  `NOTES` VARCHAR(64) DEFAULT NULL,
+  `STATUS` CHAR(1) DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `BANK_INF`;
+CREATE TABLE `BANK_INF` (
+  `ID` varchar(16) NOT NULL,
+  `BANK_NAME` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `USER_ACCOUNT_LOG`;
+CREATE TABLE `USER_ACCOUNT_LOG` (
+  `ID` varchar(32) NOT NULL,
+  `USER_ID` varchar(32) DEFAULT NULL,
+  `RECEIVE_ID` varchar(32) DEFAULT NULL,
+  `TYPE` varchar(18) DEFAULT NULL,
+  `PRICE` decimal(13,4) DEFAULT 0.00,
+  `STATUS` char(1) DEFAULT '0',
+  `CREATE_TIME` varchar(19) DEFAULT NULL,
+  `NOTE` varchar(512) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+---- 2015-12-09 yx 添加USE_DATA字段 ----
+ALTER TABLE `car_info`
+ADD COLUMN `USE_DATA`  char(1) default '0' COMMENT '是否被第三方使用' AFTER `UPDATE_TIME`;
+ALTER TABLE `customer`
+ADD COLUMN `USE_DATA`  char(1) default '0' COMMENT '是否被第三方使用' AFTER `EMAIL_VALIDATE`;
+ALTER TABLE `account`
+ADD COLUMN `USE_DATA`  char(1) default '0' COMMENT '是否被第三方使用' AFTER `HEAD_PORTRAIT`;
+ALTER TABLE `store`
+ADD COLUMN `USE_DATA`  char(1) default '0' COMMENT '是否被第三方使用' AFTER `ACCOUNT_DATE`;
+
+
+
+
+--- 2016-01-05 lgy 新增普通交易
+UPDATE STORE_PURVIEW SET CLASS_NAME='危废交易管理' WHERE ID='SUPPLY_ORDER';
+UPDATE STORE_PURVIEW SET STATUS='0' WHERE ID='SETUP';
+DELETE FROM STORE_PURVIEW WHERE ID='CG_GX' OR TOP_ID='CG_GX';
+DELETE FROM STORE_PURVIEW WHERE ID='HX_ORDER' OR TOP_ID='HX_ORDER';
+DELETE FROM STORE_PURVIEW WHERE ID='APPRAISAL' OR TOP_ID='APPRAISAL';
+DELETE FROM STORE_PURVIEW WHERE ID='GX_PRODUCT' OR TOP_ID='GX_PRODUCT';
+DELETE FROM STORE_PURVIEW WHERE ID='YUNSHU_ORDER' OR TOP_ID='YUNSHU_ORDER';
+DELETE FROM STORE_PURVIEW WHERE ID='SUPPLE_PRODUCT' OR TOP_ID='SUPPLE_PRODUCT';
+DELETE FROM STORE_PURVIEW WHERE ID='HX_PRODUCT' OR TOP_ID='HX_PRODUCT';
+DELETE FROM STORE_PURVIEW WHERE ID='CG_ORDER' OR TOP_ID='CG_ORDER';
+DELETE FROM STORE_PURVIEW WHERE ID='GX_GX' OR TOP_ID='GX_GX';
+DELETE FROM STORE_PURVIEW WHERE ID='GX_ORDER' OR TOP_ID='GX_ORDER';
+DELETE FROM STORE_PURVIEW WHERE ID='PURCHASE' OR TOP_ID='PURCHASE';
+
+DELETE FROM STORE_PURVIEW WHERE TOP_ID='ORDER';
+UPDATE STORE_PURVIEW SET FULL_PATH='/store/order/gylList' DEFAULT_OPEN='COMMON_ORDER_MANAGER' WHERE ID='ORDER';
+INSERT INTO STORE_PURVIEW VALUES('COMMON_ORDER','ORDER','商品订单','',1,1,'2','','','ORDER');
+INSERT INTO STORE_PURVIEW VALUES('COMMON_ORDER_MANAGER','COMMON_ORDER','订单管理','/store/order/gylList',1,1,'3','','','ORDER');
+INSERT INTO STORE_PURVIEW VALUES('PAY_ORDER','ORDER','直付订单','',1,2,'2','','','ORDER');
+INSERT INTO STORE_PURVIEW VALUES('PAY_ORDER_ADD','PAY_ORDER','发布直付订单','/store/order/payorder/add',1,1,'3','','','ORDER');
+INSERT INTO STORE_PURVIEW VALUES('PAY_ORDER_PAY_LIST','PAY_ORDER','收款订单管理','/store/order/payorder/list/rec',1,2,'3','','','ORDER');
+INSERT INTO STORE_PURVIEW VALUES('PAY_ORDER_REC_LIST','PAY_ORDER','付款订单管理','/store/order/payorder/list/pay',1,3,'3','','','ORDER');
+
+ALTER TABLE ORDER_FORM ADD COLUMN CONTRACT_TYPE CHAR(1) DEFAULT '0';
+ALTER TABLE ORDER_FORM ADD COLUMN CONTRACT VARCHAR(128) DEFAULT NULL;
+ALTER TABLE ORDER_FORM ADD COLUMN CONTRACT_ID VARCHAR(32) DEFAULT NULL;
+ALTER TABLE ORDER_FORM ADD COLUMN PAY_TYPE CHAR(1) DEFAULT '0';
+ALTER TABLE ORDER_FORM ADD COLUMN PAY_CERT VARCHAR(128) DEFAULT NULL;
+ALTER TABLE ACCOUNT_BANK ADD COLUMN CUSTOMER_TYPE char(1) DEFAULT '0';
+
+DROP TABLE IF EXISTS `ORDER_LOG`;
+CREATE TABLE `ORDER_LOG` (
+  `ID` varchar(32) NOT NULL,
+  `ORDER_ID` varchar(32) DEFAULT NULL,
+  `CREATOR` varchar(32)  DEFAULT '',
+  `CREATOR_NAME` varchar(128) DEFAULT NULL,
+  `NOTE` varchar(512) DEFAULT NULL,
+  `CREATE_TIME` varchar(19) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+update store_role set name='产生企业' where id='1';
+insert into store_role values('5','供应商','2014-10-30 16:39:33','2014-10-30 16:39:33','');
+
+---------  2016-1-18 yx ---------
+INSERT INTO `shop_purview` VALUES ('STORE_ACCOUNT_GY', 'STORE_ACCOUNT', '供应企业', '5', '3', '1', '', '', 'STORE');
+INSERT INTO `shop_purview` VALUES ('STORE_ACCOUNT_GY_ADD', 'STORE_ACCOUNT_GY', '企业入驻', '1', '4', '1', '/system/store/jumpAddPage/5', '', 'STORE');
+INSERT INTO `shop_purview` VALUES ('STORE_ACCOUNT_GY_LIST', 'STORE_ACCOUNT_GY', '企业管理', '2', '4', '1', '/system/store/newlist/5', '', 'STORE');
+INSERT INTO `shop_purview` VALUES ('STORE_ACCOUNT_GY_CS', 'STORE_ACCOUNT_GY', '信用测算', '3', '4', '1', '/system/store/jumpCreditPage/5', '', 'STORE');
+
+--------- 2016-02-18 yx 添加数据状态字段---------
+ALTER TABLE `wf_order`
+ADD COLUMN `DATA_STATUS`  char(1) NULL DEFAULT 0 COMMENT '数据状态 0 未同步 1同步' AFTER `RETURN_PAY_ID`;
+ALTER TABLE `wf_order_trans`
+ADD COLUMN `DATA_STATUS`  char(1) NULL DEFAULT 0 COMMENT '数据状态 0 未同步 1同步' AFTER `CREATOR`;
+ALTER TABLE `wf_order_trans_driver`
+ADD COLUMN `DATA_STATUS`  char(1) NULL DEFAULT 0 COMMENT '数据状态 0 未同步 1同步' AFTER `CREATOR`;
+ALTER TABLE `wf_order_trans_driver`
+MODIFY COLUMN `DATA_STATUS`  char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '数据状态' AFTER `CREATE_TIME`;
+
+----------------- 2016-03-01 lh 添加设备ID字段 -----------------
+ALTER TABLE `car_info` ADD COLUMN `DEVICE_ID` varchar(32) NULL DEFAULT NULL COMMENT '监控设备ID' AFTER `STORE_ID`;
+
+----------------- 2016-03-02 yx 添加路线,里程字段 -----------------
+ALTER TABLE `wf_order`
+ADD COLUMN `LINE_ID`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '路线ID' AFTER `DATA_STATUS`,
+ALTER TABLE `scrap_wfp`
+ADD COLUMN `LINE_ID`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '路线ID' AFTER `UPDATE_TIME`,
+ADD COLUMN `COURSE`  varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '里程' AFTER `LINE_ID`;
+
+
+----------------- 2016-03-02 lihong 添加USE_DATA字段 -----------------
+ALTER TABLE `car_user`
+ADD COLUMN `USE_DATA`  char(1) default '0' COMMENT '是否被第三方使用' AFTER `UPDATE_TIME`;
+
+----------------- 2016-03-15 yangxin 添加合作机构表 -----------------
+CREATE TABLE `cooperation` (
+  `ID` varchar(32) NOT NULL,
+  `ORG_NAME` varchar(128) DEFAULT NULL COMMENT '合作机构名称',
+  `CONTACT_MAN` varchar(128) DEFAULT NULL COMMENT '联系人',
+  `CONTACT_PHONE` varchar(16) DEFAULT NULL COMMENT '联系人电话',
+  `EMAIL` varchar(32) DEFAULT NULL COMMENT 'EMAIL',
+  `TYPE` char(1) DEFAULT NULL COMMENT '合作机构类型(0:环保合作机构 1:金融合作机构)',
+  `CREATE_TIME` varchar(19) DEFAULT NULL COMMENT '创建时间',
+  `UPDATE_TIME` varchar(19) DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+----------------- 2016-03-15 yixin 添加危废运输表 -----------------
+CREATE TABLE `WF_TRANSPORT` (
+`ID`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 主键ID ,
+`STORE_ID`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '企业ID' ,
+`START_PLACE`  varchar(126) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '起始地' ,
+`END_PLACE`  varchar(126) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '目的地' ,
+`PRICE`  decimal(13,2) NULL DEFAULT NULL COMMENT '价格' ,
+`TYPE`  int(1) NULL DEFAULT NULL COMMENT '类型' ,
+`NAME`  varchar(126) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '名称' ,
+`CAR_NAME`  varchar(126) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '车辆类型名称' ,
+`SUPPLY_NAME`  varchar(126) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '货源名称' ,
+`WFP_TOTAL`  decimal(13,2) NULL DEFAULT NULL COMMENT '车载/货物总量' ,
+`STATUS`  int(1) NULL DEFAULT NULL COMMENT '状态' ,
+`CHECK_STATUS`  int(1) NULL DEFAULT NULL COMMENT '审核状态' ,
+`CHECK_TIME`  varchar(19) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '审核时间' ,
+`CHECK_MAN`  varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '审核人' ,
+`CHECK_NOTE`  varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '审核备注' ,
+`CREATE_TIME`  varchar(19) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建时间' ,
+`UPDATE_TIME`  varchar(19) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '更新时间' ,
+`END_TIME`  varchar(19) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '截止时间' ,
+PRIMARY KEY (`ID`)
+)
+;
+
+-- 2016-03-15 yangxin 添加合作机构管理菜单 -----------------
+INSERT INTO `metafscmtest`.`shop_purview` (`ID`, `PARENT_ID`, `CLASS_NAME`, `POSITION`, `LEVEL`, `STATUS`, `FULL_PATH`, `ICON`, `TOP_ID`) VALUES ('STORE_RZ_HZJG', 'STORE_RZ', '合作机构管理', '2', '3', '1', '', '', 'STORE');
+INSERT INTO `metafscmtest`.`shop_purview` (`ID`, `PARENT_ID`, `CLASS_NAME`, `POSITION`, `LEVEL`, `STATUS`, `FULL_PATH`, `ICON`, `TOP_ID`) VALUES ('STORE_RZ_HZJG_ADD', 'STORE_RZ_HZJG', '添加合作机构', '1', '4', '1', '/system/cooperation/add', '', 'STORE');
+INSERT INTO `metafscmtest`.`shop_purview` (`ID`, `PARENT_ID`, `CLASS_NAME`, `POSITION`, `LEVEL`, `STATUS`, `FULL_PATH`, `ICON`, `TOP_ID`) VALUES ('STORE_RZ_HZJG_LIST', 'STORE_RZ_HZJG', '合作机构管理', '2', '4', '1', '/system/cooperation/list', '', 'STORE');
+
+
+---------------- 2016-03-15 kcq 添加供求信息字段 ------------------
+ALTER TABLE `supply_buy` ADD COLUMN `DELIVERY_TYPE` char(1) DEFAULT '0' COMMENT '交货方式(0自提;1送货上门)' AFTER `future_Prices`;
+ALTER TABLE `supply_buy` ADD COLUMN `QUALITY_LEVEL`  varchar(128) CHARACTER SET utf8 NULL COMMENT '质量等级' AFTER `DELIVERY_TYPE`;
+ALTER TABLE `supply_buy` ADD COLUMN `VIEW_COUNT` int(13) DEFAULT '0' COMMENT '访问量' AFTER `QUALITY_LEVEL`;
+ALTER TABLE `supply_buy` ADD COLUMN `NUMBER`  decimal(13,2) CHARACTER SET utf8 NULL COMMENT '数量' AFTER `VIEW_COUNT`;
+ALTER TABLE `supply_buy` ADD COLUMN `DESTINATION`  varchar(128) CHARACTER SET utf8 NULL COMMENT '交货地址' AFTER `NUMBER`;
+ALTER TABLE `supply_buy` ADD COLUMN `ADDRESS`  varchar(128) CHARACTER SET utf8 NULL COMMENT '详细地址' AFTER `DESTINATION`;
+ALTER TABLE `supply_buy` ADD COLUMN `AREA_ID`  varchar(16) CHARACTER SET utf8 NULL COMMENT '区县Id' AFTER `ADDRESS`;
+ALTER TABLE `supply_buy` ADD COLUMN `CATEGORY_ID`  varchar(32) CHARACTER SET utf8 NULL COMMENT '分类Id' AFTER `AREA_ID`;
+ALTER TABLE `supply_buy` ADD COLUMN `UNIT`  varchar(8) CHARACTER SET utf8 NULL COMMENT '计价单位' AFTER `CATEGORY_ID`;
+
+----------------------- 2016-03-15 yx 修改危废运输表 -------------
+ALTER TABLE `wf_transport`
+MODIFY COLUMN `START_PLACE`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '起始地' AFTER `STORE_ID`,
+MODIFY COLUMN `END_PLACE`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '目的地' AFTER `START_PLACE`,
+MODIFY COLUMN `TYPE`  char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '类型' AFTER `PRICE`,
+ADD COLUMN `HABITAT_ADDRESS`  varchar(126) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '详细地址' AFTER `END_PLACE`,
+ADD COLUMN `LINK_MAN`  varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系人' AFTER `END_TIME`,
+ADD COLUMN `PHONE`  varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系电话' AFTER `LINK_MAN`,
+ADD COLUMN `CONTENT`  varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述' AFTER `PHONE`;
+
+-----
+INSERT INTO `shop_purview` (`ID`, `PARENT_ID`, `CLASS_NAME`, `POSITION`, `LEVEL`, `STATUS`, `FULL_PATH`, `ICON`, `TOP_ID`) VALUES ('STORE_RZ_HZJG', 'STORE_RZ', '合作机构管理', '2', '3', '1', '', '', 'STORE');
+INSERT INTO `shop_purview` (`ID`, `PARENT_ID`, `CLASS_NAME`, `POSITION`, `LEVEL`, `STATUS`, `FULL_PATH`, `ICON`, `TOP_ID`) VALUES ('STORE_RZ_HZJG_ADD', 'STORE_RZ_HZJG', '添加合作机构', '1', '4', '1', '/system/cooperation/add', '', 'STORE');
+INSERT INTO `shop_purview` (`ID`, `PARENT_ID`, `CLASS_NAME`, `POSITION`, `LEVEL`, `STATUS`, `FULL_PATH`, `ICON`, `TOP_ID`) VALUES ('STORE_RZ_HZJG_LIST', 'STORE_RZ_HZJG', '合作机构管理', '2', '4', '1', '/system/cooperation/list', '', 'STORE');
+
+
+------- 2016-03-16 lgy 添加后台贵金属行情编辑功能 ----
+INSERT INTO `shop_purview` VALUES ('PRECIOUS_METAL', 'SYSTEM', '金属行情', '1', '2', '1', '', '', 'SYSTEM');
+INSERT INTO `shop_purview` VALUES ('PRECIOUS_METAL_MANAGER', 'PRECIOUS_METAL', '金属行情', '1', '3', '1', '', '', 'SYSTEM');
+INSERT INTO `shop_purview` VALUES ('PRECIOUS_METAL_CATEGORY', 'PRECIOUS_METAL_MANAGER', '品类管理', '1', '4', '1', '/system/metalCategory/list', '', 'SYSTEM');
+INSERT INTO `shop_purview` VALUES ('PRECIOUS_METAL_ADD', 'PRECIOUS_METAL_MANAGER', '新增行情', '2', '4', '0', '/system/metal/add', '', 'SYSTEM');
+INSERT INTO `shop_purview` VALUES ('PRECIOUS_METAL_LIST', 'PRECIOUS_METAL_MANAGER', '行情管理', '3', '4', '1', '/system/metal/list', '', 'SYSTEM');
+
+DROP TABLE IF EXISTS `PRECIOUS_METAL_CATEGORY`;
+CREATE TABLE `PRECIOUS_METAL_CATEGORY` (
+  `ID` varchar(32) NOT NULL COMMENT '主键',
+  `NAME` varchar(32) DEFAULT NULL COMMENT '品类',
+  `CREATE_TIME` varchar(19) DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `PRECIOUS_METAL`;
+CREATE TABLE `PRECIOUS_METAL` (
+  `ID` varchar(32) NOT NULL COMMENT '主键',
+  `CATEGORY_ID` varchar(32) DEFAULT NULL COMMENT '品类ID',
+  `NAME` varchar(32) DEFAULT NULL COMMENT '品名',
+  `SPEC` varchar(16) DEFAULT NULL COMMENT '规格',
+  `UNIT` varchar(16) DEFAULT NULL COMMENT '计量单位',
+  `CREATE_TIME` varchar(19) DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `PRECIOUS_METAL_DETAIL`;
+CREATE TABLE `PRECIOUS_METAL_DETAIL` (
+  `ID` varchar(32) NOT NULL COMMENT '主键',
+  `METAL_ID` varchar(32) DEFAULT NULL COMMENT '贵金属ID',
+  `PRICE_TYPE` char(1)  DEFAULT '0' COMMENT '价格类型 0:单一价格，1:价格区间',
+  `PRICE` DECIMAL(13,4)  DEFAULT 0.00 COMMENT '单价',
+  `START_PRICE` DECIMAL(13,4)  DEFAULT 0.00 COMMENT '价格区间：起始价',
+  `END_PRICE` DECIMAL(13,4)  DEFAULT 0.00 COMMENT '价格区间：结束价',
+  `DATE_TIME` varchar(10) DEFAULT NULL COMMENT '行情日',
+  `RISE_AND_DROP` DOUBLE DEFAULT 0.00 COMMENT '涨跌',
+  `CREATE_TIME` varchar(19) DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+----------- 2016-03-16 yangxin 新增议价表 --------------
+CREATE TABLE `bargain` (
+  `ID` varchar(32) NOT NULL,
+  `BUYER_ID` varchar(32) DEFAULT NULL COMMENT '买家ID',
+  `SELLER_ID` varchar(32) DEFAULT NULL COMMENT '卖家ID',
+  `SOURCE_ID` varchar(32) DEFAULT NULL COMMENT '来源id(商品id等）',
+  `QUANTITY` decimal(13,2) DEFAULT NULL COMMENT '购买数量',
+  `PRICE` decimal(13,2) DEFAULT NULL COMMENT '购买价格',
+  `FINAL_QUANTITY` decimal(13,2) DEFAULT NULL COMMENT '最终数量',
+  `FINAL_PRICE` decimal(13,2) DEFAULT NULL,
+  `STATUS` char(1) DEFAULT NULL COMMENT '议价状态(0：议价中，1：议价完成,2：取消）',
+  `CONTACT_MAN` varchar(64) DEFAULT NULL COMMENT '联系人',
+  `CONTACT_PHONE` varchar(16) DEFAULT NULL COMMENT '联系电话',
+  `CREATE_TIME` varchar(19) DEFAULT NULL COMMENT '创建时间',
+  `END_TIME` varchar(19) DEFAULT NULL COMMENT '截止时间',
+  `ORDER_STATUS` char(1) DEFAULT NULL COMMENT '下单状态(0：未下单，1：已下单,2：已取消）',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+---------- 2016-03-17 yangxin 议价表新增议价类型字段 -----
+ALTER TABLE `bargain`
+ADD COLUMN `TYPE` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '议价类型（0我发布的议价 1别人给我的议价）';
+
+---------- 2016-03-18 yx 添加危废运输字段 ---------------
+ALTER TABLE `wf_transport`
+MODIFY COLUMN `TYPE`  int(1) NULL DEFAULT 0 COMMENT '类型' AFTER `PRICE`,
+MODIFY COLUMN `STATUS`  int(1) NULL DEFAULT 0 COMMENT '状态' AFTER `WFP_TOTAL`,
+MODIFY COLUMN `CHECK_STATUS`  int(1) NULL DEFAULT 0 COMMENT '审核状态' AFTER `STATUS`,
+ADD COLUMN `START_FULLPATH`  varchar(126) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '起始地全路径' AFTER `CONTENT`,
+ADD COLUMN `END_FULLPATH`  varchar(126) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '目的地全路径' AFTER `START_FULLPATH`;
+---------- 2016-03-18 kcq 询价表新增数据类型字段 -----
+ALTER TABLE `inquiry` ADD COLUMN `TYPE`  int(1) CHARACTER SET utf8 NULL COMMENT '类型' AFTER `END_TIME`;
+ALTER TABLE `inquiry` ADD COLUMN `STORE_NAME`  varchar(128) CHARACTER SET utf8 NULL DEFAULT NULL COMMENT '企业名' AFTER `TYPE`;
+--------- 2016-03-18 yangxin 添加后台成品议价管理菜单 -------
+INSERT INTO `shop_purview` (`ID`, `PARENT_ID`, `CLASS_NAME`, `POSITION`, `LEVEL`, `STATUS`, `FULL_PATH`, `ICON`, `TOP_ID`) VALUES ('PRODUCT_CP_BARGAIN', 'PRODUCT_CP', '成品议价管理', '3', '4', '1', '/system/bargain/list', '', 'PRODUCT');
+
+-- 2016-03-21 yx 添加绿色商城 --------------------
+INSERT INTO `shop_purview` VALUES ('GREEN_MALL', 'PRODUCT', '绿色商城', '4', '2', '1', '', '', 'PRODUCT');
+INSERT INTO `shop_purview` VALUES ('GREEN_MALL_GL', 'GREEN_MALL', '商品管理', '1', '3', '1', '', '', 'PRODUCT');
+INSERT INTO `shop_purview` VALUES ('GREEN_MALL_GL_GL', 'GREEN_MALL_GL', '商品管理', '1', '4', '1', '/system/product/list/2', '', 'PRODUCT');
+INSERT INTO `shop_purview` VALUES ('GREEN_MALL_GL_SH', 'GREEN_MALL_GL', '商品审核', '2', '4', '1', '/system/product/checkList/2', '', 'PRODUCT');
+
+INSERT INTO `store_purview` VALUES ('ORDER_SALE_LSSC', 'ORDER_SALE', '绿色商城订单管理', '/store/order/gylList/1/2', '1', '2', '3', '', '', 'ORDER');
+INSERT INTO `store_purview` VALUES ('ORDER_PURCHASE_LSSC', 'ORDER_PURCHASE', '绿色商城订单管理', '/store/order/gylList/2/2', '1', '2', '3', '', '', 'ORDER');
+
+-------- 2016-03-21 yx 添加危废运输管理 --------------------
+-- 2016-03-21 yx 添加危废运输管理 --------------------
+INSERT INTO `shop_purview` VALUES ('WFYS_GL', 'PRODUCT_GX', '危废运输管理', '4', '3', '1', '', '', 'PRODUCT');
+INSERT INTO `shop_purview` VALUES ('WFYS_CLGL', 'WFYS_GL', '危废车辆审核', '1', '4', '1', '/sysytem/wftransport/getListToSystem/0', '', 'PRODUCT');
+INSERT INTO `shop_purview` VALUES ('WFYS_HYGL', 'WFYS_GL', '危废货源审核', '2', '4', '1', '/sysytem/wftransport/getListToSystem/1', '', 'PRODUCT');
+
+INSERT INTO `store_purview` VALUES ('WFYS_WFCY', 'DEMAND_MANAGER', '危废车源', '', '1', '3', '2', '', 'WFYS_WFCY_ADD', 'DEMAND_MANAGER');
+INSERT INTO `store_purview` VALUES ('WFYS_WFCY_ADD', 'WFYS_WFCY', '发布车源', '/store/wftransport/add/0', '1', '1', '4', '', '', 'DEMAND_MANAGER');
+INSERT INTO `store_purview` VALUES ('WFYS_WFCY_LIST', 'WFYS_WFCY', '车源管理', '/store/wftransport/getList/0', '1', '2', '4', '', '', 'DEMAND_MANAGER');
+INSERT INTO `store_purview` VALUES ('WFYS_WFHY_ADD', 'WFYS_WFHY', '发布货源', '/store/wftransport/add/1', '1', '1', '4', '', '', 'DEMAND_MANAGER');
+INSERT INTO `store_purview` VALUES ('WFYS_WFHY_LIST', 'WFYS_WFHY', '货源管理', '/store/wftransport/getList/1', '1', '2', '4', '', '', 'DEMAND_MANAGER');
+INSERT INTO `store_purview` VALUES ('WFYS_WFHY', 'DEMAND_MANAGER', '危废货源', '', '1', '4', '2', '', 'WFYS_WFCY_ADD', 'DEMAND_MANAGER');
+-- 2016-03-21 lihong 修复供求表sql错误遗留问题 --------------------
+update supply_buy set VIEW_COUNT = '0' where VIEW_COUNT is NULL;
+update supply_buy set DELIVERY_TYPE = '0' where DELIVERY_TYPE is NULL;
+
+
+-- 2016-03-21 cgm 创建商品价格修改记录表--------------------
+DROP TABLE IF EXISTS `product_price_change`;
+CREATE TABLE `product_price_change` (
+  `ID` varchar(32) NOT NULL COMMENT '主键',
+  `PRODUCT_ID` varchar(32) DEFAULT NULL COMMENT '商品ID',
+  `PRICE` decimal(13,2) DEFAULT NULL COMMENT '价格',
+  `CREATE_TIME` varchar(19) DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 2016-03-21 yangxin 修改成品议价管理菜单路径------
+UPDATE `shop_purview` SET `ID`='PRODUCT_CP_BARGAIN', `PARENT_ID`='PRODUCT_CP', `CLASS_NAME`='成品议价管理', `POSITION`='3', `LEVEL`='4', `STATUS`='1', `FULL_PATH`='/system/bargain/list/cp', `ICON`='', `TOP_ID`='PRODUCT' WHERE (`ID`='PRODUCT_CP_BARGAIN') AND (`PARENT_ID`='PRODUCT_CP') AND (`CLASS_NAME`='成品议价管理') AND (`POSITION`='3') AND (`LEVEL`='4') AND (`STATUS`='1') AND (`FULL_PATH`='/system/bargain/list/cp') AND (`ICON`='') AND (`TOP_ID`='PRODUCT') LIMIT 1;
+
+-- 2016-03-21 kcq 企业中心新增供求发布 管理--------
+INSERT INTO `store_purview` VALUES ('SUPPLY_ADD', 'SUPPLY', '发布供应信息', '/store/supplyBuy/ylxqAdd/1/0','1', '1', '3', '', '', 'DEMAND_MANAGER');
+INSERT INTO `store_purview` VALUES ('BUY_PURCHASE_ADD', 'BUY', '发布求购信息', '/store/supplyBuy/ylxqAdd/1/1','1', '1', '3', '', '', 'DEMAND_MANAGER');
+INSERT INTO `store_purview` VALUES ('SUPPLY_MANAGER', 'SUPPLY', '供应信息管理', '/store/supplyBuy/ylxqList/1/0','1', '2', '3', '', '', 'DEMAND_MANAGER');
+INSERT INTO `store_purview` VALUES ('BUY_PURCHASE', 'BUY', '求购信息管理', '/store/supplyBuy/ylxqList/1/1','1', '2', '3', '', '', 'DEMAND_MANAGER');
+INSERT INTO `store_purview` VALUES ('PRODUCT_PURCHASE_ADD', 'PURCHASE_MANAGER', '发布求购信息', '/store/supplyBuy/ylxqAdd/0/1','1', '1', '3', '', '', 'PRODUCT_MANAGER_FRSIT');
+INSERT INTO `store_purview` VALUES ('PRODUCT_PURCHASE', 'PURCHASE_MANAGER', '求购信息管理', '/store/supplyBuy/ylxqList/0/1','1', '2', '3', '', '', 'PRODUCT_MANAGER_FRSIT');
+
+-- 2016-03-21 kcq 企业中心新增询价管理--------
+INSERT INTO `store_purview` VALUES ('PRODUCT_INQUIRY', 'PURCHASE_MANAGER', '询价管理', '/store/inquiry/list/0/0/1','1', '3', '3', '', '', 'PRODUCT_MANAGER_FRSIT');
+INSERT INTO `store_purview` VALUES ('SUPPLY_INQUIRY', 'BUY', '询价管理', '/store/inquiry/list/1/0/1','1', '3', '3', '', '', 'DEMAND_MANAGER');
+INSERT INTO `store_purview` VALUES ('WFYS_INQUIRY', 'WFYS_WFHY', '询价管理', '/store/inquiry/list/0/0/2','1', '3', '3', '', '', 'DEMAND_MANAGER');
+
+-- 2016-03-21 kcq 后台新增询价管理--------
+INSERT INTO `shop_purview` VALUES ('PRODUCT_QG_INQUIRY', 'PRODUCT_QG','询价管理','4', '4','1', '/system/inquiry/list/0/0/1','', 'PRODUCT');
+INSERT INTO `shop_purview` VALUES ('WFYS_INQUIRY', 'WFYS_GL','询价管理', '3', '4','1', '/system/inquiry/list/0/0/2','', 'PRODUCT');
+INSERT INTO `shop_purview` VALUES ('PRODUCT_GX_QG_INQUIRY', 'PRODUCT_GX_QG','询价管理', '4', '4','1', '/system/inquiry/list/1/0/1','', 'WFYS_HYGL');
+
+
+INSERT INTO `store_purview` VALUES ('WFYS_INQUIRY', 'WFYS_WFHY', '询价管理', '/store/inquiry/list/0/0/2','1', '3', '3', '', '', 'DEMAND_MANAGER');
+
+-- 2016-03-21 yangxin 企业中心新增议价管理----
+INSERT INTO `store_purview` (`ID`, `PARENT_ID`, `CLASS_NAME`, `FULL_PATH`, `STATUS`, `POSITION`, `LEVEL`, `icon`, `DEFAULT_OPEN`, `TOP_ID`) VALUES ('BARGAINING_MANAGER', 'PRODUCT_MANAGER', '成品议价管理', '/store/bargain/list', '1', '4', '3', NULL, NULL, 'PRODUCT_MANAGER_FRSIT');
+
+-- 2016-03-21 kcq 后台询价新增字段--------
+ALTER TABLE `inquiry` ADD COLUMN `SOURCE_TYPE`  int(1) NULL DEFAULT 0 COMMENT '来源(1供求2危废源)' AFTER `STORE_NAME`;
+-- 2016-03-22 cgm 新增企业中心交易管理权限菜单----
+INSERT INTO `store_purview` VALUES ('ORDER', '', '交易管理', '/store/order/gylList/1/0', '1', '4', '1', '', 'ORDER_SALE_CP', '');
+INSERT INTO `store_purview` VALUES ('ORDER_SALE', 'ORDER', '销售管理', '', '1', '1', '2', null, '', 'ORDER');
+INSERT INTO `store_purview` VALUES ('ORDER_PURCHASE', 'ORDER', '采购管理', '', '1', '2', '2', '', '', 'ORDER');
+INSERT INTO `store_purview` VALUES ('ORDER_SALE_CP', 'ORDER_SALE', '成品订单管理', '/store/order/gylList/1/0', '1', '1', '3', null, null, 'ORDER');
+INSERT INTO `store_purview` VALUES ('ORDER_SALE_LSSC', 'ORDER_SALE', '绿色商城订单管理', '/store/order/gylList/1/2', '1', '2', '3', '', '', 'ORDER');
+INSERT INTO `store_purview` VALUES ('ORDER_SALE_XX', 'ORDER_SALE', '线下订单管理', '/store/order/payorder/list/rec', '1', '3', '3', '', '', 'ORDER');
+INSERT INTO `store_purview` VALUES ('ORDER_PURCHASE_CP', 'ORDER_PURCHASE', '成品订单管理', '/store/order/gylList/2/0', '1', '1', '3', null, null, 'ORDER');
+INSERT INTO `store_purview` VALUES ('ORDER_PURCHASE_LSSC', 'ORDER_PURCHASE', '绿色商城订单管理', '/store/order/gylList/2/2', '1', '2', '3', '', '', 'ORDER');
+INSERT INTO `store_purview` VALUES ('ORDER_PURCHASE_CJXX', 'ORDER_PURCHASE', '创建线下订单', '/store/order/payorder/add', '1', '3', '3', '', '', 'ORDER');
+INSERT INTO `store_purview` VALUES ('ORDER_PURCHASE_XX', 'ORDER_PURCHASE', '线下订单管理', '/store/order/payorder/list/pay', '1', '4', '3', '', '', 'ORDER');
+
+-- 2016-03-21 yx 危废运输添加企业名称字段 ---
+ALTER TABLE `wf_transport`
+ADD COLUMN `STORE_NAME`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '企业名称or游客' AFTER `END_FULLPATH`;
+
+-- 2016-03-23 cgm 修改企业中心交易管理权限菜单----
+update store_purview sp set sp.FULL_PATH='/store/order/gylList/null/null' where sp.ID='ORDER_YDGYL';
+update store_purview sp set sp.CLASS_NAME='合同借贷管理' where sp.ID='FINANCE_MANGER_QY_LIST';
+-- 2016-03-23 yangxin 供求表加企业名称字段 ---
+ALTER TABLE `supply_buy`
+ADD COLUMN `STORE_NAME`  varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '企业名称' ;
+-- 2016-03-23 yx 修改企业中心跳转路径
+UPDATE `store_purview` SET `FULL_PATH`='/store/bargain/list/0' WHERE (`ID`='BARGAINING_MANAGER');
+INSERT INTO `store_purview` VALUES ('WFYS_BARGAIN', 'WFYS_WFCY', '议价管理', '/store/bargain/list/1', '1', '3', '3', '','', 'DEMAND_MANAGER');
+
+-- 2016-03-24 kcq 后台新增报价管理 修改询价管理--------
+
+UPDATE `store_purview` SET `CLASS_NAME`='报价管理' WHERE (`ID`='PRODUCT_INQUIRY');
+UPDATE `store_purview` SET `CLASS_NAME`='报价管理' WHERE (`ID`='SUPPLY_INQUIRY') ;
+UPDATE `store_purview` SET `CLASS_NAME`='报价管理' WHERE (`ID`='WFYS_INQUIRY') ;
+INSERT INTO `store_purview` VALUES ('SUPPLY_MANAGER_INQUIRY', 'SUPPLY', '询价管理', '/store/inquiry/list/1/1/1','1', '3', '3', '', '', 'DEMAND_MANAGER');
+
+UPDATE `shop_purview` SET `CLASS_NAME`='报价管理' WHERE (`ID`='PRODUCT_QG_INQUIRY');
+UPDATE `shop_purview` SET `CLASS_NAME`='报价管理' WHERE (`ID`='PRODUCT_GX_QG_INQUIRY');
+UPDATE `shop_purview` SET `CLASS_NAME`='报价管理' WHERE (`ID`='WFYS_INQUIRY');
+UPDATE `shop_purview` SET `FULL_PATH`='/system/inquiry/list/0/1/1' WHERE (`ID`='PRODUCT_QG_INQUIRY');
+UPDATE `shop_purview` SET `FULL_PATH`='/system/inquiry/list/1/1/1' WHERE (`ID`='PRODUCT_GX_QG_INQUIRY');
+UPDATE `shop_purview` SET `FULL_PATH`='/system/inquiry/list/0/1/2' WHERE (`ID`='WFYS_INQUIRY');
+INSERT INTO `shop_purview` VALUES ('PRODUCT_GX_GY_INQUIRY', 'PRODUCT_GX_GY','询价管理', '4', '4','1', '/system/inquiry/list/1/0/1','', 'PRODUCT');
+
+-- 2016-03-25 yx 新增危废运输计量单位字段 ---
+ALTER TABLE `wf_transport`
+ADD COLUMN `UNIT`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '单位计量' AFTER `PRICE`;
+
+-- 2016-03-29 yx 添加货物类别表 ----
+CREATE TABLE `CATEGORY_GOODS` (
+`ID`  varchar(32) NOT NULL ,
+`NAME`  varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '名称' ,
+PRIMARY KEY (`ID`)
+);
+INSERT INTO `category_goods` VALUES ('0000004', '低温气体');
+INSERT INTO `category_goods` VALUES ('000001', '液体');
+INSERT INTO `category_goods` VALUES ('000002', '固体');
+INSERT INTO `category_goods` VALUES ('000003', '压缩气体');
+
+-- 2016-03-29 yangxin 添加车辆类型表 ----
+CREATE TABLE `vehicle_type` (
+  `ID` varchar(32) NOT NULL COMMENT 'ID',
+  `NAME` varchar(64) DEFAULT NULL COMMENT '类型名',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `vehicle_type` (`ID`, `NAME`) VALUES ('000001', '铝合金罐车');
+INSERT INTO `vehicle_type` (`ID`, `NAME`) VALUES ('000002', '不锈钢罐车');
+INSERT INTO `vehicle_type` (`ID`, `NAME`) VALUES ('000003', '压力罐车');
+INSERT INTO `vehicle_type` (`ID`, `NAME`) VALUES ('000004', '铁罐车');
+INSERT INTO `vehicle_type` (`ID`, `NAME`) VALUES ('000005', '仓栏危化品车');
+INSERT INTO `vehicle_type` (`ID`, `NAME`) VALUES ('000006', '集装箱危化品车');
+INSERT INTO `vehicle_type` (`ID`, `NAME`) VALUES ('000007', '冷藏车');
+INSERT INTO `vehicle_type` (`ID`, `NAME`) VALUES ('000008', '箱式板车');
+
+-- 2016-03-29 cgm 危废品运输界定标准表
+
+DROP TABLE IF EXISTS `wfpys`;
+CREATE TABLE `wfpys` (
+  `ID` varchar(32) NOT NULL DEFAULT '' COMMENT '主键',
+  `NAME` varchar(512) DEFAULT NULL COMMENT '名称',
+  `DESCR` varchar(512) DEFAULT NULL COMMENT '描述',
+  `PARENT_ID` varchar(32) DEFAULT NULL COMMENT '父级id',
+  `FULL_PATH` varchar(256) DEFAULT NULL COMMENT '关联id',
+  `POSITION` int(11) DEFAULT '0' COMMENT '排序'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `wfpys` VALUES ('001000000', '一类：爆炸品', '本类化学品系指在外界作用下（如受热、受压、撞击等），能发生剧烈的化学反应，瞬时产生大量的气体和热量，使周围压力急骤上升，发生爆炸，对周围环境造成破坏的物品，也包括无整体爆炸危险，但具有燃烧、抛射及较小爆炸危险，或仅产生热、光、音响或烟雾等一种或几种作用的烟火物品。', null, '001000000|', '0');
+INSERT INTO `wfpys` VALUES ('002000000', '二类：压缩气体和液化气体', '本类化学品系指压缩、液化或加压溶解的气体。', null, '002000000|', '1');
+INSERT INTO `wfpys` VALUES ('002000001', '易燃气体', '此类气体极易燃烧，与空气混合能形成爆炸性混合物。', '002000000', '002000000|002000001', '0');
+INSERT INTO `wfpys` VALUES ('002000002', '不燃气体', '不燃气体系指无毒、不燃气体、包括助燃气体。', '002000000', '002000000|002000002', '1');
+INSERT INTO `wfpys` VALUES ('002000003', '有毒气体', '该类气体有毒，毒性指标与第6类毒性指标相同。对人畜有强烈的毒害、窒息、灼伤、刺激作用。其中有些还具有易燃、氧化、腐蚀等性质。', '002000000', '002000000|002000003', '2');
+INSERT INTO `wfpys` VALUES ('003000000', '三类：易燃液体', '本类化学品系指易燃的液体、液体混合物或含有固体物质的液体，但不包括由于其危险性已列入其它类别的液体。其闭杯闪点等于或低于61℃。', null, '003000000|', '2');
+INSERT INTO `wfpys` VALUES ('003000001', '低闪点液体', '指闭杯闪点低于－18℃的液体 ；', '003000000', '003000000|003000001', '0');
+INSERT INTO `wfpys` VALUES ('003000002', '中闪点液体', '指闭杯闪点在－18℃至23℃的液体；', '003000000', '003000000|003000002', '1');
+INSERT INTO `wfpys` VALUES ('003000003', '高闪点液体', '指闭杯闪点在23℃至61℃的液体。', '003000000', '003000000|003000003', '2');
+INSERT INTO `wfpys` VALUES ('004000000', '四类：易燃固体、自燃物品和遇湿易燃物品', '', null, '004000000|', '3');
+INSERT INTO `wfpys` VALUES ('004000001', '易燃固体', '本项化学品系指燃点低、对热、撞击、摩擦敏感，易被外部火源点燃，燃烧迅速，并可能散发出有毒烟雾或有毒气体的固体，但不包括已列入爆炸品的物质。', '004000000', '004000000|004000001', '0');
+INSERT INTO `wfpys` VALUES ('004000002', '自燃物品', '本项化学品系指自燃点低，在空气中易于发生氧化反应，放出热量，而自行燃烧的物品。', '004000000', '004000000|004000002', '1');
+INSERT INTO `wfpys` VALUES ('004000003', '遇湿易燃物品', '本项化学品系指遇水或受潮时，发生剧烈化学反应，放出大量的易燃气体和热量的物品有些不需明火，即能燃烧或爆炸。', '004000000', '004000000|004000003', '2');
+INSERT INTO `wfpys` VALUES ('005000000', '五类：氧化剂和有机过氧化物', '', null, '005000000|', '4');
+INSERT INTO `wfpys` VALUES ('005000001', ' 氧化剂', '氧化剂系指处于高氧化态，具有强氧化性，易分解并放出氧和热量的物质。包括含有过氧基的有机物，其本身不一定可燃，但能导致可燃物的燃烧；与松软的粉末状可燃物能组成爆炸性混合物，对热、震动或摩擦较为敏感。', '005000000', '005000000|005000001', '0');
+INSERT INTO `wfpys` VALUES ('005000002', '有机过氧化剂', '有机过氧化物系指分子组成中含有过氧基的有机物，其本身易燃易爆、极易分解，对热、震动和摩擦极为敏感。', '005000000', '005000000|005000002', '1');
+INSERT INTO `wfpys` VALUES ('006000000', '六类：毒害品和感染性物品', '', null, '006000000|', '5');
+INSERT INTO `wfpys` VALUES ('006000001', ' 毒害品', '具体指标 经口：LD50≤500 mg/kg（固体）;LD50≤2000 mg/kg（液体）;经皮：LD50≤1000 mg/kg(24hr接触);吸入：LC50≤10 mg/L（粉尘、烟雾、蒸气）', '006000000', '006000000|006000001', '0');
+INSERT INTO `wfpys` VALUES ('006000002', '感染性物品', '本项化学品系指含有致病的微生物，能引起病态，甚至死亡的物质。', '006000000', '006000000|006000002', '1');
+INSERT INTO `wfpys` VALUES ('007000000', '七类：放射性物品', '本类化学品系指放射性比活度大于7.4×10Bq/kg的物品。', null, '007000000|', '6');
+INSERT INTO `wfpys` VALUES ('008000000', '八类：腐蚀品', '本类化学品系指能灼伤人体组织并对金属等物品造成损坏的固体或液体。与皮肤接触在4小时内出现可见坏死现象，或温度在55℃时，对20号钢的表面均匀年腐蚀超过6.25 mm的固体或液体。', null, '008000000|', '7');
+INSERT INTO `wfpys` VALUES ('008000001', '酸性腐蚀品', '', '008000000', '008000000|008000001', '0');
+INSERT INTO `wfpys` VALUES ('008000002', '碱性腐蚀品', '', '008000000', '008000000|008000002', '1');
+INSERT INTO `wfpys` VALUES ('008000003', '其它腐蚀品', '', '008000000', '008000000|008000003', '2');
+INSERT INTO `wfpys` VALUES ('009000000', '九类：杂类危险品', '', null, '009000000|', '8');
+
+-- 2016-03-29 cgm 危废品运输、资质认定关系表
+DROP TABLE IF EXISTS `wfpys_rel`;
+CREATE TABLE `wfpys_rel` (
+  `ID` varchar(32) NOT NULL,
+  `ACCREDIT_ID` varchar(32) DEFAULT NULL COMMENT '认证资料ID',
+  `WFPYS_ID` varchar(32) DEFAULT NULL COMMENT '危废品运输ID',
+  `POSITION` int(11) DEFAULT '0' COMMENT '排序',
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+-- 2016-03-29 yx 添加危废运输字段 --
+ALTER TABLE `wf_transport`
+ADD COLUMN `CODE`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '废物代码全称' AFTER `WF_NAME`,
+ADD COLUMN `WFMLID`  varchar(32) NULL DEFAULT NULL COMMENT '废物代码ID' AFTER `CODE`,
+ADD COLUMN `CATEGORY_NAME`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT ' 货物类别名称' AFTER `WFMLID`,
+ADD COLUMN `TANK_MATERIAL_NAME`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '罐体材质' AFTER `CATEGORY_NAME`,
+ADD COLUMN `WFPYS_ID`  varchar(32) NULL DEFAULT NULL COMMENT '危废品运输界定ID' AFTER `TANK_MATERIAL_NAME`,
+ADD COLUMN `WFPYS_NAME`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '危废品运输界定名称' AFTER `WFPYS_ID`;
+
+
+
+-- 2016-03-29 kcq 新增罐体材质表 --------
+CREATE TABLE `tank_material` (
+  `ID` varchar(32) NOT NULL COMMENT '主键',
+  `NAME` varchar(64) DEFAULT NULL COMMENT '材质名称',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `tank_material` VALUES ('00000001', '铝合金罐车');
+INSERT INTO `tank_material` VALUES ('00000002', '不锈钢304');
+INSERT INTO `tank_material` VALUES ('00000003', '不锈钢316');
+INSERT INTO `tank_material` VALUES ('00000004', '不锈钢304保温');
+INSERT INTO `tank_material` VALUES ('00000005', '不锈钢316保温');
+INSERT INTO `tank_material` VALUES ('00000006', '不锈钢保温带加热槽');
+INSERT INTO `tank_material` VALUES ('00000007', '衬塑罐');
+INSERT INTO `tank_material` VALUES ('00000008', '压力罐');
+-- 2016-03-30 yx 增加危废运输字段 -----------
+ALTER TABLE `wf_transport`
+MODIFY COLUMN `WFPYS_ID`  varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '危废品运输界定ID' AFTER `TANK_MATERIAL_NAME`,
+MODIFY COLUMN `WFPYS_NAME`  varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '危废品运输界定名称' AFTER `WFPYS_ID`,
+ADD COLUMN `WFPYS_PARENT_ID`  varchar(32) NULL AFTER `TANK_MATERIAL_NAME`;
+ALTER TABLE `wf_transport`
+MODIFY COLUMN `WFMLID`  varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '废物代码ID' AFTER `CODE`;
+
+-- 2016-03-31 lihong Wftong添加日志表
+DROP TABLE IF EXISTS `wft_login_log`;
+CREATE TABLE `wft_login_log` (
+  `ID` varchar(32) NOT NULL COMMENT '主键',
+  `USER_ID` varchar(50) DEFAULT NULL COMMENT '用户ID',
+  `CREATE_TIME` varchar(19) DEFAULT NULL COMMENT '操作时间',
+  `ADDRESS` varchar(128) DEFAULT '0' COMMENT '操作时所在地',
+  `TYPE` char(1) DEFAULT '0' COMMENT '操作类型 1登陆  0退出',
+  `DEVICE_MODEL` varchar(128) DEFAULT NULL COMMENT '设备型号',
+  PRIMARY KEY (`ID`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `wft_log`;
+CREATE TABLE `wft_log` (
+  `ID` varchar(32) NOT NULL COMMENT '主键',
+  `CONTENT` longtext COMMENT '消息报文正文',
+  `CREATE_TIME` varchar(19) DEFAULT NULL COMMENT '操作时间',
+  `USER_ID` varchar(50) DEFAULT NULL COMMENT '用户ID',
+  `USER_NAME` varchar(128) DEFAULT NULL COMMENT '用户昵称',
+  `SOURCE` varchar(16) DEFAULT NULL COMMENT '操作类型',
+  `DEVICE_MODEL` varchar(128) DEFAULT NULL COMMENT '设备型号',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 2016-04-01 kcq 修改报价询价FULL_PATH -----------
+UPDATE `store_purview` SET `FULL_PATH`='/store/inquiry/list/1/0/1' WHERE (`ID`='SUPPLY_MANAGER_INQUIRY') ;
+UPDATE `store_purview` SET `FULL_PATH`='/store/inquiry/list/1/1/1' WHERE (`ID`='SUPPLY_INQUIRY') ;
+UPDATE `store_purview` SET `FULL_PATH`='/store/inquiry/list/0/1/1' WHERE (`ID`='PRODUCT_INQUIRY');
+
+-- 2016-04-07 lihong 添加企业账号和子账号即时通讯字段 
+ALTER TABLE `customer`
+ADD COLUMN `HX_USER_NAME` varchar(21) DEFAULT NULL COMMENT '环信ID';
+ALTER TABLE `customer`
+ADD COLUMN `HX_PASSWORD` varchar(21) DEFAULT "123456" COMMENT '环信密码';
+ALTER TABLE `customer`
+ADD COLUMN `ALL_PHONESWITCH` char(1) DEFAULT '0' COMMENT '向所有人电话显示开关(0 隐藏 1 显示  )';
+ALTER TABLE `customer`
+ADD COLUMN `FRI_PHONESWITCH` char(1) DEFAULT '1' COMMENT '向好友显示电话开关(0 隐藏 1 显示  )';
+ALTER TABLE `customer`
+ADD COLUMN `FRIENDVALIDSWITCH` char(1) DEFAULT '0' COMMENT '加好友验证开关(0 不验证 1 验证  )';
+ALTER TABLE `account`
+ADD COLUMN `HX_USER_NAME` varchar(21) DEFAULT NULL COMMENT '环信ID';
+ALTER TABLE `account`
+ADD COLUMN `HX_PASSWORD` varchar(21) DEFAULT "123456" COMMENT '环信密码';
+ALTER TABLE `account`
+ADD COLUMN `ALL_PHONESWITCH` char(1) DEFAULT '0' COMMENT '向所有人电话显示开关(0 隐藏 1 显示  )';
+ALTER TABLE `account`
+ADD COLUMN `FRI_PHONESWITCH` char(1) DEFAULT '1' COMMENT '向好友显示电话开关(0 隐藏 1 显示  )';
+ALTER TABLE `account`
+ADD COLUMN `FRIENDVALIDSWITCH` char(1) DEFAULT '0' COMMENT '加好友验证开关(0 不验证 1 验证  )';
+
+-- 2016-04-21 lihong 添加好友表 
+DROP TABLE IF EXISTS `friend_relation`;
+CREATE TABLE `friend_relation` (
+  `ID` varchar(32) NOT NULL DEFAULT '' COMMENT '主键',
+  `USER_ID` varchar(32) DEFAULT NULL,
+  `FRIEND_ID` varchar(32) DEFAULT NULL,
+  `CREATE_TIME` varchar(19) DEFAULT NULL,
+  `STATUS` char(1) DEFAULT '0' COMMENT '状态 0:申请,1:好友关系,2：拒绝',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- 2016-04-20 lgy 金融部分
+DROP TABLE IF EXISTS `BANK_ACCOUNT`;
+CREATE TABLE `BANK_ACCOUNT` (
+  `Id` varchar(32) NOT NULL COMMENT '主键',
+  `BANK_ID` varchar(32) DEFAULT NULL COMMENT '银行ID',
+  `BANK_NAME` varchar(64) DEFAULT NULL COMMENT '银行名称',
+  `BANK_LOGO` varchar(128) DEFAULT NULL COMMENT '银行LOGO',
+  `NAME` varchar(128) DEFAULT NULL COMMENT '用户名',
+  `PASSWORD` varchar(128) DEFAULT NULL COMMENT '密码',
+  `DEPARTMENT_ID` varchar(128) DEFAULT NULL COMMENT '部门ID',
+  `DEPARTMENT` varchar(128) DEFAULT NULL COMMENT '部门名称',
+  `REAL_NAME` varchar(128) DEFAULT NULL COMMENT '真实姓名',
+  `PHONE` varchar(16) DEFAULT NULL COMMENT '联系电话',
+  `STATUS` char(1) DEFAULT '0' COMMENT '状态0不启用，1启用',
+  `CREATE_TIME` varchar(19) DEFAULT NULL COMMENT '创建时间',
+  `UPDATE_TIME` varchar(19) DEFAULT NULL COMMENT '修改时间',
+  `NOTE` varchar(512) DEFAULT NULL COMMENT '备注',
+  `RESET_PWD` char(1) DEFAULT '0' COMMENT '登陆是否重置密码 0:不重置，1:重置',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='银行账户';
+
+DROP TABLE IF EXISTS `BANK_ACCOUNT_LOGIN_LOG`;
+CREATE TABLE `BANK_ACCOUNT_LOGIN_LOG` (
+  `Id` varchar(32) NOT NULL COMMENT '主键',
+  `BANK_ID` varchar(32) DEFAULT NULL COMMENT '银行ID',
+  `ACCOUNT_ID` varchar(32) DEFAULT NULL COMMENT '银行用户ID',
+  `LOGIN_TYPE` char(1) DEFAULT '0' COMMENT '日志类型：0登陆，1退出',
+  `CREATE_TIME` varchar(19) DEFAULT NULL COMMENT '创建时间',
+  `NOTE` varchar(512) DEFAULT NULL COMMENT '备注',
+  `IP_ADDRESS` varchar(32) DEFAULT NULL COMMENT '登录IP',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='银行账户日志';
+
+DROP TABLE IF EXISTS `BANK_DEPARTMENT`;
+CREATE TABLE `BANK_DEPARTMENT` (
+  `Id` varchar(32) NOT NULL COMMENT '主键',
+  `BANK_ID` varchar(32) DEFAULT NULL COMMENT '银行ID',
+  `NAME` varchar(64) DEFAULT NULL COMMENT '部门名称',
+  `PARENT_ID` varchar(32) DEFAULT NULL COMMENT '上级部门ID',
+  `STATUS` char(1) DEFAULT '0' COMMENT '状态0不启用，1启用',
+  `CREATE_TIME` varchar(19) DEFAULT NULL COMMENT '创建时间',
+  `UPDATE_TIME` varchar(19) DEFAULT NULL COMMENT '修改时间',
+  `NOTE` varchar(512) DEFAULT NULL COMMENT '备注',
+  `LEVEL` INTEGER DEFAULT 0 COMMENT '级别',
+  `POSITION` INTEGER DEFAULT 0 COMMENT '排序',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='银行部门管理';
+
+DROP TABLE IF EXISTS `BANK_PURVIEW_REL`;
+CREATE TABLE `BANK_PURVIEW_REL` (
+  `Id` varchar(32) NOT NULL COMMENT '主键',
+  `PURVIEW_ID` varchar(32) DEFAULT NULL COMMENT '权限ID',
+  `ROLE_ID` varchar(32) DEFAULT NULL COMMENT '部门ID/银行ID',
+  `BANK_ID` varchar(32) DEFAULT NULL COMMENT '银行ID',
+  `TYPE` char(1) DEFAULT '0' COMMENT '类型：0-银行，1-部门',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='银行账户权限关系表';
+
+
+DROP TABLE IF EXISTS `BANK_PURVIEW`;
+CREATE TABLE `BANK_PURVIEW` (
+  `ID` varchar(32) NOT NULL COMMENT '主键',
+  `PARENT_ID` varchar(32) DEFAULT NULL COMMENT '父级ID',
+  `CLASS_NAME` varchar(128) DEFAULT NULL COMMENT '权限名称',
+  `FULL_PATH` varchar(128) DEFAULT NULL COMMENT '访问路径',
+  `STATUS` char(1) DEFAULT NULL COMMENT '状态（1:启用,0:禁用）',
+  `POSITION` int(11) DEFAULT NULL COMMENT '排序',
+  `LEVEL` int(11) DEFAULT NULL COMMENT '等级',
+  `icon` varchar(128) DEFAULT NULL COMMENT '图标',
+  `DEFAULT_OPEN` varchar(128) DEFAULT NULL,
+  `TOP_ID` varchar(32) DEFAULT NULL COMMENT '顶级菜单ID',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `BANK_PURVIEW_COL`;
+CREATE TABLE `BANK_PURVIEW_COL` (
+  `ID` varchar(32) NOT NULL COMMENT '主键',
+  `PURVIEW_ID` varchar(32) DEFAULT NULL COMMENT '权限ID',
+  `ACCOUNT_ID` varchar(32) DEFAULT NULL COMMENT '用户ID',
+  `POSITION` int(11) DEFAULT NULL COMMENT '排序',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- 2016-04-25 lihong 添加群组表 
+DROP TABLE IF EXISTS `GROUPREL`;
+CREATE TABLE `GROUPREL` (
+  `ID` VARCHAR(32) NOT NULL,
+  `GROUPS_ID` VARCHAR(32) DEFAULT NULL COMMENT '群组ID',
+  `USER_ID` VARCHAR(32) DEFAULT NULL COMMENT '群主ID',
+  `CREATE_TIME` VARCHAR(19) DEFAULT NULL,
+  `GROUP_NAME` VARCHAR(32) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8 COMMENT='群组';
+
+-- 2016-05-05 lihong 修改字段长度 
+ALTER TABLE `customer` MODIFY COLUMN `HX_USER_NAME` varchar(32);
+ALTER TABLE `account` MODIFY COLUMN `HX_USER_NAME` varchar(32);
+
+-- 2016-05-06 lihong 添加app供需和物流功能 （转发、收藏、投诉）
+DROP TABLE IF EXISTS `app_collect`;
+CREATE TABLE `app_collect` (
+  `ID` varchar(32) NOT NULL COMMENT '主键',
+  `CONTENT_ID` varchar(32) DEFAULT NULL COMMENT '收藏的ID',
+  `CONTENT_TYPE` char(1) DEFAULT NULL COMMENT '收藏的类型供需0、物流1',
+  `USER_ID` varchar(32) DEFAULT NULL COMMENT '收藏人ID',
+  `CREATE_TIME` varchar(19) DEFAULT NULL COMMENT '创建时间',
+  `UPDATE_TIME` varchar(19) DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `app_report`;
+CREATE TABLE `app_report` (
+  `ID` varchar(32) NOT NULL COMMENT '主键',
+  `CONTENT_ID` varchar(32) DEFAULT NULL COMMENT '举报的ID',
+  `CONTENT_TYPE` char(1) DEFAULT NULL COMMENT '举报的类型供需0、物流1',
+  `USER_ID` varchar(32) DEFAULT NULL COMMENT '举报人ID',
+  `NOTE` varchar(512) DEFAULT NULL COMMENT '举报说明',
+  `CREATE_TIME` varchar(19) DEFAULT NULL COMMENT '创建时间',
+  `UPDATE_TIME` varchar(19) DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `app_forwarding`;
+CREATE TABLE `app_forwarding` (
+  `ID` varchar(32) NOT NULL COMMENT '主键',
+  `USER_ID` varchar(32) DEFAULT NULL COMMENT '转发人ID',
+  `CONTENT_ID` varchar(32) DEFAULT NULL COMMENT '转发的ID',
+  `CONTENT_TYPE` char(1) DEFAULT NULL COMMENT '转发的类型供需0、物流1',
+  `RECIPIENT_ID` varchar(128) DEFAULT NULL COMMENT '接收者id',
+  `RECIPIENT_TYPE` char(1) DEFAULT '0' COMMENT '接收者类型0用户 1群组',
+  `CREATE_TIME` varchar(19) DEFAULT NULL COMMENT '创建时间',
+  `UPDATE_TIME` varchar(19) DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 2016-04-29 lgy 新增银行账户操作日志表
+DROP TABLE IF EXISTS `BANK_ACCOUNT_LOG`;
+CREATE TABLE `BANK_ACCOUNT_LOG` (
+  `ID` VARCHAR(32) NOT NULL,
+  `BANK_ID` VARCHAR(32) DEFAULT NULL COMMENT '银行ID',
+  `ACCOUNT_ID` VARCHAR(32) DEFAULT NULL COMMENT '银行用户ID',
+  `PURVIEW_ID` VARCHAR(32) DEFAULT NULL COMMENT '操作的权限ID',
+  `CREATE_TIME` VARCHAR(19) DEFAULT NULL COMMENT '操作时间',
+  `NOTE` VARCHAR(512) DEFAULT NULL COMMENT '操作内容',
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8 COMMENT='银行账户操作日志表';
+
+
+-- 2016-05-10 lgy 新增贷款的表
+DROP TABLE IF EXISTS `LOAN_TYPE`;
+CREATE TABLE `LOAN_TYPE` (
+  `ID` VARCHAR(32) NOT NULL,
+  `BANK_ID` VARCHAR(32) DEFAULT NULL COMMENT '银行ID',
+  `CREATOR` VARCHAR(32) DEFAULT NULL COMMENT '创建者ID',
+  `CREATOR_REAL_NAME` VARCHAR(32) DEFAULT NULL COMMENT '创建者真实姓名',
+  `LOAN_NAME` VARCHAR(128) DEFAULT NULL COMMENT '贷款类型',
+  `STATUS` CHAR(1) DEFAULT '0' COMMENT '状态(0不启用，1启用)',
+  `CREATE_TIME` VARCHAR(19) DEFAULT NULL COMMENT '操作时间',
+  `UPDATE_TIME` VARCHAR(19) DEFAULT NULL COMMENT '更新时间',
+  `NOTE` VARCHAR(512) DEFAULT NULL COMMENT '详细说明',
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8 COMMENT='贷款类型表';
+
+DROP TABLE IF EXISTS `LOAN_TYPE_DETAIL`;
+CREATE TABLE `LOAN_TYPE_DETAIL` (
+  `ID` VARCHAR(32) NOT NULL,
+  `BANK_ID` VARCHAR(32) DEFAULT NULL COMMENT '银行ID',
+  `TYPE_ID` VARCHAR(32) DEFAULT NULL COMMENT '贷款类型表',
+  `NAME` VARCHAR(128) DEFAULT NULL COMMENT '字段名称',
+  `NAME_CODE` VARCHAR(32) DEFAULT NULL COMMENT '字段所属代码',
+  `TYPE` VARCHAR(18) DEFAULT NULL COMMENT '字段类型  number:数字，date:日期，dateTime:日期加时间，radio:单选，checkBox:多选，text:文本输入框，textArea文本域输入框，img:单图，imgs:多图，pdf:单PDF，pdfs:多PDF，word:单个Word文档，words:多个word文档，excel:单个Excel，excels:多个Excel文档',
+  `TYPE_VALUE` VARCHAR(512) DEFAULT NULL COMMENT '字段值(用于选择时)',
+  `COMMENT_TYPE` CHAR(1) DEFAULT '0' COMMENT '是否必填 0:非必填 1:必填',
+  `NOTE` VARCHAR(512) DEFAULT NULL COMMENT '详细说明',
+  `POSITION` integer DEFAULT 0 COMMENT '排序',
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8 COMMENT='贷款类型明细表';
+
+DROP TABLE IF EXISTS `LOAN_TYPE_ROLE`;
+CREATE TABLE `LOAN_TYPE_ROLE` (
+  `ID` VARCHAR(32) NOT NULL,
+  `TYPE_ID` VARCHAR(32) DEFAULT NULL COMMENT '贷款类型表',
+  `PARENT_ROLE_ID` VARCHAR(32) DEFAULT NULL COMMENT '相关规则ID(适用于多个规则必须同时满足的情况)',
+  `BANK_ID` VARCHAR(32) DEFAULT NULL COMMENT '银行ID',
+  `ROLE_NAME` VARCHAR(128) DEFAULT NULL COMMENT '规则名称',
+  `ROLE_TYPE` VARCHAR(18) DEFAULT NULL COMMENT '规格类型(大于，小于等于等)',
+  `ROLE_VALUE` VARCHAR(512) DEFAULT NULL COMMENT '规则界限值',
+  `NOTE` VARCHAR(512) DEFAULT NULL COMMENT '详细说明',
+  `POSITION` integer DEFAULT 0 COMMENT '排序',
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8 COMMENT='贷款类型明细表';
+
+DROP TABLE IF EXISTS `LOAN_APP`;
+CREATE TABLE `LOAN_APP` (
+  `ID` VARCHAR(32) NOT NULL,
+  `LOAN_TYPE_ID` VARCHAR(32) DEFAULT NULL COMMENT '贷款类型表ID',
+  `COMPANY_ID` VARCHAR(32) DEFAULT NULL COMMENT '申请贷款人ID',
+  `BANK_ID` VARCHAR(32) DEFAULT NULL COMMENT '银行ID',
+  `APP_STATUS` CHAR(2) DEFAULT '00' COMMENT '申请的状态:00：待处理，01：',
+  `COMPANY_STATUS` CHAR(1) DEFAULT '0' COMMENT '企业是否符合申请筛选条件 0:不满足，1:满足',
+  `NOTE` VARCHAR(512) DEFAULT NULL COMMENT '详细说明',
+  `CREATE_TIME` VARCHAR(19) DEFAULT NULL COMMENT '操作时间',
+  `UPDATE_TIME` VARCHAR(19) DEFAULT NULL COMMENT '更新时间',
+  `PRICE` DECIMAL(13,2) DEFAULT 0.00 COMMENT '融资金额',
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8 COMMENT='贷款申请表';
+
+DROP TABLE IF EXISTS `LOAN_APP_DETAIL`;
+CREATE TABLE `LOAN_APP_DETAIL` (
+  `ID` VARCHAR(32) NOT NULL,
+  `BANK_ID` VARCHAR(32) DEFAULT NULL COMMENT '银行ID',
+  `TYPE_ID` VARCHAR(32) DEFAULT NULL COMMENT '贷款类型表',
+  `TYPE_DETAIL_ID` VARCHAR(32) DEFAULT NULL COMMENT '贷款类型明细表',
+  `APP_ID` VARCHAR(32) DEFAULT NULL COMMENT '贷款申请表ID',
+  `NAME` VARCHAR(128) DEFAULT NULL COMMENT '字段名称',
+  `NAME_CODE` VARCHAR(32) DEFAULT NULL COMMENT '字段所属代码',
+  `TYPE` VARCHAR(18) DEFAULT NULL COMMENT '字段类型  number:数字，date:日期，dateTime:日期加时间，radio:单选，checkBox:多选，text:文本输入框，textArea文本域输入框，img:单图，imgs:多图，pdf:单PDF，pdfs:多PDF，word:单个Word文档，words:多个word文档，excel:单个Excel，excels:多个Excel文档',
+  `VALUE` VARCHAR(512) DEFAULT NULL COMMENT '字段值',
+  `VALUE_TYPE` CHAR(1) DEFAULT '0' COMMENT '数据类型，如：订单，则表示订单类型，平台数据，则表示平台的什么数据',
+  `NOTE` VARCHAR(512) DEFAULT NULL COMMENT '详细说明',
+  `POSITION` integer DEFAULT 0 COMMENT '排序',
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8 COMMENT='贷款申请明细表';
+
+DROP TABLE IF EXISTS `LOAN_APP_LOG`;
+CREATE TABLE `LOAN_APP_LOG` (
+  `ID` VARCHAR(32) NOT NULL,
+  `APP_ID` VARCHAR(32) DEFAULT NULL COMMENT '申请ID',
+  `BANK_ID` VARCHAR(32) DEFAULT NULL COMMENT '申请银行ID',
+  `COMPANY_ID` VARCHAR(32) DEFAULT NULL COMMENT '申请企业ID',
+  `CREATOR_ID` VARCHAR(32) DEFAULT '0' COMMENT '操作人ID',
+  `CREATOR_TYPE` CHAR(1) DEFAULT '0' COMMENT '操作人类型 0：企业，1：银行',
+  `CREATOR` VARCHAR(128) DEFAULT NULL COMMENT '操作人',
+  `NOTE` VARCHAR(512) DEFAULT NULL COMMENT '操作说明',
+  `CREATE_TIME` VARCHAR(19) DEFAULT NULL COMMENT '操作时间',
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8 COMMENT='贷款申请操作日志表';
+
+DELETE FROM `STORE_PURVIEW` WHERE TOP_ID='FINANCE';
+INSERT INTO `store_purview` (`ID`, `PARENT_ID`, `CLASS_NAME`, `FULL_PATH`, `STATUS`, `POSITION`, `LEVEL`, `icon`, `DEFAULT_OPEN`, `TOP_ID`)
+VALUES
+	('LOAN_APP', 'FINANCE', '申请管理', NULL, '1', 1, 2, NULL, NULL, 'FINANCE'),
+	('LOAN_APP_ADD', 'LOAN_APP', '融资申请', '/store/loan/apply', '1', 1, 3, NULL, '', 'FINANCE'),
+	('LOAN_APP_LIST', 'LOAN_APP', '申请查询', '/store/loan/applist', '1', 2, 3, NULL, NULL, 'FINANCE');
+UPDATE `STORE_PURVIEW` set DEFAULT_OPEN = 'LOAN_APP_LIST' WHERE ID = 'FINANCE';
+
+ALTER TABLE STORE ADD COLUMN CREDIT_CODE_CARD VARCHAR(128) DEFAULT NULL;
+ALTER TABLE STORE ADD COLUMN ARTICLES VARCHAR(128) DEFAULT NULL;
+ALTER TABLE STORE ADD COLUMN SYNOPSIS VARCHAR(128) DEFAULT NULL;
+
+-- yangxin  2016/05/26 新增银行客户表 ---
+CREATE TABLE `bank_client` (
+  `ID` varchar(32) NOT NULL COMMENT 'id',
+  `STORE_ID` varchar(32) DEFAULT NULL COMMENT '企业id',
+  `BANK_ID` varchar(32) DEFAULT NULL COMMENT '银行id',
+  `TYPE` char(1) DEFAULT '0' COMMENT '客户类型(0普通 1黑名单)',
+  `STORE_NAME` varchar(128) DEFAULT NULL COMMENT '企业名',
+  `CREDIT_RATE` varchar(16) DEFAULT NULL COMMENT '信用评级',
+  `CREATE_TIME` varchar(19) DEFAULT NULL COMMENT '创建时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- yangxin  2016/05/26 新增银行客户日志表 ---
+CREATE TABLE `bank_client_log` (
+  `ID` varchar(32) NOT NULL COMMENT 'id',
+  `ACCOUNT_ID` varchar(32) DEFAULT NULL COMMENT '银行用户id',
+  `STORE_ID` varchar(32) DEFAULT NULL,
+  `BANK_ID` varchar(32) DEFAULT NULL COMMENT '银行id',
+  `CREATOR` varchar(32) DEFAULT NULL COMMENT '操作人',
+  `CREATOR_ID` varchar(32) DEFAULT NULL COMMENT '操作人id',
+  `NOTE` varchar(512) DEFAULT NULL COMMENT '操作内容',
+  `CREATE_TIME` varchar(19) DEFAULT NULL COMMENT '操作时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- lihong 2016/05/30 app检查更新的配置 --
+INSERT INTO system_param_config (`ID`, `KEY`, `VALUE`, `VALUE_TYPE`, `NOTE`, `TYPE`) VALUES ('12', '版本号', '1', 'text', NULL, 'appConfig');
+INSERT INTO system_param_config (`ID`, `KEY`, `VALUE`, `VALUE_TYPE`, `NOTE`, `TYPE`) VALUES ('13', '更新说明', '', 'textarea', NULL, 'appConfig');
+INSERT INTO system_param_config (`ID`, `KEY`, `VALUE`, `VALUE_TYPE`, `NOTE`, `TYPE`) VALUES ('14', '下载地址', '', 'text', NULL, 'appConfig');
+
+-- yx 2016/05/30 添加出账表、出账明细表
+CREATE TABLE `OUT_ACCOUNT` (
+`ID`  varchar(32) NOT NULL COMMENT '主键' ,
+`OUT_PRICE`  decimal(13,2) NULL COMMENT '出账金额' ,
+`REPAYMENT_PRICE`  decimal(13,2) NULL COMMENT '还款金额' ,
+`REPAYMENT_TYPE`  char(1) NULL COMMENT '还款期限' ,
+`STATUS`  char(1) NULL COMMENT '还款状态' ,
+`CREATE_TIME`  varchar(19) NULL ,
+`NOTE`  longtext NULL ,
+PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `OUT_DETAIL` (
+`ID`  varchar(32) NOT NULL ,
+`ACCOUNT_ID`  varchar(32) NULL COMMENT '出账ID' ,
+`REPAYMENT_TIME`  varchar(19) NULL COMMENT '规定还款时间' ,
+`REPAYMENT_PRICE`  decimal(13,2) NULL COMMENT '规定还款金额' ,
+`STATUS`  char(1) NULL COMMENT '还款状态' ,
+`CREATE_TIME`  varchar(19) NULL COMMENT '创建时间' ,
+`UPDATE_TIME`  varchar(19) NULL COMMENT '修改时间(还款时间)' ,
+PRIMARY KEY (`ID`)
+);
+ALTER TABLE `OUT_ACCOUNT`
+ADD COLUMN `LOAN_ID`  varchar(32) NULL COMMENT '申请ID' AFTER `ID`;
+
+
+-- yx 2016/05/31 添加期数字段
+ALTER TABLE `out_account`
+ADD COLUMN `NUMBER`  int(2) NULL COMMENT '期数' AFTER `REPAYMENT_TYPE`;
+
+
+-- kcq 2016/5/31 修改还款明细表新增 操作人字段 ---
+ALTER TABLE `out_detail` ADD COLUMN `CREATOR`  varchar(32) CHARACTER SET utf8 NULL COMMENT '操作人' AFTER `UPDATE_TIME`;
+
+
+-- lgy 2016-06-15 金融系统功能菜单
+INSERT INTO `bank_purview` (`ID`, `PARENT_ID`, `CLASS_NAME`, `FULL_PATH`, `STATUS`, `POSITION`, `LEVEL`, `icon`, `DEFAULT_OPEN`, `TOP_ID`)
+VALUES
+	('ACCOUNT',NULL,'账户中心',NULL,'1',7,1,NULL,'ACCOUNT_MANAGER',NULL),
+	('ACCOUNT_MANAGER','ACCOUNT','账户管理',NULL,'1',1,2,NULL,NULL,'ACCOUNT'),
+	('PASSWORD','ACCOUNT_MANAGER','密码管理','/account/password','1',1,3,NULL,NULL,'ACCOUNT'),
+	('ACCOUNT_SET','ACCOUNT_MANAGER','基本信息','/account/info','1',2,3,NULL,NULL,'ACCOUNT'),
+	('DEPARTMENT','ACCOUNT','部门管理',NULL,'1',2,2,NULL,NULL,'ACCOUNT'),
+	('DEPARTMENT_LIST','DEPARTMENT','部门管理','/account/department/list','1',2,3,NULL,NULL,'ACCOUNT'),
+	('CHILD_ACCOUNT','ACCOUNT','子账户',NULL,'1',3,2,NULL,NULL,'ACCOUNT'),
+	('CHILD_ACCOUNT_ADD','CHILD_ACCOUNT','创建子账户','/account/child/add','1',1,3,NULL,NULL,'ACCOUNT'),
+	('CHILD_ACCOUNT_LIST','CHILD_ACCOUNT','子账户管理','/account/child/list','1',2,3,NULL,NULL,'ACCOUNT'),
+	('COLLECT_PURVIEW','ACCOUNT_MANAGER','常用菜单设置','/account/purview/collect','1',3,3,NULL,NULL,'ACCOUNT'),
+	('CUSTOMER',NULL,'客户中心',NULL,'1',1,1,NULL,'CUSTOMER_LIST',NULL),
+	('LOAN_TYPE',NULL,'融资类型',NULL,'1',2,1,NULL,'LOAN_TYPE_LIST',NULL),
+	('SERVICE_APP',NULL,'业务管理',NULL,'1',3,1,NULL,'WAIT_APP',NULL),
+	('LOANING',NULL,'出账管理',NULL,'1',4,1,NULL,'LOANING_WAIT',NULL),
+	('AFTERLOAN',NULL,'贷后管理',NULL,'1',5,1,NULL,'AFTERLOAN_MONITOR',NULL),
+	('STAT',NULL,'统计查询',NULL,'1',6,1,NULL,'PASS_REPORT',NULL),
+	('ON_CUSTOMER','CUSTOMER','授贷客户',NULL,'1',1,2,NULL,NULL,'CUSTOMER'),
+	('BLACK_CUSTOMER','CUSTOMER','黑名单客户',NULL,'1',2,2,NULL,NULL,'CUSTOMER'),
+	('CUSTOMER_LIST','ON_CUSTOMER','客户管理','/client/manage/list','1',1,3,NULL,NULL,'CUSTOMER'),
+	('BLACK_CUSTOMER_ADD','BLACK_CUSTOMER','设置黑名单','/client/blacklist/add','1',1,3,NULL,NULL,'CUSTOMER'),
+	('BLACK_CUSTOMER_LIST','BLACK_CUSTOMER','黑名单查询','/client/blacklist/list','1',2,3,NULL,NULL,'CUSTOMER'),
+	('BLACK_CUSTOMER_SET','BLACK_CUSTOMER','黑名单算法','/account/password','1',3,3,NULL,NULL,'CUSTOMER'),
+	('LOAN_TYPE_MANAGER','LOAN_TYPE','融资类型',NULL,'1',1,2,NULL,NULL,'LOAN_TYPE'),
+	('LOAN_TYPE_LIST','LOAN_TYPE_MANAGER','融资类型查询','/loantype/list','1',2,3,NULL,NULL,'LOAN_TYPE'),
+	('LOAN_TYPE_ADD','LOAN_TYPE_MANAGER','新增融资类型','/loantype/add','1',1,3,NULL,NULL,'LOAN_TYPE'),
+	('APP_MANAGER','SERVICE_APP','平台推荐',NULL,'1',1,2,NULL,NULL,'SERVICE_APP'),
+	('WAIT_APP','APP_MANAGER','待处理业务','/loan/manage/list/true/00','1',1,3,NULL,NULL,'SERVICE_APP'),
+	('UNPASS_APP','APP_MANAGER','处理中业务','/loan/manage/list/true/01,02,03','1',2,3,NULL,NULL,'SERVICE_APP'),
+	('PASS_APP','APP_MANAGER','未完成业务','/loan/manage/list/true/09,10,99','1',3,3,NULL,NULL,'SERVICE_APP'),
+	('LOANING_MANAGER','LOANING','出账管理',NULL,'1',1,2,NULL,'LOANING_WAIT','LOANING'),
+	('LOANING_WAIT','LOANING_MANAGER','待出账管理','/loan/manage/list/null/04','1',1,3,NULL,NULL,'LOANING'),
+	('LOANING_FIN','LOANING_MANAGER','已出账管理','/loan/manage/list/null/05,06','1',2,3,NULL,NULL,'LOANING'),
+	('AFTERLOAN_MAN','AFTERLOAN','贷后管理',NULL,'1',1,2,NULL,NULL,'AFTERLOAN'),
+	('AFTERLOAN_FIN','AFTERLOAN','已完成管理',NULL,'1',2,2,NULL,NULL,'AFTERLOAN'),
+	('AFTERLOAN_MONITOR','AFTERLOAN_MAN','运输监控','/account/password','1',1,3,NULL,NULL,'AFTERLOAN'),
+	('AFTERLOAN_HK','AFTERLOAN_MAN','还款管理','/loan/manage/list/null/06,07','1',3,3,NULL,NULL,'AFTERLOAN'),
+	('AFTERLOAN_FIN_LIST','AFTERLOAN_FIN','贷款完成管理','/loan/manage/list/null/08','1',1,3,NULL,NULL,'AFTERLOAN'),
+	('SYNTHE','STAT','综合查询',NULL,'1',1,2,NULL,NULL,'STAT'),
+	('CALCU','STAT','核算查询',NULL,'1',2,2,NULL,NULL,'STAT'),
+	('CONTRACT_LIST','SYNTHE','合同管理','/account/password','1',1,3,NULL,NULL,'STAT'),
+	('RECEIPT','SYNTHE','发票管理','/account/password','1',2,3,NULL,NULL,'STAT'),
+	('PASS_REPORT','SYNTHE','贷款报表','/account/password','1',3,3,NULL,NULL,'STAT'),
+	('RISK_REPORT','SYNTHE','风险度查询','/account/password','1',4,3,NULL,NULL,'STAT'),
+	('CALCU_APP','CALCU','贷款申请查询','/account/password','1',1,3,NULL,NULL,'STAT'),
+	('CALCU_FF','CALCU','贷款发放查询','/account/password','1',2,3,NULL,NULL,'STAT'),
+	('CALCU_HK','CALCU','还款记录查询','/account/password','1',3,3,NULL,NULL,'STAT'),
+	('CALCU_FIN','CALCU','贷款完成查询','/account/password','1',4,3,NULL,NULL,'STAT'),
+	('AFTERLOAN_CK','AFTERLOAN_MAN','仓库监控',NULL,'1',2,3,NULL,NULL,'AFTERLOAN'),
+	('APP_SELFE','SERVICE_APP','客户自荐',NULL,'1',2,2,NULL,NULL,'SERVICE_APP'),
+	('SWAIT_APP','APP_SELFE','待处理业务','/loan/manage/list/false/00','1',1,3,NULL,NULL,'SERVICE_APP'),
+	('SUNPASS_APP','APP_SELFE','处理中业务','/loan/manage/list/false/01,02,03','1',2,3,NULL,NULL,'SERVICE_APP'),
+	('SPASS_APP','APP_SELFE','未完成业务','/loan/manage/list/false/09,10,99','1',3,3,NULL,NULL,'SERVICE_APP');
+
+-- 2016/07/28 yx 添加资讯关联表 --
+	CREATE TABLE `CONTENT_REL` (
+	`ID`  varchar(32) NOT NULL ,
+	`CONTENT_ID`  varchar(32) NULL ,
+	`CHANNEL_ID`  varchar(32) NULL ,
+	PRIMARY KEY (`ID`)
+	);
+
+	('SPASS_APP','APP_SELFE','未完成业务','/loan/manage/list/false/09,10,99','1',3,3,NULL,NULL,'SERVICE_APP');
+
+-- lh 2016/05/31 添加期数字段
+ALTER TABLE `out_detail`
+ADD COLUMN `ACTUAL_PRICE` decimal(13,2) NULL COMMENT '实际还款金额';
+
+-- lh 2016/07/19 服务器loginip字段报data too long.增加长度
+ALTER TABLE login_log MODIFY LOGIN_IP VARCHAR(32) DEFAULT NULL;
+
+-- 商家中心含有编辑器页面点击编辑无法正常加载bug
+update product set description = '' where description like "%<body>%";
+
+
+-- lgy 2016-09-23 新增商品增减价格字段
+ALTER TABLE PRODUCT ADD COLUMN RISE_DROP DOUBLE(13,4) DEFAULT 0.00 COMMENT'商品价格增减记录';
+
+
+-- lh 2016-10-08 改版，删除多余频道
+delete from channel where id in ("gyxx" ,"qgxx" ,"xsgp" ,"qggp", "wfcy", "wfhy");
+
+-- dck 2016-10-19 PRODUCT 表添加交货地址 ID 字段
+ALTER TABLE `product`
+ADD COLUMN `DELIVE_ADDRESS_ID`  varchar(16) NULL AFTER `RISE_DROP`;
+
+
+-- lh 2016-11-15 app注册帐号
+ALTER TABLE `customer`
+ADD COLUMN `TOURIST_TYPE` char(1) DEFAULT '0' COMMENT '0为正式用户，1为待完善基本信息的游客';
+
+-- lh 2016-11-15 更改环信信息字段长度
+ALTER table customer modify hx_user_name varchar(128) default '';
+ALTER table account modify hx_user_name varchar(128) default '';
+
+
+
+
+-- lgy 2016-11-15 支付改版    -------------
+-- 修改支付日志表,新增支付方式和支付银行ID
+ALTER TABLE `ORDER_PAY_LOG` ADD COLUMN `PAY_PATTERN`  CHAR(1) DEFAULT '0';
+ALTER TABLE `ORDER_PAY_LOG` ADD COLUMN `BANK_ID`  VARCHAR(32) DEFAULT NULL;
+ALTER TABLE `ORDER_PAY_LOG` ADD COLUMN `PAY_CERT`  VARCHAR(128) DEFAULT NULL;
+ALTER TABLE `BANK` ADD COLUMN `STATUS`  CHAR(1) DEFAULT '0';
+update bank set status ='1';
+ALTER TABLE `BANK` ADD COLUMN `FOREN_STATUS`  CHAR(1) DEFAULT '0';
+update bank set foren_status ='1';
+ALTER TABLE `BANK` ADD COLUMN `ACCOUNT_PAY`  CHAR(1) DEFAULT '0';
+ALTER TABLE `BANK` ADD COLUMN `ONLINE_PAY`  CHAR(1) DEFAULT '0';
+ALTER TABLE `BANK` ADD COLUMN `COMPANY_PAY`  CHAR(1) DEFAULT '0';
+ALTER TABLE `BANK` ADD COLUMN `COMMON_PAY`  CHAR(1) DEFAULT '0';
+ALTER TABLE `BANK` ADD COLUMN `PERCH`  VARCHAR(6) DEFAULT NULL;
+
+-- dck 2016-11-23 PRODUCT 表添加是否议价 discuss 字段
+ALTER TABLE `product` ADD COLUMN `discuss`  char(1) NULL DEFAULT '0' AFTER `RISE_DROP`;
+
+-- dck 2016-11-24 PRODUCT 表将价格为 0 的项目改为待议
+UPDATE product SET discuss = '1' WHERE  unit_price = 0;
+INSERT INTO `store_purview` (`ID`, `PARENT_ID`, `CLASS_NAME`, `FULL_PATH`, `STATUS`, `POSITION`, `LEVEL`, `icon`, `DEFAULT_OPEN`, `TOP_ID`) VALUES ('GREEN_PRODUCT_BARGAINING', 'GREEN_PRODUCT', '商品议价管理', '/store/bargain/list/2', '1', '4', '3', NULL, NULL, 'GREEN_MALL');
+
+-- lgy 2016-11-24 订单和危废订单新增银行订单ID字段
+ALTER TABLE `ORDER_FORM` ADD COLUMN `BANK_ORDER_ID`  varchar(10) DEFAULT NULL;
+ALTER TABLE `WF_ORDER` ADD COLUMN `BANK_ORDER_ID`  varchar(10) DEFAULT NULL;
+
+-- dck 2016-11-28 PRODUCT 表去掉 discuss 字段
+ALTER TABLE `product` DROP COLUMN `discuss`;
+
+-- yf 2016-12-22 虚拟账户绑定表AccountBank添加了身份证号码字段INDENTITY
+ALTER TABLE `account_bank`
+ADD COLUMN `INDENTITY`  varchar(32) NULL AFTER `CUSTOMER_TYPE`;
+
+-- pp 2017年1月3日17:13:29 改表字段CONTENT_NAME长度512
+ALTER TABLE `content`
+MODIFY COLUMN `CONTENT_NAME`  varchar(512) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `ID`;
+
+-- pp2017年1月5日11:59:28  改表wf_transport结构PHONE长度增加1为12
+ALTER TABLE `wf_transport`
+MODIFY COLUMN `PHONE`  varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系电话' AFTER `LINK_MAN`;
+
+-- lh 2017-01-05 转移数据
+update account_bank ab set ab.`INDENTITY` = (select s.`ORG_ID` from store as s where s.id = ab.user_id) where ab.INDENTITY is null;
+
+-- =====以上已更新到：本地，测试，正式=====
+
+
+
+
+-- lgy 2017-04-05 资讯表新增读取正文图片并解析保存(危废计算器中使用)
+ALTER TABLE `CONTENT` ADD COLUMN `APP_PIC1`  varchar(128) DEFAULT NULL;
+ALTER TABLE `CONTENT` ADD COLUMN `APP_PIC2`  varchar(128) DEFAULT NULL;
+ALTER TABLE `CONTENT` ADD COLUMN `APP_PIC3`  varchar(128) DEFAULT NULL;
+ALTER TABLE `CONTENT` ADD COLUMN `C_TYPE`  char(1) DEFAULT '0';
+ALTER TABLE `CONTENT` ADD COLUMN `C_LABEL`  VARCHAR(16) DEFAULT NULL;
+INSERT INTO system_param_config (`ID`, `KEY`, `VALUE`, `VALUE_TYPE`, `NOTE`, `TYPE`) VALUES ('81', '资讯单图宽', '1', 'text', '请输入数字', 'appConfig');
+INSERT INTO system_param_config (`ID`, `KEY`, `VALUE`, `VALUE_TYPE`, `NOTE`, `TYPE`) VALUES ('82', '资讯单图高', '1', 'text', '请输入数字', 'appConfig');
+INSERT INTO system_param_config (`ID`, `KEY`, `VALUE`, `VALUE_TYPE`, `NOTE`, `TYPE`) VALUES ('83', '资讯双图宽', '1', 'text', '请输入数字', 'appConfig');
+INSERT INTO system_param_config (`ID`, `KEY`, `VALUE`, `VALUE_TYPE`, `NOTE`, `TYPE`) VALUES ('84', '资讯双图高', '1', 'text', '请输入数字', 'appConfig');
+INSERT INTO system_param_config (`ID`, `KEY`, `VALUE`, `VALUE_TYPE`, `NOTE`, `TYPE`) VALUES ('85', '资讯多图宽', '1', 'text', '请输入数字', 'appConfig');
+INSERT INTO system_param_config (`ID`, `KEY`, `VALUE`, `VALUE_TYPE`, `NOTE`, `TYPE`) VALUES ('86', '资讯多图高', '1', 'text', '请输入数字', 'appConfig');
+INSERT INTO system_param_config (`ID`, `KEY`, `VALUE`, `VALUE_TYPE`, `NOTE`, `TYPE`) VALUES ('87', '资讯标签', '科普;', 'text', '', 'appConfig');
+
+
+INSERT INTO system_param_config (`ID`, `KEY`, `VALUE`, `VALUE_TYPE`, `NOTE`, `TYPE`) VALUES ('88', '核价宝版本号', '1.0', 'text', '', 'ccwccConfig');
+INSERT INTO system_param_config (`ID`, `KEY`, `VALUE`, `VALUE_TYPE`, `NOTE`, `TYPE`) VALUES ('89', '核价宝更新说明', '暂无更新说明', 'textarea', '', 'ccwccConfig');
+INSERT INTO system_param_config (`ID`, `KEY`, `VALUE`, `VALUE_TYPE`, `NOTE`, `TYPE`) VALUES ('90', '核价宝下载地址', 'http://test.sfdhb.com/resources/hjb.apk', 'text', '', 'ccwccConfig');
+INSERT INTO system_param_config (`ID`, `KEY`, `VALUE`, `VALUE_TYPE`, `NOTE`, `TYPE`) VALUES ('91', '核价宝启动广告图', '', 'img', '', 'ccwccConfig');
+INSERT INTO system_param_config (`ID`, `KEY`, `VALUE`, `VALUE_TYPE`, `NOTE`, `TYPE`) VALUES ('92', '核价宝启动广告链接', '', 'text', '', 'ccwccConfig');
+CREATE TABLE `CCWCC_PUSH` (
+  `ID` varchar(32) NOT NULL DEFAULT '',
+  `TITLE` varchar(128) DEFAULT NULL,
+  `CONTENT` varchar(512) DEFAULT NULL,
+  `TYPE` char(1) DEFAULT '0',
+  `SOURCE_ID` varchar(32) DEFAULT NULL,
+  `LINK_URL` varchar(128) DEFAULT NULL,
+  `SHAR_URL` varchar(128) DEFAULT NULL,
+  `STATUS` char(1) DEFAULT '0',
+  `CREATE_TIME` varchar(19) DEFAULT '0',
+  `PUSH_TIME` varchar(19) DEFAULT '0',
+  `SOURCE_NAME` varchar(512) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+insert into shop_purview values('CCWCC','','核价宝',6,1,'1','','','');
+insert into shop_purview values('CCWCC_PUSH','CCWCC','推送管理',1,2,'1','','','CCWCC');
+insert into shop_purview values('CCWCC_PUSH_MANAGE','CCWCC_PUSH','推送管理',1,3,'1','','','CCWCC');
+insert into shop_purview values('CCWCC_PUSH_ADD','CCWCC_PUSH_MANAGE','新增推送',1,4,'1','/system/ccwccpush/add','','CCWCC');
+insert into shop_purview values('CCWCC_PUSH_LIST','CCWCC_PUSH_MANAGE','推送管理',2,4,'1','/system/ccwccpush/list','','CCWCC');
+
+-- 修改商品产地详细地址数据库认长度
+ALTER TABLE product MODIFY habitat_address VARCHAR(128) DEFAULT '';
+
+-- pp、lh commit
+INSERT INTO `vehicle_type` VALUES ('000008', '箱式板车');
+INSERT INTO `vehicle_type` VALUES ('000009', '低栏车');
+INSERT INTO `vehicle_type` VALUES ('000010', '平板车');
+INSERT INTO `vehicle_type` VALUES ('000011', '高栏车');
+INSERT INTO `vehicle_type` VALUES ('000012', '厢式车');
+INSERT INTO `vehicle_type` VALUES ('000013', '集装箱');
+INSERT INTO `vehicle_type` VALUES ('000014', '槽罐车');
+INSERT INTO `vehicle_type` VALUES ('000015', 'CNG');
+INSERT INTO `vehicle_type` VALUES ('000016', 'LNG');
+INSERT INTO `tank_material` VALUES ('00000011', '碳钢');
+INSERT INTO `tank_material` VALUES ('00000012', '内衬滚塑');
+INSERT INTO `tank_material` VALUES ('00000013', '塑料罐(聚丙烯)');
+INSERT INTO `tank_material` VALUES ('00000014', '纯铝罐');
+INSERT INTO `tank_material` VALUES ('00000015', '内衬橡胶');
+INSERT INTO `tank_material` VALUES ('00000016', '玻璃钢');
+INSERT INTO `tank_material` VALUES ('00000017', '聚氨酯');
+
+-- pp 2017年6月29日14:08:24
+INSERT INTO `system_area` VALUES ('000001', '华东', null, null, null, null, '000000', null);
+INSERT INTO `system_area` VALUES ('000002', '华北', null, null, null, null, '000000', null);
+INSERT INTO `system_area` VALUES ('000003', '华中', null, null, null, null, '000000', null);
+INSERT INTO `system_area` VALUES ('000004', '华南', null, null, null, null, '000000', null);
+INSERT INTO `system_area` VALUES ('000005', '西南', null, null, null, null, '000000', null);
+INSERT INTO `system_area` VALUES ('000006', '西北', null, null, null, null, '000000', null);
+INSERT INTO `system_area` VALUES ('000007', '东北', null, null, null, null, '000000', null);
+
+-- PP 2017年6月29日17:45:48
+CREATE TABLE `aptitude` (
+  `ID` varchar(32) NOT NULL DEFAULT "",
+  `TYPE` varchar(1) DEFAULT NULL DEFAULT "",
+  `STATE` varchar(1) DEFAULT NULL DEFAULT "0",
+  `AUTHENTICATOR_ID` varchar(32) DEFAULT "",
+  `MANAGEMENT` varchar(128) DEFAULT "",
+  `MANAGEMENT_NUMBER` varchar(128) DEFAULT "",
+  `MANAGEMENT_PATH` varchar(128) DEFAULT "",
+  `TRANSPORT_NUMBER` varchar(128) DEFAULT "",
+  `TRANSPORT_PATH` varchar(128) DEFAULT "",
+  `DANGER_TRANSPORT_NUMBER` varchar(128) DEFAULT "",
+  `DANGER_TRANSPORT_PATH` varchar(128) DEFAULT "",
+  `SEWAGE_PERMIT_NUMBER` varchar(128) DEFAULT "",
+  `SEWAGE_PERMIT_PATH` varchar(128) DEFAULT "",
+  `AUDITOR_ID` varchar(32) DEFAULT "",
+  `AUDIT_TIME` varchar(32) DEFAULT "",
+  `REMARKS` varchar(255) DEFAULT "",
+  PRIMARY KEY (`ID`)
+);
+-- yf 2017年7月19日11:18:19 物流宝版本实体
+CREATE TABLE `version` (
+`ID`  varchar(32) NOT NULL,
+`TYPE`  varchar(32) NULL DEFAULT "" COMMENT 'app类型',
+`NUM`  varchar(32) NULL DEFAULT "" COMMENT '版本号',
+`DESCRIPTION`  varchar(400) NULL DEFAULT "" COMMENT '版本说明',
+`URL`  varchar(150) NULL DEFAULT "" COMMENT '下载链接',
+`UPDATETIME`  varchar(32) NULL DEFAULT "" COMMENT '更新时间',
+`NEWVERSION`  varchar(32) NULL DEFAULT "" COMMENT '最新版本',
+PRIMARY KEY (`ID`)
+)
+;
+-- yf 2017年7月11日14:16:57 危废运输表增加货物体积,有效时间,车牌号
+ALTER TABLE `wf_transport` ADD COLUMN `CARGO_VOLUME`  decimal(32,0) NULL DEFAULT NULL COMMENT '货物体积';
+ALTER TABLE `wf_transport` ADD COLUMN `VALID_TIME`  varchar(32) NULL DEFAULT "" COMMENT '货源有效时间';
+ALTER TABLE `wf_transport` ADD COLUMN `CAR_NUMBER`  varchar(32) NULL DEFAULT "" COMMENT '车牌号';
+ALTER TABLE `wf_transport` ADD COLUMN `START_HABITATADDRESS`  varchar(64) NULL DDEFAULT "" COMMENT '装货详细地址';
+ALTER TABLE `wf_transport` ADD COLUMN `END_HABITATADDRESS`  varchar(64) NULL DEFAULT "" COMMENT '卸货详细地址';
+ALTER TABLE `wf_transport` ADD COLUMN `BAR_COUNT`  int(10) NULL DEFAULT 0 COMMENT '议价信息条数';
+ALTER TABLE `wf_transport` ADD COLUMN `VOLUME_UNIT`  varchar(10) NULL DEFAULT "m³" COMMENT '体积单位';
+-- yf 新建物流宝用户常用地址表
+CREATE TABLE `address` (
+  `ID` varchar(32) NOT NULL,
+  `USERID` varchar(32) DEFAULT NULL COMMENT '用户ID',
+  `PROVINCEID` varchar(32) DEFAULT NULL COMMENT '省级ID',
+  `CITYID` varchar(32) DEFAULT NULL COMMENT '市级ID',
+  `AREAID` varchar(32) DEFAULT NULL COMMENT '区级ID',
+  `PROVINCENAME` varchar(32) DEFAULT NULL COMMENT '省级名称',
+  `CITYNAME` varchar(32) DEFAULT NULL COMMENT '市级名称',
+  `AREANAME` varchar(32) DEFAULT NULL COMMENT '区级名称',
+  `HABITATADDRESS` varchar(32) DEFAULT NULL COMMENT '详细地址',
+  PRIMARY KEY (`ID`)
+);
+-- yf 2017年7月11日14:28:36 新建车辆长宽高数据表
+CREATE TABLE `carckg` (
+  `ID` varchar(32) NOT NULL,
+  `CARLENGTH` varchar(32) DEFAULT "" COMMENT '车长',
+  `CARWIDTH` varchar(32) DEFAULT "" COMMENT '车宽',
+  `CARHIGHT` varchar(32) DEFAULT "" COMMENT '车高',
+  PRIMARY KEY (`ID`)
+);
+
+-- yf 2017年7月11日14:34:30 新建车辆载重信息表
+CREATE TABLE `capacity` (
+  `ID` varchar(32) NOT NULL,
+  `WFPTOTAL` varchar(32) DEFAULT "" COMMENT '车辆载重',
+  PRIMARY KEY (`ID`)
+);
+
+-- pp 2017年7月12日16:32:20 新增三分地环保后台物流宝推送管理丶资质认证
+INSERT INTO `shop_purview` VALUES ('WLB', '', '物流宝', '7', '1', '1', '', '', '');
+INSERT INTO `shop_purview` VALUES ('WLB_PUSH', 'WLB', '推送管理', '1', '2', '1', '', '', 'WLB');
+INSERT INTO `shop_purview` VALUES ('WLB_PUSH_MANAGE', 'WLB_PUSH', '推送管理', '1', '3', '1', '', '', 'WLB');
+INSERT INTO `shop_purview` VALUES ('WLB_PUSH_ADD', 'WLB_PUSH_MANAGE', '新增推送', '1', '4', '1', '/system/wlbpush/add', '', 'WLB');
+INSERT INTO `shop_purview` VALUES ('WLB_PUSH_LIST', 'WLB_PUSH_MANAGE', '推送管理', '2', '4', '1', '/system/wlbpush/list', '', 'WLB');
+INSERT INTO `shop_purview` VALUES ('WLB_ZZRZ', 'WLB', '资质认证', '2', '2', '1', '', '', 'WLB');
+INSERT INTO `shop_purview` VALUES ('WLB_ZZRZ_MANAGE', 'WLB_ZZRZ', '认证管理', '1', '3', '1', '', '', 'WLB');
+INSERT INTO `shop_purview` VALUES ('WLB_ZZRZ_LIST', 'WLB_ZZRZ_MANAGE', '认证管理', '1', '4', '1', '/system/wlbzzrz/list', '', 'WLB');
+INSERT INTO `shop_purview` VALUES ('WLB_PUSH_AD_MANAGE', 'WLB_PUSH', '广告管理', '2', '3', '1', '', '', 'WLB');
+INSERT INTO `shop_purview` VALUES ('WLB_PUSH_AD_ADD', 'WLB_PUSH_AD_MANAGE', '新增广告', '1', '4', '1', '/system/wlbad/add', '', 'WLB');
+INSERT INTO `shop_purview` VALUES ('WLB_PUSH_AD_LIST', 'WLB_PUSH_AD_MANAGE', '广告管理', '2', '4', '1', '/system/wlbad/list', '', 'WLB');
+
+-- pp 2017年7月19日10:11:07 议价表增加商品名字段  更新时间字段  买家备注字段 买家备注字段
+ALTER TABLE `bargain` ADD COLUMN `PRODUCT_NAME`  varchar(128) NULL DEFAULT "" COMMENT '商品名';
+ALTER TABLE `bargain` ADD COLUMN `UPDATE_TIME`  varchar(128) NULL DEFAULT "" COMMENT '更新时间';
+ALTER TABLE `bargain` ADD COLUMN `BUYER_REMARKS`  varchar(1024) NULL DEFAULT "" COMMENT '买家备注字段';
+ALTER TABLE `bargain` ADD COLUMN `SELLER_REMARKS`  varchar(1024) NULL DEFAULT "" COMMENT '买家备注字段';
+
+-- pp 2017年7月24日14:47:42 物流宝资质认证新增"排污许可证附件图片保存路径"字段
+ALTER TABLE `APTITUDE` ADD COLUMN `SEWAGE_PERMIT_ENCLOSURE_PATH`  varchar(128) NULL DEFAULT "" COMMENT '排污许可证附件图片保存路径';
+
+--PP 2017年7月25日11:48:53 物流宝广告表新增 "物流宝广告配置" 字段
+ALTER TABLE `SHOP_AD` ADD COLUMN `IS_CONFIGURE`  varchar(1) NULL DEFAULT "" COMMENT '广告配置';
+
+-- pp 2017年7月26日10:47:42 物流宝资质认证新增字段
+ALTER TABLE `APTITUDE` ADD COLUMN `NAME`  varchar(128)  NULL DEFAULT "" COMMENT '用户名';
+ALTER TABLE `APTITUDE` ADD COLUMN `NICK_NAME`  varchar(128)  NULL DEFAULT "" COMMENT '用户昵称';
+
+-- PP 2017年7月27日10:02:26 议价表新增字段
+ALTER TABLE `bargain` ADD COLUMN `START_PULL_PATH`  varchar(128) NULL DEFAULT "" COMMENT '出发地';
+ALTER TABLE `bargain` ADD COLUMN `END_FULL_PATH`  varchar(128) NULL DEFAULT "" COMMENT '目的地';
+ALTER TABLE `bargain` ADD COLUMN `SELLER_CONTACT_STATE`  varchar(1) NULL DEFAULT "0" COMMENT '卖家是否已联系 (0:未联系,1:已联系)';
+--yf 2017年7月27日10:16:22 物流宝留言反馈表
+CREATE TABLE `MESSAGEBACK` (
+`ID`  varchar(32) NOT NULL DEFAULT "" COMMENT '主键',
+`CONTENT`  varchar(512) NULL DEFAULT "" COMMENT '用户留言内容',
+`USERID`  varchar(32) NULL DEFAULT "" COMMENT '用户id',
+`CREATETIME`  varchar(32) NULL DEFAULT "" COMMENT '创建时间',
+PRIMARY KEY (`ID`)
+)
+;
+
+-- PP 2017年7月27日14:05:22 用户表新增用户token字段
+ALTER TABLE `CUSTOMER` ADD COLUMN `WLB_TOKEN`  varchar(128) NULL DEFAULT "" COMMENT '物流宝用户token';
+ALTER TABLE `customer` ADD COLUMN `REGISTRATION_ID`  varchar(128) NULL DEFAULT "" COMMENT '极光推送的设备唯一性标识';
+
+-- PP 2017年8月11日09:59:40 车辆信息表CarInfo新增字段
+ALTER TABLE `CAR_INFO` ADD COLUMN `WFPYS_NAME`  varchar(128) NULL DEFAULT "" COMMENT '经营范围';
+ALTER TABLE `CAR_INFO` ADD COLUMN `WFPYS_PARENT_ID`  varchar(128) NULL DEFAULT "" COMMENT '经营范围危废品运输界定ID';
+ALTER TABLE `CAR_INFO` ADD COLUMN `TANK_MATERIAL_NAME`  varchar(128) NULL DEFAULT "" COMMENT '经营范围';
+ALTER TABLE `CAR_INFO` ADD COLUMN `LINK_MAN`  varchar(32) NULL DEFAULT "" COMMENT '主车司机姓名';
+ALTER TABLE `CAR_INFO` ADD COLUMN `PHONE`  varchar(32) NULL DEFAULT "" COMMENT '主车司机电话';
+ALTER TABLE `CAR_INFO` ADD COLUMN `UNIT`  varchar(32) NULL DEFAULT "" COMMENT '载重单位';
+
+-- pp 2017年8月14日11:18:35 
+ALTER TABLE `CAR_INFO` ADD COLUMN `CAR_LENGTH`   decimal(13,2) NULL DEFAULT NULL COMMENT '车长';
+ALTER TABLE `CAR_INFO` ADD COLUMN `CAR_WIDTH`  decimal(13,2) NULL DEFAULT NULL COMMENT '车宽';
+ALTER TABLE `CAR_INFO` ADD COLUMN `CAR_HEIGHT`  decimal(13,2) NULL DEFAULT NULL COMMENT '车高';
+ALTER TABLE `wf_transport` ADD COLUMN `CAR_WIDTH`  decimal(13,2) NULL DEFAULT NULL COMMENT '车宽';
+ALTER TABLE `wf_transport` ADD COLUMN `CAR_HEIGHT`  decimal(13,2) NULL DEFAULT NULL COMMENT '车高';
+ALTER TABLE `wf_transport` ADD COLUMN `CAR_LENGTH`  decimal(13,2) NULL DEFAULT NULL COMMENT '车长';
+
+--PP 2017年8月15日12:00:01 
+ALTER TABLE `CAR_INFO` ADD COLUMN `SIZE_UNIT`  varchar(12) NULL DEFAULT "" COMMENT '车辆尺寸单位 ';
+ALTER TABLE `wf_transport` ADD COLUMN `SIZE_UNIT`  varchar(12) NULL DEFAULT "" COMMENT '车辆尺寸单位 ';
+
+-- pp 2017年8月15日16:20:04 
+ALTER TABLE `INQUIRY` ADD COLUMN `BUYER_REMARKS`  varchar(1024) NULL DEFAULT "" COMMENT '买家备注';
+ALTER TABLE `INQUIRY` ADD COLUMN `SELLER_REMARKS`  varchar(1024) NULL DEFAULT "" COMMENT '卖家备注';
+ALTER TABLE `INQUIRY` ADD COLUMN `SELLER_CONTACT_STATE`  varchar(1) NULL DEFAULT "0" COMMENT '卖家是否已联系 (0:未联系,1:已联系) 默认 0';
+
+-- pp 2017年8月18日14:40:15  罐体材质表增加车辆类型id字段 删除罐体材质表和车辆类型所有的数据 添加新的数据
+ALTER TABLE `TANK_MATERIAL` ADD COLUMN `VEHICLE_TYPE_ID`  varchar(32) NULL DEFAULT "" COMMENT '车辆类型id';
+delete from TANK_MATERIAL;
+delete from VEHICLE_TYPE;
+INSERT INTO `vehicle_type` VALUES ('000001', '罐式货车');
+INSERT INTO `vehicle_type` VALUES ('000002', '仓栏货车');
+INSERT INTO `vehicle_type` VALUES ('000003', '集装箱货车');
+INSERT INTO `vehicle_type` VALUES ('000004', '平板货车');
+INSERT INTO `vehicle_type` VALUES ('000005', '特种货车');
+INSERT INTO `vehicle_type` VALUES ('000006', '厢式货车');
+
+INSERT INTO `tank_material` VALUES ('00000001', '铝合金', '000001');
+INSERT INTO `tank_material` VALUES ('00000002', '不锈钢', '000001');
+INSERT INTO `tank_material` VALUES ('00000003', '不锈钢保温', '000001');
+INSERT INTO `tank_material` VALUES ('00000004', '不锈钢保温带加热槽', '000001');
+INSERT INTO `tank_material` VALUES ('00000005', '压力罐', '000001');
+INSERT INTO `tank_material` VALUES ('00000006', '碳钢', '000001');
+INSERT INTO `tank_material` VALUES ('00000007', '铁罐', '000001');
+INSERT INTO `tank_material` VALUES ('00000008', '塑料罐(聚丙烯)', '000001');
+INSERT INTO `tank_material` VALUES ('00000010', '玻璃钢', '000001');
+INSERT INTO `tank_material` VALUES ('00000011', '聚氨酯', '000001');
+INSERT INTO `tank_material` VALUES ('00000012', '橡胶罐', '000001');
+INSERT INTO `tank_material` VALUES ('00000013', '高栏', '000002');
+INSERT INTO `tank_material` VALUES ('00000014', '中栏', '000002');
+INSERT INTO `tank_material` VALUES ('00000015', '低栏', '000002');
+INSERT INTO `tank_material` VALUES ('00000016', '保温', '000003');
+INSERT INTO `tank_material` VALUES ('00000017', '冷藏', '000003');
+INSERT INTO `tank_material` VALUES ('00000018', '通风', '000003');
+INSERT INTO `tank_material` VALUES ('00000019', '隔热', '000003');
+INSERT INTO `tank_material` VALUES ('00000020', '罐式', '000003');
+INSERT INTO `tank_material` VALUES ('00000021', '台架', '000003');
+INSERT INTO `tank_material` VALUES ('00000022', '平板', '000003');
+INSERT INTO `tank_material` VALUES ('00000023', '敞顶', '000003');
+INSERT INTO `tank_material` VALUES ('00000024', 'CNG', '000005');
+INSERT INTO `tank_material` VALUES ('00000025', 'LNG', '000005');
+INSERT INTO `tank_material` VALUES ('00000026', 'LGPV', '000005');
+INSERT INTO `tank_material` VALUES ('00000027', '保温', '000006');
+INSERT INTO `tank_material` VALUES ('00000028', '冷藏', '000006');
+INSERT INTO `tank_material` VALUES ('00000029', '通风', '000006');
+INSERT INTO `tank_material` VALUES ('00000030', '隔热', '000006');
+INSERT INTO `tank_material` VALUES ('00000031', '平板', '000004');
+
+-- PP 2017年8月23日14:30:27 物流宝资质认证添加创建时间丶更新时间;shop_purview 添加留言反馈丶车源管理丶货源管理
+ALTER TABLE `APTITUDE` ADD COLUMN `CREATE_TIME`  varchar(32) NULL DEFAULT "" COMMENT '创建时间';
+ALTER TABLE `APTITUDE` ADD COLUMN `UPDATE_TIME`  varchar(32) NULL DEFAULT "" COMMENT '更新时间';
+INSERT INTO `shop_purview` VALUES ('WFYS_HY_GL', 'WFYS_GL', '危废货源管理', '5', '4', '1', '/sysytem/wftransport/wfysGL/1', '', 'PRODUCT');
+INSERT INTO `shop_purview` VALUES ('WFYS_CL_GL', 'WFYS_GL', '危废车辆管理', '6', '4', '1', '/sysytem/wftransport/wfysGL/0', '', 'PRODUCT');
+INSERT INTO `shop_purview` VALUES ('WLB_LYFK', 'WLB', '留言反馈', '3', '2', '1', '', '', 'WLB');
+INSERT INTO `shop_purview` VALUES ('WLB_LYFK_MANAGE', 'WLB_LYFK', '反馈管理', '1', '3', '1', '', '', 'WLB');
+INSERT INTO `shop_purview` VALUES ('WLB_LYFK_LIST', 'WLB_LYFK_MANAGE', '反馈管理', '1', '4', '1', '/system/wlblyfk/list', '', 'WLB');
+
+-- PP 2017年8月24日15:01:12 物流宝留言反馈添加 字段
+ALTER TABLE `MESSAGEBACK` ADD COLUMN `TYPE`  varchar(2) NULL DEFAULT "2" COMMENT '是否反馈';
+ALTER TABLE `MESSAGEBACK` ADD COLUMN `FEEDBACK_CONTENT`  varchar(1024) NULL DEFAULT "" COMMENT '反馈内容';
+ALTER TABLE `MESSAGEBACK` ADD COLUMN `FEEDBACK_ID`  varchar(32) NULL DEFAULT "" COMMENT '反馈人ID';
+ALTER TABLE `MESSAGEBACK` ADD COLUMN `FEEDBACK_MAN`  varchar(32) NULL DEFAULT "" COMMENT '反馈人';
+ALTER TABLE `MESSAGEBACK` ADD COLUMN `FEEDBACK_TIME`  varchar(32) NULL DEFAULT "" COMMENT '反馈时间';
+ALTER TABLE `MESSAGEBACK` ADD COLUMN `USER_NAME`  varchar(32) NULL DEFAULT "" COMMENT '用户名';
+ALTER TABLE `MESSAGEBACK` ADD COLUMN `NICK_NAME`  varchar(32) NULL DEFAULT "" COMMENT '用户昵称';
+
+
+-- pp 2017年8月28日11:13:42 地区表更改
+UPDATE system_area SET AREA_NAME = "市辖区" WHERE REGION_CODE = "110100";
+UPDATE system_area SET AREA_NAME = "县" WHERE REGION_CODE = "110200";
+UPDATE system_area SET AREA_NAME = "市辖区" WHERE REGION_CODE = "120100";
+
+-- pp 2017年8月29日10:47:49 
+UPDATE shop_purview SET CLASS_NAME = "危废车源审核" WHERE ID = "WFYS_CLGL";
+UPDATE shop_purview SET CLASS_NAME = "危废车源管理" WHERE ID = "WFYS_CL_GL";
+
+--pp 2017年9月1日14:19:55
+INSERT INTO `shop_purview` VALUES ('WLB_BB', 'WLB', '版本管理', '4', '2', '1', '', '', 'WLB');
+INSERT INTO `shop_purview` VALUES ('WLB_BB_MANAGE', 'WLB_BB', '版本管理', '1', '3', '1', '', '', 'WLB');
+INSERT INTO `shop_purview` VALUES ('WLB_BB_ADD', 'WLB_BB_MANAGE', '新增版本', '1', '4', '1', '/system/wlbversion/add', '', 'WLB');
+INSERT INTO `shop_purview` VALUES ('WLB_BB_LIST', 'WLB_BB_MANAGE', '版本管理', '1', '4', '1', '/system/wlbversion/list', '', 'WLB');
+
+-- pp 2017年9月6日17:26:59
+UPDATE wfpys SET PARENT_ID = "" WHERE PARENT_ID is NULL;
+
+-- PP 2017年9月12日16:29:33
+ALTER TABLE `INQUIRY` ADD COLUMN `UNIT`  varchar(32) NULL DEFAULT "" COMMENT '价格单位';
+
+-- yf 2017年10月9日17:18:15
+UPDATE `store_purview` SET `FULL_PATH`='/store/wftransport/getList/0/0' WHERE (`ID`='WFYS_WFCY_LIST');
+UPDATE `store_purview` SET `FULL_PATH`='/store/wftransport/getList/1/0' WHERE (`ID`='WFYS_WFHY_LIST');
+
+-- lgy 2017-10-16 用户表新增支持建行支付的ID
+ALTER TABLE  `CUSTOMER` ADD COLUMN `CCB_USER_ID`  varchar(20) NULL DEFAULT "" COMMENT '用于给建行支付的用户ID';
+
+-- PP 2017年10月23日13:50:40
+ALTER TABLE `STORE` ADD COLUMN `ISDATA_SYNCHRO`  char(1) NULL DEFAULT "0" COMMENT '是否被同步到三分地环保大数据平台';
+
+-- pp 2017年10月25日15:40:06 
+ ALTER TABLE `PRECIOUS_METAL_DETAIL`
+ADD COLUMN `SMM_ID`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT "" COMMENT '上海有色金属ID' AFTER `END_PRICE`;
+
+-- yf 2017年11月1日15:46:32 物流宝新增用户关注关系实体
+CREATE TABLE `ATTENTION` (
+`ID`  varchar(32) NOT NULL ,
+`USERID`  varchar(32) NULL ,
+`FRIENDID`  varchar(32) NULL ,
+`CREATE_TIME`  varchar(32) NULL ,
+PRIMARY KEY (`ID`)
+)ENGINE=INNODB DEFAULT CHARSET=UTF8 COMMENT='物流宝用户关注表';
+
+-- pp 2017年11月3日09:46:41 询价表  议价表  新增字段 'IF_ACCEPT' :是否接受询价议价
+ ALTER TABLE `INQUIRY`
+ADD COLUMN `IF_ACCEPT`  char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT "0" COMMENT '是否接受询价';
+ ALTER TABLE `bargain`
+ADD COLUMN `IF_ACCEPT`  char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT "0" COMMENT '是否接受议价';
+
+-- yf 2017年11月8日10:31:28 危废运输实体表中添加字段IS_ATTENTION:是否被关注
+ALTER TABLE `wf_transport`
+ADD COLUMN `IS_ATTENTION`  varchar(1) NULL AFTER `SIZE_UNIT`;
+
+-- lihong 2017年11月20日14:36:51 新增危费订单九鼎支付id关联关系表
+DROP TABLE IF EXISTS `WF_ORDER_JIUDINGPAY_REL`;
+CREATE TABLE `WF_ORDER_JIUDINGPAY_REL` (
+  `ID` varchar(32) NOT NULL,
+  `WF_ORDER_ID` varchar(32) NOT NULL,
+  `STATUS` char(1) NOT NULL DEFAULT '0'
+) default charset=utf8;
+
+-- pp 2017年11月23日09:20:45
+ ALTER TABLE `PRECIOUS_METAL`
+ADD COLUMN `SMM_ID`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT "" COMMENT '上海有色金属ID';

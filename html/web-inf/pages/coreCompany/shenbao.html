@@ -1,0 +1,564 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>报废登记</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<link rel="shortcut icon" href="../../../resources/commons/images/favicon.ico" type="image/x-icon">
+<link href="../../../resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/userCenter/coreCompany/css/style.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/userCenter/commons/css/proAdd.css" rel="stylesheet" type="text/css">
+<style>
+.endNum{width:20%;}
+
+.tabNav{height:35px; line-height:35px; border-bottom:solid 2px #FF4100; margin-bottom:20px; background-color:#fff;}
+.tabNav li{width:134px; height:35px; float:left; text-align:center; font-size:18px; cursor:pointer;}
+.tabNav li.cur{background:#FF4100; color:#fff;}
+
+.tabContent{display:none;}
+.tabContent h3{font-size:16px; line-height:30px; height:30px; color:#484848; font-weight:normal; border-bottom:solid 1px #FF4100; margin-bottom:16px;}
+.box80,.inputSplit{display:inline-block;}
+.box80{width:95px;}
+.editorForm dt{height:30px; line-height:30px;}
+.editorForm{padding-bottom:20px;}
+
+.danxuan input,.fuxuan input{float:left; display:block;}
+span.pp{cursor:pointer; display:block; float:left; width:27px; height:28px; border:1px solid #e0e3ea; margin-left:-1px; position:relative; background:url(../../../resources/userCenter/commons/images/rightpoint2.png) no-repeat center center;}
+span.pp:hover{background:url(../../../resources/userCenter/commons/images/rightpoint.png) #999 no-repeat center center; width:29px; height:30px; border:none;}
+
+.company{padding-bottom:20px;}
+.company ul{float:left; width:890px;}
+.company li{height:30px; line-height:30px; padding-left:30px; position:relative; float:left; padding-right:30px;}
+.company li input{display:block; top:10px; left:10px; position:absolute;}
+.company h4{font-size:14px; line-height:30px; float:left; margin-right:20px; width:74px;}
+
+.alertBrand{max-height:440px;}
+.alertBrand .btn{padding-left:110px;}
+.classItem{width:30%; margin:0 1.5%; float:left; height:50px; line-height:50px; border-bottom:solid 1px #e4e4e4;}
+.classItem label{display:block;}
+.classItem input{display:block; float:left; margin:19px 10px 0 8px;}
+.alertBrand .pageSize{padding:20px 20px 0 0;}
+</style>
+</head>
+
+<body>
+<!--头部-->
+<div class="wrapper topArea">
+  <h1 class="logo">
+    <a href="javascript:void(0)" title="鑫裕环保供应链平台">
+    	<img src="../../../resources/commons/images/logo.png" alt="鑫裕环保供应链平台">
+    </a>
+  </h1>
+  <div class="topRight">
+    <a href="javascript:void(0)" class="linkIndex">首页</a>
+    <span class="topItem">您好，云飞扬</span>
+    <span class="topItem"><a href="javascript:void(0)">消息(99)</a></span>
+    <span class="topItem"><a href="javascript:void(0)">帮助中心</a></span>
+    <span class="topItem itemLast"><a href="javascript:void(0)">安全退出</a></span>
+    <em class="split"></em>
+    <span class="telPhone">4000-888-1000</span>
+  </div>
+  <div class="clear"></div>
+</div>
+
+<div class="logoBar">
+  <div class="wrapper">
+  	<a href="javascript:void(0)" class="logoName">核心企业-企业中心</a>
+    <div class="nav">
+      <a href="javascript:void(0)" class="navItem">订单管理</a>
+      <a href="javascript:void(0)" class="navItem">金融管理</a>
+      <a href="javascript:void(0)" class="navItem">企业认证</a>
+      <a href="javascript:void(0)" class="navItem">账户管理</a>
+    </div>
+  </div>
+</div>
+<!--头部end-->
+<div class="main">
+	<div class="wrapper">
+    	<!--左侧菜单-->
+        <div class="leftNav budong">
+            <h2><a href="javascript:void(0)">管理中心首页</a></h2>
+            <dl class="leftList">
+                <dt>采购管理<em class="itemIco"></em></dt>
+                <dd>
+                    <a href="javascript:void(0)">商品管理</a>
+                    <a href="javascript:void(0)">订单管理</a>
+                    <a href="javascript:void(0)">议价管理</a>
+                </dd>
+            </dl>
+            <dl class="leftList">
+                <dt>供应管理<em class="itemIco"></em></dt>
+                <dd>
+                    <a href="javascript:void(0)">商品管理</a>
+                    <a href="javascript:void(0)">订单管理</a>
+                    <a href="javascript:void(0)">议价管理</a>
+                    <a href="javascript:void(0)">优选商城订单管理</a>
+                </dd>
+            </dl>
+            <dl class="leftList">
+                <dt>商品管理<em class="itemIco"></em></dt>
+                <dd>
+                    <a href="javascript:void(0)" class="cur">发布新商品</a>
+                    <a href="javascript:void(0)">仓库中的商品</a>
+                    <a href="javascript:void(0)">出售中的商品</a>
+                </dd>
+            </dl>
+            <dl class="leftList">
+                <dt>金融管理<em class="itemIco"></em></dt>
+                <dd>
+                    <a href="javascript:void(0)">订单借贷申请</a>
+                    <a href="javascript:void(0)">订单借贷管理</a>
+                    <a href="javascript:void(0)">信用借贷申请</a>
+                    <a href="javascript:void(0)">信用借贷管理</a>
+                    <a href="javascript:void(0)">还款记录</a>
+                </dd>
+            </dl>
+            <dl class="leftList">
+                <dt>企业认证<em class="itemIco"></em></dt>
+                <dd>
+                    <a href="javascript:void(0)">企业自助备案</a>
+                    <a href="javascript:void(0)">企业信用测算</a>
+                </dd>
+            </dl>
+            <dl class="leftList">
+                <dt>账户管理<em class="itemIco"></em></dt>
+                <dd>
+                    <a href="javascript:void(0)">基本资料管理</a>
+                    <a href="javascript:void(0)">账户资金管理</a>
+                    <a href="javascript:void(0)">安全设置</a>
+                </dd>
+            </dl>
+            <dl class="leftList">
+                <dt>银行卡管理<em class="itemIco"></em></dt>
+                <dd>
+                    <a href="javascript:void(0)">绑定银行卡</a>
+                    <a href="javascript:void(0)">银行卡管理</a>
+                </dd>
+            </dl>
+        </div>
+    
+        <!--左侧菜单 end-->
+    	<div class="rightContent">
+            <div class="contentTit budong borderColor">
+                <h3>新增报废登记</h3>
+                <a href="javascript:void(0);" class="btnBase btnCancel">取消</a>
+                <a href="javascript:void(0);" class="btnBase btnSave">保存</a>
+                <div class="clear"></div>
+            </div>
+            <div class="form borderColor">
+                <ul class="tabNav">
+                    <li class="cur">基本信息</li>
+                    <li>危废品情况</li>
+                </ul>
+                <div class="tabContent">
+                	<dl class="formItem formLine">
+                        <dt style="width:88px;"><em class="mustIco"></em>危废处置合同</dt>
+                        <dd class="danxuan">
+                          <input name="" type="text" class="textBox box300" value="">
+                          <span class="pp" title="选择危废处置合同"></span>
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <div class="clear"></div>
+                    <div class="company">
+                        <h4><em class="mustIco"></em>运输企业</h4>
+                        <ul>
+                            <li><label><input name="" type="checkbox" value="">成都易科远见科技有限公司</label></li>
+                            <li><label><input name="" type="checkbox" value="">成都易科远见科技有限公司</label></li>
+                            <li><label><input name="" type="checkbox" value="">成都易科远见科技有限公司</label></li>
+                            <li><label><input name="" type="checkbox" value="">成都易科远见科技有限公司</label></li>
+                            <li><label><input name="" type="checkbox" value="">成都易科远见科技有限公司</label></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                    
+                    <h3>产生单位</h3>
+                    <dl class="formItem">
+                        <dt><em class="mustIco"></em>单位名称</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt><em class="mustIco"></em>单位地址</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt><em class="mustIco"></em>邮政编码</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt><em class="mustIco"></em>联系人</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt><em class="mustIco"></em>联系电话</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <div class="clear"></div>
+                    <h3>运输单位</h3>
+                    <dl class="formItem">
+                        <dt><em class="mustIco"></em>单位名称</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt><em class="mustIco"></em>单位地址</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt><em class="mustIco"></em>邮政编码</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt><em class="mustIco"></em>联系人</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem" style="width:318px; margin-right:0;">
+                        <dt><em class="mustIco"></em>联系电话</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem" style="width:360px;">
+                        <dt style="width:122px;"><em class="mustIco"></em>运输经营许可证号</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt><em class="mustIco"></em>发证机关</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <div class="clear"></div>
+                    <h3>接收单位</h3>
+                    <dl class="formItem">
+                        <dt><em class="mustIco"></em>单位名称</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt><em class="mustIco"></em>单位地址</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt><em class="mustIco"></em>邮政编码</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt><em class="mustIco"></em>联系人</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem" style="width:318px; margin-right:0;">
+                        <dt><em class="mustIco"></em>联系电话</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem" style="width:360px;">
+                        <dt style="width:122px;"><em class="mustIco"></em>危废经营许可证号</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt><em class="mustIco"></em>发证机关</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt><em class="mustIco"></em>有效期</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box80" value="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+                          <span class="inputSplit">&mdash;</span>
+                          <input name="" type="text" class="textBox box80" value="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <div class="clear"></div>
+                </div>
+                <div class="tabContent">
+                	<h3>废物产生情况</h3>
+                	<dl class="formItem">
+                        <dt><em class="mustIco"></em>废物名称</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt><em class="mustIco"></em>废物代码</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt><em class="mustIco"></em>危险特性</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt><em class="mustIco"></em>形态</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt><em class="mustIco"></em>拟转移批次</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt><em class="mustIco"></em>本次转移</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="" placeholder="单位：吨">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt><em class="mustIco"></em>转移时间</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box80" value="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+                          <span class="inputSplit">&mdash;</span>
+                          <input name="" type="text" class="textBox box80" value="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <div class="clear"></div>
+                    <div class="priceZone">
+                        <a href="javascript:addChild();"  class="btnBase addChenfen">添加成分比例</a>
+                        <span class="hint">设置成分比例</span>
+                        <div class="pfPriceList" id="guigeList">
+                            <div class="listHeader">
+                                <div class="listTd startNum">名称</div>
+                                <div class="listTd endNum">数量</div>
+                                <div class="listTd endNum">单位</div>
+                                <div class="listTd listSet">操作</div>
+                            </div>
+                            <div class="listItem">
+                                <div class="listTd startNum"><input name="endNum" type="text" class="textBox box148"></div>
+                                <div class="listTd endNum"><input name="endNum" type="text" class="textBox box50" value="0"></div>
+                                <div class="listTd endNum"><input name="endNum" type="text" class="textBox box50"></div>
+                                <div class="listTd listSet"></div>
+                                <input type="hidden" name="productPrices" class="productPrices">
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <dl class="editorForm">
+                    	<dt><em class="mustIco"></em>废物产生环节及生产工艺流程</dt>
+                        <dd><textarea name="" cols="" rows="" class="ckeditor" id="editor1"></textarea></dd>
+                    </dl>
+                    <h3>废物处置利用情况</h3>
+                    <dl class="formItem formLine">
+                        <dt><em class="mustIco"></em>处置方式</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="editorForm">
+                    	<dt><em class="mustIco"></em>处置利用说明</dt>
+                        <dd><textarea name="" cols="" rows="" class="ckeditor" id="editor1"></textarea></dd>
+                    </dl>
+                    <h3>废物包装、运输情况</h3>
+                    <dl class="formItem">
+                        <dt><em class="mustIco"></em>包装方式</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt><em class="mustIco"></em>运输工具</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem">
+                        <dt><em class="mustIco"></em>运输方式</dt>
+                        <dd>
+                          <input name="" type="text" class="textBox box212" value="">
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                    <dl class="formItem formLine">
+                        <dt><em class="mustIco"></em>运输路线</dt>
+                        <dd>
+                          <textarea name="" cols="" rows="" maxlength="300"></textarea>
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<div class="apLayerBg"></div>
+<div class="apLayer borderColor alertBrand apConfirm" id="hetong">
+	<div class="apTit">
+    	<span class="apClose"></span>
+        危废处置合同选择
+    </div>
+    <div class="apContent">
+    	<div class="shopSearch">
+            <dl class="formItem">
+                <dt>商品名</dt>
+                <dd>
+                <input name="" type="text" class="textBox box212" value="">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <dl class="formItem">
+                <dt>商品名</dt>
+                <dd>
+                <input name="" type="text" class="textBox box212" value="">
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+        </div>
+        <div class="btn">
+            <a href="javascript:void(0);" class="btnBase">搜索</a>
+            <a href="javascript:void(0);" class="btnBase">重置</a>
+        </div>
+        <div class="itemLayer">
+            <div class="classItem">
+            	<label>
+                    <input name="yayun" type="radio" value="">
+                    iphone5S
+                </label>
+            </div>
+            <div class="classItem">
+            	<label>
+                    <input name="yayun" type="radio" value="">
+                    iphone5S
+                </label>
+            </div>
+            <div class="classItem">
+            	<label>
+                    <input name="yayun" type="radio" value="">
+                    iphone5S
+                </label>
+            </div>
+            <div class="classItem">
+            	<label>
+                    <input name="yayun" type="radio" value="">
+                    iphone5S
+                </label>
+            </div>
+            <div class="classItem">
+            	<label>
+                    <input name="yayun" type="radio" value="">
+                    iphone5S
+                </label>
+            </div>
+            <div class="classItem">
+            	<label>
+                    <input name="yayun" type="radio" value="">
+                    iphone5S
+                </label>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="pageSize">
+            <a href="javascript:void(0);" class="btn pageControl">&lt;&lt;</a>
+            <a href="javascript:void(0);" class="btn pageControl">&lt;</a>
+            <a href="javascript:void(0);" class="btn">1</a>
+            <a href="javascript:void(0);" class="btn">2</a>
+            <a href="javascript:void(0);" class="btn cur">3</a>
+            <a href="javascript:void(0);" class="btn">4</a>
+            <a href="javascript:void(0);" class="btn">5</a>
+            <a href="javascript:void(0);" class="btn">6</a>
+            <a href="javascript:void(0);" class="btn">...</a>
+            <a href="javascript:void(0);" class="btn pageControl">&gt;</a>
+            <a href="javascript:void(0);" class="btn pageControl">&gt;&gt;</a>
+        </div>
+    </div>
+    <div class="apBtns"><a class="btnBase" href="javascript:ok();">确定</a><a class="btnBase" href="javascript:cancel();">取消</a></div>
+</div>
+</body>
+<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="../../../resources/userCenter/commons/js/base.js"></script>
+<script src="../../../resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+<script src="../../../resources/userCenter/commons/js/ckeditor/ckeditor.js"></script>
+<script>
+/*选项卡切换*/
+$(".tabContent").eq(0).show();
+$(".tabNav li").click(function() {
+	$(this).siblings().removeClass("cur");
+	$(this).addClass("cur");
+	var index = $(".tabNav li").index(this);
+	$(".tabContent").hide();
+	$(".tabContent").eq(index).show();
+});
+
+
+/*成分比例*/
+$(".addChenfen").click(function(){
+	var obj=$(this).siblings(".pfPriceList").children(".listItem:first").clone();
+	obj.find("input").val("");
+	obj.find(".listSet").html('<a href="javascript:void(0);" class="closeIco" style="margin-left:3px;"></a>');
+	$(this).siblings(".pfPriceList").append(obj);
+})
+$(".listItem .closeIco").live("click",function(){
+	$(this).parents(".listItem").remove();
+})
+
+$(".danxuan .pp").click(function(){
+	$("#hetong,.apLayerBg").show();
+})
+</script>
+</html>

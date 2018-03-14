@@ -1,0 +1,26 @@
+/* CSS Document */
+
+.inContent{background-color:#fff; padding-top:20px;}
+.theCard{width:230px; border:solid 1px #BFBFBF; border-radius:4px; box-shadow:0 0 0 3px #E3E2E2; margin:0px 0 0 45px;}
+.theCard dt{padding:7px 9px 0 10px; height:23px; margin-bottom:18px;}
+.bankName{display:block; float:left; font-size:16px;}
+.cardType{display:block; background:url(../images/icon_card_type.png) no-repeat; width:48px; height:18px; text-indent:7px; color:#fff; float:right; margin-top:3px;}
+.cardNumber{height:20px; line-height:20px; padding-left:15px; font-size:14px; color:#4c4c4c;}
+.cardNumber span{padding-right:16px;}
+.cardUser{height:24px; line-height:24px; margin-bottom:9px; padding-left:15px; font-size:14px; color:#4c4c4c;}
+.cardService{border-top:dashed 1px #C9C9C9; height:33px; line-height:33px; padding-left:18px; color:#9f9f9f;}
+
+.theCardBottom{padding:28px 90px 13px 45px; height:30px; line-height:30px; color:#9f9f9f; position:relative;}
+.bankPhone{float:left; white-space:nowrap;}
+.bindTime{float:right; white-space:nowrap;}
+.cardRemove{display:block; width:43px; height:15px; line-height:15px; text-align:center; background:#F3F3F3; border:solid 1px #B5B5B5; position:absolute; top:-126px; right:90px; color:#757575;}
+
+.rightContent .safeLev{line-height:24px; height:24px; margin-bottom:14px; padding:20px 0 20px 45px; border-bottom:dashed 1px #bfbfbf; border-top:dashed 1px #bfbfbf;}
+.rightContent .safeLevText{display:block; width:109px; color:#595757; font-size:14px; float:left;}
+.rightContent .safeLevText2{display:block; color:#595757; font-size:14px; float:left; padding-left:17px;}
+.rightContent .safeLevBox{float:left; height:8px; background:url(../../../commons/images/safelev_bg.png) repeat-x; width:120px; margin-top:8px;}
+.rightContent .safeLevBox span{display:block; height:8px; margin:0;}
+.rightContent .safeLevBox .lev1{width:40px; background:#EA1919;}
+.rightContent .safeLevBox .lev2{width:80px; background:#F39800;}
+.rightContent .safeLevBox .lev3{width:120px; background:#094;}
+.space{margin-right:10px;}

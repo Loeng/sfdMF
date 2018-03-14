@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>支持进行中</title>
+<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="../../../resources/commons/js/layer/layer.js"></script>
+<link href="../../../resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<style>
+#payLayer,#paying{padding:12px 10px; width:580px;}
+a{color:#393;}
+a:hover{color:#136333;}
+.red{padding:0 6px; color:#f00;}
+.gray{color:#999; padding-right:10px;}
+.chongzhi,.payFail{height:30px; line-height:30px; margin-top:10px; font-size:14px;}
+.textLine{text-align:center; display:block; height:70px; line-height:70px; font-size:14px;}
+.hint{height:40px; line-height:40px; font-size:14px; text-align:center;}
+.btnPaySuc{display:block; width:160px; height:42px; line-height:42px; font-size:14px; margin:20px auto; text-align:center; background:#393; color:#fff;}
+.btnPaySuc:hover{background:#136333; color:#fff;}
+.payFail{text-align:center;}
+.payFail .red,.payFail a{font-size:16px; padding-left:8px;}
+</style>
+</head>
+
+<body>
+<div id="payIn">
+    <div class="paying">
+        <div class="textLine">
+            <em class="gray">支付金额</em>
+            <span>¥<em class="red">999.00</em>元</span>
+        </div>
+        <div class="hint">请在弹出的网银页面完成支付，再进行以下操作</div>
+        <a href="javascript:void(0);" class="btnPaySuc">支付成功</a>
+        <div class="payFail"><em class="red">支付失败</em>请重新选择<a href="javascript:void(0);" class="restart">支付方式</a></div>
+    </div>
+</div>
+<script>
+$(document).on("click",".btnPaySuc",function(){
+	var index = parent.layer.getFrameIndex(window.name);
+	parent.layer.close(index);
+	parent.location.reload();
+})
+$(document).on("click",".restart",function(){
+	var index = parent.layer.getFrameIndex(window.name);
+	parent.layer.open({
+		type: 2,
+		title: '订单支付',
+		skin: 'payZone-class',
+		area: ['600px','385px'], //宽高
+		content: ['payLoad.html','no'],
+		success: function(layero,index){
+			
+		}
+	});
+	parent.layer.close(index);
+})
+</script>
+</body>
+</html>

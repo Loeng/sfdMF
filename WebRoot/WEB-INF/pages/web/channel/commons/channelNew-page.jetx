@@ -1,0 +1,69 @@
+#define(com.ekfans.pub.util.Pager pager)
+			
+<div class="pageSize">
+	<a href="javascript:void(0);" onclick="goPage('1');" class="btn pageControl #if(pager.currentPage==1)disable#end">首页</a>
+	<a href="#goLink" onclick="goPage('${pager.currentPage==1?1:pager.currentPage-1}');" class="btn pageControl" value="1">上一页</a>
+	#if(pager.totalPage>7)
+		#if(pager.currentPage-6<=0)
+			#for(int i : iterator(1,7))
+				#if(pager.currentPage==i)
+					<a href="#goLink" onclick="goPage('${i }');" value="${i }" class="btn cur">${i }</a>
+				#else
+					 <a href="#goLink" onclick="goPage('${i }');" value="${i }" class="btn">${i }</a>
+				#end
+			#end
+			<a>...</a>
+			<!--
+			#for(int i : iterator(pager.totalPage-2,pager.totalPage))
+				<a href="#goLink" onclick="goPage('${i }');" value="${i }" class="btn">${i }</a>
+			#end
+			-->
+		#else
+			#for(int i : iterator(1,2))
+				#if(pager.currentPage==i)
+					<a href="#goLink" onclick="goPage('${i }');" value="${i }" class="btn cur">${i }</a>
+				#else
+					<a href="#goLink" onclick="goPage('${i }');" value="${i }" class="btn">${i }</a>
+				#end
+			#end
+			<a>...</a>
+			#for(int i : iterator(pager.currentPage-2,(pager.currentPage+2)>pager.totalPage?pager.totalPage:(pager.currentPage+2)))
+				#if(pager.currentPage==i)
+					<a href="#goLink" onclick="goPage('${i }');" value="${i }" class="btn cur">${i }</a>
+				#else
+					<a href="#goLink" onclick="goPage('${i }');" value="${i }" class="btn">${i }</a>
+				#end
+			#end
+		#end
+	#else
+		#for(int i : iterator(1,pager.totalPage))
+			#if(pager.currentPage==i)
+				<a href="#goLink" onclick="goPage('${i }');" value="${i }" class="btn cur">${i }</a>
+			#else
+				<a href="#goLink" onclick="goPage('${i }');" value="${i }" class="btn">${i }</a>
+			#end
+		#end
+	#end
+	<a href="#goLink" onclick="goPage('${pager.currentPage==pager.totalPage?pager.totalPage:pager.currentPage+1}');" class="btn pageControl" value="1">下一页</a>	
+	<a href="#goLink" onclick="goPage('${pager.totalPage}');" class="btn pageControl #if(pager.totalPage==pager.currentPage)disable#end">尾页</a>						
+	<!-- <span>共${pager.totalPage}页</span> -->
+    <!-- <span>转 -->
+    <!-- ${type}这里区分同一个页面的分页属于哪一个tab -->
+    <input type="text" name="gopage" class="pageGolink" id="gopage" value="${pager.currentPage}" data-value="gopage_${type}" onkeyup="value=value.replace(/[^\d]/g,'')" onblur="javascript:validInput($(this),'${pager.totalPage}')">
+    <!-- 页</span> -->
+    <a href="javascript:void(0);" class="btn pageGo surepage">跳转</a>
+    <input type="hidden" id="curPage" value="${pager.currentPage}">
+    <input type="hidden" id="rowsPerPage" value="${pager.rowsPerPage}">
+</div>
+
+<script>
+	function validInput(obj,max){
+		var val = $(obj).val();
+		if(parseInt(val)>parseInt(max)){
+			$(obj).val(max);
+		}
+		if(parseInt(val)<=0){
+			$(obj).val(1);
+		}
+	}
+</script>

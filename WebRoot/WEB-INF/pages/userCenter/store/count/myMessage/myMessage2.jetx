@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>店铺中心</title>
+		<link href="${webroot}/resources/store/css/store.css" rel="stylesheet" type="text/css" />
+		<link href="${webroot}/resources/system/css/base.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/store/js/common/tools.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/store/js/common/base.js"></script>
+		<script type="text/javascript">
+		   function	send(path){
+		   	window.location.href = path+'/store/count/myMessage3';
+		   	}
+		   	
+		   	function	returnx(path){
+		   	window.location.href = path+'/store/count/myMessage';
+		   	}
+		</script>
+		
+		<sitemesh:write property="head"></sitemesh:write>
+	</head>
+	<body>
+		<div class="sto_right">
+		<div class="sto_path">发送站内信</div>
+		<div class="mess_fx_box">
+			<dl>
+				<dt>标题</dt>
+				<dd>
+					<input type="text" class="i_text" >
+				</dd>
+			</dl>
+			<dl>
+				<dt>收信人</dt>
+				<dd class="sxr">
+					<input type="text" class="i_text" >
+					<div>
+						<span>X</span>
+						<input type="checkbox" name="" value="">刘瑶玉<p />
+						<input type="checkbox" name="" value="">傅靖易165<p />
+						<input type="checkbox" name="" value="">刁维老农<p />
+						<input type="checkbox" name="" value="">wskw_tang<p />
+						<input type="checkbox" name="" value="">小乖乖真乖<p />
+						<input type="checkbox" name="" value="">cici1967<p />
+						<input type="checkbox" name="" value="">八天儿<p />
+						<input type="checkbox" name="" value="">天秤贝伦卡斯泰露<p />
+						<input type="checkbox" name="" value="">刘瑶玉<p />
+						<input type="checkbox" name="" value="">傅靖易165<p />
+						<input type="checkbox" name="" value="">刁维老农<p />
+						<input type="checkbox" name="" value="">wskw_tang<p />
+						<input type="checkbox" name="" value="">小乖乖真乖<p />
+						<input type="checkbox" name="" value="">cici1967<p />
+						<input type="checkbox" name="" value="">八天儿<p />
+						<input type="checkbox" name="" value="">天秤贝伦卡斯泰露<p />
+					</div>
+				</dd>
+			</dl>
+			<dl>
+				<dt>信息内容</dt>
+				<dd>
+					<textarea></textarea>
+				</dd>
+			</dl>
+			<div class="mess_fx">
+				<input type="checkbox" name="" value="">是否保存到发件箱 <p />
+				<a href="javascript:;" onclick="send('${webroot}')">发送</a>
+				<a href="javascript:;" onclick="returnx('${webroot}');">返回</a>		
+			</div>
+		</div>
+	</div>
+	</body>
+</html>

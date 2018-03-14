@@ -1,0 +1,21 @@
+#define(Map<String, com.ekfans.base.channel.model.ChannelConfig> configMap)
+#define(String configType)
+#define(String position)
+#define(String channelId)
+
+#set(com.ekfans.base.channel.model.ChannelConfig config = configMap.get(configType + position))
+
+#if(configStatus == "true")
+	#include("../../../channel/commons/config/configTitle.jetx",{"channelId":channelId,"configType":configType,"position":position})
+#end
+
+#if(config != null)
+	
+	#for(com.ekfans.base.content.model.Content content : config.details)
+		<div class="news">
+			<div class="newsTit"><a href="${webroot}/03-${content.id}-1.html" title="${content.contentName}"> ${content.contentName}</a></div>
+		  <div class="newsContent">${content.description}</div>
+		</div>
+	#end
+		
+#end

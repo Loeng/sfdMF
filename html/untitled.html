@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script src="resources/commons/js/jquery-1.8.3.min.js"></script>
+<script>
+$(document).ready(function() {
+	//模拟下拉菜单
+    $(".selList input").live("focus",function() {
+		$(".selList ul").hide();
+		$(".selList").css("z-index", "1");
+		$(this).parents(".selList").children("ul").show();
+		$(this).parents(".selList").css("z-index", "2");
+	});
+	$(".selList .iconDown").live("click",function() {
+			$(".selList ul").hide();
+			$(".selList").css("z-index", "1");
+			$(this).parents(".selList").children("ul").show();
+			$(this).parents(".selList").css("z-index", "2");
+	});
+	$(".selList ul li").live("click",function() {
+		var str = $(this).text();
+		$(this).parents(".selList").find("input").val(str);
+		$(this).parent().hide();
+		
+		//切换
+		var lei=$(this).attr("class");
+		$(".tab .tabContent").hide();
+		$(".tab").children("."+lei).show();
+	})
+});
+</script>
+<style>
+*{list-style:none; padding:0; margin:0;}
+
+/*模拟下拉菜单*/
+.selList{position:relative; z-index:2; width:213px;}
+.selList .textBox{position:relative; z-index:3; display:block; height:30px;border:none;}
+.selList .textBox input{ width:100%; height:28px; border:solid 1px #E0E3EA; text-indent:0.6em; font-family:Arial,Microsoft YaHei; line-height:26px;cursor:pointer;}
+.iconDown{ position:absolute; top:0px; right:-2px;display:block; width:28px; height:28px; background:url(../images/down_ico.png) no-repeat center center; cursor:pointer;}
+.selList ul{ position:absolute; top:29px; left:0;*left:7px; z-index:4;display:none; width:100%; border:solid 1px #e2e2e2; background:#fff;}
+.selList li{height:36px; text-align:left;padding-left:15px;font-size:14px; line-height:36px; cursor:pointer;color:#303132;}
+.selList li:hover{background:#f0f0f0;}
+
+/*切换内容*/
+.tabContent{background:#F90; width:400px; height:300px; line-height:50px; font-size:14px; padding:30px; display:none; margin-top:20px;}
+</style>
+</head>
+
+<body>
+<!--下拉菜单-->
+<div class="selList">
+    <span class="textBox">
+        <input name="" type="text" class="box184" placeholder="请选择状态" readonly>
+        <em class="iconDown readOnly"></em>
+    </span>
+    <ul>
+      <li class="num1">第一层</li>
+      <li class="num2">第二层</li>
+      <li class="num3">第三层</li>
+    </ul>
+</div>
+<!--下拉菜单 end-->
+
+<div class="tab">
+    <div class="tabContent num1" style="display:block;">第一层内容</div>
+    <div class="tabContent num2">第二层内容</div>
+    <div class="tabContent num3">第三层内容</div>
+</div>
+</body>
+</html>

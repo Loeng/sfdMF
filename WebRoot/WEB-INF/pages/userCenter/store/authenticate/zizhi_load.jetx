@@ -1,0 +1,20 @@
+#define(List<com.ekfans.base.store.model.Intel> ilist)
+<h6>选择资质名称</h6>
+<a href="javascript:void(0);" class="layerClose"></a>
+<div class="alterContent">
+	#for(com.ekfans.base.store.model.Intel in : ilist)
+		<label class="checkItem">
+	  	<span class="check">
+	  		<em>
+	  			<input type="checkbox" value="${in.id}" />
+	  		</em>
+	  	</span>
+	    <span class="zizhiLi">${in.name}</span>
+	  </label>
+  #end
+  <div class="clear"></div>
+</div>
+<div class="btnArea2">
+  <a href="javascript:void(0);" class="altBtnBlue altSure">确定</a>
+  <a href="javascript:void(0);" class="altBtnBlue altCancel">取消</a>
+</div>

@@ -1,0 +1,29 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+#define(Map paramMap)
+<form id="jiudingPayForm" action="${url}" method="POST">
+    <!--<form action="http://128.128.217.76:8000/alliance/thirdPartAPI.php" method="POST" >-->
+    #for(Map.Entry entry : paramMap)
+    <!--<span style="width:300px;display: inline-block">${entry.getKey()}</span>-->
+    <input type="hidden" name="${entry.getKey()}" value='${entry.getValue()}' style="width:500px;border:0px;"/><br>
+    #end
+    <input type="button" value="submit" onclick="$('#jiudingPayForm').submit();"/>
+</form>
+
+</body>
+<script>
+    $(document).ready(function () {
+        var paramMap = "${paramMap}";
+        if (paramMap == '') {
+            ealert('请勿重复提交订单');
+        } else {
+            $('#jiudingPayForm').submit();
+        }
+    });
+</script>
+
+</html>

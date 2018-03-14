@@ -1,0 +1,112 @@
+#define(List<com.ekfans.base.product.model.Product> products)
+
+	<input name="name" value="${name}" type="hidden">
+	<input name="categoryName" value="${categoryName}" type="hidden">
+	<input name="address" value="${address}" type="hidden">
+	<!--销售挂牌-->
+   	<ul class="tabTit">
+         <li class="tdNum9">认证</li>
+         <li class="tdNum1">品名</li>
+         <li class="tdNum3">质量等级</li>
+         <li class="tdNum5">数量</li>
+         <li class="tdNum6">价格</li>
+         <li class="tdNum4">交货地</li>
+         <li class="tdNum2">厂家</li>
+         <li class="tdNum7">发布日期</li>
+         <li class="tdNum8">操作</li>
+   	</ul>
+		#if(products && products.size()>0)
+  	<ul class="hytabList">
+  	#for(com.ekfans.base.product.model.Product product: products)
+			<li>
+				<div class="listFloat tdNum9">
+					<div class="tdIn vertical">
+				        #if(!@(com.ekfans.pub.util.StringUtil).isEmpty(product.store.storeName) && !@(com.ekfans.pub.util.StringUtil).isEmpty(product.storeId)) <em class="gyrz">证</em> 
+								#else <em class="gyls">临</em>
+								#end
+				      </div>
+				</div>
+				<div class="listFloat tdNum1">
+					<div class="tdIn vertical inline">
+						<span>${product.name}</span>
+						<span class="gray">${product.sortName}</span>
+					</div>
+				</div>
+				<div class="listFloat tdNum3"><div class="tdIn vertical">#if(product.productModel!=null&&product.productModel!="")${product.productModel}#else &nbsp; #end</div></div>
+				<div class="listFloat tdNum5"><div class="tdIn vertical inline rightAlign">#if(product.quantity!=null && product.quantity!="")${product.quantity}<span class="gray">${product.unit}</span>#else &nbsp; #end</div></div>
+				<div class="listFloat tdNum6"><div class="tdIn vertical inline rightAlign">#if(product.unitPrice!=null && product.unitPrice!=""&&product.unitPrice!=0.00)${product.unitPrice}<span class="gray">元/${product.unit}</span>#else<span class="gray">待议</span>  #end</div></div>
+				<div class="listFloat tdNum4">
+					<div class="tdIn vertical inline">
+						#if(product.deliceAddress!=null && product.deliceAddress!="" && product.deliceAddress.split(",").length >= 2)
+						<span class="xhsheng">${product.deliceAddress.split(",")[0]}</span>
+						<span class="xhcity">${product.deliceAddress.split(",")[1]}</span>#else &nbsp;
+						#end
+					</div>
+				</div>
+				<div class="listFloat tdNum2">
+					<div class="tdIn vertical xhcomname">
+			        #if(!@(com.ekfans.pub.util.StringUtil).isEmpty(product.store.storeName) && !@(com.ekfans.pub.util.StringUtil).isEmpty(product.storeId)) ${product.store.storeName}
+							#else ${!@(com.ekfans.pub.util.StringUtil).isEmpty(product.store.storeName)?product.store.storeName:"游客"}
+							#end
+			    </div>
+				</div>
+				<div class="listFloat tdNum7"><div class="tdIn vertical">#if(product.createTime!=null && product.createTime!="")${product.createTime.substring(0,11)}#else &nbsp; #end</div></div>
+				<div class="listFloat tdNum8">
+					<div class="tdIn vertical">
+						#if(product.unitPrice!=null && product.unitPrice!=""&&product.unitPrice!=0.00)
+						<a href="javascript:validUser('${product.id}','0','xhjy','${product.storeId}');">购买</a>
+						#end
+						<a href="javascript:yijia('${product.id}','${product.storeId}')" class="yijiaLink">议价</a>
+					</div>
+				</div>
+			</li>
+    #end
+    </ul>
+			<script>
+			//浏览器版本
+			if($.browser.msie) { 
+				var count=parseInt($.browser.version);
+				if(count<=9){
+					$(".vertical").addClass("ieLow");
+				}
+			}
+			
+			//一行居中多行居左
+			function align(){
+				$(".tdIn").each(function() {
+					var h=$(this).height();
+					var lh=parseInt($(this).css("line-height"));
+					if(h>lh&&$(this).children().length==0){
+						$(this).css("text-align","left");
+					}
+				});
+			}
+			align();
+			
+			$(document).on("click",function(){
+				align();
+			})
+			
+			//tips完全提示
+			$("li .tdNum1,li .tdNum2,li .tdNum3").hover(function(){
+				var obj=$(this)
+				var str=obj.text();
+				layer.open({
+				  type: 4,
+				  skin:'tdTips',
+				  closeBtn:0,
+				  tips: [3, '#393'],
+				  content: [str,obj] //数组第二项即吸附元素选择器或者DOM
+				});
+			},function(){
+				layer.closeAll();
+			})
+			</script>
+			${include( "../commons/channelNew-page.jetx")}
+		#else
+			<div class="noneBox">
+		    	<span>抱歉，没找到相关的信息！</span>
+		    </div>
+		#end
+    </div>
+	

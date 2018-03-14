@@ -1,0 +1,152 @@
+#define(com.ekfans.base.channel.model.Channel channel)
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"> 
+<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}-${channel.name}</title>
+<meta name="Keywords" content="${channel.keyWords}">
+<meta name="description" content="${channel.description}">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<link rel="icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+<link rel="shortcut" type="image/x-icon icon" href="${webroot}/resources/commons/images/favicon.ico" />
+<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/commons.css" />
+<link rel="stylesheet" type="text/css" href="${webroot}/resources/web/css/base.css" />
+<style>
+.main{padding:32px 0 20px 0;}
+.main .itemLast{margin:0;}
+
+.bread{height:38px; line-height:38px; background:#FCF4E5; font-size:14px; color:#A78749;}
+.curPages{color:#000;}
+.banner{width:600px; height:150px; float:left; margin-bottom:20px;}
+.regSide{width:512px; height:116px; padding:17px 40px 17px 48px; float:right; background:#fff; margin-bottom:20px;}
+.regSide h3{line-height:38px;height:38px;overflow:hidden;font-size:30px; margin-bottom:20px; text-overflow:ellipsis; white-space:nowrap;}
+.regLogin{line-height:35px; float:left; width:279px; padding:10px 0; border-right:solid 1px #CDEFFA;}
+.regLogin .btnLogin{display:inline-block; *display:inline; *zoom:1; width:100px; height:35px; text-align:center; background:#19B1E2; color:#fff; font-size:18px; margin-right:10px;}
+.loginLink{color:#19B1E2; font-size:16px; margin:0 4px;}
+.regLogin em{background:url(${webroot}/resources/web/images/icon_gt.png) no-repeat; width:10px; height:10px; display:inline-block; *display:inline; *zoom:1;}
+
+/*企业会员登录后*/
+.regLogin .btnAfterLogin{display:block; width:184px; height:35px; text-align:center; background:#19B1E2; color:#fff; font-size:18px;}
+
+.weekData{float:left; padding-left:44px; width:188px;}
+.weekData dt{}
+.weekData dt{line-height:36px;}
+.weekData dd{line-height:36px;}
+.weekData dd .blue{font-size:16px; padding-right:6px; font-weight:700;}
+.weekData dd .blue em{ font-family:Hiragino Sans GB; padding-right:8px; font-size:18px;}
+.gray{color:#a0a0a0; padding-right:8px;}
+
+.middleList{padding-bottom:24px; border-bottom:solid 1px #DCDDDD; margin-bottom:18px; width: 1227px;}
+.middleItem{width:386px; float:left; margin-right: 23px;}
+.middleItem dt{line-height:30px; padding:9px 0 7px 0; font-size:18px; height:27px; overflow:hidden;}
+.middleItem dd{line-height:24px; color:#a0a0a0; font-size:14px;min-height:72px; overflow:hidden;}
+
+.companyList{width:792px; float:left;}
+.companyList h2,.infoList h2{height:30px; line-height:30px; font-size:18px;}
+.companyItem{padding:20px 18px; margin-bottom:20px; background:#fff;}
+.itemImg{display:block; width:200px; height:200px; float:left; margin-right:15px;line-height: 200px;text-align: center;}
+.itemImg img{vertical-align: middle;max-width: 200px;max-height: 200px;text-align: center;}
+.companyItem dl{float:left; width:540px;}
+.companyItem dt{line-height: 36px; font-size:24px; color:#A78749;height: 36px;margin-bottom: 20px;}
+.companyItem dt a{display:block;width:520px;height:31px; overflow:hidden;}
+.companyItem dd{line-height: 24px; font-size:14px; color:#757575;display:block; width:540px; height:144px; overflow:hidden;}
+
+.infoList{width:386px; float:right;}
+.infoList ul {background-color:#FFF; margin-bottom:10px; padding:5px 0px;} 
+.infoList ul li{ background:url(${webroot}/resources/web/images/list.png) 0px 4px no-repeat; margin:10px 5px 20px 18px;padding-left:16px;display: block; font-size:14px;} 
+.infoList ul li .time{display:block; color:#939393;}
+.infoList ul li a{display:block; max-height:36px; line-height:18px; overflow:hidden;}
+
+/*页码*/
+.pageSize{text-align:center; padding:10px 0; background:#D3D3D3; margin-top:20px;}
+.pageSize a{display:inline-block; height:21px; line-height:21px; margin-right:8px; padding:0 8px; color:#12369b;}
+.pageLast,.pageNext{font-family:SimSun;}
+.pageSize a:hover,.pageSize .nowPage{background:#4594f9; color:#fff;}
+
+</style>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+#if(configStatus == "true")
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/control.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/upload.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/control.js"></script>	
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+#end
+</head>
+
+<body>
+<input type="hidden" name="ctxpath" id="ctxpath" value="${ctxpath}" />
+<input type="hidden" name="channelId" id="channelId" value="${channelId}" />
+<input type="hidden" name="channelType" id="channelType" value="${channel.type}" />
+#if(configStatus == "true")
+	<!-- 频道配置导航条 -->
+	#include("commons/config/config-top.jetx")
+	<!-- 频道配置导航条 -->
+#end
+
+<!-- 导航 -->
+<div id="channelTop"></div>
+
+<!-- 定位 -->
+<div class="bread">
+	<div class="wrapper"><a href="${webroot}">首页</a>&nbsp;&gt;&nbsp;<em class="curPages">${channel.name}</em></div>
+</div>
+
+<!-- 主内容 -->
+<div class="wrapper">
+	<div class="autoAdv banner">
+		#include("commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"1"})
+	</div>
+	<!-- 登陆注册连接和显示注册总数 -->
+	<div class="regSide">
+		
+	</div>
+	<div class="clear"></div>
+  <div class="middleList">
+  	#include("qyrz/content_one.jetx",{"channelId":channelId,"configType":"c","position":"1"})
+  	<div class="clear"></div>
+  </div>
+    
+	<!-- 基础认证企业通过列表 -->
+	<div class="companyList"></div>
+    
+	<div class="infoList">
+		#include("qyrz/content_two.jetx",{"channelId":channelId,"configType":"c","position":"2"})
+	</div>
+	<div class="clear"></div>
+</div>
+
+<!-- 底部 -->
+<div id="channelFoot"></div>
+
+<script type="text/javascript" src="${webroot}/resources/web/js/base.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#channelTop").load($("#ctxpath").val() + "/web/channel/commons/channel-top.jetx",{"channelId":$("#channelId").val(),"channelType":$("#channelType").val(),"returnUrl":window.location.href});
+	$("#channelFoot").load($("#ctxpath").val() + "/web/channel/commons/channel-footer.jetx");
+	$(".companyList").load($("#ctxpath").val() + "/web/wlrz/qyrz/store?pageNum=1",function () {
+		//浏览器版本
+		if($.browser.msie) { 
+			var count=parseInt($.browser.version);
+			if(count<=9){
+				$(".vertical").addClass("ieLow");
+			}
+		}
+	});
+	$(".regSide").load($("#ctxpath").val() + "/web/wlrz/qyrz/islogin");
+});
+
+function goPage(num){
+	$(".companyList").load($("#ctxpath").val() + "/web/wlrz/qyrz/store?pageNum=" + num);
+}
+</script>
+<div style="display:none;">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255237573'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1255237573' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+</body>
+</html>

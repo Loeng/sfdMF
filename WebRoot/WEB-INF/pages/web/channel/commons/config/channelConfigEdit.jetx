@@ -1,0 +1,81 @@
+#define(com.ekfans.base.channel.model.ChannelConfig channelConfig)
+
+
+<div class="apBg"></div>
+
+<div class="apLayer">
+	<div class="apTit"><h3>频道配置<em><span>&gt;</span>${@(com.ekfans.base.channel.util.ChannelConfigConst).configNamesmap.get(channelConfig.configType)}配置</em></h3><a href="javascript:void(0)" class="apClose"></a></div>
+	<div class="apContent">
+		<form action="${webroot}/system/channel/configAlone/save" method="post"  id="configForm">
+			<input type="hidden" name="id" value="${channelConfig.id}"/>
+			<input type="hidden" name="configType" value="${channelConfig.configType}"/>
+			<input type="hidden" name="configPosition" value="${channelConfig.configPosition}"/>
+			<input type="hidden" name="channelId" value="${channelConfig.channelId}"/>
+			<input type="hidden" name="objectType" id="objectType" value="${channelConfig.objectType}"/>
+			<input type="hidden" name="objectId" id="objectId" value="${channelConfig.objectId}"/>
+			<div class="apForm">
+				<dl class="formLine">
+					<dt><em class="mustIco"></em>板块类型：</dt>
+					<dd>
+						${@(com.ekfans.base.channel.util.ChannelConfigConst).configNamesmap.get(channelConfig.configType)}
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formLine">
+					<dt>板块名称：</dt>
+					<dd><input type="text" class="textBox" style="width:100px;" length="64" name="configName" value="${channelConfig.configName}"/></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formLine">
+					<dt>导航图片：</dt>
+					<dd>#tag picUpload("configIcon","1","80","80",channelConfig.configIcon) #end</dd>
+					<dd class="clear"></dd>
+				</dl>
+				
+				<!-- 除了广告不需要显示展示数量配置，别的都需要 -->
+				#if(channelConfig.configType != @(com.ekfans.base.channel.util.ChannelConfigConst).CHANNEL_CONFIG_TYPE_AD)
+					<dl class="formLine">
+						<dt>展示数量：</dt>
+						<dd><input type="text" class="textBox" style="width:100px;" length="5" name="showNumber" value="${channelConfig.showNumber}"/></dd>
+						<dd class="clear"></dd>
+					</dl>
+				#end
+				
+				#if(channelConfig.configType == @(com.ekfans.base.channel.util.ChannelConfigConst).CHANNEL_CONFIG_TYPE_AD)
+					<dl class="formLine">
+						<dt><em class="mustIco"></em>关联广告：</dt>
+						<dd>
+							<span id="objectName">${adName != null && adName != "" && adName != " " ? adName:"暂未关联广告"}</span>
+							<a href="javascript:configChoseAd('${webroot}');" class="btnBlue secondAlert">选择广告</a>
+						</dd>
+						<dd class="clear"></dd>
+					</dl>
+				#elseif(channelConfig.configType == @(com.ekfans.base.channel.util.ChannelConfigConst).CHANNEL_CONFIG_TYPE_PRODUCT || channelConfig.configType == @(com.ekfans.base.channel.util.ChannelConfigConst).CHANNEL_CONFIG_TYPE_PRODUCT_CATEGORY || channelConfig.configType == @(com.ekfans.base.channel.util.ChannelConfigConst).CHANNEL_CONFIG_TYPE_PRODUCT_CATEGORY_PRODUCT_LIST|| channelConfig.configType == @(com.ekfans.base.channel.util.ChannelConfigConst).CHANNEL_CONFIG_TYPE_GY|| channelConfig.configType == @(com.ekfans.base.channel.util.ChannelConfigConst).CHANNEL_CONFIG_TYPE_QG)
+					<dl class="formLine">
+						<dt><em class="mustIco"></em>关联分类：</dt>
+						<dd>
+							<span id="objectName">${categoryName != null && categoryName != "" && categoryName != " " ? categoryName:"暂未关联商品分类"}</span>
+							<a href="javascript:configChoseProductCategory('${webroot}');" class="btnBlue secondAlert">选择商品分类</a>
+						</dd>
+						<dd class="clear"></dd>
+					</dl>
+				#elseif(channelConfig.configType == @(com.ekfans.base.channel.util.ChannelConfigConst).CHANNEL_CONFIG_TYPE_CONTENT || channelConfig.configType == @(com.ekfans.base.channel.util.ChannelConfigConst).CHANNEL_CONFIG_TYPE_CONTENT_CATEGORY)
+					<dl class="formLine">
+						<dt><em class="mustIco"></em>关联分类：</dt>
+						<dd>
+							<span id="objectName">${categoryName != null && categoryName != "" && categoryName != " " ? categoryName:"暂未关联资讯分类"}</span>
+							<a href="javascript:configChoseContentCategory('${webroot}');" class="btnBlue secondAlert">选择资讯分类</a>
+						</dd>
+						<dd class="clear"></dd>
+					</dl>
+				#end
+				<div class="bottomBtn">
+					<a href="javascript:submitConfig();" class="btnOrange">保存</a>
+					<a href="javascript:void(0)" id="windClose" class="btnOrange">关闭</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div id="configChose" class="inapLayer"></div>

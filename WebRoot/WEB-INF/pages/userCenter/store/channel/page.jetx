@@ -1,0 +1,67 @@
+      #define(com.ekfans.pub.util.Pager pager)
+      <input type="hidden" name="pageNum" value="${currentPage }">
+      <div class="tabZone">
+	      <div class="published"></div>        
+				<div class="listPage">
+							 <a href="javascript:void(0);" onclick="goPage('1');" class="pageIndex" value="1">《</a>
+								#if(pager.currentPage == 1)
+									<a href="javascript:void(0);" class="pageIndex">&lt;</a> 
+								#else
+									<a href="javascript:void(0);" class="pageIndex" onclick="goPage('${pager.currentPage-1 }');"   value="${pager.currentPage-1 }" >&lt;</a>
+								#end
+								
+								#if(pager.totalPage>6)
+									#if(pager.currentPage-2>1 && pager.currentPage+3<pager.totalPage)
+										<a>..</a>
+										#for(int i : iterator(pager.currentPage-1,pager.currentPage+1))
+											#if(pager.currentPage==i)
+												  <a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="pageIndex nowPage" >${i }</a>
+											#else
+												  <a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="pageIndex" >${i }</a>
+											#end
+										#end
+										<a>..</a>
+										#for(int i : iterator(pager.totalPage-2,pager.totalPage))
+											<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="pageIndex" >${i }</a>
+										#end
+								   #elseif(pager.currentPage-2<=1)
+										#for(int i : iterator(1,3))
+											#if(pager.currentPage==i)
+												<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="pageIndex nowPage" >${i }</a>
+											#else
+												<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="pageIndex" >${i }</a>
+											#end
+										#end
+										<a>..</a>
+										#for(int i : iterator(pager.totalPage-2,pager.totalPage))
+											<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="pageIndex" >${i }</a>
+										#end
+								   #else
+										<a>..</a>
+										#for(int i : iterator(pager.totalPage-5,pager.totalPage))
+											#if(pager.currentPage==i)
+												<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="pageIndex nowPage" >${i }</a>
+											#else
+												<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="pageIndex" >${i }</a>
+											#end
+										#end
+									#end
+								#else
+									#for(int i : iterator(1,pager.totalPage))
+										#if(pager.currentPage==i)
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="pageIndex nowPage" >${i }</a>
+										#else
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="pageIndex" >${i }</a>
+										#end
+									#end
+								#end
+								
+								#if(pager.currentPage==pager.totalPage)
+									<a href="javascript:void(0);" class="btn">&gt;</a>
+								#else
+									<a href="javascript:void(0);" onclick="goPage('${pager.totalPage+1 }');" class="pageIndex">&gt;</a>
+								#end
+								
+								<a  href="javascript:void(0);" onclick="goPage('${pager.totalPage }');" class="pageIndex" >》</a>
+				</div>
+		  </div>

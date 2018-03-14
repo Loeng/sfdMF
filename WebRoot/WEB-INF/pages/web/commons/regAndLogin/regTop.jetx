@@ -1,0 +1,25 @@
+<input type="hidden" id="ctxpath" value="${webroot}" />
+
+<div class="topArea wrapper">
+	<div class="logo">
+		<a href="${webroot}" title="${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}"><img src="${webroot}${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站Logo")}" alt="${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}" /></a>
+		<strong class="pageName">#if(regLogin==2)注册#elseif(regLogin==1)登录#elseif(regLogin==3)找回密码#end</strong>
+	</div>
+	<div class="topRight">
+		<a href="${webroot}" class="linkIndex">首页</a>
+    <em class="split"></em>
+    <span class="telPhone">${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("热线电话")}</span>
+	</div>
+</div>
+<div class="nav">
+	<div class="wrapper">
+			#set(Map<String,String> userTypeNamesMap = @(com.ekfans.base.user.util.UserConst).userTypeNamesMap)
+			#for (Map.Entry<String,Object> userTypeEntry : userTypeNamesMap.entrySet())
+				#if(regLogin==1)
+					<a href="${webroot}/web/login/${userTypeEntry.key}" #if(type==userTypeEntry.key) class="cur" #end>${userTypeEntry.value}</a>
+				#elseif(regLogin==2 || regLogin==3)
+			 		<a href="${webroot}/web/${userTypeEntry.key}/jumpRegPage" #if(type==userTypeEntry.key) class="cur" #end>${userTypeEntry.value}</a>
+				#end
+			#end
+	</div>
+</div>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+    	<title>新增店铺等级</title>
+    	<link href="${webroot}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+    	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/system/js/store/level/storeLevelAdd.js"></script>
+    </head>
+    
+    <body>
+    	<input type="hidden" id="ok" value="${requestScope.addOk}" />
+			<input type="hidden" id="ctxpath" value="${webroot}" />
+			<form action="${webroot}/system/store/storeLevel/save" name="add" method="post"  id="addStoreLevelForm">
+				#define(com.ekfans.base.store.model.StoreLevel storeLevel)
+				<div class="ht_btn">
+					<a href="#" onclick="formSubmit();" class="btn">保存</a>
+					<a href="#" onclick="reset();" class="btn">重置</a>
+					<a href="#" onclick="goBack('${webroot}');" class="btn">返回列表</a>
+				</div>
+	 		<div class="add_pro">
+				<dl class="formBox">
+					<dt>店铺等级名<em class="mustIco"></em></dt>
+					<dd id="nameDd" class="">
+							<input type="text" class="i_bg" name="name" onblur="javascript:checkNameBlur();"
+						 onkeyup="javascript:checkName();" onfocus="javascript:checkName();" />
+						<span id="nameSpan" class="ts_xx">店铺等级名为3-20位字符组成</span>
+					</dd>
+				</dl>
+				
+				<dl class="formBox">
+					<dt>最低升级条件</dt>
+					<dd class="">
+						<input type="text" class="i_bg"  name="lowestConditions" value="0" onkeypress="return IsNum(event)"/>
+						<span id="" class="ts_xx">输入数字</span>
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				<dl class="formBox">
+					<dt>最高降级条件</dt>
+					<dd class="">
+						<input type="text" class="i_bg"  name="highestConditions" value="0" onkeypress="return IsNum(event)"/>
+						<span id="" class="ts_xx">输入数字</span>
+					</dd>
+				</dl>
+				<div class="clear"></div>
+				<dl class="formBoxLine">
+					<dt>备注</dt>
+					<dd class="">
+						<textarea name="note"></textarea>
+					</dd>
+				</dl>
+				
+			</div>
+		</form>
+	</body>
+</html>

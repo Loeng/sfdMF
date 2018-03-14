@@ -1,0 +1,57 @@
+/* CSS Document */
+
+*{margin:0;padding:0; outline:none; font-family:Microsoft YaHei; word-break:break-all;}
+body{font-size:12px; color:#333; margin:0; padding:0; font-family:Microsoft YaHei; width:100%; height:100%;}
+table{border-collapse:collapse;border-spacing:0;}
+fieldset,img{border:none; border:0;}
+address,caption, cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}
+ol,ul,li{list-style:none;}
+capation{text-align:left;}
+h1,h2,h3,h4,h5,h6{font-weight:normal;}
+h1{font-size:2em;}
+h2{font-size:1.5em;}
+h3{font-size:1.17em;}
+abbr,acronym,img{border:0;}
+
+.clear{clear:both;}
+a{color:inherit; text-decoration:none;}
+a:hover{color:#008cd6;}
+.orange{color:#f60;}
+.blue{color:#019bdf;}
+.red{color:#fc0707;}
+.green{color:#2CB118;}
+.yellow{color:#856933;}
+input[type="text"]:focus,textarea:focus{background:#f9f9f9; box-shadow:1px 1px 2px #eee inset;}
+
+
+input::-webkit-input-placeholder {color:#C9C9CA;}
+input:-moz-placeholder {color:#C9C9CA;}
+input::-moz-placeholder {color:#C9C9CA;}
+input:-ms-input-placeholder {color:#C9C9CA;}
+textarea::-webkit-input-placeholder {color:#C9C9CA;}
+textarea:-moz-placeholder {color:#C9C9CA;}
+textarea::-moz-placeholder {color:#C9C9CA;}
+textarea:-ms-input-placeholder {color:#C9C9CA;}
+
+/*底部和尾部*/
+.bottomSplit{height:26px; background:#efefef;}
+.bottomMenu{background:#fff; padding:30px 0;margin-top:20px;}
+.bottomMenu .wrapper{width:1180px; padding:0 10px; position:relative;}
+.bottomMenu .footItem{padding-right:37px; float:left; min-height:100px;width:288px;}
+.bottomMenu .bottomAbout{padding-right:0;}
+.bottomMenu .footItem dt{font-size:22px; height:48px; line-height:48px; margin-bottom:5px; padding-left:30px;}
+.bottomMenu .footItem dd{padding-left:88px;}
+.bottomMenu .footItem dd li{height:36px; line-height:36px; font-size:16px;}
+.bottomMenu .footItem dt img{float:left;margin-right:10px;}
+.bottomMenu .footItem dt span{float:left; white-space:nowrap;}
+
+.bottomMenu .lastItem{float:left; min-height:100px; width:200px;}
+.bottomMenu .lastItem dt{font-size:22px; height:48px; line-height:48px; margin-bottom:5px; padding-left:30px;}
+.bottomMenu .lastItem dd{padding-left:88px;}
+.bottomMenu .lastItem dd li{height:36px; line-height:36px; font-size:16px;}
+.bottomMenu .lastItem dt img{float:left;margin-right:10px;}
+.bottomMenu .lastItem dt span{float:left; white-space:nowrap;}
+
+.footer{background:url(../images/footer_split.png) no-repeat top center; background-color:#efefef; line-height:22px; padding:22px 20px;}
+.footerLeft{float:left;}
+.footerRight{float:right;}

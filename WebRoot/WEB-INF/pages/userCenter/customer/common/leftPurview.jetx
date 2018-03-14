@@ -1,0 +1,30 @@
+<div class="leftNav">  
+  <dl class="leftList">
+	  <dt>交易管理<em class="itemIco"></em></dt>
+	  <dd>
+			<a href="${webroot}/user/alreadyBuy" #if("orderList".equals(cur)) class="cur" #end>订单管理</a>
+	    <a href="${webroot}/user/order/returnProduct"  #if("returnProduct".equals(cur)) class="cur" #end>退(换)货管理</a>
+	    <a href="${webroot}/user/appraisal/cobsultMessage" #if("cobsultMessage".equals(cur)) class="cur" #end>咨询管理</a>  
+	    <a href="${webroot}/user/appraisal/list" #if("appraisal".equals(cur))class="cur" #end>评价管理</a>
+	    <a href="${webroot}/user/collect/productCollect" #if("productCollect".equals(cur)) class="cur" #end>收藏管理</a>
+	  </dd>
+  </dl>
+  <dl class="leftList">
+	  <dt>帐户管理<em class="itemIco"></em></dt>
+	  <dd>
+	    <a href="${webroot}/user/security/setting" #if("sesetting".equals(cur)) class="cur" #end>安全设置</a>
+	    <!--
+	    <a href="${webroot}/user/count/userLogo" #if("userLogo".equals(cur)) class="cur" #end>头像设置</a>
+	    -->
+	    <a href="${webroot}/user/count/showUserInfo" #if("showUserInfo".equals(cur)) class="cur" #end>个人资料</a>
+	    <a href="${webroot}/user/deliveryAddress" #if("deliveryAddress".equals(cur)) class="cur" #end>收货地址</a>             
+	  </dd>
+  </dl>
+  <!--<dl class="leftList">
+	  <dt>服务中心<em class="itemIco"></em></dt>
+	  <dd>               
+	 		<a href="${webroot}/user/services/scores/getMyScores" #if("service".equals(cur))class="cur" #end>我的积分</a>
+	  </dd>
+  </dl>  -->          
+</div>
+

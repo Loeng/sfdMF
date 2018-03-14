@@ -1,0 +1,160 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>出售中的商品</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/comList.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/proList.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/tools.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/userCenter/coreCompany/js/supplyListModefiy.js"></script>
+</head>
+
+<body>
+
+<form action="${webroot}/store/supply/supplyProductList" method="post" id="supplyFormSubmit">
+	<input type="hidden" name="pageNum" value="" />
+	
+	<div class="formSearch borderColor">
+		<dl class="formItem">
+	  	<dt>商品编号</dt>
+	    <dd>
+	    	<input name="productNum" value="${productNum}" type="text" class="textBox box212">
+	    </dd>
+	    <dd class="clear"></dd>
+	  </dl>
+	  <dl class="formItem">
+			<dt>商品名称</dt>
+		  <dd>
+		    <input name="productName" value="${productName}" type="text" class="textBox box212">
+		  </dd>
+		  <dd class="clear"></dd>
+	  </dl>
+	  <div class="clear"></div>
+	</div>
+</form>
+<div class="btnArea">
+	<a href="javascript:searchSubmit();" class="btnBase btnSearch">搜索</a>
+	<a href="javascript:myreset();" class="btnBase btnReset">清空</a>
+	<div class="clear"></div>
+</div>
+<div class="formTable borderColor">
+	<ul class="secNav">
+		<li class="li1">商品信息</li>
+		<!--
+		<li><a href="javascript:void(0);" title="删除"  class="li2">删除所选</a></li>
+		<li><a href="javascript:void(0);" title="新增"  class="li3">新增</a></li>
+		<li><a href="javascript:void(0);" title="批量上架"  class="shopUp">批量上架</a></li>
+		<li><a href="javascript:void(0);" title="批量下架"  class="shopDown">批量下架</a></li>
+		-->
+	</ul>
+	<div class="clear"></div>
+	<div style="position:relative;" class="tableBox">
+  <table border="0" cellspacing="0" cellpadding="0" class="tabList">
+  <thead>
+    <tr class="bgColor">
+    	<!--          	
+    	<th class="tdCheck">
+    		<label class="checkAll">
+    			<span class="check">
+    				<em>
+    					<input name="checkbox1" type="checkbox" value=true>
+    				</em>
+    			</span>
+    		</label>
+    	</th>
+    	-->
+      <th>商品编号</th>
+      <th class="tdInfo">商品名称</th>
+      <th class="tdBrand">所属分类</th>
+      <th class="tdState">状态</th>
+      <th class="tdCount">库存</th>
+      <th class="tdEdit"></th>
+    </tr>
+    </thead>
+    <tbody>
+    #define(List<com.ekfans.base.product.model.SupplyProduct> supply)
+    #if(supply!=null && supply.size()>0)
+    	#for(com.ekfans.base.product.model.SupplyProduct p : supply)
+    	
+        <tr>
+        	<!--
+        	<td class="tdCheck">
+        		<label class="checkItem">
+        			<span class="check">
+        				<em>
+        					<input name="" value="${p.id}" type="checkbox" />
+        				</em>
+        			</span>
+        		</label>
+        	</td>
+        	-->
+        	<td>${p.productNum}</td>
+        	<td class="tdInfo tabLeft" style="text-align:left;padding-left:50px;">
+            <div class="proRight">
+	            <span class="orderText"><a href="javascript:void(0)">${p.supplyProductName}</a></span>
+	            <span class="nowPrice">批发价<em>￥${p.pfPrice}/${p.unit}</em></span>
+            </div>
+            <div class="clear"></div>
+        	</td>
+	        <td class="tdBrand">${p.mainCategory}</td>
+	        <td class="tdState">#if(p.status==1)上架 #else下架 #end</td>
+	        <td class="tdCount">${p.quantity}&nbsp;${p.unit}</td>
+	        <td class="tdEdit">
+	          <a href="javascript:void(0);" class="eyeIco" title="预览" onClick="supplyDetail('${webroot}','${p.id}','1')">查看</a>
+	          <a href="javascript:void(0);" class="editIco" title="编辑" onClick="supplyDetail('${webroot}','${p.id}','2')">编辑</a>
+	          <!--
+	          <a href="javascript:void(0);" class="del_list" title="删除">删除</a>
+	          -->
+	        </td>
+	      </tr>
+	      
+    	#end
+		#end
+		</tbody>
+	</table>
+	</div>
+	#if(supply!=null && supply.size()>0)
+	  ${include("../common/page.jetx")}
+	#else
+		<div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+	#end
+  <div class="clear"></div>
+</div>
+
+
+<!--支持拖动+宽度调节JS-->
+<script src="${webroot}/resources/userCenter/commons/js/jquery-ui-1.9.2.custom.js"></script> 
+<script src="${webroot}/resources/userCenter/commons/js/jquery.dragtable.js"></script> 
+<script src="${webroot}/resources/userCenter/commons/js/jquery-migrate-1.1.1.js"></script> 
+<script src="${webroot}/resources/userCenter/commons/js/jquery.chili-2.2.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/jquery.resizableColumns.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+  $(".tabList").dragtable();
+	$(".tabList").resizableColumns({});
+});
+</script>
+<style type="text/css">
+.tableBox{width:100%;}
+.tabList{width:99%;}
+.tabList th{border-right:solid 1px #e3e3e3;}
+.tabList th:first-child{border-left:0;}
+.tabList th:last-child{border-right:0;}
+.rc-handle-container{position:relative;}
+.rc-handle{position:absolute;width:7px;cursor:ew-resize;*cursor:pointer;margin-left:-3px;}
+/* defaultTable sar-table listext tablesorter*/
+.tabList th.accept {cursor:move;}
+.dragtable-sortable {list-style-type: none; margin: 0; padding: 0; -moz-user-select: none; border:0;}
+.dragtable-sortable li {margin: 0; padding: 0; float: left; font-size: 1em; background:#fff; border:0px solid #F00;;text-align:center;}
+.dragtable-sortable th, .dragtable-sortable td{border-left: 0px #FF0000 solid;}
+.dragtable-sortable li:first-child th, .dragtable-sortable li:first-child td {border-left: 0px solid #CCC; }
+.ui-sortable-helper {opacity: 0.7;filter: alpha(opacity=70);border:0;}
+.ui-sortable-placeholder { -moz-box-shadow: 4px 5px 4px #C6C6C6 inset;-webkit-box-shadow: 4px 5px 4px #C6C6C6 inset;box-shadow: 4px 5px 4px #C6C6C6 inset;border-bottom: 1px solid #CCCCCC;border-top: 1px solid #CCCCCC; visibility: visible !important;background: #EFEFEF !important; visibility: visible !important;}
+.ui-sortable-placeholder * { opacity: 0.0; visibility: hidden; }
+</style>
+<!--支持拖动+宽度调节JS  end-->
+</body>
+</html>

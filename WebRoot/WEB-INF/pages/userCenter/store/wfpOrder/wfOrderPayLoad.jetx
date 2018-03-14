@@ -1,0 +1,27 @@
+<div class="blueTit"></div>
+<div class="payApContent">
+	<h4>请你在新打开的页面上完成付款！</h4>
+    <div class="payText">付款完成前不要关闭此窗口<br>完成付款后请根据你的情况点击下面按钮</div>
+    <div class="payBtns">
+        <a href="javascript:void(0)" onclick="payFailed();" class="payBtnBlue">付款遇到问题</a>
+        <a href="javascript:void(0)" onclick="paySuccessed();" class="payBtnBlue">已完成付款</a>
+    </div>
+    <!--
+    <a href="javascript:void(0)" class="backLink">返回选择其他支付方式</a>
+    -->
+</div>
+
+<script>
+
+function payFailed(){
+	$.post('${webroot}/store/order/payYFFin/${wfOrderId}/0',function (data){
+		location.reload();
+	});
+}
+
+function paySuccessed(){
+	$.post('${webroot}/store/order/payYFFin/${wfOrderId}/1',function (data){
+		location.reload();
+	});
+}
+</script>

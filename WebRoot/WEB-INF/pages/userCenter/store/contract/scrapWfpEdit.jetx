@@ -1,0 +1,575 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>危废申报</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/commons/css/proAdd.css" rel="stylesheet" type="text/css">
+
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+<script type="text/javascript" src="${webroot}/resources/commons/js/upload.js"></script>
+<script type="text/javascript" src="${webroot}/resources/userCenter/personal/js/ckeditor/ckeditor.js"></script>
+
+<style>
+.endNum{width:20%;}
+
+.tabNav{height:35px; line-height:35px; border-bottom:solid 2px #e5e5e5; margin-bottom:20px; background-color:#fff;}
+.tabNav li{width:134px; height:35px; float:left; text-align:center; font-size:18px; cursor:pointer;}
+.tabNav li.cur{background:#FF4100; color:#fff;}
+
+.tabContent{display:none;}
+.tabContent h3{font-size:16px; line-height:30px; height:30px; color:#484848; font-weight:normal; border-bottom:solid 1px #e5e5e5; margin-bottom:16px;}
+.box80,.inputSplit{display:inline-block;}
+.box80{width:95px;}
+.editorForm dt{height:30px; line-height:30px;}
+.editorForm{padding-bottom:20px;}
+
+.danxuan input,.fuxuan input{float:left; display:block;}
+span.pp{cursor:pointer; display:block; float:left; width:27px; height:28px; border:1px solid #e0e3ea; margin-left:-1px; position:relative; background:url(${webroot}/resources/userCenter/commons/images/rightpoint2.png) no-repeat center center;}
+span.pp:hover{background:url(${webroot}/resources/userCenter/commons/images/rightpoint.png) #999 no-repeat center center; width:29px; height:30px; border:none;}
+
+.company{padding-bottom:20px;}
+.company ul{float:left; width:890px;}
+.company li{height:30px; line-height:30px; padding-left:30px; position:relative; float:left; padding-right:30px;}
+.company li input{display:block; top:10px; left:10px; position:absolute;}
+.company h4{font-size:14px; line-height:30px; float:left; margin-right:20px; width:74px;}
+
+.alertBrand{max-height:440px;}
+.alertBrand .btn{padding-left:110px;}
+.classItem{width:30%; margin:0 1.5%; float:left; height:50px; line-height:50px; border-bottom:solid 1px #e4e4e4;}
+.classItem label{display:block;}
+.classItem input{display:block; float:left; margin:19px 10px 0 8px;}
+.alertBrand .pageSize{padding:20px 20px 0 0;}
+
+/**资质选择弹框**/
+.selectList{width:100%;overflow:hidden;margin:5px 0;}
+.selectList li{float:left;min-height:130px;width:370px;height:130px;overflow-x:hidden; _overflow-y:scroll;border:1px solid #f6f6f6;}
+.selectList li a{display:block;height:25px;line-height:25px;padding-left:13px;overflow:hidden;}
+.selectList li a.cur,.selectList li a:hover{background:#ffedd7}
+.tabBox{overflow-y:auto;overflow-x:hidden; margin-bottom:5px;}
+.tabBox .tabList{clear:bouth;width:758px;}
+.tabBox .tabList th{padding:0px 10px; height:35px;line-height:35px;color:#292729; font-size:14px;}
+.tabBox .tabList td{padding:8px 10px; line-height:22px; border-bottom:1px #DCDCDD solid;color:#7D7C7D; max-width:105px; overflow:hidden; text-align:center;}
+.tabBox .tabList tr:hover{background:#F3F3F3;}
+.tabBox .pageSize{margin-bottom:5px;}
+
+.rc-handle-container{position:relative;}
+.rc-handle{position:absolute;width:7px;cursor:ew-resize;*cursor:pointer;margin-left:-3px;}
+/* defaultTable sar-table listext tablesorter*/
+.tabList th.accept {cursor:move;}
+.dragtable-sortable {list-style-type: none; margin: 0; padding: 0; -moz-user-select: none; border:0;}
+.dragtable-sortable li {margin: 0; padding: 0; float: left; font-size: 1em; background:#fff; border:0px solid #F00;;text-align:center;}
+.dragtable-sortable th, .dragtable-sortable td{border-left: 0px #FF0000 solid;}
+.dragtable-sortable li:first-child th, .dragtable-sortable li:first-child td {border-left: 0px solid #CCC; }
+.ui-sortable-helper {opacity: 0.7;filter: alpha(opacity=70);border:0;}
+.ui-sortable-placeholder { -moz-box-shadow: 4px 5px 4px #C6C6C6 inset;-webkit-box-shadow: 4px 5px 4px #C6C6C6 inset;box-shadow: 4px 5px 4px #C6C6C6 inset;border-bottom: 1px solid #CCCCCC;border-top: 1px solid #CCCCCC; visibility: visible !important;background: #EFEFEF !important; visibility: visible !important;}
+.ui-sortable-placeholder * { opacity: 0.0; visibility: hidden; }
+#chooseluxian{border-color:#FF4100}
+
+#chooseluxian .formItem {margin:10px 2px;}
+#chooseluxian .formItem input{float:left;}
+#chooseluxian .formItem .formSplit{float:left;margin:0 8px;}
+.search{margin:5px 0 5px 20px;}
+.btnGray{display: inline-block;background: #33A7FF;color: #FFF;padding: 0 24px;height: 28px;line-height: 28px;text-align: center;margin: 0 auto;font-size: 12px;margin-right: 5px;border: none;cursor: pointer;}
+
+/*搜索*/
+.search{padding:12px 0; border-top:solid 1px #e5e5e5; border-bottom:solid 1px #e5e5e5;}
+.search+.pageTitle{border-top:none; margin:20px 0 10px 25px;}
+
+/*列表*/
+.tableList{border-collapse:collapse; width:100%; position:relative; margin-top:-20px;}
+.tableList th,.tableList td{text-align:center; border-bottom:solid 1px #e5e5e5; height:50px; line-height:25px;}
+.tableList th{color:#7e7e7e;}
+.tableList input{display:block; margin:0 auto;}
+.tableList td a{color:#000; font-weight:700; display:inline-block; margin:0 5px;}
+.tableList td a:hover{text-decoration:underline;}
+.listNone{line-height:58px; height:58px; background:#f4f4f4; text-align:center; font-size:18px;}
+
+/*页码*/
+.pageSize{text-align:center; padding:20px 30px; text-align:right; float:right;}
+.pageSize a{display:inline-block; height:21px; line-height:21px; margin-right:8px; padding:0 8px; color:#666;}
+.pageLast,.pageNext{font-family:SimSun;}
+.pageSize a:hover,.pageSize .nowPage{color:#0C4121; font-weight:700;}
+
+/*暂无数据*/
+.dataNone{width:548px; height:127px; border:solid 1px #999; border-top:solid 2px #5FB11F; padding-top:70px; text-align:center; font-size:18px; margin:50px auto;}
+.dataNone .btnGray{display:block; margin:20px auto; width:80px;}
+</style>
+</head>
+
+</head>
+<body>
+#define(com.ekfans.base.wfOrder.model.Contract contract)
+#define(List<com.ekfans.base.wfOrder.model.Contract> contracts)
+#define(com.ekfans.base.store.model.Store store)
+<input type="hidden" id="ctxpath" value="${webroot}"/>
+<form action="${webroot}/store/wfpscrap/skipSave" method="post" id="formSub" >
+	<input type="hidden" name="type" value="${viewType=="0"?"1":"0"}"/>
+	<input type="hidden" name="salId" id="salId" value="${contract != null ? contract.firstId:""}"/>
+	<input type="hidden" name="buyId" id="buyId" value="${contract != null ? contract.secondId:""}"/>
+	<input type="hidden" name="contractId" id="contractId" value="${contract != null ? contract.id:""}"/>
+	<input type="hidden" name="contractNo" id="contractNo" value="${contract != null ? contract.contractNo:""}"/>
+	<div class="rightContent">
+		<div class="contentTit budong borderColor">
+			<h3>在线申报</h3>
+			<a href="javascript:returnList();" class="btnBase btnCancel">取消</a>
+			<a href="javascript:subForm();" class="btnBase btnSave">保存</a>
+			<div class="clear"></div>
+		</div>
+		<div class="form borderColor">
+			<ul class="tabNav">
+				<li class="cur">基本信息</li>
+				<li>危废品情况</li>
+			</ul>
+			<div class="tabContent">
+				<dl class="formItem formLine">
+					<dt style="width:88px;"><em class="mustIco"></em>危废处置合同</dt>
+					<dd class="danxuan">
+						<input name="contractName" type="text" class="textBox box300" value="${contract!=null?contract.name:""}">
+						#if(contract == null)
+							<span class="pp" title="选择危废处置合同"></span>
+						#end
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<div class="clear"></div>
+				<div class="company" id="transDivs" style="display:none;">
+					<h4><em class="mustIco"></em>运输企业</h4>
+					<ul id="transDivDetails"></ul>
+					<div class="clear"></div>
+				</div>
+				
+				<!--产生单位信息-->
+				<div id="salInfo"></div>
+				<div class="clear"></div>
+				
+				<!--运输单位信息-->
+				<div id="transInfo"></div>
+				<div class="clear"></div>
+				
+				<!--处置单位信息-->
+				<div id="buyInfo"></div>
+				<div class="clear"></div>
+			</div>
+			<div class="tabContent">
+				<h3>废物产生情况</h3>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>废物名称</dt>
+					<dd><input name="wfName" id="wfName" type="text" class="textBox box212" value="" placeholder="如:含汞废液"></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>废物代码</dt>
+					<dd class="danxuan">
+						<input name="code" id="code" type="text" class="textBox box212" value="" readonly placeholder="请选择废物代码"><span class="pp" id="choseWfMl" title="选择危废处置合同"></span>
+						<input name="wfmlId" id="wfmlId" type="hidden" class="textBox box212" value="">
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<div class="clear"></div>
+				<dl class="formItem" style="width:100%">
+					<dt><em class="mustIco"></em>危险特性</dt>
+					<dd>
+						<span class="radio"><label><input type="radio" name="characters" value="0" checked>毒性</label></span>
+						<span class="radio"><label><input type="radio" name="characters" value="1">易燃性</label></span>
+						<span class="radio"><label><input type="radio" name="characters" value="2">爆炸性</label></span>
+						<span class="radio"><label><input type="radio" name="characters" value="3">腐蚀性</label></span>
+						<span class="radio"><label><input type="radio" name="characters" value="4">传染性</label></span>
+						<span class="radio"><label><input type="radio" name="characters" value="5">其他</label></span>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<div class="clear"></div>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>形态</dt>
+					<dd>
+						<span class="radio"><label><input type="radio" name="shape" value="0" checked>固态</label></span>&nbsp;&nbsp;
+						<span class="radio"><label><input type="radio" name="shape" value="1">液态</label></span>&nbsp;&nbsp;
+						<span class="radio"><label><input type="radio" name="shape" value="2">半固态</label></span>&nbsp;&nbsp;
+						<span class="radio"><label><input type="radio" name="shape" value="3">其他</label></span>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>拟转移批次</dt>
+					<dd><input name="batch" id="batch" type="text" class="textBox box212" value=""></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>本次转移</dt>
+					<dd><input name="quantity" id="quantity" type="text" class="textBox box212" value="${contract!=null?contract.quantity:""}" placeholder="单位：吨"></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>转移时间</dt>
+					<dd>
+						<input name="startTime" id="startTime" type="text" class="textBox box80" value="${contract!=null?contract.startTime:""}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'${contract!=null?contract.startTime:""}',maxDate:'#F{$dp.$D(\'endTime\')}'})">
+						<span class="inputSplit">&mdash;</span>
+						<input name="endTime" id="endTime" type="text" class="textBox box80" value="${contract!=null?contract.endTime:""}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'startTime\')}',maxDate:'${contract!=null?contract.endTime:""}'})">
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<div class="clear"></div>
+				<dl class="formItem">
+					<dt style="width:95px"><em class="mustIco"></em>主要成分及比例</dt>
+					<dd><input name="ingeredients" id="ingeredients" type="text" class="textBox box300" value="" placeholder="废物所含主要成分及比例,多中成分以“;”隔开"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>检测报告</dt>
+					<dd>#tag fileUpload("reports","pdf","") #end</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<div class="clear"></div>
+				<dl class="editorForm">
+					<dt><em class="mustIco"></em>废物产生环节及生产工艺流程</dt>
+					<dd>
+						<textarea name="production" class="ckeditor" id="production"></textarea>	
+					</dd>
+				</dl>
+				<h3>废物处置利用情况</h3>
+				<dl class="formItem formLine">
+					<dt><em class="mustIco"></em>处置方式</dt>
+					<dd>
+						<span class="radio"><label><input type="radio" name="handle" value="0" checked>利用</label></span>&nbsp;&nbsp;
+						<span class="radio"><label><input type="radio" name="handle" value="1">贮存</label></span>&nbsp;&nbsp;
+						<span class="radio"><label><input type="radio" name="handle" value="2">焚烧</label></span>&nbsp;&nbsp;
+						<span class="radio"><label><input type="radio" name="handle" value="3">安全填埋</label></span>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="editorForm">
+					<dt><em class="mustIco"></em>处置利用说明</dt>
+					<dd>
+						<textarea name="handleNote" class="ckeditor" id="handleNote"></textarea>
+					</dd>
+				</dl>
+				<h3>废物包装、运输情况</h3>
+				<dl class="formItem"  style="width:100%">
+					<dt><em class="mustIco"></em>包装方式</dt>
+					<dd style="">
+						<span class="radio"><label><input type="radio" name="packs" #if(scrapWfp!=null&&scrapWfp.packs =="桶装") checked #end onclick="changePacks(this.value)" value="桶装" checked>桶装</label></span>&nbsp;&nbsp;
+						<span class="radio"><label><input type="radio" name="packs" #if(scrapWfp!=null&&scrapWfp.packs =="袋装") checked #end onclick="changePacks(this.value)" value="袋装" >袋装</label></span>&nbsp;&nbsp;
+						<span class="radio"><label><input type="radio" name="packs" #if(scrapWfp!=null&&scrapWfp.packs =="罐装") checked #end onclick="changePacks(this.value)" value="罐装" >罐装</label></span>&nbsp;&nbsp;
+						<span class="radio"><label><input type="radio" name="packs" #if(scrapWfp!=null&&scrapWfp.packs =="集装箱") checked #end onclick="changePacks(this.value)" value="集装箱" >集装箱</label></span>&nbsp;&nbsp;
+						<span class="radio"><label><input type="radio" name="packs" #if(scrapWfp!=null&&scrapWfp.packs !="桶装"&&scrapWfp.packs !="袋装"&&scrapWfp.packs !="罐装"&&scrapWfp.packs !="集装箱") checked #end onclick="changePacks(this.value)" value="0" >其他</label></span>&nbsp;&nbsp;
+						<span id="packsOther"  style="display:none;float:right;"><input name="packsOther" type="text" class="textBox" value="${scrapWfp != packs ? scrapWfp.packs:""}" ></span>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<div class="clear"></div>
+				<dl class="formItem"  style="width:100%">
+					<dt><em class="mustIco"></em>运输工具</dt>
+					<dd>
+						<span class="radio"><label><input type="radio" name="transTool" #if(scrapWfp!=null&&scrapWfp.transTool =="汽车") checked #end onclick="changeTransTool(this.value)" value="汽车" checked>汽车</label></span>&nbsp;&nbsp;
+						<span class="radio"><label><input type="radio" name="transTool" #if(scrapWfp!=null&&scrapWfp.transTool =="火车") checked #end onclick="changeTransTool(this.value)" value="火车" >火车</label></span>&nbsp;&nbsp;
+						<span class="radio"><label><input type="radio" name="transTool" #if(scrapWfp!=null&&scrapWfp.transTool =="轮船") checked #end onclick="changeTransTool(this.value)" value="轮船" >轮船</label></span>&nbsp;&nbsp;
+						<span class="radio"><label><input type="radio" name="transTool" #if(scrapWfp!=null&&scrapWfp.transTool !="汽车"&&scrapWfp.transTool !="火车"&&scrapWfp.transTool !="轮船") checked #end onclick="changeTransTool(this.value)" value="0" >其他</label></span>&nbsp;&nbsp;
+						<span id="transToolOther"  style="display:none;float:right;"><input name="transToolOther" type="text" class="textBox" value="${scrapWfp != packs ? scrapWfp.transTool:""}" ></span>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem"  style="width:100%">
+					<dt><em class="mustIco"></em>运输方式</dt>
+					<dd>
+						<span class="radio"><label><input type="radio" name="transType" #if(scrapWfp!=null&&scrapWfp.transType =="道路运输") checked #end onclick="changeTransType(this.value)" value="道路运输" checked>道路运输</label></span>&nbsp;&nbsp;
+						<span class="radio"><label><input type="radio" name="transType" #if(scrapWfp!=null&&scrapWfp.transType =="铁路运输") checked #end onclick="changeTransType(this.value)" value="铁路运输" >铁路运输</label></span>&nbsp;&nbsp;
+						<span class="radio"><label><input type="radio" name="transType" #if(scrapWfp!=null&&scrapWfp.transType =="海运") checked #end onclick="changeTransType(this.value)" value="海运" >海运</label></span>&nbsp;&nbsp;
+						<span class="radio"><label><input type="radio" name="transType" #if(scrapWfp!=null&&scrapWfp.transType !="道路运输"&&scrapWfp.transType !="铁路运输"&&scrapWfp.transType !="海运") checked #end onclick="changeTransType(this.value)" value="0" >其他</label></span>&nbsp;&nbsp;
+						<span id="transTypeOther"  style="display:none;float:right;"><input name="transTypeOther" type="text" class="textBox" value="${scrapWfp != packs ? scrapWfp.transType:""}" ></span>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem formLine">
+					<dt><em class="mustIco"></em>运输路线</dt>
+					<dd>
+						#if(null!=scrapWfp && scrapWfp.transLine != null)
+							<a href="javascript:void(0);" onclick="lineById()" class="" id="transLine" name="transLine" value="${scrapWfp.transLine}">
+						#else
+							<a href="javascript:void(0);" onclick="lineById()" class="" id="transLine" name="transLine" value="">
+						#end	
+					</dd>
+					<dd><a href="javascript:void(0);" onclick="selLine()" class="btnBase chooseLX" id="chooseLX">选择路线</a></dd>		
+					<dd class="clear"></dd>
+				</dl>
+			</div>
+		</div>
+	</div>
+</form>
+<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+
+<div id="chooseluxian"  class="apLayer">
+<div class="apTit">
+	<span class="apClose"></span>	
+</div>
+		
+<div class="apContent" id="loadXL">
+<div class="apLayerBg"></div>
+<div class="apLayer borderColor alertBrand apConfirm" id="showLoads"></div>
+<script>
+String.prototype.replaceAll = function(reallyDo, replaceWith, ignoreCase) {  
+	if (!RegExp.prototype.isPrototypeOf(reallyDo)) {  
+      return this.replace(new RegExp(reallyDo, (ignoreCase ? "gi": "g")), replaceWith);  
+  }else{
+      return this.replace(reallyDo, replaceWith);  
+  }
+} 
+	
+/*选项卡切换*/
+$(".tabContent").eq(0).show();
+$(".tabNav li").click(function() {
+	$(this).siblings().removeClass("cur");
+	$(this).addClass("cur");
+	var index = $(".tabNav li").index(this);
+	$(".tabContent").hide();
+	$(".tabContent").eq(index).show();
+});
+
+
+$("#choseWfMl").live("click",function(){
+	$("#showLoads").load("${webroot}/wfpscrap/wfpmlonly");
+	$(".apLayerBg").show();
+	$(".alertBrand").show();
+});
+
+
+/*成分比例*/
+$(".addChenfen").click(function(){
+	var obj=$(this).siblings(".pfPriceList").children(".listItem:first").clone();
+	obj.find("input").val("");
+	obj.find(".listSet").html('<a href="javascript:void(0);" class="closeIco" style="margin-left:3px;"></a>');
+	$(this).siblings(".pfPriceList").append(obj);
+})
+$(".listItem .closeIco").live("click",function(){
+	$(this).parents(".listItem").remove();
+})
+
+$(".danxuan .pp").click(function(){
+	$("#hetong,.apLayerBg").show();
+})
+
+function loadSalInfo(){
+	$("#salInfo").load("${webroot}/store/wfpscrap/loadSalStore/" + $("#salId").val());
+}
+function loadBuyInfo(){
+	$("#buyInfo").load("${webroot}/store/wfpscrap/loadBuyStore/" + $("#buyId").val());
+}
+function loadTransInfo(){
+	$("#transInfo").load("${webroot}/store/wfpscrap/loadTransStores",{transStoreIds:$("#transStoreIds").val()});
+}
+
+loadSalInfo();
+loadBuyInfo();
+loadTransInfo();
+#if(contract != null )
+	$("#transDivDetails").load("${webroot}/store/wfpscrap/loadTransContracts/${contract.id}");
+	$("#transDivs").show();
+#end
+
+
+
+function choseMl(mlId,mlNo){
+	var chosedVal = $("#wfmlChose").val() + "（" + mlNo + "）";
+	$("#code").val(chosedVal);
+	$("#wfmlId").val(mlId);
+	$(".apLayerBg").hide();
+	$(".alertBrand").hide();
+}
+
+function returnList(){
+	location.href="${webroot}/store/contractList/${viewType}";
+}
+
+function subForm(){
+	//验证是否选择运输合同
+	var transStoreIds = $("#transStoreIds").val();
+	if(transStoreIds == ""){
+		falert("请选择运输单位！")
+		return;	
+	}
+	
+	//验证产生单位、运输单位、接收单位的信息
+	if(!checkSalInfoSub() || !checkBuyInfoSub() || !checkTransInfoSub()){
+		return;	
+	}
+	
+	//验证废物名称
+	var wfName = $("#wfName").val();
+	if(trimStr(wfName) == ""){
+		falert("请输入废物名称！")
+		return;	
+	}
+	
+	//验证废物代码
+	var wfmlId = $("#wfmlId").val();
+	if(trimStr(wfmlId) == ""){
+		falert("请选择废物代码！")
+		return;	
+	}
+	
+	//验证转移批次
+	var batch = $("#batch").val();
+	if(trimStr(batch) == ""){
+		falert("请输入拟转移批次！")
+		return;	
+	}
+	
+	//验证转移数量
+	var quantity = $("#quantity").val();
+	if(trimStr(quantity) == ""){
+		falert("请输入拟转移数量！")
+		return;	
+	}
+	
+	//验证转移时间
+	var startTime = $("#startTime").val();
+	var endTime = $("#endTime").val();
+	if(trimStr(startTime) == "" || trimStr(endTime) == ""){
+		falert("请选择转移时间！")
+		return;	
+	}
+	
+	//验证主要成分及比例
+	var ingeredients = $("#ingeredients").val();
+	if(trimStr(ingeredients) == ""){
+		falert("请输入主要成分及比例！")
+		return;	
+	}
+	
+	//验证检测报告
+	if(!hasChoseFile("reports")){
+		falert("请上传检测报告！")
+		return;
+	}
+	
+	//验证废物产生环节及生产工艺流程
+	var production = CKEDITOR.instances.production.getData();
+	if(trimStr(production)==""){
+		falert("请输入废物产生环节及生产工艺流程")	
+		return;
+	}
+	$("#production").val(production);
+	
+	//验证废物处置利用说明
+	var handleNote = CKEDITOR.instances.handleNote.getData();
+	if(trim(handleNote)==""){
+		falert("请输入废物处置利用说明")	
+		return;
+	}
+	$("#handleNote").val(handleNote);
+	//验证包装方式
+	var packs = $("#packs").val();
+	if(trimStr(packs) == ""){
+		falert("请输入包装方式！")
+		return;	
+	}
+	
+	//验证运输工具
+	var transTool = $("#transTool").val();
+	if(trimStr(transTool) == ""){
+		falert("请输入运输工具！")
+		return;	
+	}
+	
+	//验证运输方式
+	var transType = $("#transType").val();
+	if(trimStr(transType) == ""){
+		falert("请输入运输方式！")
+		return;	
+	}
+	
+	//验证运输路线
+	var transLine = $("#transLine").val();
+	if(trimStr(transLine) == ""){
+		falert("请输入运输路线！")
+		return;	
+	}
+	
+	$("#formSub").ajaxSubmit(
+		function(data) {
+			if (data == true) {
+				salertWithFunction('申报提交成功，请耐心等待审核',returnList,null);
+			} else {
+				falert("申报提交失败，请稍后提交");
+			}
+	});
+}
+
+
+if($("input[name='packs']:checked").val() == "0"){
+	$("#packsOther").show();
+}
+if($("input[name='transTool']:checked").val() == "0"){
+	$("#transToolOther").show();
+}
+if($("input[name='transType']:checked").val() == "0"){
+	$("#transTypeOther").show();
+}
+
+function changePacks(val){
+	if(val == "0"){
+		$("#packsOther").show();
+	}else{
+		$("#packsOther").hide();
+	}	
+}
+function changeTransTool(val){
+	if(val == "0"){
+		$("#transToolOther").show();
+	}else{
+		$("#transToolOther").hide();
+	}	
+}
+function changeTransType(val){
+	if(val == "0"){
+		$("#transTypeOther").show();
+	}else{
+		$("#transTypeOther").hide();
+	}	
+}
+
+// 路线列表显示
+function selLine(){
+	var lineUrl=$("#lineSearchUrl").val();
+	$("#loadXL").load(lineUrl);
+}
+
+// 弹出层显示
+$(".chooseLX").click(function(){
+$(".apLayerBg").show();
+$("#chooseluxian").show();
+})
+
+// 路线列表搜索
+function searchLine(){
+	$("#loadXL").load($("#lineSearchUrl").val(),{"startName":$("#startName").val(),"endName":$("#endName").val(),"companyName":$("#companyName").val(),"startTime":$("#startTime").val(),"endTime":$("#endTime").val(),"pageNum":$("#pageNum").val()});
+}
+// 分页跳转
+function goPage(num){
+	$("#pageNum").val(num);
+	$("#loadXL").load($("#lineSearchUrl").val(),{"startName":$("#startName").val(),"endName":$("#endName").val(),"companyName":$("#companyName").val(),"startTime":$("#startTime").val(),"endTime":$("#endTime").val(),"pageNum":$("#pageNum").val()});
+}
+
+// 根据路线ID查找
+function lineById(){
+	var line = $("#transLine").val();
+	if(line != ""){
+		window.open($("#lineUrl").val() + "view/" + $("#lineId").val());
+	}
+}
+</script>
+ 
+<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+ </body>
+</html>   

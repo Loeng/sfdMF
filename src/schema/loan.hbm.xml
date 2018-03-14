@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ekfans.base.loan.model">
+	<!-- 贷款类型 -->
+	<class name="LoanType" table="LOAN_TYPE" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="bankId" type="string" column="BANK_ID" />
+		<property name="creator" type="string" column="CREATOR" />
+		<property name="creatorRealName" type="string" column="CREATOR_REAL_NAME" />
+		<property name="status" type="boolean" column="STATUS" />
+		<property name="loanName" type="string" column="LOAN_NAME" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+		<property name="note" type="string" column="NOTE" />
+	</class>
+
+	<!-- 贷款类型字段明细 -->
+	<class name="LoanTypeDetail" table="LOAN_TYPE_DETAIL"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="bankId" type="string" column="BANK_ID" />
+		<property name="typeId" type="string" column="TYPE_ID" />
+		<property name="name" type="string" column="NAME" />
+		<property name="nameCode" type="string" column="NAME_CODE" />
+		<property name="type" type="string" column="TYPE" />
+		<property name="typeValue" type="string" column="TYPE_VALUE" />
+		<property name="commentType" type="boolean" column="COMMENT_TYPE" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="position" type="int" column="POSITION" />
+	</class>
+
+	<!-- 贷款类型入门规则 -->
+	<class name="LoanTypeRole" table="LOAN_TYPE_ROLE" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="bankId" type="string" column="BANK_ID" />
+		<property name="parentRoleId" type="string" column="PARENT_ROLE_ID" />
+		<property name="typeId" type="string" column="TYPE_ID" />
+		<property name="roleName" type="string" column="ROLE_NAME" />
+		<property name="roleType" type="string" column="ROLE_TYPE" />
+		<property name="roleValue" type="boolean" column="ROLE_VALUE" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="position" type="int" column="POSITION" />
+	</class>
+
+	<!-- 贷款申请 -->
+	<class name="LoanApp" table="LOAN_APP" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="loanTypeId" type="string" column="LOAN_TYPE_ID" />
+		<property name="companyId" type="string" column="COMPANY_ID" />
+		<property name="bankId" type="string" column="BANK_ID" />
+		<property name="appStatus" type="string" column="APP_STATUS" />
+		<property name="companyStatus" type="boolean" column="COMPANY_STATUS" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="price" type="big_decimal" column="PRICE" />
+	</class>
+
+	<!-- 贷款申请明细 -->
+	<class name="LoanAppDetail" table="LOAN_APP_DETAIL"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="bankId" type="string" column="BANK_ID" />
+		<property name="typeId" type="string" column="TYPE_ID" />
+		<property name="typeDetailId" type="string" column="TYPE_DETAIL_ID" />
+		<property name="appId" type="string" column="APP_ID" />
+		<property name="name" type="string" column="NAME" />
+		<property name="nameCode" type="string" column="NAME_CODE" />
+		<property name="type" type="string" column="TYPE" />
+		<property name="value" type="string" column="VALUE" />
+		<property name="valueType" type="string" column="VALUE_TYPE" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="position" type="int" column="POSITION" />
+	</class>
+
+	<!-- 贷款申请日志 -->
+	<class name="LoanAppLog" table="LOAN_APP_LOG" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="appId" type="string" column="APP_ID" />
+		<property name="bankId" type="string" column="BANK_ID" />
+		<property name="companyId" type="string" column="COMPANY_ID" />
+		<property name="creatorId" type="string" column="CREATOR_ID" />
+		<property name="creatorType" type="string" column="CREATOR_TYPE" />
+		<property name="creator" type="string" column="CREATOR" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+	</class>
+</hibernate-mapping>

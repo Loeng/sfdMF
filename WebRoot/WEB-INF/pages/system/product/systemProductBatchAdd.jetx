@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>商品批量上传页面</title>
+	<link href="${webroot}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+	<link href="${webroot}/resources/system/css/demand.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/plugin/fileupload/js/jquery.fileupload.js"></script>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/commons/css/upload.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/xiazai.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload.js"></script>
+
+	<script type="text/javascript" src="${webroot}/resources/system/js/product/systemProductBatchAdd.js"></script>
+	
+</head>
+<body>
+	
+	
+
+<div class="add_pro">
+	<input type="hidden" id="ctxpath" value="${webroot}" />
+	#define(List<com.ekfans.base.user.model.User> user)
+	<div class="select_fl">
+	<form action="${webroot}/system/saveProductBtach" method="post"  id="saveProductBatchForm">
+		<div class="proClassList">
+			<dl>
+				<dt><em class="mustIco"></em>核心企业</dt>
+			  <dd>
+			 	     <select id="storeId" name="storeId" class="i_bg" style="width:157px;float:left;" >
+			 	  	  <option selected value ="" >请选择核心企业</option>
+	            #for(com.ekfans.base.user.model.User u:user)
+	            <option value="${u.id}">#if(u.nickName =="" && u.nickName == null)${u.name}#else ${u.nickName}#end </option>
+	            #end	  
+            	</select>
+			 	</dd>	
+			</dl>
+			<dl>
+			  <dt><em class="mustIco"></em>商品信息Excel</dt>
+			  <dd>
+			 	    #tag fileUpload("productexcel","excel","") #end
+			 	</dd>	
+			 </dl>
+			 <dl>
+			<dt><em class="mustIco"></em>商品图片</dt>
+			  <dd>
+			 	     	#tag fileUpload("picpath","zip","") #end
+			 	</dd>	
+			 </dl>
+		</div>
+	
+			<div style="margin-top:15px;>
+			<a href="javascript:void(0)" id="span3"></a><span id="jd3" style="display:none;"></span>
+			<a href="javascript:void(0)" id="span4"></a>
+		</div>
+		
+			<input type="hidden" id="productId" name="productId" value="" />
+			<input type="hidden" id="categoryId" name="categoryId" value="" />
+			<a href="javascript:void(0);"  class="btn" onclick="submit();" style="margin-left:27px;">确定上传</a>
+		</form>
+	</div>
+	<!--右侧主体 end-->
+
+</div>
+</body>
+</html>

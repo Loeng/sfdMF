@@ -1,0 +1,31 @@
+#define(Map<com.ekfans.base.product.model.ProductCategory,java.util.List<com.ekfans.base.product.model.Product>> configMap)
+
+#if(configMap!=null && configMap.size()>0)
+	#for(Map.Entry<com.ekfans.base.product.model.ProductCategory,java.util.List<com.ekfans.base.product.model.Product>> entry2: configMap)
+		#set(java.util.List<com.ekfans.base.product.model.Product> productList = entry2.value)
+		<div class="tabContent"  id="productList" #if(for.first) style="display:block;"#end>
+			<div class="proList">
+				#for(com.ekfans.base.product.model.Product pro:productList)
+					#if(pro != null)
+						<dl class="proItem">
+							<dt><a href="${pro.linkUrl}"><img src="${webroot}/${pro.recommendPicture4}"/></a></dt>
+							<dd class="proTitle">
+								<a href="${pro.linkUrl}" title="${pro.name}">${pro.name}</a>
+							</dd>
+							<dd class="proPrice">
+								<span class="originalPrice">${pro.listPrice}</span>
+								<span class="nowPrice"><em>${pro.unitPrice}</em> 元</span>
+							</dd>
+						</dl>
+					#end
+				#else
+					暂无商品
+				#end  
+				<div class="clear"></div>
+			</div>
+		</div>
+	#end
+#else
+	 暂无商品
+#end
+

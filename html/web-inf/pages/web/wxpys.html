@@ -1,0 +1,406 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>危险品运输</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<link rel="shortcut icon" href="../../../resources/commons/images/favicon.ico" type="image/x-icon">
+<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+<link href="../../../resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/web/css/base.css" rel="stylesheet" type="text/css">
+<style>
+.bread{height:38px; line-height:38px; background:#FCF4E5; font-size:14px; color:#A78749;}
+
+.advUp{ height:290px; margin-bottom:20px;}
+
+/*顶部搜索区域*/
+input::-webkit-input-placeholder {color:#010101;}
+input:-moz-placeholder {color:#010101;}
+input::-moz-placeholder {color:#010101;}
+input:-ms-input-placeholder {color:#010101;}
+.leftCon{width:792px; float:left; background-color:#fff;}
+/*搜索区域*/
+.search{ background-color:#0085FD; width:794px; height:75px; border-top:10px solid #f2f1f1;}
+.serachItem{width:435px; margin:21px 0 0px 0; padding-left:142px;display:inline-block;}
+.serachItem dt{color:#FFF; font-size:18px;float:left; max-dth:60px; margin-right:15px; height:34px; line-height:34px;}
+.serachItem dd{float:left;}
+.selList{width:380px;}
+.selList .textBox{height:34px;}
+.selList .textBox input{height:32px;}
+.btnSearch{display:inline-block;width:34px; height:34px;background-color:#fff; background-image:url(../../../resources/web/images/search_icon2.png); background-repeat:no-repeat; background-position: center center;}
+
+/*运输企业*/
+.yscomany{border-bottom:10px solid #f2f1f1; background-color:#fff; padding-bottom:5px;}
+.yscomItem{ padding:23px 0px; border-bottom:1px solid #D6D1D1;}
+.yscomItem dt{padding:0 23px;height:120px; line-height:120px;width:122px; overflow:hidden; text-align:center; display:block;float:left;}
+.yscomItem dt img{max-height:120px; max-width:122px;}
+.itemRight{ float:left; width:608px;}
+.company{}
+.company li{}
+.liItem1{color:#000;font-size:18px; height:30px; line-height:30px;}
+.liItem1 span{width:450px;height:30px;display:inline-block; overflow:hidden; padding-right:5px;}
+.liItem1 em{color:#4B4947;font-size:14px;width:150px;height:30px;text-align:right; overflow:hidden; display:inline-block;}
+.liItem2{color:#888889; font-size:14px; height:58px; line-height:29px; overflow:hidden;}
+.yzqy{color:#FFFFFF; font-size:18px; background-color:#FF5947; width:90px; height:30px; line-height:30px; text-align:center; display:block;}
+.lastys{ border-bottom:0;}
+
+/*页码*/
+.pageSize{text-align:center; padding:10px 0; background:#D3D3D3;}
+.pageSize a{display:inline-block; height:21px; line-height:21px; margin-right:8px; padding:0 8px; color:#12369b;}
+.pageLast,.pageNext{font-family:SimSun;}
+.pageSize a:hover,.pageSize .nowPage{background:#4594f9; color:#fff;}
+
+/*企业区域*/
+.rightList{width:742px; height:424px; overflow:hidden; margin:24px 0 0 30px; position:relative;}
+.rightListIn{position:relative;}
+.companyItem{width:152px; height:200px; max-height:200px; max-width:152px;float:left; margin:0 37px 22px 0;}
+.companyItem dt img{max-height:152px; max-width:152px;vertical-align:middle; text-align:center;-webkit-transition: width 2s, height 2s, -webkit-transform 2s;transition: width 2s, height 2s, transform 2s;}
+.companyItem dt img:hover{transform:rotateY(360deg);-webkit-transform:rotateY(360deg);}
+.companyItem dt{width:152px; height:152px; line-height:152px; text-align:center; /*border:solid 1px #EFEFEF;*/}
+.companyItem dd{line-height:22px; height:44px; padding-top:10px; text-align:center; font-size:16px; color:#000;}
+.comItem{font-size:18px;}
+.more:hover{color:#fff;}
+
+/*右部区域*/
+.rightCon{width:386px; float:right;}
+.gps{padding:15px; background-color:#fff; margin-bottom:20px;}
+.gps h3{font-size:24px; color:#020202; margin-bottom:10px;}
+.btnGps{background-color:#0085FD; width:355px; height:60px; line-height:60px; text-align:center; color:#fff; display:block; background-image:url(../../../resources/web/images/gps_icon.png); background-repeat:no-repeat; background-position:95px center; font-size:24px; margin-top:-3px;}
+.btnGps:hover{color:#fff;}
+
+.rightCon ul {background-color:#FFF; margin-bottom:10px; padding:5px 0px;} 
+.rightCon ul li{background: url(../../../resources/web/images/list.png) 0px 4px no-repeat; margin:10px 5px 20px 18px; padding-left:16px;display: block;max-height:55px; font-size:14px;} 
+.rightCon ul li .time{display:block; color:#939393;}
+.rightCon ul li a{display:block; max-height:36px;overflow:hidden;}
+</style>
+</head>
+
+<body>
+<div class="wrapper topArea">
+	<h1 class="logo">
+    	<a href="index.html" title="鑫裕环保供应链平台"><img src="../../../resources/commons/images/logo.png" alt="鑫裕环保供应链平台"></a>
+    </h1>
+    <div class="topRight">
+    	<a href="index.html" class="linkIndex">首页</a>
+        <dl class="downList">
+        	<dt><a href="javascript:void(0)" class="linkLogin">登录</a></dt>
+            <dd>
+            	<div class="apBack">
+                  <em class="topPoint"></em>
+                  <div class="apLoadCont">
+                    <a href="cgsdl.html" class="btnLoad dlcg btnCart">采购商入口</a>
+                    <a href="gysdl.html" class="btnLoad dlgy btnRk">供应商入口</a>
+                    <a href="hxqydl.html" class="btnLoad dlhx btnhx">核心企业入口</a>
+                  </div>
+                </div>
+            </dd>
+        </dl>
+        <dl class="downList">
+        	<dt><a href="javascript:void(0)" class="linkReg">注册</a></dt>
+            <dd>
+                <div class="apBack2">
+                    <em class="topPoint2"></em>
+                    <div class="apRegCont">
+                      <a href="cgszc1.html" class="btnEnter zccg btnCart">采购商入口</a>
+                      <a href="gyszc1.html" class="btnEnter zcgy btnRk">供应商入口</a>
+                    </div>
+                </div>
+            </dd>
+        </dl>
+        <em class="split"></em>
+        <span class="telPhone">4000-888-1000</span>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="nav">
+	<div class="wrapper">
+    	<dl class="navItem">
+        	<dt>现货交易</dt>
+            <dd>
+            	<a href="gqxx.html">供求信息</a>
+                <a href="gjs.html">贵金属</a>
+                <a href="ylcg.html">原料采购</a>
+                <a href="wjbc.html">微晶板材</a>
+            </dd>
+        </dl>
+        <dl class="navItem">
+        	<dt>危废处置</dt>
+            <dd>
+            	<a href="wxpcs.html">危险品产生</a>
+                <a href="wxpys.html" class="cur">危险品运输</a>
+                <a href="wxpcz.html">危险品处置</a>
+                <a href="zcfg.html">政策法规</a>
+            </dd>
+        </dl>
+        <dl class="navItem" style="margin-right:0;">
+        	<dt>网络金融</dt>
+            <dd>
+            	<a href="qyrz.html">企业认证</a>
+                <a href="wlrz.html">网络融资</a>
+                <a href="javascript:void(0)">融资指引</a>
+                <a href="javascript:void(0)">建行专区</a>
+            </dd>
+        </dl>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="bread">
+	<div class="wrapper"><a href="javascript:void(0);">首页</a>&nbsp;&gt;&nbsp;危险品运输</div>
+</div>
+<div class="wrapper">
+	<div class="autoAdv advUp">
+    	<div class="autoAdvImg">
+        	<a href="javascript:void(0);"><img src="../../../resources/web/pic/adv1200_290.jpg" width="1200" height="290" alt="广告说明"></a>
+        </div>
+	</div>
+  <div class="leftCon">
+  	<div class="search">
+      <dl class="serachItem">
+        <dt>地区</dt>
+        <dd>
+          <div class="selList"> <span class="textBox">
+            <input name="" type="text" class="box184" placeholder="不限" readonly>
+            <em class="iconDown"></em> </span>
+            <ul>
+              <li>列表1</li>
+              <li>列表2</li>
+              <li>列表1</li>
+            </ul>
+          </div>
+        </dd>
+        <div class="clear"></div>
+      </dl>
+      <a href="javascript:void(0);" class="btnSearch"></a>
+    </div>
+    <div class="yscomany">
+    	<!--<dl class="yscomItem">
+      	<dt>
+        	<img src="../../../resources/web/pic/com122_120.jpg" alt="com"/>
+        </dt>
+        <dd class="itemRight">
+        	<ul class="company">
+          	<li class="liItem1"><span>中国化工正和危险品物流有限公司</span><em>[山东/东营市]</em></li>
+            <li class="liItem2">主营：危险品运输、贸易，有意向的客户请联系</li>
+            <li>
+            	<span class="yzqy">认证企业</span>
+            </li>
+          </ul>
+        </dd>
+        <dd class="clear"></dd>
+      </dl>
+      <dl class="yscomItem">
+      	<dt>
+        	<img src="../../../resources/web/pic/com122_120.jpg" alt="com"/>
+        </dt>
+        <dd class="itemRight">
+        	<ul class="company">
+          	<li class="liItem1"><span>中国化工正和危险品物流有限公司</span><em>[山东/东营市]</em></li>
+            <li class="liItem2">主营：危险品运输、贸易，有意向的客户请联系</li>
+            <li>
+            	<span class="yzqy">认证企业</span>
+            </li>
+          </ul>
+        </dd>
+        <dd class="clear"></dd>
+      </dl>
+      <dl class="yscomItem">
+      	<dt>
+        	<img src="../../../resources/web/pic/com122_120.jpg" alt="com"/>
+        </dt>
+        <dd class="itemRight">
+        	<ul class="company">
+          	<li class="liItem1"><span>中国化工正和危险品物流有限公司</span><em>[山东/东营市]</em></li>
+            <li class="liItem2">主营：危险品运输、贸易，有意向的客户请联系</li>
+            <li>
+            	<span class="yzqy">认证企业</span>
+            </li>
+          </ul>
+        </dd>
+        <dd class="clear"></dd>
+      </dl>
+      <dl class="yscomItem">
+      	<dt>
+        	<img src="../../../resources/web/pic/com122_120.jpg" alt="com"/>
+        </dt>
+        <dd class="itemRight">
+        	<ul class="company">
+          	<li class="liItem1"><span>中国化工正和危险品物流有限公司</span><em>[山东/东营市]</em></li>
+            <li class="liItem2">主营：危险品运输、贸易，有意向的客户请联系</li>
+            <li>
+            	<span class="yzqy">认证企业</span>
+            </li>
+          </ul>
+        </dd>
+        <dd class="clear"></dd>
+      </dl>
+      <dl class="yscomItem lastys">
+      	<dt>
+        	<img src="../../../resources/web/pic/com122_120.jpg" alt="com"/>
+        </dt>
+        <dd class="itemRight">
+        	<ul class="company">
+          	<li class="liItem1"><span>中国化工正和危险品物流有限公司</span><em>[山东/东营市]</em></li>
+            <li class="liItem2">主营：危险品运输、贸易，有意向的客户请联系</li>
+            <li>
+            	<span class="yzqy">认证企业</span>
+            </li>
+          </ul>
+        </dd>
+        <dd class="clear"></dd>
+      </dl>-->
+      <div class="newNone">
+        <div class="noInfo">暂无信息记录！</div>
+<!--        <div class="nosmall">请稍后再查询。</div>-->
+      </div>
+    </div>
+    <div class="pageSize">
+      <a href="javascript:void(0)" class="pageLast">&lt;&lt;</a>
+      <a href="javascript:void(0)" class="page">1</a>
+      <a href="javascript:void(0)" class="page">2</a>
+      <a href="javascript:void(0)" class="page nowPage">3</a>
+      <a href="javascript:void(0)" class="page">...</a>
+      <a href="javascript:void(0)" class="page">10</a>
+      <a href="javascript:void(0)" class="page">11</a>
+      <a href="javascript:void(0)" class="page">12</a>
+      <a href="javascript:void(0)" class="pageNext">&gt;&gt;</a>
+    </div>
+  </div>
+  <div class="rightCon">
+  	<div class="gps">
+    	<h3>北斗卫星定位 </h3>
+      <img src="../../../resources/web/images/gpsmap.jpg" width="355" height="170" alt="GPS"/>
+      <a href="javascript:void(0);" class="btnGps">在线查询</a>
+    </div>
+    <h2>相关政策</h2>
+    	<ul>
+        <li><a href="javascript:void(0);" title="">山西省财政厅拨3.6亿元支持基层医疗体系建设</a><span class="time">[2013-09-30]</span></li>
+        <li><a href="javascript:void(0);" title="">大同市评标过程公开 结果心服口服</a><span class="time">[2013-09-30]</span></li>
+        <li><a href="javascript:void(0);" title="">“煤都”转型 浇桐引凤</a><span class="time">[2013-09-30]</span></li>
+        <li><a href="javascript:void(0);" title="">山西大同资质考量前置 重视企业综合实力</a><span class="time">[2013-09-30]</span></li>
+        <li><a href="javascript:void(0);" title="">国际大赛“竞”出集采风骨</a><span class="time">[2013-09-30]</span></li>
+        <li><a href="javascript:void(0);" title="">我省减收增值税2亿余元</a><span class="time">[2013-09-30]</span></li>
+    	</ul>
+  </div>
+  <div class="clear"></div>
+</div>
+<!--底部-->
+<div class="bottomMenu">
+    <div class="wrapper">
+    	<dl class="footItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c4.png" width="49" height="48" />
+              <span>采购流程</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="下单流程">下单流程</a></li>
+                <li><a href="javascript:void(0);" title="订单跟踪">订单跟踪</a></li>
+                <li><a href="javascript:void(0);" title="安全支付">安全支付</a></li>
+                <li><a href="javascript:void(0);" title="企业认证">企业认证</a></li>
+                <li><a href="javascript:void(0);" title="常见问题">常见问题</a></li>
+            </dd>
+        </dl>
+        <dl class="footItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c5.png" width="49" height="48" />
+              <span>服务与支持</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="物流配送">物流配送</a></li>
+                <li><a href="javascript:void(0);" title="经销商权益">经销商权益</a></li>
+                <li><a href="javascript:void(0);" title="不良品退货">不良品退货</a></li>
+                <li><a href="javascript:void(0);" title="在线咨询">在线咨询</a></li>
+                <li><a href="javascript:void(0);" title="融资操作手册">融资操作手册</a></li>
+            </dd>
+        </dl>
+        <dl class="footItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c6.png" width="49" height="48" />
+              <span>我的账户</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="子账户管理">子账户管理</a></li>
+                <li><a href="javascript:void(0);" title="密码重置">密码重置</a></li>
+                <li><a href="javascript:void(0);" title="在线打款">在线打款</a></li>
+            </dd>
+        </dl>
+        <dl class="lastItem">
+            <dt>
+              <img src="../../../resources/commons/images/gyl_icon_r1_c7.png" width="49" height="48" />
+              <span>关于我们</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+                <li><a href="javascript:void(0);" title="公司简介">公司简介</a></li>
+                <li><a href="javascript:void(0);" title="联系我们">联系我们</a></li>
+                <li><a href="javascript:void(0);" title="网站声明">网站声明</a></li>
+            </dd>
+        </dl>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--底部 end-->
+
+<!--尾部-->
+<div class="footer">
+	<div class="wrapper">
+        <p class="footerLeft">© 2014 成都易科远见科技有限公司 版权所有 蜀ICP备 14005736号</p>
+        <p class="footerRight">成都市高新区吉泰路666号花样年·福年广场2号楼1309室<br>服务热线：028-83190368</p>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--尾部 end-->
+<script src="../../../resources/web/js/base.js"></script>
+<script>
+$(document).ready(function() {
+	/*线路循环滚动*/
+	var count2=$(".infoTable tr").length;
+	var scrollTimer1;
+	var $this2=$(".tableBox");
+	$this2.hover(function(){
+		clearInterval(scrollTimer1);
+	},function(){
+		scrollTimer1 = setInterval(function(){
+		scrollNews2($this2);
+	 }, 3000 );
+	}).trigger("mouseleave");
+	  
+	function scrollNews2(obj2){
+	   var $self2 = obj2.find(".infoTable"); 
+	   var lineHeight2 = $self2.find("tr:first").height(); //获取宽度，向上滚动则需要获取高度.height()
+	   $self2.animate({ "marginTop" : -lineHeight2 +"px" }, 600 , function(){ //向左滚动，向上滚动则需要改为marginTop,其他方向类似，下同
+			 $self2.css({marginTop:0}).find("tr:first").appendTo($self2.find("tbody")); //appendTo能直接移动元素
+	   })
+	}
+	/*线路循环滚动 end*/ 
+	
+	
+	/*企业循环滚动*/
+	var count=$(".rightListIn .companyItem").length/2;
+	$(".rightListIn").css("width",count*264+"px");
+	
+	var $this = $(".rightList");
+	var scrollTimer;
+	$this.hover(function(){
+	 clearInterval(scrollTimer);
+	},function(){
+	 scrollTimer = setInterval(function(){
+	   scrollNews( $this );
+	 }, 3000 );
+	}).trigger("mouseleave");
+	  
+	function scrollNews(obj){
+	   var $self = obj.find(".rightListIn"); 
+	   var lineHeight = $self.find(".companyItem:first").width()+44; //获取宽度，向上滚动则需要获取高度.height()
+	   $self.animate({ "marginLeft" : -lineHeight +"px" }, 600 , function(){ //向左滚动，向上滚动则需要改为marginTop,其他方向类似，下同
+			 $self.css({marginLeft:0}).find(".companyItem:first").appendTo($self); //appendTo能直接移动元素
+	   })
+	}
+	/*企业循环滚动 end*/
+});
+</script>
+</body>
+</html>

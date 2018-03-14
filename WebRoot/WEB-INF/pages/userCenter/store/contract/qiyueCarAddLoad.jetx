@@ -1,0 +1,58 @@
+#define(List<com.ekfans.base.store.model.CarInfo> carInfoList)
+#define(Map<String,com.ekfans.base.wfOrder.model.ContractCars> contractCars)
+
+<table border="0" cellspacing="0" cellpadding="0" class="tabList">
+    <tr class="bgColor">
+    	<th class="tdCheck"><label class="checkAll"><span class="check checked"><em><input name="checkbox1" type="checkbox" checked value=true></em></span></label></th>
+      <th>车牌号</th>
+      <th>承载质量</th>
+      <th>承载人数</th>
+      <th>车辆类型</th>
+      <th>运费</th>
+    </tr>
+    #for(com.ekfans.base.store.model.CarInfo carInfo:carInfoList)
+    <tr>
+    	#set(com.ekfans.base.wfOrder.model.ContractCars contractCar = contractCars?[carInfo.id])
+    	#set(boolean checkStatus = true)
+    	#if((contractCars != null && contractCars.size() > 0 && contractCar == null))
+    		#set(checkStatus = false)
+    	#end
+    	<td class="tdCheck"><label class="checkItem"><span class="check #if(checkStatus)checked#end"><em><input name="checkbox1" type="checkbox" #if(checkStatus) checked #end #if(bjStatus !="true") disabled #end value="${carInfo.id}"></em></span></label></td>
+      <td>${carInfo.carNo}</td>
+      <td>${carInfo.fullWeight}吨</td>
+      <td>${carInfo.fullNum}</td>
+      <td>${carInfo.carType}</td>
+      <td><input name="${carInfo.id}weight" type="text" value="${contractCar != null ? contractCar.price:"0.00"}" #if(bjStatus!="true") readonly #end class="textBox box98"><span class="weightUnit">元/吨</span></td>
+    </tr>
+    #else
+    	<tr>
+    		<td colSpan="6" >
+    			<div class="alterbox"><span class="warn" style="margin-left:0px;"><span>
+    				#if(storeId == "" || storeId == null || storeId == "null" || storeId == " ")请选择承运方(乙方)#else承运方(乙方)还未发布车辆信息#end
+    			</span></span></div>
+    		</td>
+    	</tr>
+    #end
+</table>
+
+<script>
+	changeUnits();
+	function changeUnits(){
+		var checkedValue = $("input[name='weightType']:checked").val();
+		var units = "元/吨";
+		if(checkedValue == "1"){
+			units = "元/吨/公里"
+		}
+		
+		$(".weightUnit").each(function(){
+	
+			$(this).html(units);
+		});
+		
+	}
+	
+	$(".choseUnits").live("click",function(){
+		changeUnits();
+	});
+	
+</script>

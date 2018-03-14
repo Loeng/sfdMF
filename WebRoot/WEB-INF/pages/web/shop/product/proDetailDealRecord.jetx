@@ -1,0 +1,93 @@
+                 
+                 #define(List<com.ekfans.base.order.model.OrderDetail> orderDetails)
+                 <table border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <th class="user">买家</th>
+                    <th class="proName">商品名称</th>
+                    <th class="salePrice">价格</th>
+                    <th class="saleCount">购买数量</th>
+                    <th class="saleTime">成交时间</th>
+                    <th class="salesState">交易状态</th>
+                  </tr>
+                  #for(com.ekfans.base.order.model.OrderDetail orderDetail:orderDetails)
+                  <tr>
+                    <td class="user">
+                        <div class="tdIn">
+                            <img src="${webroot }${orderDetail.headPhoto}" width="50" height="50" alt="${orderDetail.userName }">
+                            <span>${orderDetail.userName }</span>
+                        </div>
+                    </td>
+                    <td class="proName"><div class="tdIn">${orderDetail.productName}</div></td>
+                    <td class="salePrice"><div class="tdIn orange">¥${orderDetail.totalPrice }</div></td>
+                    <td class="saleCount"><div class="tdIn">${orderDetail.quantity }</div></td>
+                    <td class="saleTime"><div class="tdIn">${orderDetail.dealTime }</div></td>
+                    <td class="salesState"><div class="tdIn">成交</div></td>
+                  </tr>
+                  #end
+                </table>
+                
+						    <!-- 分页代码 -->
+						    #define(com.ekfans.pub.util.Pager pager)
+						    <input type="hidden" id="pageNumD" value="${pageNum }">
+						    <div class="listPage">
+											 <a href="javascript:void(0);" onclick="goPage('1','dealRecord');" class="pageIndex" value="1">&lt;&lt;</a>
+												#if(pager.currentPage == 1)
+													<a href="javascript:void(0);" class="pagePre">&lt;</a> 
+												#else
+													<a href="javascript:void(0);" class="pagePre" onclick="goPage('${pager.currentPage-1 }','dealRecord');"   value="${pager.currentPage-1 }" >&lt;</a>
+												#end
+												
+												#if(pager.totalPage>6)
+													#if(pager.currentPage-2>1 && pager.currentPage+3<pager.totalPage)
+														<a>..</a>
+														#for(int i : iterator(pager.currentPage-1,pager.currentPage+1))
+															#if(pager.currentPage==i)
+																  <a href="javascript:void(0);" onclick="goPage('${i }','dealRecord');" value="${i }" class="page nowPage" >${i }</a>
+															#else
+																  <a href="javascript:void(0);" onclick="goPage('${i }','dealRecord');" value="${i }" class="page" >${i }</a>
+															#end
+														#end
+														<a>..</a>
+														#for(int i : iterator(pager.totalPage-2,pager.totalPage))
+															<a href="javascript:void(0);" onclick="goPage('${i }','dealRecord');" value="${i }" class="page" >${i }</a>
+														#end
+												   #elseif(pager.currentPage-2<=1)
+														#for(int i : iterator(1,3))
+															#if(pager.currentPage==i)
+																<a href="javascript:void(0);" onclick="goPage('${i }','dealRecord');"   value="${i }" class="page nowPage" >${i }</a>
+															#else
+																<a href="javascript:void(0);" onclick="goPage('${i }','dealRecord');"   value="${i }" class="page" >${i }</a>
+															#end
+														#end
+														<a>..</a>
+														#for(int i : iterator(pager.totalPage-2,pager.totalPage))
+															<a href="javascript:void(0);" onclick="goPage('${i }','dealRecord');" value="${i }" class="page" >${i }</a>
+														#end
+												   #else
+														<a>..</a>
+														#for(int i : iterator(pager.totalPage-5,pager.totalPage))
+															#if(pager.currentPage==i)
+																<a href="javascript:void(0);" onclick="goPage('${i }','dealRecord');"   value="${i }" class="page nowPage" >${i }</a>
+															#else
+																<a href="javascript:void(0);" onclick="goPage('${i }','dealRecord');"   value="${i }" class="page" >${i }</a>
+															#end
+														#end
+													#end
+												#else
+													#for(int i : iterator(1,pager.totalPage))
+														#if(pager.currentPage==i)
+															<a href="javascript:void(0);" onclick="goPage('${i }','dealRecord');"   value="${i }" class="page nowPage" >${i }</a>
+														#else
+															<a href="javascript:void(0);" onclick="goPage('${i }','dealRecord');"   value="${i }" class="page" >${i }</a>
+														#end
+													#end
+												#end
+												
+												#if(pager.currentPage==pager.totalPage)
+													<a href="javascript:void(0);" class="pageNext">&gt;</a>
+												#else
+													<a href="javascript:void(0);" onclick="goPage('${pager.currentPage+1 }','dealRecord');"   value="${pager.currentPage+1 }" class="pageNext">&gt;</a>
+												#end
+												
+												<a  href="javascript:void(0);" onclick="goPage('${pager.totalPage }','dealRecord');"   value="${pager.totalPage }" class="pageLast" >&gt;&gt;</a>
+								</div>

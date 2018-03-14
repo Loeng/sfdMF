@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}-订单确认</title>
+	<link rel="icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+	<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/web/gylweb/css/base.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/web/webcommon/css/cart02.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/gylweb/js/cart/shopCartAccount.js"></script>
+	<script src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/gylweb/js/gylCommons.js"></script>
+</head>
+
+<body>
+	<input type="hidden" name="ctxpath" id="ctxpath" value="${ctxpath}" />
+	<input type="hidden" name="channelId" id="channelId" value="" />
+	<input type="hidden" name="channelType" id="channelType" value="1" />
+	<input type="hidden" name="configStatus" id="configStatus" value="" />
+		
+	
+	<!-- 头部 -->	
+	<div class="header" id="channelTop"></div>	
+		
+		
+	<div class="wrapper">
+		<!--购物车订单确认页中部-->
+		<div class="main" id="inMain"></div>
+	</div>
+	
+	
+	<!--订单确认页底部-->
+	<div class="bottomSplit"></div>	
+	#include("../channel/commons/buttom.jetx")
+</body>
+</html>

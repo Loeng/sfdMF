@@ -1,0 +1,123 @@
+#define(List<java.util.Map<String,Object>> logList)
+#define(com.ekfans.pub.util.Pager pager)
+
+<div class="formSearch" style="border:none;">
+	<dl class="formItem" style="width:45%;">
+		<input type="hidden" name="pageNo" id="pageNo" value="${pager.currentPage}"/>
+		<dt>发生时间</dt>
+		<dd><input name="startTime" id="startTime" type="text" class="timeBox box98 textBox" value="${startTime != null?startTime:""}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"></dd>
+		<dd class="lineColor">&nbsp;—&nbsp;</dd>
+		<dd><input name="endTime" id="endTime" type="text" class="timeBox box98 textBox" value="${endTime != null?endTime:""}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"></dd>
+		<dd class="clear"></dd>
+	</dl>
+	<!--
+	<dl class="formItem" style="width:45%;">
+		<dt>操作类型</dt>
+		<dd>
+			<div class="selList"> <span class="textBox">
+				<input name="" type="text" class="box184" placeholder="" readonly value="全部">
+				<em class="iconDown"></em> </span>
+				<ul>
+				<li>全部</li>
+				<li>充值</li>
+				<li>提现</li>
+				<li>付款</li>
+				</ul>
+			</div>
+		</dd>
+		<dd class="clear"></dd>
+	</dl>
+	-->
+	<div class="clear"></div>
+</div>
+<div class="btnArea">
+	<a href="javascript:searchForm();" class="btnBase btnSearch">搜索</a>
+	<a href="javascript:resetForm();" class="btnBase btnReset">清空</a>
+	<div class="clear"></div>
+</div>
+<ul class="secNav">
+	<li class="li1">交易记录</li>
+	<!-- <li><a href="javascript:exportForm('0');" title="导出"  class="li2">导出当前页</a></li>
+	<li><a href="javascript:exportForm('1');" title="导出"  class="li2">导出所有</a></li>  -->
+</ul>
+<div class="clear"></div>
+#if(logList != null && logList.size()>0)
+<table border="0" cellspacing="0" cellpadding="0" class="tabList">
+	<tr class="tabTit bgColor">
+		<th>交易时间</th>
+		<th>交易类型</th>
+		<th>金额</th>
+		<th>交易状态</th>
+	</tr>
+
+	#for (java.util.Map<String,Object> logMap:logList)
+		#if(logMap != null && logMap.size()>0)
+			<tr>
+				<td>${logMap?["TRANS_TIME"]}</td>
+				#set(String transType = logMap?["TRANS_TYPE"])
+				<td>${transType == "1"?"充值":"提现"}</td>
+				<td class="orange">${logMap?["TRANS_AMT"]}元</td>
+				#set(String transStatus = logMap?["TRANS_STATE"])
+				<td>${transStatus == "0"?"处理中":(transStatus == "1"?"成功":(transStatus == "2"?"失败":(transStatus == "3"?"状态未知":"已冲正")))}</td>
+			</tr>
+		#end
+	#end
+	
+</table>
+<div class="pageSize">
+	<a href="javascript:void(0);" onclick="goPage('1');" class="btn pageControl" value="1">&lt;&lt;</a>
+	#if(pager.currentPage == 1)
+		<a href="javascript:void(0);" class="btn pageControl">&lt;</a> 
+	#else
+		<a href="javascript:void(0);" class="btn pageControl" onclick="goPage('${pager.currentPage-1 }');"   value="${pager.currentPage-1 }" >&lt;</a>
+	#end
+	共 ${pager.totalRow}条，${pager.totalPage}页
+	#if(pager.currentPage==pager.totalPage)
+		<a href="javascript:void(0);" class="btn pageControl">&gt;</a>
+	#else
+		<a href="javascript:void(0);" onclick="goPage('${pager.currentPage+1 }');"   value="${pager.currentPage+1 }" class="btn pageControl">&gt;</a>
+	#end
+	<a  href="javascript:void(0);" onclick="goPage('${pager.totalPage }');"   value="${pager.totalPage }" class="btn pageControl" >&gt;&gt;</a>
+
+</div>
+#else
+<table border="0" cellspacing="0" cellpadding="0" class="tabList">
+	<tr class="tabTit bgColor">
+		<th>交易时间</th>
+		<th>交易类型</th>
+		<th>交易状态</th>
+		<th>金额</th>
+	</tr>
+</table>
+<div class="clear"></div>
+<div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+#end
+
+
+<script>
+	
+	function goPage(pageNo){
+		var startTime = $("#startTime").val();
+		var endTime = $("#endTime").val();
+		$("#showLogs").load("${webroot}/store/account/bank/loglist",{"startTime":startTime,"endTime":endTime,"pageNo":pageNo});
+	}	
+	
+	function searchForm(){
+		var startTime = $("#startTime").val();
+		var endTime = $("#endTime").val();
+		$("#showLogs").load("${webroot}/store/account/bank/loglist",{"startTime":startTime,"endTime":endTime,"pageNo":"1"});
+	}	
+	
+	function exportForm(expType){
+		var startTime = $("#startTime").val();
+		var endTime = $("#endTime").val();
+		$("#showLogs").load("${webroot}/store/account/bank/exportlist",{"startTime":startTime,"endTime":endTime,"pageNo":"1","expType":expType});
+	}
+	
+	
+	function resetForm(){
+		$("#startTime").val("");
+		$("#endTime").val("");
+	}
+	
+</script>

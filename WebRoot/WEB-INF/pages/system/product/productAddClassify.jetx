@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>商品分类选择页面</title>
+	<link href="${webroot}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+	<link href="${webroot}/resources/system/css/demand.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/product/productAddClassify.js"></script>
+</head>
+<body>
+<div class="add_pro">
+		<input type="hidden" id="ctxpath" value="${webroot}" />
+		
+		<div class="sto_fl_ss" style="padding-top:20px;">
+					分类搜索<input name="name" id="categorySearch" type="text" class="i_bg" value="${name}"/>
+					<a href="javascript:void(0);" class="btn" onclick="searchSubmit();">搜索</a>
+		</div>
+			#define(List<com.ekfans.base.product.model.ProductCategory> pcs)
+			<font id="font2" style="display:none">
+		</font>	
+		<div class="select_fl">
+			<font id="font1"  >
+			<h3>商品分类选择</h3>
+				<ul>
+					<li>
+							#if(pcs==null||pcs.size()<=0)
+							<div class="ht_list_k" >暂时没有符合条件的数据</div>	
+							#end
+							#for(com.ekfans.base.product.model.ProductCategory pc : pcs)
+							<a href="javascript:void(0);" id="firstName${pc.id}" class="pp_right" onclick="searchFirstName('${pc.id}','${pc.name}');" >${pc.name}</a>
+							#end
+					</li>
+					<li>
+						<font id="jsonBox2" ></font>
+					</li>
+					<li>
+						<font  id="jsonBox3" ></font>
+					</li>
+					<li>
+						<font id="jsonBox4" ></font>
+					</li>
+					<li>
+						<font  id="jsonBox5" ></font>
+					</li>
+			</ul>
+			</font>
+			<div class="ts" id="showName">
+					<a id="span1" class="one" ></a>
+					<a id="span2"></a>
+					<a id="span3"></a>
+					<a id="span4"></a>
+					<a id="span5"></a>
+				</div>
+				<div class="pro_glpp_btn">
+					<form action="${webroot}/system/product/add" method="post"  id="searchProductAddForm">
+					<input type="hidden" id="name" name="pcName" value="" />
+					<input type="hidden" id="id" name="pcId" value="" />
+					<a href="#" class="btn" onclick="addSubmit();">确认已选分类继续</a>
+					</form>
+				</div>
+		</div>
+	</div>
+</body>
+</html>

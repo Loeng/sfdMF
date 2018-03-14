@@ -1,0 +1,27 @@
+#define(com.ekfans.base.content.model.ContentCategory dzHelp)
+<div class="bottomMenu">
+    <div class="wrapper">
+    	#for(com.ekfans.base.content.model.ContentCategory cc:dzHelp.childList)
+    	 <dl>
+            <dt>
+              <img src="${webroot}${cc.icon}" width="49" height="48" />
+              <span>${cc.name}</span>
+              <div class="clear"></div>
+            </dt>
+            <dd>
+               #for(com.ekfans.base.content.model.Content content:cc.contents)
+							       <li><a href="${webroot}/web/help/${content.id}?cid=${cc.parentId}" title="${content.contentName}">${content.contentName}</a></li>
+							  #end
+            </dd>
+        </dl>
+        #end
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="footer">
+	<div class="wrapper">
+        <p class="footerLeft">${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("底部版权信息")}</p>
+        <p class="footerRight">${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("底部联系信息")}</p>
+        <div class="clear"></div>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+/* CSS Document */
+
+@import url("../../../commons/css/commons.css");
+
+.wrapper{width:980px; margin:0 auto;}
+.opacity{opacity:0.8; filter:alpha(opacity=80);}
+.btnBlue{display:block; text-align:center; color:#fff; background:#02AFED;}
+.btnBlue:hover{background:#003446; color:#fff;}
+.btnGreen{display:block; text-align:center; color:#fff; background:#9FD367;}
+.btnGreen:hover{background:#86C73F; color:#fff;}
+.btnOrange{display:block; text-align:center; color:#fff; background:#FF7633;}
+.btnOrange:hover{background:#d95c00; color:#fff;}
+
+
+/*头部*/
+.leftNav{width:354px; height:34px; margin-top:31px; float:left;}
+.navLink{display:block; padding:0 23px; height:34px; line-height:34px; text-align:center; font-size:18px; float:left; transition:color 0.5s;}
+.navLink:hover,.navCur{color:#fff;}
+.leftNav .navLink{margin-right:59px;}
+.headerCenter{width:271px; height:126px; background:url(../images/top_center.png) no-repeat; float:left;}
+.logo{height:80px; width:168px; margin:0 auto;}
+.loginReg{height:36px; line-height:36px; text-align:center;}
+.loginReg a{display:inline-block; margin:0 11px; font-size:14px;}
+.rightNav{float:left; height:34px; margin-top:31px; padding-left:10px;}
+.rightNav .navLink{white-space:nowrap; margin-left:59px;}
+.navHoverCur{background:#FB752B; border-radius:17px; height:34px; position:absolute; top:31px; z-index:-1;}
+
+/*登录后*/
+.afterLogin{width:120px; margin:0 auto; position:relative; z-index:2;}
+.afterLogin dt{height:34px; line-height:34px; overflow:hidden; background:url(../images/icon_user.png) no-repeat 6px center; padding-left:29px;}
+.afterLogin dd{padding:0 12px; display:none;}
+.afterLogin dd li{height:20px; line-height:20px; overflow:hidden; margin-bottom:8px;}
+.afterLogin dd li a{display:block; text-indent:16px;}
+.afterLogin dd li a:hover{background:#FFC32B; color:#fff;}
+.afterLogin:hover{background:#fff; border:solid 1px #ededed; margin:-1px auto; box-shadow:0 0 3px #ccc;}
+.afterLogin:hover dd{display:block;}
+
+/*底部菜单*/
+.bottomSplit{height:26px; background:#efefef;}
+.bottomMenu{background:#fff; padding:30px 0 36px 0;}
+.bottomMenu .wrapper{width:960px; padding:0 10px; position:relative;}
+.bottomMenu dl{padding-right:110px; float:left;}
+.bottomMenu .bottomAbout{padding-right:0;}
+.bottomMenu dt{font-size:22px; height:48px; line-height:48px; margin-bottom:5px; padding-left:62px;}
+.bottomMenu dd{padding-left:66px;}
+.bottomMenu dd li{height:36px; line-height:36px; font-size:16px;}
+.bottomAccount dt{background:url(../images/gyl_icon_r1_c4.png) no-repeat left center;}
+.bottomService dt{background:url(../images/gyl_icon_r1_c5.png) no-repeat left center;}
+.bottomPurchase dt{background:url(../images/gyl_icon_r1_c6.png) no-repeat left center;}
+.bottomAbout dt{background:url(../images/gyl_icon_r1_c7.png) no-repeat left center;}
+.chihuo{position:absolute; bottom:-12px; right:20px; height:32px; line-height:32px; font-size:18px; padding-left:43px; background:url(../../images/icon_phone.png) no-repeat left center;}
+
+.footer{background:url(../../webcommon/images/footer_split.png) no-repeat top center; background-color:#eeefef; line-height:22px; padding:22px 20px;}
+.footerLeft{float:left;}
+.footerRight{float:right;}

@@ -1,0 +1,63 @@
+#define(java.math.BigDecimal listPrice)
+#define(java.math.BigDecimal payPrice)
+
+	<div class="apTit">
+		<span class="apClose"></span>
+	    <h3>付款</h3>
+	    <span class="yue">账户余额<em>${listPrice}</em>元</span>
+	    <span class="yue">支付金额<em>${new java.text.DecimalFormat("0.00").format(payPrice)}</em>元</span>
+	    <div class="clear"></div>
+	</div>
+	
+	<div class="apContent" style="padding-top:40px;">
+		#if(listPrice.compareTo(payPrice)==-1)
+			<div class="warning">您的账户余额不足，请<a href="javascript:choseMenu('${webroot}','ACCOUNT_BANK_ACCOUNT');">充值</a>后付款</div>
+		#end
+		<form action="${webroot}/store/payorder/bcsPay" method="post" name="paySubmitForm"  id="paySubmitForm">
+		  <dl class="formItem formLine">
+		      <dt style="font-size:14px;">支付密码</dt>
+		      <dd>
+		      		<input name="orderId" type="hidden" value="${orderId}">
+		      		<input name="payType" type="hidden" value="${payType}">
+		      		<input name="orderType" type="hidden" value="${orderType}">
+		          <input name="payPassword" id="payPassword" type="password" class="textBox box300">
+		      </dd>
+		      <dd class="clear"></dd>
+		  </dl>
+		</form>
+	</div>
+	<div class="apBtns"><a class="btnBase" href="javascript:paySub();">确定</a><a class="btnBase" href="javascript:cancelPay();">取消</a></div>
+
+
+<script>
+	function paySub(){
+		#if(listPrice.compareTo(payPrice)==-1)
+			econfirm("您的账户余额不足，是否立即前往充值？",choseMenu,['${webroot}','ACCOUNT_BANK_ACCOUNT'],null,null);
+			return;
+		#else
+		
+			$("#paySubmitForm").ajaxSubmit(function (result) {
+				if(result == "0"){
+					falert("支付/提现密码不正确，请重新输入");
+				}else if(result == "1"){
+					salertWithFunction("支付成功",reloads,null);
+				}else{
+					falert("支付失败，请检查账户余额");
+				}
+			});
+		#end
+	}
+	
+	function reloads(){
+		$(".apLayerBg").hide();
+		$("#fukuan").hide();
+		location.reload();
+	}
+	
+	function cancelPay(){
+		$(".apLayerBg").hide();
+		$("#fukuan").hide();
+	}
+	
+	
+</script>

@@ -1,0 +1,39 @@
+#define(List<com.ekfans.base.store.model.CarUser> userList)
+
+
+<div class="apTit">
+	<span class="apClose"></span>
+	押运员选择
+</div>
+<div class="apContent">
+	<div class="itemLayer">
+		#for(com.ekfans.base.store.model.CarUser carUser:userList)
+			<div class="classItem">
+				<label>
+					<input name="yyyChose" type="radio" value="${carUser.id}" onclick="okChoseYYY('${carUser.id}','${carUser.name}')">
+					${carUser.name}
+				</label>
+			</div>
+		#end
+		<div class="clear"></div>
+	</div>
+</div>
+<div class="apBtns">
+	<a class="btnBase" href="javascript:cancelChoseYYY();">取消</a>
+</div>
+
+
+<script>
+
+	function cancelChoseYYY(){
+		$("#supercargo").html("");
+		$("#supercargo,.apLayerBg").hide();
+	}
+	function okChoseYYY(userId,userName){
+		$("#${carInfoId}supercargoName").val(userName);
+		$("#${carInfoId}supercargoId").val(userId);
+		$("#supercargo").html("");
+		$("#supercargo,.apLayerBg").hide();
+		
+	}
+</script>

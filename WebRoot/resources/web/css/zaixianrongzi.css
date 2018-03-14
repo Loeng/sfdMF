@@ -1,0 +1,44 @@
+/* CSS Document */
+
+
+.banner{height:280px;min-width:1200px;overflow:hidden; position:relative; margin-bottom:20px;}
+.banner .danLink{height:280px;display: block;overflow: hidden;text-align: center;}
+.banner .danLink img{ position: absolute;top: 0;left: 50%;margin-left: -960px;}
+
+.rongzi{border:solid 1px #EEEFEF; padding-bottom:20px;}
+.main h2{height:35px; line-height:35px; font-size:14px; color:#fff; margin-bottom:20px;}
+.main h2 em{display:block; float:left; height:35px; width:200px; text-align:center; background:#393;}
+.rongzi h2 a{display:block; width:136px; background:#99CB67; float:left; text-align:center;}
+.rongzi dl{float:left; width:184px; border-right:solid 1px #EEEFEF; padding:0 20px 0 35px; height:170px; position:relative;}
+.rongzi dt{height:35px; line-height:35px; font-size:16px; margin-bottom:16px;}
+.rongzi dd{line-height:30px; color:#999; font-size:14px;}
+
+.hezuo{border:solid 1px #EEEFEF; font-size:18px; height:98px; margin:20px 0;}
+.hezuo li{float:left; text-align:center;}
+.hezuoItem1{width:200px; height:98px; line-height:98px; background:#393; color:#fff;}
+.hezuoItem2{font-size:72px; line-height:50px; color:#393; padding:0 36px;}
+.hezuoItem3{width:190px; height:60px; margin-top:19px;}
+.hezuoItem4{width:190px; height:60px; line-height:60px; margin-top:19px; background:#393; color:#fff;}
+.hezuoItem4:hover{color:#fff;background-color:#339933;}
+.cangchu{border:solid 1px #EEEFEF; margin-bottom:30px; padding-bottom:20px;}
+.cangchu .autoAdv{width:360px; height:390px; float:left; margin:0 20px;}
+.cangchu .autoAdv .autoAdvImg{width:360px; height:260px; margin-bottom:10px;}
+.cangchu .autoAdv .autoAdvText{line-height:24px; height:120px; overflow:hidden;}
+.cangchuItem{width:380px; height:180px; float:left; margin:0 19px 20px 0; position:relative;overflow: hidden;}
+.title{background-color:#f1f1f1; background-repeat:no-repeat; background-position:72px center; height:180px; line-height:180px; font-size:20px; text-indent:168px;}
+.cangchuIcon1{background-image:url(../images/icon_cangchu1.png);}
+.cangchuIcon2{background-image:url(../images/icon_cangchu2.png);}
+.cangchuIcon3{background-image:url(../images/icon_cangchu3.png);}
+.cangchuIcon4{background-image:url(../images/icon_cangchu4.png);}
+.itemContent{position:absolute; top:0; left:0; width:92%; padding:0 4%; height:180px; background:#393; color:#fff; z-index:1; display:none;}
+.itemContent dt{height:60px; line-height:60px; font-size:20px; text-align:center;}
+.itemContent dd{line-height:26px;}
+.ckjgRight{float:left;width:798px;}
+.hezuoIn{padding:20px;}
+.hezuoIn .formItem{width:350px; float:left; margin:0 0 20px 100px;}
+.hezuoIn .formItem dt{width:80px; padding-right:10px; float:left; line-height:30px; text-align:right; font-size:14px;}
+.hezuoIn .formItem .formImport{width:260px; float:left;}
+.hezuoIn .formBox{border:solid 1px #DFE2EA; width:258px; height:28px; text-indent:0.8em;}
+.hezuo-class .layui-layer-title{height:60px; padding:8px 0 8px 164px; background:url(../images/layer_icon_info.png) no-repeat 98px center; border-top:solid 5px #393; line-height:28px; color:#656565;}
+.hezuo-class .layui-layer-btn{text-align:left; padding:0 0 16px 204px;}
+.hezuo-class .layui-layer-btn0,.hezuo-class .layui-layer-btn1{background:#393; color:#fff;}

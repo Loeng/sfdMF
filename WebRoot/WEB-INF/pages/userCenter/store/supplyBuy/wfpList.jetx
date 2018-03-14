@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>原料需求信息列表</title>
+<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css" />
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+<!-- 导入自定义的JS文件 -->
+<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/supplyBuy/wfpSupplyBuyList.js"></script>
+</head>
+<body>
+	#define(List<com.ekfans.base.order.model.SupplyBuy> supplyBuys)
+		<input type="hidden" value="${webroot}" id="contextPath"/>
+		<input type="hidden" name="type" id="type" value="${type}"/>
+	<div class="rightContent">
+		  <form action="${webroot}/store/supplyBuy/wfpList" method="post" id="searchSupplyBuy">
+		  	
+		  	<input type="hidden" name="pageNum" value="" />
+        <div class="formSearch borderColor">
+						<dl class="formItem">
+							<dt>供求标题</dt>
+							<dd><input name="title" id="title" value="${title }"  type="text" class="textBox box212"></dd>
+							<dd class="clear"></dd>
+						</dl>
+						<dl class="formItem">
+							<dt>发布企业</dt>
+							<dd><input name="storeName" id="storeName" value="${storeName }"  type="text" class="textBox box212"></dd>
+							<dd class="clear"></dd>
+						</dl>
+						<dl class="formItem">
+							<dt>创建时间</dt>
+							<dd>
+								<input name="beginDate" id="beginDate" value="${beginDate}" type="text" class="timeBox box98 textBox"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'endDate\')}'})">
+							</dd>
+							<dd>&nbsp;—&nbsp;</dd>
+							<dd>
+								<input name="endDate" id="endDate" value="${endDate }" type="text" class="timeBox box98 textBox" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'beginDate\')}'})">
+							</dd>
+							<dd class="clear"></dd>
+						</dl>
+					
+            <div class="clear"></div>
+        </div>
+				<div class="btnArea">
+					<a href="javascript:void(0);" class="btnBase btnSearch" onclick="formSubmit();">搜索</a>
+					<a href="javascript:void(0);" class="btnBase btnReset" onclick="formReset();">重置</a>
+					<div class="clear"></div>
+				</div>
+      </form>
+      
+      <div class="formTable borderColor">
+      	<ul class="secNav">
+        	<li class="li1">所有供求信息</li>
+        </ul>
+        <div class="clear"></div>
+         <!--没有订单时-->
+          <div style="position:relative;" class="tableBox">   
+         <table border="0" cellspacing="0" cellpadding="0" class="tabList">
+         <thead>
+        	<tr class="bgColor">
+            <th>供求标题</th>
+            <th>发布企业</th>           
+            <th style="padding-left:0px;padding-right:0px">创建时间</th>
+            <th>联系人</th>
+            <th>联系方式</th>
+            <th>供求关系</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          
+          #if(supplyBuys!=null && supplyBuys.size()>0)
+           #for(com.ekfans.base.order.model.SupplyBuy sb:supplyBuys)
+              <tr>
+                <td>${sb.title}</td>
+                <td>
+                	   ${sb.storeName}
+				        </td>
+                <td style="padding-left:0px;padding-right:0px">${sb.createTime.substring(0,10)}</td>
+                <td>${sb.contactName }</td>
+                <td>${sb.contactPhone }</td>
+                <td> #if(sb.type == "0") <em class="gongIcon">供</em>
+               				 #elseif(sb.type == "1") <em class="qiuIcon">求</em> 			            	 
+				        				#end</td>
+                <td>
+                		<a href="${webroot}/store/supplyBuy/wfpQuery/${sb.id}"  class="eyeIco" title="查看" >查看</a>										
+                </td>
+              </tr>
+              #end
+             #end
+             </tbody>
+        </table>
+        </div>
+         #if(supplyBuys==null || supplyBuys.size()==0)
+                <div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+              #else
+              
+         <div class="listBottom">
+               <!-- <a href="javascript:void(0)" class="btnBase">导出订单</a>-->
+                <!-- 分页 -->
+                <input type="hidden" name="pageNum" value="${currentpageStr }" />
+                ${include("../common/page.jetx")}
+                <div class="clear"></div>
+           </div>
+           #end
+      	<div class="clear"></div>
+    
+     		</div>
+            
+          </div>
+        </div>
+	
+</body>
+</html>

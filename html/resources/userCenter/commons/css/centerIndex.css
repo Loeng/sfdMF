@@ -1,0 +1,89 @@
+/* CSS Document */
+
+@import url("base.css");
+
+.userInfo{background:#fff; width:576px; height:120px; float:left; margin-right:7px; padding:15px 10px 15px 14px;}
+.userPhoto{width:118px;height:118px; border:solid 1px #f2f1f1; float:left; margin-right:15px;}
+.userPhoto img{vertical-align:middle; max-width:118px;max-height:118px; text-align:center;}
+.userInfo .info{width:300px; float:left; padding-top:8px;}
+.welcome{line-height:20px; height:20px; font-size:14px; position:relative; margin-bottom:6px;}
+.welcome a{position:absolute; line-height:20px; right:10px; top:0; color:#5FB7FF;}
+.userName{line-height:22px; max-height:44px; margin-bottom:10px; color:#484848; font-size:18px; overflow:hidden; font-weight:bold;}
+.webMail,.yue{color:#8b8b8b; height:20px; line-height:20px; overflow:hidden;}
+.webMail em{color:#f00; padding:0 5px;}
+.mail em{color:#333;}
+
+.beian{padding:15px 10px 15px 18px; background:#fff; width:292px; height:120px; float:left; margin-right:7px;}
+.beian h3{height:20px; line-height:20px; margin-bottom:20px; font-size:14px;}
+.beianItem{float:left; margin:0 18px;}
+.beianItem dt{width:50px; height:50px; position:relative; margin:0 auto 10px auto;}
+.beianItem dt em{width:20px; height:20px; display:block; position:absolute; top:0; right:-9px;}
+.itemOk{background:url(../images/icon_ok.png) no-repeat;}
+.itemUnfinished{background:url(../images/icon_un.png) no-repeat;}
+.itemNo{background:url(../images/icon_no.png) no-repeat;}
+.beianItem dd{line-height:20px;}
+.beianItem dd a{color:#33A7FF;}
+
+.credit{padding:15px 10px 15px 18px; background:#fff; width:237px; height:120px; float:left; position:relative;}
+.credit h3{height:20px; line-height:20px; margin-bottom:20px; font-size:14px;}
+.creditLink{position:absolute; top:15px; line-height:20px; right:10px; color:#33A7FF;}
+.lev{line-height:61px; font-size:24px; color:#888;}
+.lev em{display:block; width:200px; height:61px; line-height:61px; background:#8DC556; color:#fff; font-size:48px; text-align:center; float:left; margin-right:8px;}
+
+.backlog{margin:10px 0; background:#fff;}
+.backlog h2{height:45px; line-height:45px; font-size:20px; background:#e5e5e5; margin-bottom:10px;}
+.backlog h2 em{display:block; width:160px; height:45px; text-indent:2em; color:#fff; background:#f00;}
+.backlogItem{padding:7px 13px 13px 13px; width:360px; height:140px; background:#f9f9f7; margin-right:10px; float:left;}
+.backlogIn{padding:0 0 10px 10px;}
+.backlogItem dt{line-height:30px; height:30px; position:relative; font-size:18px; color:#898989; margin-bottom:24px;}
+.backlogItem dt a{position:absolute; top:0; right:10px; font-size:14px; color:#33A7FF;}
+.backlogItem dd li{height:30px; line-height:30px; margin-bottom:18px; color:#484848;}
+.backlogItem dd li em{color:#FF5300; font-size:24px; padding:0 10px;}
+
+.indexList{padding:10px 15px 30px 15px; background:#fff;}
+.indexList h2{line-height:32px; height:32px; font-size:16px; color:#333; position:relative;}
+.indexList h2 .more{position:absolute; right:0; font-size:14px; color:#33A7FF;}
+.indexList table{width:100%;}
+.indexList th{height:30px; line-height:30px;}
+.indexList td{padding:0 5px; border-bottom:solid 1px #DCDCDD; line-height:35px; text-align:center; color:#7d7d7d;}
+.indexList tr:hover td{background:#f3f3f3;}
+.alterbox{height:78px; line-height:78px; background:url(../images/icon_un2.png) no-repeat left center; font-size:30px; color:#967814; padding-left:70px;}
+
+/*合同*/
+.hetong{ background:#fff; margin-top:10px; padding:10px 15px 30px 15px;}
+.hetong h2{line-height:32px; height:40px; font-size:16px; color:#333;}
+.htItem{width:254px;border:1px solid #F3F3F3; padding:15px 12px 15px 12px; margin-right:15px; float:left;}
+.lasthtItem{margin-right:0px;}
+.htpdf{background-color:#F3F3F3;float:left; background-image:url(../images/icon-pdf.png); background-repeat:no-repeat; background-position:center 14px; padding:70px 15px 15px 15px;color:#000000; font-size:14px; margin-right:30px;width:90px;}
+.htContent{float:left;font-size:14px; padding-top:15px;}
+.htContent li{margin-bottom:14px;display:block;width:103px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.htName{color:#050505;margin-right:8px;}
+.htCode{color:#7D7D7D;}
+.htcz{color:#45A8FF;margin-right:8px;}
+
+/*最新行情*/
+.todayHq{background:#fff; margin-top:10px; padding:10px 15px 30px 15px;}
+.todayHq h2{line-height:32px; height:40px; font-size:16px; color:#333;}
+.todyPrice{background:#fff;}
+.date{width:190px; height:182px; border-radius:10px; background:#ECF6FF; padding:28px 10px 0 10px; line-height:60px; font-size:44px; text-align:center; float:left; margin-top:12px;}
+.date em{display:block; width:180px; height:90px; border-radius:8px; background:#0086FD; line-height:90px; color:#fff;}
+.split{background:#EBEAEA; width:1px; height:250px; float:left; margin:0 34px;}
+.todyPrice table{width:890px; float:left; font-size:12px; margin-top:6px;}
+.todyPrice table th{height:38px; line-height:38px; border-bottom:solid 1px #EBEAEA; background:#D5EBFF;}
+.todyPrice table td{height:48px; line-height:48px; text-align:center; padding:0 20px;}
+.todyPrice table a{display:inline-block; margin:0 18px;}
+.todyPrice tr:hover td{background:#F2F2F2;}
+
+.gongIcon{display:inline-block; width:30px; height:30px; line-height:30px; border-radius:30px; text-align:center;color:#fff; background-color:#0085FD;font-size:14px;}
+.qiuIcon{display:inline-block; width:30px; height:30px; line-height:30px; border-radius:30px; text-align:center;color:#fff; background-color:#FF6B49;font-size:14px;}
+.jianIcon{display:inline-block; width:30px; height:30px; line-height:30px; border-radius:30px; text-align:center;color:#fff; background-color:#177F00;font-size:14px;}
+
+.userInfo .yue{font-size:14px; height:20px; line-height:20px; margin-top:10px;}
+.userInfo .yue em{color:#f00; font-size:20px; padding:0 8px;}
+.userInfoRight{float:right; width:130px; height:30px; padding-top:80px; position:relative;}
+.userDataLink{line-height:20px; color:#5FB7FF; font-size:14px; position:absolute; top:0; right:0;}
+.btnBase{display:block; background:#33A7FF;color:#FFF; width:80px; height:28px;line-height:28px;text-align:center;font-size:12px; margin-right:5px; float:right;}
+.btnBase:hover{background:#D4EBFD;color:#151515;font-size:12px;}
+
+.userInfo .shezhi{height:30px; line-height:30px; margin-top:20px; font-size:14px; color:#f00;}
+.shezhi .btnRed{width:80px; height:28px; line-height:28px; display:inline-block; text-align:center; font-size:14px; color:#fff; background:#FF6B49; margin-left:10px;}

@@ -1,0 +1,72 @@
+﻿/* CSS Document */
+
+@import url("base.css");
+
+.logo{width:450px;}
+.linkIndex{background-image:url(../images/icon_index2.png); background-repeat:no-repeat; background-position:11px center; margin-right:0;}
+.nav{height:80px; padding-left:100px; margin-bottom:0;}
+.nav a{display:block; width:120px; height:36px; line-height:36px; font-size:18px; color:#fff; text-align:center; float:left; margin:22px 40px 0 0; border-radius:14px;}
+.nav a:hover,.nav a.cur{background:#fff; color:#0085FD;}
+
+/*中部*/
+.main{position:relative; width:980px; padding:40px 110px 30px 110px; background:#fff; margin:0 auto;}
+.hide{display:none;}
+.regTab{padding-left:160px;height:33px;line-height:33px;border-bottom:1px solid #DCDCDD; padding-bottom:5px;}
+.regTab li{float:left;text-align:center;width:170px; display:block;margin:0 50px;}
+.regTab li a{font-size:24px;color:#4B4848;display:block;}
+.regTab li a.cur{border-bottom:9px #A78749 solid;}
+
+/*找回密码*/
+.regContent{width:699px;min-height:290px;margin:0 auto;padding:20px 50px; display:none;}
+.words{display:block; float:left;font-size:12px;color:#C9C9CA;width:264px;}
+.top{padding-top:50px;}
+.findIn{margin-left:217px;}
+.regContent h3{font-size:24px; color:#313131; height:32px; line-height:32px;margin-top:20px; text-align:center;}
+
+/*找回密码第二步*/
+.findContent{width:630px; margin:10px auto 10px auto;min-height:278px;padding:35px 70px;}
+.findContent .findTit{font-size:24px; color:#313131; height:32px; line-height:32px;margin-top:20px;margin-bottom:20px;}
+.findContent .findIn2{margin-left:174px;}
+
+/*找回密码第三步*/
+.tip{font-size:14px; color:#8C8C8C; margin-bottom:50px;}
+.key{float:left;}
+.user{float:left;}
+.phone{float:left;}
+.errorBox{background:#F9D1D3; text-align:center;font-size:14px;color:#FF0000;width:259px;height:20px;line-height:20px;margin-bottom:2px;visibility:hidden;}
+.tips{color:#009FE9;font-size:12px;line-height:36px;margin-left:9px;float:left;}
+.boxHeight{min-height:21px;}
+.btnLogin{background:#FB9347;color:#FFF;display:block;width:80px;height:28px;line-height:28px;text-align:center;margin:0 auto;font-size:14px;float:left;margin-top:5px;}
+.btnLogin:hover{}
+.btnSend{background:#EF4D4D;color:#FFF;display:inline-block;width:150px;height:36px;line-height:36px;text-align:center;margin:0 auto;font-size:16px;float:left;margin-left:10px;margin-right:10px;border:0; cursor:pointer;}
+.btnSend:hover{background:#EB1D1D;color:#FFF;}
+.btnForbid{background:#D1D1D1;font-size:16px;color:#858484;line-height:36px;}
+.btnForbid:hover{background:#D1D1D1;color:#858484;}
+.regBox{height:28px;padding-left:39px;font-size:14px;color:#7D7C7D;margin-top:9px;width:259px;}
+.btnNext{background:#2BB2FB;color:#FFF;display:block;width:259px;height:38px;line-height:38px;text-align:center;font-size:20px;margin-right:10px;}
+.marTop{margin-top:50px;}
+.btnFloat{float:left;}
+
+
+/*表单*/
+.code{float:left;}
+.codePic{float:left;margin-left:8px;}
+.textBox{display:block; border:solid 1px #EFEFEF; height:36px;}
+.textBox input{height:36px;line-height:36px\9;border:none;display:block;font-size:14px;margin-left:30px; background:#FFF; text-indent:0.5em;*height:34px;*width:85%;}
+.box258{width:257px;}
+.box228{width:227px;}
+.box124{width:124px;}
+.box94{width:94px;}
+.box20{width:20px; margin-left:0px;}
+
+.telBox{background:url(../images/tel_icon.jpg) no-repeat; background-position:0px 0px;}
+.companyBox{background:url(../images/company_icon.jpg) no-repeat; background-position:0px 0px;}
+.timeBox{background:url(../images/time_icon.jpg) no-repeat; background-position:0px 0px; margin-bottom:20px;}
+.mailBox{background:url(../images/mail_icon.jpg) no-repeat; background-position:0px 0px;}
+.phoneBox{background:url(../images/phone_icon.jpg) no-repeat; background-position:0px 0px;}
+.userBox{background:url(../images/user_icon.jpg) no-repeat; background-position:0px 0px;}
+.keyBox{background:url(../images/key_icon.jpg) no-repeat; background-position:0px 0px;}
+.codeBox{background:url(../images/code_icon.jpg) no-repeat; background-position:0px 0px;}
+.error{visibility:visible;}
+.errorBorder{border:1px solid #F9D1D3;}
+

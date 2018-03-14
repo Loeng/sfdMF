@@ -1,0 +1,19 @@
+<div class="sto_nav">
+	<div class="sto_navIn">
+		<ul>
+			#if(parentChose.equals("index"))
+				<li><a href="javascript:void(0);"  class="cur">商家首页</a></li>
+			#else
+				<li><a href="${webroot}/store/index">商家首页</a></li>
+			#end
+			#for(com.ekfans.base.store.model.StorePurview purview:purviewList)
+				#if(parentChose.equals(purview.id))
+					<li><a href="javascript:void(0);" class="cur">${purview.className}</a></li>
+				#else
+					<li><a href="${webroot}/store/${purview.id}">${purview.className}</a></li>
+				#end
+				
+			#end
+		</ul>
+	</div>
+</div>

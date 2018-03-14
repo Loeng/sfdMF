@@ -1,0 +1,409 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>危废申报</title>
+<meta name="keywords" content="鑫裕环保" />
+<meta name="description" content="鑫裕环保" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<link rel="shortcut icon" href="${webroot}/resources/commons/images/favicon.ico" type="image/x-icon">
+<link href="${webroot}/resources/system/css/base.css" rel="stylesheet" type="text/css" />
+<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/commons/css/proAdd.css" rel="stylesheet" type="text/css">
+
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+
+<style>
+	/*浮动按钮*/
+.ht_btn{border-bottom:1px solid #dbd8d8; overflow:hidden; position:fixed; top:0; left:0; padding:8px 0 0 20px; height:36px; width:100%; background:#fff; background:rgba(255,255,255,0.9); z-index:11;}
+.ht_btn a{float:left; margin-right:2px;}
+.form{margin-top:56px; border-top:none;}
+
+.endNum{width:20%;}
+
+.tabNav{height:35px; line-height:35px; border-bottom:solid 2px #1568ab; margin-bottom:20px; background-color:#fff;}
+.tabNav li{width:134px; height:35px; float:left; text-align:center; font-size:18px; cursor:pointer;}
+.tabNav li.cur{background:#1568ab; color:#fff;}
+
+.tabContent{display:none;}
+.tabContent h3{font-size:16px; line-height:30px; height:30px; color:#484848; font-weight:normal; border-bottom:solid 1px #1568ab; margin-bottom:16px;}
+.box80,.inputSplit{display:inline-block;}
+.box80{width:95px;}
+.editorForm dt{height:30px; line-height:30px;}
+.editorForm{padding-bottom:20px;}
+
+.danxuan input,.fuxuan input{float:left; display:block;}
+span.pp{cursor:pointer; display:block; float:left; width:27px; height:28px; border:1px solid #e0e3ea; margin-left:-1px; position:relative; background:url(${webroot}/resources/userCenter/commons/images/rightpoint2.png) no-repeat center center;}
+span.pp:hover{background:url(${webroot}/resources/userCenter/commons/images/rightpoint.png) #999 no-repeat center center; width:29px; height:30px; border:none;}
+
+.company{padding-bottom:20px;}
+.company ul{float:left; width:890px;}
+.company li{height:30px; line-height:30px; padding-left:30px; position:relative; float:left; padding-right:30px;}
+.company li input{display:block; top:10px; left:10px; position:absolute;}
+.company h4{font-size:14px; line-height:30px; float:left; margin-right:20px; width:74px;}
+
+.alertBrand{max-height:440px;}
+.alertBrand .btn{padding-left:110px;}
+.classItem{width:30%; margin:0 1.5%; float:left; height:50px; line-height:50px; border-bottom:solid 1px #e4e4e4;}
+.classItem label{display:block;}
+.classItem input{display:block; float:left; margin:19px 10px 0 8px;}
+.alertBrand .pageSize{padding:20px 20px 0 0;}
+
+/**资质选择弹框**/
+.selectList{width:100%;overflow:hidden;margin:5px 0;}
+.selectList li{float:left;min-height:130px;width:370px;height:130px;overflow-x:hidden; _overflow-y:scroll;border:1px solid #f6f6f6;}
+.selectList li a{display:block;height:25px;line-height:25px;padding-left:13px;overflow:hidden;}
+.selectList li a.cur,.selectList li a:hover{background:#ffedd7}
+.tabBox{overflow-y:auto;overflow-x:hidden; margin-bottom:5px;}
+.tabBox .tabList{clear:bouth;width:758px;}
+.tabBox .tabList th{padding:0px 10px; height:35px;line-height:35px;color:#292729; font-size:14px;}
+.tabBox .tabList td{padding:8px 10px; line-height:22px; border-bottom:1px #DCDCDD solid;color:#7D7C7D; max-width:105px; overflow:hidden; text-align:center;}
+.tabBox .tabList tr:hover{background:#F3F3F3;}
+.tabBox .pageSize{margin-bottom:5px;}
+.longText{padding-left:95px;font-size:14px}
+
+ input[type=text]{border:none}
+
+</style>
+</head>
+
+</head>
+<body>
+#define(com.ekfans.base.wfOrder.model.ScrapWfp scrapWfp)
+#define(List<com.ekfans.base.wfOrder.model.Contract> contracts)
+#define(com.ekfans.base.store.model.Store salStore)
+#define(com.ekfans.base.store.model.Store buyStore)
+#define(java.lang.String type)
+<input type="hidden" id="ctxpath" value="${webroot}"/>
+<div class="ht_btn">
+	#if(type!="1")
+	<a href="#" onclick="ajax1()" class="btn">审核</a>
+	#end
+	<a href="${webroot}/system/order/shenBao/listSytem" class="btn">返回列表</a>
+</div>
+<form action="" id="f1">
+	<input type="hidden" name="type" value="${scrapWfp.type}">
+	<input type="hidden" name="creator" value="${scrapWfp.creator}">
+	<input type="hidden" name="contractId" value="${scrapWfp.contractId}">
+	<input type="hidden" name="contractName" value="${scrapWfp.contractName}">
+	<input type="hidden" name="contractNo" value="${scrapWfp.contractNo}">
+	<input type="hidden" name="salId" value="${salStore.id}">
+	<input type="hidden" name="buyId" value="${buyStore.id}">
+	<input type="hidden" name="reports" value="${scrapWfp.reports}">
+	<input type="hidden" name="wfmlId" value="${scrapWfp.wfmlId}">
+	<input type="hidden" name="applications" value="${scrapWfp.applications}">
+	<input type="hidden" name="createTime" value="${scrapWfp.createTime}">
+<div class="form borderColor">
+	<ul class="tabNav">
+		<li class="cur">基本信息</li>
+		<li>危废品情况</li>
+	</ul>
+	<div class="tabContent">
+		<dl class="formItem formLine">
+			<dt style="width:88px;"><em class="mustIco"></em>危废处置合同</dt>
+			<dd class="danxuan"><a href="${webroot}/store/contract/contractById/1/${scrapWfp.contractId}/${viewType}" target="_blank">${scrapWfp.contractName}</a></dd>
+			<dd class="clear"></dd>
+		</dl>
+		<div class="clear"></div>
+		
+		<!--产生单位信息-->
+		<div id="salInfo">
+			<h3>产生单位</h3>
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>单位名称</dt>
+				<dd><input type="text" name="storeName" value="${salStore.storeName}"></dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>单位地址</dt>
+				<dd><input type="text" name="salAddress" value="${scrapWfp.salAddress}"></dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>邮政编码</dt>
+				<dd><input type="text" name="salAddress" value="${scrapWfp.salZipCode}"></dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>联系人</dt>
+				<dd><input type="text" name="salAddress" value="${scrapWfp.salMan}"></dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>联系电话</dt>
+				<dd><input type="text" name="salAddress" value="${scrapWfp.salPhone}"></dd>
+				<dd class="clear"></dd>
+			</dl>
+		
+		</div>
+		<div class="clear"></div>
+		
+		<!--运输单位信息-->
+		<div id="transInfo">
+			
+		#set(List<com.ekfans.base.wfOrder.model.ScrapWfpTrans> wfpTrans = scrapWfp.childList)
+		#for(com.ekfans.base.wfOrder.model.ScrapWfpTrans trans:wfpTrans)
+			#set(com.ekfans.base.store.model.Store transStore = trans.transStore)
+			#set(com.ekfans.base.store.model.Accredit transAcc = transStore.transAccredit)
+			<h3>
+				#if(wfpTrans.size()==1) 运输单位 #else 第${for.index}承运单位 #end
+			</h3>
+			<dl class="formItem">
+			  <dt><em class="mustIco"></em>单位名称</dt>
+			  <dd><input type="text" value="${transStore.storeName}"></dd>
+			  <dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+			  <dt><em class="mustIco"></em>单位地址</dt>
+				<dd><input type="text" value="${trans.transAddress}"></dd>
+			  <dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+			  <dt><em class="mustIco"></em>邮政编码</dt>
+			  <dd><input type="text" value="${trans.transZipCode}"></dd>
+			  <dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+			  <dt><em class="mustIco"></em>联系人</dt>
+			  <dd><input type="text" value="${trans.transMan}"></dd>
+			  <dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+			  <dt><em class="mustIco"></em>联系电话</dt>
+			  <dd><input type="text" value="${trans.transPhone}"></dd>
+			  <dd class="clear"></dd>
+			</dl>
+			<dl class="formItem" style="width:360px;">
+			  <dt style="width:122px;"><em class="mustIco"></em>危废经营许可证号</dt>
+			  <dd>${transAcc!=null?transAcc.licenseNo:""}</dd>
+			  <dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+			  <dt><em class="mustIco"></em>发证机关</dt>
+			  <dd>${transAcc!=null?transAcc.linceseAuthor:""}</dd>
+			  <dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+			  <dt><em class="mustIco"></em>有效期</dt>
+			  <dd>${transAcc!=null?transAcc.startTime:""}-${transAcc!=null?transAcc.endTime:""}</dd>
+			  <dd class="clear"></dd>
+			</dl>
+			#if(!for.last)
+				<div class="clear"></div>
+			#end	
+		#end
+		</div>
+		<div class="clear"></div>
+		
+		<!--处置单位信息-->
+		<div id="buyInfo">
+			#set(com.ekfans.base.store.model.Accredit buyAcc = buyStore.buyerAccredit)
+			<h3>接收单位</h3>
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>单位名称</dt>
+				<dd>${buyStore.storeName}</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>单位地址</dt>
+				<dd><input type="text" name="buyAddress" value="${scrapWfp.buyAddress}"></dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>邮政编码</dt>
+				<dd><input type="text" name="buyZipCode" value="${scrapWfp.buyZipCode}"></dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>联系人</dt>
+				<dd><input type="text" name="buyMan" value="${scrapWfp.buyMan}"></dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>联系电话</dt>
+				<dd><input type="text" name="buyPhone" value="${scrapWfp.buyPhone}"></dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem" style="width:360px;">
+				<dt style="width:122px;"><em class="mustIco"></em>危废经营许可证号</dt>
+				<dd>${buyAcc!=null?buyAcc.licenseNo:""}</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>发证机关</dt>
+				<dd>${buyAcc!=null?buyAcc.linceseAuthor:""}</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>有效期</dt>
+				<dd>${buyAcc!=null?buyAcc.startTime:""}-${buyAcc!=null?buyAcc.endTime:""}</dd>
+				<dd class="clear"></dd>
+			</dl>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="tabContent">
+		<h3>废物产生情况</h3>
+		<dl class="formItem">
+			<dt><em class="mustIco"></em>废物名称</dt>
+			<dd><input type="text" name="wfName" value="${scrapWfp!= null ? scrapWfp.wfName:''}"></dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem">
+			<dt><em class="mustIco"></em>废物代码</dt>
+			<dd><input type="text" name="code" value="${scrapWfp != null ? scrapWfp.code:''}"></dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem">
+			<dt><em class="mustIco"></em>危险特性</dt>
+			<dd><input type="text" name="characters" value="${@(com.ekfans.base.wfOrder.util.ScrapWfpConst).characterMap.get(scrapWfp.characters)}"></dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem">
+			<dt><em class="mustIco"></em>形态</dt>
+			<dd><input type="text" name="shape" value="${@(com.ekfans.base.wfOrder.util.ScrapWfpConst).shapeMap.get(scrapWfp.shape)}"></dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem">
+			<dt><em class="mustIco"></em>拟转移批次</dt>
+			<dd><input type="text" name="batch" value="${scrapWfp != null? scrapWfp.batch:''}"></dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem">
+			<dt><em class="mustIco"></em>本次转移</dt>
+			<dd><input type="text" name="quantity" value="${scrapWfp != null? scrapWfp.quantity:0}"></dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem">
+			<dt><em class="mustIco"></em>转移时间</dt>
+			<dd><input type="text" style="width:78px;" name="startTime" value="${scrapWfp != null? scrapWfp.startTime:''}">
+				 - <input type="text" name="endTime" value="${scrapWfp != null? scrapWfp.endTime:''}"></dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem">
+			<dt style="width:95px"><em class="mustIco"></em>主要成分及比例</dt>
+			<dd><input type="text" name="ingeredients" value="${scrapWfp != null? scrapWfp.ingeredients:''}"></dd>
+		</dl>
+		<dl class="formItem">
+			<dt><em class="mustIco"></em>检测报告</dt>
+			<dd><a href="${webroot}${scrapWfp.reports}" target="_blank">检测报告.PDF</a></dd>
+			<dd class="clear"></dd>
+		</dl>
+		<div class="clear"></div>
+		<dl class="editorForm">
+			<dt><em class="mustIco"></em>废物产生环节及生产工艺流程</dt>
+			<dd>
+				<input type="hidden" name="production" value="${scrapWfp != null? scrapWfp.production:''}">
+				<div class="longText">${scrapWfp != null? scrapWfp.production:''}</div>
+			</dd>
+		</dl>
+		<h3>废物处置利用情况</h3>
+		<dl class="formItem formLine">
+			<dt><em class="mustIco"></em>处置方式</dt>
+			<dd><input type="text" name="handle" value="${@(com.ekfans.base.wfOrder.util.ScrapWfpConst).handleMap.get(scrapWfp.handle)}"></dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="editorForm">
+			<dt><em class="mustIco"></em>处置利用说明</dt>
+			<dd>
+				<input type="hidden" name="handleNote" value="${scrapWfp != null? scrapWfp.handleNote:''}">
+				<div class="longText">${scrapWfp != null? scrapWfp.handleNote:''}</div>
+			</dd>
+		</dl>
+		<h3>废物包装、运输情况</h3>
+		<dl class="formItem">
+			<dt><em class="mustIco"></em>包装方式</dt>
+			<dd><input type="text" name="packs" value="${scrapWfp != null ? scrapWfp.packs:''}"></dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem">
+			<dt><em class="mustIco"></em>运输工具</dt>
+			<dd><input type="text" name="transTool" value="${scrapWfp != null ? scrapWfp.transTool:''}"></dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem">
+			<dt><em class="mustIco"></em>运输方式</dt>
+			<dd><input type="text" name="transType" value="${scrapWfp != null ? scrapWfp.transType:''}"></dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem formLine">
+			<dt><em class="mustIco"></em>运输路线</dt>
+			<dd><input type="text" name="transLine" value="${scrapWfp != null ? scrapWfp.transLine:''}"></dd>
+			<dd class="clear"></dd>
+		</dl>
+		#if(type=="1")
+		<dl class="formItem formLine">
+			<dt><em class="mustIco"></em>审核时间</dt>
+			<dd><input type="text" name="checkTime" value="${scrapWfp.checkTime}"></dd>
+			<dd class="clear"></dd>
+		</dl>
+		#end
+		#if(type=="1")
+		<dl class="formItem formLine">
+			<dt><em class="mustIco"></em>审核备注</dt>
+			<dd>${scrapWfp.checkNote}</dd>
+			<dd class="clear"></dd>
+		</dl>
+		#else
+		<dl class="formItem formLine">
+			<dt><em class="mustIco"></em>审核备注</dt>
+			<dd><textarea name="checkNote">${scrapWfp.checkNote}</textarea></dd>
+			<dd class="clear"></dd>
+		</dl>
+		#end
+	</div>
+	
+</div>
+</form>
+<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+
+<div class="apLayerBg"></div>
+<div class="apLayer borderColor alertBrand apConfirm" id="showLoads"></div>
+<script>
+String.prototype.replaceAll = function(reallyDo, replaceWith, ignoreCase) {  
+	if (!RegExp.prototype.isPrototypeOf(reallyDo)) {  
+      return this.replace(new RegExp(reallyDo, (ignoreCase ? "gi": "g")), replaceWith);  
+  }else{
+      return this.replace(reallyDo, replaceWith);  
+  }
+} 
+	
+/*选项卡切换*/
+$(".tabContent").eq(0).show();
+$(".tabNav li").click(function() {
+	$(this).siblings().removeClass("cur");
+	$(this).addClass("cur");
+	var index = $(".tabNav li").index(this);
+	$(".tabContent").hide();
+	$(".tabContent").eq(index).show();
+});
+
+
+$("#choseWfMl").live("click",function(){
+	$("#showLoads").load("${webroot}/wfpscrap/wfpmlonly");
+	$(".apLayerBg").show();
+	$(".alertBrand").show();
+});
+function ajax1(){
+	$.post('${webroot}/system/order/shenBao/checkSB?id=${scrapWfp.id}',$("#f1").serialize(),function (data){
+		if(data==1 || data=="1"){
+			salertWithFunction("审核成功!", myupreset, null);
+		}else{
+			salertWithFunction("审核失败!", myupreset, null);
+		}
+  });
+}		
+function myupreset(){
+	location.href="${webroot}/system/order/shenBao/listSytem";
+}
+
+
+</script>
+
+ </body>
+</html>   

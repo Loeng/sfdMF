@@ -1,0 +1,200 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>安全设置</title>
+<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/personal/css/personalBase.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/personal/css/style.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/userCenter/commons/css/security.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/commons/js/tools.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/safe.js"></script>
+<!--自定义JS-->
+<script src="${webroot}/resources/system/js/user/security.js"></script>
+</head>
+
+<body>
+	#define(com.ekfans.base.user.model.User user)
+<!--头部-->
+<input type="hidden" id="ctxpath" value="${webroot}" />
+<input type="hidden" id="userPassword" value="${user.passwordStrong}" />
+<input type="hidden" id="userEmail" value="${user.email}" />
+<input type="hidden" id="userPhone" value="${user.mobile}" />
+<input type="hidden" id="userisAssociatedBank" value="${user.isAssociatedBank}" />
+<!--头部 end-->
+#define(com.ekfans.base.store.model.Store store)
+
+#define(List<com.ekfans.base.user.model.Bank> bank)
+<div class="main">
+    <!--右侧主体-->
+    <div class="rightContent">
+    	<div class="contentTit borderColor">
+            <span>账号安全等级</span>
+             <div id ="all"></div><!--intensionLev3强，intensionLev2中，intensionLev1弱-->
+        </div>
+        <dl class="promoteSafe">
+           <div id="jibie"></div>
+            <dd><a href="javascript:void(0)">1.修改密码</a><a href="javascript:void(0)">2.修改绑定邮箱</a><a href="javascript:void(0)">3.修改绑定手机</a></dd>
+        </dl>
+        <dl class="loginInfo">
+        	<dt>账号登录信息</dt>
+            <dd class="loginInfo-right">
+                <span>会 员 名<em>${user.nickName}</em></span>
+                <span>绑定邮箱<em>${user.email}</em></span>
+                <span>绑定手机<em>${user.mobile}</em></span>
+			</dd>
+            <dd class="clear"></dd>
+        </dl>
+        <div class="clear"></div>
+        <div class="safeInfo">
+        	<strong class="safeInfo-Title">账号安全信息</strong>
+            <div class="safeInfo-right">
+                <dl class="loginPassword">
+                    <dt>登录密码</dt>
+                    <dd>安全性高的密码可以使账号更安全。建议您定期更换密码，且设置一个包含数字和字母，并长度超过6位以上的密码</dd>
+                    <dd>
+                    	<div id="password"></div>
+                        <a href="javascript:void(0)" class="btnBase btnFloat jsLoginPw">修改</a>
+                    </dd>
+                </dl>
+                <dl class="mailBound">
+                    <dt>邮箱绑定</dt>
+                    <dd>邮箱绑定,当您选择“邮箱”找回密码时，填写正确的绑定邮箱后，我们会将修改新密码连接发到您的绑定邮箱</dd>
+                    <dd>
+                       <div id="yx"></div>
+                        <a href="javascript:void(0)" class="btnBase btnFloat jsTradePw">修改</a>
+                    </dd>
+                </dl>
+                <dl class="phoneBound">
+                    <dt>手机绑定</dt>
+                    <dd>绑定手机后，您即可享受全网商城网丰富的手机服务，如手机登录、手机找回密码等</dd>
+                    <dd>
+                         <div id="sj"></div>
+                        <a href="javascript:void(0)" class="btnBase btnFloat jsQuestionPw">修改</a>
+                    </dd>
+                </dl>
+               
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <!--右侧主体 end-->
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<!--弹窗 css-->
+<div class="alertLayerBg"></div>
+<!--登陆密码修改弹窗 css-->
+<div class="alterBox">
+	<a href="javascript:void(0);" class="layerClose"></a>
+    <div class="alterContent">
+    	<dl class="formLine">
+        	<dt>原登录密码</dt>
+            <dd class="formRight">
+            	<input id="oldPwd" name="" type="password" class="formBox box210"/>
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="formLine">
+        	<dt>新登录密码</dt>
+            <dd class="formRight">
+            	<input id="newPwd" name="" type="password" class="formBox box210"/>
+              <div class="clear"></div>
+            </dd>
+        </dl>
+        <dl class="formLine">
+        	<dt>再次输入新密码</dt>
+            <dd class="formRight">
+            	<input id="newPwdTwo" name="" type="password" class="formBox box210"/>
+              <div class="clear"></div>
+            </dd>
+        </dl>
+        <dl class="formLine">
+        	<dt></dt>
+            <dd class="formRight">
+							<a href="javascript:void(0);" class="altBtnBlue" onClick="passwordSubmit();">确定</a>
+              <div class="clear"></div>
+            </dd>
+        </dl>    
+    </div>
+</div>
+<!--登陆密码修改弹窗 end-->
+
+<!--邮箱修改弹窗 css-->
+<div class="alterBoxTrade">
+	<a href="javascript:void(0);" class="layerClose"></a>
+    <div class="alterContent">
+    	<dl class="formLine">
+        	<dt>原邮箱</dt>
+            <dd class="formRight">
+            	<input id="oldEmail" name="oldEmail" type="text" class="formBox box210"/>
+						  
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="formLine">
+        	<dt>新邮箱</dt>
+            <dd class="formRight">
+            	<input id="newEmail" name="newEmail" type="text" class="formBox box210"/>
+              <div class="clear"></div>
+            </dd>
+        </dl>
+				
+        <dl class="formLine">
+        	<dt></dt>
+            <dd class="formRight">
+							<a href="javascript:void(0);" class="altBtnBlue" onClick="emailSubmit()">确定</a>
+              <div class="clear"></div>
+            </dd>
+        </dl>    
+    </div>
+</div>
+<!--邮箱修改弹窗 end-->
+<!--手机修改弹窗 start-->
+<div class="alterBoxQuestion" id="alertBox">
+	<a href="javascript:void(0);" class="layerClose"></a>
+    <div class="alterContent">
+    	<dl class="formLine" style="width:455px;">
+        	<dt>原手机号</dt>
+            <dd class="formRight">
+            	<input id="oldphone" name="" type="text" class="formBox box210"/>
+							<div class="error" id="oldPhoneSpan" style="display:none;">如无可为空</div>
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+        <dl class="formLine" style="width:455px;">
+        	<dt>新手机号</dt>
+            <dd class="formRight">
+            	<input id="newphone" name="" type="text" class="formBox box210 floatL"/>
+              <a href="javascript:void(0);" class="btnOrange floatL">发送验证码</a>
+              <div class="clear"></div>
+              <span class="error" id="newPhoneSpan" style="display:none;">新手机号不能为空</span>
+            </dd>
+        </dl>
+        <input type="hidden" id ="yanzheng"/>
+        <dl class="formLine" style="width:455px;">
+        	<dt>验证码</dt>
+            <dd class="formRight">
+            	<input id="yanzheng" name="" type="text" class="formBox box210"/>
+              <span class="error" id="phoneyanzheng" style="display:none;">验证码错误</span>
+              <div class="clear"></div>
+            </dd>
+        </dl>
+        <dl class="formLine" style="width:455px;">
+        	<dt></dt>
+            <dd class="formRight">
+							<a href="javascript:void(0);" class="altBtnBlue">确定</a>
+              <div class="clear"></div>
+            </dd>
+        </dl>    
+    </div>
+</div>
+<!--邮箱修改弹窗 end-->
+
+
+<!--弹窗 end-->
+</body>
+</html>

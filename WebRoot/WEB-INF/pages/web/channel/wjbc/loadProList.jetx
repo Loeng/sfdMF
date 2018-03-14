@@ -1,0 +1,55 @@
+#define(List<com.ekfans.base.product.model.ProductCategory> pcList)	
+#define(List<com.ekfans.base.product.model.Product> products)	
+<input type="hidden" id="pageNum" name="pageNum"/>	
+<input type="hidden" id="categoryId" value="${categoryId}" />
+<div class="leftLinks budong">
+	    	<h2>微晶石系列</h2>
+	        <ul>
+	        	#if(pcList!=null&&pcList.size()>0)
+              		#for(com.ekfans.base.product.model.ProductCategory pc:pcList)
+	        			<li  #if(pc.id == categoryId) class="cur" #end><a href="javascript:void(0)" onclick="loadPList('${pc.id}');"><em></em>${pc.name}</a></li>
+	        		#end
+	        	#end
+	        </ul>
+	    </div>
+	    <div class="rightContent">
+	    	#if(products!=null&&products.size()>0)
+        #for(com.ekfans.base.product.model.Product p:products)
+	        <div class="proItem">
+	            <div class="proImg"><img src="${webroot}${p.smallPicture}" alt="${p.name}" title="${p.name}" width="180px" height="180px"></div>
+				<dl class="proText">
+	                <dt>${p.name}</dt>
+	                <dd class="proInfo1">质量等级：${p.productModel}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;产地：${p.habitatAddress}</dd>
+	                <dd class="proInfo2">${p.note}</dd>
+	                <dd class="proInfo3">${p.storeId}</dd>
+	            </dl>
+				<div class="danjia">
+					<em>
+					#if(p.unitPrice != null && p.unitPrice != "" && p.unitPrice != 0)
+						￥${p.unitPrice}元/${p.unit}
+					#else
+						待议
+					#end
+					</em>
+	            </div>
+	            <div class="proRight">
+	                <a href="${webroot}/web/gouWu/order/${p.id}" class="btnRed">下单</a>
+	                <a href="#tag shortLink("01",p.id) #end" class="btnBlue">详情</a>
+	            </div>
+	            <div class="clear"></div>
+	        </div>
+	       #end 
+	       #else
+	       <div style="height:100px;background:#fff; padding:50px 0;">
+		        <div class="newNone">
+			        <div class="noInfo">暂无信息记录！</div>
+		      </div>
+	      </div>
+	       #end
+	     
+	      
+	       
+	        #if(products!=null&&products.size()>0)
+	      		#include("../commons/channel-page.jetx")
+	      	#end
+	    </div>

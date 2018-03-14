@@ -1,0 +1,139 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/demand.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/list.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/list.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/layer/layer.js"></script>
+<script>
+	//搜索列表
+	function formSubmit(){
+	
+		$("#searchForm").submit();
+	}
+	//重置搜索栏
+	function formReset(){
+		$("input[name='linkPerson']").val("");
+		$("input[name='storeName']").val("");
+		$("input[name='status']").val("");
+	}
+	//跳转分页
+	function goPage(pageNum){
+		$("input[name='pageNum']").val(pageNum);
+		document.getElementById("searchForm").submit();
+	}
+	//关闭询价
+	function closeInq(id){
+		var ctxpath = $("#contextPath").val();
+		econfirm("是否确认关闭?", function(){
+			$.post(ctxpath+"/system/inquiry/closeInquiry/"+id,
+		 	 function(data){
+  				if(data){
+		 		 	ealert('关闭成功!');
+		 		 	location.reload();
+  				}else{
+  					ealert('关闭失败!');
+  					location.reload();
+  				}
+			});},null,null,null);
+	}
+</script>
+
+</head>
+<body>
+#define(List<com.ekfans.base.order.model.Inquiry> inquirys)
+<input type="hidden" value="${webroot}" id="contextPath"/>
+<input type="hidden" name="productType" id="productType" value="${productType}"/>
+<input type="hidden" name="type" id="type" value="${type}"/>
+<form action="${webroot}/system/inquiry/list/${productType}/${supplyType}/${sourceType}" method="post" id="searchForm">
+	<input type="hidden" name="pageNum" value="${pageNum}" />	
+	<dl class="pro_ss">
+		<dt><b>#if(supplyType=="0")询价#else报价#end列表</b><span class="span_down"></span><span class="span_up"></span></dt>
+		<dd class="pro_ss_item">
+			<span>联系人</span>
+			<input type="text" class="i_bg" name="linkPerson" value="${linkPerson}" />
+		</dd>
+		<dd class="pro_ss_item">
+			<span>企业名</span>
+			<input type="text" class="i_bg" name="storeName" value="${storeName}" />
+		</dd>
+		<dd class="pro_ss_item">
+			<span>状态</span>
+			<span class="zt">
+				<label>
+					<input type="radio" name="status" value="" #if(status==""||status==null) checked=true #end checked=true />所有
+				</label>
+			</span>
+			<span class="zt">
+				<label>
+					<input type="radio" name="status" value="0" #if(status=="0") checked=true #end  />#if(supplyType=="0")询价#else报价#end中
+				</label>
+			</span>
+			<span class="zt">
+				<label>
+					<input type="radio" name="status" value="1" #if(status=="1") checked=true #end />已关闭
+				</label>
+			</span>
+		</dd>
+		<dd class="clear"></dd>
+
+</form>
+<div class="pro_ss_btn">
+	<a href="javascript:formSubmit();" class="btn">搜索</a>
+	<a href="javascript:formReset();" class="btn">重置</a>
+</div>
+<!--没有数据的时候-->
+	<!--有数据的时候-->
+	<div class="ht_list">
+		<table id="storeTab" cellpadding="0" cellspacing="0" border="0" >
+			<thead>
+	        	<tr class="bgColor">
+		        	<th>标题</th>
+		        	<th>企业名</th>
+		        	<th>数量</th>
+		            <th>联系人</th>
+		            <th>联系电话</th>
+		            <th>状态</th>
+		            <th style="padding-left:0px;padding-right:0px">创建时间</th>
+		            <th>操作</th>
+	            </tr>
+	          </thead>
+	          <tbody>
+	          #if(inquirys!=null && inquirys.size()>0)
+              #for(com.ekfans.base.order.model.Inquiry i: inquirys)
+	              <tr>
+	                <td>${i.title}</td>
+	                <td>${i.storeName}</td>
+	                <td>${i.number}${i.unit}</td>
+	                <td>${i.linkPerson}</td>
+	                <td>${i.linkTel }</td>
+	                <td>
+               		  <!--(0:询价中 1:关闭2：已经下单)-->
+	        	      #if(i.status == "1"  ) 关闭
+	        	      #elseif(i.status == "0" && supplyType=="0")询价中
+	        	      #elseif(i.status == "0" && supplyType=="1")报价中
+	            	  #end
+			        </td>
+	                <td>${i.createTime.substring(0,10)}</td>
+	                <td>
+	                #if(i.status!="1")
+	            		<a href="javascript:void(0);" onclick="closeInq('${i.id}');"  class="del_list" title="关闭" ></a>
+	            	#end
+	                </td>
+	              </tr>
+	              #end
+	             #end
+	           </tbody>
+        </table>
+			<div class="ht_pageBox">
+				${include( "../common/page.jetx")}
+			</div>
+
+	</div>
+</body>
+</html>

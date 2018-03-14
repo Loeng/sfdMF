@@ -1,0 +1,119 @@
+﻿<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>道路紧急预案修改</title>
+	<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css">
+	<script src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+	<script src="${webroot}/resources/userCenter/commons/js/base.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+	<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+	<style>
+		.box80,.inputSplit{display:inline-block;}
+		.box80{width:95px;}
+		.formItem{width:446px;}
+		.formItem dt{width:85px;}
+	</style>
+</head>
+
+<body>
+	#define(com.ekfans.base.store.model.EmergencyPlan qua)
+	<form method="post" id="f1">
+		 <input type="hidden" value="${qua.id}" name="id">
+		<div class="rightContent">
+			<div class="contentTit  borderColor budong">
+				<h3>道路紧急预案修改</h3>
+				<a href="${webroot}/store/qualification/getQuaList" class="btnBase btnCancel">取消</a>
+				<a href="javascript:void(0);" onclick="ajax1()" class="btnBase btnSave">保存</a>
+				<div class="clear"></div>
+			</div>
+			<div class="form borderColor">
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>附件</dt>
+					<dd> #tag fileUpload("file","word",qua.file) #end </dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>状态</dt>
+					<dd><input name="type" type="radio" #if(qua.type=="1")checked #end value="1" readonly>有效
+						<input name="type" type="radio" #if(qua.type=="0")checked #end value="0" readonly>无效</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>有效期</dt>
+					<dd><input name="startTime" id="startTime"  value="${qua.startTime}" onblur="checkFocus(this,'开始时间不能为空');"  type="text" class="textBox box80" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"><span class="errorText" style="display:none;"></span></dd>
+					<dd class="lineColor">&nbsp;—&nbsp;</dd>
+					<dd><input name="endTime" id="endTime" value="${qua.endTime}" type="text" onblur="checkFocus(this,'结束时间不能为空');" class="textBox box80" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"><span class="errorText" style="display:none;"></span></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>创建时间</dt>
+					<dd><input name="createTime" value="${qua.createTime}" readonly type="text" class="textBox box212" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>最新更新时间</dt>
+					<dd><input name="updateTime" value="${qua.updateTime}" readonly type="text" class="textBox box212" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+					<dd class="clear"></dd>
+				</dl>
+			</div>
+		</div>  
+	</form>
+	<script>
+	
+		function checkFocus(obj,tit) {
+			if($(obj).val()!=null&&$(obj).val()!=""&&$(obj).val()!=" "){
+				$(obj).next().html("");
+				$(obj).next().hide();
+			}else{
+				$(obj).next().html(tit);
+				$(obj).next().show();
+			}
+		}
+		function ajax1(){
+		if($("#fileOldUrlPath").val()==""||$("#fileOldUrlPath").val()==" "||$("#fileOldUrlPath").val()==null){
+			falert("附件不能为空");
+			return false;
+		}
+		/*
+		if($("#startTime").val()==""||$("#startTime").val()==" "||$("#startTime").val()==null){
+			falert("开始时间不能为空");
+			return false;
+		}
+		if($("#endTime").val()==""||$("#endTime").val()==" "||$("#endTime").val()==null){
+			falert("结束时间不能为空");
+			return false;
+		}
+		*/
+		var flag=true;
+		$("input[type='text']").each(function(){
+			$(this).blur();
+			if($(this).next().is(':visible')){
+				flag=false;
+			}
+		})
+		if(flag){
+			$.post('${webroot}/store/qualification/update',$("#f1").serialize(),function (data){
+	           if(data==1 || data=="1"){
+						econfirm('修改成功，是否继续修改？',null,null,goBack,[$("#ctxpath").val()]);
+					}else{
+						falert("修改失败");
+					}
+	        	}
+	    	);
+    	}
+	}	
+	function goBack(contextPath){
+		// 判定contextPath是否为空
+		if(contextPath==null||contextPath==""){
+			window.location.href="${webroot}/store/qualification/getQuaList";
+		}
+	}
+	</script>
+</body>
+</html>

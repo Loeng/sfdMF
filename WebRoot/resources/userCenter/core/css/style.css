@@ -1,0 +1,11 @@
+/* CSS Document */
+
+.logoBar,.leftNav h2{background:#9C58B1;}
+.leftList dt{background:#DA73FA;}
+.leftList dd a:hover,.leftList dd a.cur{background:url(../../commons/images/cur_orange.png) no-repeat left center;}
+.bgColor,.bgColor:hover{background:#DA73FA!important;}
+.borderColor{border-color:#DA73FA;}
+.borderBottomColor{border-bottom-color:#DA73FA;}
+.bgColor{background:#DA73FA;}
+.fontColot{}
+.btnColor{}

@@ -1,0 +1,93 @@
+#define(List<com.ekfans.base.product.model.TemplateFields> templateFields)
+#define(Map<String,com.ekfans.base.product.model.ProductInfo> infoMap)
+#define(Map<String, Map<String, String>> detailMap)
+
+
+
+
+
+<!-- 模板选择开始 -->
+#for(com.ekfans.base.product.model.TemplateFields temp : templateFields)
+	#if(temp.commons == true)
+		<dl class="formItem formLine colorList"  id="${temp.id}">
+			<dt>${temp.fieldName}</dt>
+			<dd style="height:auto;max-width:880px;">
+				#set(Map<String, String> detailValueMap = detailMap.get(temp.id))
+				#for(java.lang.String tp : temp.fieldValueList)
+					#set(Boolean checkStatus = detailValueMap!=null?detailValueMap.containsKey(tp):false,String picPath = checkStatus?detailValueMap.get(tp):"")
+					<div class="colorItem">
+						<input name="templateFields0" type="checkbox" value="${for.index}-${temp.id}" class="itemCheck" #if(checkStatus) checked #end  onclick="javascript:selectModel(this);">
+						<input name="tempValue${for.index}-${temp.id}" type="text" id="tempValue${for.index}-${temp.id}" value="${tp}" class="textBox itemBox disabled" readonly>
+						<input name="oldName${for.index}-${temp.id}" type="hidden" id="oldName${for.index}-${temp.id}" value="${tp}">
+						<input name="category${for.index}-${temp.id}" type="hidden" id="category${for.index}-${temp.id}" value="${temp.fieldCategory}">
+						<input name="position${for.index}-${temp.id}" type="hidden" id="position${for.index}-${temp.id}" value="${temp.position}">
+						#tag picUpload("pic"+for.index+"-"+temp.id,"1","150","150",picPath)#end
+						<div class="imgForbid" style="width:150px;height:150px;"><img src="${webroot}/resources/userCenter/commons/images/imgforbid.png" width="150" height="150"></div>
+					</div>
+				#end
+			</dd>
+			<dd class="clear"></dd>
+		</dl>
+	#end
+#end
+<!-- 结束 -->
+			
+<div class="splitLine" id="modelDetailLine" style="display:none;"></div>
+<table border="0" cellspacing="0" cellpadding="0" class="colorSizeTable">
+	<tbody></tbody>
+</table>
+
+<!--  遍历出不是可选字段的模板扩展字段  -->
+#for(com.ekfans.base.product.model.TemplateFields temp : templateFields)
+	#if(!temp.commons)
+		#set(com.ekfans.base.product.model.ProductInfo pInfo= infoMap!=null?infoMap.get(temp.id):null)
+		#set(String infoValue = ((pInfo!=null)?pInfo.infoValue:""))
+		#set(Map<String, String> detailValueMap = detailMap.get(temp.id))
+		<dl class="formItem formLine" #if(@(com.ekfans.base.product.util.ProductConst).TEMP_FIELD_TYPE_TEXT_AREA.equals(temp.fieldType)) style="width:730px;" #end>
+			<dt>${temp.fieldName}</dt>
+			<dd #if(@(com.ekfans.base.product.util.ProductConst).TEMP_FIELD_TYPE_SELECT.equals(temp.fieldType)) class="select2" #end  style="min-height:30px;">
+				
+				#if(@(com.ekfans.base.product.util.ProductConst).TEMP_FIELD_TYPE_TEXT_AREA.equals(temp.fieldType))
+					<textarea id="${temp.id}Fields" value="${infoValue}" onchange="javascript:changeFields('${temp.id}','${temp.fieldName}','${temp.fieldCategory}','${temp.position}',this.value);">${infoValue}</textarea>
+				
+				#elseif(@(com.ekfans.base.product.util.ProductConst).TEMP_FIELD_TYPE_CHECK_BOX.equals(temp.fieldType))
+					#for(java.lang.String tp : temp.fieldValueList)
+						#set(Boolean checkStatus2 = false)
+						#if(pInfo != null && pInfo.infoValue.contains(tp))
+							#set(checkStatus2 = true)
+						#end
+						<span class="checkBox"><label class="checkItem"><span class="check"><em><input type="checkbox" name="${temp.id}Fields" #if(checkStatus2) checked #end value="${tp}" onclick="javascript:changeFields2('${temp.id}','${temp.fieldName}','${temp.fieldCategory}','${temp.position}','${temp.id}Fields');"></em></span>${tp}</label></span>
+					#end
+				#elseif(@(com.ekfans.base.product.util.ProductConst).TEMP_FIELD_TYPE_RADIO.equals(temp.fieldType))
+					#for(java.lang.String tp : temp.fieldValueList)
+						#set(Boolean checkStatus2 = infoValue.equals(tp))
+						<span class="radio"><label><input type="radio" name="${temp.id}Fields" id="${temp.id}Fields" #if(checkStatus2) checked #end value="${tp}" onclick="javascript:changeFields2('${temp.id}','${temp.fieldName}','${temp.fieldCategory}','${temp.position}','${temp.id}Fields');">${tp}</label></span>
+					#end
+				#elseif(@(com.ekfans.base.product.util.ProductConst).TEMP_FIELD_TYPE_SELECT.equals(temp.fieldType))
+					<select id="${temp.id}Fields" onchange="javascript:changeFields('${temp.id}','${temp.fieldName}','${temp.fieldCategory}','${temp.position}',this.value);" style="border:1px solid #e4e4e4;">
+						<option value="">--请选择--</option>
+						#for(java.lang.String tp : temp.fieldValueList)
+							#set(Boolean checkStatus2 = infoValue.equals(tp))
+							<option #if(checkStatus2) selected #end value="${tp}" >${tp}</option>
+						#end
+					</select>
+				#else
+					<input type="text" id="${temp.id}Fields" class="textBox box212" value="${infoValue}" onchange="javascript:changeFields('${temp.id}','${temp.fieldName}','${temp.fieldCategory}','${temp.position}',this.value);">
+				#end
+			</dd>
+			<dd class="clear"></dd>
+			<input type="hidden" name="templateFields" id="${temp.id}" value="${temp.id}**${temp.fieldName}**${temp.fieldCategory}**${temp.position}**${infoValue}"/>
+		</dl>
+	#end
+#end
+
+
+#define(List<com.ekfans.base.product.model.ProductInfoDetail> infoDetailList)
+#for(com.ekfans.base.product.model.ProductInfoDetail infoDetail : infoDetailList)
+	<input type="hidden" name="tempFieldsValue" title="${infoDetail.id}" value="${infoDetail.infoValue1}${infoDetail.infoValue2}${infoDetail.infoValue3}${infoDetail.infoValue4}"/>
+	<input type="hidden" id="${infoDetail.id}Price" value="${infoDetail.price}"/>
+	<input type="hidden" id="${infoDetail.id}Quantity" value="${infoDetail.quantity}"/>
+	<input type="hidden" id="${infoDetail.id}QuantityWarning" value="${infoDetail.quantityWarning}"/>
+#end
+
+

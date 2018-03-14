@@ -1,0 +1,96 @@
+#define(com.ekfans.base.store.model.Store buyStore)
+#define(com.ekfans.base.wfOrder.model.ScrapWfp buyWfp)
+#set(com.ekfans.base.store.model.Accredit buyAcc = buyStore.buyerAccredit)
+<h3>接收单位</h3>
+<dl class="formItem">
+	<dt><em class="mustIco"></em>单位名称</dt>
+	<dd>
+		<input name="buyName" id="buyName" type="text" class="textBox box212" value="${buyStore != null?buyStore.storeName:""}" readonly>
+	</dd>
+	<dd class="clear"></dd>
+</dl>
+<dl class="formItem">
+	<dt><em class="mustIco"></em>单位地址</dt>
+	<dd>
+		<input name="buyAddress" id="buyAddress" type="text" class="textBox box212" value="${buyWfp != null?buyWfp.buyAddress:(buyAcc!= null?buyAcc.address:"")}">
+	</dd>
+	<dd class="clear"></dd>
+</dl>
+<dl class="formItem">
+<dt><em class="mustIco"></em>邮政编码</dt>
+<dd>
+<input name="buyZipCode" id="buyZipCode" type="text" class="textBox box212" value="${buyWfp != null?buyWfp.buyZipCode:(buyStore != null ? buyStore.zipCode:"")}">
+</dd>
+<dd class="clear"></dd>
+</dl>
+<dl class="formItem">
+<dt><em class="mustIco"></em>联系人</dt>
+<dd>
+<input name="buyMan" id="buyMan" type="text" class="textBox box212" value="${buyWfp != null?buyWfp.buyMan:(buyStore != null ? buyStore.contactName:"")}">
+</dd>
+<dd class="clear"></dd>
+</dl>
+<dl class="formItem">
+<dt><em class="mustIco"></em>联系电话</dt>
+<dd>
+<input name="buyPhone" id="buyPhone" type="text" class="textBox box212" value="${buyWfp != null?buyWfp.buyPhone:(buyStore != null ? buyStore.contactPhone:"")}">
+</dd>
+<dd class="clear"></dd>
+</dl>
+<dl class="formItem" style="width:360px;">
+<dt style="width:122px;"><em class="mustIco"></em>危废经营许可证号</dt>
+<dd>
+<input name="buyLicenseNo" id="buyLicenseNo" type="text" class="textBox box212" style="width:188px;" value="${buyAcc!= null?buyAcc.licenseNo:""}" readonly>
+</dd>
+<dd class="clear"></dd>
+</dl>
+<dl class="formItem">
+<dt><em class="mustIco"></em>发证机关</dt>
+<dd>
+<input name="buyLinceseAuthor" id="buyLinceseAuthor" type="text" class="textBox box212" value="${buyAcc!= null?buyAcc.linceseAuthor:""}" readonly>
+</dd>
+<dd class="clear"></dd>
+</dl>
+<dl class="formItem">
+<dt><em class="mustIco"></em>有效期</dt>
+<dd>
+<input name="buyStartTime" type="text" class="textBox box80" value="${buyAcc!= null?buyAcc.startTime:""}" readonly">
+<span class="inputSplit">&mdash;</span>
+<input name="buyEndTime" type="text" class="textBox box80" value="${buyAcc!= null?buyAcc.endTime:""}" readonly>
+</dd>
+<dd class="clear"></dd>
+</dl>
+
+
+
+<script>
+	function checkBuyInfoSub(){
+		var transStoreIds = $("#transStoreIds").val();
+		
+		
+		var buyAddress = $("#buyAddress").val();
+		if(trimStr(buyAddress) == "" || trimStr(buyAddress) == "null"){
+			falert("请输入接收单位所在地址");
+			return false;
+		}
+		
+		var buyZipCode = $("#buyZipCode").val();
+		if(trimStr(buyZipCode) == "" || trimStr(buyZipCode) == "null"){
+			falert("请输入接收单位邮政编码");
+			return false;
+		}
+		
+		var buyMan = $("#buyMan").val();
+		if(trimStr(buyMan) == "" || trimStr(buyMan) == "null"){
+			falert("请输入接收单位联系人");
+			return false;
+		}
+		
+		var buyPhone = $("#buyPhone").val();
+		if(trimStr(buyPhone) == "" || trimStr(buyPhone) == "null" || !checkMobile(buyPhone)){
+			falert("请输入接收单位联系电话");
+			return false;
+		}
+		return true;
+	}
+</script>

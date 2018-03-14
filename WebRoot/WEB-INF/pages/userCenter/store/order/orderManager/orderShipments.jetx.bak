@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="gb2312">
+<title>待发货订单</title>
+<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/datePicker/WdatePicker.js"></script>
+<!-- 导入自定义的JS文件 -->
+<script type="text/javascript" src="${webroot}/resources/store/commons/js/order/orderManager/StoreOrderShipmentsList.js"></script>
+</head>
+<body>
+  #define(List<com.ekfans.base.order.model.Order> orders)
+	<div class="rightContent">
+		  <form action="${webroot}/store/order/ship" method="post" id="searchStoreShipmentsOrder">
+		  	<input type="hidden" name="pageNum" value="" />
+         <div class="formSearch borderColor">
+						<dl class="formItem">
+							<dt>订&nbsp;单&nbsp;号&nbsp;</dt>
+							<dd><input name="orderId" id="orderId" value="${orderId }"  type="text" class="textBox box212"></dd>
+							<dd class="clear"></dd>
+						</dl>
+						<dl class="formItem">
+							<dt>下单时间</dt>
+							<dd>
+								<input name="beginDate" id="beginDate" value="${beginDate}" type="text" class="timeBox box98 textBox"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+							</dd>
+							<dd>&nbsp;—&nbsp;</dd>
+							<dd>
+								<input name="endDate" id="endDate" value="${endDate }" type="text" class="timeBox box98 textBox" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+							</dd>
+							<dd class="clear"></dd>
+						</dl>
+						<dl class="formItem">
+	            <dt>买家用户</dt>
+	            <dd ><input name="userName" id="userName" value="${userName }" type="text" class="textBox box212"></dd>
+	            <dd class="clear"></dd>
+            </dl>
+            <div class="clear"></div>
+        </div>
+        <div class="btnArea">
+					<a href="javascript:void(0);" class="btnBase btnSearch" onclick="formSubmit();">搜索</a>
+					<a href="javascript:void(0);" class="btnBase btnReset" onclick="formReset();">重置</a>
+					<div class="clear"></div>
+				</div>
+      </form>
+		    <div class="formTable borderColor">
+      	<ul>
+        	<li class="li1">所有订单</li>
+        </ul>
+        <div class="clear"></div>
+         <!--没有订单时-->
+              #if(orders==null || orders.size()==0)
+                <div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+              #else
+        <table border="0" cellspacing="0" cellpadding="0" class="tabList">
+        	<tr class="bgColor">
+            <th class="tabLeft">
+              <label class="checkAll"><span class="check"><em><input name="checkbox1" type="checkbox" value=true></em></span></label>
+            </th>
+            
+            <th class="tabLeft">订单号</th>
+            <th class="tabLeft">订单状态</th>
+            <th class="tabRight">下单时间</th>
+            <th class="tabRight">订单金额</th>
+            <th class="tabLeft">订单用户</th>
+            <th class="tabLeft">操作</th>
+            <th></th>
+          </tr>
+          
+           #for(com.ekfans.base.order.model.Order order:orders)
+              <tr>
+                <td class="tabLeft">
+                	<label class="checkItem"><span class="check checked"><em><input name="checkbox" type="checkbox" value=true checked></em></span></label>
+                </td>
+                <td class="tabLeft">${order.id}</td>
+                <td class="tabLeft">
+                	    待发货
+				        </td>
+                <td class="tabRight">${order.createTime }</td>
+                <td class="tabRight">${order.totalPrice }</td>
+                <td class="tabLeft">${order.userId }</td>
+                <td class="tabLeft">
+                <a href="javascript:;" onclick="orderHandle('${ctxpath }','${order.id }');" class="btnBase btnOrange">商品发货</a>
+                </td>
+              </tr>
+              #end
+        </table>
+         <div class="listBottom">
+                <a href="javascript:void(0)" class="btnBase">导出订单</a>
+                
+                <!-- 分页 -->
+                <input type="hidden" name="pageNum" value="${currentpageStr }" />
+                ${include("../../common/page.jetx")}
+                
+                <div class="clear"></div>
+           </div>
+      	<div class="clear"></div>
+    
+     		</div>
+      #end
+      
+          
+      
+      
+       </div>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>用户评价管理</title>
+	<link href="${webroot}/resources/userCenter/commons/css/comList.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/userCenter/personal/css/personalBase.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/userCenter/personal/css/style.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/userCenter/personal/css/evaluate.css" rel="stylesheet" type="text/css">
+	<link href="${webroot}/resources/userCenter/commons/css/tools.css" rel="stylesheet" type="text/css" />
+	<script src="${webroot}/resources/userCenter/commons/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/userCenter/personal/js/evaluate/favorites.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/userCenter/personal/js/evaluate/evaluate.js"></script>
+	<!--<script type="text/javascript" src="${webroot}/resources/customer/js/appraisal/appraisalList.js"></script>-->
+</head>
+
+<body>
+
+#define(List<com.ekfans.base.order.model.Order> orders)
+#for(com.ekfans.base.order.model.Order or:orders)
+	<form action="${webroot}/user/order/evaluation/${or.id}" method="post" id="evaluateToUserIdPage">
+		<input type="hidden" name="pageNum" value="${currentPage}" />
+	</form>
+	<!--
+	<form action="${ctxpath }/user/order/evaluate" method="post" id="evaluateToUserId"> 
+		<input type="hidden" name="orderId"  value="${or.id}" />
+   	<input type="hidden" name="storeId"  value="${or.storeId}" />	
+	</form>
+	-->
+	<div class="rightContent">
+  	<div class="orderHeader bgColor">
+			<span>订单编号：${or.id}</span>
+			<span>下单时间：${or.createTime}</span>
+			<span>收货人：${or.name}</span>
+		</div>
+		<form action="${webroot}/user/order/evaluate" method="post" id="evaluateToUserId">
+			<input type="hidden" name="orderId"  value="${or.id}" />
+   		<input type="hidden" name="storeId"  value="${or.storeId}" />
+   		<input type="hidden" name="etype" id="etypeindex" value="1"/>
+			#for(com.ekfans.base.order.model.OrderDetail ords:or.details)
+				<input type="hidden" name="productId"  value="${ords.productId}" />
+				<input type="hidden" name="orderDetailId"  value="${ords.id}" />
+				<div class="orderLine">
+	      	<div class="proInfo">
+	        	<a href="${webroot}/web/proDetail/${ords.productId}" title="${ords.productName}" class="orderImg">
+	        	#if(ords.smallPicture==null || ords.smallPicture=="")
+	        		<img src="${webroot}/resources/customer/images/imgdefault.jpg" width="78" height="78" alt="${ords.productName}" />
+	        	#else
+	        		<img src="${webroot}${ords.smallPicture}" width="78" height="78" alt="${ords.productName}" />
+	        	#end	
+	        	</a>
+	          <div class="proRight">
+	          	<span class="orderText"><a href="${webroot}/web/proDetail/${ords.productId}">${ords.productName}</a></span>
+	            <span class="nowPrice">￥${ords.totalPrice}</span>
+	          </div>
+	        	<div class="clear"></div>
+	        </div>
+	        <div class="proEvaluate">
+	        	<ul>
+	          	<li class="good"><label><input name="tempType${for.index}" type="radio" value="1" checked onclick="setEvaluate(this.value)" /><em></em><span>好评</span></label></li>
+	          	<li class="ordinary"><label><input name="tempType${for.index}" type="radio" value="2" onclick="setEvaluate(this.value)" /><em></em><span>中评</span></label></li>
+	          	<li class="bad"><label><input name="tempType${for.index}" type="radio" value="3" onclick="setEvaluate(this.value)" /><em></em><span>差评</span></label></li>
+	          </ul>
+	          <textarea name="note" id="note" cols="" rows=""></textarea>
+	        </div>
+	        <div class="clear"></div>
+				</div>
+			#end 
+		</form>       
+    <a href="javascript:void(0)" class="btnBase" onclick="evaluateOrder('${webroot}');">提交</a>
+   
+    ${include("../common/page.jetx")}
+     <div class="clear"></div>
+     #end
+  </div>
+
+
+</body>
+</html>

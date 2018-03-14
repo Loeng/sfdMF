@@ -1,0 +1,29 @@
+<div class="tit">
+	<span class="apClose"><img src="${webroot}/resources/system/images/del3.jpg"></span>
+	<span class="titName">分类选择</span>
+	<div class="clear"></div>
+</div>
+<div class="shopSearch">
+	<dl>
+	  <dt>分类名</dt>
+	  <dd><input type="text" class="i_bg" id="categoryName"></dd>
+	</dl>
+	<div class="clear"></div>
+</div>
+<div class="btn">
+	<a href="javascript:void(0);" class="btn" onclick="searchCategory();">搜索</a>
+	<a href="javascript:void(0);" class="btn" onclick="searchReset();">重置</a>
+</div>
+<div class="itemLayer">
+	#for(com.ekfans.base.product.model.TemplateFieldsCategory category : categories)
+		<div class="classItem">
+			<label onclick="getCategory('${category.id}','${category.categoryName}');">
+				<input name="" type="hidden" value="${category.id}">
+				<input name="" type="radio" value="${category.categoryName}">
+				${category.categoryName}
+			</label>
+		</div>
+	#end
+	<div class="clear"></div>
+</div>
+	${include( "../../../common/page.jetx")}

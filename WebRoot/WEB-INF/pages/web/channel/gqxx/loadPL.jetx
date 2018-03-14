@@ -1,0 +1,58 @@
+﻿
+#define(List<com.ekfans.base.product.model.Product> productList)	
+#define(java.lang.String productName)
+<input type="hidden" id="pageNum" name="pageNum"/>	
+<div class="noPro">
+    <div class="pageNav3">
+      <div class="searchBox">
+        <input name="productName" id="productName" value="${productName}" type="text" class="searchInput" placeholder="请输入商品名称">
+      </div>
+      <a href="javascript:void(0);" onclick="searchs()" class="btnBlue">搜索</a>
+      <div class="clear"></div>
+    </div>
+    <div class="proList">
+    	#for(com.ekfans.base.product.model.Product pro : productList)
+      <h2 class="rightTitle">
+        <div class="rightSp"><span class="pinming">品名:${pro.name}</span><span class="price">价格:${pro.unitPrice}元/kg</span><span>交割地:${pro.deliceAddress}</span></div>
+        <a href="javascript:void(0)" class="layerToggle">展开</a> 
+      </h2>
+      <div class="toggles">
+        <div class="proItem">
+          <div class="proImg">
+          	#if(pro.recommendPicture3 == "")
+							<img src="${webroot}/resources/web/images/noPro.png">
+						#else
+							<img src="${webroot}${pro.recommendPicture3}" />
+						#end		
+          </div>
+          <dl class="proText">
+            <dt></dt>
+            <dd class="proInfo1">产地：${pro.habitat}；
+            	#for(com.ekfans.base.product.model.ProductValuation pv : pro.productValuation)
+            	${pv.specName}；
+            	#end
+            </dd>
+            <dd class="proInfo2"> <span>供货量：${pro.quantity} 吨</span> <span>成交量：${pro.cjl} 吨</span> <span>交割地：${pro.deliceAddress}</span> <span>交割日：${pro.deliceData}</span> <span>交&nbsp;&nbsp;货：${pro.deliceType}</span> <span>付&nbsp;&nbsp;款：${pro.payType}</span>
+              <div class="clear"></div>
+            </dd>
+          </dl>
+          <dl class="detection">
+            <dt>检测机构</dt>
+            <dd class="detectionImg"> <img src="${webroot}/resources/web/images/yijiance.png" alt="已检测"> <a href="javascript:void(0);" target="_blank" class="yijiance" title="已检测">已检测</a> </dd>
+            <dd class="detectionName">${pro.jcjg}</dd>
+          </dl>
+          <div class="proRight"> <a href="proDetail.html" class="btnRed">预定</a> <a href="javascript:void(0);" class="btnBlue">详情</a> </div>
+          <div class="clear"></div>
+        </div>
+      </div>
+      
+      #end
+   #if(productList!=null && productList.size()>0)
+		#include("../commons/channel-page.jetx")
+	 #end
+  </div>
+  
+  <script>
+  	
+	$(".proList .toggles").eq(0).show();
+  </script>

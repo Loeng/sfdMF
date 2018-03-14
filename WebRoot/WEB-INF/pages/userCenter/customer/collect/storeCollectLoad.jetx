@@ -1,0 +1,36 @@
+  #define(List<com.ekfans.base.store.model.StoreCollect> scs)
+ <div class="saveList shopSave">          
+            #if(scs == null || scs.size() == 0)
+            <div class="orderNone">暂时没有符合条件的数据</div>
+            #else
+            	<ul class="listDelete">
+                <li class="listCheck"></li>
+                <li class="listInfo"><a href="javascript:void(0)" onclick="selectAll();">全选</a><a href="javascript:void(0)" onclick="checkStoreCollectSelect();">删除</a></li>
+            </ul>
+            #for(com.ekfans.base.store.model.StoreCollect sc : scs)
+            <dl class="shopList">
+                  <dt class="shopInfo">
+                       #if(sc.logo == "" || sc.logo == " "|| sc.logo == null)
+                  	<a href="${webroot}/web/proscenium/${sc.storeId}" class="shopImg"><img src="${webroot}/resources/customer/images/imgdefault.jpg" width="198" height="198" ></a>
+                		#else <a href="${webroot}/web/proscenium/${sc.storeId}" class="listImg"><img src="${webroot}/${sc.logo}" width="76" height="99" ></a>
+                		#end
+                      <span class="shopBg"></span>
+                      <span class="shopName"><a href="${webroot}/web/proscenium/${sc.storeId}">${sc.name}</a></span>
+                  </dt>
+                  <dd class="shopBottom">
+                      <input name="" type="checkbox" value="${sc.id}"/>
+                      <a href="${webroot}/web/proscenium/${sc.storeId}">进入该店铺</a><a href="javascript:void(0)" id="del${sc.id}" onclick="econfirm('确定要删除此店铺吗？',storeCollectDelete,['${sc.id}','${webroot}'],null,null);">删除该店铺</a>
+                  </dd>
+              </dl>
+              <div class="clear"></div>
+              #end
+               ${include("../common/page.jetx")}
+              #end
+              
+
+             
+        
+				
+						
+					</div>
+					</div>

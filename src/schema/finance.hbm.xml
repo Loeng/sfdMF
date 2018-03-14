@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ekfans.base.finance.model">
+	<!-- 银行账户 -->
+	<class name="BankAccount" table="BANK_ACCOUNT" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="bankId" type="string" column="BANK_ID" />
+		<property name="bankName" type="string" column="BANK_NAME" />
+		<property name="bankLogo" type="string" column="BANK_LOGO" />
+		<property name="name" type="string" column="NAME" />
+		<property name="password" type="string" column="PASSWORD" />
+		<property name="departmentId" type="string" column="DEPARTMENT_ID" />
+		<property name="department" type="string" column="DEPARTMENT" />
+		<property name="realName" type="string" column="REAL_NAME" />
+		<property name="phone" type="string" column="PHONE" />
+		<property name="status" type="boolean" column="STATUS" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="resetPwd" type="boolean" column="RESET_PWD" />
+	</class>
+
+	<!-- 银行部门管理 -->
+	<class name="BankDepartment" table="BANK_DEPARTMENT"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="bankId" type="string" column="BANK_ID" />
+		<property name="name" type="string" column="NAME" />
+		<property name="parentId" type="string" column="PARENT_ID" />
+		<property name="status" type="boolean" column="STATUS" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="updateTime" type="string" column="UPDATE_TIME" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="level" type="int" column="LEVEL" />
+		<property name="position" type="int" column="POSITION" />
+	</class>
+
+	<!-- 银行部门权限管理 -->
+	<class name="BankPurview" table="BANK_PURVIEW" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="className" type="string" column="CLASS_NAME" />
+		<property name="fullPath" type="string" column="FULL_PATH" />
+		<property name="position" type="int" column="POSITION" />
+		<property name="parentId" type="string" column="PARENT_ID" />
+		<property name="status" type="boolean" column="STATUS" />
+		<property name="level" type="int" column="LEVEL" />
+		<property name="icon" type="string" column="icon" />
+		<property name="defaultOpen" type="string" column="DEFAULT_OPEN" />
+		<property name="topId" type="string" column="TOP_ID" />
+	</class>
+
+
+	<!-- 银行/银行部门权限管理 -->
+	<class name="BankPurviewRel" table="BANK_PURVIEW_REL"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="roleId" type="string" column="ROLE_ID" />
+		<property name="purviewId" type="string" column="PURVIEW_ID" />
+		<property name="bankId" type="string" column="BANK_ID" />
+		<property name="type" type="boolean" column="TYPE" />
+	</class>
+
+
+	<!-- 银行/银行部门登陆/退出日志 -->
+	<class name="BankAccountLoginLog" table="BANK_ACCOUNT_LOGIN_LOG"
+		dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="bankId" type="string" column="BANK_ID" />
+		<property name="accountId" type="string" column="ACCOUNT_ID" />
+		<property name="loginType" type="string" column="LOGIN_TYPE" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="ipAddress" type="string" column="IP_ADDRESS" />
+	</class>
+	
+	<!-- 银行客户表 -->
+	<class name="BankClient" table="BANK_CLIENT" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="bankId" type="string" column="BANK_ID" />
+		<property name="storeId" type="string" column="STORE_ID" />
+		<property name="type" type="string" column="TYPE" />
+		<property name="storeName" type="string" column="STORE_NAME" />
+		<property name="creditRate" type="string" column="CREDIT_RATE" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+	</class>
+	
+	<!-- 银行客户日志表 -->
+	<class name="BankClientLog" table="BANK_CLIENT_LOG" dynamic-update="false">
+		<id name="id" column="ID" type="string" unsaved-value="null">
+			<generator class="uuid.hex" />
+		</id>
+		<property name="accountId" type="string" column="ACCOUNT_ID" />
+		<property name="bankId" type="string" column="BANK_ID" />
+		<property name="storeId" type="string" column="STORE_ID" />
+		<property name="creator" type="string" column="CREATOR" />
+		<property name="creatorId" type="string" column="CREATOR_ID" />
+		<property name="note" type="string" column="NOTE" />
+		<property name="createTime" type="string" column="CREATE_TIME" />
+	</class>
+	
+</hibernate-mapping>

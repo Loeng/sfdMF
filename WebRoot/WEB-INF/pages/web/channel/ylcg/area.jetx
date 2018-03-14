@@ -1,0 +1,6 @@
+#define(List<com.ekfans.base.system.model.Area> alist)
+
+<a href="javascript:void(0);" class="cur" onclick="loadareas(this, '')">全部</a>
+#for(com.ekfans.base.system.model.Area a : alist)
+	<a href="javascript:void(0);" onclick="loadareas(this, '${a.id}')">${a.name}</a>
+#end

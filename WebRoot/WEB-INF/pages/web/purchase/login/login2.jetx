@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" >
+	<title>企业登录|${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")}</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<link rel="icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+	<link rel="shortcut icon" type="image/x-icon" href="${webroot}/resources/commons/images/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/web/css/dl.css" />
+<style>
+.nav{background-color:#0085FD;}
+.nav a:hover, .nav a.cur{color:#0085FD;}
+.main{background-color:#2BB3FB; }
+.bottomColor{ background-color:#0085FD;}
+</style>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/js/xys.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/web/js/login.js"></script>
+</head>
+
+<body onkeydown="keyLogin()">
+${include("../../commons/regAndLogin/regTop.jetx")}
+
+<div class="main">
+	<div class="wrapper">
+  	<img src="${webroot}/resources/web/images/cgsdlBg.png" width="634" height="363" alt="bg" class="bgPic"/>
+    <div class="loginBox">
+      <h2>采购商登录</h2>
+      <form action="${webroot}/web/login/userLoginUtil" method="post" id="userLogin">
+    		<input type="hidden" name="type" value="2" />
+    		
+	      <div class="textBox box258 userBox">
+	      	<input name="name" value="" type="text" class="box228" placeholder="用户名" autocomplete="off" tabIndex="1" onblur="nameBlur()"  required="required" >
+	      </div>
+	      <div class="boxHeight">
+	      	<div id="name" class="errorBox"></div>
+	      </div>
+	      <div class="textBox box258 key keyBox">
+	      	<input name="password" value="" type="password" class="box228" placeholder="密码" autocomplete="off" tabIndex="2" onblur="passwordBlur()" required="required" >
+	      </div>
+	      <a href="${webroot}/web/findpassword/jumpPasswordPage/${type}" class="tips" title="忘记密码">忘记密码</a>
+	      <div class="clear"></div>
+	      <div class="boxHeight">
+	      	<div id="password" class="errorBox"></div>
+	      </div>
+	      <div class="textBox box124 code codeBox">
+	      	<input name="yanzheng" type="text" class="box94" autocomplete="off" tabIndex="3" onblur="yanzhengBlur()" required>
+	      </div>
+	      <a href="javascript:huang();" class="codePic" title="验证码">
+	      	<img src="${webroot}/web/security/image" id="yzimg" width="125" height="38" alt="验证码" />
+	      </a>
+	      <a href="javascript:huang();" class="tips" title="换一个">换一个</a>
+	      <div class="clear"></div>
+	      <div class="boxHeight">
+	      	<div id="yanzheng" class="errorBox"></div>
+	      </div>
+      </form>
+      <a href="javascript:userLogin();" class="btnLogin">登录</a>
+      <div class="regBox">还没有企业账号,即可<a href="${webroot}/web/${type}/jumpRegPage" class="btnReg">立即注册</a></div>
+   	</div>
+    <div class="bottomPic">
+    	<img src="${webroot}/resources/web/images/cgsbottom.png" width="1034" height="67" alt="" />
+    </div>
+  </div>
+  <div class="bottomColor"></div>
+</div>
+
+${include("../../commons/regAndLogin/bottom.jetx")}
+</body>
+</html>

@@ -1,0 +1,49 @@
+#define(List<com.ekfans.base.content.model.Content> shoppingGuide)
+#define(List<com.ekfans.base.content.model.Content> shippingMethod)
+#define(List<com.ekfans.base.content.model.Content> myMethod)
+#define(List<com.ekfans.base.content.model.Content> aboutUs)
+<div class="bottomMenu">
+    <div class="wrapper">
+    	<div class="chihuo">吃货热线 ${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("热线电话")}</div>
+        <dl class="bottomPurchase">
+            <dt>采购流程</dt>
+            <dd>
+               #for(com.ekfans.base.content.model.Content content1:shoppingGuide)
+							       <li><a href="${webroot}/web/help/${content1.id}/1">${content1.contentName}</a></li>
+							  #end
+            </dd>
+        </dl>
+        <dl class="bottomService">
+            <dt>服务与支持</dt>
+            <dd>
+                #for(com.ekfans.base.content.model.Content content2:shippingMethod)
+							       <li><a href="${webroot}/web/help/${content2.id}/1">${content2.contentName}</a></li>
+							  #end
+            </dd>
+        </dl>
+        <dl class="bottomAccount">
+            <dt>我的账户</dt>
+            <dd>
+                #for(com.ekfans.base.content.model.Content content3:myMethod)
+							       <li><a href="${webroot}/web/help/${content3.id}/1">${content3.contentName}</a></li>
+							  #end
+            </dd>
+        </dl>
+        <dl class="bottomAbout">
+            <dt>关于我们</dt>
+            <dd>
+                #for(com.ekfans.base.content.model.Content content4:aboutUs)
+							       <li><a href="${webroot}/web/help/${content4.id}/1">${content4.contentName}</a></li>
+							  #end
+            </dd>
+        </dl>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="footer">
+	<div class="wrapper">
+        <p class="footerLeft">${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("底部版权信息")}</p>
+        <p class="footerRight">${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("底部联系信息")}</p>
+        <div class="clear"></div>
+    </div>
+</div>

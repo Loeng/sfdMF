@@ -1,0 +1,55 @@
+#define(com.ekfans.base.channel.model.ChannelConfig channelConfig)
+
+<!--选择广告-->
+<div class="apBg"></div>
+<div class="apLayer ap700">
+    <div class="apTit"><h3>选择广告</h3><a href="javascript:void(0)" class="apClose"></a></div>
+    <div class="apContent">
+    	<form action="${webroot}/system/channel/config/adChose" method="post"  id="configAdChoseForm">
+        <dl class="pro_ss">
+            <dt><b>查询</b><span class="span_down"></span><span class="span_up"></span></dt>
+            <dd class="pro_ss_item">
+                <span>广告名称</span>
+                <input type="text" name="adName" id="adName" value="${adName != null && adName != "null"?adName:""}" class="i_bg">
+            </dd>
+            <dd class="pro_ss_item">
+                <span>广告类型</span>
+                <select name="type" id="type" class="i_bg">
+                		<option class="normalStyle" value="">所有</option>
+                    <option class="normalStyle" value="0" #if(type == "0") selected #end>普通</option>
+                    <option class="changeStyle" value="1" #if(type == "1") selected #end>切换</option>
+                    <option class="diyStyle" value="2" #if(type == "2") selected #end>自定义</option>
+                    <option class="fontStyle" value="3" #if(type == "3") selected #end>文字</option>
+                </select>
+            </dd>
+            <dd class="clear"></dd>
+        </dl>
+        <div class="pro_ss_btn">
+            <a href="javascript:configChoseAd('${webroot}');" class="btn">搜索</a>
+            <a href="javascript:configChoseAdClear();" class="btn">重置</a>
+        </div>
+        <div class="ht_list">
+            <table cellpadding="0" cellspacing="0" border="0" >
+                <tr>
+                    <th width="20%">序号</th>
+                    <th width="42%">广告名称</th>
+                    <th width="22%">广告类型</th>
+                    <th class="cz">操作</th>
+                </tr>
+                #for(com.ekfans.base.content.model.ShopAd shopAd:adList)
+                <tr>
+                    <td>${for.index}</td>
+                    <td>${shopAd.name}</td>
+                    <td>${@(com.ekfans.base.system.util.AdvertConst).typeNameMap.get(shopAd.showType)}</td>
+                    <td class="cz choseAd">
+                    	<input type="hidden" value="${shopAd.id}" id="choseAdId" />
+                    	<input type="hidden" value="${shopAd.name}" id="choseAdName" />
+                      <a href="javascript:void(0);">选择</a>
+                    </td>
+                </tr>
+                #end
+            </table>
+        </div>
+    </div>
+</div>
+<!--选择广告 end-->

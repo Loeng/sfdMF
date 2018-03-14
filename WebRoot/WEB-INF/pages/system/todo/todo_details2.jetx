@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>管理系统左侧菜单</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/left.css" />
+    <link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/demand.css" />
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/system/css/list.css" />
+	<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/list.js"></script>
+	<script type="text/javascript" src="${webroot}/resources/system/js/menu.js"></script>
+	
+	<style type="text/css">
+	 .titl{
+	  margin-top:10px;
+	  margin-bottom: 30px;
+	 }
+	 font{
+	  font-size: 30px;
+	 }
+	</style>
+</head>
+
+<body>
+
+<div align="center" class="titl"><font color="gray" class="title" >后台待处理审核消息列表</font></div>
+
+
+#define(List<com.ekfans.base.todo.model.ToDoModel> todolist)
+<!--没有数据的时候-->
+#if(todolist==null||todolist.size()<=0)
+	<div class="ht_list_k">暂时没有符合条件的数据</div>	
+#else
+	<!--有数据的时候-->
+	<div class="ht_list">
+		<table id="storeTab" cellpadding="0" cellspacing="0" border="0" >
+			<tr>
+				<th width="25%">序号</th>
+		        <th width="25%">后台审核消息名称</th>
+		        <th width="25%">审核消息数量</th>              
+		        <th colspan="25%">操作</th>
+			</tr>
+			#for(com.ekfans.base.todo.model.ToDoModel model:todolist)
+			 #if(model!=null)
+				  <td>${for.index}</td>
+				  <td>${model.explain}</td>
+				  <td>${model.num}</td>
+				  <td class="cz">
+				  	<a href="javascript:void(0);" class="auditIco" onclick="javascript: self.parent.parent.main.menuClick('${model.explain}', '${model.purview.purviewID}', '${webroot}${model.purview.fullPath}', '${webroot}')" title="反馈" ></a>
+				  </td>
+			  </tr>
+			#end
+		  #end	
+		</table>
+	</div>
+#end
+
+
+</body>
+</html>

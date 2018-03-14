@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>退/换货管理</title>
+	<link rel="stylesheet" type="text/css" href="${webroot}/resources/userCenter/commons/css/comList.css" />
+	<!-- 导入私有JS -->
+	<script type="text/javascript" src="${webroot}/resources/userCenter/purchase/js/refund.js"></script>
+</head>
+
+<body>
+<input type="hidden" id="ctxpath" value="${webroot}" />
+
+<form action="${webroot}/store/thorder/returnProduct" method="post" id="thordersubmit">
+	<input type="hidden" name="pageNum" value="" />
+	
+	<div class="formSearch borderColor">
+	  <dl class="formItem">
+	  	<dt>订单号</dt>
+	    <dd>
+	      <input name="orderId" value="${orderId}" type="text" class="textBox box212">
+	    </dd>
+	    <dd class="clear"></dd>
+	  </dl>
+	  <div class="clear"></div>
+	</div>
+</form>
+<div class="btnArea">
+	<a href="javascript:sreachSubmit();" class="btnBase btnSearch">搜索</a>
+  <a href="javascript:myreset();" class="btnBase btnReset">重置</a>
+  <div class="clear"></div>
+</div>
+<div class="formTable borderColor">
+	<ul class="secNav">
+		<li class="li1">退款处理</li>
+	</ul>
+	<div class="clear"></div>
+	<div style="position:relative;" class="tableBox">
+  <table border="0" cellspacing="0" cellpadding="0" class="tabList">
+  <thead>
+  	<tr class="tabTit bgColor">
+    	<th>
+    		<label class="checkAll">
+	    		<span class="check">
+	    			<em>
+	    				<input name="checkbox1" type="checkbox" value=true>
+	    			</em>
+	    		</span>
+    		</label>
+    	</th>
+      <th  class="accept">订单号</th>
+      <th  class="accept">退/换货类型</th>
+      <th class="accept">退款状态</th>
+      <th class="accept">退款金额</th>
+      <th class="accept">申请时间</th>
+      <th class="accept"></th>
+    </tr>
+    </thead>
+    <tbody>
+    #define(List<com.ekfans.base.order.model.Refund> rlist)
+    #if(rlist!=null && rlist.size()>0)
+    	#for(com.ekfans.base.order.model.Refund r : rlist)
+		    <tr>
+		    	<td>
+		        <label class="checkItem">
+		        	<!--
+		        	<span class="check checked">
+		        	-->
+		        	<span class="check">
+		        		<em>
+		        			<input type="checkbox" name="" value="${r.id}" />
+		        		</em>
+		        	</span>
+		        </label>
+		      </td>
+		      <td>${r.orderId}</td>
+		      <td>#if(r.type=='0')换货 #elseif(r.type=='1')退货 #end</td>
+		      <td>
+		      	#if(r.status=='0')等待卖家确认 
+          	#elseif(r.status=='1')不同意#if(r.type=='0')换货 #elseif(r.type=='1')退货 #end 
+          	#elseif(r.status=='2')#if(r.type=='0')换货 #elseif(r.type=='1')退货 #end 中
+          	#elseif(r.status=='3')#if(r.type=='0')换货 #elseif(r.type=='1')退货 #end 完成
+          	#end		
+		      </td>
+		      <td>${r.totalPrice}</td>
+		      <td>${r.createTime}</td>
+		      <td>
+		        <a href="javascript:chaDetail('${r.id}');" class="eyeIco" title="详情">查看</a>
+		      </td>
+		    </tr>
+			#end
+	  #end
+	  </tbody>
+  </table>
+  </div>
+  #if(rlist!=null && rlist.size()>0)
+  	<!--
+		<a href="javascript:void(0);" class="btnBase btnArgee">同意退款</a>
+		-->
+	  ${include("../common/page.jetx")}
+	#else
+		<div class="alterbox"><span class="warn"><span>暂无信息记录</span></span></div>
+	#end
+	<div class="clear"></div>
+</div>
+ 
+ 
+ <!--支持拖动+宽度调节JS-->
+<script src="${webroot}/resources/userCenter/commons/js/jquery-ui-1.9.2.custom.js"></script> 
+<script src="${webroot}/resources/userCenter/commons/js/jquery.dragtable.js"></script> 
+<script src="${webroot}/resources/userCenter/commons/js/jquery-migrate-1.1.1.js"></script> 
+<script src="${webroot}/resources/userCenter/commons/js/jquery.chili-2.2.js"></script>
+<script src="${webroot}/resources/userCenter/commons/js/jquery.resizableColumns.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+  $(".tabList").dragtable({dragaccept:'.accept'});
+	$(".tabList").resizableColumns({});
+});
+</script>
+<style type="text/css">
+.tableBox{width:100%;}
+.tabList{width:99%;}
+.tabList th{border-right:solid 1px #e3e3e3;}
+.tabList th:first-child{border-left:0;}
+.tabList th:last-child{border-right:0;}
+.rc-handle-container{position:relative;}
+.rc-handle{position:absolute;width:7px;cursor:ew-resize;*cursor:pointer;margin-left:-3px;}
+/* defaultTable sar-table listext tablesorter*/
+.tabList th.accept {cursor:move;}
+.dragtable-sortable {list-style-type: none; margin: 0; padding: 0; -moz-user-select: none; border:0;}
+.dragtable-sortable li {margin: 0; padding: 0; float: left; font-size: 1em; background:#fff; border:0px solid #F00;;text-align:center;}
+.dragtable-sortable th, .dragtable-sortable td{border-left: 0px #FF0000 solid;}
+.dragtable-sortable li:first-child th, .dragtable-sortable li:first-child td {border-left: 0px solid #CCC; }
+.ui-sortable-helper {opacity: 0.7;filter: alpha(opacity=70);border:0;}
+.ui-sortable-placeholder { -moz-box-shadow: 4px 5px 4px #C6C6C6 inset;-webkit-box-shadow: 4px 5px 4px #C6C6C6 inset;box-shadow: 4px 5px 4px #C6C6C6 inset;border-bottom: 1px solid #CCCCCC;border-top: 1px solid #CCCCCC; visibility: visible !important;background: #EFEFEF !important; visibility: visible !important;}
+.ui-sortable-placeholder * { opacity: 0.0; visibility: hidden; }
+</style>
+<!--支持拖动+宽度调节JS  end-->   
+</body>
+</html>

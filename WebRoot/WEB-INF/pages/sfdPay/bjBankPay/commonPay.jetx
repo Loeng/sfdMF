@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>三分地-北京银行支付</title>
+</head>
+
+<body>
+	<form name="bjBankRequestForm" id="bjBankRequestForm" method="post" action="${bankUrl}">
+		 <input type="hidden" name="netType" value="${netType}">
+     <input type="hidden" name="merReqData" value="${merReqData}">
+	</form>
+   
+<script>
+	document.bjBankRequestForm.submit();
+</script>
+</body>
+</html>

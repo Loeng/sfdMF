@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+		<link href="${ctxpath}/resources/system/css/add.css" rel="stylesheet" type="text/css" />
+				<link href="${ctxpath}/resources/system/css/list.css" rel="stylesheet" type="text/css" />
+		<!-- 上传文件的CSS -->
+		<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<!-- 上传文件css,js -->
+		<script type="text/javascript" src="${webroot}/resources/plugin/fileupload/js/vendor/jquery.ui.widget.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/plugin/fileupload/js/jquery.fileupload.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.soChange.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.json-2.2.min.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/plugin/ckeditor/ckeditor.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/tools.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/system/js/base.js"></script>
+		<!-- 上传文件控件  -->
+		<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+</head>
+	
+<body>
+
+#define(com.ekfans.base.store.model.WarehouseLog whl)
+<input type="hidden" id="ctxpath" value="${webroot}" />
+
+	<div class="ht_btn">
+		<a href="javaScript:history.go(-1)" class="btn" >返回列表</a>
+	</div>
+	<div class="add_pro">
+
+
+		<dl>
+			<dt>商品名<em class="mustIco"></em></dt>
+			<dd id="nameDd">
+				<input type="text" class="i_bg"  name="name" value="${whl.productId}" />
+			</dd>
+		</dl>
+		<dl>
+			<dt>数量<em class="mustIco"></em></dt>
+			<dd id="nameDd">
+				<input type="text" class="i_bg"  name="name" value="${whl.number}" />
+			</dd>
+		</dl>
+	  <div class="clear"></div>
+	  <dl>
+			<dt>时间<em class="mustIco"></em></dt>
+			<dd id="nameDd">
+				<input type="text" class="i_bg"  name="name" value="${whl.createTime}" />
+			</dd>
+		</dl>
+	    <dl>
+			<dt>操作人<em class="mustIco"></em></dt>
+			<dd id="nameDd">
+				<input type="text" class="i_bg"  name="name" value="${whl.creator}" />
+			</dd>
+		</dl>
+	   <div class="clear"></div>
+	   	<dl class="formBoxLine">
+					<dt>等级标志</em></dt>
+					<dd>
+						#tag picUpload("icon","1","200","200",whl.pic) #end
+					</dd>
+				</dl>
+				<dl class="formBox">
+					<dt>状态</dt>
+					<dd>
+						<span class="zt">
+							<label><input type="radio" value="true" name="status" #if(whl.type) checked=true #end/>入库</label></span>
+						<span class="zt">	
+							<label><input type="radio" value="false" name="status" #if(!whl.type) checked=true #end/>出库</label></span>
+						</dd>
+				</dl>
+		<div class="clear"></div>
+		
+		<dl>
+			<dt>活动详情</dt>
+			<dd>
+				<textarea name="note" id="description" >${whl.note}</textarea>
+			</dd>
+			<dd class="clear"></dd>
+		</dl>
+	    
+
+		</div>
+	</div>
+</form>
+
+	
+	
+
+</body>
+</html>

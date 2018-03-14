@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>${@(com.ekfans.plugin.cache.base.Cache).getSystemContentConfig("网站名称")} - 行业快讯</title>
+<!--配置页面时-->
+<link href="${webroot}/resources/commons/css/control.css" rel="stylesheet" type="text/css">
+<link href="${webroot}/resources/commons/css/advList.css" rel="stylesheet" type="text/css">
+<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="${webroot}/resources/web/gylweb/js/infomation.js"></script>
+<script src="${webroot}/resources/web/gylweb/js/headBase.js"></script>
+<script src="${webroot}/resources/web/gylweb/js/backtop.js"></script>
+<script src="${webroot}/resources/system/js/user/ad/adList.js"></script>
+<script src="${webroot}/resources/system/js/user/ad/tuwen1.js"></script>
+<script type="text/javascript" src="${webroot}/resources/web/gylweb/js/gylCommons.js"></script>
+<!--配置页面时 end-->
+<link href="${webroot}/resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="${webroot}/resources/web/gylweb/css/base.css" />
+<link href="${webroot}/resources/web/gylweb/css/infomationList.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+	<input type="hidden" name="ctxpath" id="ctxpath" value="${webroot}" />
+	<input type="hidden" name="channelId" id="channelId" value="information" />
+	<input type="hidden" name="channelType" id="channelType" value="1" />
+	<input type="hidden" name="configStatus" id="configStatus" value="" />
+	<div class="header" id="channelTop"></div>
+
+
+#define(List<com.ekfans.base.content.model.Content> contents)
+	<input type="hidden" id="objectId" value="${objectId}"/>
+<div class="main">
+  <div class="wrapper">
+    <div class="fastNews">
+    	<h2>
+      	<span class="tit">行业快讯</span>
+      
+        <div class="clear"></div>
+      </h2>
+      #if(contents != null && contents.size() > 0)
+      #for(com.ekfans.base.content.model.Content c : contents)
+      <dl class="newsList">
+        <dt><a href="${webroot}/03-${c.id}-1.html" title="${c.contentName}">${c.contentName}</a></dt>
+        #if(c.navigationImage != null && c.navigationImage != "" &&c.navigationImage != " ")<dd><a href="${webroot}/03-${c.id}-1.html" title="说明文字" class="pic"><img src="${webroot}${c.navigationImage}" width="128" height="83" /></a></dd>#end
+        <dd><a href="${webroot}/03-${c.id}-1.html" class="words wordLeft">${c.description}</a></dd>
+        <div class="clear"></div>
+      </dl>
+    	#end
+    	 <div class="pageSize">
+              #define(com.ekfans.pub.util.Pager pager)
+						 <a href="javascript:void(0);" onclick="goPage('1');" class="btn pageControl" value="1">&lt;&lt;</a>
+							#if(pager.currentPage == 1)
+								<a href="javascript:void(0);" class="btn pageControl">&lt;</a> 
+							#else
+								<a href="javascript:void(0);" class="btn pageControl" onclick="goPage('${pager.currentPage-1 }');"   value="${pager.currentPage-1 }" >&lt;</a>
+							#end
+							
+							#if(pager.totalPage>6)
+								#if(pager.currentPage-2>1 && pager.currentPage+3<pager.totalPage)
+									<a>..</a>
+									#for(int i : iterator(pager.currentPage-1,pager.currentPage+1))
+										#if(pager.currentPage==i)
+											  <a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="btn cur" >${i }</a>
+										#else
+											  <a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="btn" >${i }</a>
+										#end
+									#end
+									<a>..</a>
+									#for(int i : iterator(pager.totalPage-2,pager.totalPage))
+										<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="btn" >${i }</a>
+									#end
+							   #elseif(pager.currentPage-2<=1)
+									#for(int i : iterator(1,3))
+										#if(pager.currentPage==i)
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+										#else
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn" >${i }</a>
+										#end
+									#end
+									<a>..</a>
+									#for(int i : iterator(pager.totalPage-2,pager.totalPage))
+										<a href="javascript:void(0);" onclick="goPage('${i }');" value="${i }" class="btn" >${i }</a>
+									#end
+							   #else
+									<a>..</a>
+									#for(int i : iterator(pager.totalPage-5,pager.totalPage))
+										#if(pager.currentPage==i)
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+										#else
+											<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn" >${i }</a>
+										#end
+									#end
+								#end
+							#else
+								#for(int i : iterator(1,pager.totalPage))
+									#if(pager.currentPage==i)
+										<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn cur" >${i }</a>
+									#else
+										<a href="javascript:void(0);" onclick="goPage('${i }');"   value="${i }" class="btn" >${i }</a>
+									#end
+								#end
+							#end
+							
+							#if(pager.currentPage==pager.totalPage)
+								<a href="javascript:void(0);" class="btn pageControl">&gt;</a>
+							#else
+								<a href="javascript:void(0);" onclick="goPage('${pager.currentPage+1 }');"   value="${pager.currentPage+1 }" class="btn pageControl">&gt;</a>
+							#end
+							
+							<a  href="javascript:void(0);" onclick="goPage('${pager.totalPage }');"   value="${pager.totalPage }" class="btn pageControl" >&gt;&gt;</a>
+
+    </div>
+    <!--
+      <div class="pageSize">
+            <a href="javascript:void(0)" class="pagePre">&lt;&lt;</a>
+            <a href="javascript:void(0)" class="page">1</a>
+            <a href="javascript:void(0)" class="page">2</a>
+            <a href="javascript:void(0)" class="page cur">3</a>
+            <a href="javascript:void(0)" class="page">...</a>
+            <a href="javascript:void(0)" class="page">8</a>
+            <a href="javascript:void(0)" class="page">9</a>
+            <a href="javascript:void(0)" class="pageNext">&gt;&gt;</a>
+        </div>
+        -->
+          #end
+    </div>
+    <div class="finaRight">
+      	<!--右选项卡-->
+  		 	 	<div class="tab">
+          #include("../channel/information/content_four.jetx",{"channelId":"information"})
+   			</div>
+  			<!--右选项卡 END-->
+        <!--
+        <div class="support">
+          <h4 class="title"><span>扶持政策</span></h4>
+          <ul class="content">
+            <li>
+              <a href="javascript:void(0);" class="word" title="说明文字">创新农村金融服务 支持现代农业发展</a>
+              <img src="../../../../resources/web/gylweb/pic/support1.jpg" width="80" height="80" alt="扶持图片1" class="pic"/>
+              <div class="clear"></div>
+            </li>
+            <li>
+              <a href="javascript:void(0);" class="word" title="说明文字">省财政下达资金21.45亿元用于保障我省大水网工程建设省财政下达资金21.45亿元用于保障我省大水网</a>
+              <img src="../../../../resources/web/gylweb/pic/support2.jpg" width="80" height="80" alt="扶持图片2" class="pic"/>
+              <div class="clear"></div>
+            </li>
+            <li>
+              <a href="javascript:void(0);" class="word" title="说明文字">朔州市财政多措并举助力经济“止缓回稳促增” </a>
+              <img src="../../../../resources/web/gylweb/pic/support3.jpg" width="80" height="80" alt="扶持图片3" class="pic"/>
+              <div class="clear"></div>
+            </li>
+          </ul>
+				</div>
+          -->
+        <div class="rightAd">
+          <div class="autoAdv"><!--看到这个class的标签就表示该层可配置-->
+            <!--配置内容结构(结构不包含外面那个autoAdv)-->
+            #include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"3"})
+            <!--配置内容结构 end-->
+          </div>
+        </div>
+        
+        <div class="rightAd">
+          <div class="autoAdv"><!--看到这个class的标签就表示该层可配置-->
+            <!--配置内容结构(结构不包含外面那个autoAdv)-->
+            #include("../../channel/commons/config/adShow.jetx",{"channelId":channelId,"configType":"ad","position":"4"})
+            <!--配置内容结构 end-->
+          </div>
+        </div>
+        </div>
+        
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>
+
+	<!--页脚-->
+	<div class="bottomSplit"></div>
+	#include("../channel/commons/buttom.jetx")
+</body>
+<script src="${webroot}/resources/web/gylweb/js/infomationList.js"></script>
+<script src="${webroot}/resources/web/gylweb/js/backtop.js"></script>
+</html>

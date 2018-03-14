@@ -1,0 +1,263 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<link href="../../../resources/system/css/base.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/system/css/demand.css" rel="stylesheet" type="text/css">
+<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="../../../resources/commons/js/layer/layer.js"></script>
+<script src="../../../resources/commons/js/datePicker/WdatePicker.js"></script>
+<script src="../../../resources/system/js/base.js"></script>
+<style type="text/css">
+.typeIn{margin:20px; position:relative;}
+.leftType{width:274px; position:absolute; left:0; top:0; border:solid 1px #DFDFDF; padding-bottom:50px;}
+.rightType{left:296px; right:0; position:absolute;}
+.leftType dt{height:30px; line-height:30px; padding:0 10px; border-bottom:solid 1px #dfdfdf; font-size:14px; position:relative; margin-bottom:10px;}
+.leftType li{margin:0 8px; padding:0 10px; height:30px; line-height:30px; border-bottom:solid 1px #dfdfdf;}
+.leftType li .name{float:left; white-space:nowrap;}
+.leftType li .link{float:right; white-space:nowrap;}
+.leftType li .name input{display:block; float:left; margin:9px 6px 0 0;}
+.box120{width:116px;}
+.box190{width:186px;}
+.ht_list .typeList td a{color:#48B0FD; opacity:1!important;}
+
+.serchDom{padding-bottom:16px; border-bottom:solid 1px #dfdfdf;}
+.formItem{height:28px; line-height:28px;}
+.formItem .formName{display:block; height:28px; line-height:28px; padding-right:14px; float:left; color:#888; min-width:66px; text-align:right;}
+.formItem .i_bg{display:block; height:25px; line-height:25px; margin-right:14px; float:left;}
+.ht_list .red{color:#f00; font-size:14px;}
+.ht_list .green{color:#259E00; font-size:14px;}
+</style>
+</head>
+
+<body>
+<div class="typeIn">
+    <dl class="leftType">
+        <dt>品类</dt>
+        <dd>
+            <li>
+                <span class="name"><label><input name="typeName1" type="radio" value=""><em>贵金属</em></label></span>
+            </li>
+            <li>
+                <span class="name"><label><input name="typeName1" type="radio" value=""><em>贵金属2</em></label></span>
+            </li>
+            <li>
+                <span class="name"><label><input name="typeName1" type="radio" value=""><em>贵金属3</em></label></span>
+            </li>
+            <li>
+                <span class="name"><label><input name="typeName1" type="radio" value=""><em>贵金属4</em></label></span>
+            </li>
+            <li>
+                <span class="name"><label><input name="typeName1" type="radio" value=""><em>贵金属5</em></label></span>
+            </li>
+            <li>
+                <span class="name"><label><input name="typeName1" type="radio" value=""><em>贵金属6</em></label></span>
+            </li>
+            <li>
+                <span class="name"><label><input name="typeName1" type="radio" value=""><em>贵金属7</em></label></span>
+            </li>
+            <li>
+                <span class="name"><label><input name="typeName1" type="radio" value=""><em>贵金属8</em></label></span>
+            </li>
+        </dd>
+    </dl>
+    <div class="rightType">
+    	<div class="serchDom">
+        	<div class="formItem">
+                <span class="formName"><em class="mustIco"></em>日期</span>
+                <input type="text" class="i_bg box190" readonly onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+            </div>
+        </div>
+        <div class="ht_list">
+            <table cellpadding="0" cellspacing="0" border="0" class="typeList">
+                <tr>
+                    <th width="6%">全选</th>
+                    <th width="15%">品名</th>
+                    <th width="13%">规格</th>
+                    <th width="13%">价格</th>
+                    <th width="13%">涨跌</th>
+                    <th width="13%">计价单位</th>
+                    <th width="14%">挂牌时间</th>
+                    <th width="13%"></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td><input name="" type="checkbox" value=""></td>
+                    <td>碳24</td>
+                    <td>99.99%</td>
+                    <td class="edItem red">2587.99</td>
+                    <td class="edItem red">87.99</td>
+                    <td>元/克</td>
+                    <td class="edItem date">2016-3-12</td>
+                    <td class="cz">
+                        <a href="javascript:void(0);" class="bianjiLine">编辑</a>
+                        <a href="javascript:void(0);" class="delLine">删除</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input name="" type="checkbox" value=""></td>
+                    <td>碳24</td>
+                    <td>99.99%</td>
+                    <td class="edItem red">2587.99</td>
+                    <td class="edItem green">87.99</td>
+                    <td>元/克</td>
+                    <td class="edItem date">2016-3-12</td>
+                    <td class="cz">
+                        <a href="javascript:void(0);" class="bianjiLine">编辑</a>
+                        <a href="javascript:void(0);" class="delLine">删除</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input name="" type="checkbox" value=""></td>
+                    <td>碳24</td>
+                    <td>99.99%</td>
+                    <td class="edItem red">2587.99</td>
+                    <td class="edItem red">87.99</td>
+                    <td>元/克</td>
+                    <td class="edItem date">2016-3-12</td>
+                    <td class="cz">
+                        <a href="javascript:void(0);" class="bianjiLine">编辑</a>
+                        <a href="javascript:void(0);" class="delLine">删除</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input name="" type="checkbox" value=""></td>
+                    <td>碳24</td>
+                    <td>99.99%</td>
+                    <td class="edItem red">2587.99</td>
+                    <td class="edItem green">87.99</td>
+                    <td>元/克</td>
+                    <td class="edItem date">2016-3-12</td>
+                    <td class="cz">
+                        <a href="javascript:void(0);" class="bianjiLine">编辑</a>
+                        <a href="javascript:void(0);" class="delLine">删除</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input name="" type="checkbox" value=""></td>
+                    <td>碳24</td>
+                    <td>99.99%</td>
+                    <td class="edItem red">2587.99</td>
+                    <td class="edItem red">87.99</td>
+                    <td>元/克</td>
+                    <td class="edItem date">2016-3-12</td>
+                    <td class="cz">
+                        <a href="javascript:void(0);" class="bianjiLine">编辑</a>
+                        <a href="javascript:void(0);" class="delLine">删除</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input name="" type="checkbox" value=""></td>
+                    <td>碳24</td>
+                    <td>99.99%</td>
+                    <td class="edItem red">2587.99</td>
+                    <td class="edItem green">87.99</td>
+                    <td>元/克</td>
+                    <td class="edItem date">2016-3-12</td>
+                    <td class="cz">
+                        <a href="javascript:void(0);" class="bianjiLine">编辑</a>
+                        <a href="javascript:void(0);" class="delLine">删除</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input name="" type="checkbox" value=""></td>
+                    <td>碳24</td>
+                    <td>99.99%</td>
+                    <td class="edItem red">2587.99</td>
+                    <td class="edItem red">87.99</td>
+                    <td>元/克</td>
+                    <td class="edItem date">2016-3-12</td>
+                    <td class="cz">
+                        <a href="javascript:void(0);" class="bianjiLine">编辑</a>
+                        <a href="javascript:void(0);" class="delLine">删除</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input name="" type="checkbox" value=""></td>
+                    <td>碳24</td>
+                    <td>99.99%</td>
+                    <td class="edItem red">2587.99</td>
+                    <td class="edItem green">87.99</td>
+                    <td>元/克</td>
+                    <td class="edItem date">2016-3-12</td>
+                    <td class="cz">
+                        <a href="javascript:void(0);" class="bianjiLine">编辑</a>
+                        <a href="javascript:void(0);" class="delLine">删除</a>
+                    </td>
+                </tr>
+            </table>
+            <div class="ht_pageBox">
+                <div class="ht_page_l">
+                    <a href="javascript:void(0);" class="btn">全选</a>
+                    <a href="javascript:void(0);" class="btn">删除</a>
+                </div>
+                <div class="ht_page">
+                    <a href="javascript:void(0);" class="btn">&lt;&lt;</a>
+                    <a href="javascript:void(0);" class="btn">&lt;</a>
+                    <a href="javascript:void(0);" class="btn">1</a>
+                    <a href="javascript:void(0);" class="btn">2</a>
+                    <a href="javascript:void(0);" class="btn cur">3</a>
+                    <a href="javascript:void(0);" class="btn">4</a>
+                    <a href="javascript:void(0);" class="btn">5</a>
+                    <a href="javascript:void(0);" class="btn">&gt;</a>
+                    <a href="javascript:void(0);" class="btn">&gt;&gt;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<script>
+$(document).ready(function () {
+	//右侧分类编辑
+	$(".bianjiLine").live("click",function(){
+		var objs=$(this).parents("tr").children(".edItem");
+		objs.each(function(index) {
+            var value=$(this).text();
+			$(this).html('<input name="" type="text" class="i_bg box120">');
+			$(this).find(".i_bg").val(value);
+        });
+		$(this).text("保存").addClass("saveLine").removeClass("bianjiLine");
+	})
+	
+	$(".saveLine").live("click",function(){
+		var objs=$(this).parents("tr").find(".i_bg");
+		for(i=0;i<objs.length;i++){
+			var data=objs.eq(i).val();
+			if(data==""||data==null){
+				layer.alert("参数不能为空！",{title:"信息提示",icon:2});
+				return false;
+			}
+			objs.eq(i).parent().html(data);
+		}
+		$(this).text("编辑").addClass("bianjiLine").removeClass("saveLine");
+	})
+	
+	//绑定日期插件
+	$(".date input").live("click",function(){
+		var zhi=$(this).val();
+		WdatePicker({
+			dateFmt:'yyyy-MM-dd',
+			onpicked:function(dp){
+				if($(this).val()!=zhi){
+					layer.alert("不一样");
+				}
+			}
+		});
+	})
+	
+	//右侧删除分类
+	$(".delLine").live("click",function(){
+		var obj=$(this);
+		layer.confirm('确定删除吗', {btn:['确定','取消']},function(index){ //不设置btn将默认为确定和取消两个按钮
+			obj.parents("tr").remove();//点击确定执行的语句
+			layer.close(index);
+		},function(){
+			//点击取消执行的语句
+		});
+	})
+});
+</script>
+</body>
+</html>

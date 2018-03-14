@@ -1,0 +1,451 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+		<title>修改商品信息</title>
+		<link href="${webroot}/resources/commons/css/upload.css" rel="stylesheet" type="text/css">
+	<script src="${webroot}/resources/commons/js/jquery-1.8.3.min.js"></script>
+		<script src="${webroot}/resources/plugin/datePicker/WdatePicker.js"></script>
+		<script src="${webroot}/resources/userCenter/personal/js/ckeditor/ckeditor.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/jquery.form.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/commons/js/ajaxupload.js"></script>
+		<link href="${webroot}/resources/commons/css/tools.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="${webroot}/resources/commons/js/tools.js"></script>
+		<link href="${webroot}/resources/userCenter/commons/css/addGoods.css" rel="stylesheet" type="text/css">
+		<link href="${webroot}/resources/userCenter/commons/css/proAdd.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="${webroot}/resources/commons/js/upload/upload.js"></script>
+			<script type="text/javascript" src="${webroot}/resources/commons/js/upload.js"></script>
+		<script type="text/javascript" src="${webroot}/resources/userCenter/commons/js/product/productModify.js"></script>
+		<style>
+			.endNum{width:17%;}
+			.endUnit{width:17%;}
+			</style>
+	</head>
+	<body>
+		<input type="hidden" id="modifyOk" value="${requestScope.modifyOk}" />
+		<input type="hidden" id="ctxpath" value="${webroot}" />
+		<div class="contentTit budong borderColor">
+			<h3>编辑商品</h3>
+			<a href="javascript:void(0);" class="btnBase btnSave" onclick="formSubmit();">保存</a>
+			<a href="javascript:void(0);" class="btnBase btnCancel" onclick="reset();">重置</a>
+			<a href="javaScript:void(0);" class="btnBase btnCancel"  onclick="goList('${webroot}');">返回列表</a>
+			<div class="clear"></div>
+		</div>
+		<input type="hidden" id="pType" value="${pType}" />
+		#define(com.ekfans.base.product.model.Product product)
+		<div class="form borderColor">
+			<form action="${webroot}/store/product/modify" name="modify" method="post"  id="modifyProductForm">
+				<input type="hidden" name="brand" id="brand" value="${product.brand }">
+				<input type="hidden" name="id" id="productId" value="${product.id}" />
+				<input type="hidden" class="i_bg" name="mainCategory" id="mainCategoryId"  value="${product.mainCategory}"/>
+				<input type="hidden" name="storeId" id="storeId" value="${product.storeId}" />
+				<input type="hidden" id="idCheck" value="true" />
+				<input type="hidden" id="returnType" name="returnType" value="${returnType}" />
+				<input type="hidden" name="createTime" value="${product.createTime}">
+						
+				<div class="ts bgColor" id="fullName">&nbsp;&nbsp;${categoryName}</div>
+				#--
+	      <a href="javascript:void(0);" onclick="showTemp();"  class="btnBase">编辑分类</a>
+	      --#
+				<div class="clear"></div>
+				
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>商品编号</dt>
+					<dd>
+						<input type="text" class="textBox box212" placeholder="商品编号为6-16位字符" value="${product.productNumber}" name="productNumber" onblur="checkIdBlur(this.value);" onkeyup="checkIdBlur(this.value);" onfocus="checkIdBlur(this.value);"/>
+						<span id="idSpan" class="errorText" style="display:none;"></span>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>	
+				<dl class="formItem">
+				<dt><em class="mustIco"></em>商品状态</dt>
+					<dd>
+						<span class="radio"><label><input type="radio" name="status" value="true" #if(product.status)checked#end>上架</label></span>
+						<span class="radio"><label><input type="radio" name="status" value="false" #if(!product.status)checked#end>下架</label></span>
+					</dd>
+				<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+				<dt><em class="mustIco"></em>是否计价</dt>
+					<dd>
+						<span class="radio"><label><input type="radio" name="productJjdStatus" value="true" #if(product.productJjdStatus)checked#end>使用</label></span>
+						<span class="radio"><label><input type="radio" name="productJjdStatus" value="false" #if(!product.productJjdStatus)checked#end>不使用</label></span>
+					</dd>
+				<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+				<dt><em class="mustIco"></em>是否可预定</dt>
+				<dd>
+					<span class="radio" onclick="checkRadioD();"><label><input type="radio" name="isAdvance" id="isAdvance" value="0" #if(product.isAdvance == "0")checked#end>不支持</label></span>
+					<span class="radio" onclick="checkRadioY();"><label><input type="radio" name="isAdvance" id="isAdvance" value="1" #if(product.isAdvance == "1")checked#end>支持</label></span>
+				</dd>
+				<input type="hidden" id="adradio" value="${product.isAdvance}"/>
+				<dd class="clear"></dd>
+			</dl>
+				
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>商品名称</dt>
+					<dd>
+						<input type="text" class="textBox box212" placeholder="1-128位字符组成" value="${product.name}" name="name" onblur="javascript:checkNameBlur();" onkeyup="javascript:checkName();" onfocus="javascript:checkName();"/>
+						<span id="nameSpan" class="errorText" style="display:none;"></span>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>库存量</dt>
+					<dd>
+						<input type="text" class="textBox box212" name="quantity" id="quantity" value="${product.quantity}" onpaste="return false" onblur="javascript:if(this.value==''){this.value=0;}" onkeyup="javascript:clearNoNum(this)" maxlength="10"/>
+						<span id="quantitySpan" class="errorText" style="display:none;"></span>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				
+				<dl class="formItem">
+					<dt><em class="mustIco"></em>数量单位</dt>
+					<dd>
+						<input type="text" class="textBox box212" name="unit" id="unit" value="${product.unit}" maxlength="16"/>
+						<span id="unitSpan" class="errorText" style="display:none;"></span>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+						
+			<font id="advanceFont" style="display:none;">
+				<dl class="formItem"  id="pfPriceDiv">
+					<dt>预定价格</dt>
+					<dd><input type="text" class="textBox box212"  name="advancePrice"  value="${product.advancePrice}" onpaste="return false" onblur="javascript:if(this.value==''){this.value=0;}" onkeyup="javascript:clearNoNum(this)" maxlength="13"/></dd>
+					<dd class="clear"></dd>
+				</dl>
+				
+				<dl class="formItem">
+					<dt>起订数量</dt>
+					<dd>
+						<input type="text" class="textBox box212" name="advanceNum" id="quantity" value="${product.advanceNum}" onpaste="return false" onblur="javascript:if(this.value==''){this.value=0;}" onkeyup="javascript:clearNoNum(this)" maxlength="8"/>
+						<span id="quantitySpan" class="errorText" style="display:none;"></span>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+			</font>
+				<dl class="formItem">
+					<dt>运费</dt>
+					<dd><input type="text" class="textBox box212" name="fare" value="${product.fare}" onpaste="return false" onblur="javascript:if(this.value==''){this.value=0;}" onkeyup="javascript:clearNoNum(this)" maxlength="13"/></dd>
+					<dd class="clear"></dd>
+				</dl>
+			<font id="priceFont">
+				<dl class="formItem"  id="unitPriceDiv">
+					<dt>商城价</dt>
+					<dd><input type="text" class="textBox box212"  name="unitPrice"  placeholder="请输入商城价不填为待议"  #if(product.unitPrice!=0.00)value="${product.unitPrice}"#end id="unitPrice" onpaste="return false" onkeyup="javascript:clearNoNum(this)" maxlength="13"/></dd>
+					<dd class="clear"></dd>
+				</dl>
+			</font>
+				<dl class="formItem formLine">
+					<dt><em class="mustIco"></em>商品产地</dt>
+					<dd>
+						<dd class="select4">#tag systemAreaSel("habitat",product.habitat) #end</dd>
+						<dd class="clear"></dd>
+						<dd style="min-height:0;margin-top:-28px;margin-left:94px;padding-right:10px;width:100px;"><span id="habitatSpan" class="errorText" style="display: none"></span></dd>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem formLine">
+				<dt>商品所在大区</dt>
+				<dd class="select4">
+						<select name="productAreaId" >
+                      		 <option value = "" #if(product.productAreaId == "")selected #end >请选择</option>
+                      		#for(com.ekfans.base.system.model.Area a :areaList)
+                      	   <option value="${a.id}" #if(a.id == product.productAreaId )selected #end>${a.name}</option>
+                      	  #end
+            </select>
+					</dd>
+				<dd class="clear"></dd>
+			</dl>
+				<dl class="formItem">
+					<dt>产地详细地址</dt>
+					<dd><input type="text" name="habitatAddress" value="${product.habitatAddress}" class="textBox box212" maxlength="128"></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt>商品名缩写</dt>
+					<dd><input type="text" name="sortName" value="${product.sortName}" class="textBox box212" maxlength="64"></dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+				<dt><em class="mustIco"></em>质量等级</dt>
+					<dd>
+						<textarea name="productModel" maxlength="256" >${product.productModel}</textarea></dd>
+						<span id="productModelSpan" class="errorText" style="display:none;"></span>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt>检测机构名称</dt>
+					<dd><input type="text" name="jcjg" value="${product.jcjg}" class="textBox box212" maxlength="64"></dd>
+					<dd class="clear"></dd>
+				</dl>
+					 <dl class="formItem formLine formUpload">
+                <dt>检测报告</dt>
+                <dd>
+                    <div class="fileUpload">                                              
+                        #tag fileUpload("jcFile","pdf",product.jcFile) #end                       
+                    </div>
+                </dd>
+                <dd class="clear"></dd>
+            </dl>
+			<dl class="formItem">
+				<dt><em class="mustIco"></em>交货地址</dt>
+					<dd>
+						<dd class="select5">#tag systemAreaSel("deliceAddress",product.deliceAddressId) #end</dd>
+						<dd class="clear"></dd>
+						<dd style="min-height:0;margin-top:-28px;margin-left:94px;padding-right:10px;width:100px;"><span id="deliceAddressSpan" class="errorText" style="display: none"></span></dd>
+					</dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt>交货方式</dt>
+				<dd><input type="text" name="deliceType" class="textBox box212" value="${product.deliceType}" maxlength="32"></dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt>交货日</dt>
+				<dd><input type="text" name="deliceData" class="textBox timeBox box212" value="${product.deliceData}" maxlength="16" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"></dd>
+				<dd class="clear"></dd>
+			</dl>
+			<dl class="formItem">
+				<dt>付款方式</dt>
+				<dd><input type="text" name="payType" class="textBox box212" value="${product.payType}" maxlength="32"></dd>
+				<dd class="clear"></dd>
+			</dl>
+				<dl class="formItem">
+					<dt>所属品牌</dt>
+					<dd class="clickAbout">
+						<input name="brandName" id="brandName" type="text" value="${product.brandName}" class="textBox box184" readOnly>
+						<span class="pp clickBrand" title="关联品牌"></span>
+					</dd>
+					<dd class="clear"></dd>
+				</dl>
+				<dl class="formItem">
+					<dt>搜索关键字</dt>
+					<dd><input type="text" name="searchKey" value="${product.searchKey}" class="textBox box212" maxlength="128"></dd>
+					<dd class="clear"></dd>
+				</dl>
+
+				<div class="clear"></div>
+				  <div class="priceZone">
+                <a href="javascript:addChild();" class="btnBase">添加计价含量</a>
+                <span class="hint">点击添加计价含量按钮,下面操作框填写具体信息！</span>
+                <div class="pfPriceList" id="guigeList">
+                    <div class="listHeader">
+                        <div class="listTd startNum">规格</div>
+                        <div class="listTd endNum">数量</div>
+                        <div class="listTd endNum">价格</div>
+                        <div class="listTd endUnit">单位</div>
+                        <div class="listTd listSet">操作</div>
+                    </div>
+                    #define(List<com.ekfans.base.product.model.ProductValuation> pvList)
+								
+											#if(pvList == null || pvList.size()<=0)	
+												<div class="listItem" >
+			                      <div class="listTd startNum">
+			                      	<select name="valuationId" onchange="chekcedvalue(this)" style="border:1px solid #e4e4e4;">
+			                      		 <option value = "">请选择</option>
+			                      		#for(com.ekfans.base.order.model.ValuationCategory vc :valuationCategotyList)
+			                      	   <option value="${vc.id}_${vc.specName}">${vc.specName}</option>
+			                      	  #end
+			                      	</select>
+			                      </div>
+			                      <div class="listTd endNum"><input name="valuationNumber" type="text" class="textBox box50" value="0.00" onpaste="return false" onblur="javascript:if(this.value==''){this.value=0;}" onkeyup="javascript:clearNoNum(this)"></div>
+			                      <div class="listTd endNum"><input name="valuationPrice" type="text" class="textBox box50" value="0.00" onpaste="return false" onblur="javascript:if(this.value==''){this.value=0;}" onkeyup="javascript:clearNoNum(this)"></div>
+			                      <div class="listTd endNum"><input name="valuationUnit" type="text" class="textBox box50" value="g"></div>
+			                      <div class="listTd listSet" style="display:none;"><a href="javascript:removeChild(this);" class="closeIco" style="margin=left:3px;"></a></div>
+			                      <div class="clear"></div>
+			                    </div>
+											#else		
+												#for(com.ekfans.base.product.model.ProductValuation pv:pvList)							
+													<div class="listItem" >
+			                      <div class="listTd startNum">
+			                      	<select name="valuationId" onchange="chekcedvalue(this)">
+			                      		 <option value = "">请选择</option>
+			                      		#for(com.ekfans.base.order.model.ValuationCategory vc :valuationCategotyList)
+			                      	   <option value="${vc.id}_${vc.specName}" #if(vc.id == pv.valuationId) selected #end>${vc.specName}</option>
+			                      	  #end
+			                      	</select>
+			                      </div>
+			                      <div class="listTd endNum"><input name="valuationNumber" type="text" class="textBox box50" value="${pv.valuationNumber}" onpaste="return false" onblur="javascript:if(this.value==''){this.value=0;}" onkeyup="javascript:clearNoNum(this)"></div>
+			                      <div class="listTd endNum"><input name="valuationPrice" type="text" class="textBox box50" value="${pv.valuationPrice}" onpaste="return false" onblur="javascript:if(this.value==''){this.value=0;}" onkeyup="javascript:clearNoNum(this)"></div>
+			                      <div class="listTd endNum"><input name="valuationUnit" type="text" class="textBox box50" value="${pv.valuationUnit}"></div>
+			                      #if(for.index > 1)
+			                      <div class="listTd listSet" ><a href="javascript:removeChild(this);" class="closeIco" style="margin=left:3px;"></a></div>
+			                      #end
+			                      <div class="clear"></div>
+			                    </div>
+	                    	#end
+	                    
+										#end
+                   	
+                    
+                </div>
+            </div>
+				<!--<div class="priceZone"  id="jtjDiv">
+					<a href="javascript:void(0);" class="btnBase btnAddLine">添加区间价格</a>
+					<span class="hint">设置批发的价格，如：0-100，单价50，则表示小于100数量的单价都是50。反之，如果100-0，单价30，则表示大于或等于100数量的单价为30</span>
+					<div class="pfPriceList">
+						<div class="listHeader">
+							<div class="listTd startNum">起始数量</div>
+							<div class="listTd endNum">最大数量</div>
+							<div class="listTd listPrice">单价</div>
+							<div class="listTd listSet">操作</div>
+						</div>
+						
+						#define(List<com.ekfans.base.product.model.ProductPrice> priceList)
+							#for(com.ekfans.base.product.model.ProductPrice price:priceList)
+								<div class="listItem">
+									<div class="listTd startNum"><input name="startNum" type="text" class="textBox box50" value="${price.startNum}"></div>
+									<div class="listTd endNum"><input name="endNum" type="text" class="textBox box50" value="${price.endNum}"></div>
+									<div class="listTd listPrice"><input name="productListPrice" type="text" class="textBox box80" value="${price.price}"></div>
+									<div class="listTd listSet">
+										#if(!for.first)
+											<a href="javascript:void(0);" class="closeIco"></a>
+										#end
+									</div>
+									<input type="hidden" name="productPrices" class="productPrices">
+									<div class="clear"></div>
+								</div>
+							#else
+								<div class="listItem">
+									<div class="listTd startNum"><input name="startNum" type="text" class="textBox box50" value="0"></div>
+									<div class="listTd endNum"><input name="endNum" type="text" class="textBox box50" value="0"></div>
+									<div class="listTd listPrice"><input name="productListPrice" type="text" class="textBox box80" value="0.00"></div>
+									<div class="listTd listSet"></div>
+									<input type="hidden" name="productPrices" class="productPrices">
+									<div class="clear"></div>
+								</div>
+							#end
+					</div>
+				</div>
+				-->
+				#define(com.ekfans.base.product.model.ProductTemplate productTemplate)
+				<div class="colorSize">
+					<dl class="formItem">
+						<dt>模板</dt>
+						<dd class="clickAbout select3">
+							<select name="proTemplate" id="proTemplate" onchange="loadTempfields(this.value);">
+								<option value="1">系统默认</option>
+								#if(productTemplate != null)
+								<option value="${productTemplate.id}" #if(product.templateId.equals(productTemplate.id)) selected #end>${productTemplate.name}</option>
+								#end
+							</select>
+						</dd>
+						<dd class="clear"></dd>
+					</dl>
+					<div class="clear"></div>
+					<!-- 遍历出可选字段的扩展字段和扩展字段的值 -->
+						<font id="tempFieldsFont"></font>
+					<!-- 结束 -->
+	      </div>
+				<dl class="formItem formLine">
+					<dt>商品图片</dt>
+					<dd style="height:auto;">
+						#tag picUpload("picture","1","220","220",product.picture) #end
+				</dd>
+				<dd class="clear"></dd>
+			</dl>
+				
+			<dl class="formItem formLine">
+			  <dt>多角度视图</dt>
+			  <dd style="width:881px;height:auto;">
+					#define(List<com.ekfans.base.product.model.ProductPicture> pictureList)
+					#set(String popPicIds = "")
+					#if(pictureList != null &&pictureList.size()>0)
+						#for(com.ekfans.base.product.model.ProductPicture pP : pictureList)
+							<div class="uploadItem">
+								#set(popPicIds = popPicIds + "image"+for.index + ";")
+								#tag picUpload("image"+for.index,"1","220","220",pP.picture) #end
+								#if(for.index >1)<a href="javascript:void(0);" class="closeIco"></a>#end
+							</div>
+						#end	
+					#else
+						<div class="uploadItem">
+							#tag picUpload("popImage","1","220","220","") #end
+						</div>
+					#end
+					<div id="picForClone" style="display:none;">
+						<div class="uploadItem">
+						  #tag picUpload("picClone","1","220","220","") #end
+						  <a href="javascript:void(0);" class="closeIco"></a>
+					  </div>
+					</div>
+			    <a href="javascript:void(0);" class="btnBase btnAdd">增加图片</a>
+					<input type="hidden" name="popPicProperties" id="popPicProperties" #if(popPicIds != "")value="${popPicIds}" #else value="popImage;" #end/>
+			  </dd>
+			  <dd class="clear"></dd>
+			</dl>
+		 		<dl class="formItem" style="width:730px;">
+					<dt>商品备注</dt>
+					<dd style="width:559px;height:auto;">
+						<textarea name="note" id="note" maxlength="256">${product.note}</textarea>
+					</dd> 
+					<dd class="clear"></dd>
+				</dl>
+				
+				<dl class="formItem" style="width:1000px;margin-right:0;">
+					<dt>详细描述</dt>
+					<dd style="width:885px;height:auto;">
+						<textarea name="description" class="ckeditor" id="description">${product.description}</textarea>
+					</dd> 
+					<dd class="clear"></dd>
+				</dl>
+		    <div class="clear"></div>
+		</form>
+		</div>
+		
+		<!--关联品牌弹层-->
+		<div class="apLayerBg"></div>
+		<div class="apLayer borderColor alertBrand"></div>
+			<div id="adchilds" style="display:none">
+		<div class="listItem" >
+		    <div class="listTd startNum">
+		    	<select name="valuationId" onchange="chekcedvalue(this)">
+		    		    <option value = "">请选择</option>
+					      #for(com.ekfans.base.order.model.ValuationCategory vc :valuationCategotyList)
+		        	   <option value="${vc.id}_${vc.specName}">${vc.specName}</option>
+		            #end
+		        	  </select>
+		     </div>
+		    <div class="listTd endNum"><input name="valuationNumber" type="text"  class="textBox box50" value="0.00" onpaste="return false" onblur="javascript:if(this.value==''){this.value=0;}" onkeyup="javascript:clearNoNum(this)"></div>
+		    <div class="listTd endNum"><input name="valuationPrice" type="text" class="textBox box50" value="0.00" onpaste="return false" onblur="javascript:if(this.value==''){this.value=0;}" onkeyup="javascript:clearNoNum(this)"></div>
+		    <div class="listTd endNum"><input name="valuationUnit" type="text" class="textBox box50" value="g"></div>
+		    <div class="listTd listSet"><a href="javascript:void(0);" class="closeIco"></a></div>
+		    <div class="clear"></div>
+		  </div>
+		</div>
+		<div id="addFieldsDemo" style="display:none;">
+			<div class="listItem">
+				<div class="listTd startNum"><input name="startNum" type="text" class="textBox box50" value="0"></div>
+				<div class="listTd endNum"><input name="endNum" type="text" class="textBox box50" value="0"></div>
+				<div class="listTd listPrice"><input name="productListPrice" type="text" class="textBox box80" value="0.00"></div>
+				<div class="listTd listSet"><a href="javascript:void(0);" class="closeIco"></a></div>
+				<input type="hidden" name="productPrices" class="productPrices">
+				<div class="clear"></div>
+			</div>
+		</div>
+		
+		<script>
+	//删除选择的列
+	$(document).ready(function() {
+		$(".closeIco").live("click",function(){
+			$(this).parent().parent().remove();
+		})
+	})
+	
+	
+	//点击添加
+	function addChild(){
+		var appends = $("#adchilds").children().clone();
+		$("#guigeList").append(appends);
+	}
+	
+	
+	
+</script>	
+	</body>
+</html>

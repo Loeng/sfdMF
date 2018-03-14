@@ -1,0 +1,243 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>三分地环保-企业登录</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" >
+<meta name="keywords" content="三分地环保" />
+<meta name="description" content="三分地环保" />
+<script src="../../../resources/commons/js/jquery-1.8.3.min.js"></script>
+<script src="../../../resources/commons/js/Validform_v5.3.2_ncr_min.js"></script>
+<script src="../../../resources/commons/js/html5.js"></script>
+<script src="../../../resources/commons/js/jquery.form.js"></script>
+<script src="../../../resources/commons/js/jquery.JPlaceholder.js"></script>
+<script src="../../../resources/commons/js/jquery.md5.js"></script>
+<script src="../../../resources/web/js/base.js"></script>
+<link href="../../../resources/commons/css/commons.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/web/css/base.css" rel="stylesheet" type="text/css">
+<link href="../../../resources/web/css/login.css" rel="stylesheet" type="text/css">
+</head>
+
+<body onkeydown="keyLogin();">
+<div class="header">
+	<div class="wrapper">
+        <h1 id="logo"><a href="index.html"><img src="../../../resources/commons/images/logo.png" alt="三分地环保产业链"></a></h1>
+        <div class="headerRight">
+            <a href="login.html">登录</a>
+            <a href="reg.html">注册</a>
+            <span class="split">|</span>
+            <span class="serviceTel">服务热线：0735-5526035</span>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--一极菜单-->
+<div class="nav">
+  <div class="firstNav">
+    <ul class="wrapper">
+      <li>
+          <a href="xhjy.html" class="navBtn">现货交易<em></em></a>
+          <div class="navList">
+              <em></em>
+              <a href="xiaoshouguapai.html">销售挂牌</a>
+              <a href="qiugouguapai.html">求购挂牌</a>
+          </div>
+      </li>
+      <li>
+      	<a href="gongqiu.html" class="navBtn">供求中心<em></em></a>
+        <div class="navList">
+        	<em></em>
+            <a href="gongyingMore.html">供应信息</a>
+            <a href="qiugouMore.html">求购信息</a>
+        </div>
+      </li>
+      <li>
+      	<a href="wfys.html" class="navBtn">危废运输<em></em></a>
+      	<div class="navList">
+            <em></em>
+            <a href="weifeicheyuan.html">危废车源</a>
+            <a href="weifeihuoyuan.html">危废货源</a>
+        </div>
+      </li>
+      <li>
+      	<a href="qyrz.html" class="navBtn">金融在线<em></em></a>
+        <div class="navList">
+            <em></em>
+            <a href="qyrz.html">企业认证</a>
+            <a href="zaixianrongzi.html">在线融资</a>
+        </div>
+      </li>
+      <li>
+      	<a href="hbzk.html" class="navBtn">环保智库<em></em></a>
+        <div class="navList">
+            <em></em>
+            <a href="hyzx.html">危废知识</a>
+            <a href="hyzx.html">行业资讯</a>
+            <a href="hyzx.html">政策法规</a>
+            <a href="hyzx.html">专家人物</a>
+        </div>
+      </li>
+      <li><a href="proMall.html" class="navBtn">绿色商城<em></em></a>
+      	<div class="navList">
+        	<em></em>
+            <a href="proList.html">微金板材</a>
+            <a href="proList.html">危废设备</a>
+            <a href="proList.html">更多商品...</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="secondNav">
+  </div>
+</div>
+<!--一极菜单 end-->
+<div class="main">
+	<div class="wrapper">
+  	<div class="loginBox">
+    	<form class="loginform"  action="http://192.168.104:8002/Validform_v5.3.2/Validform_v5.3.2/demo/ajax_post.php" method="post">
+        <div class="logins">
+          <h2>三分地账号登录</h2>
+        </div>
+        <div class="inputBoxs">
+          <em class="username"></em>
+          <input type="text" class="inputBox" name="name" id="name" value=""  autocomplete="off" maxlength="11" placeholder="手机号码" ajaxurl="../../Validform_v5.3.2/Validform_v5.3.2/demo/valid.php"  datatype="m" nullmsg="请输入手机号！" errormsg="手机号格式错误！" required tabindex="1" title="用户名">
+          <div class="Validform_checktip"></div>
+        </div>
+        <div class="inputBoxs">
+          <em class="userpassword"></em>
+          <input type="password" class="inputBox" name="password" id="password" value="" maxlength="16" autocomplete="off" placeholder="密码" datatype="*6-16" nullmsg="密码不能为空！" errormsg="密码最少为6位！" required tabindex="2"  title="密码">
+          <div class="Validform_checktip"></div>
+        </div>
+        <div class="inputBoxs">
+          <input type="password" class="inputBox codebox" name="code" id="code" value="" maxlength="4" autocomplete="off" placeholder="验证码" datatype="*4-4" nullmsg="验证码不能为空！" errormsg="验证码最少为4位！" required tabindex="3"  title="验证码">
+          <div class="Validform_checktip" style="width:116px;"></div>
+          <a href="javascript:void(0);" class="codePic"><img src="../../../resources/web/images/code.png" width="149" height="44"></a>
+        </div>
+        <div class="inputBoxs">
+         <a href="javascript:void(0);" class="btnlogin" tabindex="4">立即登录</a>
+        </div>
+        <div class="inputBoxs">
+          <a href="javascript:void(0);" class="forgetLink">忘记登录密码</a>
+          <a href="javascript:void(0);" class="regLink">注册新用户</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!--底部-->
+<div class="footer">
+    <div class="wrapper">
+        <a href="javascript:void(0);">新手指导</a>
+        <span class="split"></span>
+        <a href="javascript:void(0);">服务与支持</a>
+        <span class="split"></span>
+        <a href="javascript:void(0);">安全保障</a>
+        <span class="split"></span>
+        <a href="javascript:void(0);">关于我们</a>
+        <div class="clear"></div>
+        <div class="footerBottom">© 2015 湖南三分地环保信息科技有限公司 蜀ICP备14005736号-5</div>
+    </div>
+</div>
+<!--底部 end-->
+<script>
+$(document).ready(function(){
+	$("input[name='name']").focus();
+
+	var formStatus=$(".loginform").Validform({
+		btnSubmit:".btnlogin", 
+		tiptype:3, 
+		callback:function(data){
+			return false;
+			}
+	});
+
+$(".btnlogin").click(function(){
+	$(".inputBox").blur();
+
+	if(formStatus.check()){
+		//$(".loginform").submit();
+		submitform();
+	}
+	//$(".loginform").resetForm();
+});
+
+$(".Validform_checktip").live("click",function(){
+	$(this).prev(".inputBox").focus();
+	$(this).removeClass("Validform_wrong");
+	$(this).text("");
+});
+
+$(".inputBox").live("focus",function(){
+	$(this).removeClass("Validform_error");
+	$(this).next().removeClass("Validform_wrong").text("");
+});
+
+$(".inputBox").change(function(){
+	$(this).next(".Validform_checktip").removeClass("Validform_wrong");
+	$(this).next(".Validform_checktip").text("");
+})
+
+
+/*$(".loginform").submit(function(){ 
+			//$(".loginform").submit();
+			//$(".loginform").ajaxSubmit();
+			//$(".loginform").resetForm();
+			//	alert($(this).serialize()); 
+			return false;
+		});*/
+});
+	
+	
+	
+function keyLogin() {
+	if (event.keyCode==13){
+		$(".btnlogin").trigger("click");
+	}
+}
+
+
+function submitform(){
+	var name=$("input[name='name']").val();
+	var password=$("input[name='password']").val();
+	$(".loginform").ajaxSubmit({
+					type: 'post', // 提交方式 get/post
+					url: $("#ctxpath").val()+'', // 需要提交的 url
+					data: {
+							'name': name,
+							'password': $.md5(password)
+					},
+					success: function(data) { 		
+							if(data==1){
+								$("input[name='name']").addClass("Validform_error");
+								$("input[name='name']").next(".Validform_checktip").addClass("Validform_wrong");
+								$("input[name='name']").next(".Validform_checktip").text("用户名不存在！")
+								}
+							else if(data==2){
+								$("input[name='password']").addClass("Validform_error");
+								$("input[name='password']").next(".Validform_checktip").addClass("Validform_wrong");
+								$("input[name='password']").next(".Validform_checktip").text("密码不正确！")
+								}
+							else if(data==3){
+								window.location.href = $("#ctxpath").val() + "";
+								}
+							else if(data==4){
+								window.location.href = $("#ctxpath").val() + "";
+								}
+							else if(data==5){
+								window.location.href = $("#ctxpath").val() + "";
+								}
+							else if(data==6){
+								window.location.href = $("#ctxpath").val() + "";
+							}
+							else{
+								$(".loginform").resetForm();
+								}
+					}
+			});
+			return false; 
+	}
+</script>
+</body>
+</html>

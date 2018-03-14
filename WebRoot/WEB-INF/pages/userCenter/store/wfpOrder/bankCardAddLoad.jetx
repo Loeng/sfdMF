@@ -1,0 +1,149 @@
+#define(List<com.ekfans.base.user.model.Bank> banks)
+<!--右侧主体-->
+<form action="${webroot}/store/account/bankAdd" name="addOk" method="post"  id="addBankCardForm">
+	<input type="hidden" id="ctxpath" value="${webroot}"/>
+	<div class="apTit">
+		<span class="apClose"></span>
+		绑定银行卡
+	</div>
+	<div class="apContent" style="padding-top:20px;">
+		<dl class="formItem formLine">
+			<dt>开户银行</dt>
+			<dd class="formRight" style="min-height:43px;">
+				<select id="card" name="bankId" class="textBox box300"" style="width:210px;">
+					<option selected value ="">请选择银行 </option>
+					#for(com.ekfans.base.user.model.Bank b:banks)
+						<option value ="${b.id}">${b.bankName}</option>
+					#end
+				</select>
+			</dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem formLine">
+			<dt>开户名称</dt>
+			<dd class="formRight" style="min-height:43px;">
+				<input id="cardname" name="fullName" type="text"  class="textBox box212"/>
+			</dd>
+			<dd class="clear"></dd>
+		</dl>
+		<dl class="formItem formLine">
+			<dt>手机号码</dt>
+			<dd class="formRight" style="height:auto;">
+				<input id="cardphone" name="phone" type="text"  class="textBox box212"/>
+				<span class="errorText" id="phoneSpan" style="display:none;width:212px;"></span>
+				<div class="clear"></div>
+			</dd>
+		</dl>
+		
+		<dl class="formItem formLine">
+			<dt>银行卡号</dt>
+			<dd class="formRight">
+				<input id="carnumber" name="cardNo" type="text"  class="textBox box212"/>
+				<div class="clear"></div>
+			</dd>
+		</dl>
+		<dl class="formItem formLine">
+			<dt>开户行</dt>
+			<dd class="formRight">
+				<input id="address" name="address" type="text"  class="textBox box212"/>
+				<div class="clear"></div>
+			</dd>
+		</dl>
+	</div>
+	<div class="apBtns"><a class="btnBase" href="javascript:formSubmit();">确定</a><a class="btnBase" href="javascript:bankAddCancel();">取消</a></div>
+</form>
+
+<script>
+
+$(document).ready(function() {
+	/*验证开户人姓名*/
+	$("#cardname").blur(function(){
+		if($("#cardname").val()=='' || $("#cardname").val()== null){
+			$("#cardname").after("<span id=\"cardnameSpan\" class=\"errorText\">开户名称不能为空</span>");
+		}
+	});
+	$("#cardname").focus(function(){
+		$("#cardnameSpan").remove();
+	});
+	/*验证手机号码*/
+	$("#cardphone").blur(function(){
+		if($("#cardphone").val()=='' || $("#cardphone").val()== null){
+			$("#phoneSpan").show();
+			$("#phoneSpan").html("手机号不能为空");
+		}else{
+			var reg=/^0?(13[0-9]|15[012356789]|18[0236789]|14[57])[0-9]{8}$/;
+			if(!reg.test($("#cardphone").val())){
+				$("#phoneSpan").show();
+				$("#phoneSpan").html("手机号格式不正确");
+			}
+		}
+	});
+	$("#cardphone").focus(function(){
+		$("#phoneSpan").hide();
+	});
+	
+	/*验证身份证号码*/
+	$("#cardsfz").blur(function(){
+		if($("#cardsfz").val()=='' || $("#cardsfz").val()== null){
+			$("#cardsfz").after("<span id=\"cardsfzSpan\" class=\"errorText\">身份证不能为空</span>");
+		}else{
+			var reg=/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+			if(!reg.test($("#cardsfz").val())){
+				$("#cardsfz").after("<span id=\"cardsfzSpan\" class=\"errorText\">身份证号格式不正确</span>");
+			}
+		}
+	});
+	$("#cardsfz").focus(function(){
+		$("#cardsfzSpan").remove();
+	});
+	/*验证银行卡号*/
+	$("#carnumber").blur(function(){
+		if($("#carnumber").val()=='' || $("#carnumber").val()== null){
+			$("#carnumber").after("<span id=\"carnumberSpan\" class=\"errorText\">银行卡不能为空</span>");
+		}
+	});
+	$("#carnumber").focus(function(){
+		$("#carnumberSpan").remove();
+	});
+});
+function formSubmit(){
+	if($("#card").val()==''){
+		falert('请选择开户银行');
+		return false;
+	}else if($("#cardname").val()==''){
+		falert('请填写开户名称');
+		return false;
+	}else if($("#cardphone").val()==''){
+		falert('请填写银行卡绑定手机号');
+		return false;
+	}else if($("#carnumber").val()==''){
+		falert('请填写银行卡号');
+		return false;
+	}else if($("#address").val()==''){
+		falert('请填写开户行');
+		return false;
+	}else{
+		$("#addBankCardForm").ajaxSubmit(
+				function(data){
+				if( data=="1"){
+					econfirm('添加成功!',addOK,null,null,null);
+				}else if(data=="3"){
+					econfirm('添加失败,该银行您已绑定过银行卡？',addOK,null,null,null);
+				}
+			});
+	}
+}
+
+function addOK(){
+	$(".apLayerBg").hide();
+	$("#addBankCard").html();
+	$("#addBankCard").hide();
+	changeBanks("true");
+}
+
+function bankAddCancel(){
+	$(".apLayerBg").hide();
+	$("#addBankCard").html();
+	$("#addBankCard").hide();
+}
+</script>
